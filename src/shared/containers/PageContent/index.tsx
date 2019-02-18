@@ -73,11 +73,28 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
             });
         }
 
+        const css = `
+        @font-face {
+          font-family: 'Circular';
+          font-style: normal;
+          font-weight: 500;
+          src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-medium.woff2')
+               format('woff2');
+        }`;
+        const head = document.head || document.getElementsByTagName('head')[0];
+        const style = document.createElement('style');
+
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(css));
+
+        head.appendChild(style);
+
         if (!this.props.isAppDataSet) {
             this.props.initApplicationData(null);
 
             return;
         }
+
     }
 
     public componentDidUpdate(prevProps: PageContentProps, prevState: PageContentState) {
@@ -113,7 +130,7 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
         addLocaleData(getLocaleData(locale));
 
         return (
-            <IntlProvider locale={ locale } messages={ messages[ locale ] }>
+            <IntlProvider locale={ locale } messages={ messages[locale] }>
                 <div className={ className }>
                     <StickyContainer>
                         <AppHeader
@@ -121,9 +138,9 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
                             onMobileNavToggle={ this.mobileNavToggle }
                             isMobileNavOpened={ mobileNavOpened }
                         />
-                        {getContentRoutes(this.isDataFulfilled())}
+                        { getContentRoutes(this.isDataFulfilled()) }
                         <Notifications />
-                        <AppFooter/>
+                        <AppFooter />
                     </StickyContainer>
                 </div>
             </IntlProvider>
