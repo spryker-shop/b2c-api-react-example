@@ -53,16 +53,6 @@ const localCssLoaderOptions = {
     }
 };
 
-const sassLoaderOptions = {
-    loader: 'sass-loader',
-    options: {
-        includePaths: [
-            path.resolve(__dirname, 'node_modules'),
-            path.resolve(__dirname, 'src')
-        ]
-    }
-};
-
 const localCssLoader = {
     test: /\.css$/,
     exclude: /node_modules/,
@@ -74,30 +64,6 @@ const localCssLoader = {
     ]
 };
 
-const localSaasLoader = {
-    test: /\.sass$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
-const localScssLoader = {
-    test: /\.scss$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
 const globalCssLoader = {
     test: /\.css$/,
     include: /node_modules/,
@@ -106,30 +72,6 @@ const globalCssLoader = {
         globalCssLoaderOptions,
         {loader: 'resolve-url-loader'},
         {loader: 'postcss-loader'}
-    ]
-};
-
-const globalSaasLoader = {
-    test: /\.sass$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
-const globalScssLoader = {
-    test: /\.scss$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
     ]
 };
 
@@ -163,11 +105,7 @@ const staticLoaders = [
 
 const stylesLoaders = [
     localCssLoader,
-    localSaasLoader,
-    localScssLoader,
-    globalCssLoader,
-    globalSaasLoader,
-    globalScssLoader
+    globalCssLoader
 ];
 
 const commonLoaders = [

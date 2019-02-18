@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { addLocaleData, IntlProvider } from 'react-intl';
-
 import { withRouter } from 'react-router';
 import { IComponent } from 'src/typings/app';
 import { getContentRoutes, pathCategoryPageBase, pathSearchPage } from 'src/shared/routes/contentRoutes';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { AppHeader } from 'src/shared/components/Common/AppHeader';
 import { AppFooter } from 'src/shared/components/Common/AppFooter';
 import { isStateLoading } from '@stores/reducers';
@@ -28,11 +28,9 @@ import { TAppLocale } from 'src/shared/interfaces/locale';
 import { ICustomerLoginDataParsed } from 'src/shared/interfaces/customer/index';
 import { Notifications } from 'src/shared/components/Common/Notifications';
 import { messages } from 'src/shared/translation/index';
+import { styles } from './styles';
 
-const styles = require('./style.scss');
-const className = styles.pageContent;
-
-interface PageContentProps extends IComponent, WithRouter {
+interface PageContentProps extends WithStyles<typeof styles>, IComponent, WithRouter {
     dispatch: Function;
     isLoading: boolean;
     locale: TAppLocale;
@@ -53,7 +51,7 @@ interface PageContentState {
 }
 
 @(withRouter as any)
-export class PageContentBase extends React.Component<PageContentProps, PageContentState> {
+export class PageContentComponent extends React.Component<PageContentProps, PageContentState> {
     public state: PageContentState = {
         mobileNavOpened: false
     };
@@ -72,22 +70,6 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
                 customerRef
             });
         }
-
-        const css = `
-        @font-face {
-          font-family: 'Circular';
-          font-style: normal;
-          font-weight: 500;
-          src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-medium.woff2')
-               format('woff2');
-        }`;
-        const head = document.head || document.getElementsByTagName('head')[0];
-        const style = document.createElement('style');
-
-        style.type = 'text/css';
-        style.appendChild(document.createTextNode(css));
-
-        head.appendChild(style);
 
         if (!this.props.isAppDataSet) {
             this.props.initApplicationData(null);
@@ -125,13 +107,13 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
     private mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
 
     public render(): JSX.Element {
-        const { isLoading, locale } = this.props;
+        const { isLoading, locale, classes } = this.props;
         const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[locale] }>
-                <div className={ className }>
+                <div className={ classes.wrapper }>
                     <StickyContainer>
                         <AppHeader
                             isLoading={ isLoading }
@@ -147,6 +129,8 @@ export class PageContentBase extends React.Component<PageContentProps, PageConte
         );
     }
 }
+
+export const PageContentBase = withStyles(styles)(PageContentComponent);
 
 export const PageContent = reduxify(
     (state: IReduxStore, ownProps: IReduxOwnProps) => {
