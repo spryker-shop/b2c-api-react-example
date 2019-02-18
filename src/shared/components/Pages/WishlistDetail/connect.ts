@@ -5,7 +5,7 @@ import { getAppCurrency, isAppInitiated } from '@stores/reducers/common/init/ind
 import { TCartId } from 'src/shared/interfaces/cart';
 import { deleteItemAction, deleteMultiItemsAction, getDetailWishlistAction } from '@stores/actions/pages/wishlist';
 import { addItemToCartAction, multiItemsCartAction } from '@stores/actions/common/cart';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { TAppCurrency } from 'src/shared/interfaces/currency/index';

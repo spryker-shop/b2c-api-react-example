@@ -1,5 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { reduxify } from 'src/shared/lib/redux-helper';
 import { FlyoutSearch } from 'src/shared/interfaces/searchPageData';

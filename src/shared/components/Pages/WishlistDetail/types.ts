@@ -3,7 +3,7 @@ import { styles } from 'src/shared/components/Pages/WishlistDetail/styles';
 import { IWishlist, IWishlistProduct, TWishListId } from 'src/shared/interfaces/wishlist';
 import { ICartAddItem, TCartId } from 'src/shared/interfaces/cart';
 import { LocationDescriptor, LocationState } from 'history';
-import { RouterAction } from 'react-router-redux';
+import { RouterAction } from 'connected-react-router';
 import { TAppCurrency } from 'src/shared/interfaces/currency';
 
 export interface WishlistPageProps extends WithStyles<typeof styles> {
