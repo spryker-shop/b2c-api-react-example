@@ -4,8 +4,7 @@ import 'raf/polyfill';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider, Store } from 'react-redux';
-// import { ConnectedRouter } from 'react-router-redux';
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router';
 import { ScrollToTopRoute } from '@routes/ScrollToTopRoute';
 
