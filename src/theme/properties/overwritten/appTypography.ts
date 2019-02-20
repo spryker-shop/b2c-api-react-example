@@ -6,8 +6,8 @@ interface IAppTypographyElements {
     fontWeight: React.CSSProperties['fontWeight'];
     lineHeight: React.CSSProperties['lineHeight'];
     letterSpacing: React.CSSProperties['letterSpacing'];
-    marginLeft: React.CSSProperties['marginLeft'];
-    color: React.CSSProperties['color'];
+    marginLeft?: React.CSSProperties['marginLeft'];
+    color?: React.CSSProperties['color'];
 }
 
 export interface IAppTypography {
