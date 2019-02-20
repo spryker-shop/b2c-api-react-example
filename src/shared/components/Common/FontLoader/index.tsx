@@ -13,13 +13,12 @@ const fontCss = `
 
 export class FontLoader extends React.Component<Props> {
     public componentDidMount = (): void => {
-        const head = document.head || document.getElementsByTagName('head')[0];
         const style = document.createElement('style');
 
-        style.type = 'text/css';
-        style.appendChild(document.createTextNode(fontCss));
+        document.head.appendChild(style);
 
-        head.appendChild(style);
+        const styleSheets: CSSStyleSheet = style.sheet as CSSStyleSheet;
+        styleSheets.insertRule(fontCss, 0);
     };
 
     public render(): JSX.Element {
