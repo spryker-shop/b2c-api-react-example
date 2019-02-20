@@ -9,7 +9,7 @@ import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@application/components/Notifications';
-import { messages } from '@translation';
+import { messages } from '@translation/';
 import {
     IPageContentProps as Props,
     IPageContentState as State

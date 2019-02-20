@@ -9,7 +9,7 @@ import {
     checkoutSelectionInputs, creditCardConfigInputStable,
     deliveryConfigInputStable
 } from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation';
+import { InputSaveErrorMessage } from '@translation/';
 import {
     checkFormInputValidity,
     checkFormValidity,

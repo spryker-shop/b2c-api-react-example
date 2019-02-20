@@ -10,7 +10,7 @@ import {
     isPageCustomerProfileFulfilled,
     isPageCustomerProfileLoading,
     isPageCustomerProfileRejected,
-} from '@stores/reducers/pages/CustomerProfile';
+} from '@stores/reducers/pages/customerProfile';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCustomerReference } from '@stores/reducers/pages/login';
 import { isAppInitiated } from '@stores/reducers/common/init';

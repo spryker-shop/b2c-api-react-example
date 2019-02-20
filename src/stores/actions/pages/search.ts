@@ -5,7 +5,7 @@ import {
     PAGES_SUGGESTION_REQUEST,
     PAGES_SEARCH_FILTERS_CLEAR
 } from '@stores/actionTypes/pages/search';
-import { CatalogService } from '@services/Common/Catalog';
+import { CatalogService } from '@services/common/Catalog';
 import { ICatalogSearchDataParsed, ISearchQuery, TSearchTerm } from '@interfaces/searchPageData';
 
 export const suggestPendingState = () => ({

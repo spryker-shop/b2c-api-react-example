@@ -2,7 +2,7 @@ import api, { setAuthToken } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { IWishlist, IWishlistProduct, TWishlistId } from '@interfaces/wishlist';
 import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
-import { WishlistAuthenticateErrorMessage } from '@translation';
+import { WishlistAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import * as cartActions from '@stores/actions/common/cart';
 import { IApiResponseData } from '@services/types';

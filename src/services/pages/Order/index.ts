@@ -8,7 +8,7 @@ import {
     ordersCollectionPendingStateAction,
     ordersCollectionRejectedStateAction,
 } from '@stores/actions/pages/order';
-import { OrderAuthenticateErrorMessage } from '@translation';
+import { OrderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/order/response';
 import { TOrderId } from '@interfaces/order';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';

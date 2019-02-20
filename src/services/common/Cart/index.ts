@@ -7,7 +7,7 @@ import {
     parseUserCartResponseOneValue
 } from '@helpers/cart';
 import * as cartActions from '@stores/actions/common/cart';
-import { CartAuthenticateErrorMessage } from '@translation';
+import { CartAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICartCreatePayload } from './types';
@@ -20,7 +20,7 @@ import {
 } from '@constants/notifications';
 
 export class CartService extends ApiServiceAbstract {
-    protected static endpoint(path: string): string {
+    public static endpoint(path: string): string {
         const includeParams =
             '?include=items,' +
             'abstract-product-image-sets,' +
@@ -34,7 +34,7 @@ export class CartService extends ApiServiceAbstract {
         return `${path}${includeParams}`;
     }
 
-    protected static async getCustomerCarts(dispatch: Function): Promise<string> {
+    public static async getCustomerCarts(dispatch: Function): Promise<string> {
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
@@ -69,7 +69,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async cartCreate(dispatch: Function, payload: ICartCreatePayload): Promise<string> {
+    public static async cartCreate(dispatch: Function, payload: ICartCreatePayload): Promise<string> {
         try {
             dispatch(cartActions.cartCreatePendingStateAction());
 
@@ -113,7 +113,7 @@ export class CartService extends ApiServiceAbstract {
     }
 
     // Adds an item to the cart.
-    protected static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: TCartId): Promise<void> {
+    public static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: TCartId): Promise<void> {
         try {
             dispatch(cartActions.cartAddItemPendingStateAction());
 
@@ -155,7 +155,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async createCartAndAddItem(dispatch: Function, payload: ICartCreatePayload, item: ICartAddItem) {
+    public static async createCartAndAddItem(dispatch: Function, payload: ICartCreatePayload, item: ICartAddItem) {
         const cartId = await CartService.cartCreate(dispatch, payload);
 
         if (cartId) {
@@ -163,7 +163,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async cartDeleteItem(
+    public static async cartDeleteItem(
         ACTION_TYPE: string,
         dispatch: Function,
         cartId: TCartId,
@@ -214,7 +214,7 @@ export class CartService extends ApiServiceAbstract {
     }
 
     // Update cart item quantity.
-    protected static async cartUpdateItem(
+    public static async cartUpdateItem(
         dispatch: Function,
         payload: ICartAddItem,
         cartId: TCartId | null
@@ -262,7 +262,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async moveItemsToCart(dispatch: Function, cartId: TCartId, productsList: string[]): Promise<void> {
+    public static async moveItemsToCart(dispatch: Function, cartId: TCartId, productsList: string[]): Promise<void> {
         try {
             for (const sku of productsList) {
                 const payload = { sku, quantity: 1 };
@@ -280,7 +280,7 @@ export class CartService extends ApiServiceAbstract {
     }
 
     // Adds multiple items to the cart.
-    protected static async cartMultipleItems(
+    public static async cartMultipleItems(
         dispatch: Function,
         payload: TCartAddItemCollection,
         cartId: TCartId | null,
@@ -334,7 +334,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async addingItemProcess(
+    public static async addingItemProcess(
         dispatch: Function,
         payload: ICartAddItem,
         cartId: TCartId
@@ -362,7 +362,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    protected static errorMessageInform(response: IResponseError, dispatch: Function): void {
+    public static errorMessageInform(response: IResponseError, dispatch: Function): void {
         const errorMessage = this.getParsedAPIError(response);
         dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
         NotificationsMessage({

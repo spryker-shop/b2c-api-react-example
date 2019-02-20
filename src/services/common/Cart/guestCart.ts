@@ -12,7 +12,7 @@ import {
 } from '@constants/notifications';
 
 export class GuestCartService extends ApiServiceAbstract {
-    protected static endpoint(path: string): string {
+    public static endpoint(path: string): string {
         const includeParams =
             '?include=guest-cart-items,' +
             'abstract-product-image-sets,' +
@@ -26,7 +26,7 @@ export class GuestCartService extends ApiServiceAbstract {
         return `${path}${includeParams}`;
     }
 
-    protected static async guestCartAddItem(
+    public static async guestCartAddItem(
         dispatch: Function,
         payload: ICartAddItem,
         anonymId: string
@@ -69,7 +69,7 @@ export class GuestCartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async getGuestCart(dispatch: Function, anonymId: string): Promise<string> {
+    public static async getGuestCart(dispatch: Function, anonymId: string): Promise<string> {
         try {
             removeAuthToken();
 
@@ -113,7 +113,7 @@ export class GuestCartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async guestCartRemoveItem(
+    public static async guestCartRemoveItem(
         dispatch: Function,
         cartUid: string,
         sku: string,
@@ -149,7 +149,7 @@ export class GuestCartService extends ApiServiceAbstract {
         }
     }
 
-    protected static async guestCartUpdate(
+    public static async guestCartUpdate(
         dispatch: Function,
         payload: ICartAddItem,
         cartId: TCartId,
@@ -195,7 +195,7 @@ export class GuestCartService extends ApiServiceAbstract {
         }
     }
 
-    protected static errorMessageInform(response: IResponseError, dispatch: Function): void {
+    public static errorMessageInform(response: IResponseError, dispatch: Function): void {
         const errorMessage = this.getParsedAPIError(response);
         dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
         NotificationsMessage({
