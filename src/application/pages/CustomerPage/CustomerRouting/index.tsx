@@ -13,7 +13,7 @@ import {
 } from '@constants/routes';
 import { LoadableOrderHistoryPage } from '@application/pages/OrderHistoryPage/loadable';
 import { LoadableCustomerAddressPage } from '@application/pages/CustomerAddressesPage/loadable';
-import { LoadableWishlistPage } from '@application/pages/WishListPage/loadable';
+import { LoadableWishlistPage } from '@application/pages/WishlistPage/loadable';
 import { LoadableOrderDetailsPage } from '@application/pages/OrderDetailsPage/loadable';
 import { LoadableCustomerProfilePage } from '@application/pages/CustomerProfilePage/loadable';
 import { LoadableWishlistDetail } from '@application/pages/WishlistDetail/loadable';

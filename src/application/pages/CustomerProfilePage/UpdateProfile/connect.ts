@@ -4,7 +4,7 @@ import { reduxify } from '@application/hoc/Reduxify';
 import { ICustomerProfileIdentity, TCustomerReference } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { updateCustomerProfileAction } from '@stores/actions/pages/customerProfile';
-import { getCustomerProfile } from '@stores/reducers/pages/CustomerProfile';
+import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData = getCustomerProfile(state, ownProps);

@@ -1,5 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { isUserAuthenticated } from '@stores/reducers/pages/Login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { customerRegisterAction, loginCustomerAction } from '@stores/actions/pages/login';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

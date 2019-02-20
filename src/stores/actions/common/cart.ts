@@ -5,9 +5,9 @@ import {
     CART_UPDATE_ITEM,
     GET_CARTS,
 } from '@stores/actionTypes/common/cart';
-import { CartService } from '@services/Common/Cart';
-import { GuestCartService } from '@services/Common/Cart/guestCart';
-import { ICartCreatePayload } from '@services/Common/Cart/types';
+import { CartService } from '@services/common/Cart';
+import { GuestCartService } from '@services/common/Cart/guestCart';
+import { ICartCreatePayload } from '@services/common/Cart/types';
 import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
 import { TProductSKU } from '@interfaces/product';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';

@@ -5,7 +5,7 @@ import { SprykerForm } from '@application/components/UI/SprykerForm';
 import { getCreditCardFormSettings } from '@helpers/formCreations/checkout/creditCardSettings';
 import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation';
+import { InputSaveErrorMessage } from '@translation/';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { ICheckoutCreditCardState } from '@interfaces/checkout';
 import { IPaymentCreditCardParams } from '@helpers/formCreations/checkout/types';

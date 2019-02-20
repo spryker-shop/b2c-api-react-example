@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import { SprykerForm } from '@application/components/UI/SprykerForm';
 import { getInvoiceFormSettings } from '@helpers/formCreations/checkout/invoiceSettings';
 import { checkoutFormsNames, invoiceConfigInputStable } from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation';
+import { InputSaveErrorMessage } from '@translation/';
 import { IPaymentInvoiceParams } from '@helpers/formCreations/checkout/types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { ICheckoutInvoiceState } from '@interfaces/checkout';

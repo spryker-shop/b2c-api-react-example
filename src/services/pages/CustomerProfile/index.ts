@@ -8,7 +8,7 @@ import {
 } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/customer/customerDataResponse';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { CustomerProfileAuthenticateErrorMessage } from '@translation';
+import { CustomerProfileAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { logout } from '@stores/actions/pages/login';
 import { IApiResponseData } from '@services/types';
