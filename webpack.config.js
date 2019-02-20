@@ -337,15 +337,15 @@ const config = {
         ],
         alias: {
             src: path.resolve(__dirname, 'src'),
-            '@assets': path.resolve(__dirname, 'src/shared/assets'),
-            '@constants': path.resolve(__dirname, 'src/shared/constants'),
-            '@components': path.resolve(__dirname, 'src/shared/components'),
-            '@containers': path.resolve(__dirname, 'src/shared/containers'),
-            '@helpers': path.resolve(__dirname, 'src/shared/helpers'),
-            '@interfaces': path.resolve(__dirname, 'src/shared/interfaces'),
-            '@routes': path.resolve(__dirname, 'src/shared/routes'),
-            '@stores': path.resolve(__dirname, 'src/shared/stores'),
-            '@services': path.resolve(__dirname, 'src/shared/services')
+            '@constants': path.resolve(__dirname, 'src/constants'),
+            '@application': path.resolve(__dirname, 'src/application'),
+            '@helpers': path.resolve(__dirname, 'src/helpers'),
+            '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+            '@stores': path.resolve(__dirname, 'src/stores'),
+            '@services': path.resolve(__dirname, 'src/services'),
+            '@configs': path.resolve(__dirname, 'src/configs'),
+            '@translation': path.resolve(__dirname, 'src/translation'),
+            '@theme': path.resolve(__dirname, 'src/theme')
         }
     },
     module: {
