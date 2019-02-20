@@ -1,126 +1,166 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-
+import { connect } from './connect';
+import {
+    ISearchFilterListProps as Props,
+    ISearchFilterListState as State,
+    filterTypeFilter,
+    filterTypeRange,
+    IFilterItemToDelete,
+    rangeMaxType,
+    rangeMinType,
+    RangeType,
+    TFilterItemValue
+} from './types';
+import { TRangeInputName } from '@components/UI/SprykerRangeFilter/types';
+import { RangeFacets } from '@interfaces/searchPageData';
+import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
+import { rangeFilterValueToFront } from '@helpers/common/transform';
+import { FiltersList } from './FiltersList';
+import { ActiveFiltersList } from './ActiveFiltersList';
+import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { SprykerFilterElement } from 'src/shared/components/UI/SprykerFilter';
-import { ValueFacets } from 'src/shared/interfaces/searchPageData';
-import { rangeMaxType, rangeMinType, TActiveFilters } from '@components/Pages/SearchPage/types';
-import { sprykerTheme } from 'src/shared/theme/sprykerTheme';
-import { FilterWrapper } from 'src/shared/components/Pages/SearchPage/FilterWrapper';
-import { rangeFilterValueToFront } from 'src/shared/helpers/common/transform';
-import { AppPageSubTitle } from 'src/shared/components/Common/AppPageSubTitle';
-import { SprykerRangeSlider } from 'src/shared/components/UI/SprykerRangeSlider';
-import { AppPrice } from 'src/shared/components/Common/AppPrice';
-import { ISearchFilterListProps } from 'src/shared/components/Pages/SearchPage/SearchFilterList/types';
-import { FormattedMessage } from 'react-intl';
+import { TFilterItemName } from '@components/Pages/SearchPage/SearchFilterList/types';
 
-export const SearchFilterListBase: React.SFC<ISearchFilterListProps> = props => {
-    const {
-        classes,
-        filters,
-        updateFilterHandler,
-        activeValuesFilters,
-        ranges,
-        activeValuesRanges,
-        updateRangeHandler,
-        onCloseFilterHandler,
-        onAfterChangeRangeFilter,
-    } = props;
+@connect
+class SearchFilterListBase extends React.Component<Props, State> {
+    public readonly state: State = {
+        activeFilters: this.props.activeFilters,
+        activeRangeFilters: this.props.activeRangeFilters,
+        isFilterUpdated: false
+    };
 
-    let filterItems: JSX.Element[] | null = [];
-    let rangeItems: JSX.Element[] | null = [];
+    static getDerivedStateFromProps = (props: Props, state: State): State => {
+        if (props.isLoading || state.isFilterUpdated) {
+            return {
+                ...state,
+                isFilterUpdated: false
+            };
+        }
 
-    const priceValueFormatter = (value: number) => (
-        <AppPrice value={value * 100} extraClassName={classes.priceClassName}/>
-    );
+        return {
+            activeFilters: props.activeFilters,
+            activeRangeFilters: props.activeRangeFilters,
+            isFilterUpdated: false
+        };
+    };
 
-    if (!Array.isArray(filters) || !filters.length) {
-        filterItems = null;
-    } else {
-        filters.forEach((filter: ValueFacets) => {
-            if (Array.isArray(filter.values) && filter.values.length) {
-                filterItems.push(
-                    <FilterWrapper
-                        filter={
-                            <SprykerFilterElement
-                                attributeName={filter.name}
-                                menuItems={filter.values}
-                                activeValues={activeValuesFilters[filter.name] || []}
-                                handleChange={updateFilterHandler}
-                                extraClassName={classes.filter}
-                                isShowSelected={false}
-                                handleClose={onCloseFilterHandler}
-                                title={filter.localizedName}
-                            />
-                        }
-                        keyValue={filter.name}
-                        key={filter.name}
-                    />,
-                );
+    protected updateRangeFilters = async (name: TRangeInputName, {min, max}: RangeType): Promise<void> => {
+        const currentData = this.props.rangeFilters.filter((filter: RangeFacets) => (filter.name === name))[0];
+        const currentDataActiveMin = rangeFilterValueToFront(currentData.activeMin, rangeMinType);
+        const currentDataActiveMax = rangeFilterValueToFront(currentData.activeMax, rangeMaxType);
+
+        if (currentDataActiveMin === min && currentDataActiveMax === max) {
+            return;
+        }
+
+        await this.setState((prevState: State) => (
+            {
+                activeRangeFilters: {
+                    ...prevState.activeRangeFilters,
+                    [name]: {min, max},
+                },
+                isFilterUpdated: true
             }
+        ));
+    };
+
+    protected updateActiveFilters = async (name: string, values: string[]): Promise<boolean> => {
+        await this.setState((prevState: State) => ({
+            activeFilters: {
+                ...prevState.activeFilters,
+                [name]: values,
+            },
+            isFilterUpdated: true
+        }));
+
+        return true;
+    };
+
+    protected resetRangeFilter = ({ name }: IFilterItemToDelete): void => {
+        if (!name) {
+            return;
+        }
+
+        const updatedState: Promise<boolean> = this.deleteRangeFilter(name);
+
+        updatedState.then(this.updateStoreWithNewFilters);
+    };
+
+    protected deleteRangeFilter = async (name: TFilterItemName): Promise<boolean> => {
+        const { ...activeRanges } = this.state.activeRangeFilters;
+        delete activeRanges[name];
+
+        await this.setState({
+            activeRangeFilters: {
+                ...activeRanges,
+            },
+            isFilterUpdated: true
         });
-    }
 
-    if (!Array.isArray(ranges) || !ranges.length) {
-        rangeItems = null;
-    } else {
-        rangeItems = ranges.filter(item => (
-            item.min !== 0 && item.max !== 0 && item.name !== 'rating' // rating filter temporary hidden
-        )).map(filter => {
-            const valueFrom = rangeFilterValueToFront(filter.min, rangeMinType);
-            const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
+        return true;
+    };
 
-            return (
-                <FilterWrapper
-                    filter={
-                        <SprykerRangeSlider
-                            key={filter.name}
-                            attributeName={filter.name}
-                            title={filter.localizedName}
-                            min={valueFrom}
-                            max={valueTo}
-                            handleChange={updateRangeHandler}
-                            handleAfterChange={onAfterChangeRangeFilter}
-                            currentValue={activeValuesRanges[filter.name] || {
-                                min: valueFrom,
-                                max: valueTo,
-                            }}
-                            valueFormatter={filter.name.includes('price') ? priceValueFormatter : null}
-                        />
-                    }
-                    keyValue={filter.name}
-                    key={filter.name}
-                />
-            );
-        });
-    }
-
-    const isItemsExist = (filterItems && filterItems.length > 0) || (rangeItems && rangeItems.length > 0);
-
-    return (
-        <Grid
-            container
-            justify="flex-start"
-            alignItems="center"
-            className={classes.root}
-        >
-            {isItemsExist
-                ? (
-                    <Grid item xs={12}>
-                        <AppPageSubTitle
-                            title={<FormattedMessage id={'category.results.filter.title'} />}
-                        />
-                    </Grid>
-                )
-                : null
+    protected runResetActiveFilters = async (): Promise<void> => {
+        this.props.clearActiveFilters();
+        await this.setState((prevState: State) => (
+            {
+                ...prevState,
+                activeFilters: {},
+                activeRangeFilters: {},
             }
-            <Grid container alignItems="flex-start" spacing={sprykerTheme.appFixedDimensions.gridSpacing}>
-                {filterItems}
-                {rangeItems}
-            </Grid>
-        </Grid>
+        ));
+    };
+
+    protected resetFilterOneValue = ({name, value}: IFilterItemToDelete): void => {
+        const values = [...this.state.activeFilters[name]].filter((val: TFilterItemValue) => val !== value);
+        const stateUpdated: Promise<boolean> = this.updateActiveFilters(name, values);
+
+        stateUpdated.then(this.updateStoreWithNewFilters);
+    };
+
+    protected updateStoreWithNewFilters = (): void => {
+        const isActiveFiltersChanged = this.state.activeFilters !== this.props.activeFilters;
+        const isactiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
+
+        if (isActiveFiltersChanged || isactiveRangeFiltersChanged) {
+            this.props.setActiveFilters({
+                activeFilters: this.state.activeFilters,
+                activeRangeFilters: this.state.activeRangeFilters
+            });
+        }
+    };
+
+    protected deleteActiveFilterHandler = (itemToDelete: IFilterItemToDelete) => (): void => {
+        if (itemToDelete.type === filterTypeFilter) {
+            this.resetFilterOneValue(itemToDelete);
+        } else if (itemToDelete.type === filterTypeRange) {
+            this.resetRangeFilter(itemToDelete);
+        }
+    };
+
+    public render = (): JSX.Element => (
+        <>
+            <FiltersList
+                filters={ this.props.filters }
+                activeFilters={ this.state.activeFilters }
+                ranges={ this.props.rangeFilters }
+                activeRangeFilters={ this.state.activeRangeFilters }
+                updateStore={ this.updateStoreWithNewFilters }
+                updateActiveFilters={ this.updateActiveFilters }
+                updateRangeFilters={ this.updateRangeFilters }
+            />
+
+            <ActiveFiltersList
+                rangeFilters={ this.props.rangeFilters }
+                activeValuesFilters={ this.state.activeFilters }
+                activeValuesRanges={ this.state.activeRangeFilters }
+                deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
+                filtersLocalizedNames={getFiltersLocalizedNames(this.props.filters)}
+                rangesLocalizedNames={getRangeFiltersLocalizedNames(this.props.rangeFilters)}
+                resetHandler={ this.runResetActiveFilters }
+            />
+        </>
     );
-};
+}
 
 export const SearchFilterList = withStyles(styles)(SearchFilterListBase);

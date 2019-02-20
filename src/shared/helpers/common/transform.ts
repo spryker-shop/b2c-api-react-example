@@ -1,4 +1,4 @@
-import { rangeMaxType, rangeMinType, TRangeType } from 'src/shared/components/Pages/SearchPage/types';
+import { rangeMaxType, rangeMinType, TRangeType } from '@components/Pages/SearchPage/SearchFilterList/types';
 
 export const firstLetterToUpperCase = (word: string): string | null => {
     if (!word) {

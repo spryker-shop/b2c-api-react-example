@@ -9,6 +9,10 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     categoriesTree: ICategory[];
     selectedCategory: TCategoryId;
     localizedName: TLocalizedName | null;
+    locationCategoryId: TCategoryId;
+
+    changeLocation: (location: string) => void;
+    setCurrentCategory: (categoryId: TCategoryId) => void;
 }
 
 export interface IActiveFilterCategories {

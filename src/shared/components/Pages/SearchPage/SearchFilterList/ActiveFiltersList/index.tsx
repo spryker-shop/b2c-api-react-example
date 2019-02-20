@@ -1,22 +1,14 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Chip from '@material-ui/core/Chip';
-import Grid from '@material-ui/core/Grid';
-import { styles } from './styles';
-import {
-    filterTypeFilter,
-    IFilterItem,
-    TFilterItemValue,
-} from 'src/shared/components/Pages/SearchPage/types';
-import { ActiveFilterItem } from 'src/shared/components/Pages/SearchPage/ActiveFilterItem';
-import { AppPageSubTitle } from 'src/shared/components/Common/AppPageSubTitle';
-import { isWordHasPrice } from 'src/shared/helpers/common/transform';
-import { RangeFacets } from 'src/shared/interfaces/searchPageData';
-import {
-    createRangeFilterItemCombined,
-} from 'src/shared/components/Pages/SearchPage/ActiveFiltersList/helper';
-import { IActiveFiltersListProps } from 'src/shared/components/Pages/SearchPage/ActiveFiltersList/types';
 import { FormattedMessage } from 'react-intl';
+import { RangeFacets } from '@interfaces/searchPageData';
+import { IActiveFiltersListProps } from './types';
+import { filterTypeFilter, IFilterItem, TFilterItemValue } from '../types';
+import { AppPageSubTitle } from '@components/Common/AppPageSubTitle';
+import { isWordHasPrice } from '@helpers/common/transform';
+import { createRangeFilterItemCombined } from './helper';
+import { Grid, Chip, withStyles } from '@material-ui/core';
+import { CloseOutlined } from '@material-ui/icons';
+import { styles } from './styles';
 
 export const ActiveFiltersListBase: React.SFC<IActiveFiltersListProps> = props => {
     const {
@@ -27,6 +19,7 @@ export const ActiveFiltersListBase: React.SFC<IActiveFiltersListProps> = props =
         resetHandler,
         filtersLocalizedNames,
         rangesLocalizedNames,
+        deleteActiveFilterHandler
     } = props;
 
     const isActiveRangesExist = ((Object.getOwnPropertyNames(activeValuesRanges).length > 0));
@@ -101,13 +94,21 @@ export const ActiveFiltersListBase: React.SFC<IActiveFiltersListProps> = props =
                         const itemKey = `${item.name}-${item.value}${item.rangeSubType ? item.rangeSubType : ''}`;
 
                         return (
-                            <ActiveFilterItem
-                                key={ itemKey }
-                                value={item.value}
-                                name={item.name}
+                            <Chip
+                                key={itemKey}
                                 label={item.label}
-                                type={item.type}
-                                rangeSubType={item.rangeSubType}
+                                variant="outlined"
+                                onDelete={deleteActiveFilterHandler(
+                                    {
+                                        name: item.name,
+                                        value: item.value,
+                                        type: item.type,
+                                        rangeSubType: item.rangeSubType
+                                    }
+                                )}
+                                deleteIcon={<CloseOutlined className={classes.close}/>}
+                                className={classes.chip}
+                                classes={{label: classes.label}}
                             />
                         );
                     })

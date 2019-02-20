@@ -2,7 +2,7 @@ import { IProductCard } from '../product';
 import { IPagination } from 'src/shared/components/Common/AppPagination/types';
 import { TCategoryId } from 'src/shared/components/Pages/SearchPage/types';
 import { TAppCurrency } from 'src/shared/interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@components/Pages/SearchPage/types';
+import { TActiveFilters, TActiveRangeFilters } from '@components/Pages/SearchPage/SearchFilterList/types';
 
 export type TSpellingSuggestion = string;
 export type TLocalizedName = string;
@@ -40,6 +40,16 @@ export interface FlyoutSearch {
     pending: boolean;
 }
 
+export interface IActiveSort {
+    sort: string;
+    itemsPerPage: number;
+}
+
+export interface IActiveFilters {
+    activeFilters: TActiveFilters;
+    activeRangeFilters: TActiveRangeFilters;
+}
+
 export interface IProductLabelResponse {
     type: string;
     id: string;
@@ -65,15 +75,15 @@ export interface ILocalizedNamesMap {
     [key: string]: TLocalizedName;
 }
 
-export interface ICatalogSearchDataParsed {
+export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
     filters: ValueFacets[] | null;
-    activeFilters: TActiveFilters;
     category: FilterValue[];
-    currentCategory: string | null;
+    currentCategory: number | null;
     currentSort: string | null;
+    currentItemsPerPage: number | null;
+    currentPaginationPage: number;
     rangeFilters: RangeFacets[] | null;
-    activeRangeFilters: TActiveRangeFilters;
     sortParams: string[] | null;
     sortParamLocalizedNames: ILocalizedNamesMap | null;
     categoriesLocalizedName: TLocalizedName | null;
@@ -84,10 +94,12 @@ export interface ICatalogSearchDataParsed {
     searchTerm?: TSearchTerm;
 }
 
-export interface ISearchPageData extends ICatalogSearchDataParsed, ISearchTermData {
+export interface ISearchPageData extends ICatalogSearchDataParsed {
     dispatch?: Function;
     flyoutSearch?: FlyoutSearch;
     currency?: TAppCurrency;
+    isFiltersUpdated: boolean;
+    isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {

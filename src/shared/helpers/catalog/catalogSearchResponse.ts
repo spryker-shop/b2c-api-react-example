@@ -12,7 +12,7 @@ import {
     rangeMaxType,
     TActiveFilters,
     TActiveRangeFilters
-} from '@components/Pages/SearchPage/types';
+} from '@components/Pages/SearchPage/SearchFilterList/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -30,15 +30,16 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const filters: ValueFacets[] = [];
     const activeFilters: TActiveFilters = {};
     const activeRangeFilters: TActiveRangeFilters = {};
-
+    const currentSort: string = attributes.sort.currentSortParam || ' ';
+    const currentPaginationPage: number = pagination.currentPage;
     let category: FilterValue[] = [];
-    let currentCategory: string = '';
+    let currentCategory: number = null;
     let categoriesLocalizedName: TLocalizedName | null = null;
 
     attributes.valueFacets.forEach((filter: ValueFacets) => {
         if (filter.name === 'category') {
             category = Array.isArray(filter.values) ? filter.values : [];
-            currentCategory = filter.activeValue;
+            currentCategory = Number(filter.activeValue);
             categoriesLocalizedName = filter.localizedName;
         } else {
             filters.push(filter);
@@ -65,7 +66,9 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         activeFilters,
         category,
         currentCategory,
-        currentSort: attributes.sort.currentSortParam,
+        currentSort,
+        currentItemsPerPage: attributes.pagination.currentItemsPerPage,
+        currentPaginationPage,
         rangeFilters: attributes.rangeFacets,
         activeRangeFilters,
         sortParams: attributes.sort.sortParamNames,

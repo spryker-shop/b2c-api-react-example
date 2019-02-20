@@ -7,4 +7,6 @@ export interface ICategoryItemProps extends WithStyles<typeof styles> {
     displayName: string;
     isSelected: boolean;
     isActive: boolean;
+
+    selectCategoryHandler: (categoryId: TCategoryId) => Function;
 }

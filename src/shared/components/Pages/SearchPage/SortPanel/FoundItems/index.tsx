@@ -1,10 +1,9 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { styles } from './styles';
-import { IFoundItemsProps } from 'src/shared/components/Pages/SearchPage/FoundItems/types';
 import { FormattedMessage } from 'react-intl';
+import { IFoundItemsProps } from './types';
+
+import { Grid, Typography, withStyles } from '@material-ui/core';
+import { styles } from './styles';
 
 export const FoundItemsBase: React.SFC<IFoundItemsProps> = props => {
     const {

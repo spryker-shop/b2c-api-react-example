@@ -8,7 +8,9 @@ export interface IActiveFiltersListProps extends WithStyles<typeof styles> {
     activeValuesFilters: TActiveFilters;
     activeValuesRanges: TActiveRangeFilters;
     rangeFilters?: RangeFacets[];
-    resetHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
     filtersLocalizedNames: ILocalizedNamesMap | null;
     rangesLocalizedNames: ILocalizedNamesMap | null;
+
+    resetHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+    deleteActiveFilterHandler: Function;
 }

@@ -1,13 +1,7 @@
 import * as React from 'react';
-import {
-    rangeFilterValueToBack,
-} from 'src/shared/helpers/common/transform';
-import { AppPrice } from 'src/shared/components/Common/AppPrice';
-import {
-    filterTypeRange,
-    IFilterItem,
-    RangeType,
-} from 'src/shared/components/Pages/SearchPage/types';
+import { filterTypeRange, IFilterItem, RangeType } from '../types';
+import { rangeFilterValueToBack } from '@helpers/common/transform';
+import { AppPrice } from '@components/Common/AppPrice';
 
 /**
  *

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import { styles } from './styles';
-import { IProductCard, IProductLabel } from 'src/shared/interfaces/product';
-import { sprykerTheme } from 'src/shared/theme/sprykerTheme';
-import { ProductCard } from 'src/shared/components/Common/ProductCard';
-import { AppPageHeadline } from 'src/shared/components/Common/AppPageHeadline';
-import { getProductLabel } from 'src/shared/helpers/product/label';
-import { IProductsListProps } from 'src/shared/components/Pages/SearchPage/ProductsList/types';
 import { FormattedMessage } from 'react-intl';
+import { connect } from './connect';
+import { IProductsListProps } from './types';
+import { IProductCard, IProductLabel } from '@interfaces/product';
+import { getProductLabel } from '@helpers/product/label';
+import { ProductCard } from '@components/Common/ProductCard';
+import { AppPageHeadline } from '@components/Common/AppPageHeadline';
+import { Grid, withStyles } from '@material-ui/core';
+import { styles } from './styles';
+import { sprykerTheme } from 'src/shared/theme/sprykerTheme';
 
 export const ProductsListBase: React.SFC<IProductsListProps> = props => {
     const {
@@ -58,4 +58,4 @@ export const ProductsListBase: React.SFC<IProductsListProps> = props => {
     );
 };
 
-export const ProductsList = withStyles(styles)(ProductsListBase);
+export const ProductsList = withStyles(styles)(connect(ProductsListBase));
