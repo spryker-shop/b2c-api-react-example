@@ -5,17 +5,25 @@ export const styles = (theme: Theme) => createStyles({
     addNavContainer: {
         display: 'flex',
         alignItems: 'center',
+        alignSelf: 'stretch',
+        margin: '-8px 0',
         [theme.breakpoints.down('md')]: {
             position: 'relative',
         },
     },
     addNavItem: {
-        transition: 'transform .3s ease-in-out',
-        '&:not(:first-child)': {
-            marginLeft: 8,
-        },
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    addNavSearch: {
-        transform: 'scale(0)',
-    },
+    temporary: {
+        width: 60,
+        height: '100%',
+        padding: 4,
+        borderRadius: 4,
+        '&:hover': {
+            backgroundColor: theme.appColors.weekWhite
+        }
+    }
 });

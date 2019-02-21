@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { StickyContainer } from 'react-sticky';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
@@ -10,10 +9,7 @@ import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@application/components/Notifications';
 import { messages } from '@translation/';
-import {
-    IPageContentProps as Props,
-    IPageContentState as State
-} from './types';
+import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 
 const styles = require('./style.scss');
@@ -83,18 +79,16 @@ export class PageContent extends React.Component<Props, State> {
         return (
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
                 <div className={ className }>
-                    <StickyContainer>
-                        <AppHeader
-                            isLoading={ isLoading }
-                            onMobileNavToggle={ this.mobileNavToggle }
-                            isMobileNavOpened={ mobileNavOpened }
-                        />
-                        <ErrorBoundary>
-                            {getContentRoutes(this.isDataFulfilled())}
-                        </ErrorBoundary>
-                        <Notifications />
-                        <AppFooter/>
-                    </StickyContainer>
+                    <AppHeader
+                        isLoading={ isLoading }
+                        onMobileNavToggle={ this.mobileNavToggle }
+                        isMobileNavOpened={ mobileNavOpened }
+                    />
+                    <ErrorBoundary>
+                        {getContentRoutes(this.isDataFulfilled())}
+                    </ErrorBoundary>
+                    <Notifications />
+                    <AppFooter/>
                 </div>
             </IntlProvider>
         );

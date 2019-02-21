@@ -10,4 +10,16 @@ export const styles = (theme: Theme) => createStyles({
             },
         }
     },
+    iconButton: {
+        width: 60,
+        height: '100%',
+        padding: 4,
+        borderRadius: 4,
+        '&:hover': {
+            backgroundColor: theme.appColors.weekWhite
+        }
+    },
+    isPopupOpened: {
+        backgroundColor: theme.appColors.weekWhite
+    }
 });

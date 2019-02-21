@@ -57,7 +57,7 @@ export class MiniCartDropDownComponent extends React.Component<Props, State> {
         const {classes, cartItemsQuantity, popoverPosLeft, popoverPosTop} = this.props;
 
         const cartButton = (
-            <IconButton aria-label="cart" onClick={this.openPopover} color="inherit">
+            <IconButton aria-label="cart" onClick={this.openPopover} color="inherit" className={classes.iconButton}>
                 <Badge
                     badgeContent={cartItemsQuantity}
                     classes={{
@@ -72,7 +72,7 @@ export class MiniCartDropDownComponent extends React.Component<Props, State> {
         );
 
         return (
-            <div>
+            <>
                 {cartItemsQuantity === 0
                     ? (<Tooltip disableFocusListener
                                 placement="top"
@@ -92,7 +92,7 @@ export class MiniCartDropDownComponent extends React.Component<Props, State> {
                 >
                     <MiniCartDrop />
                 </PopoverWrapper>
-            </div>
+            </>
         );
     }
 }

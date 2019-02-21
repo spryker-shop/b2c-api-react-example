@@ -4,7 +4,7 @@ import { styles } from './styles';
 
 export interface IAppHeaderState {
     showSearch: boolean;
-    stickyTriggerOffset: number;
+    headerHeight: number;
     pageWidth: number;
     pageHeight: number;
 }

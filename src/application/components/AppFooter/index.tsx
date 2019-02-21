@@ -8,6 +8,8 @@ import { AppLogo } from '@application/components/AppLogo';
 import { SprykerLogoBlack } from './SprykerLogoBlack';
 import { IAppFooterProps as Props } from './types';
 import { styles } from './styles';
+import { LanguageSwitcher } from '@application/containers/LanguageSwitcher';
+import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 
 export const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
     const {classes} = props;
@@ -36,6 +38,11 @@ export const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
                 </div>
                 <div className={`${classes.footerCol} ${classes.partners}`}>
                     <PartnerLogos />
+                </div>
+                <div className={classes.footerCol}>
+                    <ErrorBoundary>
+                        <LanguageSwitcher />
+                    </ErrorBoundary>
                 </div>
             </div>
         </div>

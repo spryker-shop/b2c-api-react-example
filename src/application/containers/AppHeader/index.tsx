@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { Sticky, StickyChildArgs } from 'react-sticky';
 import debounce from 'lodash/debounce';
 import { pathCheckoutPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CatalogSearch from '@application/containers/CatalogSearch';
 import { AppLogo } from '@application/components/AppLogo';
 import { MainNavigation } from '@application/components/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
@@ -18,7 +16,7 @@ import { styles } from './styles';
 export class AppHeaderComponent extends React.PureComponent<Props, State> {
     public readonly state: State = {
         showSearch: true,
-        stickyTriggerOffset: 0,
+        headerHeight: 0,
         pageWidth: 0,
         pageHeight: 0
     };
@@ -27,130 +25,89 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
 
     public componentDidMount = (): void => {
         window.addEventListener('resize', this.onWindowResize);
-        window.addEventListener('scroll', this.onWindowScroll);
-    }
+    };
 
     public componentDidUpdate = (): void => {
         this.onWindowResize();
-    }
+    };
 
     public componentWillUnmount = (): void => {
         window.removeEventListener('resize', this.onWindowResize);
-        window.removeEventListener('scroll', this.onWindowScroll);
         this.stickyTriggerRef = null;
-    }
+    };
 
     protected onWindowResize = debounce((): void => {
-        this.setTriggerOffset();
+        this.setHeaderHeight();
         this.updateWindowDimensions();
     }, 0.3);
 
-    protected onWindowScroll = debounce((): void => {
-        const {showSearch, stickyTriggerOffset} = this.state;
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (showSearch && scrollPosition > stickyTriggerOffset) {
-            this.setState({showSearch: false});
-        }
-    }, 0.3);
-
     protected updateWindowDimensions = (): void => {
-        this.setState({pageWidth: window.innerWidth, pageHeight: window.innerHeight});
+        this.setState({ pageWidth: window.innerWidth, pageHeight: window.innerHeight });
     };
 
-    protected setTriggerOffset = (): void => {
-        const stickyTriggerOffset = this.stickyTriggerRef.current.offsetTop;
+    protected setHeaderHeight = (): void => {
+        const headerHeight = this.stickyTriggerRef.current.clientHeight;
 
-        this.setState({stickyTriggerOffset});
+        this.setState({ headerHeight });
     };
 
-    protected handleSticky = (stickyState: StickyChildArgs): void => {
-        const {stickyTriggerOffset} = this.state;
-        const scrollOffset = stickyState.distanceFromTop * -1;
-        const showSearch = scrollOffset < stickyTriggerOffset;
-
-        this.setState({showSearch});
-    };
-
-    protected handleSearch = (): void => this.setState(({showSearch}) => ({showSearch: !showSearch}));
+    protected handleSearch = (): void => this.setState(({ showSearch }) => ({ showSearch: !showSearch }));
 
     public render(): JSX.Element {
-        const {classes, isMobileNavOpened, onMobileNavToggle, locale} = this.props;
-        const {stickyTriggerOffset, showSearch, pageWidth, pageHeight} = this.state;
+        const { classes, isMobileNavOpened, onMobileNavToggle } = this.props;
+        const { headerHeight, showSearch, pageWidth, pageHeight } = this.state;
 
         return (
-            <Sticky topOffset={stickyTriggerOffset}>
-                {(stickyState: StickyChildArgs) => {
-                    const {style, isSticky, wasSticky} = stickyState;
+            <div className={ classes.header } style={ { paddingTop: headerHeight } }>
 
-                    if (isSticky !== wasSticky) {
-                        this.handleSticky(stickyState);
-                    }
+                { /*<div className={ classes.headerTop }>*/ }
+                { /*<div className={ `${classes.headerContainer} ${classes.headerTopContainer}` }>*/ }
+                { /*<div className={ classes.headerSearchContainer }>*/ }
+                { /*<CatalogSearch id={ '2' } locale={ locale } />*/ }
+                { /*</div>*/ }
+                { /*</div>*/ }
+                { /*</div>*/ }
 
-                    return (
+                <div className={ classes.content } ref={ this.stickyTriggerRef }>
+                    <div className={ classes.container }>
                         <div
-                            style={style}
-                            className={classes.headerStickyContainer}
+                            className={
+                                `${classes.hamburger} ${
+                                    isMobileNavOpened ? classes.hamburgerOpened : ''
+                                    }`
+                            }
+                            onClick={ onMobileNavToggle }
                         >
-                            <div
-                                className={classes.header}
-                                style={{
-                                    transform: `translate3d(0, -${showSearch ? 0 : stickyTriggerOffset}px, 0)`,
-                                    transition: isSticky && wasSticky ? 'transform .3s ease-in-out' : 'none'
-                                }}
-                            >
-                                <div className={classes.headerTop}>
-                                    <div className={`${classes.headerContainer} ${classes.headerTopContainer}`}>
-                                        <div className={classes.headerSearchContainer}>
-                                            <CatalogSearch id={'2'} locale={locale} />
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className={classes.headerBottom} ref={this.stickyTriggerRef}>
-                                    <div className={classes.headerContainer}>
-                                        <div
-                                            className={
-                                                `${classes.hamburger} ${
-                                                    isMobileNavOpened ? classes.hamburgerOpened : ''
-                                                    }`
-                                            }
-                                            onClick={onMobileNavToggle}
-                                        >
-                                            <span />
-                                            <span />
-                                        </div>
-
-                                        <div className={classes.headerNavigationWrapper}>
-                                            <div className={classes.logoContainer}>
-                                                <AppLogo customLogo={<SprykerLogoBlack />} />
-                                            </div>
-
-                                            {this.props.location.pathname.endsWith(pathCheckoutPage)
-                                                ? <div className={classes.checkout}>
-                                                    <FormattedMessage id="word.checkout.title" />
-                                                </div>
-                                                : <ErrorBoundary>
-                                                    <MainNavigation mobileNavState={isMobileNavOpened} />
-                                                </ErrorBoundary>
-                                            }
-                                        </div>
-
-                                        <AdditionalNavigation
-                                            showSearch={showSearch}
-                                            handleSearch={this.handleSearch}
-                                            isSticky={isSticky}
-                                            pageWidth={pageWidth}
-                                            pageHeight={pageHeight}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            <span />
+                            <span />
                         </div>
-                    );
-                }}
-            </Sticky>
+
+                        <div className={ classes.navigationWrapper }>
+                            <div className={ classes.logoContainer }>
+                                <AppLogo customLogo={ <SprykerLogoBlack /> } />
+                            </div>
+
+                            { this.props.location.pathname.endsWith(pathCheckoutPage)
+                                ? <div className={ classes.checkout }>
+                                    <FormattedMessage id="word.checkout.title" />
+                                </div>
+                                : <ErrorBoundary>
+                                    <MainNavigation mobileNavState={ isMobileNavOpened } />
+                                </ErrorBoundary>
+                            }
+                        </div>
+
+                        <AdditionalNavigation
+                            showSearch={ showSearch }
+                            handleSearch={ this.handleSearch }
+                            isSticky={ true }
+                            pageWidth={ pageWidth }
+                            pageHeight={ pageHeight }
+                            headerHeight={ headerHeight }
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 }

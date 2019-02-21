@@ -2,16 +2,15 @@ import * as React from 'react';
 import { appContainerStyles } from '@theme/properties/new/appContainerStyles';
 import { appFixedDimensions } from '@theme/properties/new/appFixedDimensions';
 import { withStyles, IconButton } from '@material-ui/core';
-import { LanguageSwitcher } from '@application/containers/LanguageSwitcher';
+import { SearchIcon } from './icons';
 import { UserDropNavigation } from '@application/containers/UserDropNavigation';
 import { MiniCartDropDown } from '@application/containers/MiniCartDropDown';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import Search from '@material-ui/icons/Search';
 import { IAddNavProps as Props } from './types';
 import { styles } from './styles';
 
 export const AdditionalNavigationComponent: React.SFC<Props> = props => {
-    const {classes, showSearch, handleSearch, isSticky, pageWidth} = props;
+    const { classes, showSearch, handleSearch, isSticky, pageWidth, headerHeight } = props;
 
     const getPopoverPosition = (
         {
@@ -26,26 +25,17 @@ export const AdditionalNavigationComponent: React.SFC<Props> = props => {
             showSearch: boolean;
             overflow: number;
             popoverWidth: number;
-        }): {top: number; left: number} => {
+        }): { top: number; left: number } => {
 
-        const {headerHeight, customBreakpoints} = appFixedDimensions;
+        const { customBreakpoints } = appFixedDimensions;
         const containerWidth = Number(appContainerStyles.maxWidth);
         const margin = (pageWidth - containerWidth) / 2;
         const overflowNumber = (pageWidth < customBreakpoints.tablet ? 0 : overflow);
-        const fullHeaderHeight = pageWidth < customBreakpoints.smallTablet
-            ? headerHeight.tablet
-            : headerHeight.desktop;
 
         const popoverPosLeft: number = margin + containerWidth - popoverWidth + overflowNumber;
-        let popoverPosTop: number = headerHeight.sticky;
-        if (showSearch) {
-            popoverPosTop = fullHeaderHeight;
-        } else if (isSticky) {
-            popoverPosTop = headerHeight.sticky;
-        }
-
+        console.log(margin, containerWidth, popoverWidth, overflowNumber);
         return {
-            top: popoverPosTop,
+            top: Number(headerHeight),
             left: popoverPosLeft
         };
     };
@@ -67,30 +57,25 @@ export const AdditionalNavigationComponent: React.SFC<Props> = props => {
     });
 
     return (
-        <div className={classes.addNavContainer}>
-            <div className={`${classes.addNavItem} ${showSearch ? classes.addNavSearch : ''}`}>
-                <IconButton onClick={handleSearch} aria-label="Search">
-                    <Search />
+        <div className={ classes.addNavContainer }>
+            <div className={ classes.addNavItem }>
+                <IconButton onClick={ handleSearch } aria-label="Search" className={ classes.temporary }>
+                    <SearchIcon />
                 </IconButton>
             </div>
-            <div className={classes.addNavItem}>
-                <ErrorBoundary>
-                    <LanguageSwitcher />
-                </ErrorBoundary>
-            </div>
-            <div className={classes.addNavItem}>
+            <div className={ classes.addNavItem }>
                 <ErrorBoundary>
                     <UserDropNavigation
-                        popoverPosLeft={popoverUserPos.left}
-                        popoverPosTop={popoverUserPos.top}
+                        popoverPosLeft={ popoverUserPos.left }
+                        popoverPosTop={ popoverUserPos.top }
                     />
                 </ErrorBoundary>
             </div>
-            <div className={classes.addNavItem}>
+            <div className={ classes.addNavItem }>
                 <ErrorBoundary>
                     <MiniCartDropDown
-                        popoverPosLeft={popoverCartPos.left}
-                        popoverPosTop={popoverCartPos.top}
+                        popoverPosLeft={ popoverCartPos.left }
+                        popoverPosTop={ popoverCartPos.top }
                     />
                 </ErrorBoundary>
             </div>
