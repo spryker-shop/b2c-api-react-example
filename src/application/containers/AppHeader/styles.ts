@@ -38,7 +38,13 @@ export const styles = (theme: Theme) => createStyles({
             alignItems: 'center',
         },
     },
+    headerNavigationWrapper: {
+        display: 'flex',
+        alignItems: 'center'
+    },
     logoContainer: {
+        ...theme.appFixedDimensions.sprykerLogo,
+        marginRight: 40,
         [theme.breakpoints.down('sm')]: {
             marginBottom: 10,
         },

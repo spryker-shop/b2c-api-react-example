@@ -4,6 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     mainNav: {
         textTransform: 'uppercase',
+        margin: `0 -${theme.spacing.unit * 2}px`,
         [theme.breakpoints.down('sm')]: {
             transition: 'transform .3s ease-in-out',
             position: 'absolute',
@@ -25,9 +26,12 @@ export const styles = (theme: Theme) => createStyles({
         transform: 'translate3d(0, 0, 0)',
     },
     mainNavLink: {
-        color: theme.appColors.black,
-        marginRight: theme.spacing.unit * 2,
+        color: theme.appColors.grey,
+        padding: `0 ${theme.spacing.unit * 2}px`,
         textDecoration: 'none',
+        fontSize: 15,
+        textTransform: 'none',
+        letterSpacing: 0.2,
         '&:hover': {
             color: theme.appColors.blue,
         },

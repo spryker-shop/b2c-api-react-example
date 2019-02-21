@@ -10,7 +10,7 @@ import { AppLogo } from '@application/components/AppLogo';
 import { MainNavigation } from '@application/components/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { SprykerLogoWhite } from './SprykerLogoWhite';
+import { SprykerLogoBlack } from './icons';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
 
@@ -101,15 +101,13 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
                             >
                                 <div className={classes.headerTop}>
                                     <div className={`${classes.headerContainer} ${classes.headerTopContainer}`}>
-                                        <div className={classes.logoContainer}>
-                                            <AppLogo customLogo={<SprykerLogoWhite />} />
-                                        </div>
-
                                         <div className={classes.headerSearchContainer}>
                                             <CatalogSearch id={'2'} locale={locale} />
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div className={classes.headerBottom} ref={this.stickyTriggerRef}>
                                     <div className={classes.headerContainer}>
                                         <div
@@ -124,14 +122,20 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
                                             <span />
                                         </div>
 
-                                        {this.props.location.pathname.endsWith(pathCheckoutPage)
-                                            ? <div className={classes.checkout}>
-                                                <FormattedMessage id="word.checkout.title" />
+                                        <div className={classes.headerNavigationWrapper}>
+                                            <div className={classes.logoContainer}>
+                                                <AppLogo customLogo={<SprykerLogoBlack />} />
                                             </div>
-                                            : <ErrorBoundary>
-                                                <MainNavigation mobileNavState={isMobileNavOpened} />
-                                            </ErrorBoundary>
-                                        }
+
+                                            {this.props.location.pathname.endsWith(pathCheckoutPage)
+                                                ? <div className={classes.checkout}>
+                                                    <FormattedMessage id="word.checkout.title" />
+                                                </div>
+                                                : <ErrorBoundary>
+                                                    <MainNavigation mobileNavState={isMobileNavOpened} />
+                                                </ErrorBoundary>
+                                            }
+                                        </div>
 
                                         <AdditionalNavigation
                                             showSearch={showSearch}
