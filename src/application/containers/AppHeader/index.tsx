@@ -12,9 +12,8 @@ import { SprykerLogoBlack } from './icons';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
 
-@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class AppHeader extends React.PureComponent<Props, State> {
+class AppHeaderComponent extends React.PureComponent<Props, State> {
     public readonly state: State = {
         headerHeight: 0
     };
@@ -85,3 +84,5 @@ export class AppHeader extends React.PureComponent<Props, State> {
         );
     }
 }
+
+export const AppHeader = withStyles(styles)(AppHeaderComponent);

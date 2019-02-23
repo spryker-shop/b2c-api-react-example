@@ -14,9 +14,8 @@ import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from
 import { styles } from './styles';
 
 @connect
-@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class MiniCartDropDown extends React.Component<Props, State> {
+class MiniCartDropDownComponent extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null,
         isCartNotificationOpen: true
@@ -70,10 +69,10 @@ export class MiniCartDropDown extends React.Component<Props, State> {
             >
                 <Badge
                     badgeContent={ cartItemsQuantity }
-                    classes={ {
+                    classes={{
                         colorPrimary: classes.badge,
                         badge: cartItemsQuantity === 0 && classes.hideBadge
-                    } }
+                    }}
                     color="primary"
                 >
                     <CartIcon />
@@ -103,3 +102,5 @@ export class MiniCartDropDown extends React.Component<Props, State> {
         );
     }
 }
+
+export const MiniCartDropDown = withStyles(styles)(MiniCartDropDownComponent);

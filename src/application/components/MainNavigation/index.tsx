@@ -13,8 +13,8 @@ export const MainNavigationComponent: React.SFC<Props> = (props): JSX.Element =>
     return (
         <nav className={`${classes.mainNav} ${mobileNavState ? classes.mainNavOpened : ''}`}>
             {fixtures.map(category => (
-                <span className={classes.mainNavItem} >
-                    <NavLink key={category.name + category.path} className={classes.mainNavLink} to={category.path}>
+                <span key={category.name + category.path} className={classes.mainNavItem} >
+                    <NavLink className={classes.mainNavLink} to={category.path}>
                         <FormattedMessage id={category.name} />
                     </NavLink>
                 </span>

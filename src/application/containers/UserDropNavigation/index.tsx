@@ -14,9 +14,8 @@ import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } 
 import { styles } from './styles';
 
 @connect
-@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class UserDropNavigation extends React.Component<Props, State> {
+class UserDropNavigationComponent extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null
     };
@@ -82,3 +81,5 @@ export class UserDropNavigation extends React.Component<Props, State> {
         );
     }
 }
+
+export const UserDropNavigation = withStyles(styles)(UserDropNavigationComponent);

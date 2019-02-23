@@ -20,7 +20,7 @@ export class InputComponent extends React.Component<Props, State> {
         if (prevProps.completion !== this.props.completion) {
             this.suggestQuery();
         }
-    }
+    };
 
     protected handleFullSearch = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();

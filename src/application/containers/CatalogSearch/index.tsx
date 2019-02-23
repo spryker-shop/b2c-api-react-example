@@ -13,8 +13,7 @@ import { ICatalogProps as Props, ICatalogState as State, IInputProps } from './t
 import { styles } from './styles';
 
 @connect
-@(withStyles(styles) as Function)
-export class CatalogSearch extends React.Component<Props, State> {
+class CatalogSearchComponent extends React.Component<Props, State> {
     public readonly state: State = {
         value: ''
     };
@@ -159,3 +158,5 @@ export class CatalogSearch extends React.Component<Props, State> {
         );
     }
 }
+
+export const CatalogSearch = withStyles(styles)(CatalogSearchComponent);

@@ -9,9 +9,8 @@ import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
 
-@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class CatalogSearchDrop extends React.Component<Props, State> {
+class CatalogSearchDropComponent extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null
     };
@@ -62,3 +61,5 @@ export class CatalogSearchDrop extends React.Component<Props, State> {
         );
     }
 }
+
+export const CatalogSearchDrop = withStyles(styles)(CatalogSearchDropComponent);

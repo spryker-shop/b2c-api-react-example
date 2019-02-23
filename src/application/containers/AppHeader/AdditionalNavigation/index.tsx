@@ -7,7 +7,7 @@ import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IAddNavProps as Props } from './types';
 import { styles } from './styles';
 
-export const AdditionalNavigationComponent: React.SFC<Props> = props => {
+const AdditionalNavigationComponent: React.SFC<Props> = props => {
     const { classes } = props;
 
     return (
