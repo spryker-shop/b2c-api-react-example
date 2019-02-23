@@ -17,13 +17,14 @@ import {
 import { styles } from './styles';
 
 @connect
-export class CatalogSearchBase extends React.Component<Props, State> {
-    protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
-    protected timer: number | null;
-
+@(withStyles(styles) as Function)
+export class CatalogSearch extends React.Component<Props, State> {
     public readonly state: State = {
         value: ''
     };
+
+    protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
+    protected timer: number | null;
 
     protected getSuggestionValue = (suggestion: IProductCard): string => suggestion.abstractName;
 
@@ -162,7 +163,3 @@ export class CatalogSearchBase extends React.Component<Props, State> {
         );
     }
 }
-
-const CatalogSearchComponent = withStyles(styles)(CatalogSearchBase);
-
-export default CatalogSearchComponent;

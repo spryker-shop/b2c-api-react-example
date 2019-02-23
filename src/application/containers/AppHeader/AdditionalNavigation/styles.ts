@@ -16,14 +16,5 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    temporary: {
-        width: 60,
-        height: '100%',
-        padding: 4,
-        borderRadius: 4,
-        '&:hover': {
-            backgroundColor: theme.appColors.weekWhite
-        }
     }
 });

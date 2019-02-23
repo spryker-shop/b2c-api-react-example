@@ -11,7 +11,9 @@ export const styles = (theme: Theme) => createStyles({
             backgroundColor: theme.appColors.weekWhite
         }
     },
-    isPopupOpened: {
-        backgroundColor: theme.appColors.weekWhite
+    content: {
+        background: 'none',
+        width: '50%',
+        minWidth: 400
     }
 });

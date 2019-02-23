@@ -25,14 +25,6 @@ export const styles = (theme: Theme) => createStyles({
     cartContent: {
         maxHeight: theme.appFixedDimensions.cartDrop.height,
     },
-    popoverTriangle: {
-        '&:before, &:after': {
-            right: 57,
-            [theme.breakpoints.down(theme.appFixedDimensions.customBreakpoints.tablet)]: {
-                right: 23,
-            },
-        }
-    },
     iconButton: {
         width: 60,
         height: '100%',
@@ -41,5 +33,8 @@ export const styles = (theme: Theme) => createStyles({
         '&:hover': {
             backgroundColor: theme.appColors.weekWhite
         }
+    },
+    isPopupOpened: {
+        backgroundColor: theme.appColors.weekWhite
     }
 });

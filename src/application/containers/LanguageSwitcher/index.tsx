@@ -21,7 +21,8 @@ const availableLanguages: TLanguage[] = [
 ];
 
 @connect
-export class LanguageSwitcherComponent extends React.Component<Props, State> {
+@(withStyles(styles) as Function)
+export class LanguageSwitcher extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null
     };
@@ -88,7 +89,3 @@ export class LanguageSwitcherComponent extends React.Component<Props, State> {
         );
     }
 }
-
-export const LanguageSwitcher = withStyles(styles)(LanguageSwitcherComponent);
-
-export default LanguageSwitcher;

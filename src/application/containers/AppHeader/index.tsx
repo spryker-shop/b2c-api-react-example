@@ -12,13 +12,11 @@ import { SprykerLogoBlack } from './icons';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
 
+@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class AppHeaderComponent extends React.PureComponent<Props, State> {
+export class AppHeader extends React.PureComponent<Props, State> {
     public readonly state: State = {
-        showSearch: true,
-        headerHeight: 0,
-        pageWidth: 0,
-        pageHeight: 0
+        headerHeight: 0
     };
 
     protected stickyTriggerRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -33,17 +31,11 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
 
     public componentWillUnmount = (): void => {
         window.removeEventListener('resize', this.onWindowResize);
-        this.stickyTriggerRef = null;
     };
 
     protected onWindowResize = debounce((): void => {
         this.setHeaderHeight();
-        this.updateWindowDimensions();
     }, 0.3);
-
-    protected updateWindowDimensions = (): void => {
-        this.setState({ pageWidth: window.innerWidth, pageHeight: window.innerHeight });
-    };
 
     protected setHeaderHeight = (): void => {
         const headerHeight = this.stickyTriggerRef.current.clientHeight;
@@ -51,23 +43,12 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
         this.setState({ headerHeight });
     };
 
-    protected handleSearch = (): void => this.setState(({ showSearch }) => ({ showSearch: !showSearch }));
-
     public render(): JSX.Element {
         const { classes, isMobileNavOpened, onMobileNavToggle } = this.props;
-        const { headerHeight, showSearch, pageWidth, pageHeight } = this.state;
+        const { headerHeight } = this.state;
 
         return (
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
-
-                { /*<div className={ classes.headerTop }>*/ }
-                { /*<div className={ `${classes.headerContainer} ${classes.headerTopContainer}` }>*/ }
-                { /*<div className={ classes.headerSearchContainer }>*/ }
-                { /*<CatalogSearch id={ '2' } locale={ locale } />*/ }
-                { /*</div>*/ }
-                { /*</div>*/ }
-                { /*</div>*/ }
-
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
                         <div
@@ -97,19 +78,10 @@ export class AppHeaderComponent extends React.PureComponent<Props, State> {
                             }
                         </div>
 
-                        <AdditionalNavigation
-                            showSearch={ showSearch }
-                            handleSearch={ this.handleSearch }
-                            isSticky={ true }
-                            pageWidth={ pageWidth }
-                            pageHeight={ pageHeight }
-                            headerHeight={ headerHeight }
-                        />
+                        <AdditionalNavigation />
                     </div>
                 </div>
             </div>
         );
     }
 }
-
-export const AppHeader = withStyles(styles)(AppHeaderComponent);

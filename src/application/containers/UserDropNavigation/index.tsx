@@ -7,19 +7,21 @@ import { pathCustomerPage, pathCustomerProfilePage, pathLoginPage } from '@const
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { BreakpointsSM } from '@constants/breakpoints';
-import { LogoutSetTimeoutTime } from '@constants/customer';
+import { logoutSetTimeoutTime } from '@constants/customer';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
 
 @connect
+@(withStyles(styles) as Function)
 @(withRouter as Function)
-export class UserDropNavigationComponent extends React.Component<Props, State> {
+export class UserDropNavigation extends React.Component<Props, State> {
     public readonly state: State = {
-        anchorElement: null,
-        isPopupOpen: false
+        anchorElement: null
     };
+
+    protected iconButton: React.RefObject<HTMLDivElement> = React.createRef();
 
     public componentDidUpdate = (prevProps: Props): void => {
         if (this.props.location !== prevProps.location) {
@@ -35,11 +37,11 @@ export class UserDropNavigationComponent extends React.Component<Props, State> {
                 this.props.history.push(pathLoginPage);
             }
         } else {
-            this.setState(() => ({ anchorElement: currentTarget, isPopupOpen: true }));
+            this.setState({ anchorElement: currentTarget });
         }
     };
 
-    protected closePopover = (): void => this.setState({ anchorElement: null, isPopupOpen: false });
+    protected closePopover = (): void => this.setState({ anchorElement: null });
 
     protected handleLogout = (event: ClickEvent): void => {
         event.preventDefault();
@@ -47,29 +49,27 @@ export class UserDropNavigationComponent extends React.Component<Props, State> {
             this.props.logout();
         } else {
             this.props.history.push(pathCustomerPage);
-            setTimeout(this.props.logout, LogoutSetTimeoutTime);
+            setTimeout(this.props.logout, logoutSetTimeoutTime);
         }
     };
 
     public render(): JSX.Element {
-        const { anchorElement, isPopupOpen } = this.state;
-        const { classes, popoverPosLeft, popoverPosTop, isUserLoggedIn } = this.props;
+        const { anchorElement } = this.state;
+        const { classes, isUserLoggedIn } = this.props;
 
         return (
             <>
                 <IconButton
+                    buttonRef={ this.iconButton }
                     aria-label="person"
                     onClick={ this.openPopover }
-                    className={` ${classes.iconButton} ${isPopupOpen ? classes.isPopupOpened : '' } `}>
+                    className={ ` ${classes.iconButton} ${!!anchorElement ? classes.isPopupOpened : '' } ` }>
                     <UserIcon />
                 </IconButton>
 
                 <PopoverWrapper
-                    popoverPosLeft={ popoverPosLeft }
-                    popoverPosTop={ popoverPosTop }
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    extraHelperClassName={ classes.popoverTriangle }
                 >
                     <UserDrop
                         closePopoverHandler={ this.closePopover }
@@ -82,5 +82,3 @@ export class UserDropNavigationComponent extends React.Component<Props, State> {
         );
     }
 }
-
-export const UserDropNavigation = withStyles(styles)(UserDropNavigationComponent);

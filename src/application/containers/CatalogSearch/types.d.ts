@@ -7,11 +7,11 @@ import * as React from 'react';
 import { BlurEvent, ChangeEvent } from 'react-autosuggest';
 
 export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, FlyoutSearch {
-    currency: TAppCurrency;
-    isLoading: boolean;
+    currency?: TAppCurrency;
+    isLoading?: boolean;
     id: string;
-    sendSuggestionAction(query: string): void;
-    clearSuggestions(query: string): void;
+    sendSuggestionAction?: (query: string) => void;
+    clearSuggestions?: (query: string) => void;
 }
 
 export interface ICatalogState {
@@ -22,8 +22,8 @@ export interface ICatalogState {
 export interface IInputProps {
     value: string;
     [key: string]: any;
-    onChange(event: React.FormEvent<any>, params?: ChangeEvent): void;
-    onBlur?(event: React.FormEvent<any>, params?: BlurEvent): void;
+    onChange: (event: React.FormEvent<any>, params?: ChangeEvent) => void;
+    onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
 }
 
 export interface ICompletionMatch {
