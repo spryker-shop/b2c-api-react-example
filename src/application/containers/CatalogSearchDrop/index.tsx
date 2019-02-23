@@ -50,10 +50,10 @@ export class CatalogSearchDrop extends React.Component<Props, State> {
                         vertical: 'center',
                         horizontal: 'right'
                     }}
-                    transformOrigin={ {
+                    transformOrigin={{
                         vertical: 'center',
                         horizontal: 'right'
-                    } }
+                    }}
                 >
                     <CatalogSearch id={ '2' } />
                 </PopoverWrapper>

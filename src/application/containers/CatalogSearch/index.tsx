@@ -9,11 +9,7 @@ import { SuggestionsContainer } from './SuggestionsContainer';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { InputChangeEvent } from '@interfaces/common';
 import { IProductCard } from '@interfaces/product';
-import {
-    ICatalogProps as Props,
-    ICatalogState as State,
-    IInputProps
-} from './types';
+import { ICatalogProps as Props, ICatalogState as State, IInputProps } from './types';
 import { styles } from './styles';
 
 @connect
