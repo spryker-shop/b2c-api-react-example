@@ -89,7 +89,7 @@ export const messages: IMessages = {
         'link.sanded.created.message': 'Link for restore password sended to your Email.',
         'loading.page.title': 'Waiting for results',
         'log.in.button.title': 'Log In',
-        'log.out.button.title': 'Log Out',
+        'log.out.button.title': 'Logout',
         'logo.spryker.main.title': 'API demo',
         'logo.spryker.title': 'Artboard 1',
         'manage.addresses': 'Manage Addresses',

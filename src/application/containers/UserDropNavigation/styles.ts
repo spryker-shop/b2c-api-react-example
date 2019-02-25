@@ -13,5 +13,8 @@ export const styles = (theme: Theme) => createStyles({
     },
     isPopupOpened: {
         backgroundColor: theme.appColors.weekWhite
+    },
+    content: {
+        marginTop: -10,
     }
 });

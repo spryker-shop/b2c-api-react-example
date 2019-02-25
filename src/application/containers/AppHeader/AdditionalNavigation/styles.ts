@@ -6,7 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         alignSelf: 'stretch',
-        margin: '-8px 0',
+        margin: '-10px 0',
         [theme.breakpoints.down('md')]: {
             position: 'relative',
         },

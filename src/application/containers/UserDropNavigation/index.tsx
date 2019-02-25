@@ -70,6 +70,7 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
                 <PopoverWrapper
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
+                    extraContentClassName={ classes.content }
                 >
                     <UserDrop
                         closePopoverHandler={ this.closePopover }

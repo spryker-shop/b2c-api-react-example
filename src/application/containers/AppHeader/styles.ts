@@ -12,7 +12,7 @@ export const styles = (theme: Theme) => createStyles({
         top: 0,
         left: 0,
         width: '100%',
-        padding: '8px 0',
+        padding: '10px 0',
         background: theme.appColors.white,
         boxShadow: '0 2px 16px 0 rgba(193, 193, 193, 0.5)',
         zIndex: 5,

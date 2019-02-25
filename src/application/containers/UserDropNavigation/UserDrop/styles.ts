@@ -1,62 +1,76 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
-import { appTypographyStyles } from '@theme/properties/overwritten/appTypography';
 
 export const styles = (theme: Theme) => createStyles({
     userDrop: {
-        ...appTypographyStyles,
+        fontFamily: 'Circular',
+        borderRadius: 4,
+        boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
         width: theme.appFixedDimensions.userDrop.width,
-        padding: theme.spacing.unit * 3,
-        borderBottom: `1px solid ${theme.appColors.weakGrey}`,
-        borderLeft: `1px solid ${theme.appColors.weakGrey}`,
-        borderRight: `1px solid ${theme.appColors.weakGrey}`,
+        overflow: 'hidden'
     },
     title: {
-        fontSize: theme.appFixedDimensions.fontSize.big,
-        lineHeight: 'normal',
-        fontWeight: 500,
-        color: theme.appColors.black,
-        letterSpacing: '-.5px',
+        color: theme.appColors.grey,
         margin: 0,
-        borderBottom: `1px solid ${theme.appColors.weakGrey}`,
-        paddingBottom: 10,
-        paddingTop: 10,
+        padding: '21px 21px 16px',
+        background: theme.appColors.weekWhite
     },
     userDropNav: {
         listStyle: 'none',
         margin: 0,
-        paddingTop: theme.spacing.unit * 3,
-        paddingLeft: 0,
-        '& li': {
-            marginBottom: 10,
-        },
-        '& a': {
-            fontSize: theme.appFixedDimensions.fontSize.small,
-            color: theme.appColors.black,
-            textDecoration: 'none',
-            '&:hover': {
-                color: theme.appColors.blue
-            }
-        },
+        padding: 0
+    },
+    userItem: {
+        borderBottom: '1px solid rgba(206, 206, 208, 0.3)',
+        '&:last-child': {
+            border: 'none'
+        }
+    },
+    userLink: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '10px 16px',
+        fontSize: 15,
+        fontWeight: 500,
+        color: theme.appColors.grey,
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.appColors.blue
+        }
+    },
+    userLinkLogout: {
+        color: theme.appColors.red,
+        '&:hover': {
+            color: theme.appColors.darkRed
+        }
+    },
+    userIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 30,
+        height: 30,
+        fill: 'currentColor',
+        marginRight: 14
     },
     userBtns: {
-        ...appTypographyStyles,
-        marginTop: theme.spacing.unit * 3,
         display: 'flex',
-        justifyContent: 'space-between',
+        listStyle: 'none',
+        padding: '20px 15px',
+        margin: 0
     },
-    action: {
+    userBtnsItem: {
+        width: '50%',
+        padding: '0 5px'
+    },
+    userBtnsLink: {
         flex: 1,
         fontSize: theme.appFixedDimensions.fontSize.small,
         textTransform: 'uppercase',
         fontWeight: 500,
         justifyContent: 'center',
-        maxWidth: 140,
         width: '100%',
-        paddingRight: theme.spacing.unit * 1.5,
-        paddingLeft: theme.spacing.unit * 1.5,
-    },
-    actionLogOut: {
-        width: '100%',
-    },
+        paddingRight: 12,
+        paddingLeft: 12,
+    }
 });

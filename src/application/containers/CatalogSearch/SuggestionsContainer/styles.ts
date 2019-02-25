@@ -10,7 +10,7 @@ export const styles = (theme: Theme) => createStyles({
     completionList: {
         paddingBottom: 15,
         marginBottom: 15,
-        borderBottom: '1px solid rgba(206,206,208,0.3)',
+        borderBottom: '1px solid rgba(206, 206, 208, 0.3)',
         '&:last-child': {
             border: 'none',
             paddingBottom: 0
