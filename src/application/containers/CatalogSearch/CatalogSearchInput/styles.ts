@@ -2,11 +2,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    hiddenPart: {
-        display: 'inline-block',
-        transform: 'translateY(-200px)',
-    },
-    visiblePart: {
+    suggestedText: {
         fontSize: 15,
         lineHeight: 1.4,
         color: theme.appColors.black,
@@ -54,5 +50,25 @@ export const styles = (theme: Theme) => createStyles({
             background: 'none',
             opacity: 0.5
         }
+    },
+    placeholder: {
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        left: 60,
+        right: 61,
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        zIndex: 3,
+        pointerEvents: 'none',
+        fontSize: 15,
+        lineHeight: 1.4,
+        fontWeight: 500,
+        letterSpacing: 0.5,
+        opacity: 0.5
+    },
+    filled: {
+        display: 'none'
     }
 });

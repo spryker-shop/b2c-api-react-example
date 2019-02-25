@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
 import Autosuggest from 'react-autosuggest';
 import { withStyles, CircularProgress } from '@material-ui/core';
 import { CatalogSearchInput } from './CatalogSearchInput';
@@ -114,7 +113,6 @@ class CatalogSearchComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { value } = this.state;
         const { classes, suggestions, isLoading, id, extraInputClassName } = this.props;
-        const filledClass = !!value.length ? classes.filled : '';
 
         const autosuggestProps = {
             id,
@@ -147,9 +145,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
                         suggestion: classes.suggestion
                     } }
                 />
-                <span className={ `${classes.placeholder} ${filledClass}` }>
-                    <FormattedMessage id={ 'header.form.autosuggest.placeholder' } />
-                </span>
+
                 { isLoading &&
                     <div className={ classes.pendingProgress }>
                         <CircularProgress size={ 34 } color="primary" />

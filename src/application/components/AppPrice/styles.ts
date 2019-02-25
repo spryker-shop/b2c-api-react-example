@@ -10,7 +10,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     defaultPrice: {
         fontSize: theme.appFixedDimensions.fontSize.big,
-        fontWeight: 600,
+        fontWeight: 500,
     },
     stylesInherited: {
         fontSize: 'inherit',

@@ -9,6 +9,7 @@ import { SearchIcon } from './icons';
 import { IInputComponentProps as Props, IInputComponentState as State } from './types';
 import { ICompletionMatch } from '../types';
 import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 @connect
 export class CatalogSearchInputComponent extends React.Component<Props, State> {
@@ -51,7 +52,7 @@ export class CatalogSearchInputComponent extends React.Component<Props, State> {
         if (completion.length) {
             completion.some((data: string) => {
                 if (data.startsWith(suggestQuery.toLowerCase())) {
-                    suggestQuery = data;
+                    suggestQuery += data.substring(suggestQuery.length);
 
                     return true;
                 }
@@ -67,12 +68,12 @@ export class CatalogSearchInputComponent extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { classes } = this.props;
-        const { classes: inputClasses, ref, extraInputClassName, ...other } = this.props.inputProps;
+        const { classes: inputClasses, value, ref, extraInputClassName, ...other } = this.props.inputProps;
         const { parts, matches } = this.state;
+        const filledClass = !!value.length ? classes.filled : '';
 
-        const highlightedLetters = parts.map((part: ICompletionMatch, index: number) => part.highlight
-            ? <span key={ String(index) } className={ classes.hiddenPart }>{ part.text }</span>
-            : <strong key={ String(index) } className={ classes.visiblePart }>{ part.text }</strong>
+        const highlightedLetters = parts.map((part: ICompletionMatch, index: number) =>
+            <span key={ String(index) } className={ classes.suggestedText } >{ part.text }</span>
         );
 
         return (
@@ -100,6 +101,9 @@ export class CatalogSearchInputComponent extends React.Component<Props, State> {
                     }}
                     { ...other }
                 />
+                <span className={ `${classes.placeholder} ${filledClass}` }>
+                    <FormattedMessage id={ 'header.form.autosuggest.placeholder' } />
+                </span>
             </form>
         );
     }

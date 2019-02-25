@@ -1,44 +1,27 @@
 import * as React from 'react';
 import { connect } from './connect';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
 import { getCategoryIdByName } from '@helpers/categories';
-import {
-    withStyles,
-    Paper,
-    Typography,
-    Divider
-} from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { withStyles, Paper, Typography } from '@material-ui/core';
+import { LinkIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { ISuggestionsContainerProps as Props } from './types';
+import { ICompletionMatch } from '../types';
 import { styles } from './styles';
 
 export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
     const { categories, completion, suggestions, categoriesTree, classes, options } = props;
+    const maxAmountOfItems = 4;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
         const query = event.currentTarget.dataset.query.trim();
         this.props.sendSearchAction({ q: query, currency: this.props.currency });
         this.props.clearSuggestion(query);
     };
-
-    let suggestQuery: string = options.query.trim();
-
-    if (completion.length) {
-        completion.some((data: string) => {
-            if (data.startsWith(options.query.trim().toLowerCase())) {
-                suggestQuery = data;
-
-                return true;
-            }
-
-            return false;
-        });
-    }
-
-    const maxAmountOfItems = 4;
 
     const renderCompletions = (): JSX.Element[] => {
         const completionsList: JSX.Element[] = [];
@@ -53,7 +36,6 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
                         className={ classes.completion }
                         onClick={ handleSearchCompletion }
                     >
-                        <SearchIcon />
                         <span>{ completion[i] }</span>
                     </NavLink>
                 );
@@ -70,6 +52,14 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
             if (categories[i]) {
                 const categoryNodeId = getCategoryIdByName(categories[i].name, categoriesTree);
                 const path = categoryNodeId ? `${pathCategoryPageBase}/${categoryNodeId}` : pathSearchPage;
+                const matches = match(categories[i].name, options.query);
+                const parts = parse(categories[i].name, matches);
+
+                const highlightedLetters = parts.map((part: ICompletionMatch, index: number) => part.highlight
+                    ? <span key={ String(index) } className={ classes.matchedText }>{ part.text }</span>
+                    : <span key={ String(index) }>{ part.text }</span>
+                );
+
                 categoriesList.push(
                     <NavLink to={ path }
                              data-name={ categories[i].name }
@@ -78,7 +68,13 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
                              className={ classes.completion }
                              onClick={ () => this.props.clearSuggestion(categories[i].name) }
                     >
-                        <div className={ classes.completion }>{ categories[i].name }</div>
+                        <div className={ classes.completionInner }>
+                            <span>{ highlightedLetters }</span>
+                            <span className={ classes.completionTip }>
+                                <FormattedMessage id={ 'categories.panel.title' } />
+                                <span className={ classes.completionTipIcon }><LinkIcon /></span>
+                            </span>
+                        </div>
                     </NavLink>
                 );
             }
@@ -102,30 +98,24 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
     return (
         <div { ...options.containerProps }>
             <div className={ classes.insideContWrapper }>
-                <div>{ renderCompletions() }</div>
-                <Typography component="h4" className={ classes.categoryTitle }>
-                    <FormattedMessage id={ 'categories.panel.title' } />
-                </Typography>
+                <div className={ classes.completionList }>{ renderCompletions() }</div>
 
-                <Divider />
+                {Boolean(renderedCategories().length) &&
+                    <div className={ classes.completionList }>{ renderedCategories() }</div>
+                }
 
-                <div className={ classes.marginTop }>{ renderedCategories() }</div>
-                <Typography component="h4" className={ classes.categoryTitle }>
-                    <FormattedMessage id={ 'suggested.products.title' } />
-                </Typography>
+                <div className={ classes.completionList }>
+                    <div>{ options.children }</div>
 
-                <Divider />
-
-                <div>{ options.children }</div>
-
-                <NavLink
-                    to={ pathSearchPage }
-                    data-query={ options.query }
-                    onClick={ handleSearchCompletion }
-                    className={ classes.linkAll }
-                >
-                    <FormattedMessage id={ 'all.suggested.products.title' } />
-                </NavLink>
+                    <NavLink
+                        to={ pathSearchPage }
+                        data-query={ options.query }
+                        onClick={ handleSearchCompletion }
+                        className={ classes.linkAll }
+                    >
+                        <FormattedMessage id={ 'all.suggested.products.title' } />
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

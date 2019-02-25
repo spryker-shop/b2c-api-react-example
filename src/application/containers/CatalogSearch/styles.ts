@@ -21,10 +21,12 @@ export const styles = (theme: Theme) => createStyles({
         display: 'block',
         position: 'absolute',
         width: '100%',
-        height: '85vh',
-        overflowY: 'auto',
+        padding: '15px 0',
         borderRadius: 2,
-        backgroundColor: '#ffffff',
+        background: theme.appColors.weekWhite,
+        marginTop: -4,
+        zIndex: 3,
+        boxShadow: '0 5px 10px 0 rgba(216, 216, 216, 0.5)'
     },
     suggestion: {
         display: 'block',
@@ -34,37 +36,9 @@ export const styles = (theme: Theme) => createStyles({
         padding: 0,
         listStyleType: 'none',
     },
-    divider: {
-        height: theme.spacing.unit * 2,
-    },
     pendingProgress: {
         position: 'absolute',
         left: '40%',
         zIndex: 10,
-    },
-    placeholder: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        left: 60,
-        right: 61,
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        zIndex: 3,
-        pointerEvents: 'none',
-        fontSize: 15,
-        lineHeight: 1.4,
-        fontWeight: 500,
-        letterSpacing: 0.5,
-        opacity: 0.5
-    },
-    filled: {
-        display: 'none'
-    },
-    searchTitle: {
-        marginLeft: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit,
-        letterSpacing: 0.5,
     }
 });
