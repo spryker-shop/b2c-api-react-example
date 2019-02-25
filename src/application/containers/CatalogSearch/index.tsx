@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import Autosuggest from 'react-autosuggest';
 import { withStyles, CircularProgress } from '@material-ui/core';
-import { InputComponent } from './InputComponent';
+import { CatalogSearchInput } from './CatalogSearchInput';
 import { Suggestions } from './Suggestions';
 import { SuggestionsContainer } from './SuggestionsContainer';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
@@ -74,7 +74,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <InputComponent {...inputComponentProps} />
+                <CatalogSearchInput {...inputComponentProps} />
             </ErrorBoundary>
         );
     };

@@ -11,7 +11,7 @@ import { ICompletionMatch } from '../types';
 import { styles } from './styles';
 
 @connect
-export class InputComponentBase extends React.Component<Props, State> {
+export class CatalogSearchInputComponent extends React.Component<Props, State> {
     public readonly state: State = {
         parts: [],
         matches: []
@@ -105,4 +105,4 @@ export class InputComponentBase extends React.Component<Props, State> {
     }
 }
 
-export const InputComponent = withStyles(styles)(InputComponentBase);
+export const CatalogSearchInput = withStyles(styles)(CatalogSearchInputComponent);
