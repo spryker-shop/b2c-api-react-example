@@ -39,7 +39,7 @@ export const styles = (theme: Theme) => createStyles({
         background: 'transparent',
         letterSpacing: 0.2,
         borderRadius: 4,
-        backgroundColor: 'white'
+        backgroundColor: theme.appColors.white,
     },
     inputIconContainer: {
         padding: '5px 18px',

@@ -15,12 +15,12 @@ import { ClickEvent } from '@interfaces/common';
 import { ISuggestionsContainerProps as Props } from './types';
 import { styles } from './styles';
 
-export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element => {
-    const {categories, completion, suggestions, categoriesTree, classes, options} = props;
+export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { categories, completion, suggestions, categoriesTree, classes, options } = props;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
         const query = event.currentTarget.dataset.query.trim();
-        this.props.sendSearchAction({q: query, currency: this.props.currency});
+        this.props.sendSearchAction({ q: query, currency: this.props.currency });
         this.props.clearSuggestion(query);
     };
 
@@ -47,14 +47,14 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
             if (completion[i]) {
                 completionsList.push(
                     <NavLink
-                        to={pathSearchPage}
-                        data-query={completion[i]}
-                        key={`completion-${i}`}
-                        className={classes.completion}
-                        onClick={handleSearchCompletion}
+                        to={ pathSearchPage }
+                        data-query={ completion[i] }
+                        key={ `completion-${i}` }
+                        className={ classes.completion }
+                        onClick={ handleSearchCompletion }
                     >
                         <SearchIcon />
-                        <span>{completion[i]}</span>
+                        <span>{ completion[i] }</span>
                     </NavLink>
                 );
             }
@@ -71,14 +71,14 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
                 const categoryNodeId = getCategoryIdByName(categories[i].name, categoriesTree);
                 const path = categoryNodeId ? `${pathCategoryPageBase}/${categoryNodeId}` : pathSearchPage;
                 categoriesList.push(
-                    <NavLink to={path}
-                             data-name={categories[i].name}
-                             data-nodeid={categoryNodeId}
-                             key={`category-${categoryNodeId}`}
-                             className={classes.completion}
-                             onClick={() => this.props.clearSuggestion(categories[i].name)}
+                    <NavLink to={ path }
+                             data-name={ categories[i].name }
+                             data-nodeid={ categoryNodeId }
+                             key={ `category-${categoryNodeId}` }
+                             className={ classes.completion }
+                             onClick={ () => this.props.clearSuggestion(categories[i].name) }
                     >
-                        <div className={classes.completion}>{categories[i].name}</div>
+                        <div className={ classes.completion }>{ categories[i].name }</div>
                     </NavLink>
                 );
             }
@@ -89,10 +89,10 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
 
     if (!suggestions.length) {
         return (
-            <div {...options.containerProps}>
+            <div { ...options.containerProps }>
                 <Paper square>
                     <Typography paragraph variant="headline">
-                        <FormattedMessage id={'no.found.message'} />
+                        <FormattedMessage id={ 'no.found.message' } />
                     </Typography>
                 </Paper>
             </div>
@@ -100,35 +100,35 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
     }
 
     return (
-        <div {...options.containerProps}>
-            <div className={classes.insideContWrapper}>
-                <div>{renderCompletions()}</div>
-                <Typography component="h4" className={classes.categoryTitle}>
-                    <FormattedMessage id={'categories.panel.title'} />
+        <div { ...options.containerProps }>
+            <div className={ classes.insideContWrapper }>
+                <div>{ renderCompletions() }</div>
+                <Typography component="h4" className={ classes.categoryTitle }>
+                    <FormattedMessage id={ 'categories.panel.title' } />
                 </Typography>
 
                 <Divider />
 
-                <div className={classes.marginTop}>{renderedCategories()}</div>
-                <Typography component="h4" className={classes.categoryTitle}>
-                    <FormattedMessage id={'suggested.products.title'} />
+                <div className={ classes.marginTop }>{ renderedCategories() }</div>
+                <Typography component="h4" className={ classes.categoryTitle }>
+                    <FormattedMessage id={ 'suggested.products.title' } />
                 </Typography>
 
                 <Divider />
 
-                <div>{options.children}</div>
+                <div>{ options.children }</div>
 
                 <NavLink
-                    to={pathSearchPage}
-                    data-query={options.query}
-                    onClick={handleSearchCompletion}
-                    className={classes.linkAll}
+                    to={ pathSearchPage }
+                    data-query={ options.query }
+                    onClick={ handleSearchCompletion }
+                    className={ classes.linkAll }
                 >
-                    <FormattedMessage id={'all.suggested.products.title'} />
+                    <FormattedMessage id={ 'all.suggested.products.title' } />
                 </NavLink>
             </div>
         </div>
     );
 };
 
-export const SuggestionsContainer = connect(withStyles(styles)(SuggestionsContainerBase));
+export const SuggestionsContainer = connect(withStyles(styles)(SuggestionsContainerComponent));

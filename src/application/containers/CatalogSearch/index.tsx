@@ -23,8 +23,8 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
     protected getSuggestionValue = (suggestion: IProductCard): string => suggestion.abstractName;
 
-    protected handleSuggestionsFetchRequested = ({value}: {value: string}) => {
-        const {value: currentValue} = this.state;
+    protected handleSuggestionsFetchRequested = ({ value }: { value: string }) => {
+        const { value: currentValue } = this.state;
 
         if (!this.props.isLoading && value !== currentValue) {
             clearTimeout(this.timer);
@@ -43,10 +43,10 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
     protected clearSuggestion = (value: string): void => {
         this.props.clearSuggestions(value);
-        this.setState({value: ''});
+        this.setState({ value: '' });
     };
 
-    protected handleChange = (event: InputChangeEvent, {newValue}: {newValue: string}): void => {
+    protected handleChange = (event: InputChangeEvent, { newValue }: { newValue: string }): void => {
         const maxLettersValueToClearSuggestField = 4;
 
         if (newValue.trim().length < maxLettersValueToClearSuggestField) {
@@ -68,20 +68,20 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
     protected renderInputComponent = (inputProps: IInputProps): JSX.Element => {
         const inputComponentProps = {
-            inputProps: {...inputProps},
+            inputProps: { ...inputProps },
             clearSuggestion: this.clearSuggestion
         };
 
         return (
             <ErrorBoundary>
-                <CatalogSearchInput {...inputComponentProps} />
+                <CatalogSearchInput { ...inputComponentProps } />
             </ErrorBoundary>
         );
     };
 
     protected renderSuggestion = (
         suggestion: IProductCard,
-        {query, isHighlighted}: {query: string; isHighlighted: boolean}
+        { query, isHighlighted }: { query: string; isHighlighted: boolean }
     ): JSX.Element => {
         const suggestionsProps = {
             isHighlighted,
@@ -93,7 +93,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <Suggestions {...suggestionsProps} />
+                <Suggestions { ...suggestionsProps } />
             </ErrorBoundary>
         );
     };
@@ -106,14 +106,14 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <SuggestionsContainer {...suggestionsContainerProps} />
+                <SuggestionsContainer { ...suggestionsContainerProps } />
             </ErrorBoundary>
         );
     };
 
     public render(): JSX.Element {
-        const {value} = this.state;
-        const {classes, suggestions, isLoading, id, extraInputClassName} = this.props;
+        const { value } = this.state;
+        const { classes, suggestions, isLoading, id, extraInputClassName } = this.props;
         const filledClass = !!value.length ? classes.filled : '';
 
         const autosuggestProps = {
@@ -129,30 +129,30 @@ class CatalogSearchComponent extends React.Component<Props, State> {
         };
 
         return (
-            <div className={classes.root} id="CatalogSearch" ref={this.containerRef}>
+            <div className={ classes.root } id="CatalogSearch" ref={ this.containerRef }>
                 <Autosuggest
-                    {...autosuggestProps}
-                    inputProps={{
+                    { ...autosuggestProps }
+                    inputProps={ {
                         extraInputClassName,
                         classes,
                         value,
                         onChange: this.handleChange,
                         type: 'text'
-                    }}
-                    theme={{
+                    } }
+                    theme={ {
                         container: classes.container,
                         suggestionsContainer: classes.suggestionsContainer,
                         suggestionsContainerOpen: classes.suggestionsContainerOpen,
                         suggestionsList: classes.suggestionsList,
                         suggestion: classes.suggestion
-                    }}
+                    } }
                 />
-                <span className={`${classes.placeholder} ${filledClass}`}>
-                    <FormattedMessage id={'header.form.autosuggest.placeholder'} />
+                <span className={ `${classes.placeholder} ${filledClass}` }>
+                    <FormattedMessage id={ 'header.form.autosuggest.placeholder' } />
                 </span>
-                {isLoading &&
-                    <div className={classes.pendingProgress}>
-                        <CircularProgress size={34} color="primary" />
+                { isLoading &&
+                    <div className={ classes.pendingProgress }>
+                        <CircularProgress size={ 34 } color="primary" />
                     </div>
                 }
             </div>
