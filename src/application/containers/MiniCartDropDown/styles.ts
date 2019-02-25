@@ -13,15 +13,15 @@ export const styles = (theme: Theme) => createStyles({
         padding: theme.spacing.unit / 2,
         height: 18,
         fontSize: theme.appFixedDimensions.fontSize.mini,
-        lineHeight: '14px',
+        lineHeight: 14,
     },
     badgeCartOpen: {},
     hideBadge: {
         transform: 'scale(0)',
     },
     cartNotification: {
-        top: '70px',
-        right: '21px',
+        top: 70,
+        right: 21,
     },
     cartContent: {
         maxHeight: theme.appFixedDimensions.cartDrop.height,

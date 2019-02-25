@@ -70,5 +70,10 @@ export const appButtons: Overrides = {
                 borderColor: appColors.darkBlue,
             }
         }
+    },
+    MuiIconButton: {
+        root: {
+            borderRadius: 0
+        }
     }
-}
+};

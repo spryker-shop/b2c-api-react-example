@@ -3,6 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
+        fontFamily: 'Circular',
         flexGrow: 1,
         display: 'flex',
         width: '100%',
@@ -13,7 +14,6 @@ export const styles = (theme: Theme) => createStyles({
     container: {
         flexGrow: 1,
     },
-
     suggestionsContainer: {
         display: 'none',
     },
@@ -23,7 +23,7 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         height: '85vh',
         overflowY: 'auto',
-        borderRadius: '2px',
+        borderRadius: 2,
         backgroundColor: '#ffffff',
     },
     suggestion: {
@@ -37,38 +37,6 @@ export const styles = (theme: Theme) => createStyles({
     divider: {
         height: theme.spacing.unit * 2,
     },
-    inputRoot: {
-        display: 'flex',
-        flexDirection: 'row-reverse',
-        paddingLeft: 5,
-    },
-    inputOutline: {
-        border: '1px solid #d9d9d9',
-        backgroundColor: theme.palette.common.white,
-        zIndex: 1,
-    },
-    input: {
-        fontSize: 16,
-        lineHeight: '20px',
-        fontWeight: 500,
-        color: theme.appColors.black,
-        padding: 13,
-        zIndex: 3,
-        background: 'transparent',
-        letterSpacing: '0.5px',
-        '&:not(:focus)': {
-            backgroundColor: 'white'
-        },
-    },
-    inputIconContainer: {
-        position: 'relative',
-        zIndex: 2,
-        margin: 0,
-    },
-    inputIcon: {
-        fill: `${theme.appColors.grey} !important`,
-    },
-
     pendingProgress: {
         position: 'absolute',
         left: '40%',
@@ -78,44 +46,25 @@ export const styles = (theme: Theme) => createStyles({
         position: 'absolute',
         top: '50%',
         transform: 'translateY(-50%)',
-        left: '21px',
-        right: '61px',
+        left: 60,
+        right: 61,
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         zIndex: 3,
         pointerEvents: 'none',
-        fontSize: 16,
-        lineHeight: '20px',
+        fontSize: 15,
+        lineHeight: 1.4,
         fontWeight: 500,
-        letterSpacing: '0.5px',
+        letterSpacing: 0.5,
         opacity: 0.5
     },
     filled: {
         display: 'none'
     },
-
     searchTitle: {
         marginLeft: theme.spacing.unit * 2,
         marginTop: theme.spacing.unit,
-        letterSpacing: '0.5px',
-    },
-    completionInput: {
-        position: 'absolute',
-        left: 20,
-        top: 13,
-        zIndex: 2,
-    },
-    hiddenPart: {
-        display: 'inline-block',
-        transform: 'translateY(-200px)',
-    },
-    visiblePart: {
-        fontSize: 16,
-        lineHeight: '20px',
-        color: '#000000',
-        letterSpacing: '0.5px',
-        opacity: 0.35,
-        fontWeight: 300,
-    },
+        letterSpacing: 0.5,
+    }
 });

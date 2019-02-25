@@ -113,7 +113,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const {value} = this.state;
-        const {classes, suggestions, isLoading, id} = this.props;
+        const {classes, suggestions, isLoading, id, extraInputClassName} = this.props;
         const filledClass = !!value.length ? classes.filled : '';
 
         const autosuggestProps = {
@@ -133,6 +133,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
                 <Autosuggest
                     {...autosuggestProps}
                     inputProps={{
+                        extraInputClassName,
                         classes,
                         value,
                         onChange: this.handleChange,

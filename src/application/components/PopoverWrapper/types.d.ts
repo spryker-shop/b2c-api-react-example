@@ -6,6 +6,7 @@ export interface IPopoverWrapperProps extends WithStyles<typeof styles> {
     anchorElement: HTMLElement | null;
     closePopoverHandler: () => void;
     extraContentClassName?: string;
+    extraLayoutClassName?: string;
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
 }

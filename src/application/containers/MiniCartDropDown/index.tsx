@@ -65,7 +65,7 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
                 aria-label="cart"
                 onClick={ this.openPopover }
                 color="inherit"
-                className={ ` ${classes.iconButton} ${!!anchorElement ? classes.isPopupOpened : '' } ` }
+                className={`${classes.iconButton} ${!!anchorElement ? classes.isPopupOpened : '' }`}
             >
                 <Badge
                     badgeContent={ cartItemsQuantity }

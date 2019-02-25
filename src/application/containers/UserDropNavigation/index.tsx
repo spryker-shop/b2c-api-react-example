@@ -62,7 +62,8 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
                     buttonRef={ this.iconButton }
                     aria-label="person"
                     onClick={ this.openPopover }
-                    className={ ` ${classes.iconButton} ${!!anchorElement ? classes.isPopupOpened : '' } ` }>
+                    className={`${classes.iconButton} ${Boolean(anchorElement) ? classes.isPopupOpened : '' }`}
+                >
                     <UserIcon />
                 </IconButton>
 

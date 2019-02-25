@@ -12,6 +12,7 @@ export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Fl
     id: string;
     sendSuggestionAction: (query: string) => void;
     clearSuggestions: (query: string) => void;
+    extraInputClassName?: string;
 }
 
 export interface ICatalogState {
@@ -21,6 +22,7 @@ export interface ICatalogState {
 
 export interface IInputProps {
     value: string;
+    extraInputClassName?: string;
     [key: string]: any;
     onChange: (event: React.FormEvent<any>, params?: ChangeEvent) => void;
     onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;

@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import { CatalogSearch } from '@application/containers/CatalogSearch';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
-import { SearchIcon } from './icons';
+import { SearchIcon, CrossIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
@@ -37,7 +37,8 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
                     buttonRef={ this.iconButton }
                     aria-label="person"
                     onClick={ this.openPopover }
-                    className={ classes.iconButton }>
+                    className={ classes.iconButton }
+                >
                     <SearchIcon />
                 </IconButton>
 
@@ -45,6 +46,7 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
                     extraContentClassName={ classes.content }
+                    extraLayoutClassName={ classes.layout }
                     anchorOrigin={{
                         vertical: 'center',
                         horizontal: 'right'
@@ -54,7 +56,16 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
                         horizontal: 'right'
                     }}
                 >
-                    <CatalogSearch id={ '2' } />
+                    <div className={ classes.searchLayout }>
+                        <IconButton
+                            aria-label="close"
+                            onClick={ this.closePopover }
+                            className={ classes.searchCloseButton }
+                        >
+                            <CrossIcon />
+                        </IconButton>
+                        <CatalogSearch id={ '2' } extraInputClassName={ classes.searchComponent } />
+                    </div>
                 </PopoverWrapper>
 
             </>
