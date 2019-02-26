@@ -40,7 +40,12 @@ export const styles = (theme: Theme) => createStyles({
     },
     userLinkLogout: {
         color: theme.appColors.red,
+        padding: 0,
+        minWidth: 0,
+        border: 0,
+        borderRadius: 0,
         '&:hover': {
+            background: 'none',
             color: theme.appColors.darkRed
         }
     },
@@ -55,22 +60,23 @@ export const styles = (theme: Theme) => createStyles({
     },
     userBtns: {
         display: 'flex',
+        flexDirection: 'column',
         listStyle: 'none',
-        padding: '20px 15px',
+        padding: '16px 12px 16px 24px',
         margin: 0
     },
     userBtnsItem: {
-        width: '50%',
-        padding: '0 5px'
+        width: '100%',
+        paddingBottom: 10,
+        '&:last-child': {
+            paddingBottom: 0
+        }
     },
     userBtnsLink: {
-        flex: 1,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        textTransform: 'uppercase',
-        fontWeight: 500,
-        justifyContent: 'center',
-        width: '100%',
-        paddingRight: 12,
-        paddingLeft: 12,
+        // flex: 1,
+        //
+        // width: '100%',
+        // paddingRight: 12,
+        // paddingLeft: 12,
     }
 });

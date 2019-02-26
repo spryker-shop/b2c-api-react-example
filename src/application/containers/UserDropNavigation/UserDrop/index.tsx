@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { pathLoginPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Button } from '@material-ui/core';
 import { customerProfileNavLinks } from '@constants/navLinks';
-import { AppBtnLink } from '@application/components/AppBtnLink';
 import { LogoutIcon } from './icons';
 import { INavLinkData } from '@interfaces/navLinks';
 import { IUserDropProps as Props } from './types';
@@ -27,7 +26,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     variant="text"
                     onClick={ onLogoutClick }
-                    className={`${classes.userLink} ${classes.userLinkLogout}`}
+                    className={ `${classes.userLink} ${classes.userLinkLogout}` }
                 >
                     <span className={ classes.userIcon }><LogoutIcon /></span>
                     <FormattedMessage id={ 'log.out.button.title' } />
@@ -39,22 +38,22 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
     const notLoggedInUser = (
         <ul className={ classes.userBtns }>
             <li className={ classes.userBtnsItem }>
-                <Button variant="outlined">
-                    <NavLink to={ pathLoginPage }><FormattedMessage id={ 'word.register.title' } /></NavLink>
+                <Button
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
+                    variant="outlined"
+                    className={ classes.userBtnsLink }
+                >
+                    <FormattedMessage id={ 'word.register.title' } />
                 </Button>
-                {/*<AppBtnLink*/}
-                    {/*title={ <FormattedMessage id={ 'word.register.title' } /> }*/}
-                    {/*path={ pathLoginPage }*/}
-                    {/*extraClassName={ classes.userBtnsLink }*/}
-                {/*/>*/}
             </li>
             <li className={ classes.userBtnsItem }>
-                <AppBtnLink
-                    title={ <FormattedMessage id={ 'log.in.button.title' } /> }
-                    path={ pathLoginPage }
-                    type="black"
-                    extraClassName={ classes.userBtnsLink }
-                />
+                <Button
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
+                    variant="contained"
+                    className={ classes.userBtnsLink }
+                >
+                    <FormattedMessage id={ 'log.in.button.title' } />
+                </Button>
             </li>
         </ul>
     );
