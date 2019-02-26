@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
-import { routerMiddleware, routerReducer } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import { History } from 'history';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -23,8 +23,8 @@ export const configureStore = function (history: History, initialState?: any) {
     }
     // Add the reducer to your store on the `router` key
     const reducer = combineReducers({
-        ...reducers,
-        routing: routerReducer,
+        router: connectRouter(history),
+        ...reducers
     });
     // Apply our middleware for navigating
     const middleware = process.env.NODE_ENV !== 'production' ?

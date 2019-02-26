@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { RouteProps } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { reduxify } from '@application/hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init';

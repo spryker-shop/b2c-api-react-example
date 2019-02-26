@@ -5,7 +5,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider, Store } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router';
 import { ScrollToTopRoute } from '@application/hoc/ScrollToTopRoute';
 import { MuiThemeProvider } from '@material-ui/core/styles';

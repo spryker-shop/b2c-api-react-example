@@ -7,11 +7,11 @@ import { ICountry } from '@interfaces/country';
 
 export interface IInitData {
     ok?: boolean;
-    priceMode: TAppPriceMode;
-    currency: TAppCurrency;
-    store: TAppStore;
-    locale: TAppLocale;
-    timeZone: TAppTimeZone;
+    priceMode?: TAppPriceMode;
+    currency?: TAppCurrency;
+    store?: TAppStore;
+    locale?: TAppLocale;
+    timeZone?: TAppTimeZone;
     categoriesTree?: ICategory[];
     countries?: ICountry[];
     anonymId?: string;
