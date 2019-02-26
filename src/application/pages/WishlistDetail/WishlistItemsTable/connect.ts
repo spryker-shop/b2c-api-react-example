@@ -6,7 +6,7 @@ import { TAppCurrency } from '@interfaces/currency';
 import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { addItemToCartAction, multiItemsCartAction } from '@stores/actions/common/cart';
 import { deleteItemAction } from '@stores/actions/pages/wishlist';
 

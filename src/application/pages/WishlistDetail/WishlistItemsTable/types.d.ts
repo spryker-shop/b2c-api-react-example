@@ -1,5 +1,5 @@
 import { LocationDescriptor, LocationState } from 'history';
-import { RouterAction } from 'react-router-redux';
+import { RouterAction } from 'connected-react-router';
 
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { ICartAddItem, TCartId } from '@interfaces/cart';
