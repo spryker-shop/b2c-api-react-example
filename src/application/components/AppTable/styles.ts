@@ -4,7 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     root: {},
     header: {
-        backgroundColor: theme.appColors.lightGrey
+        backgroundColor: theme.appColors.weekWhite
     },
     headerRow: {
         height: 'auto'
@@ -26,7 +26,7 @@ export const styles = (theme: Theme) => createStyles({
     rowHover: {
         transition: 'background-color 0.5s ease-in-out',
         '&:hover': {
-            backgroundColor: theme.appColors.lightGrey
+            backgroundColor: theme.appColors.weekWhite
         }
     },
     bodyCell: {
