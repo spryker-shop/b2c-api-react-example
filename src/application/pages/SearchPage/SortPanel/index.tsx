@@ -13,11 +13,11 @@ import { styles } from './styles';
 class SortPanelBase extends React.Component<Props, State> {
     public readonly state: State = {
         sort: this.props.currentSort,
-        itemsPerPage: this.props.currentItemsPerPage,
+        itemsPerPage: this.props.currentItemsPerPage
     };
 
     protected handleSetSorting = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
-        await this.setState({sort: event.target.value});
+        await this.setState({ sort: event.target.value });
 
         this.props.setSortAction({
             sort: event.target.value,
@@ -25,8 +25,8 @@ class SortPanelBase extends React.Component<Props, State> {
         });
     };
 
-    protected handleSetItemsPerPage = async (event: React.ChangeEvent<HTMLSelectElement>,): Promise<void> => {
-        await this.setState({itemsPerPage: Number(event.target.value)});
+    protected handleSetItemsPerPage = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+        await this.setState({ itemsPerPage: Number(event.target.value) });
 
         this.props.setSortAction({
             sort: this.props.currentSort,
@@ -35,16 +35,16 @@ class SortPanelBase extends React.Component<Props, State> {
     };
 
     protected itemsPerPageMenuItems = (): object => (
-        this.props.pagination.validItemsPerPageOptions.map((item: number) => ({value: item, name: item}))
+        this.props.pagination.validItemsPerPageOptions.map((item: number) => ({ value: item, name: item }))
     );
 
     protected sortMenuItems = (): object => (
         this.props.sortParams.filter((item: string) => item !== 'rating').map((item: string) => ({
             value: item,
             name:
-                (
-                    this.props.sortParamLocalizedNames && this.props.sortParamLocalizedNames[item]
-                ) ? this.props.sortParamLocalizedNames[item] : `${item}`,
+                this.props.sortParamLocalizedNames && this.props.sortParamLocalizedNames[item]
+                    ? this.props.sortParamLocalizedNames[item]
+                    : `${item}`
         }))
     );
 
@@ -62,19 +62,19 @@ class SortPanelBase extends React.Component<Props, State> {
         }
 
         return (
-            <Grid container alignItems="center" className={classes.root}>
-                <Grid item xs={12} sm={3}>
+            <Grid container alignItems="center" className={ classes.root }>
+                <Grid item xs={ 12 } sm={ 3 }>
                     <FoundItems numberFound={ pagination.numFound } />
                 </Grid>
 
-                <Grid item xs={12} sm={9}>
-                    <div className={classes.sortsOuter}>
-                        <div className={classes.sort}>
+                <Grid item xs={ 12 } sm={ 9 }>
+                    <div className={ classes.sortsOuter }>
+                        <div className={ classes.sort }>
                             { pagination.validItemsPerPageOptions &&
                                 <SprykerSelect
-                                    currentMode={currentItemsPerPage}
-                                    changeHandler={this.handleSetItemsPerPage}
-                                    menuItems={this.itemsPerPageMenuItems()}
+                                    currentMode={ currentItemsPerPage }
+                                    changeHandler={ this.handleSetItemsPerPage }
+                                    menuItems={ this.itemsPerPageMenuItems() }
                                     menuItemFirst={ {
                                         value: ' ',
                                         name: <FormattedMessage id={ 'products.per.page.title' } />,
@@ -84,18 +84,18 @@ class SortPanelBase extends React.Component<Props, State> {
                                 />
                             }
                         </div>
-                        <div className={classes.sort}>
+                        <div className={ classes.sort }>
                             { sortParams.length &&
                                 <SprykerSelect
                                     currentMode={ currentSort ? currentSort : ' ' }
-                                    changeHandler={this.handleSetSorting}
-                                    menuItems={this.sortMenuItems()}
+                                    changeHandler={ this.handleSetSorting }
+                                    menuItems={ this.sortMenuItems() }
                                     menuItemFirst={ {
                                         value: ' ',
                                         name: !(this.props.sortParams.length > 0) && currentSort
                                             ? <FormattedMessage id={ 'sort.model.title' } />
                                             : <FormattedMessage id={ 'relevance.sort.model.title' } />,
-                                        disabled: !(this.props.sortParams.length > 0),
+                                        disabled: !(this.props.sortParams.length > 0)
                                     } }
                                     name="sort"
                                 />
@@ -105,7 +105,7 @@ class SortPanelBase extends React.Component<Props, State> {
                 </Grid>
             </Grid>
         );
-    }
+    };
 }
 
 export const SortPanel = withStyles(styles)(SortPanelBase);

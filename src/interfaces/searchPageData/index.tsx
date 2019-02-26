@@ -79,7 +79,7 @@ export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
     filters: ValueFacets[] | null;
     category: FilterValue[];
-    currentCategory: number | null;
+    currentCategoryId: number | null;
     currentSort: string | null;
     currentItemsPerPage: number | null;
     currentPaginationPage: number;
