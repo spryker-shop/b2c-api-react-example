@@ -21,17 +21,7 @@ export const appButtons: Overrides = {
                 borderColor: appColors.lightGrey
             }
         },
-        text: {
-            padding: 0,
-            minWidth: 0,
-            border: 0,
-            borderRadius: 0,
-            '&:hover': {
-                background: 'none'
-            }
-        },
         contained: {
-            borderRadius: 4,
             boxShadow: 'none',
             backgroundColor: appColors.red,
             color: appColors.white,
@@ -52,7 +42,6 @@ export const appButtons: Overrides = {
             }
         },
         containedPrimary: {
-            borderRadius: 4,
             backgroundColor: appColors.blue,
             color: appColors.white,
 
@@ -65,7 +54,6 @@ export const appButtons: Overrides = {
             }
         },
         outlined: {
-            borderRadius: 4,
             backgroundColor: 'transparent',
             color: appColors.blue,
             borderColor: appColors.lightGrey,
