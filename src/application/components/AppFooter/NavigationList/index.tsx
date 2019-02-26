@@ -9,12 +9,10 @@ export const NavigationListComponent: React.SFC<Props> = (props): JSX.Element =>
     const {classes, title, navigationList, external = false} = props;
 
     return (
-        <div>
-            <p className={classes.title}>
-                <strong>
-                    <FormattedMessage id={title} />
-                </strong>
-            </p>
+        <>
+            <strong className={classes.title}>
+                <FormattedMessage id={title} />
+            </strong>
 
             <ul className={classes.linkList}>
                 {navigationList.map(item => (
@@ -31,7 +29,7 @@ export const NavigationListComponent: React.SFC<Props> = (props): JSX.Element =>
                     </li>
                 ))}
             </ul>
-        </div>
+        </>
     );
 };
 

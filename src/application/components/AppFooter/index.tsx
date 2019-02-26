@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FormattedHTMLMessage } from 'react-intl';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { NavigationList } from './NavigationList';
 import { PartnerLogos } from './PartnerLogos';
@@ -14,38 +15,45 @@ export const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <div className={ classes.footer }>
-            <div className={ classes.footerContainer }>
-                <div className={ classes.footerRow }>
-                    <div className={ `${classes.footerCol} ${classes.footerColLogo}` }>
-                        <div className={ classes.logoContainer }>
-                            <AppLogo />
+            <div className={ classes.container }>
+                <div className={ classes.navigation }>
+                    <div className={ classes.row }>
+                        <div className={ `${classes.col} ${classes.colLogo}` }>
+                            <div className={ classes.logo }>
+                                <AppLogo />
+                            </div>
                         </div>
-                    </div>
-                    <div className={`${classes.footerCol} ${classes.footerColNavigation}`}>
-                        <div className={ classes.footerRow }>
-                            <div className={ classes.footerCol }>
-                                <NavigationList
-                                    title="categories.panel.title"
-                                    navigationList={ categoriesLinks }
-                                />
-                            </div>
-                            <div className={ classes.footerCol }>
-                                <NavigationList
-                                    title="social.media.title"
-                                    navigationList={ socialMediaLinks }
-                                    external
-                                />
-                            </div>
-                            <div className={`${classes.footerCol} ${classes.languageSwitcher}`}>
-                                <ErrorBoundary>
-                                    <LanguageSwitcher />
-                                </ErrorBoundary>
+                        <div className={ `${classes.col} ${classes.colNavigation}` }>
+                            <div className={ classes.row }>
+                                <div className={ classes.col }>
+                                    <NavigationList
+                                        title="categories.panel.title"
+                                        navigationList={ categoriesLinks }
+                                    />
+                                </div>
+                                <div className={ classes.col }>
+                                    <NavigationList
+                                        title="social.media.title"
+                                        navigationList={ socialMediaLinks }
+                                        external
+                                    />
+                                </div>
+                                <div className={ classes.col }>
+                                    <ErrorBoundary>
+                                        <LanguageSwitcher />
+                                    </ErrorBoundary>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className={ classes.footerRow }>
-                    <div className={`${classes.footerCol} ${classes.partners}`}>
+                <div className={ classes.row }>
+                    <div className={ classes.col }>
+                        <span className={ classes.copyrights }>
+                            <FormattedHTMLMessage id={ 'spryker.name.title' } />
+                        </span>
+                    </div>
+                    <div className={ classes.col }>
                         <PartnerLogos />
                     </div>
                 </div>

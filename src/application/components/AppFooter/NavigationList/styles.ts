@@ -1,9 +1,14 @@
 import createStyles from '@material-ui/core/styles/createStyles';
+import { Theme } from '@material-ui/core';
 
-export const styles = () => createStyles({
+export const styles = (theme: Theme) => createStyles({
     title: {
-        textTransform: 'uppercase',
-        margin: '0 0 16px',
+        display: 'block',
+        fontSize: 16,
+        fontWeight: 500,
+        letterSpacing: 0.2,
+        color: theme.appColors.black,
+        paddingBottom: 18
     },
     linkList: {
         listStyle: 'none',
@@ -11,10 +16,12 @@ export const styles = () => createStyles({
         padding: 0,
     },
     linkItem: {
-        marginBottom: 16,
+        paddingBottom: 11,
     },
     link: {
         textDecoration: 'none',
-        color: '#000',
+        color: theme.appColors.grey,
+        fontSize: 15,
+        letterSpacing: 0.2
     },
 });

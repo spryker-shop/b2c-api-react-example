@@ -1,12 +1,6 @@
 import * as React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {
-    PartnerIconVisa,
-    PartnerIconDhl,
-    PartnerIconHermes,
-    PartnerIconMasterCard,
-    PartnerIconPaypal
-} from './icons';
+import { PartnerIconVisa, PartnerIconDhl, PartnerIconHermes, PartnerIconMasterCard, PartnerIconPaypal } from './icons';
 import { IPartnerLogosProps as Props } from './types';
 import { styles } from './styles';
 

@@ -54,15 +54,17 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
 
         return (
             <>
+
                 <Button
                     className={classes.langBtn}
-                    size="small"
                     aria-owns={isOpen ? 'lang-menu' : null}
                     aria-haspopup="true"
                     onClick={this.openLanguage}
                 >
-                    {selectedLanguage.name}
-                    {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    <span className={classes.langBtnInner}>
+                        <span className={classes.langBtnText}>{selectedLanguage.name}</span>
+                        {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    </span>
                 </Button>
 
                 <Menu
