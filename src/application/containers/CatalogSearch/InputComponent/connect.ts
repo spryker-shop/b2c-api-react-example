@@ -1,5 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { reduxify } from '@application/hoc/Reduxify';
 import { sendSearchAction } from '@stores/actions/pages/search';
 import { getAppCurrency } from '@stores/reducers/common/init';
