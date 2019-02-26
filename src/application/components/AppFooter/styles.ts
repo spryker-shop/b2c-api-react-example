@@ -5,6 +5,7 @@ export const styles = (theme: Theme) => createStyles({
     footer: {
         background: theme.appColors.weekWhite,
         padding: '64px 0',
+        flexShrink: 0,
         [theme.breakpoints.down('md')]: {
             padding: '35px 0',
         },

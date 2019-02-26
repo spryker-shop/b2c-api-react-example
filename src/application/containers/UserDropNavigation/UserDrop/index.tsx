@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { pathLoginPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, Button } from '@material-ui/core';
 import { customerProfileNavLinks } from '@constants/navLinks';
 import { AppBtnLink } from '@application/components/AppBtnLink';
 import { LogoutIcon } from './icons';
@@ -24,10 +24,14 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 </li>
             )) }
             <li onClick={ closePopoverHandler } className={ classes.userItem }>
-                <a href="#" onClick={ onLogoutClick } className={`${classes.userLink} ${classes.userLinkLogout}`}>
+                <Button
+                    variant="text"
+                    onClick={ onLogoutClick }
+                    className={`${classes.userLink} ${classes.userLinkLogout}`}
+                >
                     <span className={ classes.userIcon }><LogoutIcon /></span>
                     <FormattedMessage id={ 'log.out.button.title' } />
-                </a>
+                </Button>
             </li>
         </ul>
     );

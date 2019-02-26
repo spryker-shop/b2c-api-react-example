@@ -6,6 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         zIndex: 999,
         pointerEvents: 'all',
+        flexShrink: 0
     },
     content: {
         position: 'fixed',

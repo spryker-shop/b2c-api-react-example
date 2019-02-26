@@ -69,6 +69,16 @@ export const appButtons: Overrides = {
                 color: appColors.white,
                 borderColor: appColors.darkBlue,
             }
+        },
+        text: {
+            padding: 0,
+            fontSize: 15,
+            minWidth: 0,
+            border: 0,
+            borderRadius: 0,
+            '&:hover': {
+                background: 'none'
+            }
         }
     },
     MuiIconButton: {
