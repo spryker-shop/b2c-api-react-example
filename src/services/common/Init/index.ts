@@ -23,18 +23,17 @@ import { typeNotificationError } from '@constants/notifications';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function, payload?: IInitApplicationDataPayload): Promise<void> {
-        let anonymId: string;
+        let anonymId: string = `_${Math.random().toString(36).substr(2, 9)}`;
+
         try {
             const nodeResponse: IApiResponseData = await nodeApi.get('getUniqueUser');
 
             if (nodeResponse.ok) {
                 anonymId = nodeResponse.data;
-            } else {
-                anonymId = 'anonym';
             }
 
         } catch (err) {
-            anonymId = 'anonym';
+            throw err;
         }
 
         try {

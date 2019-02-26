@@ -60,6 +60,13 @@ export const init = function(state: IInitState = initialState,
                 },
                 ...getReducerPartFulfilled(),
             };
+        case `${INIT_APP_ACTION_TYPE}_CLEAR`:
+            return {
+                ...state,
+                data: {
+                    anonymId: ''
+                }
+            };
         default:
             return state;
     }
