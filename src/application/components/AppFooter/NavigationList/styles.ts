@@ -13,15 +13,15 @@ export const styles = (theme: Theme) => createStyles({
     linkList: {
         listStyle: 'none',
         margin: 0,
-        padding: 0,
+        padding: 0
     },
     linkItem: {
-        paddingBottom: 11,
+        paddingBottom: 11
     },
     link: {
         textDecoration: 'none',
         color: theme.appColors.grey,
         fontSize: 15,
         letterSpacing: 0.2
-    },
+    }
 });

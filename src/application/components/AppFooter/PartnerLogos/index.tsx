@@ -5,15 +5,15 @@ import { IPartnerLogosProps as Props } from './types';
 import { styles } from './styles';
 
 export const PartnerLogosComponent: React.SFC<Props> = (props): JSX.Element => {
-    const {classes} = props;
+    const { classes } = props;
 
     return (
-        <ul className={classes.logosList}>
-            <li className={classes.logosListItem}><PartnerIconVisa /></li>
-            <li className={classes.logosListItem}><PartnerIconMasterCard /></li>
-            <li className={classes.logosListItem}><PartnerIconPaypal /></li>
-            <li className={classes.logosListItem}><PartnerIconDhl /></li>
-            <li className={classes.logosListItem}><PartnerIconHermes /></li>
+        <ul className={ classes.logosList }>
+            <li className={ classes.logosListItem }><PartnerIconVisa /></li>
+            <li className={ classes.logosListItem }><PartnerIconMasterCard /></li>
+            <li className={ classes.logosListItem }><PartnerIconPaypal /></li>
+            <li className={ classes.logosListItem }><PartnerIconDhl /></li>
+            <li className={ classes.logosListItem }><PartnerIconHermes /></li>
         </ul>
     );
 };

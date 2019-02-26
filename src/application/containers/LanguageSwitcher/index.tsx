@@ -15,39 +15,39 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
         anchorElement: null
     };
 
-    protected openLanguage = ({currentTarget}: React.MouseEvent<HTMLElement>): void => {
-        this.setState({anchorElement: currentTarget});
+    protected openLanguage = ({ currentTarget }: React.MouseEvent<HTMLElement>): void => {
+        this.setState({ anchorElement: currentTarget });
     };
 
-    protected closeLanguage = (): void => this.setState({anchorElement: null});
+    protected closeLanguage = (): void => this.setState({ anchorElement: null });
 
     protected selectLanguage = (lang: TLanguage) => (): void => {
         const locale: TAppLocale = lang.code;
 
         api.setHeader('Accept-Language', locale);
-        this.setState({anchorElement: null});
-        this.props.switchLocaleAction({locale});
+        this.setState({ anchorElement: null });
+        this.props.switchLocaleAction({ locale });
     };
 
     public render(): JSX.Element {
-        const {appLocale} = this.props;
+        const { appLocale } = this.props;
         if (!appLocale) {
             return null;
         }
-        const {anchorElement} = this.state;
+        const { anchorElement } = this.state;
         const selectedLanguage = availableLanguages.filter((item: TLanguage) => (item.code === appLocale))[0];
-        const {classes} = this.props;
+        const { classes } = this.props;
         const isOpen = Boolean(anchorElement);
         const languagesList = availableLanguages.map(language => {
             const selectedItem = language.code === selectedLanguage.code;
 
             return (
                 <MenuItem
-                    key={language.code}
-                    selected={selectedItem}
-                    onClick={this.selectLanguage(language)}
+                    key={ language.code }
+                    selected={ selectedItem }
+                    onClick={ this.selectLanguage(language) }
                 >
-                    {language.name}
+                    { language.name }
                 </MenuItem>
             );
         });
@@ -56,24 +56,28 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
             <>
 
                 <Button
-                    className={classes.langBtn}
-                    aria-owns={isOpen ? 'lang-menu' : null}
+                    className={ classes.langBtn }
+                    aria-owns={ isOpen ? 'lang-menu' : null }
                     aria-haspopup="true"
-                    onClick={this.openLanguage}
+                    onClick={ this.openLanguage }
                 >
-                    <span className={classes.langBtnInner}>
-                        <span className={classes.langBtnText}>{selectedLanguage.name}</span>
-                        {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    <span className={ classes.langBtnInner }>
+                        <span className={ classes.langBtnText }>{ selectedLanguage.name }</span>
+                        { isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown /> }
                     </span>
                 </Button>
 
                 <Menu
                     id="lang-menu"
-                    anchorEl={anchorElement}
-                    open={isOpen}
-                    onClose={this.closeLanguage}
+                    anchorEl={ anchorElement }
+                    open={ isOpen }
+                    onClose={ this.closeLanguage }
+                    className={classes.content}
+                    classes={{
+                        paper: classes.content
+                    }}
                 >
-                    {languagesList}
+                    { languagesList }
                 </Menu>
             </>
         );

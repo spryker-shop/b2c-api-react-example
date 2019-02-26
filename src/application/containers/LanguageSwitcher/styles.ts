@@ -21,5 +21,8 @@ export const styles = (theme: Theme) => createStyles({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
+    },
+    content: {
+        minWidth: 123
     }
 });
