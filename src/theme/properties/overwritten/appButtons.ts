@@ -9,7 +9,7 @@ export const appButtons: Overrides = {
             fontWeight: 500,
             borderRadius: 4,
             minHeight: 0,
-            padding: '8px 15px',
+            padding: '13px 15px',
             borderWidth: 1,
             borderStyle: 'solid',
             borderColor: 'transparent',
