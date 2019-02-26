@@ -10,12 +10,20 @@ export const styles = (theme: Theme) => createStyles({
             padding: '35px 0',
         },
     },
-    footerCol: {
+    footerContainer: {
+        ...theme.appContainerStyles,
+    },
+    footerRow: {
         display: 'flex',
-        width: '25%',
-        flexGrow: 1,
+        justifyContent: 'space-between',
+        margin: '0 -15px',
+        [theme.breakpoints.down('md')]: {
+            flexWrap: 'wrap',
+        },
+    },
+    footerCol: {
+        padding: '0 15px',
         flexShrink: 1,
-        alignItems: 'flex-start',
         [theme.breakpoints.down('md')]: {
             width: 'auto',
             margin: '0 auto',
@@ -28,7 +36,11 @@ export const styles = (theme: Theme) => createStyles({
             margin: '0 auto',
         },
     },
+    footerColNavigation: {
+        width: '56%',
+    },
     footerColLogo: {
+        width: '44%',
         [theme.breakpoints.down('md')]: {
             width: '100%',
             alignItems: 'center',
@@ -36,8 +48,11 @@ export const styles = (theme: Theme) => createStyles({
             marginBottom: 35,
         },
     },
+    logoContainer: {
+        ...theme.appFixedDimensions.sprykerLogo
+    },
     partners: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'flex-end',
         [theme.breakpoints.down('md')]: {
             width: '100%',
@@ -46,12 +61,7 @@ export const styles = (theme: Theme) => createStyles({
             paddingTop: 35,
         },
     },
-    footerContainer: {
-        ...theme.appContainerStyles,
-        display: 'flex',
-        alignItems: 'stretch',
-        [theme.breakpoints.down('md')]: {
-            flexWrap: 'wrap',
-        },
+    languageSwitcher: {
+        // width: 123
     },
 });
