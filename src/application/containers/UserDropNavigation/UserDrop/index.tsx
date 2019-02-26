@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { pathLoginPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Button } from '@material-ui/core';
@@ -39,11 +39,14 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
     const notLoggedInUser = (
         <ul className={ classes.userBtns }>
             <li className={ classes.userBtnsItem }>
-                <AppBtnLink
-                    title={ <FormattedMessage id={ 'word.register.title' } /> }
-                    path={ pathLoginPage }
-                    extraClassName={ classes.userBtnsLink }
-                />
+                <Button variant="outlined">
+                    <NavLink to={ pathLoginPage }><FormattedMessage id={ 'word.register.title' } /></NavLink>
+                </Button>
+                {/*<AppBtnLink*/}
+                    {/*title={ <FormattedMessage id={ 'word.register.title' } /> }*/}
+                    {/*path={ pathLoginPage }*/}
+                    {/*extraClassName={ classes.userBtnsLink }*/}
+                {/*/>*/}
             </li>
             <li className={ classes.userBtnsItem }>
                 <AppBtnLink
