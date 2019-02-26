@@ -134,15 +134,15 @@ export class SearchPage extends React.Component<ISearchPageProps> {
             category,
             spellingSuggestion,
             categoriesTree,
-            currentCategory,
+            currentCategoryId,
             sendSearch,
             locationCategoryId
         } = this.props;
 
         const isCategoriesExist = (category.length > 0);
 
-        const categoryDisplayName = getCategoryNameById(currentCategory, categoriesTree);
-        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, currentCategory);
+        const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
+        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, currentCategoryId);
 
         return (
             <AppMain>
@@ -154,7 +154,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                             id={ 'search.result.title' }
                             values={ { terms: searchTerm } }
                         />
-                        : (currentCategory && categoryDisplayName)
+                        : (currentCategoryId && categoryDisplayName)
                             ? categoryDisplayName
                             : <FormattedMessage id={ 'search.result.default.title' } />
                     }
@@ -167,7 +167,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                         <CategoriesList
                             categories={ category }
                             categoriesTree={ categoriesTree }
-                            selectedCategory={ currentCategory }
+                            selectedCategory={ currentCategoryId }
                             locationCategoryId={ locationCategoryId }
                         />
                     </Grid>

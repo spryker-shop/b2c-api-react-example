@@ -19,7 +19,7 @@ export class RefreshTokenService extends ApiServiceAbstract {
 
         const now: number = Math.floor(Date.now() / 1000);
 
-        if (now > +tokenExpire) {
+        if (now > Number(tokenExpire)) {
             try {
                 const newToken = await RefreshTokenService.refreshTokenRequest(dispatch, refreshToken);
 
@@ -63,7 +63,7 @@ export class RefreshTokenService extends ApiServiceAbstract {
             saveAccessDataToLocalStorage(responseParsed);
             dispatch({
                 type: REFRESH_TOKEN_REQUEST + '_FULFILLED',
-                payloadRefreshTokenFulfilled: responseParsed,
+                payloadProfileDataFulfilled: responseParsed,
             });
 
             return responseParsed.accessToken;

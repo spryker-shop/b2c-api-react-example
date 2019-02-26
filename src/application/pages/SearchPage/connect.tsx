@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { RouteProps } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { reduxify } from '@application/hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init';
@@ -33,8 +32,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         spellingSuggestion,
         currentSort: pageSearchProps.data.currentSort,
         currentItemsPerPage: pageSearchProps.data.currentItemsPerPage,
-        currentCategory: pageSearchProps && pageSearchProps.data
-            ? pageSearchProps.data.currentCategory
+        currentCategoryId: pageSearchProps && pageSearchProps.data
+            ? pageSearchProps.data.currentCategoryId
             : null,
         currentPaginationPage: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentPaginationPage : 1,
         searchTerm: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '',

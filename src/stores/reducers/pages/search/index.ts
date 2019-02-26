@@ -43,7 +43,7 @@ export const initialState: ISearchState = {
         currentSort: '',
         currentItemsPerPage: 12,
         currentPaginationPage: 1,
-        currentCategory: null,
+        currentCategoryId: null,
         pagination: {
             numFound: 0,
             currentPage: 0,
@@ -102,7 +102,7 @@ export const pageSearch = produce<ISearchState>(
                 draft.data.currentItemsPerPage = action.payloadSearchFulfilled.currentItemsPerPage;
                 draft.data.pagination = action.payloadSearchFulfilled.pagination;
                 draft.data.currentPaginationPage = action.payloadSearchFulfilled.currentPaginationPage;
-                draft.data.currentCategory = action.payloadSearchFulfilled.currentCategory;
+                draft.data.currentCategoryId = action.payloadSearchFulfilled.currentCategoryId;
                 draft.data.spellingSuggestion = action.payloadSearchFulfilled.spellingSuggestion || null;
                 draft.data.productsLabeled = action.payloadSearchFulfilled.productsLabeled || null;
                 draft.data.availableLabels = action.payloadSearchFulfilled.availableLabels || null;
@@ -144,7 +144,7 @@ export const pageSearch = produce<ISearchState>(
                 draft.data.isFiltersUpdated = true;
                 break;
             case PAGES_SEARCH_CURRENT_CATEGORY_SET:
-                draft.data.currentCategory = action.payloadCurrentCategory;
+                draft.data.currentCategoryId = action.payloadCurrentCategory;
                 draft.data.currentPaginationPage = 1;
                 draft.data.isCategoryAsFilter = true;
                 draft.data.isFiltersUpdated = true;

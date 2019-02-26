@@ -15,26 +15,23 @@ export const CategoryItemBase: React.SFC<ICategoryItemProps> = props => {
     } = props;
 
     return (
-        <div className={`${classes.listItemOuter} ${children ? classes.hasChildren : null}`}>
+        <div className={ `${classes.listItemOuter} ${children ? classes.hasChildren : null}` }>
             <ListItem
                 button
-                onClick={(event: React.MouseEvent<HTMLElement>) => selectCategoryHandler(categoryValue)(event)}
-                selected={isSelected}
-                disabled={!isActive}
-                className={classes.categoryItem}
+                onClick={ (event: React.MouseEvent<HTMLElement>) => selectCategoryHandler(categoryValue)(event) }
+                selected={ isSelected }
+                disabled={ !isActive }
+                className={ classes.categoryItem }
                 disableGutters
-                classes={{root: classes.root, selected: classes.selected}}
+                classes={ { root: classes.root, selected: classes.selected } }
             >
                 <ListItemText
                     disableTypography
-                    classes={{root: classes.categoryItemText}}
-                    primary={displayName}
+                    classes={ { root: classes.categoryItemText } }
+                    primary={ displayName }
                 />
             </ListItem>
-            {children
-                ? <div className={classes.children}>{children}</div>
-                : null
-            }
+            { children && <div className={ classes.children }>{ children }</div> }
         </div>
     );
 };

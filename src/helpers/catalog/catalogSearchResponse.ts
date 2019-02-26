@@ -33,13 +33,13 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const currentSort: string = attributes.sort.currentSortParam || ' ';
     const currentPaginationPage: number = pagination.currentPage;
     let category: FilterValue[] = [];
-    let currentCategory: number = null;
+    let currentCategoryId: number = null;
     let categoriesLocalizedName: TLocalizedName | null = null;
 
     attributes.valueFacets.forEach((filter: ValueFacets) => {
         if (filter.name === 'category') {
             category = Array.isArray(filter.values) ? filter.values : [];
-            currentCategory = Number(filter.activeValue);
+            currentCategoryId = Number(filter.activeValue);
             categoriesLocalizedName = filter.localizedName;
         } else {
             filters.push(filter);
@@ -65,7 +65,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         filters,
         activeFilters,
         category,
-        currentCategory,
+        currentCategoryId,
         currentSort,
         currentItemsPerPage: attributes.pagination.currentItemsPerPage,
         currentPaginationPage,
