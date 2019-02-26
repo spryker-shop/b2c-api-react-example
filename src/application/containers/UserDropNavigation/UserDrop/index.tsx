@@ -41,7 +41,6 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
                     variant="outlined"
-                    className={ classes.userBtnsLink }
                 >
                     <FormattedMessage id={ 'word.register.title' } />
                 </Button>
@@ -50,7 +49,6 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
                     variant="contained"
-                    className={ classes.userBtnsLink }
                 >
                     <FormattedMessage id={ 'log.in.button.title' } />
                 </Button>

@@ -8,7 +8,6 @@ import { AppLogo } from '@application/components/AppLogo';
 import { MainNavigation } from '@application/components/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { SprykerLogoBlack } from './icons';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
 
@@ -64,7 +63,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
 
                         <div className={ classes.navigationWrapper }>
                             <div className={ classes.logoContainer }>
-                                <AppLogo customLogo={ <SprykerLogoBlack /> } />
+                                <AppLogo />
                             </div>
 
                             { this.props.location.pathname.endsWith(pathCheckoutPage)

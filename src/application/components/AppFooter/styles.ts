@@ -28,7 +28,7 @@ export const styles = (theme: Theme) => createStyles({
             margin: '0 auto',
         },
     },
-    logo: {
+    footerColLogo: {
         [theme.breakpoints.down('md')]: {
             width: '100%',
             alignItems: 'center',

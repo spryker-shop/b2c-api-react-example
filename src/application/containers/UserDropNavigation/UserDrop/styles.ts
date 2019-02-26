@@ -29,6 +29,7 @@ export const styles = (theme: Theme) => createStyles({
     userLink: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         padding: '10px 16px',
         fontSize: 15,
         fontWeight: 500,
@@ -40,7 +41,6 @@ export const styles = (theme: Theme) => createStyles({
     },
     userLinkLogout: {
         color: theme.appColors.red,
-        padding: 0,
         minWidth: 0,
         border: 0,
         borderRadius: 0,
@@ -66,17 +66,9 @@ export const styles = (theme: Theme) => createStyles({
         margin: 0
     },
     userBtnsItem: {
-        width: '100%',
         paddingBottom: 10,
         '&:last-child': {
             paddingBottom: 0
         }
-    },
-    userBtnsLink: {
-        // flex: 1,
-        //
-        // width: '100%',
-        // paddingRight: 12,
-        // paddingLeft: 12,
     }
 });

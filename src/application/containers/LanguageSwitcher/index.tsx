@@ -1,7 +1,7 @@
 import * as React from 'react';
 import api from '@services/api';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
+import { availableLanguages } from './fixtures';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
@@ -9,20 +9,8 @@ import { TAppLocale } from '@interfaces/locale';
 import { ILangProps as Props, ILangState as State, TLanguage } from './types';
 import { styles } from './styles';
 
-const availableLanguages: TLanguage[] = [
-    {
-        name: <FormattedMessage id={'language.english.title'} />,
-        code: 'en'
-    },
-    {
-        name: <FormattedMessage id={'language.deutsch.title'} />,
-        code: 'de'
-    }
-];
-
 @connect
-@(withStyles(styles) as Function)
-export class LanguageSwitcher extends React.Component<Props, State> {
+class LanguageSwitcherComponent extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null
     };
@@ -89,3 +77,5 @@ export class LanguageSwitcher extends React.Component<Props, State> {
         );
     }
 }
+
+export const LanguageSwitcher = withStyles(styles)(LanguageSwitcherComponent);
