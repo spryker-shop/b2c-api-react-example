@@ -3,18 +3,25 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        backgroundColor: theme.appColors.weakGrey,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center left',
-        height: 520,
-        color: theme.appColors.white,
-        [theme.breakpoints.down('md')]: {
+        backgroundColor: theme.appColors.weekWhite,
+        height: '100vh',
+        position: 'relative',
+        [theme.breakpoints.down('sm')]: {
             height: 320,
         },
         [theme.breakpoints.down('xs')]: {
             height: 'auto',
         },
+    },
+    imageContainer: {
+        position: 'absolute',
+        right: -65,
+        left: '50%',
+        top: 0,
+        height: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'bottom 40px right',
     },
     container: {
         ...theme.appContainerStyles,
@@ -34,25 +41,12 @@ export const styles = (theme: Theme) => createStyles({
     title: {
         display: 'flex',
         flexDirection: 'column',
-        fontSize: theme.appFixedDimensions.fontSize.xxxl,
-        maxWidth: '75%',
-        fontWeight: 'bold',
-        lineHeight: 'normal',
-        letterSpacing: -0.8,
-        [theme.breakpoints.down('sm')]: {
-            maxWidth: '100%',
-            fontSize: theme.appFixedDimensions.fontSize.xl,
-        },
-    },
-    titlePart: {
-        display: 'flex',
+        paddingBottom: 20,
+        color: theme.appColors.grey
     },
     text: {
-        fontSize: theme.appFixedDimensions.fontSize.huge,
-        lineHeight: 1.15,
-        letterSpacing: 0.1,
-        marginBottom: theme.spacing.unit * 4,
-        marginTop: theme.spacing.unit * 1.5,
+        paddingBottom: 30,
+        color: theme.appColors.grey
     },
     btn: {
         textTransform: 'uppercase',

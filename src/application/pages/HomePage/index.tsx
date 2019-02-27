@@ -5,7 +5,7 @@ import { CategoriesTeasers } from '@application/components/CategoriesTeasers';
 import { AppMain } from '@application/components/AppMain';
 import { Banner } from '@application/components/Banner';
 
-const homepageHeroSrc = require('./img/hero_image_2-min.jpg');
+const homepageHeroSrc = require('./img/hero.png');
 
 export const HomePageComponent: React.SFC = (): JSX.Element => (
     <>
