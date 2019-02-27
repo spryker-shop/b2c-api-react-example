@@ -7,6 +7,8 @@ export interface ICategoriesTeasersData {
     img: string;
     path: string;
     linkTitle: string;
+    transparentImage?: boolean;
+    differentBg?: boolean;
 }
 
 export interface ICategoriesTeasersProps extends WithStyles<typeof styles> {
