@@ -15,6 +15,6 @@ export const styles = (theme: Theme) => createStyles({
         backgroundColor: theme.appColors.weekWhite
     },
     content: {
-        marginTop: -10,
+        marginTop: -10
     }
 });

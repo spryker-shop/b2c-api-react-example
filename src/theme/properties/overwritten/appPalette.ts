@@ -8,3 +8,4 @@ export const appPalette: PaletteOptions = {
         main: '#ededed'
     }
 };
+

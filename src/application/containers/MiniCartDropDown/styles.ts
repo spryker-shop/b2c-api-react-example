@@ -2,6 +2,9 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    cartPopover: {
+        marginTop: -10
+    },
     badge: {
         transition: 'transform .3s ease-in-out',
         background: theme.appColors.blue,
@@ -15,16 +18,12 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: theme.appFixedDimensions.fontSize.mini,
         lineHeight: 14,
     },
-    badgeCartOpen: {},
     hideBadge: {
         transform: 'scale(0)',
     },
     cartNotification: {
         top: 70,
         right: 21,
-    },
-    cartContent: {
-        maxHeight: theme.appFixedDimensions.cartDrop.height,
     },
     iconButton: {
         width: 60,

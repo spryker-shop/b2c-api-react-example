@@ -10,8 +10,6 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         children,
         anchorElement,
         closePopoverHandler,
-        extraContentClassName,
-        extraLayoutClassName,
         anchorOrigin,
         transformOrigin
     } = props;
@@ -30,16 +28,10 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     return (
         <Popover
             { ...popoverProps }
-            className={`${classes.popover} ${extraLayoutClassName ? extraLayoutClassName : ''}`}
-            PaperProps={{
-                classes: {
-                    root: `${classes.content} ${extraContentClassName ? extraContentClassName : ''}`
-                }
-            }}
+            className={ classes.popover }
+            PaperProps={{ classes: { root: classes.content } }}
         >
-            <div className={ classes.childWrapper }>
-                { children }
-            </div>
+            { children }
         </Popover>
     );
 };

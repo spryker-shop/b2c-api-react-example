@@ -5,68 +5,77 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AppPrice } from '@application/components/AppPrice';
 import { IMiniCartItemProps as Props } from './types';
-import { styles, cartProductImageSize } from './styles';
+import { styles } from './styles';
 import { SquareImage } from '@application/components/SquareImage';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { FormattedMessage } from 'react-intl';
 
 export const MiniCartItemComponent: React.SFC<Props> = props => {
-    const {classes, productData, deleteItem} = props;
+    const {
+        classes,
+        productData: {
+            image,
+            name,
+            priceDefaultGross,
+            priceOriginalGross,
+            quantity,
+            sku
+        },
+        deleteItem
+    } = props;
+    const cartProductImageSize = 80;
 
     return (
-        <Grid container className={classes.productItem}>
-            <Grid item className={classes.imageOuter}>
+        <Grid container className={ classes.productItem }>
+            <Grid item className={ classes.imageOuter }>
                 <SquareImage
-                    size={cartProductImageSize}
-                    image={productData.image}
-                    alt={productData.name}
+                    size={ cartProductImageSize }
+                    image={ image }
+                    alt={ name }
                 />
             </Grid>
-            <Grid item className={classes.contentOuter}>
-                <Grid container className={classes.content}>
-                    <Grid item xs={12}>
+            <Grid item className={ classes.contentOuter }>
+                <Grid container className={ classes.content }>
+                    <Grid item xs={ 12 }>
                         <Grid container>
-                            <Grid item xs={12} sm={9}>
-                                <Typography component="h5" className={classes.name}>
-                                    {productData.name}
+                            <Grid item xs={ 12 } sm={ 9 }>
+                                <Typography component="h5" variant="headline" className={ classes.name }>
+                                    { name }
                                 </Typography>
                             </Grid>
 
-                            <Grid item xs={12} sm={3}>
-                                {productData.priceDefaultGross
-                                    ? <Typography component="p" className={classes.price}>
-                                        <AppPrice
-                                            value={productData.priceDefaultGross}
-                                            isStylesInherited
-                                        />
+                            <Grid item xs={ 12 } sm={ 3 }>
+                                { priceDefaultGross &&
+                                    <Typography
+                                        component="p"
+                                        className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
+                                    >
+                                        <AppPrice value={ priceDefaultGross } isStylesInherited />
                                     </Typography>
-                                    : null
                                 }
 
-                                {productData.priceOriginalGross
-                                    ? <Typography component="p" className={classes.price}>
+                                { priceOriginalGross &&
+                                    <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
                                         <AppPrice
-                                            value={productData.priceOriginalGross}
-                                            priceType={priceTypeNameOriginal}
+                                            value={ priceOriginalGross }
+                                            priceType={ priceTypeNameOriginal }
                                             isStylesInherited
                                         />
                                     </Typography>
-                                    : null
                                 }
                             </Grid>
                         </Grid>
                     </Grid>
 
-                    <Grid item xs={12} className={classes.actionArea}>
-                        <Typography component="p" className={classes.quantity}>
-                            <FormattedMessage id={'word.quantity.title'} />: {productData.quantity}
+                    <Grid item xs={ 12 } className={ classes.actionArea }>
+                        <Typography component="p" className={ classes.quantity }>
+                            <FormattedMessage id={ 'word.quantity.title' } />:
+                            <span className={ classes.quantityValue }> { quantity }</span>
                         </Typography>
-                        <Button onClick={() => deleteItem(productData.sku)} className={classes.removeBtn}>
-                            <FormattedMessage id={'remove.button.title'} />
-                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
+            <Button onClick={ () => deleteItem(sku) } className={ classes.removeBtn } />
         </Grid>
     );
 };

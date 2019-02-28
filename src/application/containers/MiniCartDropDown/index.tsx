@@ -94,9 +94,9 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
                 <PopoverWrapper
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    extraContentClassName={ classes.cartContent }
+                    classes={{ popover: classes.cartPopover }}
                 >
-                    <MiniCartDrop />
+                    <MiniCartDrop  />
                 </PopoverWrapper>
             </>
         );

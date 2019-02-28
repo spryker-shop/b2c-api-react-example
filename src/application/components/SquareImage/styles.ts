@@ -12,7 +12,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     actionAreaOverlay: {
         position: 'absolute',
-        background: 'rgba(0, 0, 0, 0.10)',
+        background: 'rgba(0, 0, 0, 0.05)',
         borderRadius: 4,
         top: 0,
         left: 0,
