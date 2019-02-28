@@ -3,17 +3,11 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     cartDrop: {
-        display: 'flex',
-        flexDirection: 'column',
         fontFamily: 'Circular',
         borderRadius: 4,
         boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
         width: 575,
-        maxHeight: 585,
         overflow: 'hidden'
-    },
-    visibleBlocks: {
-        flexShrink: 0
     },
     cartHeading: {
         display: 'flex',
@@ -25,7 +19,7 @@ export const styles = (theme: Theme) => createStyles({
     cartDropProductsList: {
         listStyle: 'none',
         overflowY: 'auto',
-        flexGrow: 1,
+        maxHeight: 110 * 3,
         margin: 0,
         padding: 0
     },

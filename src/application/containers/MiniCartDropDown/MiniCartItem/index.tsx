@@ -75,7 +75,7 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Button onClick={ () => deleteItem(sku) } className={ classes.removeBtn } />
+            <span onClick={ () => deleteItem(sku) } className={ classes.removeBtn } />
         </Grid>
     );
 };

@@ -3,7 +3,11 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     cartPopover: {
-        marginTop: -10
+        marginTop: -10,
+        pointerEvents: 'none'
+    },
+    cartContent: {
+        pointerEvents: 'auto'
     },
     badge: {
         transition: 'transform .3s ease-in-out',

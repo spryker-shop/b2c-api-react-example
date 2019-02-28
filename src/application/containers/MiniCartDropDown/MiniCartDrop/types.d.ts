@@ -11,6 +11,8 @@ export interface IMiniCartDropProps extends WithStyles<typeof styles> {
     anonymId: string;
     isCartLoading: boolean;
     cartItemsQuantity: TProductQuantity;
-    cartDeleteItemAction?(cartId: TCartId, itemId: TProductSKU): void;
-    removeItemGuestCartAction?(cartId: TCartId, itemId: TProductSKU, anonymId: string): void;
+    onMouseLeave: () => void;
+    onMouseEnter: () => void;
+    cartDeleteItemAction?: (cartId: TCartId, itemId: TProductSKU) => void;
+    removeItemGuestCartAction?: (cartId: TCartId, itemId: TProductSKU, anonymId: string) => void;
 }

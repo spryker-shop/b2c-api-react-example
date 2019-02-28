@@ -60,6 +60,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.lightGrey,
         border: '1px solid currentColor',
         transition: 'color 0.3s ease-in-out',
+        cursor: 'pointer',
         '&:after, &:before': {
             content: '""',
             position: 'absolute',

@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { pathCartPage, pathCheckoutPage, pathLoginPage } from '@constants/routes';
+import { NavLink } from 'react-router-dom';
+import { pathCartPage, pathCheckoutPage } from '@constants/routes';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Typography, Grid, Button } from '@material-ui/core';
 import { AppPrice } from '@application/components/AppPrice';
 import { MiniCartItem } from '../MiniCartItem';
-import { AppBtnLink } from '@application/components/AppBtnLink';
 import { IMiniCartDropProps as Props } from './types';
 import { styles } from './styles';
-import { NavLink } from 'react-router-dom';
 
 @connect
 export class MiniCartDropComponent extends React.Component<Props> {
@@ -29,11 +28,11 @@ export class MiniCartDropComponent extends React.Component<Props> {
     };
 
     public render(): JSX.Element {
-        const { classes, cartItems, totals, cartItemsQuantity } = this.props;
+        const { classes, cartItems, totals, cartItemsQuantity, onMouseLeave, onMouseEnter } = this.props;
 
         return (
-            <div className={ classes.cartDrop }>
-                <div className={`${classes.cartHeading} ${classes.visibleBlocks}`}>
+            <div className={ classes.cartDrop } onMouseLeave={ onMouseLeave } onMouseEnter={ onMouseEnter }>
+                <div className={ classes.cartHeading }>
                     <Typography component="h4" variant="display1" color="inherit">
                         <FormattedMessage id={ 'word.my.cart.title' } />
                     </Typography>
@@ -55,55 +54,53 @@ export class MiniCartDropComponent extends React.Component<Props> {
                     )) }
                 </ul>
 
-                <div className={ classes.visibleBlocks }>
-                    <div className={ classes.cartTotalContainer }>
-                        { (!!totals.discountTotal && totals.discountTotal > 0) &&
-                            <div className={ classes.cartTotal }>
-                                <Typography component="h5" variant="display1" className={ classes.fontTotal }>
-                                    <FormattedMessage id={ 'word.discount.title' } />
-                                </Typography>
-                                <AppPrice
-                                    value={ totals.discountTotal }
-                                    isMinus
-                                    extraClassName={`${classes.priceTotal} ${classes.discountPriceTotal}`}
-                                />
-                            </div>
-                        }
+                <div className={ classes.cartTotalContainer }>
+                    { (!!totals.discountTotal && totals.discountTotal > 0) &&
                         <div className={ classes.cartTotal }>
                             <Typography component="h5" variant="display1" className={ classes.fontTotal }>
-                                <FormattedMessage id={ 'word.total.title' } />
+                                <FormattedMessage id={ 'word.discount.title' } />
                             </Typography>
                             <AppPrice
-                                value={ totals.grandTotal }
-                                extraClassName={ classes.priceTotal }
+                                value={ totals.discountTotal }
+                                isMinus
+                                extraClassName={`${classes.priceTotal} ${classes.discountPriceTotal}`}
                             />
                         </div>
+                    }
+                    <div className={ classes.cartTotal }>
+                        <Typography component="h5" variant="display1" className={ classes.fontTotal }>
+                            <FormattedMessage id={ 'word.total.title' } />
+                        </Typography>
+                        <AppPrice
+                            value={ totals.grandTotal }
+                            extraClassName={ classes.priceTotal }
+                        />
                     </div>
-
-                    <Grid container className={ classes.cartBtns } spacing={ 8 }>
-                        <Grid item xs={ 6 }>
-                            <Button
-                                component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCartPage } /> }
-                                variant="outlined"
-                                fullWidth={ true }
-                            >
-                                <FormattedMessage id={ 'word.cart.title' } />
-                            </Button>
-                        </Grid>
-                        <Grid item xs={ 6 }>
-                            <Button
-                                component={
-                                    ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } />
-                                }
-                                variant="contained"
-                                color="primary"
-                                fullWidth={ true }
-                            >
-                                <FormattedMessage id={ 'word.checkout.title' } />
-                            </Button>
-                        </Grid>
-                    </Grid>
                 </div>
+
+                <Grid container className={ classes.cartBtns } spacing={ 8 }>
+                    <Grid item xs={ 6 }>
+                        <Button
+                            component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCartPage } /> }
+                            variant="outlined"
+                            fullWidth={ true }
+                        >
+                            <FormattedMessage id={ 'word.cart.title' } />
+                        </Button>
+                    </Grid>
+                    <Grid item xs={ 6 }>
+                        <Button
+                            component={
+                                ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } />
+                            }
+                            variant="contained"
+                            color="primary"
+                            fullWidth={ true }
+                        >
+                            <FormattedMessage id={ 'word.checkout.title' } />
+                        </Button>
+                    </Grid>
+                </Grid>
             </div>
         );
     }

@@ -11,10 +11,11 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         anchorElement,
         closePopoverHandler,
         anchorOrigin,
-        transformOrigin
+        transformOrigin,
+        openPopup
     } = props;
 
-    const isOpen = Boolean(anchorElement);
+    const isOpen = openPopup !== null ? openPopup : Boolean(anchorElement);
 
     const popoverProps = {
         open: isOpen,
@@ -37,6 +38,7 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
 };
 
 PopoverWrapperBase.defaultProps = {
+    openPopup: null,
     anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'right'

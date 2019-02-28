@@ -7,4 +7,5 @@ export interface IPopoverWrapperProps extends WithStyles<typeof styles> {
     closePopoverHandler: () => void;
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
+    openPopup?: boolean | null;
 }
