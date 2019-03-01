@@ -95,7 +95,7 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
                     onClick={ this.openPopover }
                     onMouseEnter={ this.onHoverButtonHandler }
                     onMouseLeave={ this.onUnhoverButtonHandler }
-                    className={`${classes.iconButton} ${Boolean(anchorElement) ? classes.isPopupOpened : '' }`}
+                    className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
                 >
                     <UserIcon />
                 </IconButton>

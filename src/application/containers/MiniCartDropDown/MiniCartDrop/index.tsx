@@ -10,7 +10,7 @@ import { IMiniCartDropProps as Props } from './types';
 import { styles } from './styles';
 
 @connect
-export class MiniCartDropComponent extends React.Component<Props> {
+class MiniCartDropComponent extends React.Component<Props> {
     protected deleteFromCart = (cartItemId: string): void => {
         const {
             cartDeleteItemAction,

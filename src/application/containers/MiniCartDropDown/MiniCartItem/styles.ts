@@ -19,7 +19,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     name: {
         color: theme.appColors.grey,
-        paddingRight: 8
+        padding: '0 8px 9px 0'
     },
     price: {
         fontWeight: 500,
@@ -77,7 +77,7 @@ export const styles = (theme: Theme) => createStyles({
             transform: 'translate(-50%, -50%) rotate(-45deg)'
         },
         '&:hover': {
-            color: theme.appColors.blue,
+            color: theme.appColors.red,
             backgroundColor: 'transparent'
         }
 

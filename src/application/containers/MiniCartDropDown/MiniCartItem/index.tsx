@@ -1,6 +1,5 @@
 import * as React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AppPrice } from '@application/components/AppPrice';
@@ -45,14 +44,12 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                             </Grid>
 
                             <Grid item xs={ 12 } sm={ 3 }>
-                                { priceDefaultGross &&
-                                    <Typography
-                                        component="p"
-                                        className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
-                                    >
-                                        <AppPrice value={ priceDefaultGross } isStylesInherited />
-                                    </Typography>
-                                }
+                                <Typography
+                                    component="p"
+                                    className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
+                                >
+                                    <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>

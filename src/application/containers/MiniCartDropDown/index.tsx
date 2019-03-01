@@ -101,7 +101,7 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
                 onClick={ this.onRedirectHandler }
                 onMouseEnter={ this.onHoverButtonHandler }
                 onMouseLeave={ this.onUnhoverButtonHandler }
-                className={`${classes.iconButton} ${!!anchorElement ? classes.isPopupOpened : '' }`}
+                className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
             >
                 <Badge
                     badgeContent={ cartItemsQuantity }
