@@ -10,8 +10,8 @@ import { CategoryItem } from './CategoryItem';
 import { Grid, List, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
-    {
+export const CategoriesListBase: React.SFC<ICategoriesListProps> = (props): JSX.Element  => {
+    const {
         classes,
         categories,
         categoriesTree,
@@ -20,8 +20,8 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
         locationCategoryId,
         changeLocation,
         setCurrentCategory
-    }
-) => {
+    } = props;
+
     if (!Array.isArray(categories) || !categories.length) {
         return null;
     }
@@ -69,12 +69,7 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
     };
 
     return (
-        <Grid
-            container
-            justify="flex-start"
-            alignItems="center"
-            className={classes.root}
-        >
+        <Grid container alignItems="center" className={classes.root}>
             <Grid item xs={12}>
                 <AppPageSubTitle
                     title={ localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
