@@ -83,7 +83,7 @@ class MiniCartDropComponent extends React.Component<Props> {
                         <Button
                             component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCartPage } /> }
                             variant="outlined"
-                            fullWidth={ true }
+                            fullWidth
                         >
                             <FormattedMessage id={ 'word.cart.title' } />
                         </Button>
@@ -95,7 +95,7 @@ class MiniCartDropComponent extends React.Component<Props> {
                             }
                             variant="contained"
                             color="primary"
-                            fullWidth={ true }
+                            fullWidth
                         >
                             <FormattedMessage id={ 'word.checkout.title' } />
                         </Button>

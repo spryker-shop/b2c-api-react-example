@@ -7,15 +7,16 @@ import { AppMain } from '@application/components/AppMain';
 import { CartRows } from './CartRows';
 import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
+import { AppPrice } from '@application/components/AppPrice';
 import { styles } from './styles';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isCartEmpty, totalQty } = props;
+    const { classes, isCartEmpty, totalQty, totals } = props;
 
     if (isCartEmpty) {
         return (
             <AppMain>
-                <Grid item xs={ 12 } className={ classes.emptyCart }>
+                <Grid item xs={ 12 } className={ classes.root }>
                     <Typography
                         variant="display2"
                         noWrap
@@ -49,13 +50,29 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <ErrorBoundary>
                             <CartRows />
                         </ErrorBoundary>
+
+                        <div className={ classes.subtotal }>
+                            <Typography
+                                component="span"
+                                variant="headline"
+                                color="textSecondary"
+                                className={ classes.subtotalText }
+                            >
+                                <FormattedMessage id={ 'word.subtotal.title' } />:
+                            </Typography>
+                            <Typography component="span" variant="display2">
+                                <AppPrice value={ totals.subtotal } isStylesInherited />
+                            </Typography>
+                        </div>
                     </div>
                 </Grid>
 
                 <Grid item xs={ 12 } md={ 4 }>
-                    <ErrorBoundary>
-                        <OrderSummary />
-                    </ErrorBoundary>
+                    <div className={ classes.layout }>
+                        <ErrorBoundary>
+                            <OrderSummary totals={ totals } />
+                        </ErrorBoundary>
+                    </div>
                 </Grid>
             </Grid>
         </AppMain>

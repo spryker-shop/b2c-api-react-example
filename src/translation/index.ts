@@ -163,6 +163,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Select wish list',
         'shipment.tax.rate.label': 'Tax Rate',
         'shipping.address.title': 'Shipping Address',
+        'shipping.fee.calculated.text': 'Shipping fee will be calculated based on Shipping address',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -189,16 +190,18 @@ export const messages: IMessages = {
         'word.availability.title': 'Availability',
         'word.back.title': 'Back',
         'word.cart.title': 'Cart',
-        'word.my.cart.title': 'My Cart',
         'word.checkout.title': 'Checkout',
         'word.delete.title': 'Delete',
         'word.disagree.title': 'Disagree',
         'word.discount.title': 'Discount',
+        'word.each.title': 'each',
         'word.edit.title': 'Edit',
         'word.here.title': 'here.',
         'word.item.title': 'Item',
         'word.items.title': 'Items',
+        'word.loading.title': 'Loading...',
         'word.login.title': 'Login',
+        'word.my.cart.title': 'My Cart',
         'word.order.history.title': 'Order History',
         'word.password.title': 'Password',
         'word.payment.title': 'Payment',
@@ -217,9 +220,8 @@ export const messages: IMessages = {
         'word.total.title': 'Total',
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
-        'word.loading.title': 'Loading...',
-        'word.each.title': 'each',
-        'zip.code.label': 'Zipcode',
+        'your.order.title': 'Your Order',
+        'zip.code.label': 'Zipcode'
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -380,6 +382,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Wunschliste auswählen',
         'shipment.tax.rate.label': 'Steuersatz',
         'shipping.address.title': 'Lieferadresse',
+        'shipping.fee.calculated.text': 'Die Versandkosten werden basierend auf der Versandadresse berechnet',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -406,16 +409,18 @@ export const messages: IMessages = {
         'word.availability.title': 'Verfügbarkeit',
         'word.back.title': 'Zurück',
         'word.cart.title': 'Mein Warenkorb',
-        'word.my.cart.title': 'Mein Warenkorb',
         'word.checkout.title': 'Zur Kasse',
         'word.delete.title': 'Löschen',
         'word.disagree.title': 'Nicht zustimmen',
         'word.discount.title': 'Rabatt',
+        'word.each.title': 'jeder',
         'word.edit.title': 'Bearbeiten',
         'word.here.title': 'hier.',
         'word.item.title': 'Artikel',
         'word.items.title': 'Artikel',
+        'word.loading.title': 'Beladung...',
         'word.login.title': 'Anmelden',
+        'word.my.cart.title': 'Mein Warenkorb',
         'word.order.history.title': 'Bestellungen',
         'word.password.title': 'Passwort',
         'word.payment.title': 'Zahlung',
@@ -434,16 +439,14 @@ export const messages: IMessages = {
         'word.total.title': 'Gesamtsumme',
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
-        'word.loading.title': 'Beladung...',
-        'word.each.title': 'jeder',
-        'zip.code.label': 'PLZ',
+        'your.order.title': 'Deine Bestellung',
+        'zip.code.label': 'PLZ'
     }
 };
 
 // Console Messages
 export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
 export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const EmptyValueErrorMessage = 'Selected value is empty!';
 export const InputSaveErrorMessage = 'Can\'t handle this value or field name';
 export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
 export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';

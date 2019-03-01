@@ -61,7 +61,7 @@ export const appTypographyStyles: IAppTypography = {
     },
     headline: {
         fontSize: 15,
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.47,
         letterSpacing: 0.2,
         marginLeft: 0,

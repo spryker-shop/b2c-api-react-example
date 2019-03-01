@@ -3,13 +3,10 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        paddingBottom: 32
-    },
-    emptyCart: {
-        paddingBottom: 40
+        paddingBottom: 80
     },
     layout: {
-        padding: '32px 20px 28px',
+        padding: '32px 20px 20px',
         background: theme.appColors.weekWhite,
         borderRadius: 4
     },
@@ -28,5 +25,15 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.weakGrey,
         background: theme.appColors.white,
         borderRadius: 4
+    },
+    subtotal: {
+        padding: '6px 0 8px',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    subtotalText: {
+        paddingRight: 6,
+        fontWeight: 500
     }
 });

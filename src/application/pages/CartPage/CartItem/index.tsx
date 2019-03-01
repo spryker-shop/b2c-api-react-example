@@ -26,6 +26,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         cartRejected,
         calculations: { unitPriceToPayAggregation }
     } = props;
+    const abstractProductSku = sku.split('_')[0];
 
     return (
 
@@ -42,7 +43,10 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                     <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
                             <Typography component="h5" variant="headline" className={classes.name}>
-                                <NavLink to={`${pathProductPageBase}/${sku}`} className={classes.nameLink}>
+                                <NavLink
+                                    to={`${pathProductPageBase}/${abstractProductSku}`}
+                                    className={classes.nameLink}
+                                >
                                     { name }
                                 </NavLink>
                             </Typography>

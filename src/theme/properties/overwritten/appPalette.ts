@@ -1,4 +1,5 @@
 import { PaletteOptions } from '@material-ui/core/es/styles/createPalette';
+import { appColors } from '@theme/properties/new/appColors';
 
 export const appPalette: PaletteOptions = {
     primary: {
@@ -6,6 +7,9 @@ export const appPalette: PaletteOptions = {
     },
     secondary: {
         main: '#ededed'
+    },
+    text: {
+        primary: appColors.black,
+        secondary: appColors.grey
     }
 };
-
