@@ -33,7 +33,6 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center'
     },
     subtotalText: {
-        paddingRight: 6,
-        fontWeight: 500
+        paddingRight: 6
     }
 });

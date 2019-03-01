@@ -29,8 +29,7 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1
     },
     name: {
-        padding: '5px 0 13px',
-        fontWeight: 500
+        padding: '5px 0 13px'
     },
     nameLink: {
         textDecoration: 'none',
