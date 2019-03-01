@@ -7,7 +7,12 @@ export const styles = (theme: Theme) => createStyles({
         marginBottom: 10,
         position: 'relative',
         flexWrap: 'nowrap',
-        background: theme.appColors.white
+        background: theme.appColors.white,
+        border: `1px solid ${theme.appColors.weekWhite}`,
+        transition: 'box-shadow 0.3s ease-in-out',
+        '&:hover': {
+            boxShadow: ' 0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        }
     },
     imageOuter: {
         flexShrink: 0
