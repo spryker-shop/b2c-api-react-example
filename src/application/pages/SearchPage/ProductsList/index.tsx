@@ -1,14 +1,14 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
+import { connect } from './connect';
+import { IProductsListProps } from './types';
 import { IProductCard, IProductLabel } from '@interfaces/product';
-import { sprykerTheme } from '@theme/sprykerTheme';
+import { getProductLabel } from '@helpers/product/label';
 import { ProductCard } from '@application/components/ProductCard';
 import { AppPageHeadline } from '@application/components/AppPageHeadline';
-import { getProductLabel } from '@helpers/product/label';
-import { IProductsListProps } from '@application/pages/SearchPage/ProductsList/types';
-import { FormattedMessage } from 'react-intl';
+import { Grid, withStyles } from '@material-ui/core';
+import { styles } from './styles';
+import { sprykerTheme } from '@theme/sprykerTheme';
 
 export const ProductsListBase: React.SFC<IProductsListProps> = props => {
     const {
@@ -58,4 +58,4 @@ export const ProductsListBase: React.SFC<IProductsListProps> = props => {
     );
 };
 
-export const ProductsList = withStyles(styles)(ProductsListBase);
+export const ProductsList = withStyles(styles)(connect(ProductsListBase));

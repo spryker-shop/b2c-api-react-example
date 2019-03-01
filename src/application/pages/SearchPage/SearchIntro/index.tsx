@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { NavLink } from 'react-router-dom';
+import { ISearchIntroProps } from './types';
+import { pathSearchPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { ISearchIntroProps } from '@application/pages/SearchPage/SearchIntro/types';
-import { FormattedMessage } from 'react-intl';
-import { pathSearchPage } from '@constants/routes';
-import { NavLink } from 'react-router-dom';
 
 export const SearchIntroBase: React.SFC<ISearchIntroProps> = props => {
     const {spellingSuggestion, onLinkClick, classes} = props;
@@ -14,12 +14,12 @@ export const SearchIntroBase: React.SFC<ISearchIntroProps> = props => {
     }
 
     const suggestionTermLink = <NavLink
-        to={pathSearchPage}
-        className={classes.spellingSuggestion}
-        onClick={onLinkClick}
-    >
-        {spellingSuggestion}
-    </NavLink>;
+            to={pathSearchPage}
+            className={classes.spellingSuggestion}
+            onClick={onLinkClick}
+        >
+            {spellingSuggestion}
+        </NavLink>;
 
     return (
         <FormattedMessage

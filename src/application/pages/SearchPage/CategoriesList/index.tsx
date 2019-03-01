@@ -1,27 +1,39 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-
-import { CategoryItem } from '@application/pages/SearchPage/CategoryItem';
-import { AppPageSubTitle } from '@application/components/AppPageSubTitle';
-import {
-    IActiveFilterCategories,
-    ICategoriesListProps
-} from '@application/pages/SearchPage/CategoriesList/types';
-import { styles } from './styles';
-import { ICategory } from '@interfaces/category';
-import { getFormattedActiveCategories } from '@application/pages/SearchPage/helpers';
 import { FormattedMessage } from 'react-intl';
+import { connect } from './connect';
+import { ICategory } from '@interfaces/category';
+import { IActiveFilterCategories, ICategoriesListProps } from './types';
+import { getFormattedActiveCategories } from '../helpers';
+import { pathCategoryPageBase } from '@constants/routes';
+import { AppPageSubTitle } from '@application/components/AppPageSubTitle';
+import { CategoryItem } from './CategoryItem';
+import { Grid, List, withStyles } from '@material-ui/core';
+import { styles } from './styles';
 
 export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
-    {classes, categories, categoriesTree, selectedCategory, localizedName},
+    {
+        classes,
+        categories,
+        categoriesTree,
+        selectedCategory,
+        localizedName,
+        locationCategoryId,
+        changeLocation,
+        setCurrentCategory
+    }
 ) => {
-
     if (!Array.isArray(categories) || !categories.length) {
         return null;
     }
+
     const activeCategories = getFormattedActiveCategories(categories);
+
+    const selectCategory = (categoryId: number) => (event: React.MouseEvent<HTMLElement>): void => {
+        if (locationCategoryId !== categoryId) {
+            setCurrentCategory(categoryId);
+            changeLocation(`${pathCategoryPageBase}/${categoryId}`);
+        }
+    };
 
     const getCategoriesList = (
         data: ICategory[],
@@ -41,6 +53,7 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
                     categoryValue={category.nodeId}
                     isSelected={(+selectedId) === category.nodeId}
                     isActive={Boolean(quantity)}
+                    selectCategoryHandler={ selectCategory }
                     displayName={ `${category.name
                         ? category.name
                         : <FormattedMessage id={ 'no.name.title' } />
@@ -75,4 +88,4 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
     );
 };
 
-export const CategoriesList = withStyles(styles)(CategoriesListBase);
+export const CategoriesList = withStyles(styles)(connect(CategoriesListBase));

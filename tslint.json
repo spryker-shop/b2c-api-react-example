@@ -25,7 +25,6 @@
     "label-position": true,
     "max-file-line-count": [true, 200],
     "max-line-length": [true, 120],
-    "member-access": true,
     "no-any": false,
     "no-conditional-assignment": true,
     "no-console": [true, "log"],
