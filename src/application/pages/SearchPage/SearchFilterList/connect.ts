@@ -9,6 +9,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
     return {
         isLoading: pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false,
+        isFulfilled: pageSearchProps && pageSearchProps.fulfilled ? pageSearchProps.fulfilled : false,
         filters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.filters : null,
         activeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeFilters : {},
         rangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.rangeFilters : null,

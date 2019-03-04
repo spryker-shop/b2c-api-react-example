@@ -1,10 +1,8 @@
 import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
-import { TRangeInputName } from '@components/UI/SprykerRangeFilter/types';
-import { RangeType } from '@components/Pages/SearchPage/types';
-import { WithStyles } from '@material-ui/core';
-import { styles } from './styles';
+import { TSprykerRangeSliderName } from '@application/components/UI/SprykerRangeSlider/types';
+import { RangeType } from '@application/Pages/SearchPage/types';
 
-export interface IFiltersListProps extends WithStyles<typeof styles> {
+export interface IFiltersListProps {
     filters: ValueFacets[];
     activeFilters: TActiveFilters;
     ranges: RangeFacets[];
@@ -12,5 +10,5 @@ export interface IFiltersListProps extends WithStyles<typeof styles> {
 
     updateStore: Function;
     updateActiveFilters: Function;
-    updateRangeFilters: (name: TRangeInputName, {min, max}: RangeType) => void;
+    updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: RangeType) => void;
 }

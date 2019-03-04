@@ -142,7 +142,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
         const isCategoriesExist = (category.length > 0);
 
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
-        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, currentCategoryId);
+        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
 
         return (
             <>
@@ -164,7 +164,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                 </AppPageTitle>
 
                 <AppMain>
-                    <Grid container>
+                    <Grid container spacing={ 24 }>
                         <Grid item xs={ isCategoriesExist ? 12 : null } md={ isCategoriesExist ? 3 : null }>
                             <CategoriesList
                                 categories={ category }
@@ -175,15 +175,13 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                         </Grid>
 
                         <Grid item xs={ 12 } md={ isCategoriesExist ? 9 : 12 }>
-                            <Grid container>
-                                <SearchFilterList />
+                            <SearchFilterList />
 
-                                <SortPanel />
+                            <SortPanel />
 
-                                <ProductsList selectProductHandler={ this.onSelectProductHandler } />
+                            <ProductsList selectProductHandler={ this.onSelectProductHandler } />
 
-                                <SearchPagination history={ history } />
-                            </Grid>
+                            <SearchPagination history={ history } />
                         </Grid>
                     </Grid>
                 </AppMain>
