@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { withStyles, MenuItem, FormControl, Select, Chip, Button } from '@material-ui/core';
+import { withStyles, MenuItem, FormControl, Select, Button } from '@material-ui/core';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { InputChangeEvent } from '@interfaces/common';
 import { ISprykerFilterProps as Props, ISprykerFilterState as State } from './types';
 import { FormattedMessage } from 'react-intl';
 
-export class SprykerFilter extends React.Component<Props, State> {
+class SprykerFilterComponent extends React.Component<Props, State> {
     protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
 
     public state: State = {
@@ -41,7 +41,8 @@ export class SprykerFilter extends React.Component<Props, State> {
             menuItems,
             activeValues,
             isShowSelected,
-            title
+            title,
+            isFullWidth
         } = this.props;
         const { isOpen } = this.state;
 
@@ -75,7 +76,7 @@ export class SprykerFilter extends React.Component<Props, State> {
                                 paper: classes.menu
                             }
                         }}
-                        autoWidth
+                        autoWidth={ isFullWidth }
                         displayEmpty
                         open={ isOpen }
                         onClose={ this.handleChangeShowing }
@@ -86,7 +87,7 @@ export class SprykerFilter extends React.Component<Props, State> {
                         IconComponent={ chevronIcon }
                         classes={{
                             root: classes.selectRoot,
-                            select: classes.input
+                            select: `${classes.input} ${isOpen ? classes.inputFocused : ''}`
                         }}
                     >
                         { isShowSelected &&
@@ -122,8 +123,8 @@ export class SprykerFilter extends React.Component<Props, State> {
                             >
                                 <span className={ classes.menuItemName }>{ item.value }</span>
                                 <span>({ item.doc_count })</span>
-                            </MenuItem>))
-                        }
+                            </MenuItem>
+                        )) }
                     </Select>
                 </FormControl>
             </div>
@@ -131,4 +132,4 @@ export class SprykerFilter extends React.Component<Props, State> {
     }
 }
 
-export const SprykerFilterElement = withStyles(styles)(SprykerFilter);
+export const SprykerFilter = withStyles(styles)(SprykerFilterComponent);

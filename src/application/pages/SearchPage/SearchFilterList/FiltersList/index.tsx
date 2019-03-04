@@ -3,7 +3,7 @@ import { IFiltersListProps as Props } from './types';
 import { rangeMaxType, rangeMinType } from '../types';
 import { ValueFacets } from '@interfaces/searchPageData';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
-import { SprykerFilterElement } from '@application/components/UI/SprykerFilter';
+import { SprykerFilter } from '@application/components/UI/SprykerFilter';
 import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
 import { AppPrice } from '@application/components//AppPrice';
 import { Grid } from '@material-ui/core';
@@ -34,7 +34,7 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
                 if (isFilterItemsExist) {
                     filterItems.push(
                         <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ filter.name }>
-                            <SprykerFilterElement
+                            <SprykerFilter
                                 attributeName={ filter.name }
                                 menuItems={ filter.values }
                                 activeValues={ activeFilters[filter.name] || [] }

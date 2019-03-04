@@ -20,14 +20,10 @@ export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     menuItemFirst?: IMenuItemFirst | null;
     title?: string;
     label?: string;
-    extraLabelClassName?: string;
     isRequired?: boolean;
     isFullWidth?: boolean;
-    extraTitleClassName?: string;
-    selectClassName?: string;
-    menuItemClassName?: string;
-    extraRootClassName?: string;
-    extraFormControlClassName?: string;
-    extraInputRootClassName?: string;
-    extraSelectFieldClassName?: string;
+}
+
+export interface ISprykerSelectState {
+    isOpen: boolean;
 }

@@ -1,130 +1,142 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid, Select, MenuItem, FormControl, Typography, InputLabel } from '@material-ui/core';
-import { ChevronLeft } from '@material-ui/icons';
+import { ChevronIcon } from './icons';
+import { ISprykerSelectProps as Props, ISprykerSelectState as State } from './types';
 import { styles } from './styles';
-import { ISprykerSelectProps as Props } from './types';
 
-export const SprykerSelectBase: React.SFC<Props> = (props): JSX.Element => {
-    const {
-        classes,
-        currentMode,
-        changeHandler,
-        menuItems,
-        name,
-        menuItemFirst = {
-            // Do not change default value!!!!
+class SprykerSelectComponent extends React.Component<Props, State> {
+    public static defaultProps = {
+        isFullWidth: false,
+        menuItemFirst: {
             value: ' ',
             name: <FormattedMessage id={ 'first.item.in.select' } />,
             selected: false,
-            disabled: false,
-        },
-        title,
-        label,
-        extraLabelClassName,
-        isRequired,
-        isFullWidth,
-        extraTitleClassName,
-        selectClassName,
-        menuItemClassName,
-        extraRootClassName,
-        extraFormControlClassName,
-        extraInputRootClassName,
-        extraSelectFieldClassName,
-    } = props;
+            disabled: false
+        }
+    };
 
-    const getMenuItemFirst = () => {
+    public state: State = {
+        isOpen: false
+    };
+
+    protected handleChangeShowing = (): void => this.setState(prev => ({ isOpen: !prev.isOpen }));
+
+    protected getMenuItemFirst = (): JSX.Element => {
+        const { classes, menuItemFirst } = this.props;
+
         if (!menuItemFirst) {
             return null;
         }
 
         return (
             <MenuItem
-                value={menuItemFirst.value}
-                selected={menuItemFirst.selected}
-                disabled={menuItemFirst.disabled}
+                value={ menuItemFirst.value }
+                selected={ menuItemFirst.selected }
+                disabled={ menuItemFirst.disabled }
                 disableGutters
-                classes={{
-                    selected: classes.selected,
-                }}
-                className={classes.menuItem}
+                classes={ {
+                    selected: classes.selected
+                } }
+                className={ classes.menuItem }
             >
-                {menuItemFirst.name}
+                { menuItemFirst.name }
             </MenuItem>
         );
     };
 
-    const isMenuItemsExist = (menuItems.length > 0);
-    let selectClassNames: string = `spryker-select ${classes.menuItem}`;
-    if (extraSelectFieldClassName) {
-        selectClassNames += ` ${extraSelectFieldClassName}`;
-    }
+    public render(): JSX.Element {
+        const {
+            classes,
+            currentMode,
+            changeHandler,
+            menuItems,
+            name,
+            title,
+            label,
+            isRequired,
+            isFullWidth
+        } = this.props;
+        const { isOpen } = this.state;
+        const isMenuItemsExist = menuItems.length > 0;
 
-    return (
-        <Grid container
-              justify="center"
-              alignItems="center"
-              className={`${classes.root} ${extraRootClassName ? extraRootClassName : ''}`}
-        >
-            <Grid item xs={12}>
-                <FormControl
-                    required={isRequired ? isRequired : false}
-                    className={`${classes.formControl} ${extraFormControlClassName ? extraFormControlClassName : ''}`}
-                >
-                    {(title && isMenuItemsExist)
-                        ? <Typography
-                            component="span"
-                            className={`${classes.title} ${extraTitleClassName ? extraTitleClassName : ''}`}
-                        >
-                            {title}
-                        </Typography>
-                        : null
-                    }
+        const chevronIcon: React.SFC = (): JSX.Element =>
+            <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
-                    {label
-                        ? <InputLabel
-                            shrink
-                            classes={{root: `${classes.label} ${extraLabelClassName ? extraLabelClassName : ''}`}}
-                        >
-                            {label}
-                        </InputLabel>
-                        : null
-                    }
-
-                    <Select
-                        value={currentMode}
-                        onChange={changeHandler}
-                        name={name}
-                        classes={{
-                            root: `${classes.inputRoot} ${extraInputRootClassName ? extraInputRootClassName : ''}`,
-                            icon: classes.icon,
-                            select: `${classes.input} ${selectClassName ? selectClassName : ''}`,
-                        }}
-                        disableUnderline={true}
-                        IconComponent={ChevronLeft}
-                        fullWidth={isFullWidth ? isFullWidth : false}
-                        className={selectClassNames}
+        return (
+            <Grid container
+                  justify="center"
+                  alignItems="center"
+                  className={ classes.root }
+            >
+                <Grid item xs={ 12 }>
+                    <FormControl
+                        required={ isRequired ? isRequired : false }
+                        className={ classes.formControl }
                     >
-                        {getMenuItemFirst()}
-                        {isMenuItemsExist && menuItems.map(item => (
-                            <MenuItem
-                                value={item.value}
-                                key={`${item.name}-${item.value}`}
-                                disableGutters
-                                classes={{
-                                    selected: classes.selected,
-                                }}
-                                className={`${classes.menuItem} ${menuItemClassName ? menuItemClassName : ''}`}
-                            >
-                                {item.name}
-                            </MenuItem>
-                        ))
+                        { (title && isMenuItemsExist) &&
+                        <Typography
+                            component="span"
+                            className={ classes.title }
+                        >
+                            { title }
+                        </Typography>
                         }
-                    </Select>
-                </FormControl>
+
+                        { label &&
+                            <InputLabel shrink classes={ { root: classes.label } }>{ label }</InputLabel>
+                        }
+
+                        <Select
+                            open={ isOpen }
+                            onClose={ this.handleChangeShowing }
+                            onOpen={ this.handleChangeShowing }
+                            value={ currentMode }
+                            onChange={ changeHandler }
+                            name={ name }
+                            MenuProps={ {
+                                getContentAnchorEl: null,
+                                disableAutoFocusItem: true,
+                                anchorOrigin: {
+                                    vertical: 'bottom',
+                                    horizontal: 'left'
+                                },
+                                transformOrigin: {
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                },
+                                classes: {
+                                    paper: classes.menu
+                                }
+                            } }
+                            classes={ {
+                                root: classes.selectRoot,
+                                select: `${classes.input} ${isOpen ? classes.inputFocused : ''}`
+                            } }
+                            disableUnderline
+                            IconComponent={ chevronIcon }
+                            autoWidth={ isFullWidth }
+                        >
+                            { this.getMenuItemFirst() }
+                            { isMenuItemsExist && menuItems.map(item => (
+                                <MenuItem
+                                    value={ item.value }
+                                    key={ `${item.name}-${item.value}` }
+                                    disableGutters
+                                    classes={ {
+                                        selected: classes.selected
+                                    } }
+                                    className={ classes.menuItem }
+                                >
+                                    <span className={ classes.menuItemText }>{ item.name }</span>
+                                </MenuItem>
+                            )) }
+                        </Select>
+                    </FormControl>
+                </Grid>
             </Grid>
-        </Grid>
-    );
+        );
+    }
 };
 
-export const SprykerSelect = withStyles(styles)(SprykerSelectBase);
+export const SprykerSelect = withStyles(styles)(SprykerSelectComponent);
