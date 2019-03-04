@@ -42,10 +42,6 @@ export interface IAppFixedDimensions {
         width: number;
         height: number;
     };
-    headerPopover: {
-        overflow: number;
-        triangle: number;
-    };
 }
 
 export const appFixedDimensions: IAppFixedDimensions = {
@@ -88,9 +84,5 @@ export const appFixedDimensions: IAppFixedDimensions = {
     userDrop: {
         width: 340,
         height: 283,
-    },
-    headerPopover: {
-        overflow: 42,
-        triangle: 17,
     },
 };

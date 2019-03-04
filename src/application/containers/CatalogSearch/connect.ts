@@ -12,15 +12,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         : null;
     const currency: TAppCurrency = getAppCurrency(state, ownProps);
 
-    return (
-        {
-            categories: searchProps ? searchProps.categories : null,
-            suggestions: searchProps ? searchProps.suggestions : null,
-            completion: searchProps ? searchProps.completion : null,
-            isLoading: searchProps ? searchProps.pending : null,
-            currency
-        }
-    );
+    return ({
+        categories: searchProps ? searchProps.categories : null,
+        suggestions: searchProps ? searchProps.suggestions : null,
+        completion: searchProps ? searchProps.completion : null,
+        isLoading: searchProps ? searchProps.pending : null,
+        currency
+    });
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -29,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
             clearSuggestions,
             sendSuggestionAction
         },
-        dispatch,
+        dispatch
     );
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

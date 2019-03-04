@@ -8,52 +8,51 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     const {
         classes,
         children,
-        popoverPosLeft,
-        popoverPosTop,
         anchorElement,
         closePopoverHandler,
         extraContentClassName,
-        extraHelperClassName,
+        extraLayoutClassName,
+        anchorOrigin,
+        transformOrigin
     } = props;
 
     const isOpen = Boolean(anchorElement);
-
-    const popoverStyles = {
-        top: popoverPosTop,
-        left: 0,
-    };
 
     const popoverProps = {
         open: isOpen,
         anchorEl: anchorElement,
         elevation: 0,
-        onClose: closePopoverHandler,
+        transformOrigin,
+        anchorOrigin,
+        onClose: closePopoverHandler
     };
 
     return (
         <Popover
-            {...popoverProps}
-            className={classes.popover}
-            anchorReference="anchorPosition"
-            anchorPosition={{top: 0, left: popoverPosLeft}}
-            style={popoverStyles}
+            { ...popoverProps }
+            className={`${classes.popover} ${extraLayoutClassName ? extraLayoutClassName : ''}`}
             PaperProps={{
                 classes: {
                     root: `${classes.content} ${extraContentClassName ? extraContentClassName : ''}`
                 }
             }}
         >
-            <div className={classes.childWrapper}>
-                <div
-                    className={
-                        `${isOpen ? `${classes.helper} ${extraHelperClassName ? extraHelperClassName : ''}` : ''}`
-                    }
-                >
-                </div>
-                {children}
+            <div className={ classes.childWrapper }>
+                { children }
             </div>
         </Popover>
     );
+};
+
+PopoverWrapperBase.defaultProps = {
+    anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+    },
+    transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+    }
 };
 
 export const PopoverWrapper = withStyles(styles)(PopoverWrapperBase);
