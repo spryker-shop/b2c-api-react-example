@@ -7,7 +7,7 @@ import { ISprykerFilterProps as Props, ISprykerFilterState as State } from './ty
 import { FormattedMessage } from 'react-intl';
 
 export class SprykerFilter extends React.Component<Props, State> {
-    protected resetButtonRef: React.RefObject<HTMLLIElement> = React.createRef();
+    protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
 
     public state: State = {
         isOpen: false
@@ -24,14 +24,10 @@ export class SprykerFilter extends React.Component<Props, State> {
     };
 
     protected handleChangeValues = (event: InputChangeEvent): void => {
-        if (this.resetButtonRef.current !== event.currentTarget) {
+        const menuItemElement: unknown = event.currentTarget as unknown;
+        if (this.resetItemRef.current !== menuItemElement as HTMLLIElement) {
             this.props.handleChange(this.props.attributeName, event.target.value);
         }
-    };
-
-    protected handleDelete = (item: string) => (): void => {
-        const values = [...this.props.activeValues].filter(val => val !== item);
-        this.props.handleChange(this.props.attributeName, values);
     };
 
     protected handleResetValues = (): void => {
@@ -49,7 +45,8 @@ export class SprykerFilter extends React.Component<Props, State> {
         } = this.props;
         const { isOpen } = this.state;
 
-        const chevronIcon: React.SFC = (): JSX.Element => <span className={ classes.icon }><ChevronIcon /></span>;
+        const chevronIcon: React.SFC = (): JSX.Element =>
+            <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
         return (
             <div className={ classes.root }>
@@ -93,7 +90,7 @@ export class SprykerFilter extends React.Component<Props, State> {
                         }}
                     >
                         { isShowSelected &&
-                            <li className={ classes.menuCounter } ref={ this.resetButtonRef }>
+                            <li className={ classes.menuCounter } ref={ this.resetItemRef }>
                                 <span className={ classes.menuCounterText }>
                                     {`${activeValues.length} `}
                                     <FormattedMessage id={ 'word.selected.title' } />

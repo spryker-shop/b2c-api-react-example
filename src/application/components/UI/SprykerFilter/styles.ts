@@ -14,7 +14,6 @@ export const styles = (theme: Theme) => createStyles({
         textTransform: 'capitalize',
     },
     icon: {
-        transition: 'transform .8s ease-in-out',
         fill: 'currentColor',
         position: 'absolute',
         top: '50%',
@@ -24,6 +23,10 @@ export const styles = (theme: Theme) => createStyles({
         height: 12,
         lineHeight: 0,
         pointerEvents: 'none'
+    },
+    iconOpened: {
+        color: theme.appColors.blue,
+        transform: 'translateY(-50%) rotate(180deg)',
     },
     selectRoot: {
         color: theme.appColors.grey,
@@ -46,13 +49,15 @@ export const styles = (theme: Theme) => createStyles({
             background: theme.appColors.darkWhite,
         },
         '&:focus': {
+            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)',
             background: theme.appColors.white
         }
     },
     menu: {
         minHeight: '0',
         borderRadius: 4,
-        boxShadow: ' 0 2px 10px 0 rgba(216, 216, 216, 0.5)',
+        boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
+        marginTop: -2,
         width: 335,
         '&& ul': {
             padding: '10px 10px 2px'
