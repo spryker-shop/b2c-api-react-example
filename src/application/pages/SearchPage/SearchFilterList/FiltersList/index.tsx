@@ -42,6 +42,7 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
                                 isShowSelected
                                 handleClose={ updateStore }
                                 title={ filter.localizedName }
+                                isFullWidth
                             />
                         </Grid>
                     );

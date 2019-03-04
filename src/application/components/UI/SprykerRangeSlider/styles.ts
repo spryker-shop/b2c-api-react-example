@@ -1,5 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
+import { appColors } from '@theme/properties/new/appColors';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
@@ -101,6 +102,7 @@ export const styles = (theme: Theme) => createStyles({
     range: {
         color: theme.appColors.black
     },
+    rangeHandler: {},
     valueMin: {
         textAlign: 'left'
     },
@@ -112,3 +114,16 @@ export const styles = (theme: Theme) => createStyles({
         fontWeight: 600
     }
 });
+
+export const rangeHandler = {
+    position: 'absolute',
+    border: `4px solid  ${appColors.blue}`,
+    width: '22px',
+    height: '22px',
+    backgroundColor: appColors.white,
+    marginLeft: '-11px',
+    marginTop: '-5px',
+    touchAction: 'pan-x',
+    cursor: 'grab',
+    borderRadius: '50%'
+};
