@@ -21,13 +21,14 @@ export const styles = (theme: Theme) => createStyles({
         width: 12,
         height: 12,
         lineHeight: 0,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
     },
     iconOpened: {
         color: theme.appColors.blue,
         transform: 'translateY(-50%) rotate(180deg)'
     },
     selectRoot: {
+        transition: 'color 0.3s ease-in-out',
         color: theme.appColors.black,
         '&:hover': {
             color: theme.appColors.blue
@@ -46,6 +47,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         background: theme.appColors.weekWhite,
         color: theme.appColors.grey,
+        transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out',
         '&:focus:hover, &:hover': {
             background: theme.appColors.darkWhite,
             color: theme.appColors.blue

@@ -16,3 +16,8 @@ export interface ISprykerRangeSliderProps extends WithStyles<typeof styles> {
     valueFormatter?: Function | null;
     extraClassName?: string;
 }
+
+export interface ISprykerRangeSliderState {
+    anchorElement: HTMLElement | null;
+    minPopoverWidth: number;
+}

@@ -28,6 +28,7 @@ export const styles = (theme: Theme) => createStyles({
         transform: 'translateY(-50%) rotate(180deg)'
     },
     selectRoot: {
+        transition: 'color 0.3s ease-in-out',
         color: theme.appColors.black,
         '&:hover': {
             color: theme.appColors.blue
@@ -45,6 +46,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         background: theme.appColors.white,
         color: theme.appColors.grey,
+        transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out',
         '&:focus:hover, &:hover': {
             background: theme.appColors.darkWhite,
             color: theme.appColors.blue

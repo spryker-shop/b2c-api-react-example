@@ -9,4 +9,5 @@ export interface IPopoverWrapperProps extends WithStyles<typeof styles> {
     extraLayoutClassName?: string;
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
+    paperProps: {};
 }
