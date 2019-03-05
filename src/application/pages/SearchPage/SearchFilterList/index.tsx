@@ -34,14 +34,17 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         if (props.isFulfilled && state.isFirstLoadPassed === null) {
             return {
                 ...state,
-                isFirstLoadPassed: true
+                isFirstLoadPassed: true,
+                activeFilters: props.activeFilters,
+                activeRangeFilters: props.activeRangeFilters,
+                isFilterUpdated: false
             };
         }
 
         if (props.isLoading || state.isFilterUpdated) {
             return {
                 ...state,
-                isFilterUpdated: false
+                isFilterUpdated: false,
             };
         }
 

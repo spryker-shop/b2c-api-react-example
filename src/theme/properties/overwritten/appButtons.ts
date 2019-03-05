@@ -4,7 +4,6 @@ import { Overrides } from '@material-ui/core/styles/overrides';
 export const appButtons: Overrides = {
     MuiButton: {
         root: {
-            width: '100%',
             fontSize: 16,
             lineHeight: 1.4,
             fontWeight: 500,
@@ -55,7 +54,7 @@ export const appButtons: Overrides = {
             }
         },
         outlined: {
-            backgroundColor: 'transparent',
+            backgroundColor: appColors.white,
             color: appColors.blue,
             borderColor: appColors.lightGrey,
 

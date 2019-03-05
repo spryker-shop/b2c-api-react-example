@@ -1,15 +1,13 @@
 import * as React from 'react';
+import { connect } from './connect';
+import { SprykerNumberFormatInput } from '@application/components/UI/SprykerNumberFormatInput';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
-import { createSliderWithTooltip, Range } from 'rc-slider';
+import { Range } from 'rc-slider';
 import { ChevronIcon } from './icons';
-import 'rc-slider/assets/index.css';
-import 'rc-tooltip/assets/bootstrap.css';
 import { ISprykerRangeSliderProps as Props, ISprykerRangeSliderState as State } from './types';
-import { styles, rangeHandler } from './styles';
-import { ClickEvent } from '@interfaces/common';
-
-const WithTooltipRange = createSliderWithTooltip(Range);
+import { ClickEvent, InputChangeEvent } from '@interfaces/common';
+import { styles } from './styles';
 
 class SprykerRangeSliderComponent extends React.Component<Props, State> {
     protected buttonRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -21,62 +19,68 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         currentMaxValue: 0
     };
 
-    // public static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
-    //     console.log(nextProps.max, nextProps.min, 67459786708754568907654789076590);
-    //     if (nextProps.min !== prevState.currentMinValue) {
-    //         return {
-    //             ...prevState,
-    //             currentMinValue: nextProps.min
-    //         };
-    //     }
-    //
-    //     if (nextProps.max !== prevState.currentMaxValue) {
-    //         return {
-    //             ...prevState,
-    //             currentMaxValue: nextProps.max
-    //         };
-    //     }
-    //
-    //     return null;
-    // };
-
     protected openPopover = ({ currentTarget }: ClickEvent): void => {
-        const { max, min } = this.props;
+        const { currentValue } = this.props;
 
-        this.setState({
-            currentMinValue: min,
-            currentMaxValue: max,
+        this.setState(() => ({
+            currentMinValue: currentValue.min,
+            currentMaxValue: currentValue.max,
             anchorElement: currentTarget,
             minPopoverWidth: currentTarget.clientWidth
-        });
+        }));
     };
 
-    protected closePopover = (): void => this.setState({ anchorElement: null });
+    protected closePopover = (): void => {
+        const { handleAfterChange } = this.props;
+        const { currentMinValue, currentMaxValue } = this.state;
+
+        this.setState({ anchorElement: null });
+
+        handleAfterChange([currentMinValue, currentMaxValue]);
+    };
 
     protected handleChangeRange = (value: number[]): void => {
         const { handleChange, attributeName } = this.props;
-        console.log(value[0], value[1]);
-        this.setState({
-            currentMinValue: value[0],
-            currentMaxValue: value[1]
-        });
+        this.setState({ currentMinValue: value[0], currentMaxValue: value[1] });
 
-        // handleChange(attributeName, {
-        //     min: value[0],
-        //     max: value[1]
-        // });
+        handleChange(attributeName, {
+            min: value[0],
+            max: value[1]
+        });
+    };
+
+    protected onFieldMinChangeHandler = (event: InputChangeEvent): void => {
+        const { handleChange, attributeName, min } = this.props;
+        const { currentMaxValue } = this.state;
+        const newValue = Number(event.target.value);
+
+        if (newValue < currentMaxValue && newValue >= min) {
+            this.setState({ currentMinValue: newValue });
+
+            handleChange(attributeName, {
+                min: newValue,
+                max: currentMaxValue
+            });
+        }
+    };
+
+    protected onFieldMaxChangeHandler = (event: InputChangeEvent): void => {
+        const { handleChange, attributeName, max } = this.props;
+        const { currentMinValue } = this.state;
+        const newValue = Number(event.target.value);
+
+        if (currentMinValue < newValue && newValue <= max) {
+            this.setState({ currentMaxValue: newValue });
+
+            handleChange(attributeName, {
+                min: currentMinValue,
+                max: newValue
+            });
+        }
     };
 
     public render(): JSX.Element {
-        const {
-            classes,
-            title,
-            handleAfterChange,
-            min,
-            max,
-            valueFormatter,
-            currentValue
-        } = this.props;
+        const { classes, title, min, max, currency } = this.props;
         const { anchorElement, minPopoverWidth, currentMinValue, currentMaxValue } = this.state;
         const isOpen = Boolean(anchorElement);
 
@@ -87,58 +91,65 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                         buttonRef={ this.buttonRef }
                         aria-label="range"
                         onClick={ this.openPopover }
-                        className={`${classes.button} ${isOpen ? classes.isPopupOpened : '' }`}
+                        className={ `${classes.button} ${isOpen ? classes.isPopupOpened : '' }` }
                     >
                         <span className={ classes.text }>{ title }</span>
                     </Button>
-                    <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>
+                    <span className={ `${classes.icon} ${isOpen ? classes.iconOpened : ''}` }><ChevronIcon /></span>
                 </div>
 
                 <PopoverWrapper
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    paperProps={{
+                    containerWidth={ minPopoverWidth }
+                    classes={ {
+                        content: classes.popoverContent
+                    } }
+                    paperProps={ {
                         style: {
                             width: minPopoverWidth
                         }
-                    }}
-                    classes={{
-
-                    }}
+                    } }
                 >
-                    <Grid container>
-                        <Grid item xs={ 12 } className={ classes.rangeOuter }>
-                            <WithTooltipRange
-                                className={ classes.range }
-                                value={ [currentMinValue, currentMaxValue] }
-                                min={ min }
-                                max={ max }
-                                defaultValue={ [min, max] }
-                                onChange={ (value: number[]) => this.handleChangeRange(value) }
-                                onAfterChange={ handleAfterChange }
+                    <div className={ classes.rangeOuter }>
+                        <Range
+                            className={ classes.range }
+                            value={ [currentMinValue, currentMaxValue] }
+                            min={ min }
+                            max={ max }
+                            defaultValue={ [min, max] }
+                            onChange={ (value: number[]) => this.handleChangeRange(value) }
+                            allowCross={ false }
+                        />
+                    </div>
 
-                                railStyle={ { top: '10px', backgroundColor: '#111111', height: '2px' } }
-                                dotStyle={ {} }
-                                handleStyle={ rangeHandler }
-                                activeDotStyle={ {} }
-                                trackStyle={ [{ top: '10px', backgroundColor: '#111111', height: '2px' }] }
+                    <Grid container alignItems="center">
+                        <Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMin}` }>
+                            <SprykerNumberFormatInput
+                                name="min"
+                                currency={ currency }
+                                className={ classes.input }
+                                value={ currentMinValue }
+                                onChange={ this.onFieldMinChangeHandler }
+                                type="text"
                             />
                         </Grid>
 
-                        <Grid container alignItems="center">
-                            {/*<Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMin}` }>*/}
-                                {/*{ valueFormatter ? valueFormatter(currentMinValue) : currentMinValue }*/}
-                            {/*</Grid>*/}
-
-                            {/*<Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMax}` }>*/}
-                                {/*{ valueFormatter ? valueFormatter(currentMaxValue) : currentMaxValue }*/}
-                            {/*</Grid>*/}
+                        <Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMax}` }>
+                            <SprykerNumberFormatInput
+                                name="min"
+                                currency={ currency }
+                                className={ classes.input }
+                                value={ currentMaxValue }
+                                onChange={ this.onFieldMaxChangeHandler }
+                                type="text"
+                            />
                         </Grid>
                     </Grid>
                 </PopoverWrapper>
             </>
         );
     }
-};
+}
 
-export const SprykerRangeSlider = withStyles(styles)(SprykerRangeSliderComponent);
+export const SprykerRangeSlider = connect(withStyles(styles)(SprykerRangeSliderComponent));

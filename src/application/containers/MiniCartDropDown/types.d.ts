@@ -11,4 +11,7 @@ export interface IMiniCartDropDownProps extends WithStyles<typeof styles>, WithR
 export interface IMiniCartDropDownState {
     anchorElement: HTMLElement | null;
     isCartNotificationOpen: boolean;
+    isPopupOpened: boolean;
+    isContentHovered: boolean;
+    isButtonHovered: boolean;
 }

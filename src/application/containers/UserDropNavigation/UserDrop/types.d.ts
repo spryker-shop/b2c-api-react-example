@@ -4,6 +4,7 @@ import { styles } from './styles';
 
 export interface IUserDropProps extends WithStyles<typeof styles>, WithRouter {
     isUserLoggedIn?: boolean;
-    closePopoverHandler: () => void;
-    onLogoutClick?(): void;
+    logout?(): void;
+    onMouseLeave: () => void;
+    onMouseEnter: () => void;
 }

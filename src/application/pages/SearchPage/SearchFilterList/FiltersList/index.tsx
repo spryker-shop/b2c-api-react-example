@@ -18,11 +18,6 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
         updateActiveFilters,
         updateRangeFilters
     } = props;
-    const priceMultiplier = 100;
-
-    const priceValueFormatter = (value: number) => (
-        <AppPrice value={ value * priceMultiplier } />
-    );
 
     const renderFilters = (): JSX.Element[] => {
         const filterItems: JSX.Element[] = [];
@@ -77,7 +72,6 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
                                 min: valueFrom,
                                 max: valueTo
                             } }
-                            valueFormatter={ filter.name.includes('price') ? priceValueFormatter : null }
                         />
                     </Grid>
                 );

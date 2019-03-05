@@ -8,7 +8,7 @@ import { styles } from './styles';
 export const CategoryTeaserBase: React.SFC<Props> = (props): JSX.Element => {
     const {classes, title, text, img, path, linkTitle, isOdd} = props;
 
-    const thumbnailStyles: React.CSSProperties = {
+    const thumbnailStyles = {
         backgroundImage: `url(${img})`
     };
 

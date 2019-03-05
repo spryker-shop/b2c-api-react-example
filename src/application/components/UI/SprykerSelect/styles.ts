@@ -120,6 +120,9 @@ export const styles = (theme: Theme) => createStyles({
             background: theme.appColors.white
         }
     },
+    menuItemPlaceholder: {
+        display: 'none'
+    },
     menuItemText: {
         minWidth: 0,
         overflow: 'hidden',

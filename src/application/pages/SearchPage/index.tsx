@@ -19,10 +19,15 @@ import { CategoriesList } from './CategoriesList';
 import { SearchFilterList } from './SearchFilterList';
 import { SearchPagination } from './SearchPagination';
 import { Grid } from '@material-ui/core';
+import { ISearchFilterListState as State } from '@application/pages/SearchPage/SearchFilterList/types';
 
 @(withRouter as Function)
 @connect
 export class SearchPage extends React.Component<ISearchPageProps> {
+    public readonly state: State = {
+        isFirstLoadPassed: null
+    };
+
     public componentDidMount = (): void => {
         const parsedGetParams = qs.parse(this.props.location.search);
         let query: ISearchQuery = this.getQueryParams();
@@ -114,6 +119,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
             query = { ...query, ...this.props.activeFilters };
         }
         if (this.props.activeRangeFilters) {
+
             query = { ...query, ...addToQueryActiveRangeFilters(this.props.activeRangeFilters) };
         }
         if (this.props.currentPaginationPage) {

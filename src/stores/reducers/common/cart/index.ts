@@ -4,6 +4,7 @@ import {
     CART_DELETE_ITEM,
     CART_UPDATE_ITEM,
     GET_CARTS,
+    UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
 import { ICartDataResponse, ICartItem } from '@interfaces/cart';
@@ -82,6 +83,11 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
             return {
                 ...state,
                 data: {...initialState.data, cartCreated: true},
+                ...getReducerPartFulfilled(),
+            };
+        case UPDATE_FULLFILLED_STATE:
+            return {
+                ...state,
                 ...getReducerPartFulfilled(),
             };
         default:

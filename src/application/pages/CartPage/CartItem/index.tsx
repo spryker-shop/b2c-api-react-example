@@ -1,107 +1,107 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { CartItemProps } from './types';
+import { CartItemProps as Props } from './types';
 import { SquareImage } from '@application/components/SquareImage';
 import { AppPrice } from '@application/components/AppPrice';
-import { ListItem, IconButton, MenuItem, TextField, withStyles } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { withStyles, Grid, Typography } from '@material-ui/core';
+import { priceTypeNameOriginal } from '@interfaces/product';
+import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
+import { NavLink } from 'react-router-dom';
+import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
 
-const CartItemComponent: React.SFC<CartItemProps> = (
-    {
+const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
+    const imageItemHeight: number = 132;
+    const {
         classes,
-        parentClasses,
         sku,
         image,
         quantity,
-        quantities,
         superAttributes,
-        imageItemHeight,
-        calculations,
         handleDeleteItem,
-        handleChangeQty
-    }
-) => (
-    <ListItem
-        key={ sku }
-        disableGutters
-        divider
-        className={ classes.root }
-    >
-        <SquareImage
-            image={ image }
-            size={ imageItemHeight }
-            alt={ name }
-        />
-        <div className={ parentClasses.itemWrapper }>
-            <div className={ classes.itemName }>{ name }</div>
-            { superAttributes
-                ? superAttributes.map((attr: { [ key: string ]: string }, idx: number) => (
-                    <div key={ `${sku}-attr-${idx}` }
-                         className={ `${classes.itemAttr} ${classes.textCapitalize}` }>
-                        <span>{ Object.keys(attr)[ 0 ].split('_').join(' ') }</span>
-                        <span style={ { marginRight: '5px' } }>:</span>
-                        <span>{ Object.values(attr)[ 0 ] }</span>
-                    </div>
-                ))
-                : null
-            }
-            <div>
-                <span className={ `${classes.itemAttr} ${classes.remove}` }>
-                    <FormattedMessage id={ 'remove.button.title' } />
-                </span>
-                <IconButton onClick={ () => handleDeleteItem(sku) }>
-                    <DeleteIcon />
-                </IconButton>
-            </div>
-        </div>
+        handleChangeQty,
+        name,
+        priceDefaultGross,
+        priceOriginalGross,
+        cartRejected,
+        calculations: { unitPriceToPayAggregation }
+    } = props;
+    const abstractProductSku = sku.split('_')[0];
 
-        <form
-            noValidate
-            autoComplete="off"
-            className={ parentClasses.quantityForm }
-        >
-            <TextField
-                required
-                select
-                name={sku}
-                value={quantity}
-                onChange={ handleChangeQty }
-                variant="outlined"
-                SelectProps={{
-                    SelectDisplayProps: {className: classes.select},
-                }}
-            >
-                {
-                    quantities.map((i: number) => (
-                        <MenuItem
-                            value={i}
-                            key={`qty-${sku}-${i}`}
-                        >{i}</MenuItem>
-                    ))
-                }
-            </TextField>
-        </form>
+    return (
 
-        <div className={ parentClasses.priceWrapper }>
-            <div className={classes.sumWrapper}>
-                <AppPrice value={calculations.sumPriceToPayAggregation}
-                          extraClassName={classes.mainCurrency}/>
-            </div>
-            {quantity > 1
-                ? (
-                    <div className={classes.itemAttr}>
-                        <span>(</span>
-                        <AppPrice
-                            value={calculations.unitPriceToPayAggregation}
-                            extraClassName={`${classes.itemAttr} ${classes.eachCurrency}`}
-                        />
-                        <span> <FormattedMessage id={ 'word.each.title' } />)</span>
-                    </div>
-                ) : null
-            }
-        </div>
-    </ListItem>
-);
+        <Grid container className={ classes.productItem }>
+            <Grid item className={ classes.imageOuter }>
+                <SquareImage
+                    image={ image }
+                    size={ imageItemHeight }
+                    alt={ name }
+                />
+            </Grid>
+            <Grid item className={ classes.contentOuter }>
+                <Grid container className={ classes.fullHeight }>
+                    <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
+                        <div className={ classes.growedBlock }>
+                            <Typography component="h5" variant="headline" className={classes.name}>
+                                <NavLink
+                                    to={`${pathProductPageBase}/${abstractProductSku}`}
+                                    className={classes.nameLink}
+                                >
+                                    { name }
+                                </NavLink>
+                            </Typography>
+                            { superAttributes &&
+                                superAttributes.map((attr: { [key: string]: string }, idx: number) => (
+                                    <div key={`${sku}-attr-${idx}`} className={ classes.attributes }>
+                                        {`${Object.keys(attr)[0].split('_').join(' ')}: `}
+                                        <span className={ classes.attributesValue }>{ Object.values(attr)[0] }</span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <div className={`${classes.attributes} ${classes.attributesQty}`}>
+                            <span className={classes.attributesTitle}>
+                                <FormattedMessage id={ 'word.quantity.title' } />:
+                            </span>
+                            <SprykerQuantityCounter
+                                name={ sku }
+                                value={ quantity }
+                                handleChangeQty={ handleChangeQty }
+                                rejected={ cartRejected }
+                            />
+                        </div>
+                    </Grid>
+                    <Grid item xs={ 12 } sm={ 3 } className={ classes.info }>
+                        <div className={ classes.growedBlock }>
+                            <Typography
+                                component="p"
+                                className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
+                            >
+                                <AppPrice value={ priceDefaultGross } isStylesInherited />
+                            </Typography>
+                            { priceOriginalGross &&
+                                <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
+                                    <AppPrice
+                                        value={ priceOriginalGross }
+                                        priceType={ priceTypeNameOriginal }
+                                        isStylesInherited
+                                    />
+                                </Typography>
+                            }
+                        </div>
+                        { (quantity > 1) &&
+                            <div className={ classes.eachPrice }>
+                                (
+                                <AppPrice value={ unitPriceToPayAggregation } isStylesInherited />&nbsp;
+                                <FormattedMessage id={ 'word.each.title' } />)
+                            </div>
+                        }
+                    </Grid>
+                </Grid>
+            </Grid>
+            <span onClick={ () => handleDeleteItem(sku) } className={ classes.removeBtn } />
+        </Grid>
+    );
+};
 
 export const CartItem = withStyles(styles)(CartItemComponent);

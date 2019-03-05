@@ -10,19 +10,19 @@ import { IUserDropProps as Props } from './types';
 import { styles } from './styles';
 
 export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isUserLoggedIn, closePopoverHandler, onLogoutClick } = props;
+    const { classes, isUserLoggedIn, onLogoutClick, onMouseLeave, onMouseEnter } = props;
 
     const loggedInUser = (
         <ul className={ classes.userDropNav }>
             { customerProfileNavLinks.map((item: INavLinkData) => (
-                <li key={ item.title } onClick={ closePopoverHandler } className={ classes.userItem }>
+                <li key={ item.title } className={ classes.userItem }>
                     <NavLink to={ item.path } className={ classes.userLink }>
                         <span className={ classes.userIcon }>{ item.icon }</span>
                         <FormattedMessage id={ item.title } />
                     </NavLink>
                 </li>
             )) }
-            <li onClick={ closePopoverHandler } className={ classes.userItem }>
+            <li className={ classes.userItem }>
                 <Button
                     variant="text"
                     onClick={ onLogoutClick }
@@ -41,6 +41,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
                     variant="outlined"
+                    fullWidth
                 >
                     <FormattedMessage id={ 'word.register.title' } />
                 </Button>
@@ -49,6 +50,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
                     variant="contained"
+                    fullWidth
                 >
                     <FormattedMessage id={ 'log.in.button.title' } />
                 </Button>
@@ -57,7 +59,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 
     return (
-        <div className={ classes.userDrop }>
+        <div className={ classes.userDrop } onMouseLeave={ onMouseLeave } onMouseEnter={ onMouseEnter }>
             <Typography component="h4" variant="display1" className={ classes.title }>
                 <FormattedMessage id={ 'account.title' } />
             </Typography>

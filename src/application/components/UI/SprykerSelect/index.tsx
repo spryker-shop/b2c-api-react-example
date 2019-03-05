@@ -8,12 +8,7 @@ import { styles } from './styles';
 class SprykerSelectComponent extends React.Component<Props, State> {
     public static defaultProps = {
         isFullWidth: false,
-        menuItemFirst: {
-            value: ' ',
-            name: <FormattedMessage id={ 'first.item.in.select' } />,
-            selected: false,
-            disabled: false
-        }
+        menuItemFirst: false
     };
 
     public state: State = {
@@ -29,18 +24,27 @@ class SprykerSelectComponent extends React.Component<Props, State> {
             return null;
         }
 
+        const menuDefaultTemplate = {
+            value: ' ',
+            name: <FormattedMessage id={ 'first.item.in.select' } />,
+            selected: false,
+            disabled: false
+        };
+
+        const menuItemsTemplate = Boolean(menuItemFirst) ? menuItemFirst : menuDefaultTemplate;
+
         return (
             <MenuItem
-                value={ menuItemFirst.value }
-                selected={ menuItemFirst.selected }
-                disabled={ menuItemFirst.disabled }
+                value={ menuItemsTemplate.value }
+                selected={ menuItemsTemplate.selected }
+                disabled={ menuItemsTemplate.disabled }
                 disableGutters
-                classes={ {
+                classes={{
                     selected: classes.selected
-                } }
-                className={ classes.menuItem }
+                }}
+                className={`${classes.menuItem} ${classes.menuItemPlaceholder}`}
             >
-                { menuItemFirst.name }
+                { menuItemsTemplate.name }
             </MenuItem>
         );
     };
@@ -70,21 +74,15 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                   className={ classes.root }
             >
                 <Grid item xs={ 12 }>
-                    <FormControl
-                        required={ isRequired ? isRequired : false }
-                        className={ classes.formControl }
-                    >
+                    <FormControl required={ isRequired ? isRequired : false } className={ classes.formControl }>
                         { (title && isMenuItemsExist) &&
-                        <Typography
-                            component="span"
-                            className={ classes.title }
-                        >
-                            { title }
-                        </Typography>
+                            <Typography component="span" className={ classes.title }>
+                                { title }
+                            </Typography>
                         }
 
                         { label &&
-                            <InputLabel shrink classes={ { root: classes.label } }>{ label }</InputLabel>
+                            <InputLabel shrink classes={{ root: classes.label }}>{ label }</InputLabel>
                         }
 
                         <Select
@@ -94,7 +92,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                             value={ currentMode }
                             onChange={ changeHandler }
                             name={ name }
-                            MenuProps={ {
+                            MenuProps={{
                                 getContentAnchorEl: null,
                                 disableAutoFocusItem: true,
                                 anchorOrigin: {
@@ -108,11 +106,11 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                                 classes: {
                                     paper: classes.menu
                                 }
-                            } }
-                            classes={ {
+                            }}
+                            classes={{
                                 root: classes.selectRoot,
                                 select: `${classes.input} ${isOpen ? classes.inputFocused : ''}`
-                            } }
+                            }}
                             disableUnderline
                             IconComponent={ chevronIcon }
                             autoWidth={ isFullWidth }
@@ -123,9 +121,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                                     value={ item.value }
                                     key={ `${item.name}-${item.value}` }
                                     disableGutters
-                                    classes={ {
-                                        selected: classes.selected
-                                    } }
+                                    classes={{ selected: classes.selected }}
                                     className={ classes.menuItem }
                                 >
                                     <span className={ classes.menuItemText }>{ item.name }</span>

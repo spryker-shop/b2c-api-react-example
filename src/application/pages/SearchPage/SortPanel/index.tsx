@@ -75,7 +75,11 @@ class SortPanelBase extends React.Component<Props, State> {
                                     currentMode={ currentItemsPerPage }
                                     changeHandler={ this.handleSetItemsPerPage }
                                     menuItems={ this.itemsPerPageMenuItems() }
-                                    menuItemFirst={ null }
+                                    menuItemFirst={{
+                                        value: ' ',
+                                        name: <FormattedMessage id={ 'products.per.page.title' } />,
+                                        disabled: true
+                                    }}
                                     name="pages"
                                 />
                             }
@@ -86,7 +90,11 @@ class SortPanelBase extends React.Component<Props, State> {
                                     currentMode={ currentSort ? currentSort : ' ' }
                                     changeHandler={ this.handleSetSorting }
                                     menuItems={ this.sortMenuItems() }
-                                    menuItemFirst={ null }
+                                    menuItemFirst={{
+                                        value: ' ',
+                                        name: <FormattedMessage id={ 'relevance.sort.model.title' } />,
+                                        disabled: !(this.props.sortParams.length > 0)
+                                    }}
                                     name="sort"
                                 />
                             }

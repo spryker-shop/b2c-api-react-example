@@ -1,18 +1,14 @@
 import { reduxify } from '@application/hoc/Reduxify';
-
-import { ICartTotals } from '@interfaces/cart';
-
-import { getCartTotals } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { TAppCurrency } from '@interfaces/currency';
+import { getAppCurrency } from '@stores/reducers/common/init';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const totals: ICartTotals = getCartTotals(state, ownProps);
+    const currency: TAppCurrency = getAppCurrency(state, ownProps);
 
-    return (
-        {
-            totals
-        }
-    );
+    return ({
+        currency,
+    });
 };
 
 export const connect = reduxify(mapStateToProps);

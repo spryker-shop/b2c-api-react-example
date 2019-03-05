@@ -24,8 +24,6 @@ export const messages: IMessages = {
         'billing.address.title': 'Billing Address',
         'cart.changed.quantity.message': 'The quantity of your items was changed.',
         'cart.is.empty.message': 'Empty cart, go shopping',
-        'cart.quest.with.items.title': 'Cart (guest) {items}',
-        'cart.with.items.title': 'Cart {items}',
         'categories.panel.title': 'Categories',
         'category.intro.computers': 'Into gaming? Great. As we offer the most powerful computers that will enhance your online gaming experience.',
         'category.intro.notebooks': 'Always stay ahead of the crowd with the latest Notebook selection to fit any lifestyle or purpose.',
@@ -144,7 +142,7 @@ export const messages: IMessages = {
         'range.input.to.title': '{titleName} to',
         'recovery.password.title': 'Recover my password',
         'register.success.message': 'You have successfully registered',
-        'relevance.sort.model.title': 'Sort by relevance',
+        'relevance.sort.model.title': 'Sort by',
         'remove.button.title': 'Remove',
         'request.error.message': 'Request Error: {messageText}',
         'reset.all.filters.title': 'Reset All Filters',
@@ -165,6 +163,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Select wish list',
         'shipment.tax.rate.label': 'Tax Rate',
         'shipping.address.title': 'Shipping Address',
+        'shipping.fee.calculated.text': 'Shipping fee will be calculated based on Shipping address',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -202,6 +201,7 @@ export const messages: IMessages = {
         'word.items.title': 'Items',
         'word.loading.title': 'Loading...',
         'word.login.title': 'Login',
+        'word.my.cart.title': 'My Cart',
         'word.order.history.title': 'Order History',
         'word.password.title': 'Password',
         'word.payment.title': 'Payment',
@@ -222,6 +222,7 @@ export const messages: IMessages = {
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
         'word.reset.title': 'Reset',
+        'your.order.title': 'Your Order',
         'zip.code.label': 'Zipcode',
     },
     'de': {
@@ -244,8 +245,6 @@ export const messages: IMessages = {
         'billing.address.title': 'Rechungsadress',
         'cart.changed.quantity.message': 'Die Menge Ihrer Artikel wurde geändert.',
         'cart.is.empty.message': 'Warenkorb leeren, einkaufen gehen',
-        'cart.quest.with.items.title': 'Warenkorb (gast) {items}',
-        'cart.with.items.title': 'Warenkorb {items}',
         'categories.panel.title': 'KATEGORIEN',
         'category.intro.computers': 'Du magst Gaming? Super, denn wir bieten die leistungsstärksten PCs an, die diene Online-Gaming Erfahrungen verbessern werden.',
         'category.intro.notebooks': 'Sei immer einen Schritt voraus mit der neuesten Laptop Auswahl, die jedem Lebensstil oder Zweck bedient.',
@@ -364,7 +363,7 @@ export const messages: IMessages = {
         'range.input.to.title': '{titleName} zu',
         'recovery.password.title': 'Passwort vergessen',
         'register.success.message': 'Sie haben sich erfolgreich registriert',
-        'relevance.sort.model.title': 'Nach Relevanz sortieren',
+        'relevance.sort.model.title': 'Nach sortieren',
         'remove.button.title': 'Entfermen',
         'request.error.message': 'Anforderungsfehler: {messageText}',
         'reset.all.filters.title': 'Alle Filter zurücksetzen',
@@ -385,6 +384,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Wunschliste auswählen',
         'shipment.tax.rate.label': 'Steuersatz',
         'shipping.address.title': 'Lieferadresse',
+        'shipping.fee.calculated.text': 'Die Versandkosten werden basierend auf der Versandadresse berechnet',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -410,7 +410,7 @@ export const messages: IMessages = {
         'word.agree.title': 'Zustimmen',
         'word.availability.title': 'Verfügbarkeit',
         'word.back.title': 'Zurück',
-        'word.cart.title': 'Warenkorb',
+        'word.cart.title': 'Mein Warenkorb',
         'word.checkout.title': 'Zur Kasse',
         'word.delete.title': 'Löschen',
         'word.disagree.title': 'Nicht zustimmen',
@@ -422,6 +422,7 @@ export const messages: IMessages = {
         'word.items.title': 'Artikel',
         'word.loading.title': 'Beladung...',
         'word.login.title': 'Anmelden',
+        'word.my.cart.title': 'Mein Warenkorb',
         'word.order.history.title': 'Bestellungen',
         'word.password.title': 'Passwort',
         'word.payment.title': 'Zahlung',
@@ -442,6 +443,7 @@ export const messages: IMessages = {
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
         'word.reset.title': 'Zurücksetzen',
+        'your.order.title': 'Deine Bestellung',
         'zip.code.label': 'PLZ',
     }
 };
@@ -449,7 +451,6 @@ export const messages: IMessages = {
 // Console Messages
 export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
 export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const EmptyValueErrorMessage = 'Selected value is empty!';
 export const InputSaveErrorMessage = 'Can\'t handle this value or field name';
 export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
 export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
