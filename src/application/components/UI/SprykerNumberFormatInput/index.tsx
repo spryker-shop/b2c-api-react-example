@@ -3,7 +3,7 @@ import NumberFormat from 'react-number-format';
 import { SprykerNumberFormatInputProps as Props } from './types';
 
 export const SprykerNumberFormatInput: React.SFC<Props> = (props): JSX.Element => {
-    const { inputRef, onChange, currency, ...other } = props;
+    const { inputRef, isAllowed, currency, ...other } = props;
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency
@@ -14,16 +14,12 @@ export const SprykerNumberFormatInput: React.SFC<Props> = (props): JSX.Element =
         <NumberFormat
             { ...other }
             getInputRef={ inputRef }
-            onValueChange={ values => {
-                onChange({
-                    target: {
-                        value: values.value
-                    }
-                });
-            }}
             thousandSeparator
+            decimalScale={ 2 }
+            fixedDecimalScale={ true }
             allowNegative={ false }
             prefix={ currencyChar }
+            isAllowed={ values => isAllowed(values) }
         />
     );
 };

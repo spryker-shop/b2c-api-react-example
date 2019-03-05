@@ -5,10 +5,10 @@ import { ValueFacets } from '@interfaces/searchPageData';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { SprykerFilter } from '@application/components/UI/SprykerFilter';
 import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
-import { AppPrice } from '@application/components//AppPrice';
-import { Grid } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
+const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         filters,
         activeFilters,
@@ -16,7 +16,8 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
         activeRangeFilters,
         updateStore,
         updateActiveFilters,
-        updateRangeFilters
+        updateRangeFilters,
+        classes
     } = props;
 
     const renderFilters = (): JSX.Element[] => {
@@ -37,6 +38,9 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
                                 isShowSelected
                                 handleClose={ updateStore }
                                 title={ filter.localizedName }
+                                classes={{
+                                    menu: classes.filters
+                                }}
                                 isFullWidth
                             />
                         </Grid>
@@ -68,10 +72,13 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
                             max={ valueTo }
                             handleChange={ updateRangeFilters }
                             handleAfterChange={ updateStore }
+                            classes={{
+                                popoverContent: classes.filters
+                            }}
                             currentValue={ activeRangeFilters[filter.name] || {
                                 min: valueFrom,
                                 max: valueTo
-                            } }
+                            }}
                         />
                     </Grid>
                 );
@@ -88,12 +95,16 @@ export const FiltersList: React.SFC<Props> = (props): JSX.Element => {
     return (
         <>
             { isItemsExist &&
-                <Grid container spacing={ 16 }>
-                    { isFiltersExist && renderFilters() }
-                    { isItemsExist &&  renderRange()}
-                </Grid>
+                <div className={ classes.filterList }>
+                    <Grid container spacing={ 16 }>
+                        { isFiltersExist && renderFilters() }
+                        { isItemsExist &&  renderRange()}
+                    </Grid>
+                </div>
             }
         </>
 
     );
 };
+
+export const FiltersList = withStyles(styles)(FiltersListComponent);

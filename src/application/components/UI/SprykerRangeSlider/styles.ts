@@ -62,16 +62,11 @@ export const styles = (theme: Theme) => createStyles({
         padding: '40px 15px 20px',
         borderRadius: 4,
         boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
-        marginTop: -3,
-        minWidth: 306
+        marginTop: -3
     },
     rangeOuter: {
-        paddingLeft: 0,
-        paddingTop: 0,
-        paddingBottom: theme.spacing.unit * 3,
-        paddingRight: 0,
-        maxWidth: `calc(100% - ${theme.spacing.unit * 3}px)`,
-        margin: 'auto'
+        padding: '0 12px 12px',
+        marginBottom: '20px'
     },
     range: {
         position: 'relative',
@@ -138,20 +133,10 @@ export const styles = (theme: Theme) => createStyles({
         outline: 'none',
         '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
             appearance: 'none',
-            margin: 0,
+            margin: 0
         },
         '&:focus': {
             background: theme.appColors.white
         }
-    },
-    valueMin: {
-        textAlign: 'left'
-    },
-    valueMax: {
-        textAlign: 'right'
-    },
-    value: {
-        fontSize: `${theme.appFixedDimensions.fontSize.medium} !important`,
-        fontWeight: 600
     }
 });

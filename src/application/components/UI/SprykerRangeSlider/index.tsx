@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { NumberFormatValues } from 'react-number-format';
 import { SprykerNumberFormatInput } from '@application/components/UI/SprykerNumberFormatInput';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { Range } from 'rc-slider';
 import { ChevronIcon } from './icons';
 import { ISprykerRangeSliderProps as Props, ISprykerRangeSliderState as State } from './types';
-import { ClickEvent, InputChangeEvent } from '@interfaces/common';
+import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 
 class SprykerRangeSliderComponent extends React.Component<Props, State> {
@@ -49,10 +50,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         });
     };
 
-    protected onFieldMinChangeHandler = (event: InputChangeEvent): void => {
+    protected isShouldUpdateMinField = (values: NumberFormatValues): boolean => {
         const { handleChange, attributeName, min } = this.props;
         const { currentMaxValue } = this.state;
-        const newValue = Number(event.target.value);
+        const newValue = values.floatValue;
 
         if (newValue < currentMaxValue && newValue >= min) {
             this.setState({ currentMinValue: newValue });
@@ -61,13 +62,17 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                 min: newValue,
                 max: currentMaxValue
             });
+
+            return true;
         }
+
+        return false;
     };
 
-    protected onFieldMaxChangeHandler = (event: InputChangeEvent): void => {
+    protected isShouldUpdateMaxField = (values: NumberFormatValues): boolean => {
         const { handleChange, attributeName, max } = this.props;
         const { currentMinValue } = this.state;
-        const newValue = Number(event.target.value);
+        const newValue = values.floatValue;
 
         if (currentMinValue < newValue && newValue <= max) {
             this.setState({ currentMaxValue: newValue });
@@ -76,7 +81,11 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                 min: currentMinValue,
                 max: newValue
             });
+
+            return true;
         }
+
+        return false;
     };
 
     public render(): JSX.Element {
@@ -101,15 +110,22 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                 <PopoverWrapper
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    containerWidth={ minPopoverWidth }
-                    classes={ {
+                    classes={{
                         content: classes.popoverContent
-                    } }
-                    paperProps={ {
+                    }}
+                    paperProps={{
                         style: {
-                            width: minPopoverWidth
+                            minWidth: minPopoverWidth
                         }
-                    } }
+                    }}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left'
+                    }}
+                    transformOrigin={{
+                         vertical: 'top',
+                         horizontal: 'left'
+                     }}
                 >
                     <div className={ classes.rangeOuter }>
                         <Range
@@ -124,24 +140,23 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                     </div>
 
                     <Grid container alignItems="center">
-                        <Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMin}` }>
+                        <Grid item xs={ 6 }>
                             <SprykerNumberFormatInput
                                 name="min"
                                 currency={ currency }
                                 className={ classes.input }
                                 value={ currentMinValue }
-                                onChange={ this.onFieldMinChangeHandler }
+                                isAllowed={ this.isShouldUpdateMinField }
                                 type="text"
                             />
                         </Grid>
-
-                        <Grid item xs={ 6 } className={ `${classes.value} ${classes.valueMax}` }>
+                        <Grid item xs={ 6 }>
                             <SprykerNumberFormatInput
                                 name="min"
                                 currency={ currency }
                                 className={ classes.input }
                                 value={ currentMaxValue }
-                                onChange={ this.onFieldMaxChangeHandler }
+                                isAllowed={ this.isShouldUpdateMaxField }
                                 type="text"
                             />
                         </Grid>

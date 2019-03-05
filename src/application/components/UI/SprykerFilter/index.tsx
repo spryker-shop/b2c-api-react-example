@@ -76,14 +76,14 @@ class SprykerFilterComponent extends React.Component<Props, State> {
                                 paper: classes.menu
                             }
                         }}
-                        autoWidth={ isFullWidth }
+                        autoWidth={ !isFullWidth }
                         displayEmpty
                         open={ isOpen }
                         onClose={ this.handleChangeShowing }
                         onOpen={ this.handleChangeShowing }
                         onChange={ this.handleChangeValues }
                         value={ activeValues }
-                        disableUnderline={ true }
+                        disableUnderline
                         IconComponent={ chevronIcon }
                         classes={{
                             root: classes.selectRoot,
