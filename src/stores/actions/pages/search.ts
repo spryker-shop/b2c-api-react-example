@@ -11,7 +11,7 @@ import {
     PAGES_SEARCH_CURRENT_CATEGORY_SET,
     PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 } from '@stores/actionTypes/pages/search';
-import { CatalogService } from '@services/Common/Catalog';
+import { CatalogService } from '@services/common/Catalog';
 import {
     IActiveFilters,
     IActiveSort,
