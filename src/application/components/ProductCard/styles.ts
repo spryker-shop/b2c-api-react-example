@@ -8,7 +8,7 @@ export const styles = (theme: Theme) => createStyles({
         margin: 'auto',
         height: '100%',
         boxShadow: 'none',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     media: {
         position: 'absolute',
@@ -18,7 +18,7 @@ export const styles = (theme: Theme) => createStyles({
         bottom: 0,
         margin: 'auto',
         maxWidth: '90%',
-        maxHeight: '90%',
+        maxHeight: '90%'
     },
     actionArea: {
         maxWidth: theme.appFixedDimensions.card.actionAreaWidth,
@@ -27,8 +27,8 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         width: '100%',
         [theme.breakpoints.down('md')]: {
-            minHeight: 350,
-        },
+            minHeight: 350
+        }
     },
     actionAreaOverlay: {
         position: 'absolute',
@@ -37,24 +37,24 @@ export const styles = (theme: Theme) => createStyles({
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 350,
+        zIndex: 350
     },
     cardContent: {
         padding: theme.spacing.unit + theme.spacing.unit / 2,
         letterSpacing: '0.5px',
         width: '100%',
-        maxWidth: theme.appFixedDimensions.card.actionAreaWidth,
+        maxWidth: theme.appFixedDimensions.card.actionAreaWidth
     },
     productName: {
         fontSize: '1rem',
-        color: theme.appColors.black,
+        color: theme.appColors.black
     },
     productPrice: {},
-    productCurrentPrice: {
-        display: 'inline',
-        paddingRight: theme.spacing.unit,
+    newPrice: {
+        color: theme.appColors.red
     },
-    productOldPrice: {
-        display: 'inline',
-    },
+    oldPrice: {
+        fontSize: 14,
+        lineHeight: 1.47
+    }
 });

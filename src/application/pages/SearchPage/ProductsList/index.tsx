@@ -1,25 +1,16 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { IProductsListProps } from './types';
+import { IProductsListProps as Props } from './types';
 import { IProductCard, IProductLabel } from '@interfaces/product';
 import { getProductLabel } from '@helpers/product/label';
 import { ProductCard } from '@application/components/ProductCard';
-import { AppPageHeadline } from '@application/components/AppPageHeadline';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { sprykerTheme } from '@theme/sprykerTheme';
 
-export const ProductsListBase: React.SFC<IProductsListProps> = props => {
-    const {
-        classes,
-        products,
-        selectProductHandler,
-        currency,
-        isLoading,
-        productsLabeled,
-        availableLabels,
-    } = props;
+const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, products, selectProductHandler, currency, isLoading, productsLabeled, availableLabels } = props;
 
     const isProductsExist = (Array.isArray(products) && products.length);
 
@@ -48,14 +39,14 @@ export const ProductsListBase: React.SFC<IProductsListProps> = props => {
                         </Grid>
                     );
                 })
-                : <Grid item xs>
-                    <AppPageHeadline
-                        title={ <FormattedMessage id={ isLoading ? 'loading.page.title' : 'empty.page.title' } />}
-                    />
+                : <Grid item>
+                    <Typography component="h3" align="center" variant="display2">
+                        <FormattedMessage id={ isLoading ? 'loading.page.title' : 'empty.page.title' } />
+                    </Typography>
                 </Grid>
             }
         </Grid>
     );
 };
 
-export const ProductsList = withStyles(styles)(connect(ProductsListBase));
+export const ProductsList = withStyles(styles)(connect(ProductsListComponent));

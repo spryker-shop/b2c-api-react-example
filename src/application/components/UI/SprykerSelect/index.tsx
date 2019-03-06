@@ -113,7 +113,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                             }}
                             disableUnderline
                             IconComponent={ chevronIcon }
-                            autoWidth={ isFullWidth }
+                            autoWidth={ !isFullWidth }
                         >
                             { this.getMenuItemFirst() }
                             { isMenuItemsExist && menuItems.map(item => (

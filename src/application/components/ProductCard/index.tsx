@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles, Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { withStyles, Card, CardActionArea, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
 import { ProductLabel } from '@application/components/ProductLabel';
@@ -39,41 +39,40 @@ export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
     return (
         <Card className={ classes.card } raised={ true }>
             <CardActionArea onClick={ handleProductClick } className={ classes.actionArea }>
-                { image
-                    ? <CardMedia
+                { image &&
+                    <CardMedia
                         component="img"
                         className={ classes.media }
                         image={ image }
                         title={ name }
                     />
-                    : null
                 }
                 <ProductLabel label={ label } />
-                <div className={ classes.actionAreaOverlay }></div>
+                <span className={ classes.actionAreaOverlay } />
             </CardActionArea>
             <CardContent className={ classes.cardContent }>
                 <Typography gutterBottom component="h2" className={ classes.productName } data-type="productName">
                     { name }
                 </Typography>
                 <div className={ classes.productPrice }>
-                    <Typography
-                        component="span"
-                        color="textPrimary"
-                        data-type="priceToShow"
-                        className={ classes.productCurrentPrice }
-                    >
-                        <AppPrice value={ actualPriceGross } />
-                    </Typography>
-                    { oldPriceGross
-                        ? <Typography
-                            component="span"
-                            color="textPrimary"
-                            className={ classes.productOldPrice }
-                        >
-                            <AppPrice value={ oldPriceGross } priceType={ priceTypeNameOriginal } />
-                        </Typography>
-                        : null
-                    }
+                    <Grid container alignItems="flex-end" spacing={ 8 }>
+                        <Grid item>
+                            <Typography
+                                component="span"
+                                variant="display2"
+                                className={`${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
+                            >
+                                <AppPrice value={ actualPriceGross } />
+                            </Typography>
+                        </Grid>
+                        { Boolean(oldPriceGross) &&
+                            <Grid item>
+                                <Typography color="textSecondary" component="span" className={ classes.oldPrice }>
+                                    <AppPrice value={ oldPriceGross } priceType={ priceTypeNameOriginal } />
+                                </Typography>
+                            </Grid>
+                        }
+                    </Grid>
                 </div>
             </CardContent>
         </Card>

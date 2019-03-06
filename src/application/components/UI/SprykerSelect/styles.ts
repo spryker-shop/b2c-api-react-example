@@ -65,6 +65,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
         marginTop: -3,
+        minWidth: 140,
         '&& ul': {
             padding: '10px 10px 2px'
         }
