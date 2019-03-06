@@ -3,7 +3,6 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        fontFamily: 'Circular',
         flexGrow: 1,
         display: 'flex',
         width: '100%',

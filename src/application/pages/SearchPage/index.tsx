@@ -18,12 +18,13 @@ import { SearchIntro } from './SearchIntro';
 import { CategoriesList } from './CategoriesList';
 import { SearchFilterList } from './SearchFilterList';
 import { SearchPagination } from './SearchPagination';
-import { Grid } from '@material-ui/core';
-import { ISearchFilterListState as State } from '@application/pages/SearchPage/SearchFilterList/types';
+import { Grid, withStyles } from '@material-ui/core';
+import { ISearchFilterListState as State } from './SearchFilterList/types';
+import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class SearchPage extends React.Component<ISearchPageProps> {
+export class SearchPageComponent extends React.Component<ISearchPageProps> {
     public readonly state: State = {
         isFirstLoadPassed: null
     };
@@ -135,6 +136,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
 
     public render() {
         const {
+            classes,
             searchTerm,
             category,
             spellingSuggestion,
@@ -146,12 +148,11 @@ export class SearchPage extends React.Component<ISearchPageProps> {
         } = this.props;
 
         const isCategoriesExist = (category.length > 0);
-
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
         const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
 
         return (
-            <>
+            <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ formattedCategoriesTree } />
                 <AppPageTitle
                     title={ searchTerm
@@ -179,7 +180,6 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                                 locationCategoryId={ locationCategoryId }
                             />
                         </Grid>
-
                         <Grid item xs={ 12 } md={ isCategoriesExist ? 9 : 12 }>
                             <SearchFilterList />
 
@@ -191,7 +191,9 @@ export class SearchPage extends React.Component<ISearchPageProps> {
                         </Grid>
                     </Grid>
                 </AppMain>
-            </>
+            </div>
         );
     }
 }
+
+export const SearchPage = withStyles(styles)(SearchPageComponent);

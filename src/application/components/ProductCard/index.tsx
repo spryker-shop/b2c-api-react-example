@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { withStyles, Card, CardActionArea, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
+import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
 import { ProductLabel } from '@application/components/ProductLabel';
 import { getOneProductImage } from '@helpers/product/imageSetsParser';
-import { ClickEvent } from '@interfaces/common';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
+import { SquareImage } from '@application/components/SquareImage';
 
-export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, images, name = '', prices, sku, label } = props;
+export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, images, name = '', prices, sku, label, onSelectProduct } = props;
 
     let actualPriceGross = 0;
     let actualPriceNet = 0;
@@ -31,30 +31,19 @@ export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
 
     const image = getOneProductImage(images);
 
-    const handleProductClick = (e: ClickEvent) => {
-        e.preventDefault();
-        props.onSelectProduct(sku);
-    };
-
     return (
-        <Card className={ classes.card } raised={ true }>
-            <CardActionArea onClick={ handleProductClick } className={ classes.actionArea }>
-                { image &&
-                    <CardMedia
-                        component="img"
-                        className={ classes.media }
-                        image={ image }
-                        title={ name }
-                    />
-                }
+        <div className={ classes.card } onClick={ () => onSelectProduct(sku) }>
+            <div className={ classes.imageWrapper }>
+                { image &&  <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.image }} /> }
                 <ProductLabel label={ label } />
-                <span className={ classes.actionAreaOverlay } />
-            </CardActionArea>
-            <CardContent className={ classes.cardContent }>
-                <Typography gutterBottom component="h2" className={ classes.productName } data-type="productName">
-                    { name }
-                </Typography>
-                <div className={ classes.productPrice }>
+            </div>
+            <div className={ classes.content }>
+                <div className={ classes.nameWrapper }>
+                    <Typography color="textSecondary" component="h5" variant="headline" className={classes.name}>
+                        { name }
+                    </Typography>
+                </div>
+                <div className={ classes.prices }>
                     <Grid container alignItems="flex-end" spacing={ 8 }>
                         <Grid item>
                             <Typography
@@ -62,7 +51,7 @@ export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
                                 variant="display2"
                                 className={`${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ actualPriceGross } />
+                                <AppPrice value={ actualPriceGross } isStylesInherited />
                             </Typography>
                         </Grid>
                         { Boolean(oldPriceGross) &&
@@ -74,9 +63,9 @@ export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
                         }
                     </Grid>
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 };
 
-export const ProductCard = withStyles(styles)(ProductCardBase);
+export const ProductCard = withStyles(styles)(ProductCardComponent);

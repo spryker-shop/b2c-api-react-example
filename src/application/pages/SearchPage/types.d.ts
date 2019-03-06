@@ -4,10 +4,12 @@ import { RouteProps } from 'react-router';
 import { WithRouter } from 'src/shared/interfaces/common/react';
 import { ICategory } from 'src/shared/interfaces/category';
 import { TAppCurrency } from '@interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@application/pages/SearchPage/SearchFilterList/types';
+import { TActiveFilters, TActiveRangeFilters } from '@application';
 import { TSpellingSuggestion } from '@interfaces/searchPageData';
+import { WithStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-export interface ISearchPageProps extends ISearchPageData, RouteProps, WithRouter {
+export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;
     changeLocation: Function;
     categoriesTree: ICategory[];
