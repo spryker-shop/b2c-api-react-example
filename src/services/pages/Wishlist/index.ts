@@ -483,6 +483,10 @@ export class WishlistService extends ApiServiceAbstract {
                     } else {
                         if (row.type === 'concrete-product-availabilities') {
                             items[row.id].availability = row.attributes.availability;
+
+                            if (row.attributes.isNeverOutOfStock) {
+                                items[row.id].availability = true;
+                            }
                         }
                     }
                 }
