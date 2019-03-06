@@ -7,19 +7,21 @@ import {
     IProductDataParsed,
     IProductPricesItem,
     priceTypeNameDefault,
-    priceTypeNameOriginal,
+    priceTypeNameOriginal
 } from '@interfaces/product';
 import {
     IProductAvailabilitiesRawResponse, IProductRawResponse,
     TRowProductResponseIncluded
 } from '@helpers/product/types';
 
+const defaultProductQuantity = 10;
+
 export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed | null => {
     if (!response) {
         return null;
     }
 
-    const {data, included} = response;
+    const { data, included } = response;
     const result: IProductDataParsed = {
         attributeMap: data.attributes.attributeMap,
         superAttributes: null,
@@ -38,9 +40,9 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             priceDefaultNet: null,
             availability: null,
             quantity: null,
-            productType: abstractProductType,
+            productType: abstractProductType
         },
-        concreteProducts: {},
+        concreteProducts: {}
     };
     let attributeNamesContainer: IProductAttributeNames = {};
 
@@ -62,7 +64,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                 priceDefaultNet: null,
                 availability: null,
                 quantity: null,
-                productType: concreteProductType,
+                productType: concreteProductType
             };
         });
     }
@@ -101,7 +103,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                         result.concreteProducts[row.id].description = row.attributes.description;
                         result.concreteProducts[row.id].attributes = row.attributes.attributes;
                         result.concreteProducts[row.id].attributeNames = row.attributes.attributeNames;
-                        attributeNamesContainer = {...attributeNamesContainer, ...row.attributes.attributeNames};
+                        attributeNamesContainer = { ...attributeNamesContainer, ...row.attributes.attributeNames };
                     } else {
                         if (row.type === 'concrete-product-image-sets' && !result.concreteProducts[row.id].images) {
                             result.concreteProducts[row.id].images = parseImageSets(row.attributes.imageSets);
@@ -130,13 +132,13 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                                     result.concreteProducts[row.id].availability = row.attributes.availability;
                                     result.concreteProducts[row.id].quantity = row.attributes.quantity;
 
-                                    // if (row.attributes.isNeverOutOfStock) {
-                                    //   result.concreteProducts[row.id].availability = true;
-                                    //   result.concreteProducts[row.id].quantity = 10;
-                                    //
-                                    //   result.abstractProduct.availability = true;
-                                    //   result.abstractProduct.quantity = 10;
-                                    // }
+                                    if (row.attributes.isNeverOutOfStock) {
+                                        result.concreteProducts[row.id].availability = true;
+                                        result.concreteProducts[row.id].quantity = defaultProductQuantity;
+
+                                        result.abstractProduct.availability = true;
+                                        result.abstractProduct.quantity = defaultProductQuantity;
+                                    }
                                 }
                             }
                         }
@@ -157,20 +159,20 @@ export const parseProductAvailabilityResponse = (response: IProductAvailabilitie
     if (!response) {
         return null;
     }
-    const {data} = response;
+    const { data } = response;
     if (!data || !data[0] || !data[0].attributes) {
         return null;
     }
     const attributes = data[0].attributes;
 
-    // if (attributes.isNeverOutOfStock) {
-    //   attributes.availability = true;
-    //   attributes.quantity = 10;
-    // }
+    if (attributes.isNeverOutOfStock) {
+        attributes.availability = true;
+        attributes.quantity = defaultProductQuantity;
+    }
 
     return {
         sku: data[0].id,
         availability: attributes.availability,
-        quantity: attributes.quantity,
+        quantity: attributes.quantity
     };
 };
