@@ -51,7 +51,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     };
 
     protected handleChange = (event: InputChangeEvent, {newValue}: {newValue: string}): void => {
-        const maxLettersValueToClearSuggestField = 4;
+        const maxLettersValueToClearSuggestField = 3;
 
         if (newValue.trim().length < maxLettersValueToClearSuggestField) {
             this.props.clearSuggestions(newValue);
