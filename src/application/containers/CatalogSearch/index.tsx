@@ -35,11 +35,15 @@ export class CatalogSearchBase extends React.Component<Props, State> {
 
             this.timer = window.setTimeout(() => {
                 if (this.state.value === value) {
-                    this.props.sendSuggestionAction(value);
+                    this.tes(value);
                 }
             }, 800);
         }
     };
+
+    protected tes = async (value) => {
+        await this.props.sendSuggestionAction(value);
+    }
 
     protected handleSuggestionsClearRequested = (): void => {
         return;
@@ -54,6 +58,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
         const maxLettersValueToClearSuggestField = 4;
 
         if (newValue.trim().length < maxLettersValueToClearSuggestField) {
+            console.log('cleeeeear');
             this.props.clearSuggestions(newValue);
         }
 
@@ -103,6 +108,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     };
 
     protected renderSuggestionsContainer = (options: Autosuggest.RenderSuggestionsContainerParams): JSX.Element => {
+        const { classes } = this.props;
         const suggestionsContainerProps = {
             options,
             clearSuggestion: this.clearSuggestion
@@ -110,7 +116,10 @@ export class CatalogSearchBase extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <SuggestionsContainer {...suggestionsContainerProps} />
+                <SuggestionsContainer
+                    {...suggestionsContainerProps}
+                    classes={{suggestionsContainer: classes.suggestionsContainerOpen}}
+                />
             </ErrorBoundary>
         );
     };

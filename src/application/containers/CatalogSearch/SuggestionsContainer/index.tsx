@@ -16,7 +16,7 @@ import { ISuggestionsContainerProps as Props } from './types';
 import { styles } from './styles';
 
 export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element => {
-    const {categories, completion, suggestions, categoriesTree, classes, options} = props;
+    const {categories, completion, suggestions, categoriesTree, classes, options, fulfilled} = props;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
         const query = event.currentTarget.dataset.query.trim();
@@ -87,14 +87,15 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
         return categoriesList;
     };
 
-    if (!suggestions.length) {
+    const isNoSuggestions = !Boolean(categories.length) && !Boolean(completion.length) &&
+        !Boolean(options.children) && fulfilled;
+
+    if (isNoSuggestions) {
         return (
-            <div {...options.containerProps}>
-                <Paper square>
-                    <Typography paragraph variant="headline">
-                        <FormattedMessage id={'no.found.message'} />
-                    </Typography>
-                </Paper>
+            <div className={ classes.suggestionsContainer }>
+                <div className={ classes.noFoundText }>
+                    <FormattedMessage id={'no.found.message'} />
+                </div>
             </div>
         );
     }
