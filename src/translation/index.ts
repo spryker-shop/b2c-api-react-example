@@ -221,6 +221,7 @@ export const messages: IMessages = {
         'word.loading.title': 'Loading...',
         'word.each.title': 'each',
         'zip.code.label': 'Zipcode',
+        'product.relations.title': 'You also may be intrested in',
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -439,6 +440,7 @@ export const messages: IMessages = {
         'word.loading.title': 'Beladung...',
         'word.each.title': 'jeder',
         'zip.code.label': 'PLZ',
+        'product.relations.title': 'Sie könnten auch interessiert sein',
     }
 };
 

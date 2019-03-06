@@ -53,12 +53,14 @@
     "react-responsive-carousel": "3.1.42",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
+    "react-slick": "^0.23.2",
     "react-sticky": "6.0.3",
     "react-tap-event-plugin": "3.0.3",
     "react-toastify": "4.3.1",
     "redux": "4.0.0",
     "redux-thunk": "2.3.0",
     "reselect": "3.0.1",
+    "slick-carousel": "^1.8.1",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
@@ -96,6 +98,7 @@
     "@types/react-router": "4.0.26",
     "@types/react-router-config": "1.0.7",
     "@types/react-router-dom": "4.2.7",
+    "@types/react-slick": "^0.23.3",
     "@types/react-sticky": "^6.0.2",
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/react-test-renderer": "16.0.1",

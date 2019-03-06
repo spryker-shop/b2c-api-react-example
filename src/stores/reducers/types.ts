@@ -12,6 +12,7 @@ import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
 import { IInitState } from '@stores/reducers/common/init/types';
 import { IApiErrorResponse } from '@services/types';
+import { IProductRelationsState } from '@stores/reducers/common/productRelations/types';
 
 export interface IReduxState {
     dispatch?: Function;
@@ -34,6 +35,7 @@ export interface IReduxStore {
     orderHistory: IOrderHistoryState;
     orderDetails: IOrderDetailsState;
     pageCustomerProfile: ICustomerDataState;
+    productRelations: IProductRelationsState;
 }
 
 export interface IReduxOwnProps extends RouteProps, WithRouter {

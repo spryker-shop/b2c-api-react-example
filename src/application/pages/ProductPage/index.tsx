@@ -17,6 +17,7 @@ import { ProductConfiguratorAddToWishlist } from './ProductConfiguratorAddToWish
 import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IImageSlide } from '@application/components/ImageSlider/types';
+import { ProductRelations } from '@application/containers/ProductRelations';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import {
     defaultItemValueDropdown,
@@ -154,7 +155,7 @@ export class ProductPageBase extends React.Component<Props, State> {
         })) : null;
 
     public render(): JSX.Element {
-        const {classes} = this.props;
+        const { classes } = this.props;
         const images = this.getImageData(this.state.images);
 
         return (
@@ -218,6 +219,11 @@ export class ProductPageBase extends React.Component<Props, State> {
                                 description={this.state.description}
                                 sku={this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku}
                             />
+                            <ErrorBoundary>
+                                <ProductRelations sku={
+                                    this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku
+                                } />
+                            </ErrorBoundary>
                         </div>
                     )
                 }
