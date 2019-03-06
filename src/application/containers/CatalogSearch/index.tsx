@@ -58,7 +58,6 @@ export class CatalogSearchBase extends React.Component<Props, State> {
         const maxLettersValueToClearSuggestField = 4;
 
         if (newValue.trim().length < maxLettersValueToClearSuggestField) {
-            console.log('cleeeeear');
             this.props.clearSuggestions(newValue);
         }
 
