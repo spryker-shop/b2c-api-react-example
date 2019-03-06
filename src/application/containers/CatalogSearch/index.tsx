@@ -67,7 +67,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     protected shouldRenderSuggestions = (value: string): boolean => {
         const minLettersValueToSuggest = 2;
 
-        return value && value.trim().length > minLettersValueToSuggest;
+        return value && value.trim().length >= minLettersValueToSuggest;
     };
 
     protected renderInputComponent = (inputProps: IInputProps): JSX.Element => {
