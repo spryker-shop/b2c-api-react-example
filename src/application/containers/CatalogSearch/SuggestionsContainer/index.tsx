@@ -16,12 +16,23 @@ import { ISuggestionsContainerProps as Props } from './types';
 import { styles } from './styles';
 
 export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element => {
-    const {categories, completion, suggestions, categoriesTree, classes, options, fulfilled} = props;
+    const {
+        categories,
+        completion,
+        suggestions,
+        categoriesTree,
+        classes,
+        options,
+        currency,
+        clearSuggestion,
+        sendSearchAction,
+        fulfilled
+    } = props;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
         const query = event.currentTarget.dataset.query.trim();
-        this.props.sendSearchAction({q: query, currency: this.props.currency});
-        this.props.clearSuggestion(query);
+        sendSearchAction({q: query, currency});
+        clearSuggestion(query);
     };
 
     let suggestQuery: string = options.query.trim();
@@ -76,7 +87,7 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
                              data-nodeid={categoryNodeId}
                              key={`category-${categoryNodeId}`}
                              className={classes.completion}
-                             onClick={() => this.props.clearSuggestion(categories[i].name)}
+                             onClick={() => clearSuggestion(categories[i].name)}
                     >
                         <div className={classes.completion}>{categories[i].name}</div>
                     </NavLink>
