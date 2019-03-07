@@ -1,4 +1,11 @@
-import { TProductDescription, TProductName, TProductSKU } from '@interfaces/product';
+import {
+    IProductCardImages,
+    IProductLabel,
+    IProductPricesItem,
+    TProductDescription,
+    TProductName,
+    TProductSKU
+} from '@interfaces/product';
 import {
     IRowConcreteProductsIncludedResponse,
     IRowProductAvailabilitiesIncludedResponse,
@@ -17,6 +24,25 @@ export interface IProductRelationsItemResponse {
         sku: TProductSKU;
     };
     id: string;
+    relationships: IProductRelationsItemRelationships;
+}
+
+export interface IProductRelationsItemRelationships {
+    [key: string]: {
+        data: [
+            {
+                type: string;
+                id: string;
+            }
+        ]
+    };
+}
+
+export interface IProductOptions {
+    label?: IProductLabel;
+    price?: number;
+    prices?: IProductPricesItem[];
+    images?: IProductCardImages[];
 }
 
 export type IProductRelationsIncluded = IRowProductImageSetsIncludedResponse

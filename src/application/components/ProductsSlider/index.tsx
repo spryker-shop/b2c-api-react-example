@@ -3,6 +3,7 @@ import { ISlickSliderProps as Props } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@application/components/ProductCard';
+import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
@@ -14,32 +15,40 @@ const ProductsSliderBase = (props: Props): JSX.Element => {
     const slickSettings: Settings = {
         centerMode: true,
         dots: true,
+        infinite: true,
         slidesToShow: 3,
+        slidesToScroll: 1,
+        initialSlide: 0,
         centerPadding: '150px',
-        prevArrow: (
-            <div>
-                <div className={ classes.slideArrow }>
-                    <PrevIcon />
-                </div>
-            </div>
-        ),
-        nextArrow: (
-            <div>
-                <div className={ classes.slideArrow }>
-                    <NextIcon />
-                </div>
-            </div>
-        ),
-        customPaging: () => (
+        prevArrow: (<ArrowButton icon={ <PrevIcon /> } customClass={ classes.slideArrow } />),
+        nextArrow: (<ArrowButton icon={ <NextIcon /> } customClass={ classes.slideArrow } />),
+        customPaging: (): JSX.Element => (
             <div className={ classes.dotWrapper }>
                 <span className={ classes.dot } />
             </div>
         ),
-        appendDots: dots => (
+        appendDots: (dots): JSX.Element => (
             <div>
                 <ul className={ classes.dotsContainer }>{ dots }</ul>
             </div>
-        )
+        ),
+        responsive: [
+            {
+                breakpoint: 1280,
+                settings: {
+                    slidesToShow: 3,
+                    centerPadding: 0,
+                    centerMode: false,
+                }
+            },
+            {
+                breakpoint: 680,
+                settings: {
+                    slidesToShow: 2,
+                    centerPadding: 0,
+                }
+            }
+        ]
     };
 
     return (
@@ -55,7 +64,7 @@ const ProductsSliderBase = (props: Props): JSX.Element => {
                             name={ product.name }
                             sku={ product.sku }
                             onSelectProduct={ () => alert(123) }
-                            label={ null }
+                            label={ product.label }
                         />
                     </div>
                 ))

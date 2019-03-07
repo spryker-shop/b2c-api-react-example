@@ -1,11 +1,10 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
+import { Theme, createStyles } from '@material-ui/core';
 
-const dotChange = {
+const dotChange = (theme: Theme) => ({
     width: '10px',
-    height: '10px',
-    backgroundColor: '#ceced0'
-};
+        height: '10px',
+        backgroundColor: theme.appColors.lightGrey
+});
 
 const animationDuration = '0.15s';
 
@@ -13,6 +12,15 @@ export const styles = (theme: Theme) => createStyles({
     root: {
         position: 'relative',
         paddingBottom: '82px',
+        margin: '0 -10px',
+
+        [theme.breakpoints.only('md')]: {
+            margin: '0 -16px'
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            paddingBottom: '60px'
+        },
 
         '& .slick-slide': {
             transition: `opacity ${animationDuration}`,
@@ -33,6 +41,18 @@ export const styles = (theme: Theme) => createStyles({
             height: 'calc(100% - 82px)',
             cursor: 'pointer',
 
+            [theme.breakpoints.down('md')]: {
+                top: 'calc((100% - 82px) / 2)',
+                transform: 'translate3d(0, -50%, 0)',
+                width: 'auto',
+                height: 'auto',
+            },
+
+            [theme.breakpoints.down('sm')]: {
+                top: 'calc((100% - 60px) / 2)',
+                padding: '0 10px',
+            },
+
             '&.slick-prev': {
                 left: 0
             },
@@ -50,16 +70,27 @@ export const styles = (theme: Theme) => createStyles({
         width: '40px',
         height: '40px',
         borderRadius: '50%',
-        backgroundColor: '#f4f4f4',
+        backgroundColor: theme.appColors.weekWhite,
         transition: `box-shadow ${animationDuration}`,
 
-        '&:hover': {
+        [theme.breakpoints.down('md')]: {
             boxShadow: '0 5px 13px 0 rgba(187, 187, 187, 0.5)'
-        }
+        },
+
+        [theme.breakpoints.up('lg')]: {
+            '&:hover': {
+                boxShadow: '0 5px 5px 0 rgba(187, 187, 187, 0.5)'
+            }
+        },
     },
     slide: {
         paddingLeft: '10px',
-        paddingRight: '10px'
+        paddingRight: '10px',
+
+        [theme.breakpoints.only('md')]: {
+            paddingLeft: '16px',
+            paddingRight: '16px'
+        }
     },
     dotsContainer: {
         position: 'absolute',
@@ -75,7 +106,7 @@ export const styles = (theme: Theme) => createStyles({
 
             '&.slick-active': {
                 '& span': {
-                    ...dotChange
+                    ...dotChange(theme)
                 }
             }
         }
@@ -88,7 +119,7 @@ export const styles = (theme: Theme) => createStyles({
 
         '&:hover': {
             '& span': {
-                ...dotChange
+                ...dotChange(theme)
             }
         }
     },

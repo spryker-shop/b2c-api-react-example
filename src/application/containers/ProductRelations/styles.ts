@@ -3,7 +3,11 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        padding: '80px 0 130px'
+        padding: '80px 0 130px',
+
+        [theme.breakpoints.down('md')]: {
+            padding: '60px 0 80px',
+        },
     },
     title: {
         textAlign: 'center',
