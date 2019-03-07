@@ -103,6 +103,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     };
 
     protected renderSuggestionsContainer = (options: Autosuggest.RenderSuggestionsContainerParams): JSX.Element => {
+        const { classes } = this.props;
         const suggestionsContainerProps = {
             options,
             clearSuggestion: this.clearSuggestion
@@ -110,7 +111,10 @@ export class CatalogSearchBase extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <SuggestionsContainer {...suggestionsContainerProps} />
+                <SuggestionsContainer
+                    {...suggestionsContainerProps}
+                    classes={{suggestionsContainer: classes.suggestionsContainerOpen}}
+                />
             </ErrorBoundary>
         );
     };

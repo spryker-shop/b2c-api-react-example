@@ -25,7 +25,8 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
         options,
         currency,
         clearSuggestion,
-        sendSearchAction
+        sendSearchAction,
+        fulfilled
     } = props;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
@@ -97,14 +98,15 @@ export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element =
         return categoriesList;
     };
 
-    if (!suggestions.length) {
+    const isNoSuggestions = !Boolean(categories.length) && !Boolean(completion.length) &&
+        !Boolean(options.children) && fulfilled;
+
+    if (isNoSuggestions) {
         return (
-            <div {...options.containerProps}>
-                <Paper square>
-                    <Typography paragraph variant="headline">
-                        <FormattedMessage id={'no.found.message'} />
-                    </Typography>
-                </Paper>
+            <div className={ classes.suggestionsContainer }>
+                <div className={ classes.noFoundText }>
+                    <FormattedMessage id={'no.found.message'} />
+                </div>
             </div>
         );
     }

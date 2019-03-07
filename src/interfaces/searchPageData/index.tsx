@@ -38,6 +38,7 @@ export interface FlyoutSearch {
     categories: { [name: string]: string }[] | null;
     completion: string[] | null;
     pending: boolean;
+    fulfilled: boolean;
 }
 
 export interface IActiveSort {

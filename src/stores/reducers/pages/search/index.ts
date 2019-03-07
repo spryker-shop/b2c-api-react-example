@@ -28,6 +28,7 @@ export const initialState: ISearchState = {
             categories: [],
             completion: [],
             pending: false,
+            fulfilled: false
         },
         searchTerm: '',
         items: [],
@@ -71,12 +72,14 @@ export const pageSearch = produce<ISearchState>(
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_PENDING`:
                 draft.data.flyoutSearch.pending = true;
+                draft.data.flyoutSearch.fulfilled = false;
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_FULFILLED`:
                 draft.data.flyoutSearch.suggestions = action.payloadSuggestionFulfilled.suggestions;
                 draft.data.flyoutSearch.categories = action.payloadSuggestionFulfilled.categories;
                 draft.data.flyoutSearch.completion = action.payloadSuggestionFulfilled.completion;
                 draft.data.flyoutSearch.pending = false;
+                draft.data.flyoutSearch.fulfilled = true;
                 break;
             case `${PAGES_SEARCH_REQUEST}_REJECTED`:
                 draft.error = action.payloadRejected.error || action.error;
@@ -86,6 +89,7 @@ export const pageSearch = produce<ISearchState>(
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_REJECTED`:
                 draft.data.flyoutSearch.pending = false;
+                draft.data.flyoutSearch.fulfilled = false;
                 draft.error = action.payloadRejected.error || action.error;
                 break;
             case `${PAGES_SEARCH_REQUEST}_FULFILLED`:
@@ -120,6 +124,7 @@ export const pageSearch = produce<ISearchState>(
                 draft.data.flyoutSearch.suggestions = [];
                 draft.data.flyoutSearch.categories = [];
                 draft.data.flyoutSearch.completion = [];
+                draft.data.flyoutSearch.fulfilled = false;
                 draft.data.spellingSuggestion = null;
                 break;
             case PAGES_SEARCH_TERM_CLEAR:
