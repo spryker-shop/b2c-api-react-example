@@ -35,15 +35,11 @@ export class CatalogSearchBase extends React.Component<Props, State> {
 
             this.timer = window.setTimeout(() => {
                 if (this.state.value === value) {
-                    this.tes(value);
+                    this.props.sendSuggestionAction(value);
                 }
             }, 800);
         }
     };
-
-    protected tes = async (value) => {
-        await this.props.sendSuggestionAction(value);
-    }
 
     protected handleSuggestionsClearRequested = (): void => {
         return;
