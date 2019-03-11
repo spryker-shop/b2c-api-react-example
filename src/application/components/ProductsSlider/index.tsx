@@ -10,7 +10,7 @@ import { styles } from './styles';
 import 'slick-carousel/slick/slick.scss';
 
 const ProductsSliderBase = (props: Props): JSX.Element => {
-    const { classes, products, currency } = props;
+    const { classes, products, currency, onSelectProduct } = props;
 
     const slickSettings: Settings = {
         centerMode: true,
@@ -63,7 +63,7 @@ const ProductsSliderBase = (props: Props): JSX.Element => {
                             prices={ product.prices }
                             name={ product.name }
                             sku={ product.sku }
-                            onSelectProduct={ () => alert(123) }
+                            onSelectProduct={ onSelectProduct }
                             label={ product.label }
                         />
                     </div>

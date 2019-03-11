@@ -6,4 +6,6 @@ import { styles } from './styles';
 export interface ISlickSliderProps extends WithStyles<typeof styles> {
     products: IProductRelationsItem[];
     currency: TAppCurrency;
+
+    onSelectProduct: Function;
 }

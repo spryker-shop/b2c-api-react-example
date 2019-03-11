@@ -2,7 +2,6 @@ import {
     IProductCardImages,
     IProductLabel,
     IProductPricesItem,
-    TProductDescription,
     TProductName,
     TProductSKU
 } from '@interfaces/product';
@@ -12,6 +11,7 @@ import {
     IRowProductImageSetsIncludedResponse, IRowProductPricesIncludedResponse
 } from '@helpers/product/types';
 import { IRowCustomerCartItemsIncludedResponse } from '@helpers/cart/types';
+import { IAvailableLabel } from '@interfaces/searchPageData';
 
 export interface IProductRelationsRawResponse {
     data: IProductRelationsItemResponse[];
@@ -38,6 +38,12 @@ export interface IProductRelationsItemRelationships {
     };
 }
 
+export interface IProducRelationstLabel {
+    id: string;
+    type: string;
+    attributes: IAvailableLabel;
+}
+
 export interface IProductOptions {
     label?: IProductLabel;
     price?: number;
@@ -49,4 +55,5 @@ export type IProductRelationsIncluded = IRowProductImageSetsIncludedResponse
     | IRowProductAvailabilitiesIncludedResponse
     | IRowProductPricesIncludedResponse
     | IRowConcreteProductsIncludedResponse
-    | IRowCustomerCartItemsIncludedResponse;
+    | IRowCustomerCartItemsIncludedResponse
+    | IProducRelationstLabel;

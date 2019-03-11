@@ -5,10 +5,15 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IProductRelationsProps extends WithStyles<styles> {
+    isLoading: boolean;
     sku: TProductSKU;
-    isloading: boolean;
     products: IProductRelationsItem[];
     currency: TAppCurrency;
 
     getProductRelations: (sku: string) => void;
+    changeLocation: Function;
+}
+
+export interface IProductRelationsState {
+    productSku: TProductSKU;
 }

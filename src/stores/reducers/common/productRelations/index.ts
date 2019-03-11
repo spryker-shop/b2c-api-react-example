@@ -15,6 +15,9 @@ export const productRelations = function (
     switch (action.type) {
         case `${PRODUCT_RELATIONS_REQUEST}_PENDING`:
             return Object.assign(state, {
+                data: {
+                    products: []
+                },
                 ...getReducerPartPending()
             });
         case `${PRODUCT_RELATIONS_REQUEST}_REJECTED`:
