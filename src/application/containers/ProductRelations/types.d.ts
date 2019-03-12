@@ -13,7 +13,3 @@ export interface IProductRelationsProps extends WithStyles<styles> {
     getProductRelations: (sku: string) => void;
     changeLocation: Function;
 }
-
-export interface IProductRelationsState {
-    productSku: TProductSKU;
-}

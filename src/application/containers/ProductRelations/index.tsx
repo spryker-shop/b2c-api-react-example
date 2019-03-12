@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { IProductRelationsProps as Props, IProductRelationsState as State } from './types';
+import { IProductRelationsProps as Props } from './types';
 import { TProductSKU } from '@interfaces/product';
 import { ProductsSlider } from '@application/components/ProductsSlider';
 import { Typography, withStyles } from '@material-ui/core';
@@ -9,17 +9,9 @@ import { styles } from './styles';
 import { pathProductPageBase } from '@constants/routes';
 
 @connect
-class ProductRelationsBase extends React.Component<Props, State> {
-    public state: State = {
-        productSku: this.props.sku
-    };
-
+class ProductRelationsBase extends React.Component<Props> {
     protected onSelectProductHandle = (sku: TProductSKU): void => {
         this.props.changeLocation(`${pathProductPageBase}/${sku}`);
-
-        this.setState({
-            productSku: sku
-        });
     };
 
     public componentDidMount = (): void => {
@@ -30,11 +22,11 @@ class ProductRelationsBase extends React.Component<Props, State> {
         }
     };
 
-    public componentDidUpdate = (): void => {
-        const { isLoading, sku, getProductRelations } = this.props;
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { isLoading, getProductRelations } = this.props;
 
-        if (!isLoading && sku !== this.state.productSku) {
-            getProductRelations(this.state.productSku);
+        if (!isLoading && prevProps.sku !== this.props.sku) {
+            getProductRelations(this.props.sku);
         }
     };
 

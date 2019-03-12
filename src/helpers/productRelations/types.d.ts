@@ -38,7 +38,7 @@ export interface IProductRelationsItemRelationships {
     };
 }
 
-export interface IProducRelationstLabel {
+export interface IProductRelationsLabel {
     id: string;
     type: string;
     attributes: IAvailableLabel;

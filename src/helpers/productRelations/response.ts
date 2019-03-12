@@ -3,13 +3,13 @@ import {
     IProductRelationsIncluded,
     IProductRelationsItemResponse,
     IProductOptions,
-    IProducRelationstLabel
+    IProductRelationsLabel
 } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
 
 import { parseImageSets } from '@helpers/product/imageSetsParser';
 import { getProductLabel } from '@helpers/product/label';
-import { IAvailableLabel, IAvailableLabelsCollection, TLabelId } from '@interfaces/searchPageData';
+import { IAvailableLabelsCollection, TLabelId } from '@interfaces/searchPageData';
 
 export const parsePorductRelationsRequest = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
     const parsedProductRelations: IProductRelationsItem[] = [];
@@ -57,11 +57,11 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
 const getAvailableLables = (included: IProductRelationsIncluded[]): IAvailableLabelsCollection | null => {
     const availableLabels: IAvailableLabelsCollection | null = {};
 
-    const includedLabels: IProducRelationstLabel[] = included.filter(item => (
+    const includedLabels: IProductRelationsLabel[] = included.filter(item => (
         item.type === 'product-labels'
     ));
 
-    includedLabels.forEach((label: IProducRelationstLabel) => {
+    includedLabels.forEach((label: IProductRelationsLabel) => {
         availableLabels[label.id] = {
             id: label.id,
             frontEndReference: label.attributes.frontEndReference,
