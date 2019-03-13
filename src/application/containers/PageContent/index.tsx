@@ -1,3 +1,5 @@
+import { hot } from 'react-hot-loader/root';
+import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
 import { StickyContainer } from 'react-sticky';
@@ -16,12 +18,13 @@ import {
 } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 
+setConfig({ ErrorOverlay: () => null });
 const styles = require('./style.scss');
 const className = styles.pageContent;
 
 @connect
 @(withRouter as Function)
-export class PageContent extends React.Component<Props, State> {
+class PageContent extends React.Component<Props, State> {
     public state: State = {
         mobileNavOpened: false
     };
@@ -100,3 +103,5 @@ export class PageContent extends React.Component<Props, State> {
         );
     }
 }
+
+export default hot(PageContent);
