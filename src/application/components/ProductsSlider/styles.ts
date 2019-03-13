@@ -49,8 +49,7 @@ export const styles = (theme: Theme) => createStyles({
             },
 
             [theme.breakpoints.down('sm')]: {
-                top: 'calc((100% - 60px) / 2)',
-                padding: '0 10px',
+                top: 'calc((100% - 60px) / 2)'
             },
 
             '&.slick-prev': {
@@ -97,11 +96,12 @@ export const styles = (theme: Theme) => createStyles({
         bottom: 0,
         left: 0,
         width: '100%',
+        paddingLeft: 0,
         textAlign: 'center',
         listStyleType: 'none',
 
         '& li': {
-            margin: '8px',
+            margin: '4px 8px',
             display: 'inline-block',
 
             '&.slick-active': {
