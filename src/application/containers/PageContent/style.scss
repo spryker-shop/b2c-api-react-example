@@ -1,12 +1,20 @@
 @font-face {
-  font-family: 'Circular';
-  font-style: normal;
-  font-weight: 500;
-  src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-medium.woff2')
-       format('woff2');
+    font-family: 'Circular';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-book.woff2') format('woff2');
 }
 
-.pageContent {
-  background-color: #ffffff;
-  font-family: 'Circular';
+@font-face {
+    font-family: 'Circular';
+    font-style: normal;
+    font-weight: 500;
+    src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Circular';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-bold.woff2') format('woff2');
 }

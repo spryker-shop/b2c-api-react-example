@@ -3,7 +3,12 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     mainNav: {
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
         textTransform: 'uppercase',
+        margin: `0 -${theme.spacing.unit * 2}px`,
+        padding: '0 10px',
         [theme.breakpoints.down('sm')]: {
             transition: 'transform .3s ease-in-out',
             position: 'absolute',
@@ -18,21 +23,26 @@ export const styles = (theme: Theme) => createStyles({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
-        },
+            alignItems: 'center'
+        }
     },
     mainNavOpened: {
-        transform: 'translate3d(0, 0, 0)',
+        transform: 'translate3d(0, 0, 0)'
+    },
+    mainNavItem: {
+        padding: `3px ${theme.spacing.unit * 2}px`
     },
     mainNavLink: {
-        color: theme.appColors.black,
-        marginRight: theme.spacing.unit * 2,
+        color: theme.appColors.grey,
         textDecoration: 'none',
+        fontSize: 15,
+        textTransform: 'none',
+        letterSpacing: 0.2,
         '&:hover': {
-            color: theme.appColors.blue,
+            color: theme.appColors.blue
         },
         [theme.breakpoints.down('sm')]: {
-            margin: '0 0 5vmin',
-        },
-    },
+            margin: '0 0 5vmin'
+        }
+    }
 });

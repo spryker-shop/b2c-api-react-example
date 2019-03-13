@@ -3,75 +3,55 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     cartDrop: {
-        width: theme.appFixedDimensions.cartDrop.width,
-        maxHeight: theme.appFixedDimensions.cartDrop.height,
-        padding: theme.spacing.unit * 3,
-        borderBottom: `1px solid ${theme.appColors.weakGrey}`,
-        borderLeft: `1px solid ${theme.appColors.weakGrey}`,
-        borderRight: `1px solid ${theme.appColors.weakGrey}`,
+        fontFamily: 'Circular',
+        borderRadius: 4,
+        boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
+        width: 575,
+        overflow: 'hidden'
     },
-    title: {
-        fontSize: theme.appFixedDimensions.fontSize.big,
-        lineHeight: 'normal',
-        fontWeight: 500,
-        color: theme.appColors.black,
-        letterSpacing: '-.5px',
-        margin: 0,
-        borderBottom: `1px solid ${theme.appColors.weakGrey}`,
-        paddingBottom: 10,
-        paddingTop: 10,
+    cartHeading: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '20px 21px 15px',
+        background: theme.appColors.weekWhite,
+        color: theme.appColors.grey
     },
     cartDropProductsList: {
         listStyle: 'none',
         overflowY: 'auto',
-        maxHeight: (148 * 2) + 1,
+        maxHeight: 110 * 3,
         margin: 0,
-        padding: 0,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        lineHeight: '18px',
-        '& li': {
-            borderBottom: `1px solid ${theme.appColors.weakGrey}`,
-            minHeight: 148,
-            '&:last-child': {
-                borderBottom: 'none',
-            }
-        },
-        '& a': {
-            color: theme.appColors.black,
-            textDecoration: 'none',
-            display: 'block',
-            padding: '24px 0',
-        },
+        padding: 0
+    },
+    cartDropProductsItem: {
+        borderBottom: '1px solid rgba(206, 206, 208, 0.3)',
+        '&:last-child': {
+            borderBottom: 0
+        }
     },
     cartTotalContainer: {
-        padding: `${theme.spacing.unit * 2}px 0`,
-        borderTop: `1px solid ${theme.appColors.weakGrey}`,
-        borderBottom: `1px solid ${theme.appColors.weakGrey}`,
+        borderTop: '1px solid rgba(206, 206, 208, 0.3)',
+        padding: '21px 21px 1px 21px',
     },
     cartTotal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        '&:not(:last-child)': {
-            marginBottom: 10,
-        },
+        paddingBottom: 20
     },
     fontTotal: {
-        fontSize: theme.appFixedDimensions.fontSize.medium,
-        fontWeight: 'bold',
+        color: theme.appColors.grey
+    },
+    priceTotal: {
+      fontSize: 18,
+      fontWeight: 500,
+      color: theme.appColors.black
+    },
+    discountPriceTotal: {
+        color: theme.appColors.red
     },
     cartBtns: {
-        marginTop: theme.spacing.unit * 3,
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    action: {
-        flex: 1,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        textTransform: 'uppercase',
-        fontWeight: 500,
-        justifyContent: 'center',
-        maxWidth: 173,
-        width: '100%',
+        padding: '18px 21px 12px',
+        background: theme.appColors.weekWhite
     }
 });

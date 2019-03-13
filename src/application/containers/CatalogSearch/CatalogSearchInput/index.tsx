@@ -4,13 +4,15 @@ import { connect } from './connect';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { pathSearchPage } from '@constants/routes';
-import { TextField, InputAdornment, IconButton } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { TextField, IconButton, withStyles } from '@material-ui/core';
+import { SearchIcon } from './icons';
 import { IInputComponentProps as Props, IInputComponentState as State } from './types';
 import { ICompletionMatch } from '../types';
+import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 @connect
-export class InputComponent extends React.Component<Props, State> {
+export class CatalogSearchInputComponent extends React.Component<Props, State> {
     public readonly state: State = {
         parts: [],
         matches: []
@@ -20,7 +22,7 @@ export class InputComponent extends React.Component<Props, State> {
         if (prevProps.completion !== this.props.completion) {
             this.suggestQuery();
         }
-    }
+    };
 
     protected handleFullSearch = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -30,10 +32,10 @@ export class InputComponent extends React.Component<Props, State> {
             push,
             clearSuggestion,
             currency,
-            inputProps: {value}
+            inputProps: { value }
         } = this.props;
         const minimalLettersAmount = 2;
-        const query = {q: value, currency};
+        const query = { q: value, currency };
 
         if (!isLoading && value.length > minimalLettersAmount) {
             sendSearchAction(query);
@@ -44,13 +46,13 @@ export class InputComponent extends React.Component<Props, State> {
     };
 
     protected suggestQuery = (): void => {
-        const {completion, inputProps: {value}} = this.props;
+        const { completion, inputProps: { value } } = this.props;
         let suggestQuery = value;
 
         if (completion.length) {
             completion.some((data: string) => {
                 if (data.startsWith(suggestQuery.toLowerCase())) {
-                    suggestQuery = data;
+                    suggestQuery += data.substring(suggestQuery.length);
 
                     return true;
                 }
@@ -61,22 +63,23 @@ export class InputComponent extends React.Component<Props, State> {
         const matches = match(suggestQuery, value);
         const parts = parse(suggestQuery, matches);
 
-        this.setState({matches, parts});
+        this.setState({ matches, parts });
     };
 
     public render(): JSX.Element {
-        const {classes, ref, ...other} = this.props.inputProps;
-        const {parts, matches} = this.state;
+        const { classes } = this.props;
+        const { classes: inputClasses, value, ref, extraInputClassName, ...other } = this.props.inputProps;
+        const { parts, matches } = this.state;
+        const filledClass = !!value.length ? classes.filled : '';
 
-        const highlightedLetters = parts.map((part: ICompletionMatch, index: number) => part.highlight
-            ? <span key={String(index)} className={classes.hiddenPart}>{part.text}</span>
-            : <strong key={String(index)} className={classes.visiblePart}>{part.text}</strong>
+        const highlightedLetters = parts.map((part: ICompletionMatch, index: number) =>
+            <span key={ String(index) } className={ classes.suggestedText } >{ part.text }</span>
         );
 
         return (
-            <form action="/" method="GET" onSubmit={this.handleFullSearch} className="suggestForm">
-                <div className={classes.completionInput}>
-                    {(!!parts.length && !!matches.length) &&
+            <form action="/" method="GET" onSubmit={ this.handleFullSearch } className="suggestForm">
+                <div className={`${classes.completionInput} ${extraInputClassName ? extraInputClassName : ''}`}>
+                    { (!!parts.length && !!matches.length) &&
                         highlightedLetters
                     }
                 </div>
@@ -87,21 +90,23 @@ export class InputComponent extends React.Component<Props, State> {
                         inputRef: node => ref(node),
                         classes: {
                             root: classes.inputRoot,
-                            formControl: classes.formControl,
-                            notchedOutline: classes.inputOutline,
-                            input: classes.input
+                            formControl: inputClasses.formControl,
+                            input: `${classes.input} ${extraInputClassName ? extraInputClassName : ''}`
                         },
                         startAdornment: (
-                            <InputAdornment position="start" classes={{root: classes.inputIconContainer}}>
-                                <IconButton aria-label="Search" type="submit">
-                                    <SearchIcon classes={{root: classes.inputIcon}} />
-                                </IconButton>
-                            </InputAdornment>
+                            <IconButton aria-label="Search" type="submit" className={ classes.inputIconContainer }>
+                                <SearchIcon />
+                            </IconButton>
                         )
                     }}
-                    {...other}
+                    { ...other }
                 />
+                <span className={ `${classes.placeholder} ${filledClass}` }>
+                    <FormattedMessage id={ 'header.form.autosuggest.placeholder' } />
+                </span>
             </form>
         );
     }
 }
+
+export const CatalogSearchInput = withStyles(styles)(CatalogSearchInputComponent);

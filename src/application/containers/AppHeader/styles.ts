@@ -2,56 +2,39 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    headerStickyContainer: {
-        position: 'relative',
-        zIndex: 999,
-        pointerEvents: 'none',
-    },
     header: {
         position: 'relative',
+        zIndex: 999,
         pointerEvents: 'all',
+        flexShrink: 0
     },
-    headerTop: {
-        background: theme.palette.primary.main,
+    content: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
         padding: '10px 0',
-        position: 'relative',
-        zIndex: 11,
+        background: theme.appColors.white,
+        boxShadow: '0 2px 16px 0 rgba(193, 193, 193, 0.5)',
+        zIndex: 5,
     },
-    headerSearchContainer: {
-        width: '95%',
-        [theme.breakpoints.up('sm')]: {
-            width: '50%',
-            minWidth: 200,
-        },
-    },
-    headerContainer: {
+    container: {
         ...theme.appContainerStyles,
         position: 'static',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    headerTopContainer: {
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
+    navigationWrapper: {
+        display: 'flex',
+        alignItems: 'center'
     },
     logoContainer: {
+        ...theme.appFixedDimensions.sprykerLogo,
+        marginRight: 40,
         [theme.breakpoints.down('sm')]: {
             marginBottom: 10,
         },
-    },
-    headerBottom: {
-        borderBottom: '1px solid #d8d8d8',
-        padding: '8px 0',
-        background: '#fff',
-        zIndex: 5,
-    },
-    preloader: {
-        top: '100%',
-        padding: 0,
     },
     hamburger: {
         display: 'none',
