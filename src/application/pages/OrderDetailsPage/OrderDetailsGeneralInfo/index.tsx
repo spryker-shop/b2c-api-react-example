@@ -7,9 +7,11 @@ import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
 import { DateFormatter } from '@application/components/DateFormatter';
 import { IOrderDetailsGeneralInfoProps as Props } from './types';
 import { styles } from './styles';
+import { formattedDate } from '@helpers/common/dates';
 
 export const OrderDetailsGeneralInfoBase: React.SFC<Props> = (props): JSX.Element => {
-    const {classes, orderId, date, priceMode, timeZone} = props;
+    const {classes, orderId, dateOrder, priceMode, timeZone} = props;
+    const date = formattedDate(dateOrder);
 
     return (
         <Grid container justify="space-between" className={classes.titleContainer}>
