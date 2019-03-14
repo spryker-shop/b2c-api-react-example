@@ -7,20 +7,37 @@ import { connect } from './connect';
 import { fixtures } from './fixtures';
 import { FormattedMessage } from 'react-intl';
 
-export const MainNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
-    const {classes, mobileNavState} = props;
+class MainNavigationComponent extends React.PureComponent<Props> {
+    public componentDidMount = (): void => {
+        console.log(this.props.locale);
 
-    return (
-        <nav className={`${classes.mainNav} ${mobileNavState ? classes.mainNavOpened : ''}`}>
-            {fixtures.map(category => (
-                <span key={category.name + category.path} className={classes.mainNavItem} >
-                    <NavLink className={classes.mainNavLink} to={category.path}>
-                        <FormattedMessage id={category.name} />
-                    </NavLink>
-                </span>
-            ))}
-        </nav>
-    );
+        // this.props.getMainNavigationAction();
+    };
+
+    public componentDidUpdate = (prevProps: Props): void => {
+        console.log(this.props.locale);
+        if (prevProps.locale !== this.props.locale) {
+            console.log('tasfkvuyasvafisyvalsifuavsfiuasvfisuavf');
+            // this.props.getMainNavigationAction();
+            console.log(prevProps.locale, this.props.locale);
+        }
+    };
+
+    public render() {
+        const { classes, mobileNavState } = this.props;
+
+        return (
+            <nav className={ `${classes.mainNav} ${mobileNavState ? classes.mainNavOpened : ''}` }>
+                { fixtures.map(category => (
+                    <span key={ category.name + category.path } className={ classes.mainNavItem }>
+                        <NavLink className={ classes.mainNavLink } to={ category.path }>
+                            <FormattedMessage id={ category.name } />
+                        </NavLink>
+                    </span>
+                )) }
+            </nav>
+        );
+    }
 }
 
 export const MainNavigation = connect(withStyles(styles)(MainNavigationComponent));

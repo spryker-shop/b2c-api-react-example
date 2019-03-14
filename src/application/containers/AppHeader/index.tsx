@@ -36,14 +36,18 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     }, 0.3);
 
     protected setHeaderHeight = (): void => {
-        const headerHeight = this.stickyTriggerRef.current.clientHeight;
+        const headerHeight = Boolean(this.stickyTriggerRef) ? this.stickyTriggerRef.current.clientHeight : 0;
 
         this.setState({ headerHeight });
     };
 
     public render(): JSX.Element {
-        const { classes, isMobileNavOpened, onMobileNavToggle } = this.props;
+        const { classes, isMobileNavOpened, onMobileNavToggle, locale } = this.props;
         const { headerHeight } = this.state;
+        const mainNavigation = locale &&
+            <ErrorBoundary>
+                <MainNavigation mobileNavState={ isMobileNavOpened } />
+            </ErrorBoundary>;
 
         return (
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
@@ -70,9 +74,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                                 ? <div className={ classes.checkout }>
                                     <FormattedMessage id="word.checkout.title" />
                                 </div>
-                                : <ErrorBoundary>
-                                    <MainNavigation mobileNavState={ isMobileNavOpened } />
-                                </ErrorBoundary>
+                                : mainNavigation
                             }
                         </div>
 
