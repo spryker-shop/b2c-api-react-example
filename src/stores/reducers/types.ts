@@ -5,6 +5,7 @@ import { WishlistState } from '@stores/reducers/pages/wishlist/types';
 import { IAddressesState } from '@stores/reducers/pages/addresses/types';
 import { ICheckoutState } from '@stores/reducers/pages/checkout/types';
 import { ICartState } from '@stores/reducers/common/cart/types';
+import { INavigationsState } from '@stores/reducers/common/navigations/types';
 import { IOrderHistoryState } from '@stores/reducers/pages/orderHistory/types';
 import { IOrderDetailsState } from '@stores/reducers/pages/orderDetails/types';
 import { ICustomerDataState } from '@stores/reducers/pages/customerProfile/types';
@@ -34,6 +35,7 @@ export interface IReduxStore {
     orderHistory: IOrderHistoryState;
     orderDetails: IOrderDetailsState;
     pageCustomerProfile: ICustomerDataState;
+    navigations: INavigationsState;
 }
 
 export interface IReduxOwnProps extends RouteProps, WithRouter {

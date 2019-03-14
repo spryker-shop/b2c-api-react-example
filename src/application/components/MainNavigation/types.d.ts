@@ -1,8 +1,11 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { ICategory } from '@interfaces/category';
+import { TAppLocale } from '@interfaces/locale';
+import { IMainNavigationNode } from '@interfaces/navigations';
 
 export interface IMainNavProps extends WithStyles<typeof styles> {
-    categoriesTree: ICategory[];
+    locale: TAppLocale;
     mobileNavState: boolean;
+    getMainNavigationAction: () => void;
+    nodesTree: IMainNavigationNode[];
 }

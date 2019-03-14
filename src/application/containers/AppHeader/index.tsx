@@ -74,10 +74,9 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                                 ? <div className={ classes.checkout }>
                                     <FormattedMessage id="word.checkout.title" />
                                 </div>
-                                : mainNavigation
+                                : <div className={ classes.mainNav }>{ mainNavigation }</div>
                             }
                         </div>
-
                         <AdditionalNavigation />
                     </div>
                 </div>

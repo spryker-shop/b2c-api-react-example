@@ -5,9 +5,11 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { getMainNavigationAction } from '@stores/actions/common/navigations';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
+    const mainNavigation = state.navigations.mainNavigation;
     const locale = getAppLocale(state, ownProps);
+    const nodesTree = mainNavigation.nodesTree ? mainNavigation.nodesTree : null;
 
-    return ({ locale });
+    return ({ locale, nodesTree });
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
