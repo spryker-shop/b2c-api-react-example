@@ -8,4 +8,5 @@ export interface IMainNavProps extends WithStyles<typeof styles> {
     mobileNavState: boolean;
     getMainNavigationAction: () => void;
     nodesTree: IMainNavigationNode[];
+    isFulfilled: boolean;
 }

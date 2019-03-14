@@ -8,8 +8,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const mainNavigation = state.navigations.mainNavigation;
     const locale = getAppLocale(state, ownProps);
     const nodesTree = mainNavigation.nodesTree ? mainNavigation.nodesTree : null;
+    const isFulfilled = mainNavigation.fulfilled;
 
-    return ({ locale, nodesTree });
+    return ({ locale, nodesTree, isFulfilled });
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

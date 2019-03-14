@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { connect } from '@application/components/MainNavigation/connect';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { pathCategoryPageBase, pathProductPageBase } from '@constants/routes';
 import { IMainNavigationNode } from '@interfaces/navigations';
 import { ISubNavigationProps as Props } from './types';
-import { IRelatedProductDataFixture } from '@application/components/MainNavigation/fixtures';
+import { IRelatedProductDataFixture } from '../fixtures';
 import { styles } from './styles';
 
 const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
@@ -104,4 +103,4 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const SubNavigation = connect(withStyles(styles)(SubNavigationComponent));
+export const SubNavigation = withStyles(styles)(SubNavigationComponent);

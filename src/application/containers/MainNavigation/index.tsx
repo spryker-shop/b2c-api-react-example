@@ -1,14 +1,14 @@
 import * as React from 'react';
+import { connect } from './connect';
+import { pathCategoryPageBase, pathURLToCategoryNew, pathURLToCategorySale } from '@constants/routes';
+import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { IMainNavProps as Props } from './types';
-import { styles } from './styles';
-import { connect } from './connect';
-import { fixtures } from './fixtures';
-import { IMainNavigationNode } from '@interfaces/navigations';
-import { pathCategoryPageBase, pathURLToCategoryNew, pathURLToCategorySale } from '@constants/routes';
 import { SubNavigation } from './SubNavigation';
-import { FormattedMessage } from 'react-intl';
+import { fixtures } from './fixtures';
+import { IMainNavProps as Props } from './types';
+import { IMainNavigationNode } from '@interfaces/navigations';
+import { styles } from './styles';
 
 class MainNavigationComponent extends React.Component<Props> {
     public componentDidMount = (): void => {
@@ -86,11 +86,11 @@ class MainNavigationComponent extends React.Component<Props> {
     };
 
     public render() {
-        const { classes, mobileNavState } = this.props;
+        const { classes, mobileNavState, isFulfilled } = this.props;
 
         return (
             <nav className={ `${classes.mainNav} ${mobileNavState ? classes.mainNavOpened : ''}` }>
-                { this.renderCategoriesList() }
+                { isFulfilled && this.renderCategoriesList() }
             </nav>
         );
     }

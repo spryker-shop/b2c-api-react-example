@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import { pathCheckoutPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppLogo } from '@application/components/AppLogo';
-import { MainNavigation } from '@application/components/MainNavigation';
+import { MainNavigation } from '@application/containers/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
