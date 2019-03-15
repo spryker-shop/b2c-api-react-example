@@ -24,8 +24,14 @@ export const customerRegisterAction = function (payload: ICustomerProfile) {
     };
 };
 
-export const logout = function () {
+export const logoutAction = function () {
     return { type: PAGES_CUSTOMER_LOGOUT };
+};
+
+export const logout = function () {
+    return (dispatch: Function, getState: Function) => {
+        PagesLoginService.logout(dispatch);
+    };
 };
 
 // Login Customer Entity

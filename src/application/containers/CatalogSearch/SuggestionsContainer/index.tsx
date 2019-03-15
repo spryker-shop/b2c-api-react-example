@@ -13,14 +13,25 @@ import { ISuggestionsContainerProps as Props } from './types';
 import { ICompletionMatch } from '../types';
 import { styles } from './styles';
 
-export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { categories, completion, suggestions, categoriesTree, classes, options } = props;
+export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element => {
+    const {
+        categories,
+        completion,
+        suggestions,
+        categoriesTree,
+        classes,
+        options,
+        currency,
+        clearSuggestion,
+        sendSearchAction,
+        fulfilled
+    } = props;
     const maxAmountOfItems = 4;
 
     const handleSearchCompletion = (event: ClickEvent): void => {
         const query = event.currentTarget.dataset.query.trim();
-        this.props.sendSearchAction({ q: query, currency: this.props.currency });
-        this.props.clearSuggestion(query);
+        sendSearchAction({ q: query, currency });
+        clearSuggestion(query);
     };
 
     const renderCompletions = (): JSX.Element[] => {
@@ -66,7 +77,7 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
                              data-nodeid={ categoryNodeId }
                              key={ `category-${categoryNodeId}` }
                              className={ classes.completion }
-                             onClick={ () => this.props.clearSuggestion(categories[i].name) }
+                             onClick={ () => clearSuggestion(categories[i].name) }
                     >
                         <div className={ classes.completionInner }>
                             <span>{ highlightedLetters }</span>
@@ -83,14 +94,15 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
         return categoriesList;
     };
 
-    if (!suggestions.length) {
+    const isNoSuggestions = !Boolean(categories.length) && !Boolean(completion.length) &&
+        !Boolean(options.children) && fulfilled;
+
+    if (isNoSuggestions) {
         return (
-            <div { ...options.containerProps }>
-                <Paper square>
-                    <Typography paragraph variant="headline">
-                        <FormattedMessage id={ 'no.found.message' } />
-                    </Typography>
-                </Paper>
+            <div className={ classes.suggestionsContainer }>
+                <div className={ classes.noFoundText }>
+                    <FormattedMessage id={ 'no.found.message' } />
+                </div>
             </div>
         );
     }

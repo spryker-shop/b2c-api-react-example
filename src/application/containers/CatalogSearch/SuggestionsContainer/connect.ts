@@ -19,6 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         {
             categories: searchProps ? searchProps.categories : null,
             suggestions: searchProps ? searchProps.suggestions : null,
+            fulfilled: searchProps ? searchProps.fulfilled : null,
             completion: searchProps ? searchProps.completion : null,
             categoriesTree,
             currency
