@@ -1,13 +1,7 @@
 import * as React from 'react';
-import {
-    rangeFilterValueToBack,
-} from '@helpers/common/transform';
+import { filterTypeRange, IFilterItem, RangeType } from '../types';
+import { rangeFilterValueToBack } from '@helpers/common/transform';
 import { AppPrice } from '@application/components/AppPrice';
-import {
-    filterTypeRange,
-    IFilterItem,
-    RangeType,
-} from '@application/pages/SearchPage/types';
 
 /**
  *
@@ -20,13 +14,13 @@ import {
  */
 export const createRangeFilterItemCombined = (
     {isPrice, value, rangeName, title, priceClassName}:
-    {
-      isPrice: boolean,
-      value: RangeType,
-      rangeName: string,
-      title: string,
-      priceClassName: string | null
-    }):
+        {
+            isPrice: boolean,
+            value: RangeType,
+            rangeName: string,
+            title: string,
+            priceClassName: string | null
+        }):
     IFilterItem | null => {
     let label = null;
 
