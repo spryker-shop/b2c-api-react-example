@@ -6,18 +6,17 @@ import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
 import { getCategoryIdByName } from '@helpers/categories';
-import { withStyles, Paper, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { LinkIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { ISuggestionsContainerProps as Props } from './types';
 import { ICompletionMatch } from '../types';
 import { styles } from './styles';
 
-export const SuggestionsContainerBase: React.SFC<Props> = (props): JSX.Element => {
+const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         categories,
         completion,
-        suggestions,
         categoriesTree,
         classes,
         options,
