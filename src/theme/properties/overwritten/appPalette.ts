@@ -5,6 +5,6 @@ export const appPalette: PaletteOptions = {
         main: '#282c3d',
     },
     secondary: {
-        main: '#ededed',
+        main: '#ededed'
     }
 };
