@@ -21,7 +21,7 @@ export const styles = (theme: Theme) => createStyles({
         display: 'block',
         position: 'absolute',
         width: '100%',
-        height: '85vh',
+        maxHeight: '85vh',
         overflowY: 'auto',
         borderRadius: '2px',
         backgroundColor: '#ffffff',
