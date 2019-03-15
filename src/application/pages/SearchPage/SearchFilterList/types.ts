@@ -1,17 +1,56 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
-import { TActiveFilters, TActiveRangeFilters } from '@application/pages/SearchPage/types';
+import { IActiveFilters, RangeFacets, ValueFacets } from '@interfaces/searchPageData';
 
 export interface ISearchFilterListProps extends WithStyles<typeof styles> {
+    isLoading: boolean;
     filters: ValueFacets[];
-    updateFilterHandler: Function;
-    activeValuesFilters: TActiveFilters;
-    ranges: RangeFacets[];
-    activeValuesRanges: TActiveRangeFilters;
-    updateRangeHandler: Function;
-    onCloseFilterHandler: Function;
-    onAfterChangeRangeFilter: (value: number[]) => void;
-    isFiltersReset: boolean;
-    isProductsExist?: boolean;
+    activeFilters: TActiveFilters;
+    rangeFilters: RangeFacets[];
+    activeRangeFilters: TActiveRangeFilters;
+
+    setActiveFilters: (activeFilters: IActiveFilters) => void;
+    clearActiveFilters: () => void;
+    updateStore: Function;
 }
+
+export interface ISearchFilterListState {
+    activeFilters?: TActiveFilters;
+    activeRangeFilters?: TActiveRangeFilters;
+    isFilterUpdated?: boolean;
+}
+
+export type TFilterItemTypeFilter = 'filter';
+export type TFilterItemTypeRange = 'range';
+
+export type TFilterItemName = string;
+export type TFilterItemType = TFilterItemTypeFilter | TFilterItemTypeRange;
+
+export type RangeType = { min: number, max: number, [name: string]: number };
+export type TRangeType = TRangeMinType | TRangeMaxType;
+
+export type TFilterItemValue = number | string | RangeType;
+
+export type TRangeMinType = 'min';
+export type TRangeMaxType = 'max';
+
+export const rangeMinType: TRangeMinType = 'min';
+export const rangeMaxType: TRangeMaxType = 'max';
+
+export interface IFilterItemToDelete {
+    name: TFilterItemName;
+    value: TFilterItemValue;
+    type: TFilterItemType;
+    rangeSubType?: TRangeType;
+}
+
+export interface IFilterItem extends IFilterItemToDelete {
+    label: string | JSX.Element;
+    order?: number;
+}
+
+export const filterTypeFilter: TFilterItemTypeFilter = 'filter';
+export const filterTypeRange: TFilterItemTypeRange = 'range';
+
+export type TActiveFilters = { [name: string]: string[] };
+export type TActiveRangeFilters = { [name: string]: RangeType };

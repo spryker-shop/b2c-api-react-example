@@ -51,7 +51,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     };
 
     protected handleChange = (event: InputChangeEvent, {newValue}: {newValue: string}): void => {
-        const maxLettersValueToClearSuggestField = 4;
+        const maxLettersValueToClearSuggestField = 3;
 
         if (newValue.trim().length < maxLettersValueToClearSuggestField) {
             this.props.clearSuggestions(newValue);
@@ -67,7 +67,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     protected shouldRenderSuggestions = (value: string): boolean => {
         const minLettersValueToSuggest = 2;
 
-        return value && value.trim().length > minLettersValueToSuggest;
+        return value && value.trim().length >= minLettersValueToSuggest;
     };
 
     protected renderInputComponent = (inputProps: IInputProps): JSX.Element => {
@@ -103,6 +103,7 @@ export class CatalogSearchBase extends React.Component<Props, State> {
     };
 
     protected renderSuggestionsContainer = (options: Autosuggest.RenderSuggestionsContainerParams): JSX.Element => {
+        const { classes } = this.props;
         const suggestionsContainerProps = {
             options,
             clearSuggestion: this.clearSuggestion
@@ -110,7 +111,10 @@ export class CatalogSearchBase extends React.Component<Props, State> {
 
         return (
             <ErrorBoundary>
-                <SuggestionsContainer {...suggestionsContainerProps} />
+                <SuggestionsContainer
+                    {...suggestionsContainerProps}
+                    classes={{suggestionsContainer: classes.suggestionsContainerOpen}}
+                />
             </ErrorBoundary>
         );
     };

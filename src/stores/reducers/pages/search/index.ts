@@ -3,8 +3,12 @@ import {
     PAGES_SEARCH_REQUEST,
     PAGES_SEARCH_REQUEST_CLEAR,
     PAGES_SEARCH_TERM_CLEAR,
+    PAGES_SEARCH_FILTERS_SET,
     PAGES_SEARCH_FILTERS_CLEAR,
+    PAGES_SEARCH_SORT_SET,
+    PAGES_SEARCH_SORT_CLEAR,
     PAGES_SUGGESTION_REQUEST,
+    PAGES_SEARCH_PAGINATION_PAGE_SET, PAGES_SEARCH_CURRENT_CATEGORY_SET
 } from '@stores/actionTypes/pages/search';
 import {
     IAvailableLabelsCollection,
@@ -12,7 +16,7 @@ import {
     IProductsLabeledCollection,
     TLocalizedName,
     TSpellingSuggestion,
-} from '@interfaces/searchPageData';
+} from '@interfaces/searchPageData/index';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
 import { DefaultItemsPerPage } from '@constants/search';
@@ -24,6 +28,7 @@ export const initialState: ISearchState = {
             categories: [],
             completion: [],
             pending: false,
+            fulfilled: false
         },
         searchTerm: '',
         items: [],
@@ -34,8 +39,12 @@ export const initialState: ISearchState = {
         sortParams: [],
         sortParamLocalizedNames: null,
         categoriesLocalizedName: null,
+        isFiltersUpdated: false,
+        isCategoryAsFilter: false,
         currentSort: '',
-        currentCategory: '',
+        currentItemsPerPage: 12,
+        currentPaginationPage: 1,
+        currentCategoryId: null,
         pagination: {
             numFound: 0,
             currentPage: 0,
@@ -63,12 +72,14 @@ export const pageSearch = produce<ISearchState>(
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_PENDING`:
                 draft.data.flyoutSearch.pending = true;
+                draft.data.flyoutSearch.fulfilled = false;
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_FULFILLED`:
                 draft.data.flyoutSearch.suggestions = action.payloadSuggestionFulfilled.suggestions;
                 draft.data.flyoutSearch.categories = action.payloadSuggestionFulfilled.categories;
                 draft.data.flyoutSearch.completion = action.payloadSuggestionFulfilled.completion;
                 draft.data.flyoutSearch.pending = false;
+                draft.data.flyoutSearch.fulfilled = true;
                 break;
             case `${PAGES_SEARCH_REQUEST}_REJECTED`:
                 draft.error = action.payloadRejected.error || action.error;
@@ -78,6 +89,7 @@ export const pageSearch = produce<ISearchState>(
                 break;
             case `${PAGES_SUGGESTION_REQUEST}_REJECTED`:
                 draft.data.flyoutSearch.pending = false;
+                draft.data.flyoutSearch.fulfilled = false;
                 draft.error = action.payloadRejected.error || action.error;
                 break;
             case `${PAGES_SEARCH_REQUEST}_FULFILLED`:
@@ -91,12 +103,16 @@ export const pageSearch = produce<ISearchState>(
                 draft.data.sortParamLocalizedNames = action.payloadSearchFulfilled.sortParamLocalizedNames;
                 draft.data.categoriesLocalizedName = action.payloadSearchFulfilled.categoriesLocalizedName;
                 draft.data.currentSort = action.payloadSearchFulfilled.currentSort;
+                draft.data.currentItemsPerPage = action.payloadSearchFulfilled.currentItemsPerPage;
                 draft.data.pagination = action.payloadSearchFulfilled.pagination;
-                draft.data.currentCategory = action.payloadSearchFulfilled.currentCategory;
+                draft.data.currentPaginationPage = action.payloadSearchFulfilled.currentPaginationPage;
+                draft.data.currentCategoryId = action.payloadSearchFulfilled.currentCategoryId;
                 draft.data.spellingSuggestion = action.payloadSearchFulfilled.spellingSuggestion || null;
                 draft.data.productsLabeled = action.payloadSearchFulfilled.productsLabeled || null;
                 draft.data.availableLabels = action.payloadSearchFulfilled.availableLabels || null;
                 draft.data.searchTerm = action.payloadSearchFulfilled.searchTerm;
+                draft.data.isFiltersUpdated = false;
+                draft.data.isCategoryAsFilter = false;
                 draft.error = null;
                 draft.pending = false;
                 draft.fulfilled = true;
@@ -104,25 +120,45 @@ export const pageSearch = produce<ISearchState>(
                 draft.initiated = true;
                 break;
             case PAGES_SEARCH_REQUEST_CLEAR:
-                // draft.data.searchTerm = action.searchTerm;
+                draft.data.searchTerm = '';
                 draft.data.flyoutSearch.suggestions = [];
                 draft.data.flyoutSearch.categories = [];
                 draft.data.flyoutSearch.completion = [];
+                draft.data.flyoutSearch.fulfilled = false;
                 draft.data.spellingSuggestion = null;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
                 break;
             case PAGES_SEARCH_TERM_CLEAR:
                 draft.data.searchTerm = '';
                 break;
+            case PAGES_SEARCH_FILTERS_SET:
+                draft.data.activeFilters = action.payloadActiveFilters.activeFilters;
+                draft.data.activeRangeFilters = action.payloadActiveFilters.activeRangeFilters;
+                draft.data.isFiltersUpdated = true;
+                break;
+            case PAGES_SEARCH_SORT_SET:
+                draft.data.currentSort = action.payloadActiveSort.sort;
+                draft.data.currentItemsPerPage = action.payloadActiveSort.itemsPerPage;
+                draft.data.isFiltersUpdated = true;
+                break;
+            case PAGES_SEARCH_SORT_CLEAR:
+                draft.data.currentSort = ' ';
+                draft.data.currentItemsPerPage = draft.data.pagination.validItemsPerPageOptions[0];
+                break;
+            case PAGES_SEARCH_PAGINATION_PAGE_SET:
+                draft.data.currentPaginationPage = action.payloadPaginationPage;
+                draft.data.isFiltersUpdated = true;
+                break;
+            case PAGES_SEARCH_CURRENT_CATEGORY_SET:
+                draft.data.currentCategoryId = action.payloadCurrentCategory;
+                draft.data.currentPaginationPage = 1;
+                draft.data.isCategoryAsFilter = true;
+                draft.data.isFiltersUpdated = true;
+                break;
             case PAGES_SEARCH_FILTERS_CLEAR:
                 draft.data.activeFilters = {};
                 draft.data.activeRangeFilters = {};
-                draft.data.currentSort = null;
                 draft.data.pagination.currentItemsPerPage = draft.data.pagination.validItemsPerPageOptions[0];
+                draft.data.isFiltersUpdated = true;
                 break;
             default:
                 break;
