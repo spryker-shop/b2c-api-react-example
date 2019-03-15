@@ -70,7 +70,7 @@ export const appTypographyStyles: IAppTypography = {
     subheading: {
         fontSize: 15,
         fontWeight: 400,
-        lineHeight: 2.4,
+        lineHeight: 1.47,
         letterSpacing: 0.2,
         marginLeft: 0,
         color: appColors.black

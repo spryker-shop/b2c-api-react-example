@@ -1,4 +1,4 @@
-import { link } from './NavigationList/types';
+import { TNavigationItem } from './NavigationList/types';
 import {
     pathCategoryComputers,
     pathCategoryNew,
@@ -8,7 +8,7 @@ import {
     pathCategoryWorkstations
 } from '@constants/routes';
 
-export const categoriesLinks: link[] = [
+export const categoriesLinks: TNavigationItem[] = [
     {
         name: 'category.name.computers',
         path: pathCategoryComputers,
@@ -35,7 +35,7 @@ export const categoriesLinks: link[] = [
     },
 ];
 
-export const socialMediaLinks: link[] = [
+export const socialMediaLinks: TNavigationItem[] = [
     {
         name: 'social.instagram.title',
         path: 'https://www.instagram.com/spryker/',

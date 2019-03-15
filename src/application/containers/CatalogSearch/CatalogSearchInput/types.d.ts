@@ -1,8 +1,10 @@
 import { TAppCurrency } from '@interfaces/currency';
 import { IInputProps } from '../types';
 import { ISearchQuery } from '@interfaces/searchPageData';
+import { WithStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-export interface IInputComponentProps {
+export interface IInputComponentProps extends WithStyles<typeof styles> {
     currency?: TAppCurrency;
     isLoading?: boolean;
     completion?: string[] | null;

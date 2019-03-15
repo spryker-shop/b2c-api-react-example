@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import { withStyles, Badge, Tooltip } from '@material-ui/core';
 import { pathCartPage } from '@constants/routes';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
-import { BreakpointsSM } from '@constants/breakpoints';
 import { MiniCartDrop } from './MiniCartDrop';
 import { CartIcon } from './icons';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,53 +12,99 @@ import { ClickEvent } from '@interfaces/common';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';
 import { styles } from './styles';
 
-@(withRouter as Function)
 @connect
-export class MiniCartDropDownComponent extends React.Component<Props, State> {
+@(withRouter as Function)
+class MiniCartDropDownComponent extends React.Component<Props, State> {
     public readonly state: State = {
         anchorElement: null,
-        isCartNotificationOpen: true
+        isCartNotificationOpen: true,
+        isPopupOpened: false,
+        isContentHovered: false,
+        isButtonHovered: false
     };
 
+    protected iconButton: React.RefObject<HTMLDivElement> = React.createRef();
+
     public componentDidUpdate = (prevProps: Props): void => {
-        if (this.props.location !== prevProps.location) {
-            this.closePopover();
+        const isSameLocation = this.props.location.pathname !== prevProps.location.pathname;
+        const isCartEmpty = this.props.cartProductsQuantity === 0 && prevProps.cartProductsQuantity > 0;
+        const isQuantityChanged = this.props.cartProductsQuantity > prevProps.cartProductsQuantity;
+
+        if (isSameLocation) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
         }
 
-        if (this.props.cartProductsQuantity > prevProps.cartProductsQuantity) {
+        if (isQuantityChanged) {
             this.handleOpenCartNotification();
         }
 
-        if (this.props.cartProductsQuantity === 0 && prevProps.cartProductsQuantity > 0) {
-            this.closePopover();
-        }
-    }
-
-    protected openPopover = ({currentTarget}: ClickEvent): void => {
-        const {cartItemsQuantity} = this.props;
-
-        if (window.innerWidth < BreakpointsSM) {
-            if (cartItemsQuantity !== 0) {
-                this.props.history.push(pathCartPage);
-            }
-        } else {
-            this.setState(() => ({anchorElement: cartItemsQuantity !== 0 ? currentTarget : null}));
+        if (isCartEmpty) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
         }
     };
-    protected closePopover = (): void => this.setState(() => ({anchorElement: null}));
+
+    protected onRedirectHandler = (): void => {
+        const { cartItemsQuantity } = this.props;
+
+        if (cartItemsQuantity !== 0) {
+            this.props.history.push(pathCartPage);
+        }
+    };
+
+    protected closePopover = (): void => {
+        const { isButtonHovered, isContentHovered } = this.state;
+
+        if (!isButtonHovered && !isContentHovered) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
+        }
+    };
+
+    protected onHoverButtonHandler = ({ currentTarget }: ClickEvent): void => {
+        const { cartItemsQuantity } = this.props;
+
+        this.setState({
+            anchorElement: currentTarget,
+            isPopupOpened: cartItemsQuantity !== 0,
+            isButtonHovered: true
+        });
+    };
+
+    protected onHoverContentHandler = (): void => {
+        this.setState({ isButtonHovered: false, isContentHovered: true });
+    };
+
+    protected onUnhoverButtonHandler = (): void => {
+        this.setState({ isButtonHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
+
+    protected onUnhoverContentHandler = (): void => {
+        this.setState({ isContentHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
 
     protected handleOpenCartNotification = (): void => {
-        this.setState(() => ({isCartNotificationOpen: true}));
+        this.setState({ isCartNotificationOpen: true });
     };
 
     public render(): JSX.Element {
-        const {anchorElement} = this.state;
-        const {classes, cartItemsQuantity, popoverPosLeft, popoverPosTop} = this.props;
+        const { anchorElement, isPopupOpened } = this.state;
+        const { classes, cartItemsQuantity } = this.props;
 
         const cartButton = (
-            <IconButton aria-label="cart" onClick={this.openPopover} color="inherit">
+            <IconButton
+                buttonRef={ this.iconButton }
+                aria-label="cart"
+                color="inherit"
+                onClick={ this.onRedirectHandler }
+                onMouseEnter={ this.onHoverButtonHandler }
+                onMouseLeave={ this.onUnhoverButtonHandler }
+                className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
+            >
                 <Badge
-                    badgeContent={cartItemsQuantity}
+                    badgeContent={ cartItemsQuantity }
                     classes={{
                         colorPrimary: classes.badge,
                         badge: cartItemsQuantity === 0 && classes.hideBadge
@@ -72,27 +117,31 @@ export class MiniCartDropDownComponent extends React.Component<Props, State> {
         );
 
         return (
-            <div>
-                {cartItemsQuantity === 0
+            <>
+                { cartItemsQuantity === 0
                     ? (<Tooltip disableFocusListener
                                 placement="top"
-                                title={<FormattedMessage id={'empty.cart.title'} />}>
-                        {cartButton}
+                                title={ <FormattedMessage id={ 'empty.cart.title' } /> }>
+                        { cartButton }
                     </Tooltip>)
                     : cartButton
                 }
 
                 <PopoverWrapper
-                    popoverPosLeft={popoverPosLeft}
-                    popoverPosTop={popoverPosTop}
-                    anchorElement={anchorElement}
-                    closePopoverHandler={this.closePopover}
-                    extraContentClassName={classes.cartContent}
-                    extraHelperClassName={classes.popoverTriangle}
+                    openPopup={ isPopupOpened }
+                    anchorElement={ anchorElement }
+                    closePopoverHandler={ this.closePopover }
+                    classes={{
+                        popover: classes.cartPopover,
+                        content: classes.cartContent
+                    }}
                 >
-                    <MiniCartDrop />
+                    <MiniCartDrop
+                        onMouseEnter={ this.onHoverContentHandler }
+                        onMouseLeave={ this.onUnhoverContentHandler }
+                    />
                 </PopoverWrapper>
-            </div>
+            </>
         );
     }
 }
