@@ -139,7 +139,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                         />
                     </div>
 
-                    <Grid container alignItems="center">
+                    <Grid container alignItems="center" justify="space-between" spacing={ 24 }>
                         <Grid item xs={ 6 }>
                             <SprykerNumberFormatInput
                                 name="min"
