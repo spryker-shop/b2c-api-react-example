@@ -1,38 +1,75 @@
 import * as React from 'react';
-import { withStyles, Grid } from '@material-ui/core';
-import { CategoryTeaser } from './CategoryTeaser';
-import {
-    ICategoriesTeasersData as TeaserData,
-    ICategoriesTeasersProps as Props
-} from './types';
+import { NavLink } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import { categoriesTeasersData as teasers } from './fixtures';
+import { withStyles, Grid, Typography, Button } from '@material-ui/core';
+import { ICategoriesTeasersData as TeaserData, ICategoriesTeasersProps as Props } from './types';
 import { styles } from './styles';
 
-export const CategoriesTeasersBase: React.SFC<Props> = (props): JSX.Element => {
-    const {classes} = props;
+export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes } = props;
 
     if (!teasers || !Array.isArray(teasers) || !teasers.length) {
         return null;
     }
 
+    const renderCategoriesTeasers = (): JSX.Element[] => (
+        teasers.map((teaser: TeaserData, index: number) => {
+            const { title, text, img, path, linkTitle, transparentImage, differentBg } = teaser;
+            const isOdd = Boolean(index % 2);
+            const thumbnailStyles: React.CSSProperties = {
+                backgroundImage: `url(${img})`
+            };
+
+            return (
+                <div className={`${classes.item} ${differentBg ? classes.itemDifferentBg : ''}`} key={ title }>
+                    <div className={ classes.container }>
+                        <Grid container spacing={ 24 } className={ classes.grid }>
+                            <Grid item
+                                  xs={ 12 }
+                                  sm={ 6 }
+                                  className={ `${isOdd ? classes.oddImage : ''}` }
+                            >
+                            <span
+                                style={ thumbnailStyles }
+                                className={`
+                                    ${classes.thumbnail}
+                                    ${isOdd ? classes.oddThumbnail : ''}
+                                    ${transparentImage ? classes.transparentThumbnail : ''}
+                                `}
+                            />
+                            </Grid>
+                            <Grid item xs={ 12 } sm={ 6 } className={ classes.contentHolder }>
+                                <Grid item xs={ 12 } className={ classes.content }>
+                                    <Typography component="h2" variant="display4" className={ classes.title }>
+                                        <FormattedMessage id={ title } />
+                                    </Typography>
+
+                                    <Typography component="p" className={ classes.text }>
+                                        <FormattedMessage id={ text } />
+                                    </Typography>
+
+                                    <Button
+                                        component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ path } /> }
+                                        variant="outlined"
+                                        className={ classes.btn }
+                                    >
+                                        <FormattedMessage id={ linkTitle } />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </div>
+            );
+        })
+    );
+
     return (
-        <Grid container className={classes.root}>
-            <Grid item xs={12} className={classes.container}>
-                {teasers.map((teaser: TeaserData, index: number) =>
-                    (
-                        <CategoryTeaser
-                            key={teaser.title}
-                            title={teaser.title}
-                            text={teaser.text}
-                            img={teaser.img}
-                            path={teaser.path}
-                            linkTitle={teaser.linkTitle}
-                            isOdd={Boolean(index % 2)}
-                        />
-                    ))}
-            </Grid>
-        </Grid>
+        <div className={classes.list}>
+            { renderCategoriesTeasers() }
+        </div>
     );
 };
 
-export const CategoriesTeasers = withStyles(styles)(CategoriesTeasersBase);
+export const CategoriesTeasers = withStyles(styles)(CategoriesTeasersComponent);

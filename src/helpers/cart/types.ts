@@ -71,5 +71,6 @@ export interface IRowCustomerCartItemsIncludedResponse extends IAbstractRowInclu
         groupKey: string;
         quantity: number;
         sku: string
+        abstractSku: string
     };
 }

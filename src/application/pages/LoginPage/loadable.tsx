@@ -6,7 +6,7 @@ export const LoadableLoginPage = Loadable({
         import(
             /* webpackPrefetch: true, webpackChunkName: "LoadableLoginPage" */
             '@application/pages/LoginPage').then(
-            module => module.LoginPageComponent,
+            module => module.LoginPage,
         ),
     loading: () => <div>Loading...</div>,
 });
