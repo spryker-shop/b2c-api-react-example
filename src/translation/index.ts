@@ -274,7 +274,7 @@ export const messages: IMessages = {
         'delete.account.title': 'Account löschen',
         'delivery.address.title': 'Lieferadresse',
         'edit.address.title': 'Adresse Bearbeitens',
-        'email.label': 'E-Mail Adresse',
+        'email.label': 'E-Mail',
         'empry.cart.title': 'Einkaufswagen ist leer',
         'empty.address.message': 'Sie haben keine gespeicherten Adressen in Ihrem Konto.',
         'empty.cart.title': 'Einkaufswagen ist leer',

@@ -25,23 +25,19 @@ export class LoginPageComponent extends React.Component<Props> {
         const { classes, handleSubmitLoginForm } = this.props;
 
         return (
-            <AppMain isDifferentBg>
+            <AppMain classes={{ layout: classes.layout, wrapper: classes.wrapper }}>
                 <Grid container justify="center">
-                    <Grid item xs={ 12 } sm={ 12 } md={ 6 } className={ classes.box }>
+                    <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
                         <ul className={ classes.heading }>
                             <li className={ `${classes.headingItem} ${classes.headingItemActive}` }>
-                                <Typography component="div" variant="display1" color="inherit">
-                                    <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
-                                        <FormattedMessage id={ 'word.login.title' } />
-                                    </NavLink>
-                                </Typography>
+                                <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
+                                    <FormattedMessage id={ 'word.login.title' } />
+                                </NavLink>
                             </li>
                             <li className={ classes.headingItem }>
-                                <Typography component="div" variant="display1" color="inherit">
-                                    <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
-                                        <FormattedMessage id={ 'word.register.title' } />
-                                    </NavLink>
-                                </Typography>
+                                <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
+                                    <FormattedMessage id={ 'word.register.title' } />
+                                </NavLink>
                             </li>
                         </ul>
                         <div className={ classes.inner }>

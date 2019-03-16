@@ -4,11 +4,11 @@ import { styles } from './styles';
 import { IAppMainProps as Props } from './types';
 
 const AppMainComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isDifferentBg } = props;
+    const { classes } = props;
 
     return (
-        <main className={`${classes.wrapper} ${isDifferentBg ? classes.wrapperBg : ''}`}>
-            <div className={classes.layout}>{ props.children }</div>
+        <main className={ classes.wrapper }>
+            <div className={ classes.layout }>{ props.children }</div>
         </main>
     );
 };

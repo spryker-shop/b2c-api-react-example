@@ -2,12 +2,29 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    wrapper: {
+        background: theme.appColors.white,
+        [theme.breakpoints.up('sm')]: {
+            background: theme.appColors.weekWhite
+        }
+    },
+    layout: {
+        padding: 0,
+        maxWidth: '100%',
+        [theme.breakpoints.up('sm')]: {
+            ...theme.appContainerStyles,
+            padding: '40px 16px 0'
+        }
+    },
     box: {
         background: theme.appColors.white,
         borderRadius: 4
     },
     inner: {
-        padding: '35px 50px 35px'
+        padding: '20px 16px',
+        [theme.breakpoints.up('sm')]: {
+            padding: '35px 50px 35px'
+        }
     },
     heading: {
         display: 'flex',
@@ -35,14 +52,20 @@ export const styles = (theme: Theme) => createStyles({
     },
     redirectLink: {
         height: '100%',
-        minHeight: 80,
+        minHeight: 59,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '10px 5px',
         color: 'inherit',
+        textDecoration: 'none',
+        fontSize: 15,
         fontWeight: 500,
-        textDecoration: 'none'
+        letterSpacing: 0.2,
+        [theme.breakpoints.up('sm')]: {
+            minHeight: 80,
+            fontSize: 18
+        }
     },
     formWrapper: {
         paddingBottom: 20
