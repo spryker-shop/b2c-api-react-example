@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles, Button, Grid } from '@material-ui/core';
 import { SprykerInput } from '@application/components/UI/SprykerInput';
 import { ILoginFormProps as Props, ILoginFormState as State } from './types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
@@ -24,7 +24,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
         this.props.handleSubmit(payload);
     };
 
-    protected handleChange = () => (event: InputChangeEvent) => {
+    protected handleChange = () => (event: InputChangeEvent): void => {
         const { name, value } = event.target;
         this.setState({
             ...this.state,
@@ -36,29 +36,35 @@ export class LoginFormComponent extends React.Component<Props, State> {
         const { classes } = this.props;
 
         return (
-            <form className={ classes.container } noValidate autoComplete="off" onSubmit={ this.handleSubmit }
-                  id="LoginForm">
-                <SprykerInput
-                    isRequired
-                    label={ <FormattedMessage id={ 'email.label' } /> }
-                    inputName="username"
-                    onChangeHandler={ this.handleChange() }
-                    inputType="email"
-                    inputValue={ this.state.username }
-                />
-
-                <SprykerInput
-                    isRequired
-                    label={ <FormattedMessage id={ 'word.password.title' } /> }
-                    inputName="password"
-                    onChangeHandler={ this.handleChange() }
-                    inputType="password"
-                    inputValue={ this.state.password }
-                />
-
-                <Button fullWidth type="submit" variant="contained">
-                    <FormattedMessage id={ 'word.login.title' } />
-                </Button>
+            <form noValidate autoComplete="off" onSubmit={ this.handleSubmit }
+                  id="LoginForm" className={ classes.wrapper }>
+                <Grid container direction="column" spacing={ 24 }>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'email.label' } /> }
+                            inputName="username"
+                            onChangeHandler={ this.handleChange() }
+                            inputType="email"
+                            inputValue={ this.state.username }
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'word.password.title' } /> }
+                            inputName="password"
+                            onChangeHandler={ this.handleChange() }
+                            inputType="password"
+                            inputValue={ this.state.password }
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <Button fullWidth type="submit" variant="contained">
+                            <FormattedMessage id={ 'word.login.title' } />
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
         );
     }

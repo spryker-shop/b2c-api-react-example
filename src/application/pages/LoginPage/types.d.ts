@@ -6,7 +6,6 @@ import { WithRouter } from '@interfaces/common';
 export interface ILoginPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     dispatch?: Function;
     isAuth?: boolean;
-    handleSubmitRegisterForm: Function;
     handleSubmitLoginForm: Function;
     getCustomerCart: Function;
 }

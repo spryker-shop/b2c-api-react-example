@@ -15,7 +15,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
 const mapDispatchToProps = (dispatch: Function) => ({
     dispatch,
-    handleSubmitRegisterForm: (data: ICustomerProfile): void => dispatch(customerRegisterAction(data)),
     handleSubmitLoginForm: (payload: ICustomerLoginData): void => dispatch(loginCustomerAction(payload)),
     getCustomerCart: () => dispatch(getCustomerCartsAction()),
 });
