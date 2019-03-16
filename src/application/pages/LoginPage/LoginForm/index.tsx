@@ -1,27 +1,41 @@
 import * as React from 'react';
+import { connect } from './connect';
+import { pathCustomerPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import { withStyles, Button, Grid } from '@material-ui/core';
 import { SprykerInput } from '@application/components/UI/SprykerInput';
 import { ILoginFormProps as Props, ILoginFormState as State } from './types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 
+@(withRouter as Function)
+@connect
 export class LoginFormComponent extends React.Component<Props, State> {
     public readonly state: State = {
         username: '',
-        password: '',
-        isSubmitting: false,
-        isSubmitted: false
+        password: ''
+    };
+
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { isAuth, getCustomerCart, history } = this.props;
+
+        if (!prevProps.isAuth && isAuth) {
+            getCustomerCart();
+            history.push(pathCustomerPage);
+        }
     };
 
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
         const { username, password } = this.state;
-        if (Boolean(username) || Boolean(password)) {
+
+        if (!Boolean(username) || !Boolean(password)) {
             return null;
         }
+
         const payload = { username, password };
-        this.props.handleSubmit(payload);
+        this.props.handleSubmitLoginForm(payload);
     };
 
     protected handleChange = () => (event: InputChangeEvent): void => {
@@ -33,7 +47,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
     };
 
     public render() {
-        const { classes } = this.props;
+        const { classes, isLoading } = this.props;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmit }
@@ -60,7 +74,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <Button fullWidth type="submit" variant="contained">
+                        <Button disabled={ isLoading } fullWidth type="submit" variant="contained">
                             <FormattedMessage id={ 'word.login.title' } />
                         </Button>
                     </Grid>

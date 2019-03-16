@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { withRouter } from 'react-router';
-import { connect } from './connect';
-import { pathCustomerPage, pathForgotPassword, pathLoginPage } from '@constants/routes';
+import { pathForgotPassword, pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
@@ -11,18 +9,9 @@ import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
 import { styles } from './styles';
 
-@(withRouter as Function)
-@connect
 export class LoginPageComponent extends React.Component<Props> {
-    public componentDidUpdate = (prevProps: Props): void => {
-        if (!prevProps.isAuth && this.props.isAuth) {
-            this.props.getCustomerCart();
-            this.props.history.push(pathCustomerPage);
-        }
-    };
-
     public render(): JSX.Element {
-        const { classes, handleSubmitLoginForm } = this.props;
+        const { classes } = this.props;
 
         return (
             <AppMain classes={{ layout: classes.layout, wrapper: classes.wrapper }}>
@@ -42,10 +31,7 @@ export class LoginPageComponent extends React.Component<Props> {
                         </ul>
                         <div className={ classes.inner }>
                             <ErrorBoundary>
-                                <LoginForm
-                                    handleSubmit={ handleSubmitLoginForm }
-                                    classes={ { wrapper: classes.formWrapper } }
-                                />
+                                <LoginForm classes={{ wrapper: classes.formWrapper }} />
                             </ErrorBoundary>
                             <Typography align="center" component="div" variant="headline" color="textSecondary">
                                 <NavLink to={ pathForgotPassword } className={ classes.link }>
