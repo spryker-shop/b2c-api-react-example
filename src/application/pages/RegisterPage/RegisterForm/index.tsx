@@ -5,7 +5,7 @@ import { pathCustomerPage } from '@constants/routes';
 import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
-import { Button, Grid, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
 import { IRegisterFormProps as Props, IRegisterFormState as State } from './types';
 import { InputChangeEvent, FormEvent } from '@interfaces/common';
