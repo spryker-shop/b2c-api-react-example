@@ -4,7 +4,7 @@ import { styles } from './styles';
 import { ISquareImageProps as Props } from './types';
 
 export const SquareImageBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, size, image, alt = '' } = props;
+    const { classes, extraOverlayClassName, size, image, alt = '' } = props;
     const sizePX = `${size}px`;
     const imgSize = size * 0.82;
 
@@ -15,7 +15,7 @@ export const SquareImageBase: React.SFC<Props> = (props): JSX.Element => {
                 style={ { maxWidth: imgSize, maxHeight: imgSize } }
                 alt={ alt }
             />
-            <div className={ classes.actionAreaOverlay } />
+            <div className={`${classes.actionAreaOverlay} ${extraOverlayClassName ? extraOverlayClassName : ''}`} />
         </div>
     );
 };

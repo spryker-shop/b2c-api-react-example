@@ -4,7 +4,8 @@ import {
     DELETE_ADDRESS,
     UPDATE_ADDRESS,
     SET_CURRENT_ADDRESS,
-    GET_ONE_ADDRESS
+    GET_ONE_ADDRESS,
+    CLEAR_ADDRESS
 } from '@stores/actionTypes/pages/addresses';
 import { IAddressItem } from '@interfaces/addresses';
 import { AddressesService } from '@services/pages/Addresses';
@@ -68,5 +69,11 @@ export const setCurrentAddressAction = function (addressId: string) {
     return {
         type: SET_CURRENT_ADDRESS,
         addressId,
+    };
+};
+
+export const clearAddressAction = function () {
+    return {
+        type: CLEAR_ADDRESS
     };
 };

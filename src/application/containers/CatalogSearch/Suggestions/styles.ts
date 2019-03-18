@@ -5,41 +5,60 @@ export const styles = (theme: Theme) => createStyles({
     menuItem: {
         display: 'flex',
         alignItems: 'center',
-        paddingLeft: 0,
-        marginTop: theme.spacing.unit * 3,
+        marginBottom: 4,
         height: '100%',
-        paddingTop: 0,
-        paddingBottom: 0,
+        padding: '4px 24px'
     },
     description: {
         display: 'flex',
         flexDirection: 'column',
-        marginLeft: theme.spacing.unit * 2,
-        alignSelf: 'stretch',
+        marginLeft: 16
     },
     itemName: {
-        fontSize: theme.appFixedDimensions.fontSize.medium,
-        letterSpacing: '0.5px',
-        marginTop: theme.spacing.unit * 2,
-        marginBottom: theme.spacing.unit * 2,
+        fontSize: 13,
+        letterSpacing: 0.1,
+        lineHeight: 1.7,
+        fontWeight: 500,
+        color: theme.appColors.grey,
+        marginBottom: 5,
+        whiteSpace: 'normal'
+    },
+    prices: {
+        display: 'flex',
+        alignItems: 'flex-end',
+        margin: '0 -5px'
+    },
+    priceItem: {
+        padding: '0 5px',
+        lineHeight: 1,
+        fontSize: 14,
+        letterSpacing: 0,
     },
     mainPrice: {
-        fontSize: theme.appFixedDimensions.fontSize.large,
-        letterSpacing: '1px',
         color: theme.appColors.black,
     },
+    newPrice: {
+       color: theme.appColors.red
+    },
     oldPrice: {
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        letterSpacing: '1px',
-        color: theme.appColors.grey,
-    },
-    mediumText: {
-        fontWeight: 500
-    },
-    lightText: {
-        fontWeight: 300
+        fontSize: 13,
+        letterSpacing: 0.2,
+        fontWeight: 400,
+        color: theme.appColors.grey
     },
     textWithoutDecoration: {
         textDecoration: 'none'
+    },
+    imageWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 50,
+        height: 50,
+        minWidth: 50,
+        background: theme.appColors.white
+    },
+    imageOverlay: {
+        background: 'none'
     }
 });

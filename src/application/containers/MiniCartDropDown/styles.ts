@@ -7,30 +7,35 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.blue,
         width: 'auto',
         minWidth: 18,
-        right: 'auto',
-        left: '100%',
+        right: 0,
+        top: -6,
+        transform: 'translateX(40%)',
         padding: theme.spacing.unit / 2,
         height: 18,
         fontSize: theme.appFixedDimensions.fontSize.mini,
-        lineHeight: '14px',
+        lineHeight: 14,
     },
     badgeCartOpen: {},
     hideBadge: {
         transform: 'scale(0)',
     },
     cartNotification: {
-        top: '70px',
-        right: '21px',
+        top: 70,
+        right: 21,
     },
     cartContent: {
         maxHeight: theme.appFixedDimensions.cartDrop.height,
     },
-    popoverTriangle: {
-        '&:before, &:after': {
-            right: 57,
-            [theme.breakpoints.down(theme.appFixedDimensions.customBreakpoints.tablet)]: {
-                right: 23,
-            },
+    iconButton: {
+        width: 60,
+        height: '100%',
+        padding: 4,
+        borderRadius: 4,
+        '&:hover': {
+            backgroundColor: theme.appColors.weekWhite
         }
     },
+    isPopupOpened: {
+        backgroundColor: theme.appColors.weekWhite
+    }
 });

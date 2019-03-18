@@ -11,8 +11,8 @@ import {
     rangeMinType,
     RangeType,
     TActiveRangeFilters
-} from '@application/pages/SearchPage/types';
-import { IActiveFilterCategories } from '@application/pages/SearchPage/CategoriesList/types';
+} from '../SearchFilterList/types';
+import { IActiveFilterCategories } from '../CategoriesList/types';
 import { labeledCategories } from '@constants/routes';
 import { ICategory, IBreadcrumbItem } from '@interfaces/category';
 
@@ -100,14 +100,14 @@ export const getLabeledCategory = (category: string | number): string | null => 
 
 export const getCurrentCategoriesTree = (
     categoriesTree: ICategory[],
-    categoryId: string): IBreadcrumbItem[] | null => {
+    categoryId: number): IBreadcrumbItem[] | null => {
 
     if (!categoryId) {
         return null;
     }
 
     for (let i = 0; i < categoriesTree.length; i++) {
-        if (categoriesTree[i].nodeId.toString() === categoryId) {
+        if (categoriesTree[i].nodeId.toString() === String(categoryId)) {
             return [{
                 name: categoriesTree[i].name,
                 nodeId: categoriesTree[i].nodeId,

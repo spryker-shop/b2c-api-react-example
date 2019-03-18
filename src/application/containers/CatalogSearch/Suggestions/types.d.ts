@@ -10,7 +10,3 @@ export interface ISuggestionsProps extends WithStyles<typeof styles> {
     containerRef: React.RefObject<HTMLDivElement>;
     classes?: any;
 }
-
-export interface ISuggestionsState {
-    listItemHeight: number;
-}

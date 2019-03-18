@@ -4,7 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     logosList: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         listStyle: 'none',
         margin: 0,
         padding: 0,
