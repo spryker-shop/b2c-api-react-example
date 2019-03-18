@@ -11,6 +11,7 @@ import { IRegisterFormProps as Props, IRegisterFormState as State } from './type
 import { InputChangeEvent, FormEvent } from '@interfaces/common';
 import { SprykerInput } from '@application/components/UI/SprykerInput';
 import { SprykerSelect } from '@application/components/UI/SprykerSelect';
+import { SprykerCheckbox } from '@application/components/UI/SprykerCheckbox';
 
 @(withRouter as Function)
 @connect
@@ -143,15 +144,11 @@ export class RegisterForm extends React.Component<Props, State> {
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={ this.state.acceptedTerms }
-                                    onChange={ this.handleChangeAgreement }
-                                    name="acceptedTerms"
-                                />
-                            }
-                            label={ <FormattedMessage id={ 'accept.terms.title' } /> }
+                        <SprykerCheckbox
+                            isChecked={ this.state.acceptedTerms }
+                            changeHandler={ this.handleChangeAgreement }
+                            label={  <FormattedMessage id={ 'accept.terms.title' } /> }
+                            name="acceptedTerms"
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
