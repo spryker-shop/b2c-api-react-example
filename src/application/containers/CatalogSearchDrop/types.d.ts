@@ -3,8 +3,6 @@ import { WithRouter } from '@interfaces/common';
 import { styles } from './styles';
 
 export interface IUserDropNavigationProps extends WithStyles<typeof styles>, WithRouter {
-    isUserLoggedIn?: boolean;
-    logout?(): void;
 }
 
 export interface IUserDropNavigationState {

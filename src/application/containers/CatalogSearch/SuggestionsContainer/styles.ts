@@ -2,36 +2,66 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    completion: {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '22px',
-        fontSize: theme.appFixedDimensions.fontSize.medium,
-        color: theme.appColors.black,
-        letterSpacing: '0.5px',
-        textDecoration: 'none',
-    },
     insideContWrapper: {
-        width: '75%',
-        margin: '40px 12.5% 80px',
+        overflowY: 'auto',
+        background: theme.appColors.weekWhite,
+        maxHeight: '85vh'
     },
-    categoryTitle: {
-        lineHeight: '25px',
-        fontSize: '20px',
-        letterSpacing: '0.6px',
-        marginTop: '60px',
-        marginBottom: theme.spacing.unit * 2,
+    completionList: {
+        paddingBottom: 15,
+        marginBottom: 15,
+        borderBottom: '1px solid rgba(206, 206, 208, 0.3)',
+        '&:last-child': {
+            border: 'none',
+            paddingBottom: 0
+        }
     },
-    marginTop: {
-        marginTop: theme.spacing.unit * 2,
+    completion: {
+        display: 'block',
+        marginBottom: 0,
+        color: theme.appColors.grey,
+        letterSpacing: 0.2,
+        fontSize: 15,
+        lineHeight: 1.4,
+        padding: '10px 30px',
+        textDecoration: 'none',
+        textTransform: 'capitalize',
+        '&:hover': {
+            background: theme.appColors.white
+        }
+    },
+    completionInner: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    completionTip: {
+        display: 'flex',
+        alignItems: 'flex-end',
+        fontSize: 13,
+        color: theme.appColors.darkGrey,
+        letterSpacing: 0.1,
+        fontWeight: 500
+    },
+    matchedText: {
+        color: theme.appColors.black
+    },
+    completionTipIcon: {
+        paddingLeft: 10,
+        lineHeight: 1
     },
     linkAll: {
         display: 'inline-block',
-        marginTop: theme.spacing.unit * 3,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        color: theme.appColors.black,
-        letterSpacing: '0.4px',
-        textDecoration: 'underline',
+        marginTop: 20,
+        fontSize: 15,
+        fontWeight: 500,
+        color: theme.appColors.blue,
+        letterSpacing: 0.2,
+        margin: '0 24px',
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.appColors.darkBlue
+        }
     },
     suggestionsContainer: {},
     noFoundText: {
