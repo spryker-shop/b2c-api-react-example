@@ -4,8 +4,10 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     wrapper: {
         background: theme.appColors.white,
+        paddingBottom: 40,
         [theme.breakpoints.up('sm')]: {
-            background: theme.appColors.weekWhite
+            background: theme.appColors.weekWhite,
+            paddingBottom: 110
         }
     },
     layout: {

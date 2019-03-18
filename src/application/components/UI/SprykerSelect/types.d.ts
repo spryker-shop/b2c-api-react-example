@@ -23,6 +23,7 @@ export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     isRequired?: boolean;
     isFullWidth?: boolean;
     placeholder?: boolean;
+    isSimple?: boolean;
 }
 
 export interface ISprykerSelectState {

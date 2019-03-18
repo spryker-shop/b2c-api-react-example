@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { pathForgotPassword, pathLoginPage } from '@constants/routes';
+import { pathForgotPassword, pathLoginPage, pathRegisterPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
@@ -24,7 +24,7 @@ export class LoginPageComponent extends React.Component<Props> {
                                 </NavLink>
                             </li>
                             <li className={ classes.headingItem }>
-                                <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
+                                <NavLink to={ pathRegisterPage } className={ classes.redirectLink }>
                                     <FormattedMessage id={ 'word.register.title' } />
                                 </NavLink>
                             </li>

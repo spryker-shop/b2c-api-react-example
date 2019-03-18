@@ -3,7 +3,14 @@ import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
-import { pathCategoryPageBase, pathLoginPage, pathSearchPage } from '@constants/routes';
+import {
+    pathCategoryPageBase,
+    pathLoginPage,
+    pathRegisterPage,
+    pathSearchPage,
+    pathForgotPassword,
+    pathResetPassword
+} from '@constants/routes';
 import { withStyles } from '@material-ui/core';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
@@ -73,7 +80,7 @@ class PageContentComponent extends React.Component<Props, State> {
     protected mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
 
     protected shouldHideFooter = (): boolean => {
-        const forbiddenPaths = [pathLoginPage];
+        const forbiddenPaths = [pathLoginPage, pathRegisterPage, pathResetPassword, pathForgotPassword];
         const currentLocation = this.props.location.pathname;
 
         return !forbiddenPaths.some(path => currentLocation.endsWith(path));

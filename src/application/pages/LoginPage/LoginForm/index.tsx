@@ -50,8 +50,13 @@ export class LoginFormComponent extends React.Component<Props, State> {
         const { classes, isLoading } = this.props;
 
         return (
-            <form noValidate autoComplete="off" onSubmit={ this.handleSubmit }
-                  id="LoginForm" className={ classes.wrapper }>
+            <form
+                noValidate
+                autoComplete="off"
+                onSubmit={ this.handleSubmit }
+                id="LoginForm"
+                className={ classes.wrapper }
+            >
                 <Grid container direction="column" spacing={ 24 }>
                     <Grid item xs={ 12 }>
                         <SprykerInput
