@@ -83,7 +83,7 @@ class PageContentComponent extends React.Component<Props, State> {
         const forbiddenPaths = [pathLoginPage, pathRegisterPage, pathResetPassword, pathForgotPassword];
         const currentLocation = this.props.location.pathname;
 
-        return !forbiddenPaths.some(path => currentLocation.endsWith(path));
+        return forbiddenPaths.some(path => currentLocation.includes(path));
     };
 
     public render(): JSX.Element {
@@ -103,7 +103,7 @@ class PageContentComponent extends React.Component<Props, State> {
                         {getContentRoutes(this.isDataFulfilled())}
                     </ErrorBoundary>
                     <Notifications />
-                    {this.shouldHideFooter() && <AppFooter/>}
+                    {!this.shouldHideFooter() && <AppFooter/>}
                 </div>
             </IntlProvider>
         );

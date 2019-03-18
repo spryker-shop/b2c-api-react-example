@@ -2,55 +2,28 @@ import { Theme } from '@material-ui/core';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        marginTop: theme.spacing.unit * 2,
-        width: '50%',
-        minWidth: '300px',
+    wrapper: {
+        background: theme.appColors.white,
+        paddingBottom: 40,
+        [theme.breakpoints.up('sm')]: {
+            background: theme.appColors.weekWhite,
+            paddingBottom: 110
+        }
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+    layout: {
+        padding: 0,
+        maxWidth: '100%',
+        [theme.breakpoints.up('sm')]: {
+            ...theme.appContainerStyles,
+            padding: '40px 16px 0'
+        }
     },
-    email: {
-        marginLeft: '5%',
-        width: '90%',
-    },
-    input: {},
-    button: {
-        margin: theme.spacing.unit,
-        marginTop: theme.spacing.unit * 4,
-        width: '100%',
-    },
-    menu: {
-        width: 200,
-    },
-    forgot: {
-        width: '75%',
-        padding: theme.spacing.unit * 2,
-    },
-    passwordButtons: {
-        margin: `${theme.spacing.unit * 2}px ${theme.spacing.unit}px 0px`,
-    },
-    placeholder: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        left: '0',
-        right: '0',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        zIndex: 3,
-        pointerEvents: 'none',
-        fontSize: 16,
-        lineHeight: '20px',
-        fontWeight: 500,
-        color: '#111111',
-        opacity: 0.43
-    },
-    filled: {
-        display: 'none'
+    box: {
+        background: theme.appColors.white,
+        borderRadius: 4,
+        padding: '20px 16px',
+        [theme.breakpoints.up('sm')]: {
+            padding: '35px 50px 35px'
+        }
     }
 });

@@ -1,22 +1,12 @@
 import * as React from 'react';
 import { connect } from './connect';
-import {
-    withStyles,
-    Grid,
-    Paper,
-    Typography,
-    TextField,
-    Button
-} from '@material-ui/core';
-import BackIcon from '@material-ui/icons/ChevronLeft';
-import {
-    IForgotPasswordPageProps as Props,
-    IForgotPasswordPageState as State
-} from './types';
+import { withStyles, Grid, Typography, Button } from '@material-ui/core';
+import { IForgotPasswordPageProps as Props, IForgotPasswordPageState as State } from './types';
 import { AppMain } from '@application/components/AppMain';
 import { styles } from './styles';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
+import { SprykerInput } from '@application/components/UI/SprykerInput';
 
 @connect
 export class ForgotPasswordPageBase extends React.Component<Props, State> {
@@ -25,7 +15,7 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
     };
 
     protected handleChange = (e: InputChangeEvent): void => {
-        this.setState({email: e.target.value});
+        this.setState({ email: e.target.value });
     };
 
     protected submitRequest = (e: ClickEvent): void => {
@@ -33,60 +23,58 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const {classes, routerGoBack} = this.props;
-        const {email} = this.state;
+        const { classes, routerGoBack, isLoading } = this.props;
+        const { email } = this.state;
 
         return (
-            <AppMain>
-                <Grid
-                    item xs={12}
-                    container
-                    justify="center"
-                >
-                    <Paper className={classes.forgot}>
-                        <Typography color="primary" variant="headline" paragraph>
-                            <FormattedMessage id={'recovery.password.title'} />
+            <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
+                <Grid container justify="center">
+                    <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
+                        <Typography variant="display3" component="h2">
+                            <FormattedMessage id={ 'recovery.password.title' } />
                         </Typography>
-                        <Typography variant="title" paragraph>
-                            <FormattedMessage id={'enter.email.address.message'} />
+                        <Typography variant="headline" paragraph>
+                            <FormattedMessage id={ 'enter.email.address.message' } />
                         </Typography>
                         <form autoComplete="off">
-                            <TextField
-                                required
-                                inputProps={{type: 'email'}}
-                                label={<FormattedMessage id={'email.label'} />}
-                                className={classes.email}
-                                value={email}
-                                helperText={<FormattedMessage id={'email.label'} />}
-                                FormHelperTextProps={{
-                                    classes: {
-                                        root: classes.placeholder,
-                                        filled: email.length > 0 ? classes.filled : null
-                                    }
-                                }}
-                                onChange={this.handleChange}
-                            />
+                            <Grid container direction="column" spacing={ 24 }>
+                                <Grid item xs={ 12 }>
+                                    <SprykerInput
+                                        isRequired
+                                        label={ <FormattedMessage id={ 'email.label' } /> }
+                                        inputName="email"
+                                        onChangeHandler={ this.handleChange }
+                                        inputValue={ email }
+                                        inputType="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={ 12 }>
+                                    <Grid container spacing={ 24 }>
+                                        <Grid item xs={ 12 } sm={ 6 }>
+                                            <Button
+                                                disabled={ isLoading }
+                                                variant="outlined"
+                                                onClick={ () => routerGoBack() }
+                                                fullWidth
+                                            >
+                                                <FormattedMessage id={ 'word.back.title' } />
+                                            </Button>
+                                        </Grid>
+                                        <Grid item xs={ 12 } sm={ 6 }>
+                                            <Button
+                                                disabled={ isLoading }
+                                                variant="contained"
+                                                onClick={ this.submitRequest }
+                                                fullWidth
+                                            >
+                                                <FormattedMessage id={ 'word.submit.title' } />
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </form>
-                        <Grid container justify="flex-end">
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                className={classes.passwordButtons}
-                                onClick={() => routerGoBack()}
-                            >
-                                <BackIcon />
-                                <FormattedMessage id={'word.back.title'} />
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.passwordButtons}
-                                onClick={this.submitRequest}
-                            >
-                                <FormattedMessage id={'word.submit.title'} />
-                            </Button>
-                        </Grid>
-                    </Paper>
+                    </Grid>
                 </Grid>
             </AppMain>
         );
