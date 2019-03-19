@@ -15,6 +15,7 @@ import { configureStore } from '@stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
 import config from './configs/server';
 import { PageContent } from '@application/containers/PageContent';
+import { FontLoader } from '@application/components/FontLoader';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -26,10 +27,12 @@ export const App = () => (
             {/* ConnectedRouter will use the store from Provider automatically */}
             <ConnectedRouter history={history}>
                 <ScrollToTopRoute>
-                    <MuiThemeProvider theme={sprykerTheme}>
-                        <CssBaseline/>
-                        <Route path={config.WEB_PATH} component={PageContent}/>
-                    </MuiThemeProvider>
+                    <FontLoader>
+                        <MuiThemeProvider theme={sprykerTheme}>
+                            <CssBaseline/>
+                            <Route path={config.WEB_PATH} component={PageContent}/>
+                        </MuiThemeProvider>
+                    </FontLoader>
                 </ScrollToTopRoute>
             </ConnectedRouter>
         </Provider>
