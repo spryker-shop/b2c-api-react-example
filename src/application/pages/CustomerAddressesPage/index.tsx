@@ -11,7 +11,7 @@ import { Grid, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @connect
-export class CustomerAddressBase extends React.Component<Props, State> {
+class CustomerAddressBase extends React.Component<Props, State> {
     public state: State = {};
 
     public componentDidMount = (): void => {
@@ -74,5 +74,3 @@ export class CustomerAddressBase extends React.Component<Props, State> {
 }
 
 export const CustomerAddressPage = withStyles(styles)(CustomerAddressBase);
-
-export default CustomerAddressPage;
