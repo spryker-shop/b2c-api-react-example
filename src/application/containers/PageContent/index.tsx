@@ -1,3 +1,5 @@
+import { hot } from 'react-hot-loader/root';
+import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
 import { StickyContainer } from 'react-sticky';
@@ -5,7 +7,7 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
@@ -14,6 +16,8 @@ import { messages } from '@translation/';
 import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
+
+setConfig({ ErrorOverlay: () => null });
 
 @connect
 @(withRouter as Function)
@@ -98,3 +102,4 @@ class PageContentComponent extends React.Component<Props, State> {
 }
 
 export const PageContent = withStyles(styles)(PageContentComponent);
+export default hot(PageContent);
