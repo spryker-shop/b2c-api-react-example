@@ -3,58 +3,74 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        backgroundColor: theme.appColors.weakGrey,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center left',
-        height: 520,
-        color: theme.appColors.white,
-        [theme.breakpoints.down('md')]: {
-            height: 320,
+        backgroundColor: theme.appColors.white,
+        height: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
+        zIndex: 0,
+        '&:after, &:before': {
+            content: '""',
+            position: 'absolute',
+            width: '100%',
+            height: 7000,
+            zIndex: -1
+        },
+        '&:after': {
+            transform: 'skewY(-30deg) translateY(-103%)',
+            backgroundColor: theme.appColors.weekWhite
+        },
+        '&:before': {
+            transform: 'skewY(30deg) translateY(3%)',
+            backgroundColor: theme.appColors.darkWhite
+        },
+        [theme.breakpoints.down('sm')]: {
+            height: 320
         },
         [theme.breakpoints.down('xs')]: {
-            height: 'auto',
-        },
+            height: 'auto'
+        }
     },
     container: {
         ...theme.appContainerStyles,
+        height: '100%'
+    },
+    imageContainer: {
+        position: 'relative',
+        height: '100%'
+    },
+    image: {
+        position: 'absolute',
+        right: -50,
+        left: -50,
+        top: 0,
+        height: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'bottom 40px right',
+        [theme.breakpoints.down('md')]: {
+            right: 0,
+            left: 0,
+            backgroundPosition: 'center'
+        }
     },
     content: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100%',
+        alignItems: 'center',
+        height: '100%'
     },
     holder: {
-        flexBasis: 0,
-        [theme.breakpoints.down('xs')]: {
-            marginBottom: theme.spacing.unit * 4,
-            marginTop: theme.spacing.unit * 4,
-        },
+        padding: '30px 0'
     },
     title: {
         display: 'flex',
         flexDirection: 'column',
-        fontSize: theme.appFixedDimensions.fontSize.xxxl,
-        maxWidth: '75%',
-        fontWeight: 'bold',
-        lineHeight: 'normal',
-        letterSpacing: -0.8,
-        [theme.breakpoints.down('sm')]: {
-            maxWidth: '100%',
-            fontSize: theme.appFixedDimensions.fontSize.xl,
-        },
-    },
-    titlePart: {
-        display: 'flex',
+        paddingBottom: 20,
+        color: theme.appColors.grey
     },
     text: {
-        fontSize: theme.appFixedDimensions.fontSize.huge,
-        lineHeight: 1.15,
-        letterSpacing: 0.1,
-        marginBottom: theme.spacing.unit * 4,
-        marginTop: theme.spacing.unit * 1.5,
+        paddingBottom: 30,
+        color: theme.appColors.grey
     },
     btn: {
-        textTransform: 'uppercase',
-    },
+        minWidth: 160
+    }
 });

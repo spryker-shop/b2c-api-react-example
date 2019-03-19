@@ -24,9 +24,9 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         priceDefaultGross,
         priceOriginalGross,
         cartRejected,
+        abstractSku,
         calculations: { unitPriceToPayAggregation }
     } = props;
-    const abstractProductSku = sku.split('_')[0];
 
     return (
 
@@ -44,7 +44,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                         <div className={ classes.growedBlock }>
                             <Typography component="h5" variant="headline" className={classes.name}>
                                 <NavLink
-                                    to={`${pathProductPageBase}/${abstractProductSku}`}
+                                    to={`${pathProductPageBase}/${abstractSku}`}
                                     className={classes.nameLink}
                                 >
                                     { name }
