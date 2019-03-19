@@ -7,9 +7,9 @@ import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import 'slick-carousel/slick/slick.scss';
+import 'slick-carousel/slick/slick.css';
 
-const ProductsSlideComponent = (props: Props): JSX.Element => {
+const ProductsSliderComponent = (props: Props): JSX.Element => {
     const { classes, products, currency, onSelectProduct } = props;
 
     const customPaging = (): JSX.Element => (
@@ -79,4 +79,4 @@ const ProductsSlideComponent = (props: Props): JSX.Element => {
     );
 };
 
-export const ProductsSlider = withStyles(styles)(ProductsSlideComponent);
+export const ProductsSlider = withStyles(styles)(ProductsSliderComponent);

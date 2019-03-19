@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { pathProductPageBase } from '@constants/routes';
 
 @connect
-class ProductRelationsBase extends React.Component<Props> {
+class ProductRelationsComponent extends React.Component<Props> {
     protected onSelectProductHandle = (sku: TProductSKU): void => {
         this.props.changeLocation(`${pathProductPageBase}/${sku}`);
     };
@@ -53,4 +53,4 @@ class ProductRelationsBase extends React.Component<Props> {
     };
 }
 
-export const ProductRelations = withStyles(styles)(ProductRelationsBase);
+export const ProductRelations = withStyles(styles)(ProductRelationsComponent);
