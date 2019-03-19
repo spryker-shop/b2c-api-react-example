@@ -5,23 +5,19 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@application/components/Notifications';
 import { messages } from '@translation/';
-import {
-    IPageContentProps as Props,
-    IPageContentState as State
-} from './types';
+import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-
-const styles = require('./style.scss');
-const className = styles.pageContent;
+import { styles } from './styles';
 
 @connect
 @(withRouter as Function)
-export class PageContent extends React.Component<Props, State> {
+class PageContentComponent extends React.Component<Props, State> {
     public state: State = {
         mobileNavOpened: false
     };
@@ -76,13 +72,13 @@ export class PageContent extends React.Component<Props, State> {
     private mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
 
     public render(): JSX.Element {
-        const { isLoading, locale } = this.props;
+        const { isLoading, locale, classes } = this.props;
         const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
-                <div className={ className }>
+                <div className={ classes.wrapper }>
                     <StickyContainer>
                         <AppHeader
                             isLoading={ isLoading }
@@ -100,3 +96,5 @@ export class PageContent extends React.Component<Props, State> {
         );
     }
 }
+
+export const PageContent = withStyles(styles)(PageContentComponent);

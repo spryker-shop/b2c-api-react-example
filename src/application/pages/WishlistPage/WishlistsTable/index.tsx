@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { formattedDate } from '@helpers/common/dates';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { IWishlistsTableProps as Props, IWishlistsTableState as State } from './types';
@@ -59,7 +60,7 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
         const tableAction = isLoading ? classes.tableActionDisabled : classes.tableAction;
 
         return this.props.wishlists.map((item: IWishlist) => {
-            const date = (item.createdAt).split(' ')[0];
+            const date = formattedDate(item.createdAt);
 
             const wishlistRow = {
                 id: item.id,

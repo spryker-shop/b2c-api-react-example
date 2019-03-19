@@ -1,4 +1,4 @@
-import { WithStyles } from '@material-ui/core/styles/withStyles';
+import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductCard, TProductCurrency } from '@interfaces/product';
 import { IAvailableLabelsCollection, IProductsLabeledCollection } from '@interfaces/searchPageData';

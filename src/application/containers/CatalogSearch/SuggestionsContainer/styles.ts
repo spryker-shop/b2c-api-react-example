@@ -33,4 +33,9 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: '0.4px',
         textDecoration: 'underline',
     },
+    suggestionsContainer: {},
+    noFoundText: {
+        padding: 15,
+        textAlign: 'center'
+    }
 });
