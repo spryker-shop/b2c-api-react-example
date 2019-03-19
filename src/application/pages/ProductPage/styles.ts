@@ -3,7 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        ...theme.appContainerStyles,
+        paddingBottom: 130
     },
     productBtn: {
         width: '100%',

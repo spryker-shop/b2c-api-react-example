@@ -8,6 +8,7 @@ import { TActiveFilters, TActiveRangeFilters } from '@application';
 import { TSpellingSuggestion } from '@interfaces/searchPageData';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { IBreadcrumbItem } from '@interfaces/category';
 
 export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;
@@ -34,6 +35,10 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
     spellingSuggestion: TSpellingSuggestion;
     category: ICategory;
     history: History;
+}
+
+export interface ISearchPageState {
+    formattedCategoriesTree: IBreadcrumbItem[];
 }
 
 export type TCategoryId = number | string;
