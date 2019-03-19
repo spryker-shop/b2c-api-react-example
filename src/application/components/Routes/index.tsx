@@ -47,7 +47,7 @@ export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
             <Route path={ pathProductPage } exact render={ props => <LoadableProductPage {...props} /> }/>
             <Route path={ pathLoginPage } exact render={ props => <LoadableLoginPage {...props} /> }/>
             <Route path={ pathCartPage } exact render={ props => <LoadableCartPage {...props} /> }/>
-            <Route path={ pathCustomerPage } exact render={ props => <LoadableCustomerPage {...props} /> }/>
+            <ProtectedRoute path={ pathCustomerPage } render={ props => <LoadableCustomerPage {...props} /> }/>
             <Route path={ pathHomePage } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
             <Route
                 path={ `${pathResetPassword}/:restoreKey` }

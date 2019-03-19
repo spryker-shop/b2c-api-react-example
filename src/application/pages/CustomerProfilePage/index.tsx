@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
 @connect
-export class CustomerProfilePageBase extends React.Component<Props> {
+class CustomerProfilePageBase extends React.Component<Props> {
     public componentDidMount = () => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
@@ -62,4 +62,3 @@ export class CustomerProfilePageBase extends React.Component<Props> {
 }
 
 export const CustomerProfilePage = withStyles(styles)(CustomerProfilePageBase);
-export default CustomerProfilePage;
