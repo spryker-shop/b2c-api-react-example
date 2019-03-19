@@ -219,9 +219,11 @@ export class ProductPageBase extends React.Component<Props, State> {
                                 description={this.state.description}
                                 sku={this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku}
                             />
-                            <ErrorBoundary>
-                                <ProductRelations sku={ this.props.product.abstractProduct.sku } />
-                            </ErrorBoundary>
+                            {this.props.isWishlistsFetched &&
+                                <ErrorBoundary>
+                                    <ProductRelations sku={ this.props.product.abstractProduct.sku } />
+                                </ErrorBoundary>
+                            }
                         </div>
                     )
                 }

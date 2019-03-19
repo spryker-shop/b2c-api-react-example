@@ -9,8 +9,37 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import 'slick-carousel/slick/slick.scss';
 
-const ProductsSliderBase = (props: Props): JSX.Element => {
+const ProductsSlideComponent = (props: Props): JSX.Element => {
     const { classes, products, currency, onSelectProduct } = props;
+
+    const customPaging = (): JSX.Element => (
+        <div className={ classes.dotWrapper }>
+            <span className={ classes.dot } />
+        </div>
+    );
+
+    const appendDots = (dots: React.ReactNode): JSX.Element => (
+        <div>
+            <ul className={ classes.dotsContainer }>{ dots }</ul>
+        </div>
+    );
+
+    const renderProductCards = (): JSX.Element[] => (
+        products.map((product: IProductRelationsItem) => (
+            <div key={ product.sku } className={ classes.slide }>
+                <ProductCard
+                    currency={ currency }
+                    images={ product.images }
+                    price={ product.price }
+                    prices={ product.prices }
+                    name={ product.name }
+                    sku={ product.sku }
+                    onSelectProduct={ onSelectProduct }
+                    label={ product.label }
+                />
+            </div>
+        ))
+    );
 
     const slickSettings: Settings = {
         centerMode: true,
@@ -22,16 +51,8 @@ const ProductsSliderBase = (props: Props): JSX.Element => {
         centerPadding: '150px',
         prevArrow: (<ArrowButton icon={ <PrevIcon /> } customClass={ classes.slideArrow } />),
         nextArrow: (<ArrowButton icon={ <NextIcon /> } customClass={ classes.slideArrow } />),
-        customPaging: (): JSX.Element => (
-            <div className={ classes.dotWrapper }>
-                <span className={ classes.dot } />
-            </div>
-        ),
-        appendDots: (dots): JSX.Element => (
-            <div>
-                <ul className={ classes.dotsContainer }>{ dots }</ul>
-            </div>
-        ),
+        customPaging,
+        appendDots,
         responsive: [
             {
                 breakpoint: 1280,
@@ -53,24 +74,9 @@ const ProductsSliderBase = (props: Props): JSX.Element => {
 
     return (
         <Slider className={ classes.root } { ...slickSettings }>
-            {
-                products.map((product: IProductRelationsItem) => (
-                    <div key={ product.sku } className={ classes.slide }>
-                        <ProductCard
-                            currency={ currency }
-                            images={ product.images }
-                            price={ product.price }
-                            prices={ product.prices }
-                            name={ product.name }
-                            sku={ product.sku }
-                            onSelectProduct={ onSelectProduct }
-                            label={ product.label }
-                        />
-                    </div>
-                ))
-            }
+            { renderProductCards() }
         </Slider>
     );
 };
 
-export const ProductsSlider = withStyles(styles)(ProductsSliderBase);
+export const ProductsSlider = withStyles(styles)(ProductsSlideComponent);

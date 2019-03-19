@@ -6,7 +6,6 @@ import {
     IProductRelationsLabel
 } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
-
 import { parseImageSets } from '@helpers/product/imageSetsParser';
 import { getProductLabel } from '@helpers/product/label';
 import { IAvailableLabelsCollection, TLabelId } from '@interfaces/searchPageData';
@@ -56,9 +55,10 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
 
 const getAvailableLables = (included: IProductRelationsIncluded[]): IAvailableLabelsCollection | null => {
     const availableLabels: IAvailableLabelsCollection | null = {};
+    const productLabelsType = 'product-labels';
 
     const includedLabels: IProductRelationsLabel[] = included.filter(item => (
-        item.type === 'product-labels'
+        item.type === productLabelsType
     ));
 
     includedLabels.forEach((label: IProductRelationsLabel) => {

@@ -2,8 +2,8 @@ import { Theme, createStyles } from '@material-ui/core';
 
 const dotChange = (theme: Theme) => ({
     width: '10px',
-        height: '10px',
-        backgroundColor: theme.appColors.lightGrey
+    height: '10px',
+    backgroundColor: theme.appColors.lightGrey
 });
 
 const animationDuration = '0.15s';
@@ -23,7 +23,7 @@ export const styles = (theme: Theme) => createStyles({
         },
 
         '& .slick-slide': {
-            transition: `opacity ${animationDuration}`,
+            transition: `opacity ${ animationDuration }`,
 
             '&:not(.slick-active)': {
                 opacity: 0.3
@@ -45,7 +45,7 @@ export const styles = (theme: Theme) => createStyles({
                 top: 'calc((100% - 82px) / 2)',
                 transform: 'translate3d(0, -50%, 0)',
                 width: 'auto',
-                height: 'auto',
+                height: 'auto'
             },
 
             [theme.breakpoints.down('sm')]: {
@@ -70,7 +70,7 @@ export const styles = (theme: Theme) => createStyles({
         height: '40px',
         borderRadius: '50%',
         backgroundColor: theme.appColors.weekWhite,
-        transition: `box-shadow ${animationDuration}`,
+        transition: `box-shadow ${ animationDuration }`,
 
         [theme.breakpoints.down('md')]: {
             boxShadow: '0 5px 13px 0 rgba(187, 187, 187, 0.5)'
@@ -80,7 +80,7 @@ export const styles = (theme: Theme) => createStyles({
             '&:hover': {
                 boxShadow: '0 5px 5px 0 rgba(187, 187, 187, 0.5)'
             }
-        },
+        }
     },
     slide: {
         paddingLeft: '10px',
@@ -134,6 +134,7 @@ export const styles = (theme: Theme) => createStyles({
         border: 'none',
         borderRadius: '50%',
         backgroundColor: '#eaeaea',
-        transition: `width ${animationDuration}, height ${animationDuration}, background-color ${animationDuration}`
+        transition: `width ${ animationDuration }, height ${ animationDuration }, 
+            background-color ${ animationDuration }`
     }
 });

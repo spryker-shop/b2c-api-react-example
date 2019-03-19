@@ -1,4 +1,4 @@
-import *as React from 'react';
+import * as React from 'react';
 import { IArrowButton } from './types';
 
 export const ArrowButton = (props: IArrowButton): JSX.Element => {
