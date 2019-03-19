@@ -1,11 +1,13 @@
 import api from '@services/api';
-import { saveLoginDataToStoreAction } from '@stores/actions/pages/customerProfile';
+import { saveLoginDataToStoreAction, deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
 import { parseLoginDataResponse } from '@helpers/customer';
 import {
     loginCustomerFulfilledStateAction,
     loginCustomerPendingStateAction,
     loginCustomerRejectedStateAction,
+    logoutAction
 } from '@stores/actions/pages/login';
+import { clearAddressAction } from '@stores/actions/pages/addresses';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
@@ -227,5 +229,11 @@ export class PagesLoginService extends ApiServiceAbstract {
                 type: typeNotificationError
             });
         }
+    }
+
+    public static logout(dispatch: Function): void {
+        dispatch(logoutAction());
+        dispatch(clearAddressAction());
+        dispatch(deleteCustomerFulfilledStateAction());
     }
 }

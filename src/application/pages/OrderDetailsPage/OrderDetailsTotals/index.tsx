@@ -28,19 +28,19 @@ export const OrderDetailsTotalsBase: React.SFC<Props> = (props): JSX.Element => 
                     title={<FormattedMessage id={'word.subtotal.title'} />}
                 />
                 {(!expenses || expenses.length) &&
-                    expenses.map((item: IOrderDetailsExpenseItem) => (
+                    expenses.map((item: IOrderDetailsExpenseItem, index: number) => (
                         <TotalItem
-                            key={item.name}
+                            key={`${item.name}${index}`}
                             value={item.sumPrice}
                             title={<FormattedMessage id={'order.detail.shipment.title'} />}
                         />
                     ))
                 }
                 {(expenses.length > 1) &&
-                <TotalItem
-                    value={expenseTotal}
-                    title={<FormattedMessage id={'order.detail.shipment.total.title'} />}
-                />
+                    <TotalItem
+                        value={expenseTotal}
+                        title={<FormattedMessage id={'order.detail.shipment.total.title'} />}
+                    />
                 }
                 <TotalItem
                     value={canceledTotal}

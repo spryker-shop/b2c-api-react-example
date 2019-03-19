@@ -1,7 +1,9 @@
 import { WithRouter, IComponent } from '@interfaces/common';
 import { TAppLocale } from '@interfaces/locale';
+import { WithStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-interface IPageContentProps extends IComponent, WithRouter {
+interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
     dispatch?: Function;
     isLoading?: boolean;
     locale?: TAppLocale;
