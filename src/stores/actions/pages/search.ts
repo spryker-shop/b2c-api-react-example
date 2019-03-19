@@ -3,10 +3,22 @@ import {
     PAGES_SEARCH_REQUEST_CLEAR,
     PAGES_SEARCH_TERM_CLEAR,
     PAGES_SUGGESTION_REQUEST,
-    PAGES_SEARCH_FILTERS_CLEAR
+    PAGES_SEARCH_FILTERS_SET,
+    PAGES_SEARCH_SORT_SET,
+    PAGES_SEARCH_SORT_CLEAR,
+    PAGES_SEARCH_FILTERS_CLEAR,
+    PAGES_SEARCH_PAGINATION_PAGE_SET,
+    PAGES_SEARCH_CURRENT_CATEGORY_SET,
+    PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 } from '@stores/actionTypes/pages/search';
 import { CatalogService } from '@services/common/Catalog';
-import { ICatalogSearchDataParsed, ISearchQuery, TSearchTerm } from '@interfaces/searchPageData';
+import {
+    IActiveFilters,
+    IActiveSort,
+    ICatalogSearchDataParsed,
+    ISearchQuery,
+    TSearchTerm
+} from '@interfaces/searchPageData';
 
 export const suggestPendingState = () => ({
     type: PAGES_SUGGESTION_REQUEST + '_PENDING'
@@ -48,9 +60,37 @@ export const sendSearchAction = function (payload: ISearchQuery) {
     };
 };
 
+export const setActiveFiltersAction = (activeFilters: IActiveFilters) => ({
+    type: PAGES_SEARCH_FILTERS_SET,
+    payloadActiveFilters: activeFilters
+});
+
+export const setSortAction = (activeSortOptions: IActiveSort) => ({
+    type: PAGES_SEARCH_SORT_SET,
+    payloadActiveSort: activeSortOptions
+});
+
+export const clearSortAction = () => ({
+    type: PAGES_SEARCH_SORT_CLEAR
+});
+
+export const setPaginationPageAction = (page: string) => ({
+    type: PAGES_SEARCH_PAGINATION_PAGE_SET,
+    payloadPaginationPage: page
+});
+
+export const clearPaginationPageAction = () => ({
+    type: PAGES_SEARCH_PAGINATION_PAGE_CLEAR
+});
+
 export const clearSuggestions = (searchTerm: TSearchTerm) => ({
     type: PAGES_SEARCH_REQUEST_CLEAR,
     payloadSearchTermFulfilled: {searchTerm}
+});
+
+export const setCurrentCategoryAction = (categoryId: number) => ({
+    type: PAGES_SEARCH_CURRENT_CATEGORY_SET,
+    payloadCurrentCategory: categoryId
 });
 
 export const clearSearchTermAction = function () {

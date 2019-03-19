@@ -5,7 +5,7 @@ import { TAppTimeZone } from '@interfaces/locale';
 
 export interface IOrderDetailsGeneralInfoProps extends WithStyles<typeof styles> {
     orderId: IOrderDetailsParsed['id'];
-    date: IOrderDetailsParsed['dateCreated'];
+    dateOrder: IOrderDetailsParsed['dateCreated'];
     priceMode: IOrderDetailsParsed['priceMode'];
     timeZone: TAppTimeZone;
 }

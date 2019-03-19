@@ -44,29 +44,29 @@ class OrderDetailsPageBase extends React.Component<Props, State> {
         return (
             <div className={classes.root}>
                 {isFulfilled &&
-                <Grid container>
-                    {isOrderExist
-                        ? <Grid item xs={12}>
-                            <OrderDetailsGeneralInfo
-                                orderId={order.id}
-                                date={order.dateCreated}
-                                priceMode={order.priceMode}
-                            />
-                            <OrderProductList items={order.items} />
-                            <OrderDetailsTotals
-                                expenses={order.expenses}
-                                totals={order.totals}
-                            />
-                            <OrderAddresses
-                                billingAddress={order.billingAddress}
-                                shippingAddress={order.shippingAddress}
-                                billingBlockTitle={<FormattedMessage id={'billing.address.title'} />}
-                                shippingBlockTitle={<FormattedMessage id={'shipping.address.title'} />}
-                            />
-                        </Grid>
-                        : <EmptyOrder intro={<FormattedMessage id={'no.order.message'} />} />
-                    }
-                </Grid>
+                    <Grid container>
+                        {isOrderExist
+                            ? <Grid item xs={12}>
+                                <OrderDetailsGeneralInfo
+                                    orderId={order.id}
+                                    dateOrder={order.dateCreated}
+                                    priceMode={order.priceMode}
+                                />
+                                <OrderProductList items={order.items} />
+                                <OrderDetailsTotals
+                                    expenses={order.expenses}
+                                    totals={order.totals}
+                                />
+                                <OrderAddresses
+                                    billingAddress={order.billingAddress}
+                                    shippingAddress={order.shippingAddress}
+                                    billingBlockTitle={<FormattedMessage id={'billing.address.title'} />}
+                                    shippingBlockTitle={<FormattedMessage id={'shipping.address.title'} />}
+                                />
+                            </Grid>
+                            : <EmptyOrder intro={<FormattedMessage id={'no.order.message'} />} />
+                        }
+                    </Grid>
                 }
             </div>
         );
