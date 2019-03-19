@@ -10,13 +10,12 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         children,
         anchorElement,
         closePopoverHandler,
-        extraContentClassName,
-        extraLayoutClassName,
         anchorOrigin,
-        transformOrigin
+        transformOrigin,
+        openPopup
     } = props;
 
-    const isOpen = Boolean(anchorElement);
+    const isOpen = openPopup !== null ? openPopup : Boolean(anchorElement);
 
     const popoverProps = {
         open: isOpen,
@@ -30,21 +29,16 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     return (
         <Popover
             { ...popoverProps }
-            className={`${classes.popover} ${extraLayoutClassName ? extraLayoutClassName : ''}`}
-            PaperProps={{
-                classes: {
-                    root: `${classes.content} ${extraContentClassName ? extraContentClassName : ''}`
-                }
-            }}
+            className={ classes.popover }
+            PaperProps={{ classes: { root: classes.content } }}
         >
-            <div className={ classes.childWrapper }>
-                { children }
-            </div>
+            { children }
         </Popover>
     );
 };
 
 PopoverWrapperBase.defaultProps = {
+    openPopup: null,
     anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'right'

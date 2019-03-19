@@ -6,13 +6,13 @@ export const styles = (theme: Theme) => createStyles({
         fontFamily: 'Circular',
         borderRadius: 4,
         boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
-        width: theme.appFixedDimensions.userDrop.width,
+        width: 300,
         overflow: 'hidden'
     },
     title: {
         color: theme.appColors.grey,
         margin: 0,
-        padding: '21px 21px 16px',
+        padding: '20px 21px 15px',
         background: theme.appColors.weekWhite
     },
     userDropNav: {

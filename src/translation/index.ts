@@ -24,8 +24,6 @@ export const messages: IMessages = {
         'billing.address.title': 'Billing Address',
         'cart.changed.quantity.message': 'The quantity of your items was changed.',
         'cart.is.empty.message': 'Empty cart, go shopping',
-        'cart.quest.with.items.title': 'Cart (guest) {items}',
-        'cart.with.items.title': 'Cart {items}',
         'categories.panel.title': 'Categories',
         'category.intro.computers': 'Into gaming? Great. As we offer the most powerful computers that will enhance your online gaming experience.',
         'category.intro.notebooks': 'Always stay ahead of the crowd with the latest Notebook selection to fit any lifestyle or purpose.',
@@ -165,6 +163,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Select wish list',
         'shipment.tax.rate.label': 'Tax Rate',
         'shipping.address.title': 'Shipping Address',
+        'shipping.fee.calculated.text': 'Shipping fee will be calculated based on Shipping address',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -180,6 +179,7 @@ export const messages: IMessages = {
         'unavailable.title': 'Unavailable',
         'unexpected.error.message': 'Unexpected Error: {messageText}',
         'validate.range.input.error.message': 'Please, fix errors in the fields!',
+        'view.cart.title': 'View Cart',
         'wishlist.add.product.message': 'This item have added in wishlist {messageText}',
         'wishlist.created.message': 'New wishlist created.',
         'wishlist.deleted.message': 'Wishlist deleted successfully.',
@@ -195,11 +195,14 @@ export const messages: IMessages = {
         'word.delete.title': 'Delete',
         'word.disagree.title': 'Disagree',
         'word.discount.title': 'Discount',
+        'word.each.title': 'each',
         'word.edit.title': 'Edit',
         'word.here.title': 'here.',
         'word.item.title': 'Item',
         'word.items.title': 'Items',
+        'word.loading.title': 'Loading...',
         'word.login.title': 'Login',
+        'word.my.cart.title': 'My Cart',
         'word.order.history.title': 'Order History',
         'word.password.title': 'Password',
         'word.payment.title': 'Payment',
@@ -218,9 +221,8 @@ export const messages: IMessages = {
         'word.total.title': 'Total',
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
-        'word.loading.title': 'Loading...',
-        'word.each.title': 'each',
-        'zip.code.label': 'Zipcode',
+        'your.order.title': 'Your Order',
+        'zip.code.label': 'Zipcode'
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -242,8 +244,6 @@ export const messages: IMessages = {
         'billing.address.title': 'Rechungsadress',
         'cart.changed.quantity.message': 'Die Menge Ihrer Artikel wurde geändert.',
         'cart.is.empty.message': 'Warenkorb leeren, einkaufen gehen',
-        'cart.quest.with.items.title': 'Warenkorb (gast) {items}',
-        'cart.with.items.title': 'Warenkorb {items}',
         'categories.panel.title': 'KATEGORIEN',
         'category.intro.computers': 'Du magst Gaming? Super, denn wir bieten die leistungsstärksten PCs an, die diene Online-Gaming Erfahrungen verbessern werden.',
         'category.intro.notebooks': 'Sei immer einen Schritt voraus mit der neuesten Laptop Auswahl, die jedem Lebensstil oder Zweck bedient.',
@@ -383,6 +383,7 @@ export const messages: IMessages = {
         'select.wish.list.label': 'Wunschliste auswählen',
         'shipment.tax.rate.label': 'Steuersatz',
         'shipping.address.title': 'Lieferadresse',
+        'shipping.fee.calculated.text': 'Die Versandkosten werden basierend auf der Versandadresse berechnet',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
         'social.linkedin.title': 'LinkedIn',
@@ -398,6 +399,7 @@ export const messages: IMessages = {
         'unavailable.title': 'Nicht verfügbar',
         'unexpected.error.message': 'Unerwarteter Fehler: {messageText}',
         'validate.range.input.error.message': 'Bitte korrigieren Sie Fehler in den Feldern!',
+        'view.cart.title': 'Warenkorb ansehen',
         'wishlist.add.product.message': 'Dieser Artikel wurde in die Wunschliste aufgenommen {messageText}',
         'wishlist.created.message': 'Neue Wunschliste erstellt.',
         'wishlist.deleted.message': 'Wunschliste erfolgreich gelöscht.',
@@ -408,16 +410,19 @@ export const messages: IMessages = {
         'word.agree.title': 'Zustimmen',
         'word.availability.title': 'Verfügbarkeit',
         'word.back.title': 'Zurück',
-        'word.cart.title': 'Warenkorb',
+        'word.cart.title': 'Mein Warenkorb',
         'word.checkout.title': 'Zur Kasse',
         'word.delete.title': 'Löschen',
         'word.disagree.title': 'Nicht zustimmen',
         'word.discount.title': 'Rabatt',
+        'word.each.title': 'jeder',
         'word.edit.title': 'Bearbeiten',
         'word.here.title': 'hier.',
         'word.item.title': 'Artikel',
         'word.items.title': 'Artikel',
+        'word.loading.title': 'Beladung...',
         'word.login.title': 'Anmelden',
+        'word.my.cart.title': 'Mein Warenkorb',
         'word.order.history.title': 'Bestellungen',
         'word.password.title': 'Passwort',
         'word.payment.title': 'Zahlung',
@@ -436,16 +441,14 @@ export const messages: IMessages = {
         'word.total.title': 'Gesamtsumme',
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
-        'word.loading.title': 'Beladung...',
-        'word.each.title': 'jeder',
-        'zip.code.label': 'PLZ',
+        'your.order.title': 'Deine Bestellung',
+        'zip.code.label': 'PLZ'
     }
 };
 
 // Console Messages
 export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
 export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const EmptyValueErrorMessage = 'Selected value is empty!';
 export const InputSaveErrorMessage = 'Can\'t handle this value or field name';
 export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
 export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';

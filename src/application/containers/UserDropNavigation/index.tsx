@@ -17,14 +17,19 @@ import { styles } from './styles';
 @(withRouter as Function)
 class UserDropNavigationComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        anchorElement: null
+        anchorElement: null,
+        isPopupOpened: false,
+        isContentHovered: false,
+        isButtonHovered: false
     };
 
     protected iconButton: React.RefObject<HTMLDivElement> = React.createRef();
 
     public componentDidUpdate = (prevProps: Props): void => {
-        if (this.props.location !== prevProps.location) {
-            this.closePopover();
+        const isSameLocation = this.props.location.pathname !== prevProps.location.pathname;
+
+        if (isSameLocation) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
         }
     };
 
@@ -40,7 +45,33 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
         }
     };
 
-    protected closePopover = (): void => this.setState({ anchorElement: null });
+    protected closePopover = (): void => {
+        const { isButtonHovered, isContentHovered } = this.state;
+
+        if (!isButtonHovered && !isContentHovered) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
+        }
+    };
+
+    protected onHoverButtonHandler = ({ currentTarget }: ClickEvent): void => {
+        this.setState({ anchorElement: currentTarget, isPopupOpened: true, isButtonHovered: true });
+    };
+
+    protected onHoverContentHandler = (): void => {
+        this.setState({ isButtonHovered: false, isContentHovered: true });
+    };
+
+    protected onUnhoverButtonHandler = (): void => {
+        this.setState({ isButtonHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
+
+    protected onUnhoverContentHandler = (): void => {
+        this.setState({ isContentHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
 
     protected handleLogout = (event: ClickEvent): void => {
         event.preventDefault();
@@ -53,7 +84,7 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { anchorElement } = this.state;
+        const { anchorElement, isPopupOpened } = this.state;
         const { classes, isUserLoggedIn } = this.props;
 
         return (
@@ -62,20 +93,27 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
                     buttonRef={ this.iconButton }
                     aria-label="person"
                     onClick={ this.openPopover }
-                    className={`${classes.iconButton} ${Boolean(anchorElement) ? classes.isPopupOpened : '' }`}
+                    onMouseEnter={ this.onHoverButtonHandler }
+                    onMouseLeave={ this.onUnhoverButtonHandler }
+                    className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
                 >
                     <UserIcon />
                 </IconButton>
 
                 <PopoverWrapper
+                    openPopup={ isPopupOpened }
                     anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    extraContentClassName={ classes.content }
+                    classes={{
+                        popover: classes.userPopover,
+                        content: classes.userContent
+                    }}
                 >
                     <UserDrop
-                        closePopoverHandler={ this.closePopover }
                         onLogoutClick={ this.handleLogout }
                         isUserLoggedIn={ isUserLoggedIn }
+                        onMouseEnter={ this.onHoverContentHandler }
+                        onMouseLeave={ this.onUnhoverContentHandler }
                     />
                 </PopoverWrapper>
 

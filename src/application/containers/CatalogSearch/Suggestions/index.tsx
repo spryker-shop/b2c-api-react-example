@@ -22,7 +22,7 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
             <MenuItem selected={ isHighlighted } component="div" className={ classes.menuItem }>
                 <div className={ classes.imageWrapper }>
                     <SquareImage
-                        extraOverlayClassName={ classes.imageOverlay }
+                        classes={{ actionAreaOverlay: classes.imageOverlay }}
                         image={ suggestion.images.length ? suggestion.images[0].externalUrlSmall : '' }
                         size={ listItemHeight }
                         alt={ suggestion.abstractName }
