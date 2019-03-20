@@ -13,20 +13,20 @@ export const parseCurrentProductDataObject = (
         images = abstractProduct.images;
     }
 
-    const getCurrentAvailability = initialFlag ? abstractProduct : concreteProduct;
+    const getCurrentProduct = initialFlag ? abstractProduct : concreteProduct;
 
     return {
-        sku: concreteProduct ? concreteProduct.sku : null,
+        sku: getCurrentProduct ? getCurrentProduct.sku : null,
         name: concreteProduct ? concreteProduct.name : abstractProduct.name,
         images,
-        availability: getCurrentAvailability ? getCurrentAvailability.availability : false,
+        availability: getCurrentProduct ? getCurrentProduct.availability : false,
         description: concreteProduct ? concreteProduct.description : abstractProduct.description,
-        price: concreteProduct ? concreteProduct.price : null,
-        prices: concreteProduct ? concreteProduct.prices : null,
-        priceOriginalGross: concreteProduct ? concreteProduct.priceOriginalGross : null,
-        priceOriginalNet: concreteProduct ? concreteProduct.priceOriginalNet : null,
-        priceDefaultGross: concreteProduct ? concreteProduct.priceDefaultGross : null,
-        priceDefaultNet: concreteProduct ? concreteProduct.priceDefaultNet : null,
+        price: getCurrentProduct ? getCurrentProduct.price : null,
+        prices: getCurrentProduct ? getCurrentProduct.prices : null,
+        priceOriginalGross: getCurrentProduct ? getCurrentProduct.priceOriginalGross : null,
+        priceOriginalNet: getCurrentProduct ? getCurrentProduct.priceOriginalNet : null,
+        priceDefaultGross: getCurrentProduct ? getCurrentProduct.priceDefaultGross : null,
+        priceDefaultNet: getCurrentProduct ? getCurrentProduct.priceDefaultNet : null,
         attributes: concreteProduct ? concreteProduct.attributes : abstractProduct.attributes,
         attributeNames: concreteProduct ? concreteProduct.attributeNames : abstractProduct.attributeNames,
         quantity: concreteProduct ? concreteProduct.quantity : abstractProduct.quantity,

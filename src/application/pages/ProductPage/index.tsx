@@ -193,7 +193,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
             description,
             availability
         } = this.state;
-        const { classes, isUserLoggedIn, product: { abstractProduct, concreteProducts } } = this.props;
+        const { classes, isUserLoggedIn } = this.props;
         const images = this.getImageData(this.state.images);
         const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
             this.props.isRejected;
@@ -203,58 +203,61 @@ export class ProductPageComponent extends React.Component<Props, State> {
                 <Breadcrumbs breadcrumbsList={ categoriesTree } />
                 <AppMain>
                     { !isComponentLoading &&
-                        <div className={ classes.root }>
-                            <Grid container spacing={ 40 } className={ classes.productMain }>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
-                                    <div className={ classes.sliderParentContainer }>
-                                        <ImageSlider
-                                            images={ images }
-                                            uniqueKey={ sku }
-                                            showThumbs={ false }
-                                            showStatus={ false }
+                            <div className={ classes.root }>
+                                <Grid container spacing={ 40 } className={ classes.productMain }>
+                                    <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
+                                        <div className={ classes.sliderParentContainer }>
+                                            <ImageSlider
+                                                images={ images }
+                                                uniqueKey={ sku }
+                                                showThumbs={ false }
+                                                showStatus={ false }
+                                            />
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
+                                        <ProductGeneralInfo
+                                            name={ name }
+                                            sku={ sku }
+                                            price={ priceDefaultGross }
+                                            oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                            availability={ getAvailabilityDisplay(availability) }
                                         />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
-                                    <ProductGeneralInfo
-                                        name={ name }
-                                        sku={ sku }
-                                        price={ priceDefaultGross }
-                                        oldPrice={ priceOriginalGross ? priceOriginalGross : null }
-                                        availability={ getAvailabilityDisplay(availability) }
-                                    />
 
-                                    { superAttributes &&
+                                        { superAttributes &&
+                                            <ErrorBoundary>
+                                                <ProductSuperAttribute
+                                                    productData={ superAttributes }
+                                                    onChange={ this.handleSuperAttributesChange }
+                                                />
+                                            </ErrorBoundary>
+                                        }
+
                                         <ErrorBoundary>
-                                            <ProductSuperAttribute
-                                                productData={ superAttributes }
-                                                onChange={ this.handleSuperAttributesChange }
+                                            <ProductConfiguratorAddToCart
+                                                productType={ productType }
+                                                product={ this.props.product.concreteProducts[sku] }
+                                                sku={ sku }
                                             />
                                         </ErrorBoundary>
-                                    }
 
-                                    <ErrorBoundary>
-                                        <ProductConfiguratorAddToCart
-                                            productType={ productType }
-                                            product={ concreteProducts[sku] }
-                                            sku={ sku }
-                                        />
-                                    </ErrorBoundary>
-
-                                    { isUserLoggedIn &&
+                                        { isUserLoggedIn &&
                                         <ErrorBoundary>
-                                            <ProductConfiguratorAddToWishlist productType={ productType } sku={ sku } />
+                                            <ProductConfiguratorAddToWishlist
+                                                productType={ productType }
+                                                sku={ sku }
+                                            />
                                         </ErrorBoundary>
-                                    }
+                                        }
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <ProductDetail
-                                attributes={ attributes }
-                                attributeNames={ attributeNames }
-                                description={ description }
-                                sku={ sku ? sku : abstractProduct.sku }
-                            />
-                        </div>
+                                <ProductDetail
+                                    attributes={ attributes }
+                                    attributeNames={ attributeNames }
+                                    description={ description }
+                                    sku={ sku ? sku : this.props.product.abstractProduct.sku }
+                                />
+                            </div>
                     }
                 </AppMain>
             </>
