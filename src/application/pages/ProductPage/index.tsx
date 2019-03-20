@@ -5,7 +5,7 @@ import {
     findIdProductConcreteByPath,
     getAvailabilityDisplay,
     getInitialSuperAttrSelected,
-    getCurrentProductDataObject
+    parseCurrentProductDataObject
 } from '@helpers/product';
 import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
@@ -18,7 +18,7 @@ import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IImageSlide } from '@application/components/ImageSlider/types';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
-import { defaultItemValueDropdown, IProductCardImages, IProductPropFullData } from '@interfaces/product';
+import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
 import { withRouter } from 'react-router';
 import { Breadcrumbs } from '@application/components/Breadcrumbs';
 import { styles } from './styles';
@@ -84,70 +84,68 @@ export class ProductPageComponent extends React.Component<Props, State> {
     };
 
     protected handleSuperAttributesChange = ({ name, value }: { name: string, value: string }): void => {
+        const { abstractProduct, concreteProducts } = this.props.product;
+        const { superAttrSelected } = this.state;
+        const changedSelectedAttr = { ...superAttrSelected, [name]: value };
+        const isAllAttributesSelected = !Object.values(changedSelectedAttr).some(item => item === null);
+        const idProductConcrete = this.getIdProductConcrete(changedSelectedAttr);
         let productData: IProductPropFullData | null;
-
-        if (value === defaultItemValueDropdown) {
-            productData = getCurrentProductDataObject(
-                this.props.product.abstractProduct,
-                null
-            );
-        } else {
-            const idProductConcrete = this.getIdProductConcrete(name, value);
-
-            if (!idProductConcrete) {
-                productData = getCurrentProductDataObject(this.props.product.abstractProduct, null);
-            } else {
-                productData = getCurrentProductDataObject(
-                    this.props.product.abstractProduct,
-                    this.props.product.concreteProducts[idProductConcrete]
-                );
-            }
-        }
-
-        this.setState((prevState: State) => {
-            if (prevState.superAttrSelected[name] === value) {
-                return;
-            }
-
-            return ({
-                ...prevState,
-                superAttrSelected: {
-                    ...prevState.superAttrSelected,
-                    [name]: value
-                },
-                ...productData
-            });
-        });
-    };
-
-    protected setInitialData = (): void => {
-        const concreteProductsIds = Object.keys(this.props.product.concreteProducts);
-        const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
-        const productData: IProductPropFullData | null = getCurrentProductDataObject(
-            this.props.product.abstractProduct,
-            isOneConcreteProduct
-                ? this.props.product.concreteProducts[concreteProductsIds[0]]
-                : getCurrentProductDataObject(this.props.product.abstractProduct, null)
-        );
-
-        const selectedAttrNames = getInitialSuperAttrSelected(this.props.product.superAttributes);
 
         this.setState((prevState: State) => ({
             ...prevState,
-            superAttributes: this.props.product.superAttributes,
-            attributeMap: this.props.product.attributeMap,
+            superAttrSelected: {
+                ...prevState.superAttrSelected,
+                [name]: value
+            }
+        }));
+
+        if (isAllAttributesSelected) {
+            if (!idProductConcrete) {
+                productData = parseCurrentProductDataObject(abstractProduct, null);
+
+                this.changeProductDataState(productData);
+
+                return;
+            }
+
+            productData = parseCurrentProductDataObject(abstractProduct, concreteProducts[idProductConcrete]);
+
+            this.changeProductDataState(productData);
+        }
+    };
+
+    protected changeProductDataState = (productData: IProductPropFullData): void => {
+        this.setState((prevState: State) => ({ ...prevState, ...productData }));
+    };
+
+    protected setInitialData = (): void => {
+        const { concreteProducts, abstractProduct, superAttributes, attributeMap } = this.props.product;
+        const concreteProductsIds = Object.keys(concreteProducts);
+        const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
+        const productData: IProductPropFullData | null = parseCurrentProductDataObject(
+            abstractProduct,
+            isOneConcreteProduct
+                ? concreteProducts[concreteProductsIds[0]]
+                : parseCurrentProductDataObject(abstractProduct, null, true)
+        );
+
+        const selectedAttrNames = getInitialSuperAttrSelected(superAttributes);
+
+        this.setState((prevState: State) => ({
+            ...prevState,
+            superAttributes,
+            attributeMap,
             superAttrSelected: selectedAttrNames,
             ...productData
         }));
     };
 
-    protected getIdProductConcrete = (key: string, value: string): string => {
-        const selected = { ...this.state.superAttrSelected };
-        selected[key] = value;
+    protected getIdProductConcrete = (selected: IProductAttributes): string => {
         const path = createPathToIdProductConcrete(selected);
+        const { attribute_variants } = this.state.attributeMap;
 
         if (path) {
-            return findIdProductConcreteByPath(path, this.state.attributeMap.attribute_variants);
+            return findIdProductConcreteByPath(path, attribute_variants);
         }
     };
 
@@ -182,74 +180,81 @@ export class ProductPageComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes } = this.props;
+        const {
+            categoriesTree,
+            sku,
+            priceDefaultGross,
+            priceOriginalGross,
+            name,
+            superAttributes,
+            productType,
+            attributes,
+            attributeNames,
+            description,
+            availability
+        } = this.state;
+        const { classes, isUserLoggedIn, product: { abstractProduct, concreteProducts } } = this.props;
         const images = this.getImageData(this.state.images);
+        const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
+            this.props.isRejected;
 
         return (
             <>
-                <Breadcrumbs breadcrumbsList={ this.state.categoriesTree } />
+                <Breadcrumbs breadcrumbsList={ categoriesTree } />
                 <AppMain>
-                    { (!this.props.product || !this.state.productType || !this.props.isAppDataSet || this.props.isRejected)
-                        ? null
-                        : (
-                            <div className={ classes.root }>
-                                <Grid container spacing={ 40 } className={ classes.productMain }>
-                                    <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
-                                        <div className={ classes.sliderParentContainer }>
-                                            <ImageSlider
-                                                images={ images }
-                                                uniqueKey={ this.state.sku }
-                                                showThumbs={ false }
-                                                showStatus={ false }
-                                            />
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
-                                        <ProductGeneralInfo
-                                            name={ this.state.name }
-                                            sku={ this.state.sku }
-                                            price={ this.state.priceDefaultGross }
-                                            oldPrice={
-                                                this.state.priceOriginalGross ? this.state.priceOriginalGross : null
-                                            }
-                                            availability={ getAvailabilityDisplay(this.state.availability) }
+                    { !isComponentLoading &&
+                        <div className={ classes.root }>
+                            <Grid container spacing={ 40 } className={ classes.productMain }>
+                                <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
+                                    <div className={ classes.sliderParentContainer }>
+                                        <ImageSlider
+                                            images={ images }
+                                            uniqueKey={ sku }
+                                            showThumbs={ false }
+                                            showStatus={ false }
                                         />
-
-                                        { this.state.superAttributes &&
-                                            <ErrorBoundary>
-                                                <ProductSuperAttribute
-                                                    productData={ this.state.superAttributes }
-                                                    onChange={ this.handleSuperAttributesChange }
-                                                />
-                                            </ErrorBoundary>
-                                        }
-
-                                        <ErrorBoundary>
-                                            <ProductConfiguratorAddToCart
-                                                productType={ this.state.productType }
-                                                product={ this.props.product.concreteProducts[this.state.sku] }
-                                                sku={ this.state.sku }
-                                            />
-                                        </ErrorBoundary>
-
-                                        { this.props.isUserLoggedIn &&
-                                        <ErrorBoundary>
-                                            <ProductConfiguratorAddToWishlist
-                                                productType={ this.state.productType }
-                                                sku={ this.state.sku }
-                                            />
-                                        </ErrorBoundary>
-                                        }
-                                    </Grid>
+                                    </div>
                                 </Grid>
-                                <ProductDetail
-                                    attributes={ this.state.attributes }
-                                    attributeNames={ this.state.attributeNames }
-                                    description={ this.state.description }
-                                    sku={ this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku }
-                                />
-                            </div>
-                        )
+                                <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
+                                    <ProductGeneralInfo
+                                        name={ name }
+                                        sku={ sku }
+                                        price={ priceDefaultGross }
+                                        oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                        availability={ getAvailabilityDisplay(availability) }
+                                    />
+
+                                    { superAttributes &&
+                                        <ErrorBoundary>
+                                            <ProductSuperAttribute
+                                                productData={ superAttributes }
+                                                onChange={ this.handleSuperAttributesChange }
+                                            />
+                                        </ErrorBoundary>
+                                    }
+
+                                    <ErrorBoundary>
+                                        <ProductConfiguratorAddToCart
+                                            productType={ productType }
+                                            product={ concreteProducts[sku] }
+                                            sku={ sku }
+                                        />
+                                    </ErrorBoundary>
+
+                                    { isUserLoggedIn &&
+                                        <ErrorBoundary>
+                                            <ProductConfiguratorAddToWishlist productType={ productType } sku={ sku } />
+                                        </ErrorBoundary>
+                                    }
+                                </Grid>
+                            </Grid>
+                            <ProductDetail
+                                attributes={ attributes }
+                                attributeNames={ attributeNames }
+                                description={ description }
+                                sku={ sku ? sku : abstractProduct.sku }
+                            />
+                        </div>
                     }
                 </AppMain>
             </>

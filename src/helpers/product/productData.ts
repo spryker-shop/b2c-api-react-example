@@ -1,8 +1,9 @@
 import { absentProductType, IProductCardImages, IProductPropFullData } from '@interfaces/product';
 
-export const getCurrentProductDataObject = (
+export const parseCurrentProductDataObject = (
     abstractProduct: IProductPropFullData,
-    concreteProduct: IProductPropFullData | null
+    concreteProduct: IProductPropFullData | null,
+    initialFlag?: boolean
 ): IProductPropFullData => {
 
     let images: IProductCardImages[] = null;
@@ -12,7 +13,7 @@ export const getCurrentProductDataObject = (
         images = abstractProduct.images;
     }
 
-    const getCurrentAvailability = concreteProduct ? concreteProduct : abstractProduct;
+    const getCurrentAvailability = initialFlag ? abstractProduct : concreteProduct;
 
     return {
         sku: concreteProduct ? concreteProduct.sku : null,

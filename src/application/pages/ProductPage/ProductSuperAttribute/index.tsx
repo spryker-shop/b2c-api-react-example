@@ -28,7 +28,7 @@ export class ProductSuperAttributeComponent extends React.Component<Props, State
 
         return (
             <>
-                { productData.map((attribute: ISuperAttribute) => (
+                { productData.map((attribute: ISuperAttribute, index) => (
                     <SuperAttributeBlock
                         attributeData={ attribute }
                         onValueChanged={ this.onChange }

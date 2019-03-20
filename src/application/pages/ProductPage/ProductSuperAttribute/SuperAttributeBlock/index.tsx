@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Typography, withStyles } from '@material-ui/core';
-import { SuperAttributeItem } from '../SuperAttributeItem';
+import { Button, Typography, withStyles } from '@material-ui/core';
 import { ISuperAttributeBlockProps as Props, ISuperAttributeBlockState as State } from './types';
 import { styles } from './styles';
 
@@ -9,47 +8,60 @@ export class SuperAttributeBlockComponent extends React.Component<Props, State> 
         selectedItemValue: ''
     };
 
-    protected selectAttribute = (value: string) => {
-        const {onValueChanged, attributeData: {name}} = this.props;
+    protected selectAttribute = (selectedValue: string) => {
+        const { onValueChanged, attributeData: { name } } = this.props;
+        const value: string = selectedValue.length > 0 ? selectedValue : name;
 
-        onValueChanged({name, value});
-        this.setState(() => ({selectedItemValue: value}));
+        onValueChanged({ name, value });
+        this.setState(() => ({ selectedItemValue: value }));
+    };
+
+    protected renderProductAttributes = (): JSX.Element[] => {
+        const { classes, attributeData } = this.props;
+        const { selectedItemValue } = this.state;
+
+        return attributeData.data.map(attribute => {
+            const isSelected = attribute.value.length > 0 ? attribute.value === selectedItemValue
+                : attribute.name === selectedItemValue;
+
+            return (
+                <div
+                    className={ classes.attributesItem }
+                    key={ attribute.value.length > 0 ? attribute.value : attribute.name }
+                >
+                    <Button
+                        variant="outlined"
+                        className={ `${ classes.button } ${ isSelected ? classes.buttonSelected : '' }` }
+                        onClick={ () => this.selectAttribute(attribute.value) }
+                        fullWidth
+                    >
+                        { attribute.name }
+                    </Button>
+                </div>
+            );
+        });
     };
 
     public render(): JSX.Element {
-        const {classes, attributeData} = this.props;
-        const {selectedItemValue} = this.state;
+        const { classes, attributeData } = this.props;
 
         return (
-            <div className={classes.attributeBlock}>
+            <div className={ classes.attributeBlock }>
                 <Typography
                     variant="subheading"
                     component="span"
                     color="textSecondary"
-                    className={classes.attributeTitle}
+                    className={ classes.attributeTitle }
                 >
-                    {attributeData.nameToShow}
+                    { attributeData.nameToShow }
                 </Typography>
 
-                <div className={classes.attributesList}>
-                    {attributeData.data.map(attribute => (
-                        <div className={classes.attributesItem}>
-                            <SuperAttributeItem
-                                key={attribute.value.length > 0 ? attribute.value : attribute.name}
-                                attributeItemData={attribute}
-                                onSelect={() => this.selectAttribute(attribute.value)}
-                                isSelected={
-                                    attribute.value.length > 0
-                                        ? attribute.value === selectedItemValue
-                                        : attribute.name === selectedItemValue
-                                }
-                            />
-                        </div>
-                    ))}
+                <div className={ classes.attributesList }>
+                    { this.renderProductAttributes() }
                 </div>
             </div>
         );
     }
-};
+}
 
 export const SuperAttributeBlock = withStyles(styles)(SuperAttributeBlockComponent);
