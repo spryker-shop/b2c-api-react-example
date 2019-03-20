@@ -73,7 +73,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
     };
 
     protected isAddToWishlistBtnDisabled = (): boolean => (
-        !this.props.isWishlistsFetched || this.props.productType !== concreteProductType
+        !this.props.isWishlistsFetched || this.props.productType !== concreteProductType || this.props.isWishlistLoading
     );
 
     public render(): JSX.Element {
