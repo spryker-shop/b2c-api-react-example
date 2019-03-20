@@ -4,13 +4,14 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     root: {
         width: '100%',
-        marginLeft: 0,
-        borderRadius: 4,
-        backgroundColor: theme.appColors.weekWhite
+        marginLeft: 0
     },
     formControl: {
         width: '100%',
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        '& > label + div': {
+            marginTop: 0
+        }
     },
     icon: {
         fill: 'currentColor',
@@ -40,7 +41,7 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         height: 42,
         minWidth: 90,
-        padding: '5px 42px 5px 13px',
+        padding: '5px 42px 5px 16px',
         fontSize: 14,
         lineHeight: 1.47,
         letterSpacing: 0.1,
@@ -54,6 +55,17 @@ export const styles = (theme: Theme) => createStyles({
         },
         '&:focus': {
             background: theme.appColors.weekWhite
+        }
+    },
+    inputSimple: {
+        height: 50,
+        fontSize: 15,
+        letterSpacing: 0.2,
+        color: theme.appColors.black
+    },
+    inputPlaceholder: {
+        '&$inputSimple': {
+            color: theme.appColors.lightGrey
         }
     },
     inputFocused: {
@@ -133,12 +145,21 @@ export const styles = (theme: Theme) => createStyles({
         display: 'inline-flex'
     },
     label: {
-        position: 'relative',
-        paddingBottom: theme.spacing.unit,
-        color: theme.appColors.black,
-        top: 'auto',
-        left: 'auto',
-        width: '100%',
-        fontWeight: 600
-    }
+        display: 'block',
+        position: 'static',
+        paddingBottom: 10,
+        color: theme.appColors.grey,
+        fontSize: 15,
+        letterSpacing: 0.2,
+        lineHeight: 1.26,
+        fontWeight: 400,
+        transform: 'none',
+        '&$labelFocused': {
+            color: theme.appColors.grey
+        }
+    },
+    labelFocused: {},
+    asterisk: {
+        color: theme.appColors.blue
+    },
 });

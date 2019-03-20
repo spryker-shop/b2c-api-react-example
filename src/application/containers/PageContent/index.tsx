@@ -5,7 +5,14 @@ import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
-import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
+import {
+    pathCategoryPageBase,
+    pathLoginPage,
+    pathRegisterPage,
+    pathSearchPage,
+    pathForgotPassword,
+    pathResetPassword
+} from '@constants/routes';
 import { withStyles } from '@material-ui/core';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
@@ -59,7 +66,7 @@ class PageContentComponent extends React.Component<Props, State> {
         }
     };
 
-    private clearFlyoutSearchHandler = (prevProps: Props): void => {
+    protected clearFlyoutSearchHandler = (prevProps: Props): void => {
         if (this.props.location.pathname !== prevProps.location.pathname
             && this.props.location.pathname.includes(pathCategoryPageBase) === false
             && this.props.location.pathname.includes(pathSearchPage) === false
@@ -68,11 +75,18 @@ class PageContentComponent extends React.Component<Props, State> {
         }
     };
 
-    private isDataFulfilled = () => (
+    protected isDataFulfilled = () => (
         Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
     );
 
-    private mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
+    protected mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
+
+    protected shouldHideFooter = (): boolean => {
+        const forbiddenPaths = [pathLoginPage, pathRegisterPage, pathResetPassword, pathForgotPassword];
+        const currentLocation = this.props.location.pathname;
+
+        return forbiddenPaths.some(path => currentLocation.includes(path));
+    };
 
     public render(): JSX.Element {
         const { isLoading, locale, classes } = this.props;
@@ -91,7 +105,7 @@ class PageContentComponent extends React.Component<Props, State> {
                         {getContentRoutes(this.isDataFulfilled())}
                     </ErrorBoundary>
                     <Notifications />
-                    <AppFooter/>
+                    {!this.shouldHideFooter() && <AppFooter/>}
                 </div>
             </IntlProvider>
         );

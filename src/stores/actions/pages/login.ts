@@ -7,7 +7,9 @@ import {
 } from '@stores/actionTypes/pages/login';
 import { PagesLoginService } from '@services/pages/Login';
 import {
-    ICustomerLoginData, ICustomerLoginDataParsed, ICustomerProfile,
+    ICustomerLoginData,
+    ICustomerLoginDataParsed,
+    ICustomerProfile,
     IResetPasswordPayload
 } from '@interfaces/customer';
 
@@ -57,14 +59,12 @@ export const loginCustomerAction = function (payload: ICustomerLoginData) {
 
 export const forgotPasswordAction = function (email: string) {
     return (dispatch: Function, getState: Function) => {
-        dispatch({ type: FORGOT_PASSWORD + '_PENDING' });
         PagesLoginService.forgotPassword(FORGOT_PASSWORD, dispatch, email);
     };
 };
 
 export const resetPasswordAction = function (payload: IResetPasswordPayload) {
     return (dispatch: Function, getState: Function) => {
-        dispatch({ type: RESET_PASSWORD + '_PENDING' });
         PagesLoginService.resetPassword(RESET_PASSWORD, dispatch, payload);
     };
 };

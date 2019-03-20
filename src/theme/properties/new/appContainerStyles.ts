@@ -1,12 +1,11 @@
-import { baseTheme } from '@theme/';
-import { appFixedDimensions } from '@theme/properties/new/appFixedDimensions';
-
 export interface IAppContainerStyles {
     maxWidth: React.CSSProperties['width'];
     width: React.CSSProperties['width'];
     marginLeft: React.CSSProperties['marginLeft'];
     marginRight: React.CSSProperties['marginRight'];
     position: React.CSSProperties['position'];
+    paddingLeft: React.CSSProperties['paddingLeft'];
+    paddingRight: React.CSSProperties['paddingRight'];
 }
 
 export const appContainerStyles: IAppContainerStyles = {
@@ -15,9 +14,6 @@ export const appContainerStyles: IAppContainerStyles = {
     marginLeft: 'auto',
     marginRight: 'auto',
     position: 'relative',
-    [baseTheme.breakpoints.down(appFixedDimensions.customBreakpoints.tablet)]: {
-        maxWidth: '100%',
-        paddingLeft: baseTheme.spacing.unit * 2,
-        paddingRight: baseTheme.spacing.unit * 2,
-    },
+    paddingLeft: 16,
+    paddingRight: 16
 };

@@ -6,6 +6,7 @@ export const pathCategoryPage = `${pathCategoryPageBase}/:categoryId`;
 export const pathProductPageBase = `${config.WEB_PATH}product`;
 export const pathProductPage = `${pathProductPageBase}/:productId`;
 export const pathLoginPage = `${config.WEB_PATH}login`;
+export const pathRegisterPage = `${config.WEB_PATH}register`;
 export const pathCartPage = `${config.WEB_PATH}cart`;
 export const pathCustomerPage = `${config.WEB_PATH}customer`;
 export const pathWishlistsPage = `${pathCustomerPage}/wishlists`;
