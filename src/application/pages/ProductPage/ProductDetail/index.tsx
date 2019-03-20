@@ -1,44 +1,76 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Typography, Grid } from '@material-ui/core';
-import { ProductAttributes } from './ProductAttributes';
-import { IProductDetailProps } from './types';
+import { withStyles, Typography, Grid, Tabs, Tab } from '@material-ui/core';
+import { IProductDetailProps as Props, IProductDetailState as State } from './types';
 import { styles } from './styles';
 
-export const ProductDetailBase: React.SFC<IProductDetailProps> = (props): JSX.Element => {
-    const {
-        classes,
-        attributes,
-        attributeNames,
-        description,
-        sku
-    } = props;
+export class ProductDetailComponent extends React.Component<Props, State> {
+    public readonly state: State = {
+        value: 0
+    };
 
-    return (
-        <div className={classes.contentHelper}>
-            <Grid container className={classes.contentContainer}>
-                <Grid item xs={12} sm={6} className={classes.productDetailsBlock}>
-                    <ProductAttributes attributes={attributes} attributeNames={attributeNames} />
-                </Grid>
-                <Grid item xs={12} sm={6} className={classes.descriptionBlock}>
-                    <Typography component="h3" color="inherit" className={classes.descriptionTitle}>
-                        <FormattedMessage id={'product.deskription.title'} />
-                    </Typography>
-                    <Typography color="inherit" variant="body2" component="p" gutterBottom={true}>
-                        {description}
-                    </Typography>
-                    <Typography
-                        variant="subheading"
-                        color="inherit"
-                        gutterBottom={true}
-                        className={classes.descriptionSku}
-                    >
-                        <FormattedMessage id={'product.sku.title'} />: {sku}
-                    </Typography>
-                </Grid>
-            </Grid>
-        </div>
-    );
-};
+    protected handleChangeTab = (event: React.MouseEvent<HTMLElement>, value: number) => this.setState({ value });
 
-export const ProductDetail = withStyles(styles)(ProductDetailBase);
+    public render() {
+        const { classes, attributes, attributeNames, description, sku } = this.props;
+        const { value } = this.state;
+
+        return (
+            <div className={ classes.root }>
+                <Tabs value={ value } onChange={ this.handleChangeTab } classes={{ indicator: classes.tabIndicator }}>
+                    <Tab
+                        label={ <FormattedMessage id={ 'product.details.title' } /> }
+                        classes={{
+                            root: classes.tabTriggerRoot,
+                            wrapper: classes.tabTriggerWrapper,
+                            labelContainer: classes.tabTriggerLabelContainer,
+                            selected: classes.tabTriggerSelected
+                        }}
+                    />
+                    <Tab
+                        label={ <FormattedMessage id={ 'product.description.title' } /> }
+                        classes={{
+                            root: classes.tabTriggerRoot,
+                            wrapper: classes.tabTriggerWrapper,
+                            labelContainer: classes.tabTriggerLabelContainer,
+                            selected: classes.tabTriggerSelected
+                        }}
+                    />
+                </Tabs>
+
+                <div className={ classes.tabContent }>
+                    { value === 0 &&
+                        <Grid container spacing={ 24 }>
+                            { Object.entries(attributes).map((data: [string, string]) => (
+                                <Grid item xs={ 12 } sm={ 6 } lg={ 4 } key={`${attributeNames[data[0]] }-${ data[1]}`}>
+                                    <div className={ classes.attributes }>
+                                        <strong className={ classes.attributesName }>
+                                            { `${ attributeNames[data[0]]
+                                                ? attributeNames[data[0]]
+                                                : <FormattedMessage id={ 'no.translations.title' } /> }: `
+                                            }
+                                        </strong>
+                                        <span className={ classes.attributesValue }>{ data[1] }</span>
+                                    </div>
+                                </Grid>
+                            )) }
+                        </Grid>
+                    }
+
+                    { value === 1 &&
+                        <div className={ classes.descriptionContent }>
+                            <Typography color="textSecondary" component="p" className={ classes.description }>
+                                { description }
+                            </Typography>
+                            <span className={ classes.descriptionSku }>
+                                <FormattedMessage id={ 'product.sku.title' } />: { sku }
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        );
+    }
+}
+
+export const ProductDetail = withStyles(styles)(ProductDetailComponent);

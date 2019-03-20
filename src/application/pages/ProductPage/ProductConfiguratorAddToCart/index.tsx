@@ -17,7 +17,7 @@ const quantitySelectedInitial = 1;
 
 @connect
 export class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         quantitySelected: quantitySelectedInitial,
         isBuyBtnDisabled: true,
         isProcessCartLoading: false,

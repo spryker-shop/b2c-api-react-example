@@ -26,26 +26,24 @@ export const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = 
             <Typography component="h1" variant="display2" color="textSecondary" className={ classes.title }>
                 { name }
             </Typography>
-            <div className={ classes.productInfo }>
-                { price &&
-                    <div className={ classes.priceBlock }>
-                        <Typography
-                            component="span"
-                            className={`${classes.price} ${oldPrice ? classes.newPrice : ''}`}
-                        >
-                            <AppPrice value={ price } isStylesInherited />
-                        </Typography>
-                        { oldPrice &&
-                            <Typography component="span" className={ classes.oldPrice }>
-                                <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } isStylesInherited />
-                            </Typography>
-                        }
-                        <Typography component="span" className={ classes.vat }>
-                            <FormattedMessage id={ 'inc.vat.message' } />
-                        </Typography>
-                    </div>
-                }
-            </div>
+            { price &&
+                <div className={ classes.priceBlock }>
+                    <Typography
+                        component="span"
+                        className={`${classes.price} ${oldPrice ? classes.newPrice : ''}`}
+                    >
+                        <AppPrice value={ price } isStylesInherited />
+                    </Typography>
+                    { oldPrice &&
+                    <Typography component="span" className={ classes.oldPrice }>
+                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } isStylesInherited />
+                    </Typography>
+                    }
+                    <Typography component="span" className={ classes.vat }>
+                        <FormattedMessage id={ 'inc.vat.message' } />
+                    </Typography>
+                </div>
+            }
         </div>
     );
 };

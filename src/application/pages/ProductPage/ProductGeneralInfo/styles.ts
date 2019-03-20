@@ -3,7 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-       paddingBottom: 30
+       paddingBottom: 14
     },
     availableContainer: {
         display: 'inline-flex',
@@ -28,15 +28,10 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 16,
         fontWeight: 700
     },
-    productInfo: {
-        display: 'flex',
-        [theme.breakpoints.down('xs')]: {
-            flexDirection: 'column',
-        },
-    },
     priceBlock: {
         display: 'flex',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        paddingBottom: 16,
     },
     price: {
         color: theme.appColors.black,

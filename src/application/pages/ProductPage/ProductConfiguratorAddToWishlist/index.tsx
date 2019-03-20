@@ -15,7 +15,7 @@ import { SprykerSelect } from '@application/components/UI/SprykerSelect';
 
 @connect
 export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         wishlistSelected: null
     };
 
@@ -72,9 +72,11 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         this.props.addToWishlist(this.state.wishlistSelected, this.props.sku);
     };
 
-    protected isAddToWishlistBtnDisabled = (): boolean => (
-        !this.props.isWishlistsFetched || this.props.productType !== concreteProductType || this.props.isWishlistLoading
-    );
+    protected isAddToWishlistBtnDisabled = (): boolean => {
+        const { isWishlistsFetched, productType, isWishlistLoading } = this.props;
+
+        return !isWishlistsFetched || productType !== concreteProductType || isWishlistLoading;
+    };
 
     public render(): JSX.Element {
         const { classes, wishlists } = this.props;
@@ -83,25 +85,25 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         return (
             <Grid container spacing={ 8 }>
                 { wishlistSelected &&
-                    <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
-                        <SprykerSelect
-                            currentMode={ wishlistSelected }
-                            changeHandler={ this.handleWishlistChange }
-                            menuItems={ createWishlistMenuVariants(wishlists) }
-                            name="wishlists"
-                            menuItemFirst={{
-                                value: defaultItemValueDropdown,
-                                name: <FormattedMessage id={ 'select.wish.list.label' } />,
-                                disabled: true
-                            }}
-                            isFullWidth
-                            isSimple
-                            classes={{
-                                selectRoot: classes.selectRoot,
-                                input: classes.input
-                            }}
-                        />
-                    </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
+                    <SprykerSelect
+                        currentMode={ wishlistSelected }
+                        changeHandler={ this.handleWishlistChange }
+                        menuItems={ createWishlistMenuVariants(wishlists) }
+                        name="wishlists"
+                        menuItemFirst={ {
+                            value: defaultItemValueDropdown,
+                            name: <FormattedMessage id={ 'select.wish.list.label' } />,
+                            disabled: true
+                        } }
+                        isFullWidth
+                        isSimple
+                        classes={ {
+                            selectRoot: classes.selectRoot,
+                            input: classes.input
+                        } }
+                    />
+                </Grid>
                 }
                 <Grid item xs={ 12 } md={ wishlistSelected ? 5 : 12 }>
                     <Button
