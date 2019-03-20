@@ -3,19 +3,14 @@ import { FormattedMessage } from 'react-intl';
 import { createWishlistMenuVariants } from '@helpers/wishlist/list';
 import { connect } from './connect';
 import { withStyles, Grid, Button } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
 import {
     IProductConfiguratorAddToWishlistProps as Props,
-    IProductConfiguratorAddToWishlistState as State,
-    IProductWishlistParams
+    IProductConfiguratorAddToWishlistState as State
 } from './types';
 import { concreteProductType, defaultItemValueDropdown } from '@interfaces/product';
-import { IFormSettings } from '@application/components/UI/SprykerForm/types';
 import { ClickEvent } from '@interfaces/common';
 import { TWishlistName } from '@interfaces/wishlist';
 import { styles } from './styles';
-import { CartIcon } from '@application/pages/ProductPage/ProductConfiguratorAddToCart/icons';
 import { SprykerSelect } from '@application/components/UI/SprykerSelect';
 
 @connect
@@ -81,51 +76,9 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         !this.props.isWishlistsFetched || this.props.productType !== concreteProductType
     );
 
-    protected getWishlistFormSettings = (params: IProductWishlistParams): IFormSettings => {
-        const {
-            inputValue,
-            wishlists,
-            onChangeHandler
-        } = params;
-        const formSettings: IFormSettings = {
-            formName: 'quantityForm',
-            onChangeHandler,
-            onSubmitHandler: (event: React.FormEvent<HTMLFormElement>) => {
-                console.info('Empty Wishlist Submit');
-            },
-            fields: [
-                [
-                    {
-                        type: 'select',
-                        inputName: 'wishlists',
-                        inputValue,
-                        spaceNumber: 12,
-                        isRequired: false,
-                        label: null,
-                        isError: false,
-                        menuItems: createWishlistMenuVariants(wishlists),
-                        menuItemFirst: {
-                            value: defaultItemValueDropdown,
-                            name: <FormattedMessage id={ 'select.wish.list.label' } />,
-                            disabled: true
-                        }
-                    }
-                ]
-            ]
-        };
-
-        return formSettings;
-    };
-
     public render(): JSX.Element {
-        const { classes } = this.props;
+        const { classes, wishlists } = this.props;
         const { wishlistSelected } = this.state;
-
-        const formWishlistSettings: IFormSettings = this.getWishlistFormSettings({
-            inputValue: wishlistSelected,
-            wishlists: this.props.wishlists,
-            onChangeHandler: this.handleWishlistChange
-        });
 
         return (
             <Grid container spacing={ 8 }>
@@ -134,16 +87,23 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                         <SprykerSelect
                             currentMode={ wishlistSelected }
                             changeHandler={ this.handleWishlistChange }
-                            menuItems={ this.props.wishlists }
-                            name="quantityForm"
+                            menuItems={ createWishlistMenuVariants(wishlists) }
+                            name="wishlists"
+                            menuItemFirst={{
+                                value: defaultItemValueDropdown,
+                                name: <FormattedMessage id={ 'select.wish.list.label' } />,
+                                disabled: true
+                            }}
+                            isFullWidth
+                            isSimple
+                            classes={{
+                                selectRoot: classes.selectRoot,
+                                input: classes.input
+                            }}
                         />
                     </Grid>
                 }
-                <Grid item
-                      xs={ 12 }
-                      md={ wishlistSelected ? 5 : 12 }
-                      className={ classes.buyBtnParent }
-                >
+                <Grid item xs={ 12 } md={ wishlistSelected ? 5 : 12 }>
                     <Button
                         variant="outlined"
                         disabled={ this.isAddToWishlistBtnDisabled() }
