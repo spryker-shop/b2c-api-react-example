@@ -3,22 +3,29 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     button: {
-        margin: `0 ${theme.spacing.unit}px ${theme.spacing.unit}px 0`,
-        padding: theme.spacing.unit * 1.7,
-        textTransform: 'uppercase',
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        '&:last-child': {
-            marginRight: 'auto',
-        },
-        [theme.breakpoints.down('sm')]: {
-            width: '100%',
-            marginRight: 0,
-        },
+        height: 42,
+        background: theme.appColors.weekWhite,
+        border: 0,
+        fontSize: 14,
+        fontWeight: 400,
+        color: theme.appColors.grey,
+        letterSpacing: 0,
+        transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        '&:active, &:hover': {
+            border: 0,
+            boxShadow: 'inset 0 1px 9px 0 rgba(229, 229, 229, 0.5)',
+            background: '#eaeaea',
+            color: theme.appColors.grey
+        }
     },
     buttonSelected: {
         pointerEvents: 'none',
-        borderColor: theme.appColors.blue,
-        color: theme.appColors.blue,
-        backgroundColor: theme.appColors.blueTransparent,
+        background: theme.appColors.blue,
+        color: theme.appColors.white,
+        '&:active, &:hover': {
+            boxShadow: 'none',
+            background: theme.appColors.blue,
+            color: theme.appColors.white,
+        }
     },
 });

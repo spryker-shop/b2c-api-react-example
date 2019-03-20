@@ -18,19 +18,15 @@ import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IImageSlide } from '@application/components/ImageSlider/types';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
-import {
-    defaultItemValueDropdown,
-    IProductCardImages,
-    IProductPropFullData
-} from '@interfaces/product';
-import { styles } from './styles';
+import { defaultItemValueDropdown, IProductCardImages, IProductPropFullData } from '@interfaces/product';
 import { withRouter } from 'react-router';
 import { Breadcrumbs } from '@application/components/Breadcrumbs';
+import { styles } from './styles';
 import { IBreadcrumbItem } from '@interfaces/category';
 
 @(withRouter as Function)
 @connect
-export class ProductPageBase extends React.Component<Props, State> {
+export class ProductPageComponent extends React.Component<Props, State> {
     public state: State = {
         attributeMap: null,
         superAttrSelected: {},
@@ -83,7 +79,7 @@ export class ProductPageBase extends React.Component<Props, State> {
         }
 
         if (prevState.name !== this.state.name) {
-            this.categoiriesTreeAc();
+            this.getCategoiriesTree();
         }
     };
 
@@ -134,7 +130,6 @@ export class ProductPageBase extends React.Component<Props, State> {
                 : getCurrentProductDataObject(this.props.product.abstractProduct, null)
         );
 
-        // Parsing superAttributes to set initial data for this.state.superAttrSelected
         const selectedAttrNames = getInitialSuperAttrSelected(this.props.product.superAttributes);
 
         this.setState((prevState: State) => ({
@@ -162,7 +157,7 @@ export class ProductPageBase extends React.Component<Props, State> {
             src: element.externalUrlLarge
         })) : null;
 
-    protected categoiriesTreeAc = (): void => {
+    protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
         const formattedCategoriesTree = locationState ? locationState.categoriesTree : false;
         let categoriesTree: IBreadcrumbItem[] = [];
@@ -198,7 +193,7 @@ export class ProductPageBase extends React.Component<Props, State> {
                         ? null
                         : (
                             <div className={ classes.root }>
-                                <Grid container justify="center" className={ classes.productMain }>
+                                <Grid container spacing={ 40 } className={ classes.productMain }>
                                     <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
                                         <div className={ classes.sliderParentContainer }>
                                             <ImageSlider
@@ -221,12 +216,12 @@ export class ProductPageBase extends React.Component<Props, State> {
                                         />
 
                                         { this.state.superAttributes &&
-                                        <ErrorBoundary>
-                                            <ProductSuperAttribute
-                                                productData={ this.state.superAttributes }
-                                                onChange={ this.handleSuperAttributesChange }
-                                            />
-                                        </ErrorBoundary>
+                                            <ErrorBoundary>
+                                                <ProductSuperAttribute
+                                                    productData={ this.state.superAttributes }
+                                                    onChange={ this.handleSuperAttributesChange }
+                                                />
+                                            </ErrorBoundary>
                                         }
 
                                         <ErrorBoundary>
@@ -262,4 +257,4 @@ export class ProductPageBase extends React.Component<Props, State> {
     }
 }
 
-export const ProductPageContainer = withStyles(styles)(ProductPageBase);
+export const ProductPage = withStyles(styles)(ProductPageComponent);

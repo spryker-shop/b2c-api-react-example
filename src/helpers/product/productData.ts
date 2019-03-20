@@ -12,11 +12,13 @@ export const getCurrentProductDataObject = (
         images = abstractProduct.images;
     }
 
+    const getCurrentAvailability = concreteProduct ? concreteProduct : abstractProduct;
+
     return {
         sku: concreteProduct ? concreteProduct.sku : null,
         name: concreteProduct ? concreteProduct.name : abstractProduct.name,
         images,
-        availability: concreteProduct ? concreteProduct.availability : false,
+        availability: getCurrentAvailability ? getCurrentAvailability.availability : false,
         description: concreteProduct ? concreteProduct.description : abstractProduct.description,
         price: concreteProduct ? concreteProduct.price : null,
         prices: concreteProduct ? concreteProduct.prices : null,

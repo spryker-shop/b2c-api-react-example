@@ -34,4 +34,5 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
 export interface ProductPageState extends IProductPropFullData, ISuperAttributes {
     attributeMap: IProductAttributeMap | null;
     superAttrSelected: IProductAttributes;
+    categoriesTree: IBreadcrumbItem[];
 }

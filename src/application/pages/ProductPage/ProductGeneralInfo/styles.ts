@@ -3,15 +3,30 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        borderBottom: `1px solid ${theme.appColors.blockDivider}`,
-        paddingBottom: theme.spacing.unit * 3,
-        paddingLeft: 0,
+       paddingBottom: 30
+    },
+    availableContainer: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        height: 26,
+        marginBottom: 20,
+        padding: '5px 14px',
+        borderRadius: 14,
+        background: theme.appColors.weekWhite,
+        fontSize: 12,
+        fontWeight: 500,
+        letterSpacing: 0.1,
+        textTransform: 'uppercase'
+    },
+    available: {
+        color: theme.appColors.green
+    },
+    unavailable: {
+        color: theme.appColors.lightGrey
     },
     title: {
-        fontSize: theme.appFixedDimensions.fontSize.xl,
-        lineHeight: 1.13,
-        letterSpacing: -0.8,
-        marginBottom: theme.spacing.unit,
+        paddingBottom: 16,
+        fontWeight: 700
     },
     productInfo: {
         display: 'flex',
@@ -21,33 +36,29 @@ export const styles = (theme: Theme) => createStyles({
     },
     priceBlock: {
         display: 'flex',
-        alignItems: 'flex-end',
-        flexGrow: 1,
-        '& > *': {
-            marginRight: `${theme.spacing.unit}px !important`,
-            display: 'block',
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginBottom: theme.spacing.unit * 3,
-        },
+        alignItems: 'flex-end'
     },
     price: {
         color: theme.appColors.black,
-        fontSize: theme.appFixedDimensions.fontSize.huge,
-        marginBottom: 0,
-        lineHeight: 0.8,
+        fontSize: 24,
+        fontWeight: 500,
+        lineHeight: 1,
+        paddingRight: 10
+    },
+    newPrice: {
+        color: theme.appColors.red
     },
     oldPrice: {
+        paddingRight: 8,
         color: theme.appColors.grey,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        margin: 0,
+        fontSize: 18,
+        letterSpacing: 0.3,
         lineHeight: 1,
     },
     vat: {
-        color: theme.appColors.grey,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        margin: 0,
+        color: theme.appColors.lightGrey,
+        fontSize: 14,
         lineHeight: 1,
+        letterSpacing: 0
     }
 });

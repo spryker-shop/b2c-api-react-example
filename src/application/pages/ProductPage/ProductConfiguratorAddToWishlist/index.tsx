@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { createWishlistMenuVariants } from '@helpers/wishlist/list';
 import { connect } from './connect';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, Button } from '@material-ui/core';
 import { SprykerForm } from '@application/components/UI/SprykerForm';
 import { SprykerButton } from '@application/components/UI/SprykerButton';
 import {
@@ -15,9 +15,11 @@ import { IFormSettings } from '@application/components/UI/SprykerForm/types';
 import { ClickEvent } from '@interfaces/common';
 import { TWishlistName } from '@interfaces/wishlist';
 import { styles } from './styles';
+import { CartIcon } from '@application/pages/ProductPage/ProductConfiguratorAddToCart/icons';
+import { SprykerSelect } from '@application/components/UI/SprykerSelect';
 
 @connect
-export class ProductConfiguratorAddToWishlistBase extends React.Component<Props, State> {
+export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
     public state: State = {
         wishlistSelected: null
     };
@@ -33,15 +35,15 @@ export class ProductConfiguratorAddToWishlistBase extends React.Component<Props,
     };
 
     protected handleWishlistChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-        const {value} = event.target;
+        const { value } = event.target;
 
         if (this.state.wishlistSelected !== value) {
-            this.setState({wishlistSelected: value});
+            this.setState({ wishlistSelected: value });
         }
     };
 
     protected initRequestWishlistsData = (): void => {
-        const {isWishlistLoading, isWishlistsFetched, getWishlists} = this.props;
+        const { isWishlistLoading, isWishlistsFetched, getWishlists } = this.props;
 
         if (!isWishlistLoading && !isWishlistsFetched) {
             getWishlists();
@@ -104,7 +106,7 @@ export class ProductConfiguratorAddToWishlistBase extends React.Component<Props,
                         menuItems: createWishlistMenuVariants(wishlists),
                         menuItemFirst: {
                             value: defaultItemValueDropdown,
-                            name: <FormattedMessage id={'select.wish.list.label'} />,
+                            name: <FormattedMessage id={ 'select.wish.list.label' } />,
                             disabled: true
                         }
                     }
@@ -116,8 +118,8 @@ export class ProductConfiguratorAddToWishlistBase extends React.Component<Props,
     };
 
     public render(): JSX.Element {
-        const {classes} = this.props;
-        const {wishlistSelected} = this.state;
+        const { classes } = this.props;
+        const { wishlistSelected } = this.state;
 
         const formWishlistSettings: IFormSettings = this.getWishlistFormSettings({
             inputValue: wishlistSelected,
@@ -126,32 +128,34 @@ export class ProductConfiguratorAddToWishlistBase extends React.Component<Props,
         });
 
         return (
-            <Grid container spacing={24} className={classes.wishlistBtnArea}>
-                {wishlistSelected &&
-                <Grid item xs={12} sm={12} md={6}>
-                    <SprykerForm
-                        form={formWishlistSettings}
-                        formClassName={classes.formWishlist}
-                    />
-                </Grid>
+            <Grid container spacing={ 8 }>
+                { wishlistSelected &&
+                    <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
+                        <SprykerSelect
+                            currentMode={ wishlistSelected }
+                            changeHandler={ this.handleWishlistChange }
+                            menuItems={ this.props.wishlists }
+                            name="quantityForm"
+                        />
+                    </Grid>
                 }
                 <Grid item
-                      xs={12}
-                      md={wishlistSelected ? 6 : 12}
-                      className={classes.buyBtnParent}
+                      xs={ 12 }
+                      md={ wishlistSelected ? 5 : 12 }
+                      className={ classes.buyBtnParent }
                 >
-                    <SprykerButton
-                        title={
-                            <FormattedMessage id={'add.to.cart.wishlist.title'} />
-                        }
-                        extraClasses={classes.wishlistBtn}
-                        onClick={this.handleAddToWishlist}
-                        disabled={this.isAddToWishlistBtnDisabled()}
-                    />
+                    <Button
+                        variant="outlined"
+                        disabled={ this.isAddToWishlistBtnDisabled() }
+                        onClick={ this.handleAddToWishlist }
+                        fullWidth
+                    >
+                        <FormattedMessage id={ 'add.to.cart.wishlist.title' } />
+                    </Button>
                 </Grid>
             </Grid>
         );
     }
 }
 
-export const ProductConfiguratorAddToWishlist = withStyles(styles)(ProductConfiguratorAddToWishlistBase);
+export const ProductConfiguratorAddToWishlist = withStyles(styles)(ProductConfiguratorAddToWishlistComponent);

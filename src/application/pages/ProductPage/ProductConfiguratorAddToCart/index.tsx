@@ -3,33 +3,28 @@ import { FormattedMessage } from 'react-intl';
 import { typeNotificationError } from '@constants/notifications';
 import { connect } from './connect';
 import { createCartItemAddToCart } from '@helpers/cart';
-import { createQuantityVariants } from '@helpers/product';
-import { withStyles, Grid } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
+import { withStyles, Button, Typography } from '@material-ui/core';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
+import { CartIcon } from './icons';
 import { concreteProductType } from '@interfaces/product';
-import { IFormSettings } from '@application/components/UI/SprykerForm/types';
 import { ClickEvent } from '@interfaces/common';
 import { ICartAddItem } from '@interfaces/cart';
-import {
-    IProductConfiguratorAddToCartProps as Props,
-    IProductConfiguratorAddToCartState as State,
-    IProductQuantityParams
-} from './types';
+import { IProductConfiguratorAddToCartProps as Props, IProductConfiguratorAddToCartState as State, } from './types';
 import { styles } from './styles';
 
 const quantitySelectedInitial = 1;
 
 @connect
-export class ProductConfiguratorAddToCartBase extends React.Component<Props, State> {
+export class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
     public state: State = {
         quantitySelected: quantitySelectedInitial,
         isBuyBtnDisabled: true,
         isProcessCartLoading: false,
-        quantity: null,
+        quantity: 1,
         availability: false,
-        sku: null
+        sku: null,
+        isUpdateValue: false
     };
 
     public static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
@@ -40,7 +35,8 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
                 sku: nextProps.sku,
                 quantitySelected: quantitySelectedInitial,
                 quantity: nextProps.product.quantity,
-                availability: nextProps.product.availability
+                availability: nextProps.product.availability,
+                isUpdateValue: true
             };
         }
 
@@ -53,17 +49,6 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         this.checkBuyBtnStatus();
-    };
-
-    protected handleProductQuantityChange = (
-        event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>
-    ): void => {
-        const valueParsed: number = Number.parseInt(event.target.value, 10);
-        const { quantitySelected } = this.state;
-
-        if (quantitySelected !== valueParsed) {
-            this.setState({ quantitySelected: valueParsed });
-        }
     };
 
     protected isShowQuantity = (): boolean => (
@@ -102,7 +87,8 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
                 availability: this.props.product.availability,
                 quantitySelected: quantitySelectedInitial,
                 isBuyBtnDisabled: false,
-                isProcessCartLoading: false
+                isProcessCartLoading: false,
+                isUpdateValue: true
             }));
         } catch (error) {
             NotificationsMessage({
@@ -125,75 +111,46 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
         }
     };
 
-    protected getQuantityFormSettings = (params: IProductQuantityParams): IFormSettings => {
-        const {
-            inputValue,
-            quantity,
-            onChangeHandler,
-            controlsGroupClassName
-        } = params;
-        const formSettings: IFormSettings = {
-            formName: 'quantityForm',
-            controlsGroupClassName,
-            onChangeHandler,
-            onSubmitHandler: (event: React.FormEvent<HTMLFormElement>) => {
-                console.info('Empty quantity Submit');
-            },
-            fields: [
-                [
-                    {
-                        type: 'select',
-                        inputName: 'quantity',
-                        inputValue,
-                        spaceNumber: 4,
-                        isRequired: false,
-                        label: <FormattedMessage id={ 'word.quantity.title' } />,
-                        isError: false,
-                        menuItems: createQuantityVariants(quantity)
-                    }
-                ]
-            ]
-        };
-
-        return formSettings;
-    };
+    protected handleChangeQty = (name: string, value: number): void =>
+        this.setState({ quantitySelected: value, isUpdateValue: false });
 
     public render(): JSX.Element {
         const { classes } = this.props;
-
-        const formQuantitySettings: IFormSettings = this.getQuantityFormSettings({
-            inputValue: this.state.quantitySelected,
-            quantity: this.state.quantity,
-            onChangeHandler: this.handleProductQuantityChange,
-            controlsGroupClassName: classes.controlsGroupQuantity
-        });
+        const { sku, quantitySelected, isUpdateValue } = this.state;
 
         return (
-            <>
-                <Grid container>
-                    { this.isShowQuantity() &&
-                    <Grid item xs={ 12 } md={ 12 } className={ classes.blockControl }>
-                        <SprykerForm
-                            form={ formQuantitySettings }
-                            formClassName={ classes.formQuantity }
-                        />
-                    </Grid>
-                    }
-                </Grid>
+            <div className={ classes.root }>
+                <Typography
+                    variant="subheading"
+                    component="span"
+                    color="textSecondary"
+                    className={ classes.title }
+                >
+                    <FormattedMessage id={ 'word.quantity.title' } />
+                </Typography>
+                <SprykerQuantityCounter
+                    name={ sku }
+                    isBigger
+                    handleChangeQty={ this.handleChangeQty }
+                    delayDuration={ 0 }
+                    isUseSubmitInspection={ false }
+                    classes={{ root: classes.counter }}
+                    value={ quantitySelected }
+                    isUpdateToDefault={ isUpdateValue }
+                />
 
-                <Grid container>
-                    <Grid item xs={ 12 } md={ 12 } className={ classes.buyBtnParent }>
-                        <SprykerButton
-                            title={ <FormattedMessage id={ 'add.to.cart.button.title' } /> }
-                            extraClasses={ classes.buyBtn }
-                            onClick={ this.handleBuyBtnClick }
-                            disabled={ this.state.isBuyBtnDisabled }
-                        />
-                    </Grid>
-                </Grid>
-            </>
+                <Button
+                    variant="contained"
+                    disabled={ this.state.isBuyBtnDisabled }
+                    onClick={ this.handleBuyBtnClick }
+                    fullWidth
+                >
+                    <FormattedMessage id={ 'add.to.cart.button.title' } />
+                    <span className={ classes.icon }><CartIcon /></span>
+                </Button>
+            </div>
         );
     }
 }
 
-export const ProductConfiguratorAddToCart = withStyles(styles)(ProductConfiguratorAddToCartBase);
+export const ProductConfiguratorAddToCart = withStyles(styles)(ProductConfiguratorAddToCartComponent);

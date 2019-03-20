@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 import { SuperAttributeItem } from '../SuperAttributeItem';
-import {
-    ISuperAttributeBlockProps as Props,
-    ISuperAttributeBlockState as State
-} from './types';
+import { ISuperAttributeBlockProps as Props, ISuperAttributeBlockState as State } from './types';
 import { styles } from './styles';
 
 export class SuperAttributeBlockComponent extends React.Component<Props, State> {
@@ -26,22 +22,29 @@ export class SuperAttributeBlockComponent extends React.Component<Props, State> 
 
         return (
             <div className={classes.attributeBlock}>
-                <h4 className={classes.attributeTitle}>
-                    <FormattedMessage id={'word.select.title'} /> {attributeData.nameToShow}:
-                </h4>
+                <Typography
+                    variant="subheading"
+                    component="span"
+                    color="textSecondary"
+                    className={classes.attributeTitle}
+                >
+                    {attributeData.nameToShow}
+                </Typography>
 
                 <div className={classes.attributesList}>
                     {attributeData.data.map(attribute => (
-                        <SuperAttributeItem
-                            key={attribute.value.length > 0 ? attribute.value : attribute.name}
-                            attributeItemData={attribute}
-                            onSelect={() => this.selectAttribute(attribute.value)}
-                            isSelected={
-                                attribute.value.length > 0
-                                    ? attribute.value === selectedItemValue
-                                    : attribute.name === selectedItemValue
-                            }
-                        />
+                        <div className={classes.attributesItem}>
+                            <SuperAttributeItem
+                                key={attribute.value.length > 0 ? attribute.value : attribute.name}
+                                attributeItemData={attribute}
+                                onSelect={() => this.selectAttribute(attribute.value)}
+                                isSelected={
+                                    attribute.value.length > 0
+                                        ? attribute.value === selectedItemValue
+                                        : attribute.name === selectedItemValue
+                                }
+                            />
+                        </div>
                     ))}
                 </div>
             </div>

@@ -4,10 +4,10 @@ import { ISuperAttributeItemProps as Props } from './types';
 import { styles } from './styles';
 
 export const SuperAttributeItemComponent: React.SFC<Props> = (props): JSX.Element => {
-    const {classes, attributeItemData, isSelected, onSelect} = props;
+    const { classes, attributeItemData, isSelected, onSelect } = props;
 
     const onSelectValue = () => {
-        const {value, name} = attributeItemData;
+        const { value, name } = attributeItemData;
 
         onSelect(value.length > 0 ? value : name);
     };
@@ -15,11 +15,11 @@ export const SuperAttributeItemComponent: React.SFC<Props> = (props): JSX.Elemen
     return (
         <Button
             variant="outlined"
-            color={isSelected ? 'primary' : null}
-            className={`${classes.button} ${isSelected ? classes.buttonSelected : ''}`}
-            onClick={onSelectValue}
+            className={ `${ classes.button } ${ isSelected ? classes.buttonSelected : '' }` }
+            onClick={ onSelectValue }
+            fullWidth
         >
-            {attributeItemData.name}
+            { attributeItemData.name }
         </Button>
     );
 };

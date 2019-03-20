@@ -2,6 +2,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    root: {},
     container: {
         display: 'flex'
     },
@@ -13,6 +14,7 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite,
         cursor: 'pointer',
         transition: 'background 0.3s ease-in-out',
+        userSelect: 'none',
         '&:after, &:before': {
             content: '""',
             position: 'absolute',
@@ -29,6 +31,10 @@ export const styles = (theme: Theme) => createStyles({
         '&:hover': {
             background: '#eaeaea'
         }
+    },
+    triggerBigger: {
+        width: 40,
+        height: 40,
     },
     triggerMinus: {
         '&:after': {
@@ -58,5 +64,8 @@ export const styles = (theme: Theme) => createStyles({
             appearance: 'none',
             margin: 0,
         }
+    },
+    inputBigger: {
+        height: 40
     }
 });
