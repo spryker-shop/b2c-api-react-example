@@ -38,17 +38,19 @@ class ProductRelationsComponent extends React.Component<Props> {
         }
 
         return (
-            <div className={ classes.root }>
-                <Typography className={ classes.title } color="textSecondary" component="h2" variant="display3">
-                    <FormattedMessage id={ 'product.relations.title' } />
-                </Typography>
+            <>
+                { Boolean(title) &&
+                    <Typography className={ classes.title } color="textSecondary" component="h2" variant="display3">
+                        { title }
+                    </Typography>
+                }
 
                 <ProductsSlider
                     products={ products }
                     currency={ currency }
                     onSelectProduct={ this.onSelectProductHandle }
                 />
-            </div>
+            </>
         );
     };
 }

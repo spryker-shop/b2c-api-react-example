@@ -24,6 +24,8 @@ import { withRouter } from 'react-router';
 import { Breadcrumbs } from '@application/components/Breadcrumbs';
 import { styles } from './styles';
 import { IBreadcrumbItem } from '@interfaces/category';
+import { FormattedMessage } from 'react-intl';
+import { ProductImageSlider } from './ProductImageSlider';
 
 @(withRouter as Function)
 @connect
@@ -150,11 +152,35 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }
     };
 
-    protected getImageData = (images: IProductCardImages[]): IImageSlide[] | null => images
-        ? images.map((element: IProductCardImages, index: number) => ({
-            id: index,
-            src: element.externalUrlLarge
-        })) : null;
+    protected getImageData = (images: IProductCardImages[]): IImageSlide[] | null => {
+        let test2;
+        let test3;
+        console.log(images);
+        const test = images ? images.map((element: IProductCardImages, index: number) => {
+            test2 = element.externalUrlLarge;
+            test3 = element.externalUrlSmall;
+
+            return ({
+                id: index,
+                src: element.externalUrlLarge,
+                srcsmall: element.externalUrlSmall
+            });
+        }) : null;
+
+        if (images) {
+            for (let i = 0; i < 3; i++) {
+                const newSlide = {
+                    id: i + 1,
+                    src: test2,
+                    srcsmall: test3
+                };
+
+                test.push(newSlide);
+            }
+        }
+
+        return test;
+    };
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
@@ -208,14 +234,13 @@ export class ProductPageComponent extends React.Component<Props, State> {
                         <AppMain>
                             <Grid container spacing={ 40 } className={ classes.productMain }>
                                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
-                                    <div className={ classes.sliderParentContainer }>
-                                        <ImageSlider
-                                            images={ images }
-                                            uniqueKey={ sku }
-                                            showThumbs={ false }
-                                            showStatus={ false }
-                                        />
-                                    </div>
+                                    <ProductImageSlider images={ images } />
+                                    {/*<div className={ classes.sliderParentContainer }>*/}
+                                        {/*<ImageSlider*/}
+                                            {/*images={ images }*/}
+                                            {/*uniqueKey={ sku }*/}
+                                        {/*/>*/}
+                                    {/*</div>*/}
                                 </Grid>
                                 <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
                                     <ProductGeneralInfo
@@ -261,7 +286,10 @@ export class ProductPageComponent extends React.Component<Props, State> {
                             />
                             {isShouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
-                                    <ProductRelations sku={ this.props.product.abstractProduct.sku } />
+                                    <ProductRelations
+                                        sku={ this.props.product.abstractProduct.sku }
+                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                                    />
                                 </ErrorBoundary>
                             }
                         </AppMain>

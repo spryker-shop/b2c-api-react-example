@@ -83,8 +83,11 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     slide: {
-        paddingLeft: '10px',
-        paddingRight: '10px',
+        padding: '4px 10px',
+
+        '&:focus': {
+            outline: 'none'
+        },
 
         [theme.breakpoints.only('md')]: {
             paddingLeft: '16px',
