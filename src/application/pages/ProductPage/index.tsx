@@ -199,68 +199,68 @@ export class ProductPageComponent extends React.Component<Props, State> {
             this.props.isRejected;
 
         return (
-            <>
-                <Breadcrumbs breadcrumbsList={ categoriesTree } />
-                <AppMain>
-                    { !isComponentLoading &&
-                            <div className={ classes.root }>
-                                <Grid container spacing={ 40 } className={ classes.productMain }>
-                                    <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
-                                        <div className={ classes.sliderParentContainer }>
-                                            <ImageSlider
-                                                images={ images }
-                                                uniqueKey={ sku }
-                                                showThumbs={ false }
-                                                showStatus={ false }
-                                            />
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
-                                        <ProductGeneralInfo
-                                            name={ name }
-                                            sku={ sku }
-                                            price={ priceDefaultGross }
-                                            oldPrice={ priceOriginalGross ? priceOriginalGross : null }
-                                            availability={ getAvailabilityDisplay(availability) }
+            <div className={ classes.root }>
+                { !isComponentLoading &&
+                    <>
+                        <Breadcrumbs breadcrumbsList={ categoriesTree } />
+                        <AppMain>
+                            <Grid container spacing={ 40 } className={ classes.productMain }>
+                                <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
+                                    <div className={ classes.sliderParentContainer }>
+                                        <ImageSlider
+                                            images={ images }
+                                            uniqueKey={ sku }
+                                            showThumbs={ false }
+                                            showStatus={ false }
                                         />
+                                    </div>
+                                </Grid>
+                                <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
+                                    <ProductGeneralInfo
+                                        name={ name }
+                                        sku={ sku }
+                                        price={ priceDefaultGross }
+                                        oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                        availability={ getAvailabilityDisplay(availability) }
+                                    />
 
-                                        { superAttributes &&
-                                            <ErrorBoundary>
-                                                <ProductSuperAttribute
-                                                    productData={ superAttributes }
-                                                    onChange={ this.handleSuperAttributesChange }
-                                                />
-                                            </ErrorBoundary>
-                                        }
-
+                                    { superAttributes &&
                                         <ErrorBoundary>
-                                            <ProductConfiguratorAddToCart
-                                                productType={ productType }
-                                                product={ this.props.product.concreteProducts[sku] }
-                                                sku={ sku }
+                                            <ProductSuperAttribute
+                                                productData={ superAttributes }
+                                                onChange={ this.handleSuperAttributesChange }
                                             />
                                         </ErrorBoundary>
+                                    }
 
-                                        { isUserLoggedIn &&
+                                    <ErrorBoundary>
+                                        <ProductConfiguratorAddToCart
+                                            productType={ productType }
+                                            product={ this.props.product.concreteProducts[sku] }
+                                            sku={ sku }
+                                        />
+                                    </ErrorBoundary>
+
+                                    { isUserLoggedIn &&
                                         <ErrorBoundary>
                                             <ProductConfiguratorAddToWishlist
                                                 productType={ productType }
                                                 sku={ sku }
                                             />
                                         </ErrorBoundary>
-                                        }
-                                    </Grid>
+                                    }
                                 </Grid>
-                                <ProductDetail
-                                    attributes={ attributes }
-                                    attributeNames={ attributeNames }
-                                    description={ description }
-                                    sku={ sku ? sku : this.props.product.abstractProduct.sku }
-                                />
-                            </div>
-                    }
-                </AppMain>
-            </>
+                            </Grid>
+                            <ProductDetail
+                                attributes={ attributes }
+                                attributeNames={ attributeNames }
+                                description={ description }
+                                sku={ sku ? sku : this.props.product.abstractProduct.sku }
+                            />
+                        </AppMain>
+                    </>
+                }
+            </div>
         );
     }
 }
