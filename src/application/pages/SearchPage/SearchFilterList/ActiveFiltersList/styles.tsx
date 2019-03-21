@@ -2,73 +2,73 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    root: {
-        marginTop: theme.spacing.unit * 6,
-    },
-    list: {
-        paddingTop: theme.spacing.unit,
-    },
-    reset: {
-        ...theme.appModules.chip,
-        border: `none`,
-        textAlign: 'center',
-        marginTop: 0,
-        marginRight: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
-        marginLeft: 0,
-        backgroundColor: theme.appColors.white,
-        color: theme.appColors.blue,
-        fontSize: theme.appFixedDimensions.fontSize.mini,
-        fontWeight: 500,
-        letterSpacing: 0.4,
-        textTransform: 'uppercase',
-        borderRadius: 0,
-        transition: 'all .5s ease-in-out',
-        '&:hover': {
-            color: theme.appColors.white,
-            backgroundColor: theme.appColors.blue,
-            transition: 'all .5s ease-in-out',
-        },
-    },
-    resetLabel: {
-        paddingRight: theme.spacing.unit * 1.5,
-    },
-    price: {
-        fontSize: theme.appFixedDimensions.fontSize.mini,
-        fontWeight: 500,
+    filterList: {
+        padding: '10px 0'
     },
     chip: {
-        ...theme.appModules.chip,
-        marginTop: 0,
-        marginRight: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
-        marginLeft: 0,
-        borderRadius: 2,
-        border: `1px solid ${theme.appColors.blue}`,
-        backgroundColor: theme.appColors.white,
-        color: theme.appColors.blue,
-        fontSize: theme.appFixedDimensions.fontSize.mini,
+        position: 'relative',
+        margin: 0,
+        fontSize: 12,
         fontWeight: 500,
-        letterSpacing: 0.4,
-        textTransform: 'uppercase',
-        [theme.breakpoints.down('xs')]: {
-            marginRight: 0,
-            width: '100%',
-        },
-    },
-    close: {
-        color: theme.appColors.blue,
-        fontSize: theme.spacing.unit * 2.3,
-        backgroundColor: theme.appColors.white,
-        borderRadius: '50%',
-        transition: 'all .5s ease-in-out',
+        letterSpacing: 0.1,
+        color: theme.appColors.grey,
+        padding: '6px 31px 6px 9px',
+        border: `1px solid ${theme.appColors.lightGrey}`,
+        borderRadius: 13,
+        lineHeight: 1,
+        height: 'auto',
         '&:hover': {
-            color: theme.appColors.white,
-            backgroundColor: theme.appColors.blue,
-            transition: 'all .5s ease-in-out',
-        },
+            background: 'none',
+            color: theme.appColors.red
+        }
     },
     label: {
-        paddingRight: theme.spacing.unit * 2.5,
+        padding: 0,
+        transition: 'color 0.3s ease-in-out',
+        color: 'currentColor',
+    },
+    iconOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        margin: 0,
+        color: theme.appColors.lightGrey,
+        transition: 'color 0.3s ease-in-out',
+        '&:hover': {
+            color: theme.appColors.red
+        }
+    },
+    iconInner: {
+        position: 'absolute',
+        right: 5,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: 16,
+        height: 16,
+        margin: 0,
+        borderRadius: '50%',
+        border: '1px solid currentColor',
+        transition: 'none'
+    },
+    icon: {
+        width: '100%',
+        height: '100%',
+        transition: 'none'
+    },
+    resetBtn: {
+        minWidth: 0,
+        padding: '5px 12px',
+        border: 0,
+        fontSize: 12,
+        fontWeight: 500,
+        letterSpacing: 0.1,
+        color: theme.appColors.red,
+        transition: 'color 0.3s ease-in-out',
+        '&:hover': {
+            background: 'none',
+            color: theme.appColors.blue
+        }
     },
 });

@@ -107,7 +107,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
         return (
             <ErrorBoundary>
                 <SuggestionsContainer
-                    {...suggestionsContainerProps}
+                    { ...suggestionsContainerProps }
                     classes={{suggestionsContainer: classes.suggestionsContainerOpen}}
                 />
             </ErrorBoundary>

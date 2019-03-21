@@ -1,34 +1,24 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { IFiltersListProps as Props } from './types';
 import { rangeMaxType, rangeMinType } from '../types';
 import { ValueFacets } from '@interfaces/searchPageData';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
-import { AppPageSubTitle } from '@application/components/AppPageSubTitle';
-import { SprykerFilterElement } from '@application/components/UI/SprykerFilter';
+import { SprykerFilter } from '@application/components/UI/SprykerFilter';
 import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
-import { AppPrice } from '@application/components//AppPrice';
-import { FilterWrapper } from './FilterWrapper';
 import { Grid, withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { sprykerTheme } from '@theme/sprykerTheme';
 
-export const FiltersListBase: React.SFC<Props> = (props): JSX.Element => {
+const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
-        classes,
         filters,
         activeFilters,
         ranges,
         activeRangeFilters,
         updateStore,
         updateActiveFilters,
-        updateRangeFilters
+        updateRangeFilters,
+        classes
     } = props;
-    const priceMultiplier = 100;
-
-    const priceValueFormatter = (value: number) => (
-        <AppPrice value={ value * priceMultiplier } extraClassName={ classes.priceClassName } />
-    );
 
     const renderFilters = (): JSX.Element[] => {
         const filterItems: JSX.Element[] = [];
@@ -39,22 +29,21 @@ export const FiltersListBase: React.SFC<Props> = (props): JSX.Element => {
 
                 if (isFilterItemsExist) {
                     filterItems.push(
-                        <FilterWrapper
-                            filter={
-                                <SprykerFilterElement
-                                    attributeName={ filter.name }
-                                    menuItems={ filter.values }
-                                    activeValues={ activeFilters[filter.name] || [] }
-                                    handleChange={ updateActiveFilters }
-                                    extraClassName={ classes.filter }
-                                    isShowSelected={ false }
-                                    handleClose={ updateStore }
-                                    title={ filter.localizedName }
-                                />
-                            }
-                            keyValue={ filter.name }
-                            key={ filter.name }
-                        />
+                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ filter.name }>
+                            <SprykerFilter
+                                attributeName={ filter.name }
+                                menuItems={ filter.values }
+                                activeValues={ activeFilters[filter.name] || [] }
+                                handleChange={ updateActiveFilters }
+                                isShowSelected
+                                handleClose={ updateStore }
+                                title={ filter.localizedName }
+                                classes={{
+                                    menu: classes.filters
+                                }}
+                                isFullWidth
+                            />
+                        </Grid>
                     );
                 }
             });
@@ -74,26 +63,24 @@ export const FiltersListBase: React.SFC<Props> = (props): JSX.Element => {
                 const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
 
                 rangeItems.push (
-                    <FilterWrapper
-                        filter={
-                            <SprykerRangeSlider
-                                key={ filter.name }
-                                attributeName={ filter.name }
-                                title={ filter.localizedName }
-                                min={ valueFrom }
-                                max={ valueTo }
-                                handleChange={ updateRangeFilters }
-                                handleAfterChange={ updateStore }
-                                currentValue={ activeRangeFilters[filter.name] || {
-                                    min: valueFrom,
-                                    max: valueTo
-                                } }
-                                valueFormatter={ filter.name.includes('price') ? priceValueFormatter : null }
-                            />
-                        }
-                        keyValue={ filter.name }
-                        key={ filter.name }
-                    />
+                    <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ filter.name }>
+                        <SprykerRangeSlider
+                            key={ filter.name }
+                            attributeName={ filter.name }
+                            title={ filter.localizedName }
+                            min={ valueFrom }
+                            max={ valueTo }
+                            handleChange={ updateRangeFilters }
+                            handleAfterChange={ updateStore }
+                            classes={{
+                                popoverContent: classes.filters
+                            }}
+                            currentValue={ activeRangeFilters[filter.name] || {
+                                min: valueFrom,
+                                max: valueTo
+                            }}
+                        />
+                    </Grid>
                 );
             });
         }
@@ -106,20 +93,18 @@ export const FiltersListBase: React.SFC<Props> = (props): JSX.Element => {
     const isItemsExist = isFiltersExist || isRangeExist;
 
     return (
-        <Grid container justify="flex-start" alignItems="center" className={ classes.root }>
+        <>
             { isItemsExist &&
-                <Grid item xs={ 12 }>
-                    <AppPageSubTitle
-                    title={ <FormattedMessage id={ 'category.results.filter.title' } /> }
-                    />
-                </Grid>
+                <div className={ classes.filterList }>
+                    <Grid container spacing={ 16 }>
+                        { isFiltersExist && renderFilters() }
+                        { isItemsExist &&  renderRange()}
+                    </Grid>
+                </div>
             }
-            <Grid container alignItems="flex-start" spacing={ sprykerTheme.appFixedDimensions.gridSpacing }>
-                { isFiltersExist && renderFilters() }
-                { isItemsExist &&  renderRange()}
-            </Grid>
-        </Grid>
+        </>
+
     );
 };
 
-export const FiltersList = withStyles(styles)(FiltersListBase);
+export const FiltersList = withStyles(styles)(FiltersListComponent);

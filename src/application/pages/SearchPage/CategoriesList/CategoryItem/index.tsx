@@ -1,21 +1,22 @@
 import * as React from 'react';
 import { ICategoryItemProps } from './types';
-import { ListItem, ListItemText, withStyles } from '@material-ui/core';
+import { ListItem, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export const CategoryItemBase: React.SFC<ICategoryItemProps> = props => {
     const {
         classes,
-        displayName,
+        categoryName,
         categoryValue,
         isSelected,
         isActive,
         children,
-        selectCategoryHandler
+        selectCategoryHandler,
+        quantity
     } = props;
 
     return (
-        <div className={ `${classes.listItemOuter} ${children ? classes.hasChildren : null}` }>
+        <>
             <ListItem
                 button
                 onClick={ (event: React.MouseEvent<HTMLElement>) => selectCategoryHandler(categoryValue)(event) }
@@ -23,16 +24,15 @@ export const CategoryItemBase: React.SFC<ICategoryItemProps> = props => {
                 disabled={ !isActive }
                 className={ classes.categoryItem }
                 disableGutters
-                classes={ { root: classes.root, selected: classes.selected } }
+                classes={{ selected: classes.selected, disabled: classes.disabled }}
             >
-                <ListItemText
-                    disableTypography
-                    classes={ { root: classes.categoryItemText } }
-                    primary={ displayName }
-                />
+                <Typography component="strong" variant="subheading" color="inherit">
+                    { categoryName }
+                </Typography>
+                <span className={`${classes.quantity} ${isSelected ? classes.quantityActive : ''}`}>{ quantity }</span>
             </ListItem>
             { children && <div className={ classes.children }>{ children }</div> }
-        </div>
+        </>
     );
 };
 

@@ -12,7 +12,8 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         closePopoverHandler,
         anchorOrigin,
         transformOrigin,
-        openPopup
+        openPopup,
+        paperProps
     } = props;
 
     const isOpen = openPopup !== null ? openPopup : Boolean(anchorElement);
@@ -30,7 +31,12 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         <Popover
             { ...popoverProps }
             className={ classes.popover }
-            PaperProps={{ classes: { root: classes.content } }}
+            PaperProps={{
+                ...paperProps,
+                classes: {
+                    root: classes.content
+                }
+            }}
         >
             { children }
         </Popover>

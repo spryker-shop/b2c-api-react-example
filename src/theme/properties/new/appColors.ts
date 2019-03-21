@@ -43,6 +43,6 @@ export const appColors: IAppColors = {
     red: '#eb553c',
     darkRed: '#d54d36',
     weekRed: '#f33c1d',
-    green: '#008a00',
+    green: '#5fb29a',
     blockDivider: '#e2e2e2',
 };

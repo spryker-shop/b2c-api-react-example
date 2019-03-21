@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { withStyles, Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
 import { ProductLabel } from '@application/components/ProductLabel';
 import { getOneProductImage } from '@helpers/product/imageSetsParser';
-import { ClickEvent } from '@interfaces/common';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
+import { SquareImage } from '@application/components/SquareImage';
 
-export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, images, name = '', prices, sku, label } = props;
+export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, images, name = '', prices, sku, label, onSelectProduct } = props;
 
     let actualPriceGross = 0;
     let actualPriceNet = 0;
@@ -31,53 +31,41 @@ export const ProductCardBase: React.SFC<Props> = (props): JSX.Element => {
 
     const image = getOneProductImage(images);
 
-    const handleProductClick = (e: ClickEvent) => {
-        e.preventDefault();
-        props.onSelectProduct(sku);
-    };
-
     return (
-        <Card className={ classes.card } raised={ true }>
-            <CardActionArea onClick={ handleProductClick } className={ classes.actionArea }>
-                { image
-                    ? <CardMedia
-                        component="img"
-                        className={ classes.media }
-                        image={ image }
-                        title={ name }
-                    />
-                    : null
-                }
+        <div className={ classes.card } onClick={ () => onSelectProduct(sku) }>
+            <div className={ classes.imageWrapper }>
+                { image &&  <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.image }} /> }
                 <ProductLabel label={ label } />
-                <div className={ classes.actionAreaOverlay }></div>
-            </CardActionArea>
-            <CardContent className={ classes.cardContent }>
-                <Typography gutterBottom component="h2" className={ classes.productName } data-type="productName">
-                    { name }
-                </Typography>
-                <div className={ classes.productPrice }>
-                    <Typography
-                        component="span"
-                        color="textPrimary"
-                        data-type="priceToShow"
-                        className={ classes.productCurrentPrice }
-                    >
-                        <AppPrice value={ actualPriceGross } />
+            </div>
+            <div className={ classes.content }>
+                <div className={ classes.nameWrapper }>
+                    <Typography color="textSecondary" component="h5" variant="headline" className={classes.name}>
+                        { name }
                     </Typography>
-                    { oldPriceGross
-                        ? <Typography
-                            component="span"
-                            color="textPrimary"
-                            className={ classes.productOldPrice }
-                        >
-                            <AppPrice value={ oldPriceGross } priceType={ priceTypeNameOriginal } />
-                        </Typography>
-                        : null
-                    }
                 </div>
-            </CardContent>
-        </Card>
+                <div className={ classes.prices }>
+                    <Grid container alignItems="flex-end" spacing={ 8 }>
+                        <Grid item>
+                            <Typography
+                                component="span"
+                                variant="display2"
+                                className={`${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
+                            >
+                                <AppPrice value={ actualPriceGross } isStylesInherited />
+                            </Typography>
+                        </Grid>
+                        { Boolean(oldPriceGross) &&
+                            <Grid item>
+                                <Typography color="textSecondary" component="span" className={ classes.oldPrice }>
+                                    <AppPrice value={ oldPriceGross } priceType={ priceTypeNameOriginal } />
+                                </Typography>
+                            </Grid>
+                        }
+                    </Grid>
+                </div>
+            </div>
+        </div>
     );
 };
 
-export const ProductCard = withStyles(styles)(ProductCardBase);
+export const ProductCard = withStyles(styles)(ProductCardComponent);

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { IProductLabelProps as Props } from './types';
 import { styles } from './styles';
 
-export const ProductLabelBase: React.SFC<Props> = (props): JSX.Element => {
+const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, label } = props;
     if (!label) {
         return null;
@@ -30,16 +30,9 @@ export const ProductLabelBase: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <div className={ `${classes.labelsOuter}` }>
-            <div key={ label.type } className={ `${classes.label}` }>
-                <Typography
-                    component="span"
-                    className={ `${classes.labelText} ${colorClassName}` }
-                >
-                    { label.text }
-                </Typography>
-            </div>
+            <span className={`${classes.labelText} ${colorClassName}`}>{ label.text }</span>
         </div>
     );
 };
 
-export const ProductLabel = withStyles(styles)(ProductLabelBase);
+export const ProductLabel = withStyles(styles)(ProductLabelComponent);
