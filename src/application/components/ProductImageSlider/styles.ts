@@ -8,17 +8,23 @@ const dotChange = (theme: Theme) => ({
 });
 
 const animationDuration = '0.15s';
-const thumbnailsWidth = 80;
+const thumbnailsDimensions = 80;
 
 export const styles = (theme: Theme) => createStyles({
     thumbnailsCol: {
-        width: thumbnailsWidth
+        width: thumbnailsDimensions
     },
     mainSliderCol: {
         paddingLeft: 20,
-        width: `calc(100% - ${thumbnailsWidth}px)`
+        width: `calc(100% - ${thumbnailsDimensions}px)`
+    },
+    mainSliderFullWidth: {
+        width: '100%',
+        padding: 0
     },
     mainSlider: {
+        minHeight: 0,
+        minWidth: 0,
         '& .slick-arrow': {
             position: 'absolute',
             top: '50%',
@@ -34,9 +40,14 @@ export const styles = (theme: Theme) => createStyles({
             }
         }
     },
+    thumbnailsHidden: {
+        display: 'none'
+    },
     thumbnailSlider: {
+        maxHeight: 630,
+        overflow: 'hidden',
         '& .slick-list': {
-            margin: '-10px 0'
+            margin: '-10px 0',
         },
         '& .slick-slide': {
             transition: `opacity ${ animationDuration }`,
@@ -101,7 +112,7 @@ export const styles = (theme: Theme) => createStyles({
     imageThumbnail: {
         width: '100%',
         minWidth: '100%',
-        height: 80,
+        height: thumbnailsDimensions,
         cursor: 'pointer',
     },
     slideArrow: {

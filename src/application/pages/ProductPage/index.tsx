@@ -9,14 +9,14 @@ import {
 } from '@helpers/product';
 import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
-import { ImageSlider } from '@application/components/ImageSlider';
+import { ProductImageSlider } from '@application/components/ProductImageSlider';
 import { ProductGeneralInfo } from './ProductGeneralInfo';
 import { ProductSuperAttribute } from './ProductSuperAttribute';
 import { ProductConfiguratorAddToCart } from './ProductConfiguratorAddToCart';
 import { ProductConfiguratorAddToWishlist } from './ProductConfiguratorAddToWishlist';
 import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { IImageSlide } from '@application/components/ImageSlider/types';
+import { IProductImage } from '@application/components/ProductImageSlider/types';
 import { ProductRelations } from '@application/containers/ProductRelations';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
@@ -25,7 +25,6 @@ import { Breadcrumbs } from '@application/components/Breadcrumbs';
 import { styles } from './styles';
 import { IBreadcrumbItem } from '@interfaces/category';
 import { FormattedMessage } from 'react-intl';
-import { ProductImageSlider } from './ProductImageSlider';
 
 @(withRouter as Function)
 @connect
@@ -152,35 +151,11 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }
     };
 
-    protected getImageData = (images: IProductCardImages[]): IImageSlide[] | null => {
-        let test2;
-        let test3;
-        console.log(images);
-        const test = images ? images.map((element: IProductCardImages, index: number) => {
-            test2 = element.externalUrlLarge;
-            test3 = element.externalUrlSmall;
-
-            return ({
-                id: index,
-                src: element.externalUrlLarge,
-                srcsmall: element.externalUrlSmall
-            });
-        }) : null;
-
-        if (images) {
-            for (let i = 0; i < 3; i++) {
-                const newSlide = {
-                    id: i + 1,
-                    src: test2,
-                    srcsmall: test3
-                };
-
-                test.push(newSlide);
-            }
-        }
-
-        return test;
-    };
+    protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => images
+        ? images.map((element: IProductCardImages, index: number) => ({
+            id: index,
+            src: element.externalUrlLarge
+        })) : null;
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
@@ -233,16 +208,10 @@ export class ProductPageComponent extends React.Component<Props, State> {
                         <Breadcrumbs breadcrumbsList={ categoriesTree } />
                         <AppMain>
                             <Grid container spacing={ 40 } className={ classes.productMain }>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 7 } className={ classes.sliderParent }>
+                                <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
                                     <ProductImageSlider images={ images } />
-                                    {/*<div className={ classes.sliderParentContainer }>*/}
-                                        {/*<ImageSlider*/}
-                                            {/*images={ images }*/}
-                                            {/*uniqueKey={ sku }*/}
-                                        {/*/>*/}
-                                    {/*</div>*/}
                                 </Grid>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 5 } className={ classes.generalInfoParent }>
+                                <Grid item xs={ 12 } sm={ 12 } md={ 5 }>
                                     <ProductGeneralInfo
                                         name={ name }
                                         sku={ sku }

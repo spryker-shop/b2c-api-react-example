@@ -1,4 +1,5 @@
 import { ISuperAttribute } from '@helpers/product/types';
+import { IAvailableLabelsCollection, IProductsLabeledCollection } from '@interfaces/searchPageData';
 
 // Constants
 export const concreteProductType = 'concreteProduct';
@@ -123,6 +124,8 @@ export interface IProductDataParsed {
     concreteProducts: {
         [key: string]: IProductPropFullData
     };
+    productsLabeled: string[] | null;
+    availableLabels: IAvailableLabelsCollection | null;
 }
 
 export interface IProductLabel {
