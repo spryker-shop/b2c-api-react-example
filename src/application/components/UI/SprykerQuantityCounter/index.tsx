@@ -41,6 +41,10 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
         }, delayDuration);
     };
 
+    public componentWillUnmount = (): void => {
+        clearTimeout(this.timeout);
+    };
+
     protected onChangeInputHandler = (event: InputChangeEvent): void => {
         const { value } = event.target;
         const { minThreshold } = this.props;

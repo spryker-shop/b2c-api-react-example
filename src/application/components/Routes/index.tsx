@@ -51,7 +51,7 @@ export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
             <Route path={ pathRegisterPage } exact render={ props => <LoadableRegisterPage {...props} /> }/>
             <Route path={ pathCartPage } exact render={ props => <LoadableCartPage {...props} /> }/>
             <ProtectedRoute path={ pathCustomerPage } render={ props => <LoadableCustomerPage {...props} /> }/>
-            <Route path={ pathHomePage } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
+            <Route path={ pathForgotPassword } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
             <Route
                 path={ `${pathResetPassword}/:restoreKey` }
                 exact
@@ -69,7 +69,6 @@ export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
                 render={ props => <LoadableWishlistDetail {...props} /> }
             />
 
-            { /* TODO: Change to ProtectedRoute */ }
             <Route path={ pathCheckoutPage } exact render={ props => <LoadableCheckoutPage {...props} /> }/>
             <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
             <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>

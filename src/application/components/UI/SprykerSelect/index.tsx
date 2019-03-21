@@ -31,11 +31,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
     };
 
     protected getMenuItemFirst = (): JSX.Element => {
-        const { classes, menuItemFirst } = this.props;
-
-        if (!menuItemFirst) {
-            return null;
-        }
+        const { classes } = this.props;
 
         const menuItemsTemplate = this.getFirstItemTemplate();
 
