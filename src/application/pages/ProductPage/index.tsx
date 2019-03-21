@@ -17,6 +17,7 @@ import { ProductConfiguratorAddToWishlist } from './ProductConfiguratorAddToWish
 import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IImageSlide } from '@application/components/ImageSlider/types';
+import { ProductRelations } from '@application/containers/ProductRelations';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
 import { withRouter } from 'react-router';
@@ -193,10 +194,11 @@ export class ProductPageComponent extends React.Component<Props, State> {
             description,
             availability
         } = this.state;
-        const { classes, isUserLoggedIn } = this.props;
+        const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
         const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
             this.props.isRejected;
+        const isShouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
         return (
             <div className={ classes.root }>
@@ -257,6 +259,11 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 description={ description }
                                 sku={ sku ? sku : this.props.product.abstractProduct.sku }
                             />
+                            {isShouldLoadRelationsImmediately &&
+                                <ErrorBoundary>
+                                    <ProductRelations sku={ this.props.product.abstractProduct.sku } />
+                                </ErrorBoundary>
+                            }
                         </AppMain>
                     </>
                 }

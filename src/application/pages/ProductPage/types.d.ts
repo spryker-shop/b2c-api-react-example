@@ -29,6 +29,7 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     isProductExist: boolean;
     anonymId: string;
     getProductAvailability: Function;
+    isWishlistsFetched: boolean;
 }
 
 export interface ProductPageState extends IProductPropFullData, ISuperAttributes {

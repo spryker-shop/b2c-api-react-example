@@ -226,8 +226,8 @@ export const messages: IMessages = {
         'word.total.title': 'Total',
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
-        'your.order.title': 'Your Order',
-        'zip.code.label': 'Zipcode'
+        'zip.code.label': 'Zipcode',
+        'product.relations.title': 'You also may be intrested in',
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -451,8 +451,8 @@ export const messages: IMessages = {
         'word.total.title': 'Gesamtsumme',
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
-        'your.order.title': 'Deine Bestellung',
-        'zip.code.label': 'PLZ'
+        'zip.code.label': 'PLZ',
+        'product.relations.title': 'Sie könnten auch interessiert sein',
     }
 };
 
