@@ -1,6 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IAvailableLabelsCollection, IProductsLabeledCollection } from '@interfaces/searchPageData';
+import { IProductLabel } from '@interfaces/product';
 
 export type IProductImage = {
     id: number;
@@ -9,6 +9,5 @@ export type IProductImage = {
 
 export interface IProductImageSliderProps extends WithStyles<typeof styles> {
     images: IProductImage[];
-    productsLabeled: string[] | null;
-    availableLabels: IAvailableLabelsCollection | null;
+    productLabels: IProductLabel[] | null;
 }

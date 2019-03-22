@@ -124,8 +124,7 @@ export interface IProductDataParsed {
     concreteProducts: {
         [key: string]: IProductPropFullData
     };
-    productsLabeled: string[] | null;
-    availableLabels: IAvailableLabelsCollection | null;
+    productLabels: IProductLabel[] | null;
 }
 
 export interface IProductLabel {

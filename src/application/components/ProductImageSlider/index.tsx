@@ -9,6 +9,7 @@ import { RightIcon, LeftIcon, BottomIcon, TopIcon } from './icons';
 import { IProductImageSliderProps as Props } from './types';
 import { styles } from './styles';
 import { getProductLabel } from '@helpers/product/label';
+import { ProductLabel } from '@application/components/ProductLabel';
 
 @connect
 export class ProductImageSliderComponent extends React.Component<Props> {
@@ -53,19 +54,8 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         );
     };
 
-    protected renderLabels = (): JSX.Element => {
-        const { productsLabeled, availableLabels } = this.props;
-
-        console.log(productsLabeled, availableLabels);
-        if (productsLabeled) {
-            const labelsIdArr = productsLabeled;
-            const label = getProductLabel(productsLabeled, availableLabels);
-            console.log(label);
-        }
-    }
-
     public render(): JSX.Element {
-        const { classes, images } = this.props;
+        const { classes, images, productLabels } = this.props;
         const thumbnailSliderSlidesToShow = 6;
         const isScrolledSlider = images.length >= thumbnailSliderSlidesToShow;
         const isSingleSlide = images.length === 1;
@@ -115,14 +105,16 @@ export class ProductImageSliderComponent extends React.Component<Props> {
                     item
                     className={`${classes.mainSliderCol} ${isSingleSlide ? classes.mainSliderFullWidth : ''}`}
                 >
-                    {this.renderLabels()}
-                    <Slider
-                        { ...mainSliderSettings }
-                        ref={ slider => (this.mainSliderRef = slider) }
-                        className={ classes.mainSlider }
-                    >
-                        { this.renderMainSliderItems() }
-                    </Slider>
+                    <div className={ classes.sliderWrapper }>
+                        <ProductLabel label={ productLabels } classes={{ labelsOuter: classes.label }} />
+                        <Slider
+                            { ...mainSliderSettings }
+                            ref={ slider => (this.mainSliderRef = slider) }
+                            className={ classes.mainSlider }
+                        >
+                            { this.renderMainSliderItems() }
+                        </Slider>
+                    </div>
                 </Grid>
             </Grid>
         );

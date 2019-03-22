@@ -253,14 +253,14 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 description={ description }
                                 sku={ sku ? sku : this.props.product.abstractProduct.sku }
                             />
-                            {isShouldLoadRelationsImmediately &&
-                                <ErrorBoundary>
-                                    <ProductRelations
-                                        sku={ this.props.product.abstractProduct.sku }
-                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
-                                    />
-                                </ErrorBoundary>
-                            }
+                            {/*{isShouldLoadRelationsImmediately &&*/}
+                                {/*<ErrorBoundary>*/}
+                                    {/*<ProductRelations*/}
+                                        {/*sku={ this.props.product.abstractProduct.sku }*/}
+                                        {/*title={ <FormattedMessage id={ 'product.relations.title' } /> }*/}
+                                    {/*/>*/}
+                                {/*</ErrorBoundary>*/}
+                            {/*}*/}
                         </AppMain>
                     </>
                 }

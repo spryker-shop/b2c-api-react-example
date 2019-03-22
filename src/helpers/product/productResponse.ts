@@ -15,6 +15,7 @@ import {
 } from '@helpers/product/types';
 import { IAvailableLabelsCollection, IProductLabelResponse } from '@interfaces/searchPageData';
 import { IProductRelationsIncluded, IProductRelationsLabel } from '@helpers/productRelations/types';
+import { getProductLabel } from '@helpers/product/label';
 
 const defaultProductQuantity = 10;
 
@@ -45,8 +46,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             productType: abstractProductType
         },
         concreteProducts: {},
-        productsLabeled: null,
-        availableLabels: {}
+        productLabels: null
     };
     let attributeNamesContainer: IProductAttributeNames = {};
 
@@ -70,12 +70,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                 productType: concreteProductType
             };
         });
-    }
-
-    if (data.relationships['product-labels']) {
-        const productAvailableLabels = data.relationships['product-labels'].data;
-
-        result.productsLabeled = productAvailableLabels.map((item: IProductLabelResponse) => item.id);
     }
 
     included.forEach((row: TRowProductResponseIncluded) => {
@@ -151,24 +145,36 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                 }
             }
         }
-        if (row.type === 'product-labels') {
-            if (!result.productsLabeled) {
-                result.availableLabels = {};
-            }
 
-            result.availableLabels[row.id] = {
-                id: row.id,
-                frontEndReference: row.attributes.frontEndReference,
-                isExclusive: row.attributes.isExclusive,
-                name: row.attributes.name,
-                position: row.attributes.position
-            };
+        if (row.type === 'product-labels') {
+            result.productLabels = parseProductLabelsResponse(data, row);
         }
     });
 
     result.superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
 
     return result;
+};
+
+const parseProductLabelsResponse = (data: any, row: any): any => {
+    const productAvailableLabels = data.relationships['product-labels'].data;
+    const filteredAvailableLabels = productAvailableLabels.map((item: IProductLabelResponse) => item.id);
+
+    if (!filteredAvailableLabels) {
+        return null;
+    }
+
+    const availableLabels: IAvailableLabelsCollection = {};
+
+    availableLabels[row.id] = {
+        id: row.id,
+        frontEndReference: row.attributes.frontEndReference,
+        isExclusive: row.attributes.isExclusive,
+        name: row.attributes.name,
+        position: row.attributes.position
+    };
+
+    return getProductLabel(filteredAvailableLabels, availableLabels);
 };
 
 export const parseProductAvailabilityResponse = (response: IProductAvailabilitiesRawResponse):

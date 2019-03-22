@@ -22,6 +22,9 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         padding: 0
     },
+    sliderWrapper: {
+        position: 'relative'
+    },
     mainSlider: {
         minHeight: 0,
         minWidth: 0,
@@ -194,5 +197,9 @@ export const styles = (theme: Theme) => createStyles({
         backgroundColor: '#eaeaea',
         transition: `width ${ animationDuration }, height ${ animationDuration }, 
             background-color ${ animationDuration }`
+    },
+    label: {
+        top: 20,
+        left: 15
     }
 });
