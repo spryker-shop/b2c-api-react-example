@@ -9,7 +9,7 @@ export interface IProductRelationsProps extends WithStyles<styles> {
     sku: TProductSKU;
     products: IProductRelationsItem[];
     currency: TAppCurrency;
-
+    title?: string | JSX.Element;
     getProductRelations: (sku: string) => void;
     changeLocation: Function;
 }
