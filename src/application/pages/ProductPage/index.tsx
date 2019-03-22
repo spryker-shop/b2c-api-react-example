@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { withRouter } from 'react-router';
 import {
     createPathToIdProductConcrete,
     findIdProductConcreteByPath,
@@ -7,6 +8,7 @@ import {
     getInitialSuperAttrSelected,
     parseCurrentProductDataObject
 } from '@helpers/product';
+import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { ProductImageSlider } from '@application/components/ProductImageSlider';
@@ -18,13 +20,11 @@ import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IProductImage } from '@application/components/ProductImageSlider/types';
 import { ProductRelations } from '@application/containers/ProductRelations';
+import { Breadcrumbs } from '@application/components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
-import { withRouter } from 'react-router';
-import { Breadcrumbs } from '@application/components/Breadcrumbs';
-import { styles } from './styles';
 import { IBreadcrumbItem } from '@interfaces/category';
-import { FormattedMessage } from 'react-intl';
+import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
@@ -253,14 +253,14 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 description={ description }
                                 sku={ sku ? sku : this.props.product.abstractProduct.sku }
                             />
-                            {/*{isShouldLoadRelationsImmediately &&*/}
-                                {/*<ErrorBoundary>*/}
-                                    {/*<ProductRelations*/}
-                                        {/*sku={ this.props.product.abstractProduct.sku }*/}
-                                        {/*title={ <FormattedMessage id={ 'product.relations.title' } /> }*/}
-                                    {/*/>*/}
-                                {/*</ErrorBoundary>*/}
-                            {/*}*/}
+                            {isShouldLoadRelationsImmediately &&
+                                <ErrorBoundary>
+                                    <ProductRelations
+                                        sku={ this.props.product.abstractProduct.sku }
+                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                                    />
+                                </ErrorBoundary>
+                            }
                         </AppMain>
                     </>
                 }
