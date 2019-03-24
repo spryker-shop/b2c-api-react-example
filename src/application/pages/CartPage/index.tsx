@@ -8,11 +8,12 @@ import { CartRows } from './CartRows';
 import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { ProductRelations } from '@application/containers/ProductRelations';
 
 @connect
 export class CartPageBase extends React.Component<CartPageProps> {
     public render() {
-        const {classes, isCartEmpty, isUserLoggedIn, totalQty} = this.props;
+        const {classes, isCartEmpty, isUserLoggedIn, totalQty, cartId} = this.props;
 
         if (isCartEmpty) {
             return (
@@ -64,6 +65,15 @@ export class CartPageBase extends React.Component<CartPageProps> {
                     <Grid item xs={12} md={4}>
                         <ErrorBoundary>
                             <OrderSummary />
+                        </ErrorBoundary>
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <ErrorBoundary>
+                            <ProductRelations
+                                cartId={ cartId }
+                                title={ <FormattedMessage id={ 'similar.products.title' } /> }
+                                type="cart"
+                            />
                         </ErrorBoundary>
                     </Grid>
                 </Grid>

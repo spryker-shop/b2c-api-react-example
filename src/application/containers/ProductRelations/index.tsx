@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
 import { IProductRelationsProps as Props } from './types';
 import { TProductSKU } from '@interfaces/product';
 import { ProductsSlider } from '@application/components/ProductsSlider';
@@ -15,25 +14,33 @@ class ProductRelationsComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        const { sku, getProductRelations } = this.props;
+        const { sku, getProductRelations, cartId, getProductRelationsCart } = this.props;
 
         if (sku) {
             getProductRelations(sku);
         }
+
+        if (cartId) {
+            getProductRelationsCart(cartId);
+        }
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isLoading, getProductRelations } = this.props;
+        const { isLoading, getProductRelations, cartId, sku, getProductRelationsCart } = this.props;
 
         if (!isLoading && prevProps.sku !== this.props.sku) {
-            getProductRelations(this.props.sku);
+            getProductRelations(sku);
+        }
+
+        if (!isLoading && prevProps.cartId !== cartId) {
+            getProductRelationsCart(cartId);
         }
     };
 
     public render = (): JSX.Element => {
-        const { classes, products, currency, title } = this.props;
+        const { classes, products, currency, title, isLoading } = this.props;
 
-        if (!products.length) {
+        if (!products.length || isLoading) {
             return null;
         }
 
