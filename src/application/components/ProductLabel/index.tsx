@@ -34,10 +34,8 @@ const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
             const colorClassName: string = labelData[item.type].className;
 
             return (
-                <span className={ classes.labelItem }>
-                    <span
-                        key={`${index}+${item.text}`}
-                        className={`${classes.labelText} ${colorClassName}`}>
+                <span className={ classes.labelItem } key={`${index}+${item.text}`}>
+                    <span className={`${classes.labelText} ${colorClassName}`}>
                         { item.text }
                     </span>
                 </span>
