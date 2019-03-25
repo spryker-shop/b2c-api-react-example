@@ -41,51 +41,117 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
     };
 
     protected handleChangeRange = (value: number[]): void => {
-        const { handleChange, attributeName } = this.props;
-        this.setState({ currentMinValue: value[0], currentMaxValue: value[1] });
+        const { handleChange, attributeName, min, max } = this.props;
+        this.setState({ currentMinValue: value[0], currentMaxValue: value[1] }, () => {
+            const { currentMinValue, currentMaxValue } = this.state;
 
-        handleChange(attributeName, {
-            min: value[0],
-            max: value[1]
+            handleChange(attributeName, {
+                min: currentMinValue === min ? min : value[0],
+                max: currentMaxValue === max ? max : value[1]
+            });
         });
     };
 
     protected isShouldUpdateMinField = (values: NumberFormatValues): boolean => {
-        const { handleChange, attributeName, min } = this.props;
+        const { handleChange, attributeName } = this.props;
         const { currentMaxValue } = this.state;
         const newValue = values.floatValue;
+        const valueOnEmptyField = 0;
 
-        if (newValue < currentMaxValue && newValue >= min) {
-            this.setState({ currentMinValue: newValue });
+        if (!Boolean(values.formattedValue.length)) {
+            this.setState({ currentMinValue: valueOnEmptyField });
 
             handleChange(attributeName, {
-                min: newValue,
+                min: valueOnEmptyField,
                 max: currentMaxValue
             });
 
             return true;
         }
 
-        return false;
+        this.setState({ currentMinValue: newValue });
+
+        handleChange(attributeName, {
+            min: newValue,
+            max: currentMaxValue
+        });
+
+        return true;
+    };
+
+    protected handleBlurMinField = (): void => {
+        const { currentMinValue, currentMaxValue } = this.state;
+        const { handleChange, attributeName, min } = this.props;
+
+        if (currentMinValue < min) {
+            this.setState({ currentMinValue: min });
+
+            handleChange(attributeName, {
+                min,
+                max: currentMaxValue
+            });
+        }
+
+        if (currentMinValue >= currentMaxValue) {
+            const decrementFromMaxCurrentValue = 1;
+            this.setState({ currentMinValue: currentMaxValue - decrementFromMaxCurrentValue });
+
+            handleChange(attributeName, {
+                min: currentMaxValue - decrementFromMaxCurrentValue,
+                max: currentMaxValue
+            });
+        }
     };
 
     protected isShouldUpdateMaxField = (values: NumberFormatValues): boolean => {
         const { handleChange, attributeName, max } = this.props;
         const { currentMinValue } = this.state;
         const newValue = values.floatValue;
+        const valueOnEmptyField = 0;
 
-        if (currentMinValue < newValue && newValue <= max) {
-            this.setState({ currentMaxValue: newValue });
+        if (!Boolean(values.formattedValue.length)) {
+            this.setState({ currentMaxValue: valueOnEmptyField });
 
             handleChange(attributeName, {
                 min: currentMinValue,
-                max: newValue
+                max: valueOnEmptyField
             });
 
             return true;
         }
 
-        return false;
+        this.setState({ currentMaxValue: newValue });
+
+        handleChange(attributeName, {
+            min: currentMinValue,
+            max: newValue
+        });
+
+        return true;
+    };
+
+    protected handleBlurMaxField = (): void => {
+        const { currentMinValue, currentMaxValue } = this.state;
+        const { handleChange, attributeName, max } = this.props;
+
+        if (currentMaxValue > max) {
+            this.setState({ currentMaxValue: max });
+
+            handleChange(attributeName, {
+                min: currentMinValue,
+                max
+            });
+        }
+
+        if (currentMaxValue <= currentMinValue) {
+            const incrementFromMinCurrentValue = 1;
+            this.setState({ currentMaxValue: currentMinValue + incrementFromMinCurrentValue });
+
+            handleChange(attributeName, {
+                min: currentMinValue,
+                max: currentMinValue + incrementFromMinCurrentValue
+            });
+        }
     };
 
     public render(): JSX.Element {
@@ -148,6 +214,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                                 value={ currentMinValue }
                                 isAllowed={ this.isShouldUpdateMinField }
                                 type="text"
+                                onBlur={ this.handleBlurMinField }
                             />
                         </Grid>
                         <Grid item xs={ 6 }>
@@ -158,6 +225,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                                 value={ currentMaxValue }
                                 isAllowed={ this.isShouldUpdateMaxField }
                                 type="text"
+                                onBlur={ this.handleBlurMaxField }
                             />
                         </Grid>
                     </Grid>

@@ -9,4 +9,5 @@ export interface SprykerNumberFormatInputProps {
     value: number;
     type: 'text' | 'tel' | 'password';
     isAllowed: (values: NumberFormatValues) => boolean;
+    onBlur?: () => void;
 }
