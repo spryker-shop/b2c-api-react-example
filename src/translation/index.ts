@@ -6,7 +6,7 @@ interface IMessages {
 export const messages: IMessages = {
     'en': {
         'accept.terms.title': 'Accept terms',
-        'account.title': 'Your Account',
+        'account.title': 'My Account',
         'account.was.deleted.message': 'Your account was deleted!',
         'active.filters.title': 'Active Filters',
         'add.address.title': 'Add Address',
@@ -230,7 +230,7 @@ export const messages: IMessages = {
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
-        'account.title': 'Mein Konto',
+        'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',
         'active.filters.title': 'Aktive Filter',
         'add.address.title': 'ADRESSE HINZUFÜGEN',
