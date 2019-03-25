@@ -6,9 +6,13 @@ export const styles = (theme: Theme) => createStyles({
         position: 'absolute',
         top: 10,
         left: 5,
-        width: 'auto',
+        right: 5,
         zIndex: 351,
         pointerEvents: 'none',
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    labelItem: {
         padding: '0 5px 10px'
     },
     labelText: {

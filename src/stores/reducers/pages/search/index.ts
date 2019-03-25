@@ -9,8 +9,7 @@ import {
     PAGES_SEARCH_SORT_CLEAR,
     PAGES_SUGGESTION_REQUEST,
     PAGES_SEARCH_PAGINATION_PAGE_SET,
-    PAGES_SEARCH_CURRENT_CATEGORY_SET,
-    PAGES_SEARCH_PAGINATION_PAGE_CLEAR
+    PAGES_SEARCH_CURRENT_CATEGORY_SET
 } from '@stores/actionTypes/pages/search';
 import {
     IAvailableLabelsCollection,
@@ -135,13 +134,11 @@ export const pageSearch = produce<ISearchState>(
             case PAGES_SEARCH_FILTERS_SET:
                 draft.data.activeFilters = action.payloadActiveFilters.activeFilters;
                 draft.data.activeRangeFilters = action.payloadActiveFilters.activeRangeFilters;
-                draft.data.currentPaginationPage = 1;
                 draft.data.isFiltersUpdated = true;
                 break;
             case PAGES_SEARCH_SORT_SET:
                 draft.data.currentSort = action.payloadActiveSort.sort;
                 draft.data.currentItemsPerPage = action.payloadActiveSort.itemsPerPage;
-                draft.data.currentPaginationPage = 1;
                 draft.data.isFiltersUpdated = true;
                 break;
             case PAGES_SEARCH_SORT_CLEAR:
