@@ -76,12 +76,12 @@ export class SearchPageComponent extends React.Component<ISearchPageProps> {
         });
     }
 
-    protected sendCategoryRequest = async (query: ISearchQuery, isShouldUpdatePath?: boolean): Promise<void> => {
+    protected sendCategoryRequest = async (query: ISearchQuery, shouldUpdatePath?: boolean): Promise<void> => {
         if (!this.props.isLoading) {
             await this.props.sendSearch(query);
         }
 
-        if (isShouldUpdatePath) {
+        if (shouldUpdatePath) {
             this.updatePageUrl(query);
         }
     };
