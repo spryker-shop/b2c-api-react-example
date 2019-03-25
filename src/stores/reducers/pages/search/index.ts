@@ -134,13 +134,11 @@ export const pageSearch = produce<ISearchState>(
             case PAGES_SEARCH_FILTERS_SET:
                 draft.data.activeFilters = action.payloadActiveFilters.activeFilters;
                 draft.data.activeRangeFilters = action.payloadActiveFilters.activeRangeFilters;
-                draft.data.currentPaginationPage = 1;
                 draft.data.isFiltersUpdated = true;
                 break;
             case PAGES_SEARCH_SORT_SET:
                 draft.data.currentSort = action.payloadActiveSort.sort;
                 draft.data.currentItemsPerPage = action.payloadActiveSort.itemsPerPage;
-                draft.data.currentPaginationPage = 1;
                 draft.data.isFiltersUpdated = true;
                 break;
             case PAGES_SEARCH_SORT_CLEAR:
