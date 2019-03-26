@@ -12,7 +12,7 @@ import {
 } from '@stores/actions/common/cart';
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { getAnonymId } from '@stores/reducers/common/init';
+import { getAnonymId } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);

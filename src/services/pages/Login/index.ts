@@ -5,7 +5,16 @@ import {
     loginCustomerFulfilledStateAction,
     loginCustomerPendingStateAction,
     loginCustomerRejectedStateAction,
-    logoutAction
+    logoutAction,
+    registerPendingState,
+    registerFulfilledState,
+    registerRejectedState,
+    forgotPasswordPendingState,
+    forgotPasswordRejectedState,
+    forgotPasswordFulfilledState,
+    resetPasswordPendingState,
+    resetPasswordRejectedState,
+    resetPasswordFulfilledState
 } from '@stores/actions/pages/login';
 import { clearAddressAction } from '@stores/actions/pages/addresses';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
@@ -14,14 +23,14 @@ import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
+import { getAnonymId, clearAnonymId } from '@helpers/common/anonymId';
+import { anonymIdFilFilled } from '@stores/actions/common/init';
 
 export class PagesLoginService extends ApiServiceAbstract {
-    public static async register(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        payload: ICustomerProfile,
-        anonymId: string
-    ): Promise<void> {
+    public static async register(dispatch: Function, payload: ICustomerProfile, getState: Function): Promise<void> {
+        const anonymId: string = getState().init.data.anonymId;
+        dispatch(registerPendingState());
+
         try {
             const body = {
                 data: {
@@ -38,9 +47,7 @@ export class PagesLoginService extends ApiServiceAbstract {
                 });
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                });
+                dispatch(registerFulfilledState());
 
                 NotificationsMessage({
                     id: 'register.success.message',
@@ -51,12 +58,10 @@ export class PagesLoginService extends ApiServiceAbstract {
                     username: payload.email,
                     password: payload.password,
                 }, anonymId);
+                clearAnonymId();
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
+                dispatch(registerRejectedState(errorMessage));
 
                 if (response.status === 422) {
                     NotificationsMessage({
@@ -72,10 +77,8 @@ export class PagesLoginService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
+            dispatch(registerRejectedState(error.message));
+
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -132,7 +135,9 @@ export class PagesLoginService extends ApiServiceAbstract {
         }
     }
 
-    public static async forgotPassword(ACTION_TYPE: string, dispatch: Function, email: string): Promise<void> {
+    public static async forgotPassword(dispatch: Function, email: string): Promise<void> {
+        dispatch(forgotPasswordPendingState());
+
         try {
             const body = {
                 data: {
@@ -148,18 +153,15 @@ export class PagesLoginService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                });
+                dispatch(forgotPasswordFulfilledState());
+
                 NotificationsMessage({
                     id: 'link.sanded.created.message',
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: response.problem},
-                });
+                dispatch(forgotPasswordRejectedState(response.problem));
+
                 NotificationsMessage({
                     message: response.problem,
                     type: typeNotificationError
@@ -167,10 +169,8 @@ export class PagesLoginService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
+            dispatch(forgotPasswordRejectedState(error.message));
+
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -179,11 +179,9 @@ export class PagesLoginService extends ApiServiceAbstract {
         }
     }
 
-    public static async resetPassword(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        payload: IResetPasswordPayload
-    ): Promise<void> {
+    public static async resetPassword(dispatch: Function, payload: IResetPasswordPayload): Promise<void> {
+        dispatch(resetPasswordPendingState());
+
         try {
             const body = {
                 data: {
@@ -199,18 +197,15 @@ export class PagesLoginService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                });
+                dispatch(resetPasswordFulfilledState());
+
                 NotificationsMessage({
                     id: 'password.successfull.updated.message',
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: response.problem},
-                });
+                dispatch(resetPasswordRejectedState(response.problem));
+
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: response.problem,
@@ -219,10 +214,8 @@ export class PagesLoginService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
+            dispatch(resetPasswordRejectedState(error.message));
+
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -232,6 +225,9 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static logout(dispatch: Function): void {
+        const anonymId = getAnonymId();
+
+        dispatch(anonymIdFilFilled(anonymId));
         dispatch(logoutAction());
         dispatch(clearAddressAction());
         dispatch(deleteCustomerFulfilledStateAction());

@@ -1,4 +1,4 @@
-import { getAppLocale, getCategoriesTree } from '@stores/reducers/common/init';
+import { getAppLocale, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 import { reduxify } from '@application/hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/category';

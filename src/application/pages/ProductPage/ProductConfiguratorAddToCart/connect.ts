@@ -1,5 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { getAnonymId, getPayloadForCreateCart } from '@stores/reducers/common/init';
+import { getAnonymId, getPayloadForCreateCart } from '@stores/reducers/common/init/selectors';
 import {
     getWishlistsCollectionFromStore,
     isPageWishlistStateLoading,

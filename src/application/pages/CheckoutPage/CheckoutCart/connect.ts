@@ -1,7 +1,7 @@
 import { reduxify } from '@application/hoc/Reduxify';
 import { getCartTotals, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
 import { getCustomerCartsAction, getGuestCartAction } from '@stores/actions/common/cart';
-import { getAppLocale } from '@stores/reducers/common/init';
+import { getAppLocale } from '@stores/reducers/common/init/selectors';
 import { ICartItem, ICartTotals } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 

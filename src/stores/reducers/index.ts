@@ -8,7 +8,8 @@ import { isPageCustomerProfileLoading, pageCustomerProfile } from './pages/custo
 import { pageCheckout } from './pages/checkout';
 import { isPageCheckoutStateLoading } from './pages/checkout/selectors';
 import { cart } from './common/cart';
-import { init, isAppLoading } from './common/init';
+import { isAppLoading } from './common/init/selectors';
+import { init } from './common/init';
 import { isOrderHistoryLoading, orderHistory } from './pages/orderHistory';
 import { isOrderDetailsLoading, orderDetails } from './pages/orderDetails';
 import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';

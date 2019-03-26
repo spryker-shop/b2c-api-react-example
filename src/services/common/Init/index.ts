@@ -1,16 +1,16 @@
-import api, { nodeApi } from '@services/api';
+import api from '@services/api';
 import {
     categoriesFulfilledState,
     categoriesPendingState,
     categoriesRejectedState,
-    IInitApplicationDataPayload,
     initApplicationDataFulfilledStateAction,
     initApplicationDataPendingStateAction,
     initApplicationDataRejectedStateAction,
     switchLocalePendingState,
     switchLocaleFulfilledState,
     switchLocaleRejectedState,
-    getCategoriesAction
+    getCategoriesAction,
+    anonymIdFilFilled
 } from '@stores/actions/common/init';
 import { parseStoreResponse } from '@helpers/init/store';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
@@ -20,29 +20,20 @@ import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
+import { getAnonymId } from '@helpers/common/anonymId';
 
 export class InitAppService extends ApiServiceAbstract {
-    public static async getInitData(dispatch: Function, payload?: IInitApplicationDataPayload): Promise<void> {
-        let anonymId: string = `_${Math.random().toString(36).substr(2, 9)}`;
+    public static async getInitData(dispatch: Function): Promise<void> {
+        dispatch(initApplicationDataPendingStateAction());
 
         try {
-            const nodeResponse: IApiResponseData = await nodeApi.get('getUniqueUser');
-
-            if (nodeResponse.ok) {
-                anonymId = nodeResponse.data;
-            }
-
-        } catch (err) {
-            throw err;
-        }
-
-        try {
-            dispatch(initApplicationDataPendingStateAction());
+            const anonymId = getAnonymId();
             const response: IApiResponseData = await api.get('stores', null);
 
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
-                dispatch(initApplicationDataFulfilledStateAction({ ...responseParsed, anonymId }));
+                dispatch(initApplicationDataFulfilledStateAction(responseParsed));
+                dispatch(anonymIdFilFilled(anonymId));
                 dispatch(getCategoriesAction());
             } else {
                 const errorMessage = this.getParsedAPIError(response);

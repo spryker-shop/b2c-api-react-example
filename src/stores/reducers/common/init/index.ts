@@ -1,17 +1,14 @@
-import { CATEGORIES_TREE_REQUEST, INIT_APP_ACTION_TYPE, SWITCH_LOCALE } from '@stores/actionTypes/common/init';
+import { IInitAction, IInitState, ILocaleActionPayload } from '@stores/reducers/common/init/types';
+import {
+    ANONYM_ID,
+    CATEGORIES_TREE_REQUEST,
+    INIT_APP_ACTION_TYPE,
+    SWITCH_LOCALE
+} from '@stores/actionTypes/common/init';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { ICartCreatePayload } from '@services/common/Cart/types';
-import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { IApiErrorResponse } from '@services/types';
-import { TAppTimeZone } from '@interfaces/locale';
-import { TAppCurrency } from '@interfaces/currency';
-import { TAppPriceMode } from '@interfaces/product';
-import { TAppStore } from '@interfaces/store';
-import { ICategory } from '@interfaces/category';
-import { ICountry } from '@interfaces/country';
 import { IInitData } from '@interfaces/init';
-import { IInitState, IInitAction } from '@stores/reducers/common/init/types';
-import { APP_LOCALE_DEFAULT } from '@configs/environment';
+import { IApiErrorResponse } from '@services/types';
+import { ICategory } from '@interfaces/category';
 
 export const initialState: IInitState = {
     data: {
@@ -27,8 +24,7 @@ export const initialState: IInitState = {
     },
 };
 
-export const init = function(state: IInitState = initialState,
-                             action: IInitAction): IInitState {
+export const init = function(state: IInitState = initialState, action: IInitAction): IInitState {
     switch (action.type) {
         case `${INIT_APP_ACTION_TYPE}_PENDING`:
         case `${CATEGORIES_TREE_REQUEST}_PENDING`:
@@ -40,128 +36,81 @@ export const init = function(state: IInitState = initialState,
         case `${CATEGORIES_TREE_REQUEST}_REJECTED`:
         case `${SWITCH_LOCALE}_REJECTED`:
             return handleInitAppRejected(state, action.payloadRejected || {error: action.error});
-
         case `${CATEGORIES_TREE_REQUEST}_FULFILLED`:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    ok: true,
-                    categoriesTree: action.payloadCategoriesTreeFulfilled.categories,
-                },
-                ...getReducerPartFulfilled(),
-            };
+            return handleCategoriesTreeRequestFulfilled(state, action.payloadCategoriesTreeFulfilled);
         case `${SWITCH_LOCALE}_FULFILLED`:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    locale: action.payloadLocaleFulfilled.locale,
-                },
-                ...getReducerPartFulfilled(),
-            };
+            return handleSwitchLocaleFulfilled(state, action.payloadLocaleFulfilled);
         case `${INIT_APP_ACTION_TYPE}_CLEAR`:
-            return {
-                ...state,
-                data: {
-                    anonymId: ''
-                }
-            };
+            return handleInitAppClear(state);
+        case `${ANONYM_ID}_FULFILLED`:
+            return handleAnonymIdFulfilled(state, action.payloadAnonymIdFulfilled);
         default:
             return state;
     }
 };
 
-// handlers
-const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) =>
-    ({
-        ...appState,
-        data: {
-            ...appState.data,
-            ok: true,
-            priceMode: payload.priceMode,
-            currency: payload.currency,
-            store: payload.store,
-            locale: payload.locale,
-            timeZone: payload.timeZone,
-            countries: payload.countries,
-            anonymId: payload.anonymId,
-        },
-        ...getReducerPartFulfilled(),
-    });
+const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+        ok: true,
+        priceMode: payload.priceMode,
+        currency: payload.currency,
+        store: payload.store,
+        locale: payload.locale,
+        timeZone: payload.timeZone,
+        countries: payload.countries
+    },
+    ...getReducerPartFulfilled(),
+});
 
-const handleInitAppRejected = (appState: IInitState, payload: IApiErrorResponse) =>
-    ({
-        ...appState,
-        data: {
-            ...appState.data,
-            ok: false,
-        },
-        ...getReducerPartRejected(payload.error),
-    });
-const handleInitAppPending = (appState: IInitState) =>
-    ({
-        ...appState,
-        data: {
-            ...appState.data,
-        },
-        ...getReducerPartPending(),
-    });
+const handleInitAppRejected = (appState: IInitState, payload: IApiErrorResponse) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+        ok: false,
+    },
+    ...getReducerPartRejected(payload.error),
+});
 
-// selectors
+const handleInitAppPending = (appState: IInitState) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+    },
+    ...getReducerPartPending(),
+});
 
-export function isAppInitiated(state: IReduxStore, props: IReduxOwnProps): boolean {
-    return (state.init.data.ok);
-}
+const handleCategoriesTreeRequestFulfilled = (appState: IInitState, payload: {categories: ICategory[]}) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+        ok: true,
+        categoriesTree: payload.categories,
+    },
+    ...getReducerPartFulfilled()
+});
 
-export function isAppLoading(state: IReduxStore, props: IReduxOwnProps): boolean {
-    return (state.init && state.init.pending && state.init.pending === true);
-}
+const handleSwitchLocaleFulfilled = (appState: IInitState, payload: ILocaleActionPayload) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+        locale: payload.locale,
+    },
+    ...getReducerPartFulfilled(),
+});
 
-export function isAppStateFulfilled(state: IReduxStore, props: IReduxOwnProps): boolean {
-    return Boolean(state.init && state.init.fulfilled && state.init.fulfilled === true);
-}
+const handleInitAppClear = (appState: IInitState) => ({
+    ...appState,
+    data: {
+        anonymId: ''
+    }
+});
 
-export function getAppCurrency(state: IReduxStore, props: IReduxOwnProps): TAppCurrency {
-    return isAppInitiated(state, props) ? state.init.data.currency : null;
-}
-
-export function getAppLocale(state: IReduxStore, props: IReduxOwnProps): TAppStore {
-    return isAppInitiated(state, props) ? state.init.data.locale : APP_LOCALE_DEFAULT;
-}
-
-export function getAppTimeZone(state: IReduxStore, props: IReduxOwnProps): TAppTimeZone {
-    return isAppInitiated(state, props) ? state.init.data.timeZone : null;
-}
-
-export function getAppPriceMode(state: IReduxStore, props: IReduxOwnProps): TAppPriceMode {
-    return isAppInitiated(state, props) ? state.init.data.priceMode : null;
-}
-
-export function getAppStore(state: IReduxStore, props: IReduxOwnProps): TAppStore {
-    return isAppInitiated(state, props) ? state.init.data.store : null;
-}
-
-export function getCounties(state: IReduxStore, props: IReduxOwnProps): ICountry[] {
-    return isAppInitiated(state, props) ? state.init.data.countries : null;
-}
-
-export function getPayloadForCreateCart(state: IReduxStore, props: IReduxOwnProps): ICartCreatePayload {
-    return (
-        isAppInitiated(state, props)
-            ? {
-                priceMode: state.init.data.priceMode,
-                currency: state.init.data.currency,
-                store: state.init.data.store,
-            }
-            : null
-    );
-}
-
-export function getCategoriesTree(state: IReduxStore, props: IReduxOwnProps): ICategory[] {
-    return state.init.data.categoriesTree;
-}
-
-export function getAnonymId(state: IReduxStore, props: IReduxOwnProps): string {
-    return state.init.data.anonymId;
-}
+const handleAnonymIdFulfilled = (appState: IInitState, payload: string) => ({
+    ...appState,
+    data: {
+        ...appState.data,
+        anonymId: payload
+    }
+});

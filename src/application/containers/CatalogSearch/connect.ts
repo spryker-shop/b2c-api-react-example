@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@application/hoc/Reduxify';
 import { FlyoutSearch } from '@interfaces/searchPageData';
-import { getAppCurrency } from '@stores/reducers/common/init';
+import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { clearSuggestions, sendSuggestionAction } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { TAppCurrency } from '@interfaces/currency';
