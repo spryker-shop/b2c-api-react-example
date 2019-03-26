@@ -58,7 +58,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                 breakpoint: 1280,
                 settings: {
                     slidesToShow: 3,
-                    centerPadding: 0,
+                    centerPadding: '0',
                     centerMode: false,
                 }
             },
@@ -66,7 +66,8 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                 breakpoint: 680,
                 settings: {
                     slidesToShow: 2,
-                    centerPadding: 0,
+                    centerPadding: '0',
+                    centerMode: false,
                 }
             }
         ]

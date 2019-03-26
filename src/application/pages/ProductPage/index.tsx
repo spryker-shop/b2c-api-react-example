@@ -25,6 +25,7 @@ import {
     IProductPropFullData
 } from '@interfaces/product';
 import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 @connect
 export class ProductPageBase extends React.Component<Props, State> {
@@ -155,8 +156,9 @@ export class ProductPageBase extends React.Component<Props, State> {
         })) : null;
 
     public render(): JSX.Element {
-        const { classes } = this.props;
+        const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
+        const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
         return (
             <AppMain>
@@ -219,9 +221,12 @@ export class ProductPageBase extends React.Component<Props, State> {
                                 description={this.state.description}
                                 sku={this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku}
                             />
-                            {this.props.isWishlistsFetched &&
+                            {shouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
-                                    <ProductRelations sku={ this.props.product.abstractProduct.sku } />
+                                    <ProductRelations
+                                        sku={ this.props.product.abstractProduct.sku }
+                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                                    />
                                 </ErrorBoundary>
                             }
                         </div>
