@@ -76,26 +76,30 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
     if (simpleDrop) {
         return (
             <div className={`${classes.layout} ${classes.layoutSimple}`}>
-                <ul className={ classes.listReset }>
-                    { renderCategoriesList(nodes, nodeLevel) }
-                </ul>
+                <div className={ classes.inner }>
+                    <ul className={ classes.listReset }>
+                        { renderCategoriesList(nodes, nodeLevel) }
+                    </ul>
+                </div>
             </div>
         );
     }
 
     return (
         <div className={ classes.layout }>
-            <div className={ classes.container }>
-                <div className={ classes.grid }>
-                    <div className={`${classes.col} ${classes.colList}`}>
-                        <ul className={ classes.listReset }>
-                            { renderCategoriesList(nodes, nodeLevel) }
-                        </ul>
-                    </div>
-                    <div className={`${classes.col} ${classes.colPreviews}`}>
-                        <Grid container spacing={ 24 }>
-                            { renderProductLists() }
-                        </Grid>
+            <div className={ classes.inner }>
+                <div className={ classes.container }>
+                    <div className={ classes.grid }>
+                        <div className={`${classes.col} ${classes.colList}`}>
+                            <ul className={ classes.listReset }>
+                                { renderCategoriesList(nodes, nodeLevel) }
+                            </ul>
+                        </div>
+                        <div className={`${classes.col} ${classes.colPreviews}`}>
+                            <Grid container spacing={ 24 }>
+                                { renderProductLists() }
+                            </Grid>
+                        </div>
                     </div>
                 </div>
             </div>
