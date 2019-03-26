@@ -43,26 +43,38 @@ export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
 
     return (
         <Switch>
-            <Route path={ pathHomePage } exact component={ LoadableHomePage }/>
-            <Route path={ pathSearchPage } component={ LoadableSearchPage }/>
-            <Route path={ pathCategoryPage } component={ LoadableSearchPage }/>
-            <Route path={ pathProductPage } component={ LoadableProductPage }/>
-            <Route path={ pathLoginPage } component={ LoadableLoginPage }/>
-            <Route path={ pathRegisterPage } component={ LoadableRegisterPage }/>
-            <Route path={ pathCartPage } component={ LoadableCartPage }/>
-            <ProtectedRoute path={ pathCustomerPage } component={ LoadableCustomerPage }/>
-            <Route path={ pathForgotPassword } exact component={ LoadablePasswordForgotPage }/>
-            <Route path={ `${pathResetPassword}/:restoreKey` } component={ LoadablePasswordResetPage }/>
+            <Route path={ pathHomePage } exact render={ props => <LoadableHomePage {...props} /> }/>
+            <Route path={ pathCategoryPage } exact render={ props => <LoadableSearchPage {...props} /> }/>
+            <Route path={ pathSearchPage } exact render={ props => <LoadableSearchPage {...props} /> }/>
+            <Route path={ pathProductPage } exact render={ props => <LoadableProductPage {...props} /> }/>
+            <Route path={ pathLoginPage } exact render={ props => <LoadableLoginPage {...props} /> }/>
+            <Route path={ pathRegisterPage } exact render={ props => <LoadableRegisterPage {...props} /> }/>
+            <Route path={ pathCartPage } exact render={ props => <LoadableCartPage {...props} /> }/>
+            <ProtectedRoute path={ pathCustomerPage } render={ props => <LoadableCustomerPage {...props} /> }/>
+            <Route path={ pathForgotPassword } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
+            <Route
+                path={ `${pathResetPassword}/:restoreKey` }
+                exact
+                render={ props => <LoadablePasswordResetPage {...props} /> }
+            />
 
-            <ProtectedRoute path={ pathWishlistsPage } component={ LoadableWishlistPage }/>
-            <ProtectedRoute path={ pathWishlistDetailPage } component={ LoadableWishlistDetail }/>
+            <ProtectedRoute
+                path={ pathWishlistsPage }
+                exact
+                render={ props => <LoadableWishlistPage {...props} /> }
+            />
+            <ProtectedRoute
+                path={ pathWishlistDetailPage }
+                exact
+                render={ props => <LoadableWishlistDetail {...props} /> }
+            />
 
             { /* TODO: Change to ProtectedRoute */ }
-            <Route path={ pathCheckoutPage } component={ LoadableCheckoutPage }/>
-            <Route path={ pathOrderDetailsPage } component={ LoadableOrderDetailsPage }/>
-            <Route path={ pathAddressFormUpdate } component={ CustomerAddressForm }/>
+            <Route path={ pathCheckoutPage } exact render={ props => <LoadableCheckoutPage {...props} /> }/>
+            <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
+            <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>
 
-            <Route path={ pathNotFoundPage } component={ LoadableNotFound }/>
+            <Route path={ pathNotFoundPage } exact render={ props => <LoadableNotFound {...props} /> }/>
         </Switch>
     );
 };

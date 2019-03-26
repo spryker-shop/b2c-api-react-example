@@ -1,3 +1,5 @@
+import { hot } from 'react-hot-loader/root';
+import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
@@ -21,7 +23,7 @@ import { IPageContentProps as Props, IPageContentState as State } from './types'
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
 
-require('./style.scss');
+setConfig({ ErrorOverlay: () => null });
 
 @connect
 @(withRouter as Function)
@@ -110,4 +112,5 @@ class PageContentComponent extends React.Component<Props, State> {
     }
 }
 
-export const PageContent = withStyles(styles)(PageContentComponent);
+const PageContent = withStyles(styles)(PageContentComponent);
+export default hot(PageContent);

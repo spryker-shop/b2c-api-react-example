@@ -6,7 +6,7 @@ interface IMessages {
 export const messages: IMessages = {
     'en': {
         'accept.terms.title': 'Accept terms',
-        'account.title': 'Your Account',
+        'account.title': 'My Account',
         'account.was.deleted.message': 'Your account was deleted!',
         'active.filters.title': 'Active Filters',
         'add.address.title': 'Add Address',
@@ -180,6 +180,7 @@ export const messages: IMessages = {
         'unavailable.title': 'Unavailable',
         'unexpected.error.message': 'Unexpected Error: {messageText}',
         'validate.range.input.error.message': 'Please, fix errors in the fields!',
+        'view.cart.title': 'View Cart',
         'wishlist.add.product.message': 'This item have added in wishlist {messageText}',
         'wishlist.created.message': 'New wishlist created.',
         'wishlist.deleted.message': 'Wishlist deleted successfully.',
@@ -230,7 +231,7 @@ export const messages: IMessages = {
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
-        'account.title': 'Mein Konto',
+        'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',
         'active.filters.title': 'Aktive Filter',
         'add.address.title': 'ADRESSE HINZUFÜGEN',
@@ -404,6 +405,7 @@ export const messages: IMessages = {
         'unavailable.title': 'Nicht verfügbar',
         'unexpected.error.message': 'Unerwarteter Fehler: {messageText}',
         'validate.range.input.error.message': 'Bitte korrigieren Sie Fehler in den Feldern!',
+        'view.cart.title': 'Warenkorb ansehen',
         'wishlist.add.product.message': 'Dieser Artikel wurde in die Wunschliste aufgenommen {messageText}',
         'wishlist.created.message': 'Neue Wunschliste erstellt.',
         'wishlist.deleted.message': 'Wunschliste erfolgreich gelöscht.',

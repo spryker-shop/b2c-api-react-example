@@ -27,7 +27,7 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
         }
     };
 
-    protected delayToSubmit = (name: string, value: number): void => {
+    protected delayToChangeQuantity = (name: string, value: number): void => {
         const { handleChangeQty, value: propsValue } = this.props;
         const isSameValue = propsValue === value;
 
@@ -53,7 +53,7 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
         const newValue = Number(inputValue + step);
 
         this.setState({ inputValue: newValue });
-        this.delayToSubmit(name, newValue);
+        this.delayToChangeQuantity(name, newValue);
     };
 
     protected decrementValueHandler = (): void => {
@@ -62,13 +62,13 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
         const newValue = Number(inputValue - step);
 
         this.setState({ inputValue: newValue });
-        this.delayToSubmit(name, newValue);
+        this.delayToChangeQuantity(name, newValue);
     };
 
     protected onBlurInputHandler = (): void => {
         const { inputValue, name } = this.state;
 
-        this.delayToSubmit(name, inputValue);
+        this.delayToChangeQuantity(name, inputValue);
     };
 
     public render(): JSX.Element {

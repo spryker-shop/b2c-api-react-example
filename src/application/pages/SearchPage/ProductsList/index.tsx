@@ -18,7 +18,7 @@ const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
             <Grid container spacing={ 24 }>
                 { isProductsExist
                     ? products.map((product: IProductCard) => {
-                        let label: IProductLabel | null = null;
+                        let label: IProductLabel[] | null = null;
                         if (productsLabeled) {
                             const labelsIdArr = productsLabeled[product.abstractSku] || null;
                             label = getProductLabel(labelsIdArr, availableLabels);
