@@ -2,7 +2,7 @@ import { IProductCard } from '@interfaces/product';
 import { IPagination } from '@application/components/AppPagination/types';
 import { TCategoryId } from '@application/pages/SearchPage/types';
 import { TAppCurrency } from '@interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@application/pages/SearchPage/types';
+import { TActiveFilters, TActiveRangeFilters } from '@application/pages/SearchPage/SearchFilterList/types';
 
 export type TSpellingSuggestion = string;
 export type TLocalizedName = string;
@@ -38,6 +38,17 @@ export interface FlyoutSearch {
     categories: { [name: string]: string }[] | null;
     completion: string[] | null;
     pending: boolean;
+    fulfilled: boolean;
+}
+
+export interface IActiveSort {
+    sort: string;
+    itemsPerPage: number;
+}
+
+export interface IActiveFilters {
+    activeFilters: TActiveFilters;
+    activeRangeFilters: TActiveRangeFilters;
 }
 
 export interface IProductLabelResponse {
@@ -65,15 +76,15 @@ export interface ILocalizedNamesMap {
     [key: string]: TLocalizedName;
 }
 
-export interface ICatalogSearchDataParsed {
+export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
     filters: ValueFacets[] | null;
-    activeFilters: TActiveFilters;
     category: FilterValue[];
-    currentCategory: string | null;
+    currentCategoryId: number | null;
     currentSort: string | null;
+    currentItemsPerPage: number | null;
+    currentPaginationPage: number;
     rangeFilters: RangeFacets[] | null;
-    activeRangeFilters: TActiveRangeFilters;
     sortParams: string[] | null;
     sortParamLocalizedNames: ILocalizedNamesMap | null;
     categoriesLocalizedName: TLocalizedName | null;
@@ -88,6 +99,8 @@ export interface ISearchPageData extends ICatalogSearchDataParsed {
     dispatch?: Function;
     flyoutSearch?: FlyoutSearch;
     currency?: TAppCurrency;
+    isFiltersUpdated: boolean;
+    isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {

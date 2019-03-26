@@ -1,28 +1,27 @@
+import { hot } from 'react-hot-loader/root';
+import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
-import { StickyContainer } from 'react-sticky';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
+import { withStyles } from '@material-ui/core';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@application/components/Notifications';
 import { messages } from '@translation/';
-import {
-    IPageContentProps as Props,
-    IPageContentState as State
-} from './types';
+import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { styles } from './styles';
 
-const styles = require('./style.scss');
-const className = styles.pageContent;
+setConfig({ ErrorOverlay: () => null });
 
 @connect
 @(withRouter as Function)
-export class PageContent extends React.Component<Props, State> {
-    public state: State = {
+class PageContentComponent extends React.Component<Props, State> {
+    public readonly state: State = {
         mobileNavOpened: false
     };
 
@@ -46,7 +45,7 @@ export class PageContent extends React.Component<Props, State> {
 
             return;
         }
-    }
+    };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         this.clearFlyoutSearchHandler(prevProps);
@@ -58,7 +57,7 @@ export class PageContent extends React.Component<Props, State> {
                 this.props.getGuestCart(this.props.anonymId);
             }
         }
-    }
+    };
 
     private clearFlyoutSearchHandler = (prevProps: Props): void => {
         if (this.props.location.pathname !== prevProps.location.pathname
@@ -76,27 +75,28 @@ export class PageContent extends React.Component<Props, State> {
     private mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
 
     public render(): JSX.Element {
-        const { isLoading, locale } = this.props;
+        const { isLoading, locale, classes } = this.props;
         const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
-                <div className={ className }>
-                    <StickyContainer>
-                        <AppHeader
-                            isLoading={ isLoading }
-                            onMobileNavToggle={ this.mobileNavToggle }
-                            isMobileNavOpened={ mobileNavOpened }
-                        />
-                        <ErrorBoundary>
-                            {getContentRoutes(this.isDataFulfilled())}
-                        </ErrorBoundary>
-                        <Notifications />
-                        <AppFooter/>
-                    </StickyContainer>
+                <div className={ classes.root }>
+                    <AppHeader
+                        isLoading={ isLoading }
+                        onMobileNavToggle={ this.mobileNavToggle }
+                        isMobileNavOpened={ mobileNavOpened }
+                    />
+                    <ErrorBoundary>
+                        {getContentRoutes(this.isDataFulfilled())}
+                    </ErrorBoundary>
+                    <Notifications />
+                    <AppFooter/>
                 </div>
             </IntlProvider>
         );
     }
 }
+
+const PageContent = withStyles(styles)(PageContentComponent);
+export default hot(PageContent);

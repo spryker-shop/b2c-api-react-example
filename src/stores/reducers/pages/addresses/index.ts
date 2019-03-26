@@ -6,6 +6,7 @@ import {
     SET_CURRENT_ADDRESS,
     UPDATE_ADDRESS,
     GET_ONE_ADDRESS,
+    CLEAR_ADDRESS
 } from '@stores/actionTypes/pages/addresses';
 import { IAddressItem } from '@interfaces/addresses';
 import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/Addresses/types';
@@ -106,6 +107,11 @@ export const pageAddresses = produce<IAddressesState>(
                 draft.pending = false;
                 draft.fulfilled = true;
                 draft.rejected = false;
+                break;
+            }
+            case `${CLEAR_ADDRESS}`: {
+                draft.data.addresses = initialState.data.addresses;
+                draft.data.currentAddress = initialState.data.currentAddress;
                 break;
             }
             default:

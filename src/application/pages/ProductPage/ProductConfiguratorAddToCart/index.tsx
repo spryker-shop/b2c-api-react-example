@@ -45,20 +45,24 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
         }
 
         return null;
-    }
+    };
+
+    public componentDidMount = (): void => {
+        this.checkBuyBtnStatus();
+    };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         this.checkBuyBtnStatus();
-    }
+    };
 
     protected handleProductQuantityChange = (
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>
     ): void => {
         const valueParsed: number = Number.parseInt(event.target.value, 10);
-        const {quantitySelected} = this.state;
+        const { quantitySelected } = this.state;
 
         if (quantitySelected !== valueParsed) {
-            this.setState({quantitySelected: valueParsed});
+            this.setState({ quantitySelected: valueParsed });
         }
     };
 
@@ -67,13 +71,16 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
     );
 
     protected checkBuyBtnStatus = (): void => {
-        if (this.state.isProcessCartLoading) {
+        const { isProcessCartLoading, isBuyBtnDisabled } = this.state;
+
+        if (isProcessCartLoading) {
             return;
         }
-        if (this.state.isBuyBtnDisabled && this.isShowQuantity()) {
-            this.setState({isBuyBtnDisabled: false});
-        } else if (!this.state.isBuyBtnDisabled && !this.isShowQuantity()) {
-            this.setState({isBuyBtnDisabled: true});
+
+        if (isBuyBtnDisabled && this.isShowQuantity()) {
+            this.setState({ isBuyBtnDisabled: false });
+        } else if (!isBuyBtnDisabled && !this.isShowQuantity()) {
+            this.setState({ isBuyBtnDisabled: true });
         }
     };
 
@@ -113,7 +120,6 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
             if (this.props.isUserLoggedIn) {
                 await this.props.createCartAndAddItem(this.props.payloadForCreateCart, item);
             } else {
-                console.log(this.props.anonymId);
                 await this.props.addItemGuestCart(item, this.props.anonymId);
             }
         }
@@ -141,7 +147,7 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
                         inputValue,
                         spaceNumber: 4,
                         isRequired: false,
-                        label: <FormattedMessage id={'word.quantity.title'} />,
+                        label: <FormattedMessage id={ 'word.quantity.title' } />,
                         isError: false,
                         menuItems: createQuantityVariants(quantity)
                     }
@@ -153,7 +159,7 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
     };
 
     public render(): JSX.Element {
-        const {classes} = this.props;
+        const { classes } = this.props;
 
         const formQuantitySettings: IFormSettings = this.getQuantityFormSettings({
             inputValue: this.state.quantitySelected,
@@ -165,23 +171,23 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
         return (
             <>
                 <Grid container>
-                    {this.isShowQuantity() &&
-                    <Grid item xs={12} md={12} className={classes.blockControl}>
+                    { this.isShowQuantity() &&
+                    <Grid item xs={ 12 } md={ 12 } className={ classes.blockControl }>
                         <SprykerForm
-                            form={formQuantitySettings}
-                            formClassName={classes.formQuantity}
+                            form={ formQuantitySettings }
+                            formClassName={ classes.formQuantity }
                         />
                     </Grid>
                     }
                 </Grid>
 
                 <Grid container>
-                    <Grid item xs={12} md={12} className={classes.buyBtnParent}>
+                    <Grid item xs={ 12 } md={ 12 } className={ classes.buyBtnParent }>
                         <SprykerButton
-                            title={<FormattedMessage id={'add.to.cart.button.title'} />}
-                            extraClasses={classes.buyBtn}
-                            onClick={this.handleBuyBtnClick}
-                            disabled={this.state.isBuyBtnDisabled}
+                            title={ <FormattedMessage id={ 'add.to.cart.button.title' } /> }
+                            extraClasses={ classes.buyBtn }
+                            onClick={ this.handleBuyBtnClick }
+                            disabled={ this.state.isBuyBtnDisabled }
                         />
                     </Grid>
                 </Grid>

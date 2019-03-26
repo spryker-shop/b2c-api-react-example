@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { formattedDate } from '@helpers/common/dates';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { IWishlistsTableProps as Props, IWishlistsTableState as State } from './types';
@@ -17,26 +18,26 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
     readonly headerCellPart = 'header-';
     readonly bodyCellPart = 'body-';
     readonly headerCells: ICellInfo[] = [
-        {content: 'Name', id: `${this.headerCellPart}1`},
-        {content: 'Items', id: `${this.headerCellPart}2`},
-        {content: 'Created', id: `${this.headerCellPart}3`},
-        {content: '', id: `${this.headerCellPart}4`},
-        {content: '', id: `${this.headerCellPart}5`},
+        { content: 'Name', id: `${this.headerCellPart}1` },
+        { content: 'Items', id: `${this.headerCellPart}2` },
+        { content: 'Created', id: `${this.headerCellPart}3` },
+        { content: '', id: `${this.headerCellPart}4` },
+        { content: '', id: `${this.headerCellPart}5` }
     ];
 
     readonly state: State = {
         updatedName: '',
-        updatedList: '',
+        updatedList: ''
     };
 
     protected handleChangeUpdatedName = (event: InputChangeEvent): void => {
         event.persist();
-        this.setState(() => ({updatedName: event.target.value}));
+        this.setState(() => ({ updatedName: event.target.value }));
     };
 
     protected handleUpdateWishlist = (event: ClickEvent): void => {
         this.props.updateWishlistAction(this.state.updatedList, this.state.updatedName);
-        this.setState(() => ({updatedList: '', updatedName: ''}));
+        this.setState(() => ({ updatedList: '', updatedName: '' }));
     };
 
     protected handleDeleteWishlist = (wishlistId: string) => (event: ClickEvent): void => {
@@ -58,69 +59,81 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
         const { classes, isLoading } = this.props;
         const tableAction = isLoading ? classes.tableActionDisabled : classes.tableAction;
 
-        return this.props.wishlists.map((item: IWishlist) => ({
-            id: item.id,
-            cells: [
-                {
-                    content: (
-                        this.state.updatedList && this.state.updatedList === item.id
-                            ? (
-                                <form noValidate autoComplete="off" className={classes.updateCell}>
-                                    <TextField
-                                        value={this.state.updatedName}
-                                        onChange={this.handleChangeUpdatedName}
-                                    />
-                                    <IconButton
-                                        color="primary"
-                                        onClick={this.handleUpdateWishlist}
-                                        disabled={isLoading}
+        return this.props.wishlists.map((item: IWishlist) => {
+            const date = formattedDate(item.createdAt);
+
+            const wishlistRow = {
+                id: item.id,
+                cells: [
+                    {
+                        content: (
+                            this.state.updatedList && this.state.updatedList === item.id
+                                ? (
+                                    <form noValidate autoComplete="off" className={ classes.updateCell }>
+                                        <TextField
+                                            value={ this.state.updatedName }
+                                            onChange={ this.handleChangeUpdatedName }
+                                        />
+                                        <IconButton
+                                            color="primary"
+                                            onClick={ this.handleUpdateWishlist }
+                                            disabled={ isLoading }
+                                        >
+                                            <SaveIcon />
+                                        </IconButton>
+                                    </form>
+                                ) : (
+                                    <NavLink
+                                        className={ classes.link }
+                                        to={ `${pathWishlistPageBase}/${item.id}` }
                                     >
-                                        <SaveIcon/>
-                                    </IconButton>
-                                </form>
-                            ) : (
-                                <NavLink
-                                    className={ classes.link }
-                                    to={ `${pathWishlistPageBase}/${item.id}` }
-                                >
-                                    {item.name}
-                                </NavLink>
-                            )
-                    ),
-                    id: `${this.bodyCellPart}1`
-                },
-                {content: item.numberOfItems, id: `${this.bodyCellPart}2`},
-                {
-                    content: <FormattedDate value={new Date(item.createdAt)} year="numeric" month="short"
-                                            day="2-digit"/>,
-                    id: `${this.bodyCellPart}3`
-                },
-                {
-                    content: (
-                        <Typography
-                            component="span"
-                            className={tableAction}
-                            onClick={this.setUpdatedWishlist(item.id, item.name)}
-                        >
-                            <FormattedMessage id={ 'word.edit.title' } />
-                        </Typography>
-                    ),
-                    id: `${this.bodyCellPart}4`
-                },
-                {
-                    content: (
-                        <Typography
-                            component="span"
-                            className={tableAction}
-                            onClick={this.handleDeleteWishlist(item.id)}
-                        >
-                            <FormattedMessage id={ 'word.delete.title' } />
-                        </Typography>
-                    ),
-                    id: `${this.bodyCellPart}5`
-                },
-            ],
-        }));
+                                        { item.name }
+                                    </NavLink>
+                                )
+                        ),
+                        id: `${this.bodyCellPart}1`
+                    },
+                    { content: item.numberOfItems, id: `${this.bodyCellPart}2` },
+                    {
+                        content: (
+                            <FormattedDate
+                                value={ new Date(date) }
+                                year="numeric"
+                                month="short"
+                                day="2-digit"
+                            />
+                        ),
+                        id: `${this.bodyCellPart}3`
+                    },
+                    {
+                        content: (
+                            <Typography
+                                component="span"
+                                className={ tableAction }
+                                onClick={ this.setUpdatedWishlist(item.id, item.name) }
+                            >
+                                <FormattedMessage id={ 'word.edit.title' } />
+                            </Typography>
+                        ),
+                        id: `${this.bodyCellPart}4`
+                    },
+                    {
+                        content: (
+                            <Typography
+                                component="span"
+                                className={ tableAction }
+                                onClick={ this.handleDeleteWishlist(item.id) }
+                            >
+                                <FormattedMessage id={ 'word.delete.title' } />
+                            </Typography>
+                        ),
+                        id: `${this.bodyCellPart}5`
+                    }
+                ]
+            };
+
+            return wishlistRow;
+        });
     };
 
     public render = (): JSX.Element => {
@@ -129,8 +142,8 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
 
         if (!bodyRows.length) {
             return (
-                <Paper elevation={0}>
-                    <Divider/>
+                <Paper elevation={ 0 }>
+                    <Divider />
 
                     <Typography paragraph className={ classes.noItems }>
                         <FormattedMessage id={ 'create.list.message' } />
@@ -139,8 +152,8 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
             );
         }
 
-        return <AppTable headerCells={ this.headerCells } bodyRows={ bodyRows }/>;
-    }
+        return <AppTable headerCells={ this.headerCells } bodyRows={ bodyRows } />;
+    };
 }
 
 export const WishlistsTable = withStyles(styles)(WishlistsTableComponent);

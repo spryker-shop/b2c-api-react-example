@@ -23,13 +23,14 @@ export class ProductConfiguratorAddToWishlistBase extends React.Component<Props,
     };
 
     public componentDidMount = (): void => {
+        this.setInitialWishlist();
         this.initRequestWishlistsData();
-    }
+    };
 
     public componentDidUpdate = (): void => {
         this.setInitialWishlist();
         this.initRequestWishlistsData();
-    }
+    };
 
     protected handleWishlistChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
         const {value} = event.target;

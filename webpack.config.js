@@ -53,16 +53,6 @@ const localCssLoaderOptions = {
     }
 };
 
-const sassLoaderOptions = {
-    loader: 'sass-loader',
-    options: {
-        includePaths: [
-            path.resolve(__dirname, 'node_modules'),
-            path.resolve(__dirname, 'src')
-        ]
-    }
-};
-
 const localCssLoader = {
     test: /\.css$/,
     exclude: /node_modules/,
@@ -74,30 +64,6 @@ const localCssLoader = {
     ]
 };
 
-const localSaasLoader = {
-    test: /\.sass$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
-const localScssLoader = {
-    test: /\.scss$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
 const globalCssLoader = {
     test: /\.css$/,
     include: /node_modules/,
@@ -106,30 +72,6 @@ const globalCssLoader = {
         globalCssLoaderOptions,
         {loader: 'resolve-url-loader'},
         {loader: 'postcss-loader'}
-    ]
-};
-
-const globalSaasLoader = {
-    test: /\.sass$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
-    ]
-};
-
-const globalScssLoader = {
-    test: /\.scss$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'},
-        sassLoaderOptions
     ]
 };
 
@@ -163,11 +105,7 @@ const staticLoaders = [
 
 const stylesLoaders = [
     localCssLoader,
-    localSaasLoader,
-    localScssLoader,
-    globalCssLoader,
-    globalSaasLoader,
-    globalScssLoader
+    globalCssLoader
 ];
 
 const commonLoaders = [
@@ -202,7 +140,6 @@ if (IS_DEV_SERVER) {
         host: DEV_SERVER_HOST,
         port: DEV_SERVER_PORT,
         https: false,
-        hot: true,
         inline: true,
         noInfo: false
     };
@@ -339,6 +276,10 @@ const config = {
             src: path.resolve(__dirname, 'src'),
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@application': path.resolve(__dirname, 'src/application'),
+            '@components': path.resolve(__dirname, 'src/application/components'),
+            '@containers': path.resolve(__dirname, 'src/application/containers'),
+            '@hoc': path.resolve(__dirname, 'src/application/hoc'),
+            '@pages': path.resolve(__dirname, 'src/application/pages'),
             '@helpers': path.resolve(__dirname, 'src/helpers'),
             '@interfaces': path.resolve(__dirname, 'src/interfaces'),
             '@stores': path.resolve(__dirname, 'src/stores'),
