@@ -158,7 +158,7 @@ export class ProductPageBase extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
-        const isShouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
+        const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
         return (
             <AppMain>
@@ -221,7 +221,7 @@ export class ProductPageBase extends React.Component<Props, State> {
                                 description={this.state.description}
                                 sku={this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku}
                             />
-                            {isShouldLoadRelationsImmediately &&
+                            {shouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
                                     <ProductRelations
                                         sku={ this.props.product.abstractProduct.sku }
