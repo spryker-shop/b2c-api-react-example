@@ -87,7 +87,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
 
     if (!shouldRenderSlider ) {
         return (
-            <Grid container className={ classes.root }>
+            <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
                 { renderProductCards() }
             </Grid>
         );

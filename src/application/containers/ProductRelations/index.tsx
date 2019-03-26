@@ -56,7 +56,6 @@ class ProductRelationsComponent extends React.Component<Props> {
                     products={ products }
                     currency={ currency }
                     onSelectProduct={ this.onSelectProductHandle }
-                    classes={{ root: classes.slider }}
                 />
             </div>
         );

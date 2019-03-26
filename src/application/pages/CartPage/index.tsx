@@ -82,7 +82,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                             cartId={ cartId }
                             title={ <FormattedMessage id={ 'similar.products.title' } /> }
                             type="cart"
-                            classes={{ root: classes.sliderWrapper, slider: classes.slider }}
+                            classes={{ root: classes.sliderWrapper }}
                         />
                     </ErrorBoundary>
                 </Grid>
