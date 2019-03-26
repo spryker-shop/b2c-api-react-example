@@ -34,7 +34,8 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
             PaperProps={{
                 ...paperProps,
                 classes: {
-                    root: classes.content }
+                    root: classes.content
+                }
             }}
         >
             { children }

@@ -40,8 +40,6 @@ export class SearchPageComponent extends React.Component<Props, State> {
             this.props.sendSearch(query);
             this.categoriesTree();
         }
-
-        this.updatePageUrl(query);
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
@@ -62,7 +60,7 @@ export class SearchPageComponent extends React.Component<Props, State> {
         }
 
         if (isFiltersUpdated) {
-            this.sendCategoryRequest(this.getQueryParams());
+            this.sendCategoryRequest(this.getQueryParams(), true);
         }
     };
 
@@ -83,12 +81,14 @@ export class SearchPageComponent extends React.Component<Props, State> {
         });
     }
 
-    protected sendCategoryRequest = async (query: ISearchQuery): Promise<void> => {
+    protected sendCategoryRequest = async (query: ISearchQuery, shouldUpdatePath?: boolean): Promise<void> => {
         if (!this.props.isLoading) {
             await this.props.sendSearch(query);
         }
 
-        this.updatePageUrl(query);
+        if (shouldUpdatePath) {
+            this.updatePageUrl(query);
+        }
     };
 
     protected getQueryBaseParams = (): ISearchQuery => {
