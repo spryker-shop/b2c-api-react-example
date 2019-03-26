@@ -35,8 +35,6 @@ const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
                 return null;
             }
 
-            // console.log(item);
-
             const colorClassName: string = labelData[item.type].className;
 
             return (

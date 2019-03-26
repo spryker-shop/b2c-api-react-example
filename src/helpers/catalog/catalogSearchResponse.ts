@@ -22,8 +22,6 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         return null;
     }
 
-    console.log(response);
-
     const { data, included }: ICatalogSearchRawResponse = response;
 
     if (!data || !data[0]) {
@@ -66,7 +64,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     });
 
     const result: ICatalogSearchDataParsed = {
-        items: attributes.abstractProducts,
+        items: attributes.abstractProducts.map(item => ({...item, labels: null})),
         filters,
         activeFilters,
         category,
@@ -102,7 +100,9 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
 
         if (isProductHasLabels) {
             const labelsIdArr: TLabelId[] = row.relationships['product-labels'].data.map(item => item.id);
-            result.productLabels = getProductLabel(labelsIdArr, availableLabels);
+            const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
+
+            appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
         }
     });
 
