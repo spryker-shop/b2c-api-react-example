@@ -18,12 +18,17 @@ import { SearchIntro } from './SearchIntro';
 import { CategoriesList } from './CategoriesList';
 import { SearchFilterList } from './SearchFilterList';
 import { SearchPagination } from './SearchPagination';
-
-import Grid from '@material-ui/core/Grid';
+import { Grid, withStyles } from '@material-ui/core';
+import { ISearchFilterListState as State } from './SearchFilterList/types';
+import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class SearchPage extends React.Component<ISearchPageProps> {
+export class SearchPageComponent extends React.Component<ISearchPageProps> {
+    public readonly state: State = {
+        isFirstLoadPassed: null
+    };
+
     public componentDidMount = (): void => {
         const parsedGetParams = qs.parse(this.props.location.search);
         let query: ISearchQuery = this.getQueryParams();
@@ -34,8 +39,6 @@ export class SearchPage extends React.Component<ISearchPageProps> {
         if (!this.props.isLoading) {
             this.props.sendSearch(query);
         }
-
-        this.updatePageUrl(query);
     };
 
     public componentDidUpdate = (prevProps: ISearchPageProps): void => {
@@ -52,7 +55,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
         }
 
         if (isFiltersUpdated) {
-            this.sendCategoryRequest(this.getQueryParams());
+            this.sendCategoryRequest(this.getQueryParams(), true);
         }
     };
 
@@ -73,12 +76,14 @@ export class SearchPage extends React.Component<ISearchPageProps> {
         });
     }
 
-    protected sendCategoryRequest = async (query: ISearchQuery): Promise<void> => {
+    protected sendCategoryRequest = async (query: ISearchQuery, shouldUpdatePath?: boolean): Promise<void> => {
         if (!this.props.isLoading) {
             await this.props.sendSearch(query);
         }
 
-        this.updatePageUrl(query);
+        if (shouldUpdatePath) {
+            this.updatePageUrl(query);
+        }
     };
 
     protected getQueryBaseParams = (): ISearchQuery => {
@@ -100,7 +105,7 @@ export class SearchPage extends React.Component<ISearchPageProps> {
     };
 
     protected getQueryParams = (): ISearchQuery => {
-        let query:ISearchQuery = this.getQueryBaseParams();
+        let query: ISearchQuery = this.getQueryBaseParams();
 
         if (this.props.searchTerm) {
             query.q = this.props.searchTerm;
@@ -112,10 +117,11 @@ export class SearchPage extends React.Component<ISearchPageProps> {
             query.ipp = this.props.currentItemsPerPage;
         }
         if (this.props.activeFilters) {
-            query = {...query, ...this.props.activeFilters};
+            query = { ...query, ...this.props.activeFilters };
         }
         if (this.props.activeRangeFilters) {
-            query = {...query, ...addToQueryActiveRangeFilters(this.props.activeRangeFilters)};
+
+            query = { ...query, ...addToQueryActiveRangeFilters(this.props.activeRangeFilters) };
         }
         if (this.props.currentPaginationPage) {
             query.page = this.props.currentPaginationPage;
@@ -130,61 +136,64 @@ export class SearchPage extends React.Component<ISearchPageProps> {
 
     public render() {
         const {
+            classes,
             searchTerm,
             category,
             spellingSuggestion,
             categoriesTree,
             currentCategoryId,
             sendSearch,
-            locationCategoryId
+            locationCategoryId,
+            history
         } = this.props;
 
         const isCategoriesExist = (category.length > 0);
-
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
-        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, currentCategoryId);
+        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
 
         return (
-            <AppMain>
+            <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ formattedCategoriesTree } />
-
                 <AppPageTitle
                     title={ searchTerm
-                        ? <FormattedMessage
-                            id={ 'search.result.title' }
-                            values={ { terms: searchTerm } }
-                        />
+                        ? <FormattedMessage id={ 'search.result.title' } values={ { terms: searchTerm } } />
                         : (currentCategoryId && categoryDisplayName)
                             ? categoryDisplayName
                             : <FormattedMessage id={ 'search.result.default.title' } />
                     }
-                    intro={ <SearchIntro spellingSuggestion={ spellingSuggestion }
-                                         onLinkClick={() => sendSearch({q: spellingSuggestion})} /> }
-                />
-
-                <Grid container >
-                    <Grid item xs={ isCategoriesExist ? 12 : null} md={isCategoriesExist ? 3 : null }>
-                        <CategoriesList
-                            categories={ category }
-                            categoriesTree={ categoriesTree }
-                            selectedCategory={ currentCategoryId }
-                            locationCategoryId={ locationCategoryId }
+                >
+                    { spellingSuggestion &&
+                        <SearchIntro
+                            spellingSuggestion={ spellingSuggestion }
+                            onLinkClick={ () => sendSearch({ q: spellingSuggestion }) }
                         />
-                    </Grid>
+                    }
+                </AppPageTitle>
 
-                    <Grid item xs={ 12 } md={ isCategoriesExist ? 9 : 12 }>
-                        <Grid container>
+                <AppMain>
+                    <Grid container spacing={ 24 }>
+                        <Grid item xs={ isCategoriesExist ? 12 : null } md={ isCategoriesExist ? 3 : null }>
+                            <CategoriesList
+                                categories={ category }
+                                categoriesTree={ categoriesTree }
+                                selectedCategory={ currentCategoryId }
+                                locationCategoryId={ locationCategoryId }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } md={ isCategoriesExist ? 9 : 12 }>
                             <SearchFilterList />
 
                             <SortPanel />
 
                             <ProductsList selectProductHandler={ this.onSelectProductHandler } />
 
-                            <SearchPagination history={ this.props.history } />
+                            <SearchPagination history={ history } />
                         </Grid>
                     </Grid>
-                </Grid>
-            </AppMain>
+                </AppMain>
+            </div>
         );
     }
 }
+
+export const SearchPage = withStyles(styles)(SearchPageComponent);

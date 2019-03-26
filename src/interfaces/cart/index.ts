@@ -39,6 +39,7 @@ export interface ICartTotals extends IAbstractTotals {
 
 export interface ICartItem {
     sku: TProductSKU | null;
+    abstractSku: string;
     name?: TProductName | null;
     image?: TProductImageSRC | null;
     quantity?: TProductQuantity | null;

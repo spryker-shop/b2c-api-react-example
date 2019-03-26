@@ -5,7 +5,7 @@ import { cartDeleteItemAction, removeItemGuestCartAction } from '@stores/actions
 import { ICartState } from '@stores/reducers/common/cart/types';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
-import { getCartId, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
+import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
@@ -13,6 +13,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
     const isCartLoading = isCartStateLoading(state, ownProps);
+    const cartItemsQuantity = getTotalItemsQuantity(state, ownProps);
 
     return ({
         cartId: getCartId(state, ownProps),
@@ -21,6 +22,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isUserLoggedIn,
         anonymId,
         isCartLoading,
+        cartItemsQuantity
     });
 };
 

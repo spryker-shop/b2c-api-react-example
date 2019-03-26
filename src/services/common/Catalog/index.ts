@@ -59,7 +59,7 @@ export class CatalogService extends ApiServiceAbstract {
             if (response.ok) {
                 const {data} = response;
 
-                const products: IProductCard[] = data.data[0].attributes.abstractProducts.slice(0, 4);
+                const products: IProductCard[] = data.data[0].attributes.abstractProducts.slice(0, 5);
                 let counter = 0;
 
                 data.included && data.included.some((row: TRowProductResponseIncluded) => {

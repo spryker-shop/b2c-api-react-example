@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { OrderSummaryProps, OrderSummaryState } from './types';
 import { NavLink } from 'react-router-dom';
@@ -8,14 +7,13 @@ import { CartTotal } from '@application/components/CartTotal';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-@connect
 export class OrderSummaryComponent extends React.Component<OrderSummaryProps, OrderSummaryState> {
-    readonly state: OrderSummaryState = {
-        voucherCode: '',
+    public readonly state: OrderSummaryState = {
+        voucherCode: ''
     };
 
     public handleChangeVouchercode = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        this.setState({voucherCode: e.target.value});
+        this.setState({ voucherCode: e.target.value });
     };
 
     public render = (): JSX.Element => {
@@ -23,37 +21,25 @@ export class OrderSummaryComponent extends React.Component<OrderSummaryProps, Or
 
         return (
             <>
-                <Typography
-                    variant="display1"
-                    noWrap
-                    align="left"
-                    color="primary"
-                >
-                    <FormattedMessage id={'word.total.title'} />
+                <Typography component="h3" variant="display2" className={ classes.title }>
+                    <FormattedMessage id={ 'your.order.title' } />
                 </Typography>
 
-                <CartTotal
-                    extraClass={classes.cartTotalIndent}
-                    totals={totals}
-                    title={<FormattedMessage id={ 'grand.total.title' } />}
-                />
+                <CartTotal totals={ totals } title={ <FormattedMessage id={ 'grand.total.title' } /> } />
 
-                <NavLink
-                    to={pathCheckoutPage}
-                    className={classes.navLink}
+                <Button
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } /> }
+                    variant="contained"
+                    color="primary"
+                    fullWidth
                 >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        className={classes.btnWrapper}
-                    >
-                        <FormattedMessage id={'continue.checkout.title'} />
-                    </Button>
-                </NavLink>
+                    <FormattedMessage id={ 'word.checkout.title' } />
+                </Button>
+
+                <span className={ classes.info }><FormattedMessage id={ 'shipping.fee.calculated.text' } /></span>
             </>
         );
-    }
+    };
 }
 
 export const OrderSummary = withStyles(styles)(OrderSummaryComponent);

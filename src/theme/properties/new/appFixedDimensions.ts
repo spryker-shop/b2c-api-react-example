@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { GridSpacing } from '@material-ui/core/Grid';
-import { baseTheme } from '@theme';
 
 export interface IAppFixedDimensions {
     card: {
@@ -29,23 +28,6 @@ export interface IAppFixedDimensions {
     sprykerLogo: {
         width: number;
         height: number;
-    };
-    headerHeight: {
-        desktop: number;
-        sticky: number;
-        tablet: number;
-    };
-    cartDrop: {
-        width: number;
-        height: number;
-    };
-    userDrop: {
-        width: number;
-        height: number;
-    };
-    headerPopover: {
-        overflow: number;
-        triangle: number;
     };
 }
 
@@ -76,22 +58,5 @@ export const appFixedDimensions: IAppFixedDimensions = {
     sprykerLogo: {
         width: 170,
         height: 60
-    },
-    headerHeight: {
-        desktop: 148,
-        sticky: 65,
-        tablet: 204,
-    },
-    cartDrop: {
-        width: 418,
-        height: 550,
-    },
-    userDrop: {
-        width: 340,
-        height: 283,
-    },
-    headerPopover: {
-        overflow: 42,
-        triangle: 17,
-    },
+    }
 };

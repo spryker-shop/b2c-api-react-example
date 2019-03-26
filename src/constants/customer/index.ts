@@ -25,4 +25,4 @@ export const SalutationVariants: TSalutationVariant[] = [
     },
 ];
 
-export const LogoutSetTimeoutTime: number = 250;
+export const logoutSetTimeoutTime: number = 250;

@@ -5,11 +5,10 @@ import {
     pathCategoryTablets,
     pathCategoryWorkstations
 } from '@constants/routes';
-
-const computersSrc = require('./img/computers-min.jpg');
-const notebooksSrc = require('./img/notebooks-min.jpg');
-const tabletsSrc = require('./img/tablets-min.jpg');
-const workstationsSrc = require('./img/workstations-min.jpg');
+const computersSrc = require('./img/computers.jpg');
+const notebooksSrc = require('./img/notebooks.png');
+const tabletsSrc = require('./img/tablets.png');
+const workstationsSrc = require('./img/workstations.jpg');
 
 export const categoriesTeasersData: ICategoriesTeasersData[] = [
     {
@@ -25,6 +24,7 @@ export const categoriesTeasersData: ICategoriesTeasersData[] = [
         img: notebooksSrc,
         path: pathCategoryNotebooks,
         linkTitle: 'home.page.notebooks.button.title',
+        transparentImage: true
     },
     {
         title: 'category.name.tablets',
@@ -32,6 +32,8 @@ export const categoriesTeasersData: ICategoriesTeasersData[] = [
         img: tabletsSrc,
         path: pathCategoryTablets,
         linkTitle: 'home.page.tablets.button.title',
+        differentBg: true,
+        transparentImage: true
     },
     {
         title: 'category.name.workstations',

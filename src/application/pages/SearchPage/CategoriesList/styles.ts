@@ -3,13 +3,13 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        paddingBottom: theme.spacing.unit * 2,
+        paddingBottom: 16
     },
     list: {
         paddingBottom: 0,
-        paddingTop: 0,
+        paddingTop: 0
     },
     title: {
-        paddingLeft: theme.spacing.unit,
-    },
+        paddingBottom: 20
+    }
 });

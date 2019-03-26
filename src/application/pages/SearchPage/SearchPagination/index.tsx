@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
 import { AppPagination } from '@application/components/AppPagination';
 
-const SearchPaginationBase: React.SFC<Props> = ({ pagination, history, setPaginationPage }) => {
+const SearchPaginationComponent: React.SFC<Props> = ({ pagination, history, setPaginationPage }) => {
     const handlePagination = async (event: React.ChangeEvent<{}>, value: number | string): Promise<void> => {
         setPaginationParam(String(value));
     };
@@ -20,4 +20,4 @@ const SearchPaginationBase: React.SFC<Props> = ({ pagination, history, setPagina
     );
 };
 
-export const SearchPagination = connect(SearchPaginationBase);
+export const SearchPagination = connect(SearchPaginationComponent);

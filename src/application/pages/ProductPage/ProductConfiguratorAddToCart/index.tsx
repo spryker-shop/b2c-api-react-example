@@ -120,7 +120,6 @@ export class ProductConfiguratorAddToCartBase extends React.Component<Props, Sta
             if (this.props.isUserLoggedIn) {
                 await this.props.createCartAndAddItem(this.props.payloadForCreateCart, item);
             } else {
-                console.log(this.props.anonymId);
                 await this.props.addItemGuestCart(item, this.props.anonymId);
             }
         }

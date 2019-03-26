@@ -42,7 +42,7 @@ export const AppPriceBase: React.SFC<Props> = (props): JSX.Element => {
         value || value === 0 ?
         <span className={classNames}>
             {title ? title : null}
-            {isMinus ? <span>&nbsp; - &nbsp;</span> : null}
+            {isMinus ? <span>&nbsp; -</span> : null}
             <FormattedNumber
                 value={valueFormatted}
                 style="currency"

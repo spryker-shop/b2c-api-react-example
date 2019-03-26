@@ -7,7 +7,7 @@ export class ScrollToTopRoute extends React.Component<IScrollToTopRouteProps, IS
     public state: IScrollToTopRouteState = {};
 
     public componentDidUpdate = (prevProps: IScrollToTopRouteProps, prevState: IScrollToTopRouteState): void => {
-        if (this.props.location !== prevProps.location) {
+        if (this.props.location.pathname !== prevProps.location.pathname) {
             window.scrollTo(0, 0);
         }
     };

@@ -2,26 +2,45 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    categoryItem: {
-        paddingTop: 0,
-        paddingBottom: 0,
-        paddingLeft: theme.spacing.unit,
+    children: {
+        padding: '3px 0 3px 32px'
     },
-    categoryItemText: {
-        lineHeight: 2.29,
-        letterSpacing: 0.4,
-        fontSize: theme.appFixedDimensions.fontSize.small,
-
+    categoryItem: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '5px 0',
+        color: theme.appColors.grey,
+        '&:hover': {
+            background: 'none',
+            color: theme.appColors.blue,
+            '& span': {
+                backgroundColor: 'rgba(8, 148, 161, 0.07)',
+                color: theme.appColors.blue
+            }
+        }
+    },
+    quantity: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 13,
+        color: theme.appColors.lightGrey,
+        height: 18,
+        background: 'rgba(206, 206, 208, 0.16)',
+        borderRadius: 9,
+        minWidth: 31,
+        padding: '0 3px'
+    },
+    quantityActive: {
+        background: 'rgba(8, 148, 161, 0.07)',
+        color: theme.appColors.blue
     },
     selected: {
-        ...theme.appModules.selectedItem,
+        color: theme.appColors.blue,
+        background: 'none !important'
     },
-    root: {},
-    listItemOuter: {
-        paddingRight: theme.spacing.unit,
+    disabled: {
+        color: theme.appColors.lightGrey
     },
-    hasChildren: {},
-    children: {
-        paddingLeft: theme.spacing.unit * 2,
-    },
+    root: {}
 });

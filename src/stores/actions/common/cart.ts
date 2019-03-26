@@ -4,6 +4,7 @@ import {
     CART_DELETE_ITEM,
     CART_UPDATE_ITEM,
     GET_CARTS,
+    UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
 import { CartService } from '@services/common/Cart';
 import { GuestCartService } from '@services/common/Cart/guestCart';
@@ -11,6 +12,10 @@ import { ICartCreatePayload } from '@services/common/Cart/types';
 import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
 import { TProductSKU } from '@interfaces/product';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';
+
+export const updateCartFulfilledStateAction = (): ICartAction => ({
+    type: UPDATE_FULLFILLED_STATE
+});
 
 export const addItemToCartAction = function (payload: ICartAddItem, cartId: TCartId) {
     return (dispatch: Function, getState: Function) =>
