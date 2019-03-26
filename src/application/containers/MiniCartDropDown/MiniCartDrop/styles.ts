@@ -3,7 +3,6 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     cartDrop: {
-        fontFamily: 'Circular',
         borderRadius: 4,
         boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
         width: 575,

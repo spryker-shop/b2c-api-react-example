@@ -62,5 +62,10 @@ export const styles = (theme: Theme) => createStyles({
         '&:hover': {
             color: theme.appColors.darkBlue
         }
+    },
+    suggestionsContainer: {},
+    noFoundText: {
+        padding: 15,
+        textAlign: 'center'
     }
 });

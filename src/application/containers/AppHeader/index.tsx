@@ -54,11 +54,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
                         <div
-                            className={
-                                `${classes.hamburger} ${
-                                    isMobileNavOpened ? classes.hamburgerOpened : ''
-                                    }`
-                            }
+                            className={ `${classes.hamburger} ${isMobileNavOpened ? classes.hamburgerOpened : ''}` }
                             onClick={ onMobileNavToggle }
                         >
                             <span />

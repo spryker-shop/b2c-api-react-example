@@ -9,7 +9,7 @@ import { withStyles, Grid } from '@material-ui/core';
 import { styles } from './styles';
 
 @(withRouter as Function)
-export class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
+class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
     public render() {
         const { classes, location } = this.props;
 
@@ -35,5 +35,3 @@ export class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
 }
 
 export const CustomerPage = withStyles(styles)(CustomerPageBase);
-
-export default CustomerPage;

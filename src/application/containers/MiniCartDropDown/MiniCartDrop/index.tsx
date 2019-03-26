@@ -85,7 +85,7 @@ class MiniCartDropComponent extends React.Component<Props> {
                             variant="outlined"
                             fullWidth
                         >
-                            <FormattedMessage id={ 'word.cart.title' } />
+                            <FormattedMessage id={ 'view.cart.title' } />
                         </Button>
                     </Grid>
                     <Grid item xs={ 6 }>

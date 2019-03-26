@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-    withStyles,
     Button,
     Dialog,
     DialogActions,
@@ -11,12 +10,9 @@ import {
 } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { ISprykerDialogProps as Props } from './types';
-import { styles } from './styles';
 
-export const SprykerDialogBase: React.SFC<Props> = (props): JSX.Element => {
+export const SprykerDialog: React.SFC<Props> = (props): JSX.Element => {
     const {
-        classes,
-        extraClasses = '',
         handleShow,
         handleAgree,
         handleDisagree,
@@ -65,5 +61,3 @@ export const SprykerDialogBase: React.SFC<Props> = (props): JSX.Element => {
         </Dialog>
     );
 };
-
-export const SprykerDialog = withStyles(styles)(SprykerDialogBase);

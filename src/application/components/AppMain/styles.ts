@@ -5,9 +5,6 @@ export const styles = (theme: Theme) => createStyles({
     layout: {
         ...theme.appContainerStyles,
         flexGrow: 1,
-    },
-    container: {
-        position: 'relative',
-        paddingTop: theme.spacing.unit * 5,
-    },
+        paddingTop: theme.spacing.unit * 5
+    }
 });

@@ -9,6 +9,9 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         position: 'relative',
         textIndent: -9999,
+        width: 80,
+        minWidth: 80,
+        height: 80
     },
     actionAreaOverlay: {
         position: 'absolute',
@@ -18,6 +21,10 @@ export const styles = (theme: Theme) => createStyles({
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 350,
+        zIndex: 350
     },
+    image: {
+        maxWidth: '82%',
+        maxHeight: '82%'
+    }
 });

@@ -8,4 +8,5 @@ export interface IPopoverWrapperProps extends WithStyles<typeof styles> {
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
     openPopup?: boolean | null;
+    paperProps: {};
 }
