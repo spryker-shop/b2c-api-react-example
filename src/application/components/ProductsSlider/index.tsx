@@ -45,8 +45,8 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         ));
 
         if (!shouldRenderSlider) {
-            return productsList.map(item => (
-                <Grid item xs={ 12 } sm={ 6 } md={ 3 }>{ item }</Grid>
+            return productsList.map((item, index) => (
+                <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ index }>{ item }</Grid>
             ));
         }
 
