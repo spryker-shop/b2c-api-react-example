@@ -8,7 +8,8 @@ import {
     cartDeleteItemAction,
     removeItemGuestCartAction,
     updateItemInCartAction,
-    updateGuestCartAction
+    updateGuestCartAction,
+    updateCartFulfilledStateAction
 } from '@stores/actions/common/cart';
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
@@ -19,12 +20,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const { items }: { items: ICartItem[] } = getProductsFromCart(state, ownProps);
     const cartId: TCartId = getCartId(state, ownProps);
+    const cartRejected = state.cart.rejected;
 
     return ({
         isUserLoggedIn,
         anonymId,
         items,
         cartId,
+        cartRejected
     });
 };
 
@@ -34,6 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
         removeItemGuestCartAction,
         updateItemInCartAction,
         updateGuestCartAction,
+        updateCartFulfilledStateAction
     },
     dispatch,
 );

@@ -5,13 +5,12 @@ import { ICategory } from '@interfaces/category';
 import { IActiveFilterCategories, ICategoriesListProps } from './types';
 import { getFormattedActiveCategories } from '../helpers';
 import { pathCategoryPageBase } from '@constants/routes';
-import { AppPageSubTitle } from '@application/components/AppPageSubTitle';
 import { CategoryItem } from './CategoryItem';
-import { Grid, List, withStyles } from '@material-ui/core';
+import { List, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
-    {
+export const CategoriesListBase: React.SFC<ICategoriesListProps> = (props): JSX.Element  => {
+    const {
         classes,
         categories,
         categoriesTree,
@@ -20,8 +19,8 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
         locationCategoryId,
         changeLocation,
         setCurrentCategory
-    }
-) => {
+    } = props;
+
     if (!Array.isArray(categories) || !categories.length) {
         return null;
     }
@@ -46,6 +45,8 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
 
         return data.map((category: ICategory) => {
             const quantity = (activeData[category.nodeId] ? activeData[category.nodeId] : 0);
+            const isSubcategoryExist = Array.isArray(category.children) && category.children.length &&
+                category.children.length > 0;
 
             return (
                 <CategoryItem
@@ -54,37 +55,27 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (
                     isSelected={(+selectedId) === category.nodeId}
                     isActive={Boolean(quantity)}
                     selectCategoryHandler={ selectCategory }
-                    displayName={ `${category.name
-                        ? category.name
-                        : <FormattedMessage id={ 'no.name.title' } />
-                    } (${quantity})` }
+                    quantity={quantity}
+                    categoryName={`${category.name ? category.name : <FormattedMessage id={ 'no.name.title' } />}`}
                 >
-                    {(Array.isArray(category.children) && category.children.length && category.children.length > 0)
-                        ? getCategoriesList(category.children, activeData, selectedCategory)
-                        : null
+                    { Boolean(isSubcategoryExist) &&
+                        getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
                     }
+
                 </CategoryItem>
             );
         });
     };
 
     return (
-        <Grid
-            container
-            justify="flex-start"
-            alignItems="center"
-            className={classes.root}
-        >
-            <Grid item xs={12}>
-                <AppPageSubTitle
-                    title={ localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
-                    extraClass={ classes.title }
-                />
-                <List component="nav" className={classes.list}>
-                    {getCategoriesList(categoriesTree, activeCategories, selectedCategory)}
-                </List>
-            </Grid>
-        </Grid>
+        <div className={classes.root}>
+            <Typography component="h4" variant="display1" color="textSecondary" className={ classes.title }>
+                { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+            </Typography>
+            <List component="nav" className={classes.list}>
+                {getCategoriesList(categoriesTree, activeCategories, selectedCategory)}
+            </List>
+        </div>
     );
 };
 

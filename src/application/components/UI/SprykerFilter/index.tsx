@@ -1,101 +1,135 @@
 import * as React from 'react';
-import { withStyles, MenuItem, FormControl, Select, Chip } from '@material-ui/core';
-import { ChevronLeft } from '@material-ui/icons';
+import { withStyles, MenuItem, FormControl, Select, Button } from '@material-ui/core';
+import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { InputChangeEvent } from '@interfaces/common';
 import { ISprykerFilterProps as Props, ISprykerFilterState as State } from './types';
+import { FormattedMessage } from 'react-intl';
 
-export class SprykerFilter extends React.Component<Props, State> {
+class SprykerFilterComponent extends React.Component<Props, State> {
+    protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
+
     public state: State = {
-        isOpen: false,
+        isOpen: false
     };
 
-    private handleChangeShowing = (event: React.ChangeEvent<{}>): void => {
-
+    protected handleChangeShowing = (event: React.ChangeEvent<{}>): void => {
         if (this.state.isOpen === true) {
             if (this.props.handleClose) {
                 this.props.handleClose(event);
             }
         }
 
-        this.setState(prev => ({isOpen: !prev.isOpen}));
+        this.setState(prev => ({ isOpen: !prev.isOpen }));
     };
 
-    private handleChangeValues = (event: InputChangeEvent) => {
-        this.props.handleChange(this.props.attributeName, event.target.value);
+    protected handleChangeValues = (event: InputChangeEvent): void => {
+        const menuItemElement: unknown = event.currentTarget as unknown;
+        if (this.resetItemRef.current !== menuItemElement as HTMLLIElement) {
+            this.props.handleChange(this.props.attributeName, event.target.value);
+        }
     };
 
-    private handleDelete = (item: string) => () => {
-        const values = [...this.props.activeValues].filter(val => val !== item);
-        this.props.handleChange(this.props.attributeName, values);
+    protected handleResetValues = (): void => {
+        this.props.handleChange(this.props.attributeName, []);
     };
 
-    public render() {
+    public render(): JSX.Element {
         const {
             classes,
             attributeName,
             menuItems,
             activeValues,
-            extraClassName,
             isShowSelected,
             title,
+            isFullWidth
         } = this.props;
+        const { isOpen } = this.state;
+
+        const chevronIcon: React.SFC = (): JSX.Element =>
+            <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
         return (
-            <div className={extraClassName ? `${classes.root} ${extraClassName}` : classes.root}>
-                <FormControl className={classes.formControl}>
+            <div className={ classes.root }>
+                <FormControl className={ classes.formControl }>
                     <Select
                         multiple
                         inputProps={{
                             name: attributeName,
-                            id: `${attributeName}-filter`,
+                            id: `${attributeName}-filter`
                         }}
                         renderValue={
                             title ? () => title : () => attributeName ? attributeName.split('_').join(' ') : ''
                         }
+                        MenuProps={{
+                            getContentAnchorEl: null,
+                            disableAutoFocusItem: true,
+                            anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'left'
+                            },
+                            transformOrigin: {
+                                vertical: 'top',
+                                horizontal: 'left'
+                            },
+                            classes: {
+                                paper: classes.menu
+                            }
+                        }}
+                        autoWidth={ !isFullWidth }
                         displayEmpty
-                        open={this.state.isOpen}
-                        onClose={this.handleChangeShowing}
-                        onOpen={this.handleChangeShowing}
-                        value={activeValues}
-                        onChange={this.handleChangeValues}
-                        disableUnderline={true}
-                        IconComponent={ChevronLeft}
+                        open={ isOpen }
+                        onClose={ this.handleChangeShowing }
+                        onOpen={ this.handleChangeShowing }
+                        onChange={ this.handleChangeValues }
+                        value={ activeValues }
+                        disableUnderline
+                        IconComponent={ chevronIcon }
                         classes={{
-                            icon: classes.icon,
-                            select: classes.input,
+                            root: classes.selectRoot,
+                            select: `${classes.input} ${isOpen ? classes.inputFocused : ''}`
                         }}
                     >
-                        {menuItems.map(item => (
+                        { isShowSelected &&
+                            <li className={ classes.menuCounter } ref={ this.resetItemRef }>
+                                <span className={ classes.menuCounterText }>
+                                    {`${activeValues.length} `}
+                                    <FormattedMessage id={ 'word.selected.title' } />
+                                </span>
+                                <span>
+                                    <Button
+                                        className={ classes.resetBtn }
+                                        variant="text"
+                                        classes={{
+                                            disabled: classes.disabled
+                                        }}
+                                        onClick={ this.handleResetValues }
+                                        disabled={ !Boolean(activeValues.length) }
+                                    >
+                                        <FormattedMessage id={'word.reset.title'} />
+                                    </Button>
+                                </span>
+                            </li>
+                        }
+                        { menuItems.map(item => (
                             <MenuItem
-                                key={item.value}
-                                value={item.value}
-                                className={classes.menuItem}
+                                key={ item.value }
+                                value={ item.value }
+                                className={ classes.menuItem }
                                 disableGutters
                                 classes={{
-                                    selected: classes.selected,
+                                    selected: classes.selected
                                 }}
                             >
-                                <span className={classes.menuItemName}>{item.value}</span>
-                                <span>({item.doc_count})</span>
-                            </MenuItem>))
-                        }
+                                <span className={ classes.menuItemName }>{ item.value }</span>
+                                <span>({ item.doc_count })</span>
+                            </MenuItem>
+                        )) }
                     </Select>
-                    {isShowSelected
-                        ? activeValues.map(item => (
-                            <Chip
-                                key={item}
-                                label={item}
-                                variant="outlined"
-                                onDelete={this.handleDelete(item)}
-                                className={classes.chip}
-                            />))
-                        : null
-                    }
                 </FormControl>
             </div>
         );
     }
 }
 
-export const SprykerFilterElement = withStyles(styles)(SprykerFilter);
+export const SprykerFilter = withStyles(styles)(SprykerFilterComponent);

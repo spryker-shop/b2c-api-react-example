@@ -1,11 +1,12 @@
+import { hot } from 'react-hot-loader/root';
+import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
-import { StickyContainer } from 'react-sticky';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
 import { getContentRoutes } from '@application/components/Routes';
 import { pathCategoryPageBase, pathSearchPage } from '@constants/routes';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core';
 import { AppHeader } from '@application/containers/AppHeader';
 import { AppFooter } from '@application/components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
@@ -15,10 +16,12 @@ import { IPageContentProps as Props, IPageContentState as State } from './types'
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
 
+setConfig({ ErrorOverlay: () => null });
+
 @connect
 @(withRouter as Function)
 class PageContentComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         mobileNavOpened: false
     };
 
@@ -42,7 +45,7 @@ class PageContentComponent extends React.Component<Props, State> {
 
             return;
         }
-    }
+    };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         this.clearFlyoutSearchHandler(prevProps);
@@ -54,7 +57,7 @@ class PageContentComponent extends React.Component<Props, State> {
                 this.props.getGuestCart(this.props.anonymId);
             }
         }
-    }
+    };
 
     private clearFlyoutSearchHandler = (prevProps: Props): void => {
         if (this.props.location.pathname !== prevProps.location.pathname
@@ -78,23 +81,22 @@ class PageContentComponent extends React.Component<Props, State> {
 
         return (
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
-                <div className={ classes.wrapper }>
-                    <StickyContainer>
-                        <AppHeader
-                            isLoading={ isLoading }
-                            onMobileNavToggle={ this.mobileNavToggle }
-                            isMobileNavOpened={ mobileNavOpened }
-                        />
-                        <ErrorBoundary>
-                            {getContentRoutes(this.isDataFulfilled())}
-                        </ErrorBoundary>
-                        <Notifications />
-                        <AppFooter/>
-                    </StickyContainer>
+                <div className={ classes.root }>
+                    <AppHeader
+                        isLoading={ isLoading }
+                        onMobileNavToggle={ this.mobileNavToggle }
+                        isMobileNavOpened={ mobileNavOpened }
+                    />
+                    <ErrorBoundary>
+                        {getContentRoutes(this.isDataFulfilled())}
+                    </ErrorBoundary>
+                    <Notifications />
+                    <AppFooter/>
                 </div>
             </IntlProvider>
         );
     }
 }
 
-export const PageContent = withStyles(styles)(PageContentComponent);
+const PageContent = withStyles(styles)(PageContentComponent);
+export default hot(PageContent);

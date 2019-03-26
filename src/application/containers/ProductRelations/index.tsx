@@ -45,7 +45,7 @@ class ProductRelationsComponent extends React.Component<Props> {
         }
 
         return (
-            <>
+            <div className={ classes.root }>
                 { Boolean(title) &&
                     <Typography className={ classes.title } color="textSecondary" component="h2" variant="display3">
                         { title }
@@ -56,8 +56,9 @@ class ProductRelationsComponent extends React.Component<Props> {
                     products={ products }
                     currency={ currency }
                     onSelectProduct={ this.onSelectProductHandle }
+                    classes={{ root: classes.slider }}
                 />
-            </>
+            </div>
         );
     };
 }

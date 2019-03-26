@@ -5,12 +5,14 @@ import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@application/components/ProductCard';
 import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
-import { withStyles } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import 'slick-carousel/slick/slick.css';
 
 const ProductsSliderComponent = (props: Props): JSX.Element => {
     const { classes, products, currency, onSelectProduct } = props;
+    const defaultAmountSlides = 3;
+    const shouldRenderSlider = products.length > defaultAmountSlides;
 
     const customPaging = (): JSX.Element => (
         <div className={ classes.dotWrapper }>
@@ -24,28 +26,38 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         </div>
     );
 
-    const renderProductCards = (): JSX.Element[] => (
-        products.map((product: IProductRelationsItem) => (
+    const renderProductCards = (): JSX.Element[] => {
+        const productsList = products.map((product: IProductRelationsItem) => (
             <div key={ product.sku } className={ classes.slide }>
-                <ProductCard
-                    currency={ currency }
-                    images={ product.images }
-                    price={ product.price }
-                    prices={ product.prices }
-                    name={ product.name }
-                    sku={ product.sku }
-                    onSelectProduct={ onSelectProduct }
-                    label={ product.label }
-                />
+                <Grid item xs={ 12 }>
+                    <ProductCard
+                        currency={ currency }
+                        images={ product.images }
+                        price={ product.price }
+                        prices={ product.prices }
+                        name={ product.name }
+                        sku={ product.sku }
+                        onSelectProduct={ onSelectProduct }
+                        label={ product.label }
+                    />
+                </Grid>
             </div>
-        ))
-    );
+        ));
+
+        if (!shouldRenderSlider) {
+            return productsList.map(item => (
+                <Grid item xs={ 12 } sm={ 6 } md={ 3 }>{ item }</Grid>
+            ));
+        }
+
+        return productsList;
+    };
 
     const slickSettings: Settings = {
         centerMode: true,
         dots: true,
         infinite: true,
-        slidesToShow: 3,
+        slidesToShow: defaultAmountSlides,
         slidesToScroll: 1,
         initialSlide: 0,
         centerPadding: '150px',
@@ -57,7 +69,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
             {
                 breakpoint: 1280,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: defaultAmountSlides,
                     centerPadding: '0',
                     centerMode: false,
                 }
@@ -72,6 +84,14 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
             }
         ]
     };
+
+    if (!shouldRenderSlider ) {
+        return (
+            <Grid container className={ classes.root }>
+                { renderProductCards() }
+            </Grid>
+        );
+    }
 
     return (
         <Slider className={ classes.root } { ...slickSettings }>

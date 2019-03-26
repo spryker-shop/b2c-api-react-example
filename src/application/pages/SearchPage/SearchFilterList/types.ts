@@ -4,6 +4,7 @@ import { IActiveFilters, RangeFacets, ValueFacets } from '@interfaces/searchPage
 
 export interface ISearchFilterListProps extends WithStyles<typeof styles> {
     isLoading: boolean;
+    isFulfilled: boolean;
     filters: ValueFacets[];
     activeFilters: TActiveFilters;
     rangeFilters: RangeFacets[];
@@ -18,6 +19,7 @@ export interface ISearchFilterListState {
     activeFilters?: TActiveFilters;
     activeRangeFilters?: TActiveRangeFilters;
     isFilterUpdated?: boolean;
+    isFirstLoadPassed: boolean | null;
 }
 
 export type TFilterItemTypeFilter = 'filter';

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { withStyles, Grid, BottomNavigationAction, BottomNavigation } from '@material-ui/core';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { IAppPaginationProps as Props, IAppPaginationState as State } from './types';
+import { FormattedMessage } from 'react-intl';
 import { styles } from './styles';
 
 @(withRouter as Function)
@@ -124,32 +124,32 @@ export class AppPaginationBase extends React.Component<Props, State> {
                     <BottomNavigation
                         value={ page }
                         onChange={ this.onChange }
-                        classes={ {
+                        classes={{
                             root: classes.container
-                        } }
+                        }}
                     >
                         <BottomNavigationAction
                             disabled={ isFirst }
                             showLabel
-                            icon={ <ChevronLeft /> }
+                            label={ <FormattedMessage id={ 'word.previous.title' } /> }
                             value={ page - 1 }
                             key="prev"
-                            classes={ {
-                                root: `${classes.item} ${classes.itemLeft}`,
-                                wrapper: classes.wrapper
-                            } }
+                            classes={{
+                                root: `${classes.item} ${classes.itemKeys} ${classes.itemLeft}`,
+                                label: `${classes.label} ${classes.labelKeys}`
+                            }}
                         />
                         { pages }
                         <BottomNavigationAction
                             disabled={ isLast }
                             showLabel
-                            icon={ <ChevronRight /> }
+                            label={ <FormattedMessage id={ 'word.new.title' } /> }
                             value={ page + 1 }
                             key="next"
-                            classes={ {
-                                root: `${classes.item} ${classes.itemRight}`,
-                                wrapper: classes.wrapper
-                            } }
+                            classes={{
+                                root: `${classes.item} ${classes.itemKeys} ${classes.itemRight}`,
+                                label: `${classes.label} ${classes.labelKeys}`
+                            }}
                         />
                     </BottomNavigation>
                 </Grid>

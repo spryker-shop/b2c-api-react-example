@@ -24,25 +24,12 @@ export const getProductLabelCollection = (
 export const getProductLabel = (
     labelsIdArr: TLabelId[] | null,
     availableLabels: IAvailableLabelsCollection | null
-): IProductLabel | null => {
+): IProductLabel[] | null => {
     const labels = getProductLabelCollection(labelsIdArr, availableLabels);
 
     if (!labels) {
         return null;
     }
 
-    const checkedValue = 'position';
-    const label = labels.reduce(function (prev: IProductLabel, current: IProductLabel) {
-        if (prev && current) {
-            return (prev[checkedValue] > current[checkedValue]) ? prev : current;
-        } else if (!prev && current) {
-            return current;
-        } else if (prev && !current) {
-            return prev;
-        } else {
-            return null;
-        }
-    }, labels[0]);
-
-    return label;
+    return labels;
 };

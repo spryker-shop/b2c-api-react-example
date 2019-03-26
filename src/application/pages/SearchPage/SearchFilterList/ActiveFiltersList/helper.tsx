@@ -9,38 +9,29 @@ import { AppPrice } from '@application/components/AppPrice';
  * @param {RangeType} value
  * @param {string} rangeName
  * @param {string} title
- * @param {string} priceClassName
  * @returns {IFilterItem}
  */
 export const createRangeFilterItemCombined = (
-    {isPrice, value, rangeName, title, priceClassName}:
+    {isPrice, value, rangeName, title}:
         {
             isPrice: boolean,
             value: RangeType,
             rangeName: string,
             title: string,
-            priceClassName: string | null
         }):
     IFilterItem | null => {
     let label = null;
 
     if (isPrice) {
         label = (
-            <React.Fragment>
-                {`${title}:`}&nbsp;
-                <AppPrice
-                    value={rangeFilterValueToBack(value.min)}
-                    extraClassName={priceClassName}
-                />
+            <>
+                <AppPrice value={rangeFilterValueToBack(value.min)} isStylesInherited />
                 &nbsp;{'-'}&nbsp;
-                <AppPrice
-                    value={rangeFilterValueToBack(value.max)}
-                    extraClassName={priceClassName}
-                />
-            </React.Fragment>
+                <AppPrice value={rangeFilterValueToBack(value.max)} isStylesInherited />
+            </>
         );
     } else {
-        label = `${title}: ${value.min} - ${value.max}`;
+        label = `${value.min} - ${value.max}`;
     }
 
     return {

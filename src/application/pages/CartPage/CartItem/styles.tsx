@@ -2,42 +2,118 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    root: {
-        paddingTop: theme.spacing.unit * 3,
-        paddingBottom: theme.spacing.unit * 3,
-        alignItems: 'start',
+    productItem: {
+        padding: '20px 20px 20px 62px',
+        marginBottom: 10,
+        position: 'relative',
+        flexWrap: 'nowrap',
+        background: theme.appColors.white,
+        border: `1px solid ${theme.appColors.weekWhite}`,
+        transition: 'box-shadow 0.3s ease-in-out',
+        '&:hover': {
+            boxShadow: ' 0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        }
     },
-    itemName: {
-        fontSize: theme.appFixedDimensions.fontSize.large,
+    imageOuter: {
+        flexShrink: 0
     },
-    itemAttr: {
-        letterSpacing: '0.2px',
+    contentOuter: {
+        flexGrow: 1,
+        paddingLeft: 20
+    },
+    info: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    growedBlock: {
+        flexGrow: 1
+    },
+    name: {
+        padding: '5px 0 13px'
+    },
+    nameLink: {
+        textDecoration: 'none',
         color: theme.appColors.grey,
-        lineHeight: '24px',
+        '&:hover': {
+            color: theme.appColors.blue
+        }
     },
-    textCapitalize: {
-        textTransform: 'capitalize',
+    attributes: {
+        dispay: 'block',
+        paddingBottom: 4,
+        fontSize: 13,
+        letterSpacing: 0.1,
+        lineHeight: 1.69,
+        '&:first-letter': {
+            textTransform: 'uppercase'
+        }
     },
-    remove: {
-        letterSpacing: '0.4px',
-        textTransform: 'uppercase',
-        fontSize: theme.appFixedDimensions.fontSize.small,
+    attributesQty: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: 6
     },
-    mainCurrency: {
-        fontSize: theme.appFixedDimensions.fontSize.large,
-        letterSpacing: '0.5px',
+    attributesTitle: {
+        marginRight: 15
     },
-    sumWrapper: {
-        lineHeight: '26px',
-        verticalAlign: 'middle',
+    attributesValue: {
+        color: theme.appColors.grey
     },
-    eachCurrency: {
-        fontSize: theme.appFixedDimensions.fontSize.medium,
+    price: {
+        fontWeight: 500,
+        textAlign: 'right',
+        lineHeight: 1.4
     },
-    select: {
-        width: '52px',
-        height: '22px',
+    newPrice: {
+        color: theme.appColors.red
+    },
+    oldPrice: {
+        fontSize: 15,
+        letterSpacing: 0.3,
+        fontWeight: 400
+    },
+    eachPrice: {
+        textAlign: 'right',
+        color: theme.appColors.lightGrey,
+        fontSize: 14,
+        padding: '7px 0'
+    },
+    removeBtn: {
+        position: 'absolute',
+        left: 20,
+        top: '50%',
+        transform: 'translateY(-50%)',
         padding: 0,
-        paddingLeft: '8px',
+        borderRadius: '50%',
+        minWidth: 'auto',
+        width: 20,
+        height: 20,
+        color: theme.appColors.lightGrey,
+        border: '1px solid currentColor',
+        transition: 'color 0.3s ease-in-out',
+        cursor: 'pointer',
+        '&:after, &:before': {
+            content: '""',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            width: 12,
+            height: 1,
+            backgroundColor: 'currentColor'
+        },
+        '&:after': {
+            transform: 'translate(-50%, -50%) rotate(45deg)'
+        },
+        '&:before': {
+            transform: 'translate(-50%, -50%) rotate(-45deg)'
+        },
+        '&:hover': {
+            color: theme.appColors.red,
+            backgroundColor: 'transparent'
+        }
+
+    },
+    fullHeight: {
+        height: '100%'
     }
 });

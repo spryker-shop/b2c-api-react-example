@@ -140,7 +140,6 @@ if (IS_DEV_SERVER) {
         host: DEV_SERVER_HOST,
         port: DEV_SERVER_PORT,
         https: false,
-        hot: true,
         inline: true,
         noInfo: false
     };
@@ -277,6 +276,10 @@ const config = {
             src: path.resolve(__dirname, 'src'),
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@application': path.resolve(__dirname, 'src/application'),
+            '@components': path.resolve(__dirname, 'src/application/components'),
+            '@containers': path.resolve(__dirname, 'src/application/containers'),
+            '@hoc': path.resolve(__dirname, 'src/application/hoc'),
+            '@pages': path.resolve(__dirname, 'src/application/pages'),
             '@helpers': path.resolve(__dirname, 'src/helpers'),
             '@interfaces': path.resolve(__dirname, 'src/interfaces'),
             '@stores': path.resolve(__dirname, 'src/stores'),

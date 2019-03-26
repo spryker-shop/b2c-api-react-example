@@ -63,7 +63,7 @@ const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataRespons
                 result[row.id].quantity = row.attributes.quantity;
                 result[row.id].amount = row.attributes.amount;
                 result[row.id].calculations = row.attributes.calculations;
-                result[row.id].groupKey = row.attributes.groupKey;
+                result[row.id].abstractSku = row.attributes.abstractSku;
                 totalQty += row.attributes.quantity;
             } else {
                 if (row.type === 'concrete-products') {

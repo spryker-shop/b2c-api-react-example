@@ -8,52 +8,51 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     const {
         classes,
         children,
-        popoverPosLeft,
-        popoverPosTop,
         anchorElement,
         closePopoverHandler,
-        extraContentClassName,
-        extraHelperClassName,
+        anchorOrigin,
+        transformOrigin,
+        openPopup,
+        paperProps
     } = props;
 
-    const isOpen = Boolean(anchorElement);
-
-    const popoverStyles = {
-        top: popoverPosTop,
-        left: 0,
-    };
+    const isOpen = openPopup !== null ? openPopup : Boolean(anchorElement);
 
     const popoverProps = {
         open: isOpen,
         anchorEl: anchorElement,
         elevation: 0,
-        onClose: closePopoverHandler,
+        transformOrigin,
+        anchorOrigin,
+        onClose: closePopoverHandler
     };
 
     return (
         <Popover
-            {...popoverProps}
-            className={classes.popover}
-            anchorReference="anchorPosition"
-            anchorPosition={{top: 0, left: popoverPosLeft}}
-            style={popoverStyles}
+            { ...popoverProps }
+            className={ classes.popover }
             PaperProps={{
+                ...paperProps,
                 classes: {
-                    root: `${classes.content} ${extraContentClassName ? extraContentClassName : ''}`
+                    root: classes.content
                 }
             }}
         >
-            <div className={classes.childWrapper}>
-                <div
-                    className={
-                        `${isOpen ? `${classes.helper} ${extraHelperClassName ? extraHelperClassName : ''}` : ''}`
-                    }
-                >
-                </div>
-                {children}
-            </div>
+            { children }
         </Popover>
     );
+};
+
+PopoverWrapperBase.defaultProps = {
+    openPopup: null,
+    anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+    },
+    transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+    }
 };
 
 export const PopoverWrapper = withStyles(styles)(PopoverWrapperBase);

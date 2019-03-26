@@ -12,7 +12,7 @@ import {
     TFilterItemValue,
     TFilterItemName
 } from './types';
-import { TRangeInputName } from '@application/components/UI/SprykerRangeFilter/types';
+import { TSprykerRangeSliderName } from '@application/components/UI/SprykerRangeSlider/types';
 import { RangeFacets } from '@interfaces/searchPageData';
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
@@ -22,29 +22,41 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @connect
-class SearchFilterListBase extends React.Component<Props, State> {
+class SearchFilterListComponent extends React.Component<Props, State> {
     public readonly state: State = {
         activeFilters: this.props.activeFilters,
         activeRangeFilters: this.props.activeRangeFilters,
-        isFilterUpdated: false
+        isFilterUpdated: false,
+        isFirstLoadPassed: null
     };
 
     static getDerivedStateFromProps = (props: Props, state: State): State => {
-        if (props.isLoading || state.isFilterUpdated) {
+        if (props.isFulfilled && state.isFirstLoadPassed === null) {
             return {
                 ...state,
+                isFirstLoadPassed: true,
+                activeFilters: props.activeFilters,
+                activeRangeFilters: props.activeRangeFilters,
                 isFilterUpdated: false
             };
         }
 
+        if (props.isLoading || state.isFilterUpdated) {
+            return {
+                ...state,
+                isFilterUpdated: false,
+            };
+        }
+
         return {
+            ...state,
             activeFilters: props.activeFilters,
             activeRangeFilters: props.activeRangeFilters,
             isFilterUpdated: false
         };
     };
 
-    protected updateRangeFilters = async (name: TRangeInputName, {min, max}: RangeType): Promise<void> => {
+    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> => {
         const currentData = this.props.rangeFilters.filter((filter: RangeFacets) => (filter.name === name))[0];
         const currentDataActiveMin = rangeFilterValueToFront(currentData.activeMin, rangeMinType);
         const currentDataActiveMax = rangeFilterValueToFront(currentData.activeMax, rangeMaxType);
@@ -57,7 +69,7 @@ class SearchFilterListBase extends React.Component<Props, State> {
             {
                 activeRangeFilters: {
                     ...prevState.activeRangeFilters,
-                    [name]: {min, max},
+                    [name]: { min, max }
                 },
                 isFilterUpdated: true
             }
@@ -68,7 +80,7 @@ class SearchFilterListBase extends React.Component<Props, State> {
         await this.setState((prevState: State) => ({
             activeFilters: {
                 ...prevState.activeFilters,
-                [name]: values,
+                [name]: values
             },
             isFilterUpdated: true
         }));
@@ -92,7 +104,7 @@ class SearchFilterListBase extends React.Component<Props, State> {
 
         await this.setState({
             activeRangeFilters: {
-                ...activeRanges,
+                ...activeRanges
             },
             isFilterUpdated: true
         });
@@ -106,12 +118,12 @@ class SearchFilterListBase extends React.Component<Props, State> {
             {
                 ...prevState,
                 activeFilters: {},
-                activeRangeFilters: {},
+                activeRangeFilters: {}
             }
         ));
     };
 
-    protected resetFilterOneValue = ({name, value}: IFilterItemToDelete): void => {
+    protected resetFilterOneValue = ({ name, value }: IFilterItemToDelete): void => {
         const values = [...this.state.activeFilters[name]].filter((val: TFilterItemValue) => val !== value);
         const stateUpdated: Promise<boolean> = this.updateActiveFilters(name, values);
 
@@ -138,29 +150,38 @@ class SearchFilterListBase extends React.Component<Props, State> {
         }
     };
 
-    public render = (): JSX.Element => (
-        <>
-            <FiltersList
-                filters={ this.props.filters }
-                activeFilters={ this.state.activeFilters }
-                ranges={ this.props.rangeFilters }
-                activeRangeFilters={ this.state.activeRangeFilters }
-                updateStore={ this.updateStoreWithNewFilters }
-                updateActiveFilters={ this.updateActiveFilters }
-                updateRangeFilters={ this.updateRangeFilters }
-            />
+    public render = (): JSX.Element => {
+        const { classes, filters, rangeFilters } = this.props;
+        const { activeFilters, activeRangeFilters, isFirstLoadPassed } = this.state;
 
-            <ActiveFiltersList
-                rangeFilters={ this.props.rangeFilters }
-                activeValuesFilters={ this.state.activeFilters }
-                activeValuesRanges={ this.state.activeRangeFilters }
-                deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
-                filtersLocalizedNames={getFiltersLocalizedNames(this.props.filters)}
-                rangesLocalizedNames={getRangeFiltersLocalizedNames(this.props.rangeFilters)}
-                resetHandler={ this.runResetActiveFilters }
-            />
-        </>
-    );
+        return (
+            <>
+                { isFirstLoadPassed &&
+                    <div className={ classes.root }>
+                        <FiltersList
+                            filters={ filters }
+                            activeFilters={ activeFilters }
+                            ranges={ rangeFilters }
+                            activeRangeFilters={ activeRangeFilters }
+                            updateStore={ this.updateStoreWithNewFilters }
+                            updateActiveFilters={ this.updateActiveFilters }
+                            updateRangeFilters={ this.updateRangeFilters }
+                        />
+
+                        <ActiveFiltersList
+                            rangeFilters={ rangeFilters }
+                            activeValuesFilters={ activeFilters }
+                            activeValuesRanges={ activeRangeFilters }
+                            deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
+                            filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
+                            rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
+                            resetHandler={ this.runResetActiveFilters }
+                        />
+                    </div>
+                }
+            </>
+        );
+    };
 }
 
-export const SearchFilterList = withStyles(styles)(SearchFilterListBase);
+export const SearchFilterList = withStyles(styles)(SearchFilterListComponent);
