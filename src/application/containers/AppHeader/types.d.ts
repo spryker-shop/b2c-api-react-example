@@ -3,10 +3,7 @@ import { WithRouter } from '@interfaces/common';
 import { styles } from './styles';
 
 export interface IAppHeaderState {
-    showSearch: boolean;
-    stickyTriggerOffset: number;
-    pageWidth: number;
-    pageHeight: number;
+    headerHeight: number;
 }
 
 export interface IAppHeaderProps extends WithStyles<typeof styles>, WithRouter {

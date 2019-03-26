@@ -10,8 +10,9 @@ export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Fl
     currency: TAppCurrency;
     isLoading: boolean;
     id: string;
-    sendSuggestionAction(query: string): void;
-    clearSuggestions(query: string): void;
+    sendSuggestionAction: (query: string) => void;
+    clearSuggestions: (query: string) => void;
+    extraInputClassName?: string;
 }
 
 export interface ICatalogState {
@@ -21,9 +22,10 @@ export interface ICatalogState {
 
 export interface IInputProps {
     value: string;
+    extraInputClassName?: string;
     [key: string]: any;
-    onChange(event: React.FormEvent<any>, params?: ChangeEvent): void;
-    onBlur?(event: React.FormEvent<any>, params?: BlurEvent): void;
+    onChange: (event: React.FormEvent<any>, params?: ChangeEvent) => void;
+    onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
 }
 
 export interface ICompletionMatch {

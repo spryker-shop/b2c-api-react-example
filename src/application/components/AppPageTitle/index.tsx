@@ -4,33 +4,19 @@ import { IAppPageTitleProps as Props } from './types';
 import { styles } from './styles';
 
 export const AppPageTitleBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, title, intro } = props;
+    const { classes, title, children } = props;
 
     return (
-        <Grid container
-              justify="flex-start"
-              alignItems="center"
-              className={ classes.root }
-        >
-            <Grid item xs={ 12 }>
+        <div className={ classes.root }>
+            <div className={ classes.container }>
                 { title &&
-                <Typography
-                    component="h1"
-                    color="inherit"
-                    align="left"
-                    className={ classes.pageHeader }
-                    id="pageTitle"
-                >
-                    { title }
-                </Typography>
+                    <Typography component="h1" variant="display3" className={ classes.title }>
+                        { title }
+                    </Typography>
                 }
-                { intro &&
-                <Typography color="inherit" paragraph className={ classes.paragraph }>
-                    { intro }
-                </Typography>
-                }
-            </Grid>
-        </Grid>
+                { children }
+            </div>
+        </div>
     );
 };
 

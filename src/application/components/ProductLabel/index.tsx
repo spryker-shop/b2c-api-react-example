@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { IProductLabelProps as Props } from './types';
 import { styles } from './styles';
+import { IProductLabel } from '@interfaces/product';
 
-export const ProductLabelBase: React.SFC<Props> = (props): JSX.Element => {
+const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, label } = props;
+
     if (!label) {
         return null;
     }
@@ -26,20 +28,26 @@ export const ProductLabelBase: React.SFC<Props> = (props): JSX.Element => {
             className: classes.saleLabel
         }
     };
-    const colorClassName: string = labelData[label.type].className;
+
+    const renderLabels = (): JSX.Element[] => (
+        label.map((item: IProductLabel, index: number) => {
+            const colorClassName: string = labelData[item.type].className;
+
+            return (
+                <span className={ classes.labelItem } key={`${index}+${item.text}`}>
+                    <span className={`${classes.labelText} ${colorClassName}`}>
+                        { item.text }
+                    </span>
+                </span>
+            );
+        })
+    );
 
     return (
         <div className={ `${classes.labelsOuter}` }>
-            <div key={ label.type } className={ `${classes.label}` }>
-                <Typography
-                    component="span"
-                    className={ `${classes.labelText} ${colorClassName}` }
-                >
-                    { label.text }
-                </Typography>
-            </div>
+            { renderLabels() }
         </div>
     );
 };
 
-export const ProductLabel = withStyles(styles)(ProductLabelBase);
+export const ProductLabel = withStyles(styles)(ProductLabelComponent);

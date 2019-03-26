@@ -28,10 +28,5 @@ export const styles = (theme: Theme) => createStyles({
     tableActionDisabled: {
         pointerEvents: 'none',
         opacity: 0.5
-    },
-    noItems: {
-        marginTop: '2rem',
-        fontSize: '1rem',
-        fontWeight: 'bold'
     }
 });

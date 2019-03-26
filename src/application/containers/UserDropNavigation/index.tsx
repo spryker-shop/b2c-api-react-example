@@ -7,7 +7,7 @@ import { pathCustomerPage, pathCustomerProfilePage, pathLoginPage } from '@const
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { BreakpointsSM } from '@constants/breakpoints';
-import { LogoutSetTimeoutTime } from '@constants/customer';
+import { logoutSetTimeoutTime } from '@constants/customer';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
@@ -15,18 +15,25 @@ import { styles } from './styles';
 
 @connect
 @(withRouter as Function)
-export class UserDropNavigationComponent extends React.Component<Props, State> {
+class UserDropNavigationComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        anchorElement: null
+        anchorElement: null,
+        isPopupOpened: false,
+        isContentHovered: false,
+        isButtonHovered: false
     };
 
-    public componentDidUpdate = (prevProps: Props): void => {
-        if (this.props.location !== prevProps.location) {
-            this.closePopover();
-        }
-    }
+    protected iconButton: React.RefObject<HTMLDivElement> = React.createRef();
 
-    protected openPopover = ({currentTarget}: ClickEvent): void => {
+    public componentDidUpdate = (prevProps: Props): void => {
+        const isSameLocation = this.props.location.pathname !== prevProps.location.pathname;
+
+        if (isSameLocation) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
+        }
+    };
+
+    protected openPopover = ({ currentTarget }: ClickEvent): void => {
         if (window.innerWidth < BreakpointsSM) {
             if (this.props.isUserLoggedIn) {
                 this.props.history.push(pathCustomerProfilePage);
@@ -34,11 +41,37 @@ export class UserDropNavigationComponent extends React.Component<Props, State> {
                 this.props.history.push(pathLoginPage);
             }
         } else {
-            this.setState(() => ({anchorElement: currentTarget}));
+            this.setState({ anchorElement: currentTarget });
         }
     };
 
-    protected closePopover = (): void => this.setState({anchorElement: null});
+    protected closePopover = (): void => {
+        const { isButtonHovered, isContentHovered } = this.state;
+
+        if (!isButtonHovered && !isContentHovered) {
+            this.setState({ anchorElement: null, isPopupOpened: false });
+        }
+    };
+
+    protected onHoverButtonHandler = ({ currentTarget }: ClickEvent): void => {
+        this.setState({ anchorElement: currentTarget, isPopupOpened: true, isButtonHovered: true });
+    };
+
+    protected onHoverContentHandler = (): void => {
+        this.setState({ isButtonHovered: false, isContentHovered: true });
+    };
+
+    protected onUnhoverButtonHandler = (): void => {
+        this.setState({ isButtonHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
+
+    protected onUnhoverContentHandler = (): void => {
+        this.setState({ isContentHovered: false }, (): void => {
+            this.closePopover();
+        });
+    };
 
     protected handleLogout = (event: ClickEvent): void => {
         event.preventDefault();
@@ -46,35 +79,45 @@ export class UserDropNavigationComponent extends React.Component<Props, State> {
             this.props.logout();
         } else {
             this.props.history.push(pathCustomerPage);
-            setTimeout(this.props.logout, LogoutSetTimeoutTime);
+            setTimeout(this.props.logout, logoutSetTimeoutTime);
         }
     };
 
     public render(): JSX.Element {
-        const {anchorElement} = this.state;
-        const {classes, popoverPosLeft, popoverPosTop, isUserLoggedIn} = this.props;
+        const { anchorElement, isPopupOpened } = this.state;
+        const { classes, isUserLoggedIn } = this.props;
 
         return (
-            <div>
-                <IconButton aria-label="person" onClick={this.openPopover}>
+            <>
+                <IconButton
+                    buttonRef={ this.iconButton }
+                    aria-label="person"
+                    onClick={ this.openPopover }
+                    onMouseEnter={ this.onHoverButtonHandler }
+                    onMouseLeave={ this.onUnhoverButtonHandler }
+                    className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
+                >
                     <UserIcon />
                 </IconButton>
 
                 <PopoverWrapper
-                    popoverPosLeft={popoverPosLeft}
-                    popoverPosTop={popoverPosTop}
-                    anchorElement={anchorElement}
-                    closePopoverHandler={this.closePopover}
-                    extraHelperClassName={classes.popoverTriangle}
+                    openPopup={ isPopupOpened }
+                    anchorElement={ anchorElement }
+                    closePopoverHandler={ this.closePopover }
+                    classes={{
+                        popover: classes.userPopover,
+                        content: classes.userContent
+                    }}
                 >
                     <UserDrop
-                        closePopoverHandler={this.closePopover}
-                        onLogoutClick={this.handleLogout}
-                        isUserLoggedIn={isUserLoggedIn}
+                        onLogoutClick={ this.handleLogout }
+                        isUserLoggedIn={ isUserLoggedIn }
+                        onMouseEnter={ this.onHoverContentHandler }
+                        onMouseLeave={ this.onUnhoverContentHandler }
                     />
                 </PopoverWrapper>
 
-            </div>
+            </>
         );
     }
 }

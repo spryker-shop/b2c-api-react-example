@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
-
+import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { ISortPanelProps as Props, ISortPanelState as State } from './types';
-
-import { FoundItems } from './FoundItems';
 import { SprykerSelect } from '@application/components/UI/SprykerSelect';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @connect
-class SortPanelBase extends React.Component<Props, State> {
+class SortPanelComponent extends React.Component<Props, State> {
     public readonly state: State = {
         sort: this.props.currentSort,
         itemsPerPage: this.props.currentItemsPerPage
@@ -64,48 +61,60 @@ class SortPanelBase extends React.Component<Props, State> {
         return (
             <Grid container alignItems="center" className={ classes.root }>
                 <Grid item xs={ 12 } sm={ 3 }>
-                    <FoundItems numberFound={ pagination.numFound } />
+                    <Typography color="textSecondary" component="span" variant="subheading">
+                        { pagination.numFound
+                            ? [
+                                `${pagination.numFound} `,
+                                <FormattedPlural
+                                    value={ pagination.numFound }
+                                    key="formatted-text"
+                                    one={ <FormattedMessage id={ 'search.page.one.found.items' } /> }
+                                    other={ <FormattedMessage id={ 'search.page.multiple.found.items' } /> }
+                                />
+                            ]
+                            : <FormattedMessage id={ 'no.found.message' } />
+                        }
+                    </Typography>
                 </Grid>
 
                 <Grid item xs={ 12 } sm={ 9 }>
-                    <div className={ classes.sortsOuter }>
-                        <div className={ classes.sort }>
-                            { pagination.validItemsPerPageOptions &&
-                                <SprykerSelect
-                                    currentMode={ currentItemsPerPage }
-                                    changeHandler={ this.handleSetItemsPerPage }
-                                    menuItems={ this.itemsPerPageMenuItems() }
-                                    menuItemFirst={ {
-                                        value: ' ',
-                                        name: <FormattedMessage id={ 'products.per.page.title' } />,
-                                        disabled: true
-                                    } }
-                                    name="pages"
-                                />
-                            }
-                        </div>
-                        <div className={ classes.sort }>
+                    <Grid container spacing={ 24 } className={ classes.sortsOuter }>
+                        <Grid item xs={ 4 }>
                             { sortParams.length &&
                                 <SprykerSelect
                                     currentMode={ currentSort ? currentSort : ' ' }
                                     changeHandler={ this.handleSetSorting }
                                     menuItems={ this.sortMenuItems() }
-                                    menuItemFirst={ {
+                                    menuItemFirst={{
                                         value: ' ',
-                                        name: !(this.props.sortParams.length > 0) && currentSort
-                                            ? <FormattedMessage id={ 'sort.model.title' } />
-                                            : <FormattedMessage id={ 'relevance.sort.model.title' } />,
+                                        name: <FormattedMessage id={ 'relevance.sort.model.title' } />,
                                         disabled: !(this.props.sortParams.length > 0)
-                                    } }
+                                    }}
                                     name="sort"
+                                    classes={{ menu: classes.relevanceSortMenu }}
                                 />
                             }
-                        </div>
-                    </div>
+                        </Grid>
+                        <Grid item>
+                            { pagination.validItemsPerPageOptions &&
+                                <SprykerSelect
+                                    currentMode={ currentItemsPerPage }
+                                    changeHandler={ this.handleSetItemsPerPage }
+                                    menuItems={ this.itemsPerPageMenuItems() }
+                                    menuItemFirst={{
+                                        value: ' ',
+                                        name: <FormattedMessage id={ 'products.per.page.title' } />,
+                                        disabled: true
+                                    }}
+                                    name="pages"
+                                />
+                            }
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         );
     };
 }
 
-export const SortPanel = withStyles(styles)(SortPanelBase);
+export const SortPanel = withStyles(styles)(SortPanelComponent);

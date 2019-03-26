@@ -7,8 +7,13 @@ export const styles = (theme: Theme) => createStyles({
         flexDirection: 'column',
         margin: 'auto',
         height: '100%',
-        boxShadow: 'none',
         alignItems: 'center',
+        boxShadow: 'none',
+        transition: 'box-shadow 0.3s ease-in-out',
+        cursor: 'pointer',
+        '&:hover': {
+            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        }
     },
     media: {
         position: 'absolute',
@@ -18,43 +23,46 @@ export const styles = (theme: Theme) => createStyles({
         bottom: 0,
         margin: 'auto',
         maxWidth: '90%',
-        maxHeight: '90%',
+        maxHeight: '90%'
     },
-    actionArea: {
-        maxWidth: theme.appFixedDimensions.card.actionAreaWidth,
-        minHeight: theme.appFixedDimensions.card.actionAreaHeight,
-        borderRadius: theme.appFixedDimensions.borderRadius,
+    imageWrapper: {
+        borderRadius: 4,
         position: 'relative',
         width: '100%',
-        [theme.breakpoints.down('md')]: {
-            minHeight: 350,
-        },
+        flexShrink: 0
     },
-    actionAreaOverlay: {
-        position: 'absolute',
-        background: 'rgba(0, 0, 0, 0.10)',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 350,
-    },
-    cardContent: {
-        padding: theme.spacing.unit + theme.spacing.unit / 2,
-        letterSpacing: '0.5px',
+    image: {
         width: '100%',
-        maxWidth: theme.appFixedDimensions.card.actionAreaWidth,
+        minWidth: '100%',
+        height: 360
     },
-    productName: {
-        fontSize: '1rem',
-        color: theme.appColors.black,
+    content: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+        padding: 15,
+        width: '100%',
+        minHeight: 136
     },
-    productPrice: {},
-    productCurrentPrice: {
-        display: 'inline',
-        paddingRight: theme.spacing.unit,
+    nameWrapper: {
+        paddingBottom: 9,
+        flexGrow: 1
     },
-    productOldPrice: {
-        display: 'inline',
+    name: {
+        maxHeight: 42,
+        overflow: 'hidden',
+        // Multiline truncation with ellipsis Chrome only
+        display: '-webkit-box',
+        lineClamp: 2,
+        boxOrient: 'vertical'
     },
+    prices: {
+        flexShrink: 0
+    },
+    newPrice: {
+        color: theme.appColors.red
+    },
+    oldPrice: {
+        fontSize: 14
+    }
 });

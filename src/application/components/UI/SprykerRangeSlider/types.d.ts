@@ -1,5 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from '@application/components/UI/SprykerRangeSlider/styles';
+import { TAppCurrency } from '@interfaces/currency';
 
 type TSprykerRangeSliderValue = {min: number, max: number};
 
@@ -14,5 +15,12 @@ export interface ISprykerRangeSliderProps extends WithStyles<typeof styles> {
     max: number;
     currentValue?: { min: number, max: number };
     valueFormatter?: Function | null;
-    extraClassName?: string;
+    currency: TAppCurrency;
+}
+
+export interface ISprykerRangeSliderState {
+    anchorElement: HTMLElement | null;
+    minPopoverWidth: number;
+    currentMinValue: number;
+    currentMaxValue: number;
 }
