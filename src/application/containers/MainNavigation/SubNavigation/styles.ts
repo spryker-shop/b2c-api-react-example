@@ -2,14 +2,6 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    // overlay: {
-    //     position: 'absolute',
-    //     left: 0,
-    //     top: 0,
-    //     height: '100vh',
-    //     width: 9999,
-    //     background: 'rgba(0, 0, 0, 0.2)'
-    // },
     layout: {
         position: 'absolute',
         left: 0,
