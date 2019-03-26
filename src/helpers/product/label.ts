@@ -26,7 +26,7 @@ export const getProductLabel = (
     availableLabels: IAvailableLabelsCollection | null
 ): IProductLabel[] | null => {
     const labels = getProductLabelCollection(labelsIdArr, availableLabels);
-
+console.log(labels);
     if (!labels) {
         return null;
     }
