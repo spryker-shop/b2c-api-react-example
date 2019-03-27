@@ -6,14 +6,28 @@ export const styles = (theme: Theme) => createStyles({
         position: 'absolute',
         left: 0,
         top: '100%',
-        background: theme.appColors.weekWhite,
         width: '100vw',
-        padding: '40px 0'
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            left: '50%',
+            top: 0,
+            height: '100vh',
+            transform: 'translateX(-50%)',
+            width: 9999,
+            background: 'rgba(0, 0, 0, 0.2)',
+            zIndex: -1,
+            pointerEvents: 'none'
+        }
+    },
+    inner: {
+        position: 'relative',
+        background: theme.appColors.weekWhite,
+        padding: '40px 20px'
     },
     layoutSimple: {
         minWidth: '100%',
-        width: 'auto',
-        padding: '40px 20px'
+        width: 'auto'
     },
     container: {
         ...theme.appContainerStyles
