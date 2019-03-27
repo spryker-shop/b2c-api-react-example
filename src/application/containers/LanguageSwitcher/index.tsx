@@ -66,19 +66,20 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
                         { isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown /> }
                     </span>
                 </Button>
-
-                <Menu
-                    id="lang-menu"
-                    anchorEl={ anchorElement }
-                    open={ isOpen }
-                    onClose={ this.closeLanguage }
-                    className={classes.content}
-                    classes={{
-                        paper: classes.content
-                    }}
-                >
-                    { languagesList }
-                </Menu>
+                {anchorElement &&
+                    <Menu
+                        id="lang-menu"
+                        anchorEl={ anchorElement }
+                        open={ isOpen }
+                        onClose={ this.closeLanguage }
+                        className={classes.content}
+                        classes={{
+                            paper: classes.content
+                        }}
+                    >
+                        { languagesList }
+                    </Menu>
+                }
             </>
         );
     }
