@@ -29,7 +29,7 @@ export const styles = (theme: Theme) => createStyles({
         '&:active, &:hover': {
             border: 0,
             boxShadow: 'inset 0 1px 9px 0 rgba(229, 229, 229, 0.5)',
-            background: '#eaeaea',
+            background: theme.appColors.softGrey,
             color: theme.appColors.grey
         }
     },

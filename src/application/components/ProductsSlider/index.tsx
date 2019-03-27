@@ -20,7 +20,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         </div>
     );
 
-    const appendDots = (dots: React.ReactNode): JSX.Element => (
+    const renderDots = (dots: React.ReactNode): JSX.Element => (
         <div>
             <ul className={ classes.dotsContainer }>{ dots }</ul>
         </div>
@@ -53,7 +53,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         return productsList;
     };
 
-    const slickSettings: Settings = {
+    const sliderSettings: Settings = {
         centerMode: true,
         dots: true,
         infinite: true,
@@ -64,7 +64,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         prevArrow: (<ArrowButton icon={ <PrevIcon /> } customClass={ classes.slideArrow } />),
         nextArrow: (<ArrowButton icon={ <NextIcon /> } customClass={ classes.slideArrow } />),
         customPaging,
-        appendDots,
+        appendDots: renderDots,
         responsive: [
             {
                 breakpoint: 1280,
@@ -94,7 +94,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
     }
 
     return (
-        <Slider className={ classes.root } { ...slickSettings }>
+        <Slider className={ classes.root } { ...sliderSettings }>
             { renderProductCards() }
         </Slider>
     );

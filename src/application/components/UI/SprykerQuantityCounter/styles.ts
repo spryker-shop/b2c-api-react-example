@@ -29,7 +29,7 @@ export const styles = (theme: Theme) => createStyles({
             transform: 'translate(-50%, -50%) rotate(90deg)'
         },
         '&:hover': {
-            background: '#eaeaea'
+            background: theme.appColors.softGrey
         }
     },
     triggerBigger: {

@@ -22,9 +22,9 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
 
     public componentDidUpdate = (prevProps: Props): void => {
         const { isUpdateToDefault, value } = this.props;
-        const isShouldUpdateToDefault = isUpdateToDefault === true && prevProps.isUpdateToDefault !== isUpdateToDefault;
+        const shouldUpdateToDefault = isUpdateToDefault === true && prevProps.isUpdateToDefault !== isUpdateToDefault;
 
-        if (isShouldUpdateToDefault) {
+        if (shouldUpdateToDefault) {
             this.setState({ inputValue: value });
         }
     };

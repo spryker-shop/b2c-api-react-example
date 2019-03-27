@@ -8,15 +8,15 @@ const dotChange = (theme: Theme) => ({
 });
 
 const animationDuration = '0.15s';
-const thumbnailsDimensions = 80;
+const thumbnailSize = 80;
 
 export const styles = (theme: Theme) => createStyles({
     thumbnailsCol: {
-        width: thumbnailsDimensions
+        width: thumbnailSize
     },
     mainSliderCol: {
         paddingLeft: 20,
-        width: `calc(100% - ${thumbnailsDimensions}px)`
+        width: `calc(100% - ${thumbnailSize}px)`
     },
     mainSliderFullWidth: {
         width: '100%',
@@ -115,7 +115,7 @@ export const styles = (theme: Theme) => createStyles({
     imageThumbnail: {
         width: '100%',
         minWidth: '100%',
-        height: thumbnailsDimensions,
+        height: thumbnailSize,
         cursor: 'pointer',
     },
     slideArrow: {
@@ -194,7 +194,7 @@ export const styles = (theme: Theme) => createStyles({
         height: '7px',
         border: 'none',
         borderRadius: '50%',
-        backgroundColor: '#eaeaea',
+        backgroundColor: theme.appColors.softGrey,
         transition: `width ${ animationDuration }, height ${ animationDuration }, 
             background-color ${ animationDuration }`
     },

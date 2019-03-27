@@ -8,7 +8,6 @@ import { ArrowButton } from './ArrowButton';
 import { RightIcon, LeftIcon, BottomIcon, TopIcon } from './icons';
 import { IProductImageSliderProps as Props } from './types';
 import { styles } from './styles';
-import { getProductLabel } from '@helpers/product/label';
 import { ProductLabel } from '@application/components/ProductLabel';
 
 @connect
@@ -22,11 +21,11 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         </div>
     );
 
-    protected appendDots = (dots: React.ReactNode): JSX.Element => (
+    protected renderDots = (dots: React.ReactNode): JSX.Element => (
         <div><ul className={ this.props.classes.dotsContainer }>{ dots }</ul></div>
     );
 
-    protected renderMainSliderItems = (): JSX.Element[] => {
+    protected renderImageItems = (): JSX.Element[] => {
         const { images, classes } = this.props;
 
         return (
@@ -38,7 +37,7 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         );
     };
 
-    protected renderThumbnailsSliderItems = (): JSX.Element[] => {
+    protected renderThumbnailItems = (): JSX.Element[] => {
         const { images, classes } = this.props;
 
         return (
@@ -56,8 +55,8 @@ export class ProductImageSliderComponent extends React.Component<Props> {
 
     public render(): JSX.Element {
         const { classes, images, productLabels } = this.props;
-        const thumbnailSliderSlidesToShow = 6;
-        const isScrolledSlider = images.length >= thumbnailSliderSlidesToShow;
+        const thumbnailsToShow = 6;
+        const isSliderScrollable = images.length >= thumbnailsToShow;
         const isSingleSlide = images.length === 1;
 
         const mainSliderSettings: Settings = {
@@ -65,15 +64,15 @@ export class ProductImageSliderComponent extends React.Component<Props> {
             prevArrow: (<ArrowButton icon={ <LeftIcon /> } customClass={ classes.slideArrow } />),
             nextArrow: (<ArrowButton icon={ <RightIcon /> } customClass={ classes.slideArrow } />),
             customPaging: this.customPaging,
-            appendDots: this.appendDots,
+            appendDots: this.renderDots,
             asNavFor: this.thumbnailsSliderRef
         };
 
         const thumbnailSliderSettings: Settings = {
-            slidesToShow: thumbnailSliderSlidesToShow,
-            arrows: isScrolledSlider,
+            slidesToShow: thumbnailsToShow,
+            arrows: isSliderScrollable,
             vertical: true,
-            infinite: isScrolledSlider,
+            infinite: isSliderScrollable,
             asNavFor: this.mainSliderRef,
             focusOnSelect: true,
             prevArrow: (<ArrowButton icon={ <TopIcon /> } customClass={ classes.slideArrowThumbs } />),
@@ -95,10 +94,10 @@ export class ProductImageSliderComponent extends React.Component<Props> {
                         ref={ slider => (this.thumbnailsSliderRef = slider) }
                         className={`
                             ${classes.thumbnailSlider}
-                            ${isScrolledSlider ? classes.thumbnailSliderScrolled : ''}
+                            ${isSliderScrollable ? classes.thumbnailSliderScrolled : ''}
                         `}
                     >
-                        { this.renderThumbnailsSliderItems() }
+                        { this.renderThumbnailItems() }
                     </Slider>
                 </Grid>
                 <Grid
@@ -112,7 +111,7 @@ export class ProductImageSliderComponent extends React.Component<Props> {
                             ref={ slider => (this.mainSliderRef = slider) }
                             className={ classes.mainSlider }
                         >
-                            { this.renderMainSliderItems() }
+                            { this.renderImageItems() }
                         </Slider>
                     </div>
                 </Grid>
