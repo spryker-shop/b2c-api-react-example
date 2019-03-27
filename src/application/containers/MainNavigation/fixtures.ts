@@ -11,11 +11,6 @@ export type IRelatedProductDataFixture = {
     title: string;
 };
 
-export interface IProductListFixture {
-    relatedCategoryId: number;
-    relatedProducts: IRelatedProductDataFixture[];
-}
-
 export const fixtures = [
     {
         relatedCategoryId: 5,
