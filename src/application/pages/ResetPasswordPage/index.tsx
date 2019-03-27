@@ -59,7 +59,7 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
                                 <Grid item xs={ 12 }>
                                     <SprykerInput
                                         isRequired
-                                        label={ <FormattedMessage id={ 'email.label' } /> }
+                                        label={ <FormattedMessage id={ 'new.password.label' } /> }
                                         inputName="password"
                                         onChangeHandler={ this.handleChange }
                                         inputValue={ password }
