@@ -10,6 +10,7 @@ import {
 import { parsePorductRelationsRequest } from '@helpers/productRelations/response';
 import api from '@services/api';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { TCartId } from '@interfaces/cart';
 
 export class ProductRelationsService extends ApiServiceAbstract {
     public static async getProductRelations(dispatch: Function, sku: TProductSKU): Promise<void> {
@@ -21,6 +22,31 @@ export class ProductRelationsService extends ApiServiceAbstract {
                 'abstract-product-availabilities,' +
                 'abstract-product-prices,' +
                 'product-labels'
+            });
+
+            if (response.ok) {
+                const parsedData = parsePorductRelationsRequest(response.data);
+                dispatch(productRelationsFulfilledAction(parsedData));
+            }
+        } catch (error) {
+            dispatch(productRelationsRejectedAction(error.message));
+            NotificationsMessage({
+                messageWithCustomText: 'unexpected.error.message',
+                message: error.message,
+                type: typeNotificationError
+            });
+        }
+    }
+
+    public static async getProductRelationsCart(dispatch: Function, cartId: TCartId): Promise<void> {
+        try {
+            dispatch(productRelationsPendingAction());
+
+            const response: IApiResponseData = await api.get(`carts/${cartId}/up-selling-products`, {
+                include: 'abstract-product-image-sets,' +
+                    'abstract-product-availabilities,' +
+                    'abstract-product-prices,' +
+                    'product-labels'
             });
 
             if (response.ok) {

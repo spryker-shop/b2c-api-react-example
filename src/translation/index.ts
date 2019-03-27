@@ -131,6 +131,7 @@ export const messages: IMessages = {
         'place.order.title': 'Place Order',
         'product.description.title': 'Description',
         'product.details.title': 'Product details',
+        'product.relations.title': 'You also may be intrested in',
         'product.sku.title': 'SKU',
         'products.per.page.title': 'Products Per Page',
         'profile.data.successfully.updated.message': 'Your Profile Data was successfully updated!',
@@ -164,6 +165,7 @@ export const messages: IMessages = {
         'shipment.tax.rate.label': 'Tax Rate',
         'shipping.address.title': 'Shipping Address',
         'shipping.fee.calculated.text': 'Shipping fee will be calculated based on Shipping address',
+        'similar.products.title': 'Similar products',
         'sign.up.title': 'Sign Up',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
@@ -226,8 +228,8 @@ export const messages: IMessages = {
         'word.total.title': 'Total',
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
-        'zip.code.label': 'Zipcode',
-        'product.relations.title': 'You also may be intrested in',
+        'your.order.title': 'Your Order',
+        'zip.code.label': 'Zipcode'
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -358,6 +360,7 @@ export const messages: IMessages = {
         'place.order.title': 'Jetzt Kaufen',
         'product.description.title': 'Beschreibung',
         'product.details.title': 'Details',
+        'product.relations.title': 'Sie könnten auch interessiert sein',
         'product.sku.title': 'SKU',
         'products.per.page.title': 'Produkte pro Seite',
         'profile.data.successfully.updated.message': 'Ihre Profildaten wurden erfolgreich aktualisiert!',
@@ -389,6 +392,7 @@ export const messages: IMessages = {
         'shipment.tax.rate.label': 'Steuersatz',
         'shipping.address.title': 'Lieferadresse',
         'shipping.fee.calculated.text': 'Die Versandkosten werden basierend auf der Versandadresse berechnet',
+        'similar.products.title': 'Ähnliche Produkte',
         'sign.up.title': 'Anmelden',
         'social.facebook.title': 'Facebook',
         'social.instagram.title': 'Instagram',
@@ -451,8 +455,8 @@ export const messages: IMessages = {
         'word.total.title': 'Gesamtsumme',
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
-        'zip.code.label': 'PLZ',
-        'product.relations.title': 'Sie könnten auch interessiert sein',
+        'your.order.title': 'Deine Bestellung',
+        'zip.code.label': 'PLZ'
     }
 };
 

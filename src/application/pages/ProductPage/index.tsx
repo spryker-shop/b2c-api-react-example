@@ -199,7 +199,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const images = this.getImageData(this.state.images);
         const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
             this.props.isRejected;
-        const isShouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
+        const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
         return (
             <div className={ classes.root }>
@@ -253,7 +253,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 description={ description }
                                 sku={ sku ? sku : this.props.product.abstractProduct.sku }
                             />
-                            {isShouldLoadRelationsImmediately &&
+                            {shouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
                                     <ProductRelations
                                         sku={ this.props.product.abstractProduct.sku }
