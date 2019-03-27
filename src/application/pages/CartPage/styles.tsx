@@ -5,6 +5,9 @@ export const styles = (theme: Theme) => createStyles({
     root: {
         paddingBottom: 80
     },
+    sliderWrapper: {
+        paddingTop: 80
+    },
     layout: {
         padding: '32px 20px 20px',
         background: theme.appColors.weekWhite,

@@ -15,11 +15,13 @@ import { isOrderDetailsLoading, orderDetails } from './pages/orderDetails';
 import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxStore, IReduxOwnProps } from '@stores/reducers/types';
 import { isPageAddressesStateLoading } from '@stores/reducers/pages/addresses/selectors';
+import { productRelations } from '@stores/reducers/common/productRelations';
 
 export const reducers = {
     pagesLogin,
     pageSearch,
     pageProduct,
+    productRelations,
     pageWishlist,
     pageAddresses,
     pageCheckout,
