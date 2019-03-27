@@ -44,9 +44,11 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
 
                 <PopoverWrapper
                     anchorElement={ anchorElement }
+                    anchorReference="anchorEl"
+                    hideBackdrop={ false }
                     closePopoverHandler={ this.closePopover }
                     classes={{
-                        popover: classes.layout,
+                        backdrop: classes.backdrop,
                         content: classes.content
                     }}
                     anchorOrigin={{

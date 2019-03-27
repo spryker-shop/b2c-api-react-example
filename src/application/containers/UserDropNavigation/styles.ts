@@ -2,12 +2,12 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    userPopover: {
-        marginTop: -10,
-        pointerEvents: 'none'
+    wrapper: {
+        position: 'relative',
+        height: '100%'
     },
-    userContent: {
-        pointerEvents: 'auto'
+    userPopover: {
+        marginTop: -10
     },
     iconButton: {
         width: 60,

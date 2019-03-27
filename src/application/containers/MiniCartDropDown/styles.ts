@@ -2,12 +2,12 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    cartPopover: {
-        marginTop: -10,
-        pointerEvents: 'none'
+    wrapper: {
+        position: 'relative',
+        height: '100%'
     },
-    cartContent: {
-        pointerEvents: 'auto'
+    cartPopover: {
+        marginTop: -10
     },
     badge: {
         transition: 'transform .3s ease-in-out',
@@ -20,14 +20,14 @@ export const styles = (theme: Theme) => createStyles({
         padding: theme.spacing.unit / 2,
         height: 18,
         fontSize: theme.appFixedDimensions.fontSize.mini,
-        lineHeight: 14,
+        lineHeight: 14
     },
     hideBadge: {
-        transform: 'scale(0)',
+        transform: 'scale(0)'
     },
     cartNotification: {
         top: 70,
-        right: 21,
+        right: 21
     },
     iconButton: {
         width: 60,

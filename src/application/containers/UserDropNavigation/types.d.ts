@@ -8,7 +8,6 @@ export interface IUserDropNavigationProps extends WithStyles<typeof styles>, Wit
 }
 
 export interface IUserDropNavigationState {
-    anchorElement: HTMLElement | null;
     isPopupOpened: boolean;
     isContentHovered: boolean;
     isButtonHovered: boolean;

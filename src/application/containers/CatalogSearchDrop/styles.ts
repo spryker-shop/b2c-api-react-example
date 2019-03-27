@@ -2,10 +2,8 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    layout: {
-        '& > :first-child': {
-            background: 'rgba(0, 0, 0, 0.2)'
-        }
+    backdrop: {
+        background: 'rgba(0, 0, 0, 0.2)'
     },
     iconButton: {
         width: 60,

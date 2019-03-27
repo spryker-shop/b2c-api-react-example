@@ -13,10 +13,14 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         anchorOrigin,
         transformOrigin,
         openPopup,
-        paperProps
+        paperProps,
+        hideBackdrop,
+        anchorReference,
+        anchorPosition
     } = props;
 
     const isOpen = openPopup !== null ? openPopup : Boolean(anchorElement);
+    const isCustomCoordinates = anchorReference === 'anchorPosition';
 
     const popoverProps = {
         open: isOpen,
@@ -24,19 +28,25 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
         elevation: 0,
         transformOrigin,
         anchorOrigin,
+        hideBackdrop,
+        anchorReference,
+        anchorPosition,
         onClose: closePopoverHandler
     };
 
     return (
         <Popover
             { ...popoverProps }
-            className={ classes.popover }
+            className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
+            disablePortal={ true }
+            keepMounted={ true }
             PaperProps={{
                 ...paperProps,
                 classes: {
-                    root: classes.content
+                    root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
                 }
             }}
+            BackdropProps={{ classes: { root: classes.backdrop } }}
         >
             { children }
         </Popover>
@@ -44,6 +54,9 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
 };
 
 PopoverWrapperBase.defaultProps = {
+    anchorReference: 'anchorPosition',
+    anchorPosition: { top: 0, left: 0 },
+    hideBackdrop: true,
     openPopup: null,
     anchorOrigin: {
         vertical: 'bottom',

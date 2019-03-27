@@ -16,30 +16,23 @@ import { styles } from './styles';
 @(withRouter as Function)
 class MiniCartDropDownComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        anchorElement: null,
         isCartNotificationOpen: true,
         isPopupOpened: false,
         isContentHovered: false,
         isButtonHovered: false
     };
 
-    protected iconButton: React.RefObject<HTMLDivElement> = React.createRef();
-
     public componentDidUpdate = (prevProps: Props): void => {
         const isSameLocation = this.props.location.pathname !== prevProps.location.pathname;
         const isCartEmpty = this.props.cartProductsQuantity === 0 && prevProps.cartProductsQuantity > 0;
         const isQuantityChanged = this.props.cartProductsQuantity > prevProps.cartProductsQuantity;
 
-        if (isSameLocation) {
-            this.setState({ anchorElement: null, isPopupOpened: false });
+        if (isSameLocation || isCartEmpty) {
+            this.setState({ isPopupOpened: false });
         }
 
         if (isQuantityChanged) {
             this.handleOpenCartNotification();
-        }
-
-        if (isCartEmpty) {
-            this.setState({ anchorElement: null, isPopupOpened: false });
         }
     };
 
@@ -55,7 +48,7 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
         const { isButtonHovered, isContentHovered } = this.state;
 
         if (!isButtonHovered && !isContentHovered) {
-            this.setState({ anchorElement: null, isPopupOpened: false });
+            this.setState({ isPopupOpened: false });
         }
     };
 
@@ -63,7 +56,6 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
         const { cartItemsQuantity } = this.props;
 
         this.setState({
-            anchorElement: currentTarget,
             isPopupOpened: cartItemsQuantity !== 0,
             isButtonHovered: true
         });
@@ -90,12 +82,11 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { anchorElement, isPopupOpened } = this.state;
+        const { isPopupOpened } = this.state;
         const { classes, cartItemsQuantity } = this.props;
 
         const cartButton = (
             <IconButton
-                buttonRef={ this.iconButton }
                 aria-label="cart"
                 color="inherit"
                 onClick={ this.onRedirectHandler }
@@ -116,32 +107,33 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
             </IconButton>
         );
 
+        if (cartItemsQuantity === 0) {
+            return (
+                <Tooltip
+                    disableFocusListener
+                     placement="top"
+                     title={ <FormattedMessage id={ 'empty.cart.title' } /> }
+                >
+                    { cartButton }
+                </Tooltip>
+            );
+        }
+
         return (
-            <>
-                { cartItemsQuantity === 0
-                    ? (<Tooltip disableFocusListener
-                                placement="top"
-                                title={ <FormattedMessage id={ 'empty.cart.title' } /> }>
-                        { cartButton }
-                    </Tooltip>)
-                    : cartButton
-                }
+            <div className={ classes.wrapper }>
+                { cartButton }
 
                 <PopoverWrapper
                     openPopup={ isPopupOpened }
-                    anchorElement={ anchorElement }
                     closePopoverHandler={ this.closePopover }
-                    classes={{
-                        popover: classes.cartPopover,
-                        content: classes.cartContent
-                    }}
+                    classes={{ popover: classes.cartPopover }}
                 >
                     <MiniCartDrop
                         onMouseEnter={ this.onHoverContentHandler }
                         onMouseLeave={ this.onUnhoverContentHandler }
                     />
                 </PopoverWrapper>
-            </>
+            </div>
         );
     }
 }
