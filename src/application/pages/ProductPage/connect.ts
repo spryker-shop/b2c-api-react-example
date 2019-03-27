@@ -12,6 +12,7 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getRouterMatchParam } from '@helpers/router';
 import { getProductDataAction } from '@stores/actions/pages/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { isWishlistsCollectionInitiated } from '@stores/reducers/pages/wishlist/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const product = getProduct(state, ownProps);
@@ -24,6 +25,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const locationProductSKU = getRouterMatchParam(state, ownProps, 'productId');
     const isProductExist: boolean = isProductDetailsPresent(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
+    const isWishlistsFetched: boolean = isWishlistsCollectionInitiated(state, ownProps);
 
     return ({
         product,
@@ -36,6 +38,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         locationProductSKU,
         isProductExist,
         anonymId,
+        isWishlistsFetched
     });
 };
 

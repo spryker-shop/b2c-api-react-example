@@ -9,9 +9,10 @@ import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { AppPrice } from '@application/components/AppPrice';
 import { styles } from './styles';
+import { ProductRelations } from '@application/containers/ProductRelations';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isCartEmpty, totalQty, totals } = props;
+    const { classes, isCartEmpty, totalQty, totals, cartId } = props;
 
     if (isCartEmpty) {
         return (
@@ -73,6 +74,17 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                             <OrderSummary totals={ totals } />
                         </ErrorBoundary>
                     </div>
+                </Grid>
+
+                <Grid item xs={ 12 }>
+                    <ErrorBoundary>
+                        <ProductRelations
+                            cartId={ cartId }
+                            title={ <FormattedMessage id={ 'similar.products.title' } /> }
+                            type="cart"
+                            classes={{ root: classes.sliderWrapper }}
+                        />
+                    </ErrorBoundary>
                 </Grid>
             </Grid>
         </AppMain>

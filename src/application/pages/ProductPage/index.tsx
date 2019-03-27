@@ -17,6 +17,7 @@ import { ProductConfiguratorAddToWishlist } from './ProductConfiguratorAddToWish
 import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IImageSlide } from '@application/components/ImageSlider/types';
+import { ProductRelations } from '@application/containers/ProductRelations';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import {
     defaultItemValueDropdown,
@@ -24,6 +25,7 @@ import {
     IProductPropFullData
 } from '@interfaces/product';
 import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 @connect
 export class ProductPageBase extends React.Component<Props, State> {
@@ -154,8 +156,9 @@ export class ProductPageBase extends React.Component<Props, State> {
         })) : null;
 
     public render(): JSX.Element {
-        const {classes} = this.props;
+        const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
+        const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
         return (
             <AppMain>
@@ -218,6 +221,14 @@ export class ProductPageBase extends React.Component<Props, State> {
                                 description={this.state.description}
                                 sku={this.state.sku ? this.state.sku : this.props.product.abstractProduct.sku}
                             />
+                            {shouldLoadRelationsImmediately &&
+                                <ErrorBoundary>
+                                    <ProductRelations
+                                        sku={ this.props.product.abstractProduct.sku }
+                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                                    />
+                                </ErrorBoundary>
+                            }
                         </div>
                     )
                 }

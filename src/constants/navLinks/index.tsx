@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { INavLinkData } from '@interfaces/navLinks';
+import { INavLinkData } from '@interfaces/navigations';
 import {
     pathCustomerAddressesPage,
     pathCustomerProfilePage,
