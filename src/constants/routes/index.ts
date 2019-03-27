@@ -24,8 +24,8 @@ export const pathAddressFormUpdate = `${pathAddressFormUpdateBase}/:addressId`;
 export const pathAddressFormNew = `${pathCustomerAddressesPage}/new`;
 export const pathCheckoutPage = `${config.WEB_PATH}checkout`;
 export const pathNotFoundPage = `${config.WEB_PATH}*`;
-export const pathURLToCategorySale = 'outlet\'';
-export const pathURLToCategoryNew = 'new\'';
+export const pathURLToCategorySale = 'outlet';
+export const pathURLToCategoryNew = 'new';
 export const labeledCategories: { [key: string]: string } = {
     [pathURLToCategorySale]: 'SALE %',
     [pathURLToCategoryNew]: 'NEW',

@@ -27,6 +27,7 @@ export interface IAppFixedDimensions {
     customerSubPageWidth: React.CSSProperties['width'];
     sprykerLogo: {
         width: number;
+        minWidth: number;
         height: number;
     };
 }
@@ -57,6 +58,7 @@ export const appFixedDimensions: IAppFixedDimensions = {
     customerSubPageWidth: 740,
     sprykerLogo: {
         width: 170,
-        height: 60
+        height: 60,
+        minWidth: 170
     }
 };

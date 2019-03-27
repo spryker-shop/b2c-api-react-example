@@ -89,7 +89,7 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { isLoading, locale, classes } = this.props;
+        const { locale, classes } = this.props;
         const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
@@ -97,7 +97,7 @@ class PageContentComponent extends React.Component<Props, State> {
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
                 <div className={ classes.root }>
                     <AppHeader
-                        isLoading={ isLoading }
+                        locale={ this.isDataFulfilled() }
                         onMobileNavToggle={ this.mobileNavToggle }
                         isMobileNavOpened={ mobileNavOpened }
                     />
