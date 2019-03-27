@@ -62,6 +62,9 @@ export const styles = (theme: Theme) => createStyles({
             }
         }
     },
+    rootSimpleSlider: {
+        paddingBottom: 0,
+    },
     slideArrow: {
         display: 'flex',
         alignItems: 'center',
