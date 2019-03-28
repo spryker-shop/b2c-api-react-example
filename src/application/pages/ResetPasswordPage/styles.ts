@@ -25,5 +25,8 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('sm')]: {
             padding: '35px 50px 35px'
         }
+    },
+    title: {
+        paddingBottom: 20
     }
 });
