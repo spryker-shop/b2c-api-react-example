@@ -9,16 +9,7 @@ export const styles = (theme: Theme) => createStyles({
     userPopover: {
         marginTop: -10
     },
-    iconButton: {
-        width: 60,
-        height: '100%',
-        padding: 4,
-        borderRadius: 4,
-        '&:hover': {
-            backgroundColor: theme.appColors.weekWhite
-        }
-    },
-    isPopupOpened: {
-        backgroundColor: theme.appColors.weekWhite
-    }
+    iconButton: {},
+    icon: {},
+    isPopupOpened: {}
 });

@@ -8,9 +8,10 @@ import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { MiniCartDrop } from './MiniCartDrop';
 import { CartIcon } from './icons';
 import IconButton from '@material-ui/core/IconButton';
-import { ClickEvent } from '@interfaces/common';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';
 import { styles } from './styles';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { NavLink } from 'react-router-dom';
 
 @connect
 @(withRouter as Function)
@@ -36,14 +37,6 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
         }
     };
 
-    protected onRedirectHandler = (): void => {
-        const { cartItemsQuantity } = this.props;
-
-        if (cartItemsQuantity !== 0) {
-            this.props.history.push(pathCartPage);
-        }
-    };
-
     protected closePopover = (): void => {
         const { isButtonHovered, isContentHovered } = this.state;
 
@@ -52,13 +45,17 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
         }
     };
 
-    protected onHoverButtonHandler = ({ currentTarget }: ClickEvent): void => {
-        const { cartItemsQuantity } = this.props;
+    protected onHoverButtonHandler = (): void => {
+        const { isTouch } = this.props;
 
-        this.setState({
-            isPopupOpened: cartItemsQuantity !== 0,
-            isButtonHovered: true
-        });
+        if (window.innerWidth >= appBreakpoints.values.lg || isTouch) {
+            const { cartItemsQuantity } = this.props;
+
+            this.setState({
+                isPopupOpened: cartItemsQuantity !== 0,
+                isButtonHovered: true
+            });
+        }
     };
 
     protected onHoverContentHandler = (): void => {
@@ -82,17 +79,19 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
+        const { pathname } = this.props.location;
         const { isPopupOpened } = this.state;
         const { classes, cartItemsQuantity } = this.props;
+        const pathToRedirect = cartItemsQuantity !== 0 ? pathCartPage : pathname;
 
         const cartButton = (
             <IconButton
                 aria-label="cart"
                 color="inherit"
-                onClick={ this.onRedirectHandler }
+                component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathToRedirect } /> }
                 onMouseEnter={ this.onHoverButtonHandler }
                 onMouseLeave={ this.onUnhoverButtonHandler }
-                className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
+                className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : ''}`}
             >
                 <Badge
                     badgeContent={ cartItemsQuantity }
@@ -102,7 +101,9 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
                     }}
                     color="primary"
                 >
-                    <CartIcon />
+                    <span className={ classes.icon }>
+                        <CartIcon />
+                    </span>
                 </Badge>
             </IconButton>
         );

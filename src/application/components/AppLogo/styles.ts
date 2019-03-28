@@ -9,12 +9,24 @@ export const styles = (theme: Theme) => createStyles({
     },
     logo: {
         display: 'block',
-        marginRight: 8,
+        lineHeight: 0
     },
     logoCopy: {
         color: theme.appColors.black,
         fontSize: '14px',
         lineHeight: '18px',
-        opacity: .4,
+        opacity: 0.4
     },
+    mainLogo: {
+        display: 'none',
+        [theme.breakpoints.up('sm')]: {
+            display: 'block'
+        }
+    },
+    mainLogoWithoutImage: {
+        display: 'block',
+        [theme.breakpoints.up('sm')]: {
+            display: 'none'
+        }
+    }
 });

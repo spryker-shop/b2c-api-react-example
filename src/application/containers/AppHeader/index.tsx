@@ -10,6 +10,7 @@ import { AdditionalNavigation } from './AdditionalNavigation';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
+import { BurgerLogo } from './icons';
 
 @(withRouter as Function)
 class AppHeaderComponent extends React.PureComponent<Props, State> {
@@ -21,6 +22,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
 
     public componentDidMount = (): void => {
         window.addEventListener('resize', this.onWindowResize);
+        window.addEventListener('orientationchange', this.onWindowResize);
     };
 
     public componentDidUpdate = (): void => {
@@ -29,6 +31,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
 
     public componentWillUnmount = (): void => {
         window.removeEventListener('resize', this.onWindowResize);
+        window.removeEventListener('orientationchange', this.onWindowResize);
     };
 
     protected onWindowResize = debounce((): void => {
@@ -42,37 +45,32 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, isMobileNavOpened, onMobileNavToggle, locale } = this.props;
+        const { classes, isMobileNavOpened, onMobileNavToggle } = this.props;
         const { headerHeight } = this.state;
-        const mainNavigation = locale &&
-            <ErrorBoundary>
-                <MainNavigation mobileNavState={ isMobileNavOpened } />
-            </ErrorBoundary>;
 
         return (
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
-                        <div
-                            className={ `${classes.hamburger} ${isMobileNavOpened ? classes.hamburgerOpened : ''}` }
-                            onClick={ onMobileNavToggle }
-                        >
-                            <span />
-                            <span />
+                        <div className={ classes.hamburger }>
+                            <BurgerLogo />
                         </div>
 
-                        <div className={ classes.navigationWrapper }>
-                            <div className={ classes.logoContainer }>
-                                <AppLogo />
+                        <div className={ classes.logoCol }>
+                            <AppLogo addlLogoWithoutImage classes={{ logoContainer: classes.logoContainer }} />
+                        </div>
+
+                        { this.props.location.pathname.endsWith(pathCheckoutPage)
+                            ? <div className={ classes.checkout }>
+                                <FormattedMessage id="word.checkout.title" />
                             </div>
+                            : <div className={ classes.mainNav }>
+                                <ErrorBoundary>
+                                    <MainNavigation mobileNavState={ isMobileNavOpened } />
+                                </ErrorBoundary>
+                            </div>
+                        }
 
-                            { this.props.location.pathname.endsWith(pathCheckoutPage)
-                                ? <div className={ classes.checkout }>
-                                    <FormattedMessage id="word.checkout.title" />
-                                </div>
-                                : <div className={ classes.mainNav }>{ mainNavigation }</div>
-                            }
-                        </div>
                         <AdditionalNavigation />
                     </div>
                 </div>

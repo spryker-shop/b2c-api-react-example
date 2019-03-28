@@ -24,6 +24,7 @@ export const initialState: IInitState = {
         categoriesTree: [],
         countries: [],
         anonymId: 'anonym',
+        isTouch: true
     },
 };
 
@@ -86,6 +87,7 @@ const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) =>
             timeZone: payload.timeZone,
             countries: payload.countries,
             anonymId: payload.anonymId,
+            isTouch: payload.isTouch
         },
         ...getReducerPartFulfilled(),
     });
@@ -164,4 +166,8 @@ export function getCategoriesTree(state: IReduxStore, props: IReduxOwnProps): IC
 
 export function getAnonymId(state: IReduxStore, props: IReduxOwnProps): string {
     return state.init.data.anonymId;
+}
+
+export function getIsTouch(state: IReduxStore, props: IReduxOwnProps): boolean {
+    return state.init.data.isTouch;
 }

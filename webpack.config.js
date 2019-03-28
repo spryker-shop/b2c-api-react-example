@@ -140,6 +140,7 @@ if (IS_DEV_SERVER) {
         host: DEV_SERVER_HOST,
         port: DEV_SERVER_PORT,
         https: false,
+        hot: true,
         inline: true,
         noInfo: false
     };

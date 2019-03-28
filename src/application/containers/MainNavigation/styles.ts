@@ -5,22 +5,11 @@ export const styles = (theme: Theme) => createStyles({
     mainNav: {
         display: 'flex',
         height: '100%',
-        padding: '0 10px',
-        [theme.breakpoints.down('sm')]: {
-            transition: 'transform .3s ease-in-out',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '100vh',
-            background: '#fff',
-            zIndex: 10,
-            fontSize: '3.5vmin',
-            transform: 'translate3d(-100%, 0, 0)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
+        [theme.breakpoints.only('md')]: {
+            width: '100%'
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 10px'
         }
     },
     mainNavOpened: {
@@ -30,6 +19,11 @@ export const styles = (theme: Theme) => createStyles({
         height: '100%',
         transition: 'background 0.3s ease-in-out',
         borderRadius: 4,
+        [theme.breakpoints.only('md')]: {
+            flexGrow: 1
+        },
+    },
+    mainNavItemHoverable: {
         '&:hover': {
             background: theme.appColors.weekWhite
         },
@@ -39,14 +33,16 @@ export const styles = (theme: Theme) => createStyles({
             opacity: 1
         }
     },
+    mainNavItemSelected: {
+        background: theme.appColors.weekWhite,
+        '& > div': {
+            pointerEvents: 'auto',
+            visibility: 'visible',
+            opacity: 1
+        }
+    },
     mainNavItemContainer: {
         position: 'relative'
-    },
-    subNavLayout: {
-        transition: 'visibility 0.2s ease-in-out, opacity 0.2s ease-in-out',
-        visibility: 'hidden',
-        opacity: 0,
-        pointerEvents: 'none'
     },
     mainNavLink: {
         display: 'flex',
@@ -60,8 +56,41 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: 0.2,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.only('md')]: {
+            justifyContent: 'center'
+        },
+        [theme.breakpoints.up('md')]: {
+            padding: '0 7px'
+        },
+        [theme.breakpoints.up('xl')]: {
             padding: '0 10px'
         }
+    },
+    subNavLayout: {
+        position: 'absolute',
+        left: 0,
+        top: '100%',
+        width: '100vw',
+        transition: 'visibility 0.2s ease-in-out, opacity 0.2s ease-in-out',
+        visibility: 'hidden',
+        opacity: 0,
+        pointerEvents: 'none'
+    },
+    subNavSimple: {
+        minWidth: '100%',
+        width: 'auto'
+    },
+    backdrop: {
+        position: 'absolute',
+        left: '50%',
+        top: 0,
+        height: '100vh',
+        transform: 'translateX(-50%)',
+        width: 9999,
+        background: 'rgba(0, 0, 0, 0.2)',
+        zIndex: -1
+    },
+    backdropHoverable: {
+        poinerEvents: 'none'
     }
 });

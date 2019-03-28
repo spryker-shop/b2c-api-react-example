@@ -1,12 +1,11 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { TAppLocale } from '@interfaces/locale';
 import { IMainNavigationNode } from '@interfaces/navigations';
+import { WithRouter } from '@interfaces/common';
 
-export interface IMainNavProps extends WithStyles<typeof styles> {
-    locale: TAppLocale;
+export interface IMainNavProps extends WithStyles<typeof styles>, WithRouter {
     mobileNavState: boolean;
-    getMainNavigationAction: () => void;
     nodesTree: IMainNavigationNode[];
     isFulfilled: boolean;
+    isTouch?: boolean;
 }

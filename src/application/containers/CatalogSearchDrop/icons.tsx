@@ -10,7 +10,7 @@ const pathCross2 = 'M0 14.532L14.532 0 16 1.468 1.468 16z';
 
 /* tslint:enable */
 export const SearchIcon: React.SFC = (props): JSX.Element => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24">
         <path fill={ appColors.grey } fillRule="nonzero" d={ pathSeacrh } />
     </svg>
 );

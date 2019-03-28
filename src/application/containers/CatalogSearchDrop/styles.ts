@@ -5,15 +5,8 @@ export const styles = (theme: Theme) => createStyles({
     backdrop: {
         background: 'rgba(0, 0, 0, 0.2)'
     },
-    iconButton: {
-        width: 60,
-        height: '100%',
-        padding: 4,
-        borderRadius: 4,
-        '&:hover': {
-            backgroundColor: theme.appColors.weekWhite
-        }
-    },
+    iconButton: {},
+    icon: {},
     content: {
         background: 'none',
         width: '50%',

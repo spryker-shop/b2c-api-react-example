@@ -29,16 +29,8 @@ export const styles = (theme: Theme) => createStyles({
         top: 70,
         right: 21
     },
-    iconButton: {
-        width: 60,
-        height: '100%',
-        padding: 4,
-        borderRadius: 4,
-        '&:hover': {
-            backgroundColor: theme.appColors.weekWhite
-        }
-    },
-    isPopupOpened: {
-        backgroundColor: theme.appColors.weekWhite
-    }
+    iconButton: {},
+    isPopupOpened: {},
+    iconButtonUnhoverable: {},
+    icon: {}
 });

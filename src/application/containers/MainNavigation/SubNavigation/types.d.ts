@@ -10,4 +10,7 @@ export interface ISubNavigationProps extends WithStyles<typeof styles> {
     nodes: IMainNavigationNode[];
     simpleDrop: boolean;
     productsList: IRelatedProductDataFixture[];
+    mainMenuItemId: number | null | string;
+    mainMenuType: string;
+    isTouch: boolean;
 }

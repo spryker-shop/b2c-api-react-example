@@ -6,6 +6,7 @@ import { IMainNavigationNode } from '@interfaces/navigations';
 import { ISubNavigationProps as Props } from './types';
 import { IRelatedProductDataFixture } from '../fixtures';
 import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
     const { nodes, classes, simpleDrop, productsList } = props;
@@ -16,11 +17,12 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
             return null;
         }
 
-        return productsList.map((item: IRelatedProductDataFixture) => {
+        return productsList.map((item: IRelatedProductDataFixture, index: number) => {
             const { sku, image, title } = item;
+            const classForLastItem = index >= 2 ? classes.hideOntablet : '';
 
             return (
-                <Grid item xs={ 4 } key={`${sku}-${title}`}>
+                <Grid item xs={ 6 } lg={ 4 } key={`${sku}-${title}`} className={ classForLastItem }>
                     <NavLink className={ classes.productContainer } to={`${pathProductPageBase}/${sku}`}>
                         <span className={ classes.productImage } style={{ backgroundImage: `url(${image})`}} />
                         <span className={ classes.productTitle }>
@@ -36,10 +38,24 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
         if (!Boolean(nodesTree)) {
             return null;
         }
+        const { mainMenuType, mainMenuItemId, isTouch } = props;
+        const viewAllItem: IMainNavigationNode = {
+            title: <FormattedMessage id={ 'view.all.title' } />,
+            resourceId: mainMenuItemId,
+            nodeType: mainMenuType,
+            children: [],
+            additionalItem: true
+        };
+
+        const isViewAllItemExist = nodesTree.filter(item => item.resourceId === mainMenuItemId).length;
+
+        if (!simpleDrop && !Boolean(isViewAllItemExist)) {
+            nodesTree.unshift(viewAllItem);
+        }
 
         return nodesTree.map((node: IMainNavigationNode, index: Number) => {
 
-            const { title, resourceId, children, nodeType } = node;
+            const { title, resourceId, children, nodeType, additionalItem } = node;
             let linkType;
 
             switch (nodeType) {
@@ -57,11 +73,12 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
                     linkType = <span className={`${classes.navLink} ${classes.navStatic}`}>{ title }</span>;
             }
 
+            const isItemAdditional = isTouch ? classes.navItemAdditional : '';
+            const itemClasses = `${classes.navItem} ${classes.navItemSimple} ${classes[`navItemLevel${level}`]} 
+                ${isItemAdditional}`;
+
             return (
-                <li
-                    key={`${resourceId}-${index}`}
-                    className={`${classes.navItem} ${classes.navItemSimple} ${classes[`navItemLevel${level}`]}`}
-                >
+                <li key={`${resourceId}-${index}`} className={ itemClasses }>
                     { linkType }
                     { Boolean(children.length) &&
                         <ul className={`${classes.listReset} ${classes.listChild}`}>
@@ -87,19 +104,17 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <div className={ classes.layout }>
-            <div className={ classes.inner }>
-                <div className={ classes.container }>
-                    <div className={ classes.grid }>
-                        <div className={`${classes.col} ${classes.colList}`}>
-                            <ul className={ classes.listReset }>
-                                { renderCategoriesList(nodes, nodeLevel) }
-                            </ul>
-                        </div>
-                        <div className={`${classes.col} ${classes.colPreviews}`}>
-                            <Grid container spacing={ 24 }>
-                                { renderProductLists() }
-                            </Grid>
-                        </div>
+            <div className={ classes.container }>
+                <div className={ classes.grid }>
+                    <div className={`${classes.col} ${classes.colList}`}>
+                        <ul className={ classes.listReset }>
+                            { renderCategoriesList(nodes, nodeLevel) }
+                        </ul>
+                    </div>
+                    <div className={`${classes.col} ${classes.colPreviews}`}>
+                        <Grid container spacing={ 24 }>
+                            { renderProductLists() }
+                        </Grid>
                     </div>
                 </div>
             </div>

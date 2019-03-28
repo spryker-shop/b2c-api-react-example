@@ -39,7 +39,9 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
                     onClick={ this.openPopover }
                     className={ classes.iconButton }
                 >
-                    <SearchIcon />
+                    <span className={ classes.icon }>
+                        <SearchIcon />
+                    </span>
                 </IconButton>
 
                 <PopoverWrapper

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
-import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton/IconButton';
+import { withStyles, IconButton } from '@material-ui/core';
 import { pathCustomerPage, pathCustomerProfilePage, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
-import { BreakpointsSM } from '@constants/breakpoints';
 import { logoutSetTimeoutTime } from '@constants/customer';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { NavLink } from 'react-router-dom';
 
 @connect
 @(withRouter as Function)
@@ -30,16 +30,6 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
         }
     };
 
-    protected openPopover = (): void => {
-        if (window.innerWidth < BreakpointsSM) {
-            if (this.props.isUserLoggedIn) {
-                this.props.history.push(pathCustomerProfilePage);
-            } else {
-                this.props.history.push(pathLoginPage);
-            }
-        }
-    };
-
     protected closePopover = (): void => {
         const { isButtonHovered, isContentHovered } = this.state;
 
@@ -49,7 +39,11 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
     };
 
     protected onHoverButtonHandler = (): void => {
-        this.setState({ isPopupOpened: true, isButtonHovered: true });
+        const { isTouch } = this.props;
+
+        if (window.innerWidth >= appBreakpoints.values.lg || isTouch) {
+            this.setState({ isPopupOpened: true, isButtonHovered: true });
+        }
     };
 
     protected onHoverContentHandler = (): void => {
@@ -81,17 +75,20 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { isPopupOpened } = this.state;
         const { classes, isUserLoggedIn } = this.props;
+        const pathToRedirect = isUserLoggedIn ? pathCustomerProfilePage : pathLoginPage;
 
         return (
             <div className={ classes.wrapper }>
                 <IconButton
                     aria-label="person"
-                    onClick={ this.openPopover }
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathToRedirect } /> }
                     onMouseEnter={ this.onHoverButtonHandler }
                     onMouseLeave={ this.onUnhoverButtonHandler }
                     className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : '' }`}
                 >
-                    <UserIcon />
+                    <span className={ classes.icon }>
+                        <UserIcon />
+                    </span>
                 </IconButton>
 
                 <PopoverWrapper

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
-import { getContentRoutes } from '@application/components/Routes';
+import { Routes } from '@application/components/Routes';
 import {
     pathCategoryPageBase,
     pathLoginPage,
@@ -97,15 +97,14 @@ class PageContentComponent extends React.Component<Props, State> {
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
                 <div className={ classes.root }>
                     <AppHeader
-                        locale={ this.isDataFulfilled() }
                         onMobileNavToggle={ this.mobileNavToggle }
                         isMobileNavOpened={ mobileNavOpened }
                     />
                     <ErrorBoundary>
-                        {getContentRoutes(this.isDataFulfilled())}
+                        <Routes isAppLoading={ this.isDataFulfilled() } />
                     </ErrorBoundary>
-                    <Notifications />
                     {!this.shouldHideFooter() && <AppFooter/>}
+                    <Notifications />
                 </div>
             </IntlProvider>
         );
@@ -113,4 +112,4 @@ class PageContentComponent extends React.Component<Props, State> {
 }
 
 const PageContent = withStyles(styles)(PageContentComponent);
-export default hot(PageContent);
+export default PageContent;

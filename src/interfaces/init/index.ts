@@ -15,4 +15,5 @@ export interface IInitData {
     categoriesTree?: ICategory[];
     countries?: ICountry[];
     anonymId?: string;
+    isTouch?: boolean;
 }

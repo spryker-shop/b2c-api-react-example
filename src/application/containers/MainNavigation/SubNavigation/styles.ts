@@ -3,55 +3,55 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     layout: {
-        position: 'absolute',
-        left: 0,
-        top: '100%',
-        width: '100vw',
-        '&:before': {
-            content: '""',
-            position: 'absolute',
-            left: '50%',
-            top: 0,
-            height: '100vh',
-            transform: 'translateX(-50%)',
-            width: 9999,
-            background: 'rgba(0, 0, 0, 0.2)',
-            zIndex: -1,
-            pointerEvents: 'none'
-        }
-    },
-    inner: {
         position: 'relative',
         background: theme.appColors.weekWhite,
-        padding: '40px 20px'
-    },
-    layoutSimple: {
-        minWidth: '100%',
-        width: 'auto'
+        [theme.breakpoints.up('md')]: {
+            padding: '40px 20px'
+        }
     },
     container: {
         ...theme.appContainerStyles
     },
     grid: {
         display: 'flex',
-        maxWidth: '96%',
         margin: '0 auto',
-        [theme.breakpoints.down('md')]: {
-            maxWidth: 'none'
+        [theme.breakpoints.up('md')]: {
+            margin: '0 -50px'
+        },
+        [theme.breakpoints.up('xl')]: {
+            margin: '0 auto',
+            maxWidth: '96%'
         }
     },
     col: {
-        padding: '0 70px',
-        [theme.breakpoints.down('md')]: {
-            padding: '0 30px'
+        padding: '0 50px',
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 70px'
         }
     },
     colList: {
-        width: 320,
-        borderRight: '1px solid rgba(206, 206, 208, 0.5)'
+        [theme.breakpoints.only('md')]: {
+            display: 'flex',
+            justifyContent: 'center'
+        },
+        [theme.breakpoints.up('md')]: {
+            width: 260,
+            borderRight: '1px solid rgba(206, 206, 208, 0.5)'
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: 320
+        }
     },
     colPreviews: {
-        width: 'calc(100% - 320px)'
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+            width: 'calc(100% - 260px)'
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: 'calc(100% - 320px)'
+        }
+
     },
     listReset: {
         listStyle: 'none',
@@ -70,7 +70,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     navItemLevel1: {
         fontSize: 13,
-        paddingBottom: 10,
+        paddingBottom: 10
     },
     navItemSimple: {
         whiteSpace: 'nowrap'
@@ -91,6 +91,12 @@ export const styles = (theme: Theme) => createStyles({
         '&:hover': {
             color: theme.appColors.grey
         }
+    },
+    navItemAdditional: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'block'
+        },
     },
     productContainer: {
         display: 'flex',
@@ -126,10 +132,15 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         textAlign: 'center',
         minHeight: 60,
-        padding: '10px 30px',
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: 15,
-            paddingRight: 15
+        padding: '10px 15px',
+        [theme.breakpoints.up('xl')]: {
+            paddingLeft: 60,
+            paddingRight: 60
+        }
+    },
+    hideOntablet: {
+        [theme.breakpoints.only('md')]: {
+            display: 'none'
         }
     }
 });
