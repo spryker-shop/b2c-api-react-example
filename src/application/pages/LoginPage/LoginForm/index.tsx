@@ -1,99 +1,92 @@
 import * as React from 'react';
+import { connect } from './connect';
+import { pathCustomerPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
-import {
-    withStyles,
-    TextField,
-    Button,
-    Typography
-} from '@material-ui/core';
+import { withRouter } from 'react-router';
+import { withStyles, Button, Grid } from '@material-ui/core';
+import { SprykerInput } from '@application/components/UI/SprykerInput';
 import { ILoginFormProps as Props, ILoginFormState as State } from './types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 
-export class LoginFormBase extends React.Component<Props, State> {
+@(withRouter as Function)
+@connect
+export class LoginFormComponent extends React.Component<Props, State> {
     public readonly state: State = {
         username: '',
-        password: '',
-        isSubmitting: false,
-        isSubmitted: false
+        password: ''
+    };
+
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { isAuth, getCustomerCart, history } = this.props;
+
+        if (!prevProps.isAuth && isAuth) {
+            getCustomerCart();
+            history.push(pathCustomerPage);
+        }
     };
 
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
-        if (!this.state.username || !this.state.password) {
+        const { username, password } = this.state;
+
+        if (!Boolean(username) || !Boolean(password)) {
             return null;
         }
-        const {username, password} = this.state;
-        const payload = {
-            username,
-            password
-        };
-        this.props.handleSubmit(payload);
+
+        const payload = { username, password };
+        this.props.handleSubmitLoginForm(payload);
     };
 
-    protected handleChange = (name: string) => (event: InputChangeEvent) => {
+    protected handleChange = () => (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
         this.setState({
             ...this.state,
-            [name]: event.target.value
+            [name]: value
         });
     };
 
     public render() {
-        const {classes} = this.props;
+        const { classes, isLoading } = this.props;
 
         return (
-            <React.Fragment>
-                <Typography variant="title" color="inherit" noWrap>
-                    <FormattedMessage id={'word.login.title'} />
-                </Typography>
-                <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}
-                      id="LoginForm">
-                    <TextField
-                        required
-                        id="login-email"
-                        label={<FormattedMessage id={'email.label'} />}
-                        name="username"
-                        onChange={this.handleChange('username')}
-                        type="email"
-                        defaultValue=""
-                        className={classes.textField}
-                        margin="normal"
-                        fullWidth
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        InputProps={{
-                            className: classes.input
-                        }}
-                    />
-
-                    <TextField
-                        required
-                        id="login-password"
-                        label={<FormattedMessage id={'word.password.title'} />}
-                        name="password"
-                        onChange={this.handleChange('password')}
-                        type="password"
-                        defaultValue=""
-                        className={classes.textField}
-                        margin="normal"
-                        fullWidth
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        InputProps={{
-                            className: classes.input
-                        }}
-                    />
-
-                    <Button type="submit" variant="contained" className={classes.button}>
-                        <FormattedMessage id={'word.login.title'} />
-                    </Button>
-
-                </form>
-            </React.Fragment>
+            <form
+                noValidate
+                autoComplete="off"
+                onSubmit={ this.handleSubmit }
+                id="LoginForm"
+                className={ classes.wrapper }
+            >
+                <Grid container direction="column" spacing={ 24 }>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'email.label' } /> }
+                            inputName="username"
+                            onChangeHandler={ this.handleChange() }
+                            inputType="email"
+                            inputValue={ this.state.username }
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'word.password.title' } /> }
+                            inputName="password"
+                            onChangeHandler={ this.handleChange() }
+                            inputType="password"
+                            inputValue={ this.state.password }
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <Button disabled={ isLoading } fullWidth type="submit" variant="contained">
+                            <FormattedMessage id={ 'word.login.title' } />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </form>
         );
     }
 }
 
-export const LoginForm = withStyles(styles)(LoginFormBase);
+export const LoginForm = withStyles(styles)(LoginFormComponent);

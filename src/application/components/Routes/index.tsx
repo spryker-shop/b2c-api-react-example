@@ -6,6 +6,7 @@ import { LoadableHomePage } from '@application/pages/HomePage/loadable';
 import { LoadableSearchPage } from '@application/pages/SearchPage/loadable';
 import { LoadableProductPage } from '@application/pages/ProductPage/loadable';
 import { LoadableLoginPage } from '@application/pages/LoginPage/loadable';
+import { LoadableRegisterPage } from '@application/pages/RegisterPage/loadable';
 import { LoadableCartPage } from '@application/pages/CartPage/loadable';
 import { LoadableCustomerPage } from '@application/pages/CustomerPage/loadable';
 import { LoadablePasswordForgotPage } from '@application/pages/ForgotPasswordPage/loadable';
@@ -31,7 +32,8 @@ import {
     pathResetPassword,
     pathSearchPage,
     pathWishlistDetailPage,
-    pathWishlistsPage
+    pathWishlistsPage,
+    pathRegisterPage
 } from '@constants/routes';
 
 export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
@@ -46,9 +48,10 @@ export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
             <Route path={ pathSearchPage } exact render={ props => <LoadableSearchPage {...props} /> }/>
             <Route path={ pathProductPage } exact render={ props => <LoadableProductPage {...props} /> }/>
             <Route path={ pathLoginPage } exact render={ props => <LoadableLoginPage {...props} /> }/>
+            <Route path={ pathRegisterPage } exact render={ props => <LoadableRegisterPage {...props} /> }/>
             <Route path={ pathCartPage } exact render={ props => <LoadableCartPage {...props} /> }/>
             <ProtectedRoute path={ pathCustomerPage } render={ props => <LoadableCustomerPage {...props} /> }/>
-            <Route path={ pathHomePage } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
+            <Route path={ pathForgotPassword } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
             <Route
                 path={ `${pathResetPassword}/:restoreKey` }
                 exact

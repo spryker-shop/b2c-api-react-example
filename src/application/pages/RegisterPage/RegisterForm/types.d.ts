@@ -1,14 +1,18 @@
-import { WithStyles } from '@material-ui/core';
-import { styles } from './styles';
 import {
     TCustomerEmail,
     TCustomerFirstName,
-    TCustomerLastName, TCustomerPassword,
-    TCustomerSalutation,
+    TCustomerLastName,
+    TCustomerPassword,
+    TCustomerSalutation
 } from '@interfaces/customer';
+import { RouteProps } from 'react-router';
+import { WithRouter } from '@interfaces/common';
 
-export interface IRegisterFormProps extends WithStyles<typeof styles> {
-    handleSubmit: Function;
+export interface IRegisterFormProps extends RouteProps, WithRouter {
+    isAuth?: boolean;
+    handleSubmitRegisterForm?: Function;
+    getCustomerCart?: Function;
+    isLoading?: boolean;
 }
 
 export interface IRegisterFormState {

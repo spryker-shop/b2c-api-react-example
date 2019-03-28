@@ -14,6 +14,7 @@ import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
+import { FORGOT_PASSWORD, RESET_PASSWORD } from '@stores/actionTypes/pages/login';
 
 export class PagesLoginService extends ApiServiceAbstract {
     public static async register(
@@ -133,6 +134,7 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async forgotPassword(ACTION_TYPE: string, dispatch: Function, email: string): Promise<void> {
+        dispatch({ type: FORGOT_PASSWORD + '_PENDING' });
         try {
             const body = {
                 data: {
@@ -184,6 +186,7 @@ export class PagesLoginService extends ApiServiceAbstract {
         dispatch: Function,
         payload: IResetPasswordPayload
     ): Promise<void> {
+        dispatch({ type: RESET_PASSWORD + '_PENDING' });
         try {
             const body = {
                 data: {

@@ -7,7 +7,7 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 40,
         [theme.breakpoints.up('sm')]: {
             background: theme.appColors.weekWhite,
-            paddingBottom: 110
+            paddingBottom: 110,
         }
     },
     layout: {

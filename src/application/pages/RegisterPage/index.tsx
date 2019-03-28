@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { pathForgotPassword, pathLoginPage, pathRegisterPage } from '@constants/routes';
+import { pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
-import { LoginForm } from './LoginForm';
+import { RegisterForm } from './RegisterForm';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
 import { styles } from './styles';
 
-export class LoginPageComponent extends React.Component<Props> {
+export class RegisterPageComponent extends React.Component<Props> {
     public render(): JSX.Element {
         const { classes } = this.props;
 
@@ -18,26 +18,21 @@ export class LoginPageComponent extends React.Component<Props> {
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
                         <ul className={ classes.heading }>
-                            <li className={ `${classes.headingItem} ${classes.headingItemActive}` }>
+                            <li className={ classes.headingItem }>
                                 <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
                                     <FormattedMessage id={ 'word.login.title' } />
                                 </NavLink>
                             </li>
-                            <li className={ classes.headingItem }>
-                                <NavLink to={ pathRegisterPage } className={ classes.redirectLink }>
+                            <li className={ `${classes.headingItem} ${classes.headingItemActive}` }>
+                                <NavLink to={ pathLoginPage } className={ classes.redirectLink }>
                                     <FormattedMessage id={ 'word.register.title' } />
                                 </NavLink>
                             </li>
                         </ul>
                         <div className={ classes.inner }>
                             <ErrorBoundary>
-                                <LoginForm classes={{ wrapper: classes.formWrapper }} />
+                                <RegisterForm />
                             </ErrorBoundary>
-                            <Typography align="center" component="div" variant="headline" color="textSecondary">
-                                <NavLink to={ pathForgotPassword } className={ classes.link }>
-                                    <FormattedMessage id={ 'forgot.password.title' } />
-                                </NavLink>
-                            </Typography>
                         </div>
                     </Grid>
                 </Grid>
@@ -46,4 +41,4 @@ export class LoginPageComponent extends React.Component<Props> {
     }
 }
 
-export const LoginPage = withStyles(styles)(LoginPageComponent);
+export const RegisterPage = withStyles(styles)(RegisterPageComponent);
