@@ -1,5 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
+import * as React from 'react';
 
 export const styles = (theme: Theme) => createStyles({
     header: {
@@ -27,11 +28,17 @@ export const styles = (theme: Theme) => createStyles({
     },
     navigationWrapper: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1
     },
     logoContainer: {
         ...theme.appFixedDimensions.sprykerLogo,
         marginRight: 40,
+        [theme.breakpoints.down('md')]: {
+            marginRight: 10,
+            minWidth: 140,
+            width: 140
+        },
         [theme.breakpoints.down('sm')]: {
             marginBottom: 10,
         },
@@ -77,4 +84,10 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: theme.appFixedDimensions.fontSize.medium,
         letterSpacing: '0.3px',
     },
+    mainNav: {
+        display: 'flex',
+        alignSelf: 'stretch',
+        margin: '-10px 0',
+        flexGrow: 1
+    }
 });

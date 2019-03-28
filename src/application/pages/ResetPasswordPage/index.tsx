@@ -48,18 +48,15 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
             <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
-                        <Typography variant="display3" component="h2">
+                        <Typography variant="display3" component="h2" className={ classes.title }>
                             <FormattedMessage id={ 'reset.password.title' } />
-                        </Typography>
-                        <Typography variant="headline" paragraph>
-                            <FormattedMessage id={ 'enter.new.password.message' } />
                         </Typography>
                         <form noValidate autoComplete="off">
                             <Grid container direction="column" spacing={ 24 }>
                                 <Grid item xs={ 12 }>
                                     <SprykerInput
                                         isRequired
-                                        label={ <FormattedMessage id={ 'email.label' } /> }
+                                        label={ <FormattedMessage id={ 'new.password.label' } /> }
                                         inputName="password"
                                         onChangeHandler={ this.handleChange }
                                         inputValue={ password }

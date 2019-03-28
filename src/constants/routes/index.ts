@@ -16,7 +16,7 @@ export const pathOrderHistoryPage = `${pathCustomerPage}/order`;
 export const pathOrderDetailsPageBase = `${pathOrderHistoryPage}/details`;
 export const pathOrderDetailsPage = `${pathOrderDetailsPageBase}/:orderId`;
 export const pathForgotPassword = `${config.WEB_PATH}password/forgotten`;
-export const pathResetPassword = `${config.WEB_PATH}password/reset`;
+export const pathResetPassword = `${config.WEB_PATH}password/restore`;
 export const pathCustomerProfilePage = `${pathCustomerPage}/profile`;
 export const pathCustomerAddressesPage = `${pathCustomerPage}/addresses`;
 export const pathAddressFormUpdateBase = `${pathCustomerAddressesPage}/update`;
@@ -24,8 +24,8 @@ export const pathAddressFormUpdate = `${pathAddressFormUpdateBase}/:addressId`;
 export const pathAddressFormNew = `${pathCustomerAddressesPage}/new`;
 export const pathCheckoutPage = `${config.WEB_PATH}checkout`;
 export const pathNotFoundPage = `${config.WEB_PATH}*`;
-export const pathURLToCategorySale = 'outlet\'';
-export const pathURLToCategoryNew = 'new\'';
+export const pathURLToCategorySale = 'outlet';
+export const pathURLToCategoryNew = 'new';
 export const labeledCategories: { [key: string]: string } = {
     [pathURLToCategorySale]: 'SALE %',
     [pathURLToCategoryNew]: 'NEW',

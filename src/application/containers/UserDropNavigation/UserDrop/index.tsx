@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Button } from '@material-ui/core';
 import { customerProfileNavLinks } from '@constants/navLinks';
 import { LogoutIcon } from './icons';
-import { INavLinkData } from '@interfaces/navLinks';
+import { INavLinkData } from '@interfaces/navigations';
 import { IUserDropProps as Props } from './types';
 import { styles } from './styles';
 
