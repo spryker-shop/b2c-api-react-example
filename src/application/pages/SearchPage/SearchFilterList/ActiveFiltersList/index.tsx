@@ -47,7 +47,7 @@ const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                 const valueFrom = activeValuesRanges[rangeName].min;
                 const valueTo = activeValuesRanges[rangeName].max;
 
-                if (valueFrom > 0 && valueTo > 0) {
+                if (valueFrom >= 0 && valueTo >= 0) {
                     itemsGlobalCollection.push(
                         createRangeFilterItemCombined({
                             isPrice,
