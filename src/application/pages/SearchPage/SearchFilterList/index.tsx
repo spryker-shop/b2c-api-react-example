@@ -6,16 +6,12 @@ import {
     filterTypeFilter,
     filterTypeRange,
     IFilterItemToDelete,
-    rangeMaxType,
-    rangeMinType,
     RangeType,
     TFilterItemValue,
     TFilterItemName
 } from './types';
 import { TSprykerRangeSliderName } from '@application/components/UI/SprykerRangeSlider/types';
-import { RangeFacets } from '@interfaces/searchPageData';
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { FiltersList } from './FiltersList';
 import { ActiveFiltersList } from './ActiveFiltersList';
 import { withStyles } from '@material-ui/core';
@@ -57,14 +53,6 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> => {
-        const currentData = this.props.rangeFilters.filter((filter: RangeFacets) => (filter.name === name))[0];
-        const currentDataActiveMin = rangeFilterValueToFront(currentData.activeMin, rangeMinType);
-        const currentDataActiveMax = rangeFilterValueToFront(currentData.activeMax, rangeMaxType);
-
-        if (currentDataActiveMin === min && currentDataActiveMax === max) {
-            return;
-        }
-
         await this.setState((prevState: State) => (
             {
                 activeRangeFilters: {
