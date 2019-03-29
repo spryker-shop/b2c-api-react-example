@@ -99,6 +99,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
     };
 
     protected runAddToCart = async (): Promise<void> => {
+        console.log(this.state.quantitySelected);
         const item: ICartAddItem = createCartItemAddToCart(this.props.sku, this.state.quantitySelected);
         if (this.props.isUserLoggedIn && this.props.cartId) {
             await this.props.addItemToCart(item, this.props.cartId);
