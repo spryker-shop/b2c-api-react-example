@@ -76,13 +76,8 @@ class PageContentComponent extends React.Component<Props, State> {
     protected lockingPage = (): void => {
         const { classes, isLockedPage } = this.props;
         const { topOffset } = this.state;
-        const isMobile = window.innerWidth < appBreakpoints.values.md;
         const topOffsetValue = isLockedPage ? window.pageYOffset : '';
         this.setState({ topOffset: topOffsetValue, isLockedPage });
-
-        // if (!isMobile) {
-        //     return;
-        // }
 
         if (!isLockedPage) {
             document.body.classList.remove(classes.lockedPage);
@@ -137,4 +132,4 @@ class PageContentComponent extends React.Component<Props, State> {
 }
 
 const PageContent = withStyles(styles)(PageContentComponent);
-export default PageContent;
+export default hot(PageContent);
