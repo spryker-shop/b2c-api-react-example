@@ -13,14 +13,19 @@ export const styles = (theme: Theme) => createStyles({
         transition: 'transform .3s ease-in-out',
         background: theme.appColors.blue,
         width: 'auto',
-        minWidth: 18,
+        minWidth: 16,
         right: 0,
         top: -6,
         transform: 'translateX(40%)',
-        padding: theme.spacing.unit / 2,
-        height: 18,
-        fontSize: theme.appFixedDimensions.fontSize.mini,
-        lineHeight: 14
+        padding: 2,
+        height: 16,
+        fontSize: 11,
+        lineHeight: 14,
+        [theme.breakpoints.up('sm')]: {
+            padding: 4,
+            minWidth: 18,
+            height: 18,
+        }
     },
     hideBadge: {
         transform: 'scale(0)'

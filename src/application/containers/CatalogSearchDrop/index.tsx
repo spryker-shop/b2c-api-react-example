@@ -8,6 +8,7 @@ import { SearchIcon, CrossIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 @(withRouter as Function)
 class CatalogSearchDropComponent extends React.Component<Props, State> {
@@ -30,6 +31,7 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { anchorElement } = this.state;
         const { classes } = this.props;
+        const anchorReference = window.innerWidth >= appBreakpoints.values.lg ? 'anchorEl' : 'anchorPosition';
 
         return (
             <>
@@ -46,12 +48,14 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
 
                 <PopoverWrapper
                     anchorElement={ anchorElement }
-                    anchorReference="anchorEl"
+                    anchorReference={ anchorReference }
                     hideBackdrop={ false }
                     closePopoverHandler={ this.closePopover }
                     classes={{
                         backdrop: classes.backdrop,
-                        content: classes.content
+                        content: classes.content,
+                        customCoordinates: classes.overlayCustomCoordinates,
+                        contentCustomCoordinates: classes.contentCustomCoordinates
                     }}
                     anchorOrigin={{
                         vertical: 'center',

@@ -7,15 +7,30 @@ export const styles = (theme: Theme) => createStyles({
     },
     iconButton: {},
     icon: {},
+    overlayCustomCoordinates: {
+        top: 0
+    },
+    contentCustomCoordinates: {
+        top: '0 !important',
+        left: '0 !important',
+        right: '0',
+        [theme.breakpoints.up('sm')]: {
+            top: '16px !important',
+            left: '16px !important',
+            right: '16px',
+            borderRadius: 4,
+        },
+    },
     content: {
-        background: 'none',
-        width: '50%',
-        minWidth: 400,
-        maxWidth: 680
+        [theme.breakpoints.up('lg')]: {
+            background: 'none',
+            width: '50%',
+            minWidth: 400,
+            maxWidth: 680
+        }
     },
     searchLayout: {
-        position: 'relative',
-        borderRadius: 4
+        position: 'relative'
     },
     searchCloseButton: {
         padding: '5px 15px',
@@ -31,6 +46,12 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     searchComponent: {
-        paddingRight: 50
+        padding: '19px 50px 19px 60px',
+        borderRadius: 0,
+        [theme.breakpoints.up('sm')]: {
+            paddingTop: 13,
+            paddingBottom: 13,
+            borderRadius: 4
+        }
     }
 });

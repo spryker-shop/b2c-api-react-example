@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from './connect';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import debounce from 'lodash/debounce';
@@ -12,6 +13,7 @@ import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
 import { BurgerLogo } from './icons';
 
+@connect
 @(withRouter as Function)
 class AppHeaderComponent extends React.PureComponent<Props, State> {
     protected stickyTriggerRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -22,6 +24,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     };
 
     public componentDidMount = (): void => {
+        this.setHeaderHeight();
         window.addEventListener('resize', this.onWindowResize);
         window.addEventListener('orientationchange', this.onWindowResize);
     };
@@ -45,8 +48,12 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
         this.setState({ headerHeight });
     };
 
-    protected mobileNavToggleHandler = () =>
-        this.setState(({ isMobileNavOpened }) => ({ isMobileNavOpened: !isMobileNavOpened }));
+    protected mobileNavToggleHandler = (isMobileNavOpened: boolean): void => {
+        const { isLockedPage } = this.props;
+
+        isLockedPage(isMobileNavOpened);
+        this.setState({ isMobileNavOpened });
+    };
 
     public render(): JSX.Element {
         const { classes } = this.props;
@@ -56,7 +63,10 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
-                        <div className={ classes.hamburger } onClick={ this.mobileNavToggleHandler }>
+                        <div
+                            className={ classes.hamburger }
+                            onClick={ () => this.mobileNavToggleHandler(!isMobileNavOpened) }
+                        >
                             <BurgerLogo />
                         </div>
 
@@ -71,6 +81,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                             : <div className={ classes.mainNav }>
                                 <ErrorBoundary>
                                     <MainNavigation
+                                        headerHeight={ headerHeight }
                                         onMobileNavToggle={ this.mobileNavToggleHandler }
                                         isMobileNavOpened={ isMobileNavOpened }
                                     />

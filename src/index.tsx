@@ -14,7 +14,6 @@ import { sprykerTheme } from './theme/sprykerTheme';
 import { configureStore } from '@stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
 import PageContent from '@application/containers/PageContent';
-import { FontLoader } from '@application/components/FontLoader';
 import config from './configs/server';
 
 const history = createHistory();
@@ -25,12 +24,10 @@ export const App = () => (
         <Provider store={ store }>
             <ConnectedRouter history={ history }>
                 <ScrollToTopRoute>
-                    <FontLoader>
-                        <MuiThemeProvider theme={ sprykerTheme }>
-                            <CssBaseline />
-                            <Route path={ config.WEB_PATH } render={ props => <PageContent { ...props } /> } />
-                        </MuiThemeProvider>
-                    </FontLoader>
+                    <MuiThemeProvider theme={ sprykerTheme }>
+                        <CssBaseline />
+                        <Route path={ config.WEB_PATH } render={ props => <PageContent { ...props } /> } />
+                    </MuiThemeProvider>
                 </ScrollToTopRoute>
             </ConnectedRouter>
         </Provider>

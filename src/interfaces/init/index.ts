@@ -16,4 +16,5 @@ export interface IInitData {
     countries?: ICountry[];
     anonymId?: string;
     isTouch?: boolean;
+    isLockedPage?: boolean;
 }

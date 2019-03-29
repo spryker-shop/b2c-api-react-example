@@ -6,32 +6,41 @@ export const styles = (theme: Theme) => createStyles({
         position: 'fixed',
         top: 0,
         left: 0,
+        marginLeft: '-100%',
         height: '100vh',
         width: '100%',
-        transform: 'translateX(-100%)',
         zIndex: 2,
-        transition: 'translate 0.3s ease-in-out',
+        transition: 'margin 0.3s ease-in-out',
         [theme.breakpoints.up('md')]: {
             position: 'static',
             display: 'flex',
             height: 'auto',
+            marginLeft: 0,
             transform: 'none'
         }
     },
     mainNavOpened: {
-        transform: 'translateX(0)',
+        marginLeft: '0'
     },
     backdrop: {
         content: '""',
-        position: 'absolute',
+        position: 'fixed',
         left: 0,
         top: 0,
         height: '100%',
         width: '100%',
+        visibility: 'hidden',
+        opacity: 0,
         background: 'rgba(0, 0, 0, 0.2)',
+        transition: 'visibility 0.3s ease-in-out, opacity 0.3s ease-in-out',
+        zIndex: 2,
         [theme.breakpoints.up('md')]: {
             display: 'none'
         }
+    },
+    backdropVisible: {
+        visibility: 'visible',
+        opacity: 1
     },
     close: {
         position: 'absolute',
@@ -61,13 +70,14 @@ export const styles = (theme: Theme) => createStyles({
         maxWidth: 325,
         height: '100%',
         background: theme.appColors.white,
+        zIndex: 3,
         [theme.breakpoints.up('md')]: {
             position: 'static',
             display: 'flex',
             maxWidth: 'none',
             width: 'auto',
             padding: 0,
-            background: 'none',
+            background: 'none'
         },
         [theme.breakpoints.only('md')]: {
             width: '100%'
@@ -99,11 +109,9 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     mainNavItemHoverable: {
-        [theme.breakpoints.only('lg')]: {
-            '&:hover': {
-                background: theme.appColors.weekWhite
-            },
-            '&:hover > div': {
+        '&:hover': {
+            background: theme.appColors.weekWhite,
+            '& $subNavLayout': {
                 pointerEvents: 'auto',
                 visibility: 'visible',
                 opacity: 1
@@ -112,14 +120,14 @@ export const styles = (theme: Theme) => createStyles({
     },
     mainNavItemSelected: {
         background: theme.appColors.weekWhite,
-        '& > div': {
+        '& $subNavLayout': {
             pointerEvents: 'auto',
             visibility: 'visible',
             opacity: 1
         }
     },
     mainNavItemOpened: {
-        '& > div': {
+        '& $subNavLayout': {
             display: 'block'
         }
     },
@@ -149,8 +157,11 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.only('md')]: {
             justifyContent: 'center'
         },
-        [theme.breakpoints.up('xl')]: {
+        [theme.breakpoints.up('lg')]: {
             padding: '0 10px'
+        },
+        [theme.breakpoints.up('xl')]: {
+            padding: '0 15px'
         }
     },
     chevron: {

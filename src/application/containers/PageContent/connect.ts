@@ -1,7 +1,7 @@
 import { reduxify } from '@application/hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isStateLoading } from '@stores/reducers';
-import { getAnonymId, getAppLocale, isAppInitiated, isAppStateFulfilled } from '@stores/reducers/common/init';
+import { getAnonymId, getAppLocale, isAppInitiated, isAppStateFulfilled, getIsLockedPage } from '@stores/reducers/common/init';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { isCartCreated } from '@stores/reducers/common/cart/selectors';
 import {
@@ -21,6 +21,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId = getAnonymId(state, ownProps);
     const cartCreated: boolean = isCartCreated(state, ownProps);
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
+    const isLockedPage: boolean = getIsLockedPage(state, ownProps);
 
     return ({
         isLoading,
@@ -29,7 +30,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isCustomerAuth,
         anonymId,
         cartCreated,
-        isInitStateFulfilled
+        isInitStateFulfilled,
+        isLockedPage
     });
 };
 

@@ -8,7 +8,8 @@ export interface IMainNavProps extends WithStyles<typeof styles>, WithRouter {
     isFulfilled: boolean;
     isTouch?: boolean;
     isMobileNavOpened: boolean;
-    onMobileNavToggle(): void;
+    onMobileNavToggle: (isMobileNavOpened: boolean) => void;
+    headerHeight: number;
 }
 
 export interface IMainNavState {

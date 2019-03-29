@@ -1,4 +1,4 @@
-import { CATEGORIES_TREE_REQUEST, INIT_APP_ACTION_TYPE, SWITCH_LOCALE } from '@stores/actionTypes/common/init';
+import { CATEGORIES_TREE_REQUEST, INIT_APP_ACTION_TYPE, SWITCH_LOCALE, IS_LOCKED_PAGE } from '@stores/actionTypes/common/init';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
@@ -24,7 +24,8 @@ export const initialState: IInitState = {
         categoriesTree: [],
         countries: [],
         anonymId: 'anonym',
-        isTouch: true
+        isTouch: true,
+        isLockedPage: false
     },
 };
 
@@ -68,12 +69,26 @@ export const init = function(state: IInitState = initialState,
                     anonymId: ''
                 }
             };
+
+        case `${IS_LOCKED_PAGE}_FULFILLED`:
+            return handleIsLockedPageFulfilled(state, action.payloadIsLockedPage);
+
         default:
             return state;
     }
 };
 
 // handlers
+const handleIsLockedPageFulfilled = (appState: IInitState, payload: boolean) =>
+    ({
+        ...appState,
+        data: {
+            ...appState.data,
+            isLockedPage: payload
+        },
+        ...getReducerPartFulfilled(),
+    });
+
 const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) =>
     ({
         ...appState,
@@ -170,4 +185,8 @@ export function getAnonymId(state: IReduxStore, props: IReduxOwnProps): string {
 
 export function getIsTouch(state: IReduxStore, props: IReduxOwnProps): boolean {
     return state.init.data.isTouch;
+}
+
+export function getIsLockedPage(state: IReduxStore, props: IReduxOwnProps): boolean {
+    return state.init.data.isLockedPage;
 }

@@ -6,6 +6,8 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         paddingRight: 20,
         [theme.breakpoints.up('md')]: {
+            overflow: 'hidden',
+            overflowY: 'auto',
             background: theme.appColors.weekWhite,
             padding: '40px 20px'
         }

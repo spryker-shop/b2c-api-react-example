@@ -13,4 +13,5 @@ export interface ISubNavigationProps extends WithStyles<typeof styles> {
     mainMenuItemId: number | null | string;
     mainMenuType: string;
     isTouch: boolean;
+    headerHeight: number;
 }

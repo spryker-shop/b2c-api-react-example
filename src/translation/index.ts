@@ -252,7 +252,7 @@ export const messages: IMessages = {
         'billing.address.title': 'Rechungsadress',
         'cart.changed.quantity.message': 'Die Menge Ihrer Artikel wurde geändert.',
         'cart.is.empty.message': 'Warenkorb leeren, einkaufen gehen',
-        'categories.panel.title': 'KATEGORIEN',
+        'categories.panel.title': 'Kategorien',
         'category.intro.computers': 'Du magst Gaming? Super, denn wir bieten die leistungsstärksten PCs an, die diene Online-Gaming Erfahrungen verbessern werden.',
         'category.intro.notebooks': 'Sei immer einen Schritt voraus mit der neuesten Laptop Auswahl, die jedem Lebensstil oder Zweck bedient.',
         'category.intro.tablets': 'Sei immer einen Schritt voraus mit der neuesten Tablet Auswahl.',

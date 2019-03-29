@@ -22,12 +22,18 @@ import { messages } from '@translation/';
 import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 setConfig({ ErrorOverlay: () => null });
 
 @connect
 @(withRouter as Function)
 class PageContentComponent extends React.Component<Props, State> {
+    public readonly state: State = {
+        topOffset: '',
+        isLockedPage: false
+    };
+
     public componentDidMount = (): void => {
         const accessToken: string = localStorage.getItem('accessToken');
         const expiresIn: string = localStorage.getItem('tokenExpire');
@@ -51,15 +57,44 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
+        const { isAppDataSet, isLockedPage } = this.props;
         this.clearFlyoutSearchHandler(prevProps);
 
-        if (!prevProps.isAppDataSet && this.props.isAppDataSet) {
+        if (!prevProps.isAppDataSet && isAppDataSet) {
             if (this.props.isCustomerAuth) {
                 this.props.getCustomerCart();
             } else {
                 this.props.getGuestCart(this.props.anonymId);
             }
         }
+
+        if (prevProps.isLockedPage !== isLockedPage) {
+            this.lockingPage();
+        }
+    };
+
+    protected lockingPage = (): void => {
+        const { classes, isLockedPage } = this.props;
+        const { topOffset } = this.state;
+        const isMobile = window.innerWidth < appBreakpoints.values.md;
+        const topOffsetValue = isLockedPage ? window.pageYOffset : '';
+        this.setState({ topOffset: topOffsetValue, isLockedPage });
+
+        // if (!isMobile) {
+        //     return;
+        // }
+
+        if (!isLockedPage) {
+            document.body.classList.remove(classes.lockedPage);
+            document.body.style.cssText = 'top: "";';
+
+            window.scrollTo(0, Number(topOffset));
+
+            return;
+        }
+
+        document.body.classList.add(classes.lockedPage);
+        document.body.style.cssText = `top: ${-topOffsetValue}px`;
     };
 
     protected clearFlyoutSearchHandler = (prevProps: Props): void => {
@@ -87,13 +122,13 @@ class PageContentComponent extends React.Component<Props, State> {
         addLocaleData(getLocaleData(locale));
 
         return (
-            <IntlProvider locale={ locale } messages={ messages[ locale ] }>
+            <IntlProvider locale={ locale } messages={ messages[locale] }>
                 <div className={ classes.root }>
                     <AppHeader />
                     <ErrorBoundary>
                         <Routes isAppLoading={ this.isDataFulfilled() } />
                     </ErrorBoundary>
-                    {!this.shouldHideFooter() && <AppFooter/>}
+                    { !this.shouldHideFooter() && <AppFooter /> }
                     <Notifications />
                 </div>
             </IntlProvider>

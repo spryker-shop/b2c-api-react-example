@@ -31,18 +31,17 @@ class MainNavigationComponent extends React.Component<Props, State> {
         document.removeEventListener('touchstart', this.handleClickOutside, false);
     };
 
-    protected closeMenuItems = (): void => this.setState({ selectedNode: null, openedNodes: [] });
+    protected closeMenuItems = (): void => {
+        const { onMobileNavToggle } = this.props;
+        this.setState({ selectedNode: null, openedNodes: [] });
+        onMobileNavToggle(false);
+    };
 
     public componentDidUpdate = (prevProps: Props): void => {
         const { onMobileNavToggle, location } = this.props;
-        const isMobile = window.innerWidth < appBreakpoints.values.md;
 
         if (location.pathname !== prevProps.location.pathname) {
             this.closeMenuItems();
-
-            if (isMobile) {
-                onMobileNavToggle();
-            }
         }
     };
 
@@ -94,7 +93,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
     };
 
     protected renderCategoriesList = (): JSX.Element[] => {
-        const { nodesTree, classes, isTouch } = this.props;
+        const { nodesTree, classes, isTouch, headerHeight } = this.props;
         const isMobile = window.innerWidth < appBreakpoints.values.md;
         const isTouchScreen = isTouch && !isMobile;
 
@@ -176,6 +175,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
                     { Boolean(children.length) &&
                         <div className={`${classes.subNavLayout} ${!isProductsExist ? classes.subNavSimple : ''} `}>
                             <SubNavigation
+                                headerHeight={ headerHeight }
                                 isTouch={ isTouch }
                                 mainMenuType={ nodeType }
                                 mainMenuItemId={ resourceId }
@@ -204,15 +204,18 @@ class MainNavigationComponent extends React.Component<Props, State> {
                 className={`${classes.mainNav} ${isMobileNavOpened ? classes.mainNavOpened : ''}`}
                 ref={nav => this.navRef = nav }
             >
-                <span className={ classes.backdrop } onClick={ onMobileNavToggle } />
                 <div className={ classes.mainNavInner }>
                     <div className={ classes.mainNavList }>
                         { isFulfilled && this.renderCategoriesList() }
                     </div>
-                    <span className={ classes.close } onClick={ onMobileNavToggle } >
+                    <span className={ classes.close } onClick={ () => onMobileNavToggle(!isMobileNavOpened) } >
                         <span className={ classes.closeIcon }><CrossIcon /></span>
                     </span>
                 </div>
+                <span
+                    className={`${classes.backdrop} ${isMobileNavOpened ? classes.backdropVisible : ''}`}
+                    onClick={ () => onMobileNavToggle(!isMobileNavOpened) }
+                />
             </nav>
         );
     }

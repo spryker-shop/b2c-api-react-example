@@ -7,9 +7,11 @@ import { ISubNavigationProps as Props } from './types';
 import { IRelatedProductDataFixture } from '../fixtures';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { nodes, classes, simpleDrop, productsList } = props;
+    const { nodes, classes, simpleDrop, productsList, headerHeight } = props;
+    const isMobile = window.innerWidth < appBreakpoints.values.md;
     const nodeLevel = 0;
 
     const renderProductLists = (): JSX.Element[] => {
@@ -92,18 +94,22 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
 
     if (simpleDrop) {
         return (
-            <div className={`${classes.layout} ${classes.layoutSimple}`}>
-                <div className={ classes.inner }>
-                    <ul className={ classes.listReset }>
-                        { renderCategoriesList(nodes, nodeLevel) }
-                    </ul>
-                </div>
+            <div
+                className={`${classes.layout} ${classes.layoutSimple}`}
+                style={{ maxHeight: `${!isMobile ? `calc(100vh - ${headerHeight}px)` : '' }` }}
+            >
+                <ul className={ classes.listReset }>
+                    { renderCategoriesList(nodes, nodeLevel) }
+                </ul>
             </div>
         );
     }
 
     return (
-        <div className={ classes.layout }>
+        <div
+            className={ classes.layout }
+            style={{ maxHeight: `${!isMobile ? `calc(100vh - ${headerHeight}px)` : '' }` }}
+        >
             <div className={ classes.container }>
                 <div className={ classes.grid }>
                     <div className={`${classes.col} ${classes.colList}`}>
