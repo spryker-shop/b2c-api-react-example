@@ -73,7 +73,7 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
                     linkType = <span className={`${classes.navLink} ${classes.navStatic}`}>{ title }</span>;
             }
 
-            const isItemAdditional = isTouch ? classes.navItemAdditional : '';
+            const isItemAdditional = isTouch && additionalItem ? classes.navItemAdditional : '';
             const itemClasses = `${classes.navItem} ${classes.navItemSimple} ${classes[`navItemLevel${level}`]} 
                 ${isItemAdditional}`;
 

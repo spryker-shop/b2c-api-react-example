@@ -4,8 +4,15 @@ import { IMainNavigationNode } from '@interfaces/navigations';
 import { WithRouter } from '@interfaces/common';
 
 export interface IMainNavProps extends WithStyles<typeof styles>, WithRouter {
-    mobileNavState: boolean;
     nodesTree: IMainNavigationNode[];
     isFulfilled: boolean;
     isTouch?: boolean;
+    isMobileNavOpened: boolean;
+    onMobileNavToggle(): void;
+}
+
+export interface IMainNavState {
+    isOpen: boolean;
+    selectedNode: IMainNavigationNode | null;
+    openedNodes: IMainNavigationNode[];
 }

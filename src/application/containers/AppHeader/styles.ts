@@ -67,19 +67,19 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: '0.3px'
     },
     mainNav: {
-        display: 'flex',
-        alignSelf: 'stretch',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            alignSelf: 'stretch',
+            flexGrow: 1,
+        },
         [theme.breakpoints.only('md')]: {
             order: 10,
             height: 50,
             width: '100%',
-            margin: '10px 0 -10px',
-        },
-        [theme.breakpoints.up('md')]: {
-            flexGrow: 1,
+            margin: '10px 0 -10px'
         },
         [theme.breakpoints.up('lg')]: {
-            margin: '-10px 0',
+            margin: '-10px 0'
         }
     }
 });

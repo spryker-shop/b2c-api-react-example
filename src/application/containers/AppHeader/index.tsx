@@ -14,11 +14,12 @@ import { BurgerLogo } from './icons';
 
 @(withRouter as Function)
 class AppHeaderComponent extends React.PureComponent<Props, State> {
-    public readonly state: State = {
-        headerHeight: 0
-    };
-
     protected stickyTriggerRef: React.RefObject<HTMLDivElement> = React.createRef();
+
+    public readonly state: State = {
+        headerHeight: 0,
+        isMobileNavOpened: false
+    };
 
     public componentDidMount = (): void => {
         window.addEventListener('resize', this.onWindowResize);
@@ -44,9 +45,12 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
         this.setState({ headerHeight });
     };
 
+    protected mobileNavToggleHandler = () =>
+        this.setState(({ isMobileNavOpened }) => ({ isMobileNavOpened: !isMobileNavOpened }));
+
     public render(): JSX.Element {
-        const { classes, isMobileNavOpened, onMobileNavToggle } = this.props;
-        const { headerHeight } = this.state;
+        const { classes } = this.props;
+        const { headerHeight, isMobileNavOpened } = this.state;
 
         return (
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
@@ -66,7 +70,10 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                             </div>
                             : <div className={ classes.mainNav }>
                                 <ErrorBoundary>
-                                    <MainNavigation mobileNavState={ isMobileNavOpened } />
+                                    <MainNavigation
+                                        onMobileNavToggle={ this.mobileNavToggleHandler }
+                                        isMobileNavOpened={ isMobileNavOpened }
+                                    />
                                 </ErrorBoundary>
                             </div>
                         }

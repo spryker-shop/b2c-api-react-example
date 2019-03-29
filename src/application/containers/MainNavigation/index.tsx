@@ -7,21 +7,51 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { SubNavigation } from './SubNavigation';
 import { fixtures } from './fixtures';
 import { ClickEvent } from '@interfaces/common';
-import { IMainNavProps as Props } from './types';
+import { IMainNavProps as Props, IMainNavState as State } from './types';
 import { IMainNavigationNode } from '@interfaces/navigations';
 import { styles } from './styles';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { ChevronIcon, CrossIcon } from './icons';
 
 @(withRouter as Function)
-class MainNavigationComponent extends React.Component<Props, any> {
-    public readonly state: any = {
+class MainNavigationComponent extends React.Component<Props, State> {
+    protected navRef: React.RefObject<HTMLElement> = React.createRef();
+
+    public readonly state: State = {
         isOpen: false,
-        selectedNode: null
+        selectedNode: null,
+        openedNodes: []
     };
+
+    public componentDidMount = ():void  => {
+        document.addEventListener('touchstart', this.handleClickOutside, false);
+    };
+
+    public componentWillUnmount= ():void  => {
+        document.removeEventListener('touchstart', this.handleClickOutside, false);
+    };
+
+    protected closeMenuItems = (): void => this.setState({ selectedNode: null, openedNodes: [] });
 
     public componentDidUpdate = (prevProps: Props): void => {
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.setState({ selectedNode: null });
+            this.closeMenuItems();
+        }
+    };
+
+    protected onClickBackdropHandler = (): void => {
+        const { isTouch } = this.props;
+
+        if (isTouch) {
+            this.closeMenuItems();
+        }
+    };
+
+    protected handleClickOutside = (event: any): void => {
+        const isTouchOutside = !this.navRef.contains(event.target);
+
+        if (isTouchOutside) {
+            this.closeMenuItems();
         }
     };
 
@@ -38,12 +68,22 @@ class MainNavigationComponent extends React.Component<Props, any> {
         }
     };
 
-    protected onClickBackdropHandler = (): void => {
-        const { isTouch } = this.props;
+    protected onChevronClickHandler = (node: IMainNavigationNode) => (event: ClickEvent): void => {
+        event.preventDefault();
+        const { openedNodes } = this.state;
+        const isNodeOpened = openedNodes.includes(node);
 
-        if (isTouch) {
-            this.setState({ selectedNode: null });
+        if (isNodeOpened) {
+            const removeNodeFromList = openedNodes.filter(nodeItem => nodeItem !== node);
+
+            this.setState({ openedNodes: removeNodeFromList });
+
+            return;
         }
+
+        const openedNodesList = [...openedNodes, node];
+
+        this.setState({ openedNodes: openedNodesList });
     };
 
     protected renderCategoriesList = (): JSX.Element[] => {
@@ -74,11 +114,19 @@ class MainNavigationComponent extends React.Component<Props, any> {
 
         return navigationList.map((node: IMainNavigationNode, index: Number) => {
 
-            const { selectedNode } = this.state;
+            const { selectedNode, openedNodes } = this.state;
             const { title, resourceId, children, nodeType } = node;
             const productsPreviewList = fixtures.filter(item => item.relatedCategoryId === resourceId)
                 .map(item => item.relatedProducts);
             const isNodeSelected = selectedNode === node;
+            const isNodeOpened = openedNodes.filter((nodeItem: IMainNavigationNode) => node === nodeItem).length;
+            const chevronTemplate = Boolean(children.length) ? (
+                <span className={`${classes.chevron}`} onClick={ this.onChevronClickHandler(node) }>
+                    <span className={`${classes.chevronIcon} ${isNodeOpened ? classes.chevronIconOpened : ''}`}>
+                        <ChevronIcon />
+                    </span>
+                </span>
+            ) : null;
 
             const isProductsExist = Boolean(productsPreviewList.length);
             let linkType;
@@ -91,7 +139,7 @@ class MainNavigationComponent extends React.Component<Props, any> {
                             className={ classes.mainNavLink }
                             to={`${pathCategoryPageBase}/${resourceId}`}
                         >
-                            { title }
+                            { title } { chevronTemplate }
                         </NavLink>
                     );
                     break;
@@ -101,14 +149,16 @@ class MainNavigationComponent extends React.Component<Props, any> {
                             onClick={ this.onClickLinkHandler(node) }
                             className={ classes.mainNavLink }
                         >
-                            { title }
+                            { title } { chevronTemplate }
                         </span>
                     );
             }
+
             const itemContainerClass = !isProductsExist ? classes.mainNavItemContainer : '';
             const itemSelectedClass = isTouchScreen && isNodeSelected ? classes.mainNavItemSelected : '';
-            const itemHoverableClass = !isTouchScreen ? classes.mainNavItemHoverable : '';
-            const itemVisibilityClasses = `${itemSelectedClass} ${itemHoverableClass}`;
+            const itemHoverableClass = !isTouch ? classes.mainNavItemHoverable : '';
+            const itemOpenedClass = isNodeOpened && isMobile ? classes.mainNavItemOpened : '';
+            const itemVisibilityClasses = `${itemSelectedClass} ${itemHoverableClass} ${itemOpenedClass}`;
 
             return (
                 <span
@@ -128,7 +178,9 @@ class MainNavigationComponent extends React.Component<Props, any> {
                             />
                             <span
                                 onClick={ this.onClickBackdropHandler }
-                                className={`${classes.backdrop} ${!isTouchScreen ? classes.backdropHoverable : ''}`}
+                                className={`
+                                    ${classes.subBackdrop} ${!isTouchScreen ? classes.subBackdropHoverable : ''}
+                                `}
                             />
                         </div>
                     }
@@ -138,11 +190,17 @@ class MainNavigationComponent extends React.Component<Props, any> {
     };
 
     public render() {
-        const { classes, mobileNavState, isFulfilled } = this.props;
+        const { classes, isFulfilled, onMobileNavToggle, isMobileNavOpened } = this.props;
 
         return (
-            <nav className={`${classes.mainNav} ${mobileNavState ? classes.mainNavOpened : ''}`}>
-                { isFulfilled && this.renderCategoriesList() }
+            <nav className={`${classes.mainNav} ${isMobileNavOpened ? classes.mainNavOpened : ''}`} ref={ this.navRef }>
+                <div className={ classes.mainNavInner }>
+                    { isFulfilled && this.renderCategoriesList() }
+                </div>
+                <span className={ classes.backdrop } onClick={ onMobileNavToggle } />
+                <span className={ classes.close } onClick={ onMobileNavToggle } >
+                    <span className={ classes.closeIcon }><CrossIcon /></span>
+                </span>
             </nav>
         );
     }

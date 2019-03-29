@@ -6,7 +6,7 @@ const path1 = 'M0 0h6.379l.739 4.508H28l-3.827 12.995H7.588L4.968 1.657H0V0zm7.4
 
 /* tslint:enable */
 export const CartIcon: React.SFC = () => (
-    <svg width="100%" viewBox="0 0 25 24">
+    <svg width="100%" viewBox="0 0 27 24">
         <g fill={ appColors.grey } fillRule="nonzero">
             <path d={ path1 } />
         </g>

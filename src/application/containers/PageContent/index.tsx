@@ -28,10 +28,6 @@ setConfig({ ErrorOverlay: () => null });
 @connect
 @(withRouter as Function)
 class PageContentComponent extends React.Component<Props, State> {
-    public readonly state: State = {
-        mobileNavOpened: false
-    };
-
     public componentDidMount = (): void => {
         const accessToken: string = localStorage.getItem('accessToken');
         const expiresIn: string = localStorage.getItem('tokenExpire');
@@ -79,8 +75,6 @@ class PageContentComponent extends React.Component<Props, State> {
         Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
     );
 
-    protected mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
-
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [pathLoginPage, pathRegisterPage, pathResetPassword, pathForgotPassword];
         const currentLocation = this.props.location.pathname;
@@ -90,16 +84,12 @@ class PageContentComponent extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { locale, classes } = this.props;
-        const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[ locale ] }>
                 <div className={ classes.root }>
-                    <AppHeader
-                        onMobileNavToggle={ this.mobileNavToggle }
-                        isMobileNavOpened={ mobileNavOpened }
-                    />
+                    <AppHeader />
                     <ErrorBoundary>
                         <Routes isAppLoading={ this.isDataFulfilled() } />
                     </ErrorBoundary>

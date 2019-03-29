@@ -19,6 +19,4 @@ interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, With
     clearSearchTerm?: () => void;
 }
 
-interface IPageContentState {
-    mobileNavOpened: boolean;
-}
+interface IPageContentState {}

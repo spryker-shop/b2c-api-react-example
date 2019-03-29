@@ -4,13 +4,16 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     layout: {
         position: 'relative',
-        background: theme.appColors.weekWhite,
+        paddingRight: 20,
         [theme.breakpoints.up('md')]: {
+            background: theme.appColors.weekWhite,
             padding: '40px 20px'
         }
     },
     container: {
-        ...theme.appContainerStyles
+        [theme.breakpoints.up('md')]: {
+            ...theme.appContainerStyles
+        }
     },
     grid: {
         display: 'flex',
@@ -24,19 +27,22 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     col: {
-        padding: '0 50px',
+        [theme.breakpoints.up('md')]: {
+            padding: '0 50px'
+        },
         [theme.breakpoints.up('lg')]: {
             padding: '0 70px'
         }
     },
     colList: {
-        [theme.breakpoints.only('md')]: {
-            display: 'flex',
-            justifyContent: 'center'
-        },
+        width: '100%',
         [theme.breakpoints.up('md')]: {
             width: 260,
             borderRight: '1px solid rgba(206, 206, 208, 0.5)'
+        },
+        [theme.breakpoints.only('md')]: {
+            display: 'flex',
+            justifyContent: 'center'
         },
         [theme.breakpoints.up('lg')]: {
             width: 320
@@ -51,39 +57,65 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('lg')]: {
             width: 'calc(100% - 320px)'
         }
-
     },
     listReset: {
         listStyle: 'none',
-        padding: 0,
-        margin: 0
+        padding: '0 0 0 16px',
+        margin: 0,
+        [theme.breakpoints.up('md')]: {
+            padding: 0
+        }
     },
     listChild: {
-        padding: '10px 0 0 5px'
+        paddingTop: 10,
+        marginBottom: -10,
+        [theme.breakpoints.up('md')]: {
+            marginBottom: 0,
+            paddingBottom: 5
+        }
     },
     navItem: {
-        fontSize: 15,
-        paddingBottom: 20,
-        '&:last-child': {
-            paddingBottom: 0
+        fontSize: 14,
+        paddingBottom: 10,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 15,
+            paddingBottom: 20,
+            '&:last-child': {
+                paddingBottom: 0
+            }
         }
     },
     navItemLevel1: {
-        fontSize: 13,
-        paddingBottom: 10
+        fontSize: 14,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 13,
+            paddingBottom: 10
+        }
     },
     navItemSimple: {
-        whiteSpace: 'nowrap'
+        [theme.breakpoints.up('md')]: {
+            whiteSpace: 'nowrap'
+        }
     },
     navLink: {
-        letterSpacing: 0.2,
-        fontWeight: 500,
-        color: theme.appColors.grey,
-        cursor: 'pointer',
+        display: 'block',
+        padding: '11px 15px',
         textDecoration: 'none',
-        transition: 'color 0.3s ease-in-out',
-        '&:hover': {
-            color: theme.appColors.blue
+        color: theme.appColors.grey,
+        letterSpacing: 0.1,
+        borderRadius: 4,
+        background: 'rgba(206, 206, 208, 0.16)',
+        [theme.breakpoints.up('md')]: {
+            background: 'none',
+            display: 'inline',
+            borderRadius: 0,
+            letterSpacing: 0.2,
+            fontWeight: 500,
+            cursor: 'pointer',
+            transition: 'color 0.3s ease-in-out',
+            '&:hover': {
+                color: theme.appColors.blue
+            }
         }
     },
     navStatic: {
@@ -94,9 +126,9 @@ export const styles = (theme: Theme) => createStyles({
     },
     navItemAdditional: {
         display: 'none',
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.only('md')]: {
             display: 'block'
-        },
+        }
     },
     productContainer: {
         display: 'flex',
