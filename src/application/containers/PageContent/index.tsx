@@ -22,7 +22,6 @@ import { messages } from '@translation/';
 import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 setConfig({ ErrorOverlay: () => null });
 
