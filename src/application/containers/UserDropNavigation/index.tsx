@@ -10,7 +10,6 @@ import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 import { NavLink } from 'react-router-dom';
 
 @connect
@@ -41,7 +40,7 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
     protected onHoverButtonHandler = (): void => {
         const { isTouch } = this.props;
 
-        if (window.innerWidth >= appBreakpoints.values.lg || isTouch) {
+        if (!isTouch) {
             this.setState({ isPopupOpened: true, isButtonHovered: true });
         }
     };

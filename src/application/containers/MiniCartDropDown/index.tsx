@@ -10,7 +10,6 @@ import { CartIcon } from './icons';
 import IconButton from '@material-ui/core/IconButton';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 import { NavLink } from 'react-router-dom';
 
 @connect
@@ -48,7 +47,7 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
     protected onHoverButtonHandler = (): void => {
         const { isTouch } = this.props;
 
-        if (window.innerWidth >= appBreakpoints.values.lg || isTouch) {
+        if (!isTouch) {
             const { cartItemsQuantity } = this.props;
 
             this.setState({

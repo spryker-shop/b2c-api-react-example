@@ -23,38 +23,37 @@ class MainNavigationComponent extends React.Component<Props, State> {
         openedNodes: []
     };
 
-    public componentDidMount = ():void  => {
+    public componentDidMount = (): void  => {
         document.addEventListener('touchstart', this.handleClickOutside, false);
     };
 
-    public componentWillUnmount= ():void  => {
+    public componentWillUnmount= (): void  => {
         document.removeEventListener('touchstart', this.handleClickOutside, false);
     };
 
-    protected closeMenuItems = (): void => {
-        const { onMobileNavToggle } = this.props;
-        this.setState({ selectedNode: null, openedNodes: [] });
-        onMobileNavToggle(false);
-    };
+    protected closeMenuItems = (): void => this.setState({ selectedNode: null, openedNodes: [] });
 
     public componentDidUpdate = (prevProps: Props): void => {
         const { onMobileNavToggle, location } = this.props;
 
         if (location.pathname !== prevProps.location.pathname) {
             this.closeMenuItems();
+            onMobileNavToggle(false);
         }
     };
 
     protected onClickBackdropHandler = (): void => {
-        const { isTouch } = this.props;
+        const { isTouch, onMobileNavToggle } = this.props;
 
         if (isTouch) {
             this.closeMenuItems();
+            onMobileNavToggle(false);
         }
     };
 
-    protected handleClickOutside = (event: any): void => {
-        const isTouchOutside = !this.navRef.contains(event.target);
+    protected handleClickOutside = (event: TouchEvent): void => {
+        const { target } = event;
+        const isTouchOutside = !this.navRef.contains(target as Element);
 
         if (isTouchOutside) {
             this.closeMenuItems();
@@ -62,7 +61,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
     };
 
     protected onClickLinkHandler = (node: IMainNavigationNode) => (event: ClickEvent): void => {
-        const { isTouch } = this.props;
+        const { isTouch, onMobileNavToggle } = this.props;
         const isMobile = window.innerWidth < appBreakpoints.values.md;
 
         if (isTouch && !isMobile && Boolean(node.children.length)) {
@@ -70,7 +69,8 @@ class MainNavigationComponent extends React.Component<Props, State> {
             const { selectedNode } = this.state;
             const newSelectedNode = selectedNode !== node ? node : null;
 
-            this.setState({ selectedNode: newSelectedNode });
+            onMobileNavToggle(false);
+            this.setState({ selectedNode: newSelectedNode, openedNodes: [] });
         }
     };
 
@@ -82,14 +82,14 @@ class MainNavigationComponent extends React.Component<Props, State> {
         if (isNodeOpened) {
             const removeNodeFromList = openedNodes.filter(nodeItem => nodeItem !== node);
 
-            this.setState({ openedNodes: removeNodeFromList });
+            this.setState({ openedNodes: removeNodeFromList, selectedNode: null });
 
             return;
         }
 
         const openedNodesList = [...openedNodes, node];
 
-        this.setState({ openedNodes: openedNodesList });
+        this.setState({ openedNodes: openedNodesList, selectedNode: null });
     };
 
     protected renderCategoriesList = (): JSX.Element[] => {
