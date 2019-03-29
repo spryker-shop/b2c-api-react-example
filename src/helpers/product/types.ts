@@ -5,10 +5,13 @@ import {
     TProductImageSetsCollectionRawResponse,
 } from '@interfaces/product';
 import { IAbstractRowIncludedResponse } from '@interfaces/abstract/rowIncludedresponse';
+import { IProductRelationsItemRelationships } from '@helpers/productRelations/types';
+import { IProductLabelResponse } from '@interfaces/searchPageData';
 
 export interface IProductRawResponse {
     data: {
         attributes: IProductAttributesRawResponse;
+        relationships: IProductRelationsItemRelationships;
     };
     links: {
         self: string;
@@ -20,7 +23,8 @@ export interface IProductRawResponse {
 export type TRowProductResponseIncluded = IRowProductPricesIncludedResponse
     | IRowProductImageSetsIncludedResponse
     | IRowProductAvailabilitiesIncludedResponse
-    | IRowConcreteProductsIncludedResponse;
+    | IRowConcreteProductsIncludedResponse
+    | IRowProductLabelsResponse;
 
 export interface IProductAvailabilitiesRawResponse {
     data: [{
@@ -68,4 +72,15 @@ export interface IRowProductAvailabilitiesIncludedResponse extends IAbstractRowI
 export interface IRowConcreteProductsIncludedResponse extends IAbstractRowIncludedResponse {
     type: 'concrete-products';
     attributes: IProductAttributesRawResponse;
+}
+
+export interface IRowProductLabelsResponse extends IAbstractRowIncludedResponse {
+    type: 'product-labels';
+    attributes: {
+        isExclusive?: boolean;
+        name?: string;
+        position?: number;
+        frontEndReference?: string;
+    };
+    id?: string;
 }

@@ -26,7 +26,8 @@ export class ProductService extends ApiServiceAbstract {
                 'concrete-products,' +
                 'concrete-product-image-sets,' +
                 'concrete-product-prices,' +
-                'concrete-product-availabilities',
+                'concrete-product-availabilities,' +
+                'product-labels',
             });
 
             if (response.ok) {

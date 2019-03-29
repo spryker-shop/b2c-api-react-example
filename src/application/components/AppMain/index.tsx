@@ -7,7 +7,9 @@ const AppMainComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (
-        <main className={classes.layout}>{ props.children }</main>
+        <main className={ classes.wrapper }>
+            <div className={ classes.layout }>{ props.children }</div>
+        </main>
     );
 };
 

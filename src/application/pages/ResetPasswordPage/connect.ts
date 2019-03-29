@@ -1,13 +1,20 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getRouterMatchParam } from '@helpers/router';
+import { resetPasswordAction } from '@stores/actions/pages/login';
+import { isPageLoginStateLoading } from '@stores/reducers/pages/login';
+import { IResetPasswordPayload } from '@interfaces/customer';
+import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const restoreKey = getRouterMatchParam(state, ownProps, 'restoreKey');
+    const isLoading = isPageLoginStateLoading(state, ownProps) ? isPageLoginStateLoading(state, ownProps) : false;
 
-    return ({
-        restoreKey
-    });
+    return ({ restoreKey, isLoading });
 };
 
-export const connect = reduxify(mapStateToProps);
+const mapDispatchToProps = (dispatch: Function) => ({
+    dispatch,
+    resetPasswordRequest: (payload: IResetPasswordPayload) => dispatch(resetPasswordAction(payload))
+});
+
+export const connect = reduxify(mapStateToProps, mapDispatchToProps);

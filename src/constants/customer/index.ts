@@ -9,19 +9,19 @@ const SalutationVariantMsValue = 'Ms';
 export const SalutationVariants: TSalutationVariant[] = [
     {
         value: SalutationVariantMrValue,
-        label: FormattedMessageTemplate('salutation.variant.mr')
+        name: FormattedMessageTemplate('salutation.variant.mr')
     },
     {
         value: SalutationVariantMsValue,
-        label: FormattedMessageTemplate('salutation.variant.ms')
+        name: FormattedMessageTemplate('salutation.variant.ms')
     },
     {
         value: SalutationVariantMrsValue,
-        label: FormattedMessageTemplate('salutation.variant.mrs')
+        name: FormattedMessageTemplate('salutation.variant.mrs')
     },
     {
         value: SalutationVariantDrValue,
-        label: FormattedMessageTemplate('salutation.variant.dr')
+        name: FormattedMessageTemplate('salutation.variant.dr')
     },
 ];
 

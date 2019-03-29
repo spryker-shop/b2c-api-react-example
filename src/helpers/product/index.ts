@@ -5,7 +5,7 @@ import { parseProductResponse } from './productResponse';
 import { createQuantityVariants } from './quantity';
 import { displayProductNameWithSuperAttr } from './name';
 import { createPathToIdProductConcrete, findIdProductConcreteByPath } from './attributeMap';
-import { getCurrentProductDataObject } from './productData';
+import { parseCurrentProductDataObject } from './productData';
 
 export {
     getAvailabilityDisplay,
@@ -17,5 +17,5 @@ export {
     createPathToIdProductConcrete,
     findIdProductConcreteByPath,
     getInitialSuperAttrSelected,
-    getCurrentProductDataObject,
+    parseCurrentProductDataObject,
 };

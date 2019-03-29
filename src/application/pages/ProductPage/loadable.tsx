@@ -6,7 +6,7 @@ export const LoadableProductPage = Loadable({
         import(
             /* webpackPrefetch: true, webpackChunkName: "LoadableProductPage" */
             '@application/pages/ProductPage').then(
-            module => module.ProductPageContainer,
+            module => module.ProductPage,
         ),
     loading: () => <div>Loading...</div>,
 });

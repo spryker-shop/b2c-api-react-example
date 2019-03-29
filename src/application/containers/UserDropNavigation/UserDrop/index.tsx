@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { pathLoginPage } from '@constants/routes';
+import { pathLoginPage, pathRegisterPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Button } from '@material-ui/core';
 import { customerProfileNavLinks } from '@constants/navLinks';
 import { LogoutIcon } from './icons';
-import { INavLinkData } from '@interfaces/navLinks';
+import { INavLinkData } from '@interfaces/navigations';
 import { IUserDropProps as Props } from './types';
 import { styles } from './styles';
 
@@ -39,7 +39,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
         <ul className={ classes.userBtns }>
             <li className={ classes.userBtnsItem }>
                 <Button
-                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathLoginPage } /> }
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathRegisterPage } /> }
                     variant="outlined"
                     fullWidth
                 >
