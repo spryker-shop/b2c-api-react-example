@@ -2,13 +2,32 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    mainNav: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        height: '100vh',
+        width: '100%',
+        transform: 'translateX(-100%)',
+        zIndex: 2,
+        transition: 'translate 0.3s ease-in-out',
+        [theme.breakpoints.up('md')]: {
+            position: 'static',
+            display: 'flex',
+            height: 'auto',
+            transform: 'none'
+        }
+    },
+    mainNavOpened: {
+        transform: 'translateX(0)',
+    },
     backdrop: {
         content: '""',
         position: 'absolute',
-        left: '100%',
+        left: 0,
         top: 0,
-        height: '100vh',
-        width: 999,
+        height: '100%',
+        width: '100%',
         background: 'rgba(0, 0, 0, 0.2)',
         [theme.breakpoints.up('md')]: {
             display: 'none'
@@ -35,41 +54,35 @@ export const styles = (theme: Theme) => createStyles({
         height: 12,
         lineHeight: 0
     },
-    mainNav: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+    mainNavInner: {
+        position: 'relative',
+        padding: '9px 0',
         width: 'calc(100% - 50px)',
         maxWidth: 325,
-        height: '100vh',
+        height: '100%',
         background: theme.appColors.white,
-        padding: '9px 0',
-        zIndex: 1,
         [theme.breakpoints.up('md')]: {
             position: 'static',
-            background: 'none',
             display: 'flex',
-            height: 'auto',
+            maxWidth: 'none',
+            width: 'auto',
             padding: 0,
-            width: '100%',
-            maxWidth: 'none'
-        }
-    },
-    mainNavOpened: {
-
-    },
-    mainNavInner: {
-        height: '100%',
-        overflow: 'auto',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            overflow: 'visible'
+            background: 'none',
         },
         [theme.breakpoints.only('md')]: {
             width: '100%'
         },
         [theme.breakpoints.up('lg')]: {
             padding: '0 10px'
+        }
+    },
+    mainNavList: {
+        height: '100%',
+        overflow: 'auto',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            width: '100%',
+            overflow: 'visible'
         }
     },
     mainNavItem: {
@@ -86,13 +99,15 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     mainNavItemHoverable: {
-        '&:hover': {
-            background: theme.appColors.weekWhite
-        },
-        '&:hover > div': {
-            pointerEvents: 'auto',
-            visibility: 'visible',
-            opacity: 1
+        [theme.breakpoints.only('lg')]: {
+            '&:hover': {
+                background: theme.appColors.weekWhite
+            },
+            '&:hover > div': {
+                pointerEvents: 'auto',
+                visibility: 'visible',
+                opacity: 1
+            }
         }
     },
     mainNavItemSelected: {

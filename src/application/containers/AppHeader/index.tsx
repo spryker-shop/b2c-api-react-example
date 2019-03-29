@@ -56,7 +56,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
-                        <div className={ classes.hamburger }>
+                        <div className={ classes.hamburger } onClick={ this.mobileNavToggleHandler }>
                             <BurgerLogo />
                         </div>
 

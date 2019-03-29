@@ -15,7 +15,7 @@ import { ChevronIcon, CrossIcon } from './icons';
 
 @(withRouter as Function)
 class MainNavigationComponent extends React.Component<Props, State> {
-    protected navRef: React.RefObject<HTMLElement> = React.createRef();
+    protected navRef: Element;
 
     public readonly state: State = {
         isOpen: false,
@@ -34,8 +34,15 @@ class MainNavigationComponent extends React.Component<Props, State> {
     protected closeMenuItems = (): void => this.setState({ selectedNode: null, openedNodes: [] });
 
     public componentDidUpdate = (prevProps: Props): void => {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
+        const { onMobileNavToggle, location } = this.props;
+        const isMobile = window.innerWidth < appBreakpoints.values.md;
+
+        if (location.pathname !== prevProps.location.pathname) {
             this.closeMenuItems();
+
+            if (isMobile) {
+                onMobileNavToggle();
+            }
         }
     };
 
@@ -193,14 +200,19 @@ class MainNavigationComponent extends React.Component<Props, State> {
         const { classes, isFulfilled, onMobileNavToggle, isMobileNavOpened } = this.props;
 
         return (
-            <nav className={`${classes.mainNav} ${isMobileNavOpened ? classes.mainNavOpened : ''}`} ref={ this.navRef }>
-                <div className={ classes.mainNavInner }>
-                    { isFulfilled && this.renderCategoriesList() }
-                </div>
+            <nav
+                className={`${classes.mainNav} ${isMobileNavOpened ? classes.mainNavOpened : ''}`}
+                ref={nav => this.navRef = nav }
+            >
                 <span className={ classes.backdrop } onClick={ onMobileNavToggle } />
-                <span className={ classes.close } onClick={ onMobileNavToggle } >
-                    <span className={ classes.closeIcon }><CrossIcon /></span>
-                </span>
+                <div className={ classes.mainNavInner }>
+                    <div className={ classes.mainNavList }>
+                        { isFulfilled && this.renderCategoriesList() }
+                    </div>
+                    <span className={ classes.close } onClick={ onMobileNavToggle } >
+                        <span className={ classes.closeIcon }><CrossIcon /></span>
+                    </span>
+                </div>
             </nav>
         );
     }
