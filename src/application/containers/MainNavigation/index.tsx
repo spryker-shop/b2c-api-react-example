@@ -208,13 +208,13 @@ class MainNavigationComponent extends React.Component<Props, State> {
                     <div className={ classes.mainNavList }>
                         { isFulfilled && this.renderCategoriesList() }
                     </div>
-                    <span className={ classes.close } onClick={ () => onMobileNavToggle(!isMobileNavOpened) } >
+                    <span className={ classes.close } onClick={ () => onMobileNavToggle(false) } >
                         <span className={ classes.closeIcon }><CrossIcon /></span>
                     </span>
                 </div>
                 <span
                     className={`${classes.backdrop} ${isMobileNavOpened ? classes.backdropVisible : ''}`}
-                    onClick={ () => onMobileNavToggle(!isMobileNavOpened) }
+                    onClick={ () => onMobileNavToggle(false) }
                 />
             </nav>
         );
