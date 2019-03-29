@@ -8,3 +8,7 @@ export interface IProductDetailProps extends WithStyles<typeof styles> {
     description: IProductPropFullData['description'];
     sku: IProductPropFullData['sku'];
 }
+
+export interface IProductDetailState {
+    value: number;
+}

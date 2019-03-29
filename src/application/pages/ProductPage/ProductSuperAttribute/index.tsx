@@ -10,34 +10,32 @@ export class ProductSuperAttributeComponent extends React.Component<Props, State
         selectedValues: null
     };
 
-    protected onChange = ({name, value}: {name: string, value: string}): void => {
-        const {selectedValues} = this.state;
+    protected onChange = ({ name, value }: { name: string, value: string }): void => {
+        const { selectedValues } = this.state;
         const updatedValues = selectedValues === null
-            ? {[name]: value}
+            ? { [name]: value }
             : {
                 ...selectedValues,
                 [name]: value
             };
 
-        this.props.onChange({name, value});
-        this.setState({selectedValues: updatedValues});
+        this.props.onChange({ name, value });
+        this.setState({ selectedValues: updatedValues });
     };
 
     public render(): JSX.Element {
-        const {classes, productData} = this.props;
+        const { productData } = this.props;
 
         return (
-            <div className={classes.root}>
-                {
-                    productData.map((attribute: ISuperAttribute) => (
-                        <SuperAttributeBlock
-                            attributeData={attribute}
-                            onValueChanged={this.onChange}
-                            key={attribute.name}
-                        />
-                    ))
-                }
-            </div>
+            <>
+                { productData.map((attribute: ISuperAttribute, index) => (
+                    <SuperAttributeBlock
+                        attributeData={ attribute }
+                        onValueChanged={ this.onChange }
+                        key={ attribute.name }
+                    />
+                )) }
+            </>
         );
     }
 }

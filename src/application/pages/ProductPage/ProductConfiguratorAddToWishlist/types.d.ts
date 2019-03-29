@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IWishlist, TWishlistName } from '@interfaces/wishlist';
@@ -16,11 +15,4 @@ export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeo
 
 export interface IProductConfiguratorAddToWishlistState {
     wishlistSelected: TWishlistName | null;
-}
-
-export interface IProductWishlistParams {
-    onChangeHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
-    inputValue: IProductConfiguratorAddToWishlistState['wishlistSelected'];
-    wishlists: IProductConfiguratorAddToWishlistProps['wishlists'];
-    controlsGroupClassName?: string;
 }
