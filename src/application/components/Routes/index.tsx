@@ -72,7 +72,6 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
                 render={ props => <LoadableWishlistDetail {...props} /> }
             />
 
-            { /* TODO: Change to ProtectedRoute */ }
             <Route path={ pathCheckoutPage } exact render={ props => <LoadableCheckoutPage {...props} /> }/>
             <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
             <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>

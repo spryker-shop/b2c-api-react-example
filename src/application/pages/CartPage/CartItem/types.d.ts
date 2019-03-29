@@ -7,5 +7,5 @@ export interface CartItemProps extends ICartItem, WithStyles<typeof styles> {
     quantities: number[];
     handleDeleteItem: Function;
     handleChangeQty: (event: React.ChangeEvent) => void;
-    cartRejected: boolean;
+    isUpdateToDefault: boolean;
 }

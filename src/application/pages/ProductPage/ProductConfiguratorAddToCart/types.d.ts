@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import {
@@ -27,16 +26,10 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
 
 export interface IProductConfiguratorAddToCartState {
     quantitySelected: TProductQuantity;
-    quantity: TProductQuantity | null;
+    quantity: TProductQuantity;
     isBuyBtnDisabled?: boolean;
     isProcessCartLoading?: boolean;
     availability: TProductAvailability | null;
     sku: TProductSKU | null;
-}
-
-export interface IProductQuantityParams {
-    onChangeHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
-    inputValue: IProductConfiguratorAddToCartState['quantitySelected'];
-    quantity: IProductConfiguratorAddToCartState['quantity'];
-    controlsGroupClassName?: string;
+    isUpdateValue: boolean;
 }

@@ -35,21 +35,25 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     };
 
     return (
-        <Popover
-            { ...popoverProps }
-            className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
-            disablePortal={ true }
-            keepMounted={ true }
-            PaperProps={{
-                ...paperProps,
-                classes: {
-                    root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
-                }
-            }}
-            BackdropProps={{ classes: { root: classes.backdrop } }}
-        >
-            { children }
-        </Popover>
+        <>
+            {isOpen &&
+                <Popover
+                { ...popoverProps }
+                className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
+                disablePortal={ true }
+                keepMounted={ true }
+                    PaperProps={{
+                        ...paperProps,
+                        classes: {
+                            root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
+                    }
+                }}
+                    BackdropProps={{ classes: { root: classes.backdrop } }}
+                >
+                    { children }
+                </Popover>
+            }
+        </>
     );
 };
 

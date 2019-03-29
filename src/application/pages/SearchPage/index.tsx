@@ -3,7 +3,6 @@ import * as qs from 'query-string';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { ISearchQuery } from '@interfaces/searchPageData';
-import { ISearchPageProps } from './types';
 import { getCategoryNameById } from '@helpers/categories';
 import { addToQueryActiveRangeFilters } from './helpers/queries';
 import { getLabeledCategory, getCurrentCategoriesTree } from './helpers';
@@ -13,20 +12,21 @@ import { AppPageTitle } from '@application/components/AppPageTitle';
 import { AppMain } from '@application/components/AppMain';
 import { SortPanel } from './SortPanel';
 import { ProductsList } from './ProductsList';
-import { Breadcrumbs } from './CategoriesBreadcrumbs';
+import { Breadcrumbs } from '@application/components/Breadcrumbs';
 import { SearchIntro } from './SearchIntro';
 import { CategoriesList } from './CategoriesList';
 import { SearchFilterList } from './SearchFilterList';
 import { SearchPagination } from './SearchPagination';
 import { Grid, withStyles } from '@material-ui/core';
-import { ISearchFilterListState as State } from './SearchFilterList/types';
+import { ISearchPageProps as Props, ISearchPageState as State } from './types';
 import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class SearchPageComponent extends React.Component<ISearchPageProps> {
+export class SearchPageComponent extends React.Component<Props, State> {
+
     public readonly state: State = {
-        isFirstLoadPassed: null
+        formattedCategoriesTree: null
     };
 
     public componentDidMount = (): void => {
@@ -38,11 +38,12 @@ export class SearchPageComponent extends React.Component<ISearchPageProps> {
         }
         if (!this.props.isLoading) {
             this.props.sendSearch(query);
+            this.categoriesTree();
         }
     };
 
-    public componentDidUpdate = (prevProps: ISearchPageProps): void => {
-        const { isLoading, isFiltersUpdated, locationCategoryId, isCategoryAsFilter } = this.props;
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { isLoading, isFiltersUpdated, locationCategoryId, isCategoryAsFilter, currentCategoryId } = this.props;
 
         if (isLoading) {
             return;
@@ -52,6 +53,10 @@ export class SearchPageComponent extends React.Component<ISearchPageProps> {
             this.sendCategoryRequest(this.getQueryBaseParams());
 
             return;
+        }
+
+        if (currentCategoryId !== prevProps.currentCategoryId) {
+            this.categoriesTree();
         }
 
         if (isFiltersUpdated) {
@@ -130,8 +135,23 @@ export class SearchPageComponent extends React.Component<ISearchPageProps> {
         return query;
     };
 
+    protected categoriesTree = (): void => {
+      const {categoriesTree, currentCategoryId} = this.props;
+
+      const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
+
+      this.setState({formattedCategoriesTree});
+    };
+
     protected onSelectProductHandler = (sku: string) => {
-        this.props.changeLocation(`${pathProductPageBase}/${sku}`);
+        const { formattedCategoriesTree } = this.state;
+
+        const location = {
+            pathname: `${pathProductPageBase}/${sku}`,
+            state: { categoriesTree: formattedCategoriesTree }
+        };
+
+        this.props.changeLocation(location);
     };
 
     public render() {
@@ -149,7 +169,7 @@ export class SearchPageComponent extends React.Component<ISearchPageProps> {
 
         const isCategoriesExist = (category.length > 0);
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
-        const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
+        const { formattedCategoriesTree } = this.state;
 
         return (
             <div className={ classes.root }>

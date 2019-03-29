@@ -13,6 +13,9 @@ import {
     IProductAvailabilitiesRawResponse, IProductRawResponse,
     TRowProductResponseIncluded
 } from '@helpers/product/types';
+import { IAvailableLabelsCollection, IProductLabelResponse } from '@interfaces/searchPageData';
+import { IProductRelationsIncluded, IProductRelationsLabel } from '@helpers/productRelations/types';
+import { getProductLabel } from '@helpers/product/label';
 
 const defaultProductQuantity = 10;
 
@@ -42,11 +45,11 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             quantity: null,
             productType: abstractProductType
         },
-        concreteProducts: {}
+        concreteProducts: {},
+        productLabels: null
     };
     let attributeNamesContainer: IProductAttributeNames = {};
 
-    // Fill data with concrete products ids
     if (data.attributes.attributeMap.product_concrete_ids) {
         data.attributes.attributeMap.product_concrete_ids.forEach((id: string) => {
             result.concreteProducts[id] = {
@@ -70,7 +73,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     }
 
     included.forEach((row: TRowProductResponseIncluded) => {
-        // Abstract part start
         if (row.type === 'abstract-product-image-sets') {
             result.abstractProduct.images = parseImageSets(row.attributes.imageSets);
         } else {
@@ -93,9 +95,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                 if (row.type === 'abstract-product-availabilities') {
                     result.abstractProduct.availability = row.attributes.availability;
                     result.abstractProduct.quantity = row.attributes.quantity;
-                    // Abstract part end
-
-                    // Concrete part start
                 } else {
                     if (row.type === 'concrete-products' && !result.concreteProducts[row.id].name) {
                         result.concreteProducts[row.id].name = row.attributes.name;
@@ -146,12 +145,36 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                 }
             }
         }
-        // Concrete part end
+
+        if (row.type === 'product-labels') {
+            result.productLabels = parseProductLabelsResponse(data, row);
+        }
     });
 
     result.superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
 
     return result;
+};
+
+const parseProductLabelsResponse = (data: any, row: any): any => {
+    const productAvailableLabels = data.relationships['product-labels'].data;
+    const filteredAvailableLabels = productAvailableLabels.map((item: IProductLabelResponse) => item.id);
+
+    if (!filteredAvailableLabels) {
+        return null;
+    }
+
+    const availableLabels: IAvailableLabelsCollection = {};
+
+    availableLabels[row.id] = {
+        id: row.id,
+        frontEndReference: row.attributes.frontEndReference,
+        isExclusive: row.attributes.isExclusive,
+        name: row.attributes.name,
+        position: row.attributes.position
+    };
+
+    return getProductLabel(filteredAvailableLabels, availableLabels);
 };
 
 export const parseProductAvailabilityResponse = (response: IProductAvailabilitiesRawResponse):

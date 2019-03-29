@@ -18,7 +18,13 @@ export const appButtons: Overrides = {
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,
-                borderColor: appColors.lightGrey
+                borderColor: appColors.lightGrey,
+
+                '&:active, &:hover': {
+                    backgroundColor: appColors.lightGrey,
+                    color: appColors.white,
+                    borderColor: appColors.lightGrey
+                }
             }
         },
         contained: {
@@ -38,7 +44,13 @@ export const appButtons: Overrides = {
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,
-                borderColor: appColors.lightGrey
+                borderColor: appColors.lightGrey,
+
+                '&:active, &:hover': {
+                    backgroundColor: appColors.lightGrey,
+                    color: appColors.white,
+                    borderColor: appColors.lightGrey
+                }
             }
         },
         containedPrimary: {
@@ -50,7 +62,7 @@ export const appButtons: Overrides = {
             },
 
             '&:active': {
-                backgroundColor: appColors.weekBlue,
+                backgroundColor: appColors.weekBlue
             }
         },
         outlined: {
@@ -61,13 +73,13 @@ export const appButtons: Overrides = {
             '&:hover': {
                 backgroundColor: appColors.blue,
                 color: appColors.white,
-                borderColor: appColors.blue,
+                borderColor: appColors.blue
             },
 
             '&:active': {
                 backgroundColor: appColors.darkBlue,
                 color: appColors.white,
-                borderColor: appColors.darkBlue,
+                borderColor: appColors.darkBlue
             }
         }
     },

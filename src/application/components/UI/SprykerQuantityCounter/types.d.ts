@@ -7,7 +7,10 @@ export interface SprykerQuantityCounterProps extends WithStyles<typeof styles> {
     value?: number;
     step?: number;
     minThreshold?: number;
-    rejected: boolean;
+    isUpdateToDefault?: boolean;
+    isBigger?: boolean;
+    delayDuration?: number;
+    isUseSubmitInspection?: boolean;
 }
 
 export interface SprykerQuantityCounterState {

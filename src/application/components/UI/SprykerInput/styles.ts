@@ -63,7 +63,7 @@ export const styles = (theme: Theme) => createStyles({
         pointerEvents: 'none',
         lineHeight: '20px',
         fontWeight: 500,
-        color: '#111111',
+        color: theme.appColors.black,
         opacity: 0.43
     },
     filled: {
