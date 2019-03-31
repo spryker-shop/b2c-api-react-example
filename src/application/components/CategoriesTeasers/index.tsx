@@ -17,9 +17,6 @@ export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element
         teasers.map((teaser: TeaserData, index: number) => {
             const { title, text, img, path, linkTitle, transparentImage, differentBg } = teaser;
             const isOdd = Boolean(index % 2);
-            const thumbnailStyles: React.CSSProperties = {
-                backgroundImage: `url(${img})`
-            };
 
             return (
                 <div className={`${classes.item} ${differentBg ? classes.itemDifferentBg : ''}`} key={ title }>
@@ -31,13 +28,14 @@ export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element
                                   className={ `${isOdd ? classes.oddImage : ''}` }
                             >
                             <span
-                                style={ thumbnailStyles }
                                 className={`
                                     ${classes.thumbnail}
                                     ${isOdd ? classes.oddThumbnail : ''}
                                     ${transparentImage ? classes.transparentThumbnail : ''}
                                 `}
-                            />
+                            >
+                                <span style={{ backgroundImage: `url(${img})` }} className={ classes.thumbnailInner } />
+                            </span>
                             </Grid>
                             <Grid item xs={ 12 } sm={ 6 } className={ classes.contentHolder }>
                                 <Grid item xs={ 12 } className={ classes.content }>

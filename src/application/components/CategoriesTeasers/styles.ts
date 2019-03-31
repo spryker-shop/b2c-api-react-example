@@ -3,24 +3,24 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     list: {
-        paddingBottom: 80
+        paddingBottom: 56,
+        [theme.breakpoints.up('xl')]: {
+            paddingBottom: 80
+        }
     },
     item: {
-        height: 800,
         background: theme.appColors.darkWhite,
-        marginBottom: 50,
         position: 'relative',
         overflow: 'hidden',
-        [theme.breakpoints.down('lg')]: {
-            height: 600
+        [theme.breakpoints.up('md')]: {
+            height: 720,
+            marginBottom: 24
         },
-        [theme.breakpoints.down('md')]: {
-            padding: 0,
-            height: 450
+        [theme.breakpoints.up('lg')]: {
+            marginBottom: 50
         },
-        [theme.breakpoints.down('xs')]: {
-            height: 'auto',
-            marginBottom: 16
+        [theme.breakpoints.up('xl')]: {
+            height: 800
         }
     },
     itemDifferentBg: {
@@ -35,9 +35,8 @@ export const styles = (theme: Theme) => createStyles({
         height: '100%'
     },
     oddImage: {
-        order: 2,
-        [theme.breakpoints.down('xs')]: {
-            order: 'inherit'
+        [theme.breakpoints.up('md')]: {
+            order: 2
         }
     },
     contentHolder: {
@@ -47,38 +46,73 @@ export const styles = (theme: Theme) => createStyles({
     },
     content: {
         flexBasis: 0,
-        padding: 37
+        [theme.breakpoints.up('md')]: {
+            padding: 25
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 37
+        }
     },
     thumbnail: {
         position: 'absolute',
         top: 0,
         left: 0,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'left top',
-        width: 'calc(50% - 20px)',
+        width: '100%',
         height: '100%',
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.up('md')]: {
             width: '50%'
         },
-        [theme.breakpoints.down('xs')]: {
-            display: 'none'
+        [theme.breakpoints.up('lg')]: {
+            width: 'calc(50% - 20px)'
+        }
+    },
+    thumbnailInner: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: '100%',
+        height: '100%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        [theme.breakpoints.up('md')]: {
+            backgroundPosition: 'left center'
+        },
+        [theme.breakpoints.up('xl')]: {
+            backgroundPosition: 'left top'
         }
     },
     transparentThumbnail: {
-        backgroundSize: 'contain',
-        [theme.breakpoints.down('lg')]: {
-            height: '95%'
-        }
+        height: '95%',
+        [theme.breakpoints.up('lg')]: {
+            height: '100%'
+        },
+        '& $thumbnailInner': {
+            backgroundSize: 'contain',
+            [theme.breakpoints.up('md')]: {
+                minWidth: 600
+            }
+        },
     },
     oddThumbnail: {
-        left: 'calc(50% + 20px)',
-        backgroundPosition: 'right bottom',
-        [theme.breakpoints.down('lg')]: {
-            top: '5%'
-        },
-        [theme.breakpoints.down('md')]: {
+        backgroundPosition: 'center',
+        [theme.breakpoints.up('md')]: {
+            top: '5%',
             left: '50%'
+        },
+        [theme.breakpoints.up('lg')]: {
+            top: 0,
+            left: 'calc(50% + 20px)'
+        },
+        '& $thumbnailInner': {
+            [theme.breakpoints.up('md')]: {
+                backgroundPosition: 'right center',
+                ritgh: 'auto',
+                left: 0
+            },
+            [theme.breakpoints.up('xl')]: {
+                backgroundPosition: 'right bottom'
+            }
         }
     },
     title: {
@@ -91,6 +125,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     btn: {
         minWidth: 260,
-        background: theme.appColors.white
+        background: theme.appColors.white,
+        textAlign: 'center'
     }
 });

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { appColors } from '@theme/properties/new/appColors';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 interface IAppTypographyElements {
-    fontSize: React.CSSProperties['fontSize'];
-    fontWeight: React.CSSProperties['fontWeight'];
-    lineHeight: React.CSSProperties['lineHeight'];
-    letterSpacing: React.CSSProperties['letterSpacing'];
+    fontSize?: React.CSSProperties['fontSize'];
+    fontWeight?: React.CSSProperties['fontWeight'];
+    lineHeight?: React.CSSProperties['lineHeight'];
+    letterSpacing?: React.CSSProperties['letterSpacing'];
     marginLeft?: React.CSSProperties['marginLeft'];
     color?: React.CSSProperties['color'];
 }
@@ -28,12 +29,22 @@ export const appTypographyStyles: IAppTypography = {
         'Roboto',
     ].join(','),
     display4: {
-        fontSize: 40,
+        fontSize: 30,
+        lineHeight: 1.33,
+        letterSpacing: 0.3,
         fontWeight: 700,
-        lineHeight: 1.25,
-        letterSpacing: 0.4,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 30,
+            lineHeight: 1.33,
+            letterSpacing: 0.3,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 40,
+            lineHeight: 1.25,
+            letterSpacing: 0.4,
+        }
     },
     display3: {
         fontSize: 30,
@@ -76,11 +87,19 @@ export const appTypographyStyles: IAppTypography = {
         color: appColors.black
     },
     body1: {
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: 400,
         lineHeight: 1.78,
-        letterSpacing: 0.2,
+        letterSpacing: 0.1,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 14,
+            letterSpacing: 0.1,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 18,
+            letterSpacing: 0.1,
+        }
     }
 };
