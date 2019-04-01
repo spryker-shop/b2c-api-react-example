@@ -2,7 +2,8 @@ import {
     CATEGORIES_TREE_REQUEST,
     INIT_APP_ACTION_TYPE,
     SET_AUTH_FROM_STORAGE,
-    SWITCH_LOCALE
+    SWITCH_LOCALE,
+    IS_LOCKED_PAGE
 } from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
 import { ICategory } from '@interfaces/category';
@@ -76,3 +77,8 @@ export const getCategoriesAction = function () {
         InitAppService.getCategoriesTree(dispatch);
     };
 };
+
+export const isLockedPageFulfilledState = (payload: boolean): IInitAction => ({
+    type: IS_LOCKED_PAGE + '_FULFILLED',
+    payloadIsLockedPage: payload,
+});

@@ -3,7 +3,10 @@ import { TAppLocale } from '@interfaces/locale';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
+export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
+    classes: {
+        [key: string]: string
+    };
     dispatch?: Function;
     isLoading?: boolean;
     locale?: TAppLocale;
@@ -17,8 +20,10 @@ interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, With
     cartCreated?: boolean;
     isInitStateFulfilled?: boolean;
     clearSearchTerm?: () => void;
+    isLockedPage?: boolean;
 }
 
-interface IPageContentState {
-    mobileNavOpened: boolean;
+export interface IPageContentState {
+    topOffset: number | string;
+    isLockedPage: boolean;
 }

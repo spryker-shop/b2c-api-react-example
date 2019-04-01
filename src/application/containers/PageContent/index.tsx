@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
-import { getContentRoutes } from '@application/components/Routes';
+import { Routes } from '@application/components/Routes';
 import {
     pathCategoryPageBase,
     pathLoginPage,
@@ -29,7 +29,8 @@ setConfig({ ErrorOverlay: () => null });
 @(withRouter as Function)
 class PageContentComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        mobileNavOpened: false
+        topOffset: '',
+        isLockedPage: false
     };
 
     public componentDidMount = (): void => {
@@ -55,15 +56,39 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
+        const { isAppDataSet, isLockedPage } = this.props;
         this.clearFlyoutSearchHandler(prevProps);
 
-        if (!prevProps.isAppDataSet && this.props.isAppDataSet) {
+        if (!prevProps.isAppDataSet && isAppDataSet) {
             if (this.props.isCustomerAuth) {
                 this.props.getCustomerCart();
             } else {
                 this.props.getGuestCart(this.props.anonymId);
             }
         }
+
+        if (prevProps.isLockedPage !== isLockedPage) {
+            this.lockingPage();
+        }
+    };
+
+    protected lockingPage = (): void => {
+        const { classes, isLockedPage } = this.props;
+        const { topOffset } = this.state;
+        const topOffsetValue = isLockedPage ? window.pageYOffset : '';
+        this.setState({ topOffset: topOffsetValue, isLockedPage });
+
+        if (!isLockedPage) {
+            document.body.classList.remove(classes.lockedPage);
+            document.body.style.cssText = 'top: "";';
+
+            window.scrollTo(0, Number(topOffset));
+
+            return;
+        }
+
+        document.body.classList.add(classes.lockedPage);
+        document.body.style.cssText = `top: ${-topOffsetValue}px`;
     };
 
     protected clearFlyoutSearchHandler = (prevProps: Props): void => {
@@ -79,8 +104,6 @@ class PageContentComponent extends React.Component<Props, State> {
         Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
     );
 
-    protected mobileNavToggle = () => this.setState(({ mobileNavOpened }) => ({ mobileNavOpened: !mobileNavOpened }));
-
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [pathLoginPage, pathRegisterPage, pathResetPassword, pathForgotPassword];
         const currentLocation = this.props.location.pathname;
@@ -90,22 +113,17 @@ class PageContentComponent extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { locale, classes } = this.props;
-        const { mobileNavOpened } = this.state;
         addLocaleData(getLocaleData(locale));
 
         return (
-            <IntlProvider locale={ locale } messages={ messages[ locale ] }>
+            <IntlProvider locale={ locale } messages={ messages[locale] }>
                 <div className={ classes.root }>
-                    <AppHeader
-                        locale={ this.isDataFulfilled() }
-                        onMobileNavToggle={ this.mobileNavToggle }
-                        isMobileNavOpened={ mobileNavOpened }
-                    />
+                    <AppHeader />
                     <ErrorBoundary>
-                        {getContentRoutes(this.isDataFulfilled())}
+                        <Routes isAppLoading={ this.isDataFulfilled() } />
                     </ErrorBoundary>
+                    { !this.shouldHideFooter() && <AppFooter /> }
                     <Notifications />
-                    {!this.shouldHideFooter() && <AppFooter/>}
                 </div>
             </IntlProvider>
         );

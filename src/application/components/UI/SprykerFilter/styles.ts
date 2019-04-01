@@ -69,7 +69,6 @@ export const styles = (theme: Theme) => createStyles({
     },
     menuCounter: {
         display: 'flex',
-        fontFamily: 'Circular',
         justifyContent: 'space-between',
         alignItems: 'center',
         pointerEvents: 'none',
