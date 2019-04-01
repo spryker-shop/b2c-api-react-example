@@ -24,7 +24,7 @@ export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element
                         <Grid container spacing={ 24 } className={ classes.grid }>
                             <Grid item
                                   xs={ 12 }
-                                  sm={ 6 }
+                                  md={ 6 }
                                   className={ `${isOdd ? classes.oddImage : ''}` }
                             >
                             <span
@@ -37,7 +37,7 @@ export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element
                                 <span style={{ backgroundImage: `url(${img})` }} className={ classes.thumbnailInner } />
                             </span>
                             </Grid>
-                            <Grid item xs={ 12 } sm={ 6 } className={ classes.contentHolder }>
+                            <Grid item xs={ 12 } md={ 6 } className={ classes.contentHolder }>
                                 <Grid item xs={ 12 } className={ classes.content }>
                                     <Typography component="h2" variant="display4" className={ classes.title }>
                                         <FormattedMessage id={ title } />

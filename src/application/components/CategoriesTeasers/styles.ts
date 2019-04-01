@@ -12,6 +12,7 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.darkWhite,
         position: 'relative',
         overflow: 'hidden',
+        marginBottom: 15,
         [theme.breakpoints.up('md')]: {
             height: 720,
             marginBottom: 24
@@ -46,21 +47,37 @@ export const styles = (theme: Theme) => createStyles({
     },
     content: {
         flexBasis: 0,
+        paddingBottom: 26,
+        textAlign: 'center',
         [theme.breakpoints.up('md')]: {
-            padding: 25
+            padding: 25,
+            textAlign: 'left'
         },
         [theme.breakpoints.up('lg')]: {
             padding: 37
         }
     },
     thumbnail: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        display: 'block',
+        height: 'auto',
+        position: 'relative',
+        margin: '0 -16px',
+        '&:before': {
+            content: '""',
+            display: 'block',
+            height: 0,
+            paddingBottom: '72%'
+        },
         [theme.breakpoints.up('md')]: {
-            width: '50%'
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '50%',
+            margin: 0,
+            '&:before': {
+                display: 'none'
+            }
         },
         [theme.breakpoints.up('lg')]: {
             width: 'calc(50% - 20px)'
@@ -74,16 +91,15 @@ export const styles = (theme: Theme) => createStyles({
         height: '100%',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        [theme.breakpoints.up('md')]: {
-            backgroundPosition: 'left center'
-        },
+        backgroundPosition: 'left center',
         [theme.breakpoints.up('xl')]: {
             backgroundPosition: 'left top'
         }
     },
     transparentThumbnail: {
-        height: '95%',
+        [theme.breakpoints.up('md')]: {
+            height: '95%',
+        },
         [theme.breakpoints.up('lg')]: {
             height: '100%'
         },
@@ -92,12 +108,11 @@ export const styles = (theme: Theme) => createStyles({
             [theme.breakpoints.up('md')]: {
                 minWidth: 600
             }
-        },
+        }
     },
     oddThumbnail: {
         backgroundPosition: 'center',
         [theme.breakpoints.up('md')]: {
-            top: '5%',
             left: '50%'
         },
         [theme.breakpoints.up('lg')]: {
@@ -105,9 +120,9 @@ export const styles = (theme: Theme) => createStyles({
             left: 'calc(50% + 20px)'
         },
         '& $thumbnailInner': {
+            backgroundPosition: 'right center',
             [theme.breakpoints.up('md')]: {
-                backgroundPosition: 'right center',
-                ritgh: 'auto',
+                right: 'auto',
                 left: 0
             },
             [theme.breakpoints.up('xl')]: {
@@ -116,16 +131,25 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     title: {
-        paddingBottom: 20,
-        color: theme.appColors.grey
+        paddingBottom: 13,
+        color: theme.appColors.grey,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 20,
+        }
     },
     text: {
         color: theme.appColors.grey,
-        paddingBottom: 30
+        paddingBottom: 20,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 30,
+        }
     },
     btn: {
-        minWidth: 260,
+        minWidth: 200,
         background: theme.appColors.white,
-        textAlign: 'center'
+        textAlign: 'center',
+        [theme.breakpoints.up('md')]: {
+            minWidth: 260,
+        }
     }
 });

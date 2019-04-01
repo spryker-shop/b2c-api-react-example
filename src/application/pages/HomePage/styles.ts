@@ -4,15 +4,12 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     appMainLayout: {
         maxWidth: '100%',
-        paddingLeft: 16,
-        paddingRight: 16,
+        padding: '15px 16px 0',
         [theme.breakpoints.up('md')]: {
-            paddingLeft: 24,
-            paddingRight: 24
+            padding: '24px 24px 0'
         },
         [theme.breakpoints.up('lg')]: {
-            paddingLeft: 50,
-            paddingRight: 50
+            padding: '40px 50px 0'
         }
     }
 });
