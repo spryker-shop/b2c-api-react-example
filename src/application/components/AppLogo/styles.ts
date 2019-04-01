@@ -9,7 +9,6 @@ export const styles = (theme: Theme) => createStyles({
     },
     logo: {
         display: 'block',
-        marginRight: 8,
     },
     logoCopy: {
         color: theme.appColors.black,
@@ -17,4 +16,16 @@ export const styles = (theme: Theme) => createStyles({
         lineHeight: '18px',
         opacity: .4,
     },
+    mainLogo: {
+        display: 'none',
+        [theme.breakpoints.up('sm')]: {
+            display: 'block'
+        }
+    },
+    additionalLogo: {
+        display: 'block',
+        [theme.breakpoints.up('sm')]: {
+            display: 'none'
+        }
+    }
 });

@@ -3,16 +3,23 @@ import { NavLink } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { pathHomePage } from '@constants/routes';
 import { ILogoProps as Props } from './types';
-import { SprykerLogo } from './icons';
+import { SprykerLogo, SimpleLogo } from './icons';
 import { styles } from './styles';
 
 export const AppLogoComponent: React.SFC<Props> = (props): JSX.Element => {
-    const {classes} = props;
+    const { classes, addSimpleLogo } = props;
 
     return (
         <div className={classes.logoContainer}>
             <NavLink to={pathHomePage} className={classes.logo}>
-                <SprykerLogo />
+                <span className={ classes.mainLogo }>
+                    <SprykerLogo />
+                </span>
+                { addSimpleLogo &&
+                    <span className={ classes.additionalLogo }>
+                        <SimpleLogo />
+                    </span>
+                }
             </NavLink>
         </div>
     );
