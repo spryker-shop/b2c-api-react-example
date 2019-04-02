@@ -1,4 +1,4 @@
-import { IProductCard } from '@interfaces/product';
+import { IProductCard, IProductLabel } from '@interfaces/product';
 import { IPagination } from '@application/components/AppPagination/types';
 import { TCategoryId } from '@application/pages/SearchPage/types';
 import { TAppCurrency } from '@interfaces/currency';
@@ -90,8 +90,7 @@ export interface ICatalogSearchDataParsed extends IActiveFilters {
     categoriesLocalizedName: TLocalizedName | null;
     pagination: IPagination;
     spellingSuggestion: TSpellingSuggestion | null;
-    productsLabeled: IProductsLabeledCollection | null;
-    availableLabels: IAvailableLabelsCollection | null;
+    productLabels: IProductLabel[] | null;
     searchTerm?: TSearchTerm;
 }
 

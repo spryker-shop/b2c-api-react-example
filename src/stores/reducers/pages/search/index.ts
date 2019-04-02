@@ -21,6 +21,7 @@ import {
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
 import { DefaultItemsPerPage } from '@constants/search';
+import { IProductLabel } from '@interfaces/product';
 
 export const initialState: ISearchState = {
     data: {
@@ -179,22 +180,6 @@ export function getSpellingSuggestion(state: IReduxStore, props: IReduxOwnProps)
     return (
         state.pageSearch.data && state.pageSearch.data.spellingSuggestion
             ? state.pageSearch.data.spellingSuggestion
-            : null
-    );
-}
-
-export function getProductsLabeled(state: IReduxStore, props: IReduxOwnProps): IProductsLabeledCollection | null {
-    return (
-        state.pageSearch.data && state.pageSearch.data.productsLabeled
-            ? state.pageSearch.data.productsLabeled
-            : null
-    );
-}
-
-export function getAvailableLabels(state: IReduxStore, props: IReduxOwnProps): IAvailableLabelsCollection | null {
-    return (
-        state.pageSearch.data && state.pageSearch.data.availableLabels
-            ? state.pageSearch.data.availableLabels
             : null
     );
 }

@@ -69,7 +69,7 @@ export interface IProductCard {
     abstractName: TProductName;
     abstractSku: TProductSKU;
     prices: IProductPricesItem[];
-
+    labels?: IProductLabel[] | null;
 }
 
 export interface IProductAttributeMap {
