@@ -23,7 +23,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         name,
         priceDefaultGross,
         priceOriginalGross,
-        cartRejected,
+        isUpdateToDefault,
         abstractSku,
         calculations: { unitPriceToPayAggregation }
     } = props;
@@ -67,7 +67,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 name={ sku }
                                 value={ quantity }
                                 handleChangeQty={ handleChangeQty }
-                                rejected={ cartRejected }
+                                isUpdateToDefault={ isUpdateToDefault }
                             />
                         </div>
                     </Grid>

@@ -5,13 +5,14 @@ import { SprykerQuantityCounterProps as Props, SprykerQuantityCounterState as St
 import { styles } from './styles';
 
 class SprykerQuantityCounterComponent extends React.Component<Props, State> {
-    protected readonly duration = 1000;
     protected timeout: NodeJS.Timer;
 
     public static defaultProps = {
         minThreshold: 1,
         step: 1,
-        value: 1
+        value: 1,
+        delayDuration: 1000,
+        isUseSubmitInspection: true
     };
 
     public readonly state: State = {
@@ -19,24 +20,29 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
         name: this.props.name
     };
 
-    public componentDidUpdate = (): void => {
-        const { rejected, value } = this.props;
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { isUpdateToDefault, value } = this.props;
+        const shouldUpdateToDefault = isUpdateToDefault === true && prevProps.isUpdateToDefault !== isUpdateToDefault;
 
-        if (rejected) {
+        if (shouldUpdateToDefault) {
             this.setState({ inputValue: value });
         }
     };
 
     protected delayToChangeQuantity = (name: string, value: number): void => {
-        const { handleChangeQty, value: propsValue } = this.props;
-        const isSameValue = propsValue === value;
+        const { isUseSubmitInspection, handleChangeQty, delayDuration, value: propsValue } = this.props;
+        const isSameValue = isUseSubmitInspection && propsValue === value;
 
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
             if (!isSameValue) {
                 handleChangeQty(name, value);
             }
-        }, this.duration);
+        }, delayDuration);
+    };
+
+    public componentWillUnmount = (): void => {
+        clearTimeout(this.timeout);
     };
 
     protected onChangeInputHandler = (event: InputChangeEvent): void => {
@@ -72,12 +78,12 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, name, minThreshold } = this.props;
+        const { classes, name, minThreshold, isBigger } = this.props;
         const { inputValue } = this.state;
         const isButtonDisabled = inputValue === minThreshold;
 
         return (
-            <form noValidate autoComplete="off">
+            <form noValidate autoComplete="off" className={ classes.root }>
                 <div className={ classes.container }>
                     <span
                         onClick={ this.decrementValueHandler }
@@ -85,6 +91,7 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
                             ${classes.trigger}
                             ${classes.triggerMinus}
                             ${isButtonDisabled ? classes.triggerDisabled : ''}
+                            ${isBigger ? classes.triggerBigger : ''}
                         ` }
                     />
                     <TextField
@@ -96,10 +103,15 @@ class SprykerQuantityCounterComponent extends React.Component<Props, State> {
                         type={ 'number' }
                         InputProps={ {
                             disableUnderline: true,
-                            classes: { input: classes.input }
+                            classes: {
+                                input: `${classes.input} ${isBigger ? classes.inputBigger : ''}`
+                            }
                         } }
                     />
-                    <span onClick={ this.incrementValueHandler } className={ `${classes.trigger}` } />
+                    <span
+                        onClick={ this.incrementValueHandler }
+                        className={`${classes.trigger} ${isBigger ? classes.triggerBigger : ''}`}
+                    />
                 </div>
             </form>
         );

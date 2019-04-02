@@ -6,6 +6,7 @@ export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, Rou
     dispatch?: Function;
     routerGoBack: Function;
     sendForgotRequest: Function;
+    isLoading?: boolean;
 }
 
 export interface IForgotPasswordPageState {

@@ -28,18 +28,22 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     };
 
     return (
-        <Popover
-            { ...popoverProps }
-            className={ classes.popover }
-            PaperProps={{
-                ...paperProps,
-                classes: {
-                    root: classes.content
-                }
-            }}
-        >
-            { children }
-        </Popover>
+        <>
+        {isOpen &&
+            <Popover
+                { ...popoverProps }
+                className={ classes.popover }
+                PaperProps={{
+                    ...paperProps,
+                    classes: {
+                        root: classes.content
+                    }
+                }}
+            >
+                { children }
+            </Popover>
+        }
+        </>
     );
 };
 

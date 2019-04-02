@@ -67,7 +67,7 @@ export class CartRows extends React.Component<Props> {
                             quantities={ quantities }
                             handleDeleteItem={ this.handleDeleteItem }
                             handleChangeQty={ this.handleChangeQty }
-                            cartRejected={ cartRejected }
+                            isUpdateToDefault={ cartRejected }
                             { ...cartItem }
                         />
                     );

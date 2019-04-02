@@ -22,11 +22,16 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
     protected closeLanguage = (): void => this.setState({ anchorElement: null });
 
     protected selectLanguage = (lang: TLanguage) => (): void => {
+        const { appLocale } = this.props;
         const locale: TAppLocale = lang.code;
+        const shouldUpdateLocale = locale !== appLocale;
 
-        api.setHeader('Accept-Language', locale);
         this.setState({ anchorElement: null });
-        this.props.switchLocaleAction({ locale });
+
+        if (shouldUpdateLocale) {
+            api.setHeader('Accept-Language', locale);
+            this.props.switchLocaleAction({ locale });
+        }
     };
 
     public render(): JSX.Element {
@@ -66,19 +71,20 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
                         { isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown /> }
                     </span>
                 </Button>
-
-                <Menu
-                    id="lang-menu"
-                    anchorEl={ anchorElement }
-                    open={ isOpen }
-                    onClose={ this.closeLanguage }
-                    className={classes.content}
-                    classes={{
-                        paper: classes.content
-                    }}
-                >
-                    { languagesList }
-                </Menu>
+                {anchorElement &&
+                    <Menu
+                        id="lang-menu"
+                        anchorEl={ anchorElement }
+                        open={ isOpen }
+                        onClose={ this.closeLanguage }
+                        className={classes.content}
+                        classes={{
+                            paper: classes.content
+                        }}
+                    >
+                        { languagesList }
+                    </Menu>
+                }
             </>
         );
     }

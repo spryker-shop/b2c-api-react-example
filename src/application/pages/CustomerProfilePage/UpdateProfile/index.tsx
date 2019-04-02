@@ -77,8 +77,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
                     isRequired: true,
                     label: <FormattedMessage id={ 'salutation.label' } />,
                     isError: false,
-                    menuItems: SalutationVariants
-                        .map((item: TSalutationVariant) => ({ value: item.value, name: item.label })),
+                    menuItems: SalutationVariants,
                 }, {
                     type: 'input',
                     inputName: 'firstName',

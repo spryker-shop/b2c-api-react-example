@@ -11,15 +11,10 @@ const animationDuration = '0.15s';
 export const styles = (theme: Theme) => createStyles({
     root: {
         position: 'relative',
-        paddingBottom: '82px',
         margin: '0 -10px',
 
         [theme.breakpoints.only('md')]: {
             margin: '0 -16px'
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            paddingBottom: '60px'
         },
 
         '& .slick-slide': {
@@ -38,18 +33,14 @@ export const styles = (theme: Theme) => createStyles({
             alignItems: 'center',
             width: '150px',
             padding: '0 20px',
-            height: 'calc(100% - 82px)',
+            height: '100%',
             cursor: 'pointer',
 
             [theme.breakpoints.down('md')]: {
-                top: 'calc((100% - 82px) / 2)',
+                top: '50%',
                 transform: 'translate3d(0, -50%, 0)',
                 width: 'auto',
                 height: 'auto'
-            },
-
-            [theme.breakpoints.down('sm')]: {
-                top: 'calc((100% - 60px) / 2)'
             },
 
             '&.slick-prev': {
@@ -98,11 +89,9 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     dotsContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
         width: '100%',
-        paddingLeft: 0,
+        padding: '54px 0 0',
+        margin: 0,
         textAlign: 'center',
         listStyleType: 'none',
 
@@ -139,8 +128,8 @@ export const styles = (theme: Theme) => createStyles({
         height: '7px',
         border: 'none',
         borderRadius: '50%',
-        backgroundColor: '#eaeaea',
+        background: theme.appColors.softGrey,
         transition: `width ${ animationDuration }, height ${ animationDuration }, 
-            background-color ${ animationDuration }`
+            background ${ animationDuration }`
     }
 });

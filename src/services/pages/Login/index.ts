@@ -136,9 +136,9 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async forgotPassword(dispatch: Function, email: string): Promise<void> {
-        dispatch(forgotPasswordPendingState());
-
         try {
+            dispatch(forgotPasswordPendingState());
+
             const body = {
                 data: {
                     type: 'customer-forgotten-password',
@@ -180,9 +180,9 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async resetPassword(dispatch: Function, payload: IResetPasswordPayload): Promise<void> {
-        dispatch(resetPasswordPendingState());
-
         try {
+            dispatch(resetPasswordPendingState());
+
             const body = {
                 data: {
                     type: 'customer-restore-password',
