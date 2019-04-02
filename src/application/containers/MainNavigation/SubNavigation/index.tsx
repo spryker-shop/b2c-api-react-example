@@ -7,11 +7,11 @@ import { ISubNavigationProps as Props } from './types';
 import { IRelatedProductDataFixture } from '../fixtures';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
     const { nodes, classes, simpleDrop, productsList, headerHeight } = props;
-    const isMobile = window.innerWidth < appBreakpoints.values.md;
+    const isMobile = resolutionChecker(window.innerWidth, 'md');
     const nodeLevel = 0;
 
     const renderProductLists = (): JSX.Element[] => {

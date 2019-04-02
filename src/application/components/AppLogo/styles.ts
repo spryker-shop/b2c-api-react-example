@@ -23,7 +23,7 @@ export const styles = (theme: Theme) => createStyles({
             display: 'block'
         }
     },
-    mainLogoWithoutImage: {
+    additionalLogo: {
         display: 'block',
         [theme.breakpoints.up('sm')]: {
             display: 'none'

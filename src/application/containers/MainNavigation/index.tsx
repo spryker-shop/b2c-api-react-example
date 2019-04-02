@@ -10,8 +10,8 @@ import { ClickEvent } from '@interfaces/common';
 import { IMainNavProps as Props, IMainNavState as State } from './types';
 import { IMainNavigationNode } from '@interfaces/navigations';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 import { ChevronIcon, CrossIcon } from './icons';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @(withRouter as Function)
 class MainNavigationComponent extends React.Component<Props, State> {
@@ -62,7 +62,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
 
     protected onClickLinkHandler = (node: IMainNavigationNode) => (event: ClickEvent): void => {
         const { isTouch, onMobileNavToggle } = this.props;
-        const isMobile = window.innerWidth < appBreakpoints.values.md;
+        const isMobile = resolutionChecker(window.innerWidth, 'md');
 
         if (isTouch && !isMobile && Boolean(node.children.length)) {
             event.preventDefault();
@@ -94,7 +94,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
 
     protected renderCategoriesList = (): JSX.Element[] => {
         const { nodesTree, classes, isTouch, headerHeight } = this.props;
-        const isMobile = window.innerWidth < appBreakpoints.values.md;
+        const isMobile = resolutionChecker(window.innerWidth, 'md');
         const isTouchScreen = isTouch && !isMobile;
 
         if (!Boolean(nodesTree.length)) {

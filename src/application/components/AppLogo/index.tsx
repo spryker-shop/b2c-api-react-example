@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, Hidden } from '@material-ui/core';
 import { pathHomePage } from '@constants/routes';
 import { ILogoProps as Props } from './types';
 import { SprykerLogo, SprykerLogoWithoutImage } from './icons';
@@ -12,13 +12,17 @@ export const AppLogoComponent: React.SFC<Props> = (props): JSX.Element => {
     return (
         <div className={ classes.logoContainer }>
             <NavLink to={ pathHomePage } className={ classes.logo }>
-                <span className={ classes.mainLogo }>
-                    <SprykerLogo />
-                </span>
-                { addlLogoWithoutImage &&
-                    <span className={ classes.mainLogoWithoutImage }>
-                        <SprykerLogoWithoutImage />
+                <Hidden only="xs">
+                    <span className={ classes.mainLogo }>
+                        <SprykerLogo />
                     </span>
+                </Hidden>
+                { addlLogoWithoutImage &&
+                    <Hidden smUp>
+                        <span className={ classes.additionalLogo }>
+                            <SprykerLogoWithoutImage />
+                        </span>
+                    </Hidden>
                 }
             </NavLink>
         </div>
