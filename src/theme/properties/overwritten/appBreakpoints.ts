@@ -1,7 +1,7 @@
 import { BreakpointValues } from '@material-ui/core/es/styles/createBreakpoints';
 
 export interface IAppBreakpoints {
-    values: BreakpointValues;
+    values: BreakpointValues & {[key: string]: number};
 }
 
 export const appBreakpoints: IAppBreakpoints = {

@@ -1,95 +1,138 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
+const listWidthMd = 260;
+const listWidthLg = 320;
+
 export const styles = (theme: Theme) => createStyles({
     layout: {
-        position: 'absolute',
-        left: 0,
-        top: '100%',
-        width: '100vw',
-        '&:before': {
-            content: '""',
-            position: 'absolute',
-            left: '50%',
-            top: 0,
-            height: '100vh',
-            transform: 'translateX(-50%)',
-            width: 9999,
-            background: 'rgba(0, 0, 0, 0.2)',
-            zIndex: -1,
-            pointerEvents: 'none'
+        position: 'relative',
+        paddingRight: 20,
+        [theme.breakpoints.up('md')]: {
+            overflow: 'hidden',
+            overflowY: 'auto',
+            background: theme.appColors.weekWhite,
+            padding: '40px 20px'
         }
     },
-    inner: {
-        position: 'relative',
-        background: theme.appColors.weekWhite,
-        padding: '40px 20px'
-    },
-    layoutSimple: {
-        minWidth: '100%',
-        width: 'auto'
-    },
     container: {
-        ...theme.appContainerStyles
+        [theme.breakpoints.up('md')]: {
+            ...theme.appContainerStyles
+        }
     },
     grid: {
         display: 'flex',
-        maxWidth: '96%',
         margin: '0 auto',
-        [theme.breakpoints.down('md')]: {
-            maxWidth: 'none'
+        [theme.breakpoints.up('md')]: {
+            margin: '0 -50px'
+        },
+        [theme.breakpoints.up('xl')]: {
+            margin: '0 auto',
+            maxWidth: '96%'
         }
     },
     col: {
-        padding: '0 70px',
-        [theme.breakpoints.down('md')]: {
-            padding: '0 30px'
+        [theme.breakpoints.up('md')]: {
+            padding: '0 50px'
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 70px'
         }
     },
     colList: {
-        width: 320,
-        borderRight: '1px solid rgba(206, 206, 208, 0.5)'
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: listWidthMd,
+            borderRight: '1px solid rgba(206, 206, 208, 0.5)'
+        },
+        [theme.breakpoints.only('md')]: {
+            display: 'flex',
+            justifyContent: 'center'
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: listWidthLg
+        }
     },
     colPreviews: {
-        width: 'calc(100% - 320px)'
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+            width: `calc(100% - ${listWidthMd}px)`
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: `calc(100% - ${listWidthLg}px)`
+        }
     },
     listReset: {
         listStyle: 'none',
-        padding: 0,
-        margin: 0
+        padding: '0 0 0 16px',
+        margin: 0,
+        [theme.breakpoints.up('md')]: {
+            padding: 0
+        }
     },
     listChild: {
-        padding: '10px 0 0 5px'
+        paddingTop: 10,
+        marginBottom: -10,
+        [theme.breakpoints.up('md')]: {
+            marginBottom: 0,
+            paddingBottom: 5
+        }
     },
     navItem: {
-        fontSize: 15,
-        paddingBottom: 20,
-        '&:last-child': {
-            paddingBottom: 0
+        fontSize: 14,
+        paddingBottom: 10,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 15,
+            paddingBottom: 20,
+            '&:last-child': {
+                paddingBottom: 0
+            }
         }
     },
     navItemLevel1: {
-        fontSize: 13,
-        paddingBottom: 10,
+        fontSize: 14,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 13,
+            paddingBottom: 10
+        }
     },
     navItemSimple: {
-        whiteSpace: 'nowrap'
+        [theme.breakpoints.up('md')]: {
+            whiteSpace: 'nowrap'
+        }
     },
     navLink: {
-        letterSpacing: 0.2,
-        fontWeight: 500,
-        color: theme.appColors.grey,
-        cursor: 'pointer',
+        display: 'block',
+        padding: '11px 15px',
         textDecoration: 'none',
-        transition: 'color 0.3s ease-in-out',
-        '&:hover': {
-            color: theme.appColors.blue
+        color: theme.appColors.grey,
+        letterSpacing: 0.1,
+        borderRadius: 4,
+        background: 'rgba(206, 206, 208, 0.16)',
+        [theme.breakpoints.up('md')]: {
+            background: 'none',
+            display: 'inline',
+            borderRadius: 0,
+            letterSpacing: 0.2,
+            fontWeight: 500,
+            cursor: 'pointer',
+            transition: 'color 0.3s ease-in-out',
+            '&:hover': {
+                color: theme.appColors.blue
+            }
         }
     },
     navStatic: {
         cursor: 'auto',
         '&:hover': {
             color: theme.appColors.grey
+        }
+    },
+    navItemAdditional: {
+        display: 'none',
+        [theme.breakpoints.only('md')]: {
+            display: 'block'
         }
     },
     productContainer: {
@@ -126,10 +169,15 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         textAlign: 'center',
         minHeight: 60,
-        padding: '10px 30px',
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: 15,
-            paddingRight: 15
+        padding: '10px 15px',
+        [theme.breakpoints.up('xl')]: {
+            paddingLeft: 60,
+            paddingRight: 60
+        }
+    },
+    hideOntablet: {
+        [theme.breakpoints.only('md')]: {
+            display: 'none'
         }
     }
 });

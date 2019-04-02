@@ -3,13 +3,14 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { reduxify } from '@application/hoc/Reduxify';
 import { logout } from '@stores/actions/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { getAppLocale } from '@stores/reducers/common/init';
+import { getAppLocale, getIsTouch } from '@stores/reducers/common/init';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
     const locale = getAppLocale(state, ownProps);
+    const isTouch = getIsTouch(state, ownProps);
 
-    return ({ isUserLoggedIn, locale });
+    return ({ isUserLoggedIn, locale, isTouch });
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
