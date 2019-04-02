@@ -65,14 +65,13 @@ export const styles = (theme: Theme) => createStyles({
     },
     filtersModalRoot: {
         [theme.breakpoints.between('xs', 'sm')]: {
+            display: 'block',
             position: 'static',
-            display: 'none'
+            visibility: 'visible'
         }
     },
     filtersModalRootOpened: {
-        [theme.breakpoints.between('xs', 'sm')]: {
-            display: 'block'
-        }
+        [theme.breakpoints.between('xs', 'sm')]: {}
     },
     filterChevron: {
         [theme.breakpoints.between('xs', 'sm')]: {
@@ -85,10 +84,21 @@ export const styles = (theme: Theme) => createStyles({
             transform: 'scaleY(-1)'
         }
     },
+    testWrapTitle: {
+        display: 'block',
+        height: 40,
+        background: 'red'
+    },
+    testWrap: {
+        display: 'none'
+    },
+    testWrapOpened: {
+        display: 'block'
+    },
     filters: {
         width: '100%',
         [theme.breakpoints.between('xs', 'sm')]: {
-            opacity: 1,
+            opacity: '1 !important',
             transform: 'none !important',
             position: 'static',
             minWidth: '0 !important',
@@ -109,7 +119,7 @@ export const styles = (theme: Theme) => createStyles({
         overflowY: 'auto',
         [theme.breakpoints.up('md')]: {
             padding: '0 0 10px',
-            overflow: 'hidden',
+            overflow: 'hidden'
         }
     },
     categoriesList: {

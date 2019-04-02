@@ -9,49 +9,70 @@ import { Grid, withStyles, Hidden, Button } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon, CrossIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
-import { NavLink } from 'react-router-dom';
-import { pathCheckoutPage } from '@constants/routes';
+import { ClickEvent } from '@interfaces/common';
 
-const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
-    const {
-        filters,
-        activeFilters,
-        ranges,
-        activeRangeFilters,
-        updateStore,
-        updateActiveFilters,
-        updateRangeFilters,
-        classes,
-        categoriesList
-    } = props;
+class FiltersListComponent extends React.Component<Props, any> {
+    public readonly state: any = {
+        openedFilters: []
+    };
 
-    const renderFilters = (): JSX.Element[] => {
+    protected test = (filter: any) => (event: ClickEvent): void => {
+        event.preventDefault();
+        const { openedFilters } = this.state;
+        const isFilterOpened = openedFilters.includes(filter);
+        console.log(isFilterOpened);
+        if (isFilterOpened) {
+            const removeFilterFromList = openedFilters.filter(filterItem => filterItem !== filter);
+
+            this.setState({ openedFilters: removeFilterFromList });
+
+            return;
+        }
+
+        const openedNFiltersList = [...openedFilters, filter];
+        console.log(openedNFiltersList);
+
+        this.setState({ openedFilters: openedNFiltersList });
+    };
+
+    protected renderFilters = (): JSX.Element[] => {
+        const { filters, activeFilters, updateStore, updateActiveFilters, classes } = this.props;
+        const { openedFilters } = this.state;
         const filterItems: JSX.Element[] = [];
+        console.log(openedFilters);
 
         if (Array.isArray(filters)) {
             filters.forEach((filter: ValueFacets) => {
                 const isFilterItemsExist = Array.isArray(filter.values) && filter.values.length;
 
                 if (isFilterItemsExist) {
+                    const isActive = openedFilters.includes(filter);
+
                     filterItems.push(
                         <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
-                            <SprykerFilter
-                                attributeName={ filter.name }
-                                menuItems={ filter.values }
-                                activeValues={ activeFilters[filter.name] || [] }
-                                handleChange={ updateActiveFilters }
-                                isShowSelected
-                                handleClose={ updateStore }
-                                title={ filter.localizedName }
-                                classes={{
-                                    iconOpened: classes.filterChevronOpened,
-                                    icon: classes.filterChevron,
-                                    modalRootOpened: classes.filtersModalRootOpened,
-                                    modalRoot: classes.filtersModalRoot,
-                                    menu: classes.filters
-                                }}
-                                isFullWidth
-                            />
+                            <span className={ classes.testWrapTitle } onClick={ this.test(filter) }>
+                                { filter.name.split('_').join(' ') }
+                            </span>
+
+                            <div className={ `${ classes.testWrap } ${ isActive ? classes.testWrapOpened : '' }` }>
+                                <SprykerFilter
+                                    attributeName={ filter.name }
+                                    menuItems={ filter.values }
+                                    activeValues={ activeFilters[filter.name] || [] }
+                                    handleChange={ updateActiveFilters }
+                                    isShowSelected
+                                    handleClose={ updateStore }
+                                    title={ filter.localizedName }
+                                    classes={ {
+                                        iconOpened: classes.filterChevronOpened,
+                                        icon: classes.filterChevron,
+                                        modalRootOpened: classes.filtersModalRootOpened,
+                                        modalRoot: classes.filtersModalRoot,
+                                        menu: classes.filters
+                                    } }
+                                    isFullWidth
+                                />
+                            </div>
                         </Grid>
                     );
                 }
@@ -61,7 +82,9 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
         return filterItems;
     };
 
-    const renderRange = (): JSX.Element[] => {
+    protected renderRange = (): JSX.Element[] => {
+        const { ranges, activeRangeFilters, updateStore, updateRangeFilters, classes } = this.props;
+
         const rangeItems: JSX.Element[] | null = [];
 
         if (Array.isArray(ranges)) {
@@ -71,7 +94,7 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                 const valueFrom = rangeFilterValueToFront(filter.min, rangeMinType);
                 const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
 
-                rangeItems.push (
+                rangeItems.push(
                     <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
                         <SprykerRangeSlider
                             key={ filter.name }
@@ -81,13 +104,13 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                             max={ valueTo }
                             handleChange={ updateRangeFilters }
                             handleAfterChange={ updateStore }
-                            classes={{
+                            classes={ {
                                 popoverContent: classes.filters
-                            }}
+                            } }
                             currentValue={ activeRangeFilters[filter.name] || {
                                 min: valueFrom,
                                 max: valueTo
-                            }}
+                            } }
                         />
                     </Grid>
                 );
@@ -97,29 +120,32 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
         return rangeItems;
     };
 
-    const isFiltersExist = Boolean(renderFilters().length);
-    const isRangeExist = Boolean(renderRange().length);
-    const isItemsExist = isFiltersExist || isRangeExist;
+    public render = (): JSX.Element => {
+        const { classes, categoriesList } = this.props;
 
-    return (
-        <div className={ classes.wrapper }>
-            <Hidden mdUp>
-                <div className={ classes.heading }>
+        const isFiltersExist = Boolean(this.renderFilters().length);
+        const isRangeExist = Boolean(this.renderRange().length);
+        const isItemsExist = isFiltersExist || isRangeExist;
+
+        return (
+            <div className={ classes.wrapper }>
+                <Hidden mdUp>
+                    <div className={ classes.heading }>
                     <span className={ classes.filterIcon }>
                         <FiltersIcon />
                     </span>
-                    <span className={ classes.title }>
+                        <span className={ classes.title }>
                         <FormattedMessage id={ 'word.filters.title' } />
                     </span>
 
-                    <span className={ classes.close }>
+                        <span className={ classes.close }>
                         <span className={ classes.closeIcon }>
                             <CrossIcon />
                         </span>
                     </span>
-                </div>
-            </Hidden>
-            { isItemsExist &&
+                    </div>
+                </Hidden>
+                { isItemsExist &&
                 <div className={ classes.filterList }>
                     <Grid container spacing={ 16 }>
                         <Hidden lgUp>
@@ -127,25 +153,26 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                                 { categoriesList }
                             </Grid>
                         </Hidden>
-                        { isFiltersExist && renderFilters() }
-                        { isItemsExist &&  renderRange()}
+                        { isFiltersExist && this.renderFilters() }
+                        { isItemsExist && this.renderRange() }
                     </Grid>
                 </div>
-            }
-            <Hidden mdUp>
-                <div className={ classes.apply }>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                    >
-                        <FormattedMessage id={ 'word.apply.title' } />
-                    </Button>
-                </div>
-            </Hidden>
-        </div>
+                }
+                <Hidden mdUp>
+                    <div className={ classes.apply }>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                        >
+                            <FormattedMessage id={ 'word.apply.title' } />
+                        </Button>
+                    </div>
+                </Hidden>
+            </div>
 
-    );
+        );
+    };
 };
 
 export const FiltersList = withStyles(styles)(FiltersListComponent);

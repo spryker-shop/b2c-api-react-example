@@ -22,8 +22,10 @@ export const styles = (theme: Theme) => createStyles({
         zIndex: 999,
         visibility: 'hidden',
         opacity: 0,
+        pointerEvents: 'none',
         transition: 'visibility 0.2s ease-in-out, opacity 0.2s ease-in-out',
         [theme.breakpoints.up('md')]: {
+            pointerEvents: 'auto',
             background: 'none',
             position: 'static',
             display: 'block',
@@ -39,6 +41,7 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     filtersOpen: {
+        pointerEvents: 'auto',
         visibility: 'visible',
         opacity: 1,
         [theme.breakpoints.up('md')]: {
