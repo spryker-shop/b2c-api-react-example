@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const crypto = require('crypto');
 
 const config = require('./server-config');
 
@@ -28,14 +27,6 @@ appRouter.use(express.static(path.join(__dirname, 'build/web')));
 // Catch all other routes and return the client app
 appRouter.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build/web/index.html'));
-});
-
-webServer.use('/nodeServer/getUniqueUser', (req, res, next) => {
-    const hash = crypto.createHmac('sha256', req.headers['x-forwarded-for'] || req.headers.host)
-        .update(req.headers['user-agent'])
-        .digest('hex');
-
-    res.end(hash);
 });
 
 webServer.use(webPath, appRouter);
