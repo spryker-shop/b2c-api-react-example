@@ -4,7 +4,7 @@ import { PartnerIconVisa, PartnerIconDhl, PartnerIconHermes, PartnerIconMasterCa
 import { IPartnerLogosProps as Props } from './types';
 import { styles } from './styles';
 
-export const PartnerLogosComponent: React.SFC<Props> = (props): JSX.Element => {
+const PartnerLogosComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

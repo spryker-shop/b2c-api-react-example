@@ -30,7 +30,7 @@ setConfig({ ErrorOverlay: () => null });
 class PageContentComponent extends React.Component<Props, State> {
     public readonly state: State = {
         topOffset: '',
-        isLockedPage: false
+        isPageLocked: false
     };
 
     public componentDidMount = (): void => {
@@ -56,7 +56,7 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isAppDataSet, isLockedPage } = this.props;
+        const { isAppDataSet, isPageLocked } = this.props;
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
@@ -67,18 +67,18 @@ class PageContentComponent extends React.Component<Props, State> {
             }
         }
 
-        if (prevProps.isLockedPage !== isLockedPage) {
-            this.lockingPage();
+        if (prevProps.isPageLocked !== isPageLocked) {
+            this.lockPage();
         }
     };
 
-    protected lockingPage = (): void => {
-        const { classes, isLockedPage } = this.props;
+    protected lockPage = (): void => {
+        const { classes, isPageLocked } = this.props;
         const { topOffset } = this.state;
-        const topOffsetValue = isLockedPage ? window.pageYOffset : '';
-        this.setState({ topOffset: topOffsetValue, isLockedPage });
+        const topOffsetValue = isPageLocked ? window.pageYOffset : '';
+        this.setState({ topOffset: topOffsetValue, isPageLocked });
 
-        if (!isLockedPage) {
+        if (!isPageLocked) {
             document.body.classList.remove(classes.lockedPage);
             document.body.style.cssText = 'top: "";';
 

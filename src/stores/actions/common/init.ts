@@ -3,7 +3,7 @@ import {
     INIT_APP_ACTION_TYPE,
     SET_AUTH_FROM_STORAGE,
     SWITCH_LOCALE,
-    IS_LOCKED_PAGE
+    IS_PAGE_LOCKED
 } from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
 import { ICategory } from '@interfaces/category';
@@ -79,6 +79,6 @@ export const getCategoriesAction = function () {
 };
 
 export const isLockedPageFulfilledState = (payload: boolean): IInitAction => ({
-    type: IS_LOCKED_PAGE + '_FULFILLED',
+    type: IS_PAGE_LOCKED + '_FULFILLED',
     payloadIsLockedPage: payload,
 });

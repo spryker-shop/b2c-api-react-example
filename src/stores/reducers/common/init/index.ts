@@ -1,4 +1,4 @@
-import { CATEGORIES_TREE_REQUEST, INIT_APP_ACTION_TYPE, SWITCH_LOCALE, IS_LOCKED_PAGE } from '@stores/actionTypes/common/init';
+import { CATEGORIES_TREE_REQUEST, INIT_APP_ACTION_TYPE, SWITCH_LOCALE, IS_PAGE_LOCKED } from '@stores/actionTypes/common/init';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
@@ -70,7 +70,7 @@ export const init = function(state: IInitState = initialState,
                 }
             };
 
-        case `${IS_LOCKED_PAGE}_FULFILLED`:
+        case `${IS_PAGE_LOCKED}_FULFILLED`:
             return handleIsLockedPageFulfilled(state, action.payloadIsLockedPage);
 
         default:
@@ -187,6 +187,6 @@ export function getIsTouch(state: IReduxStore, props: IReduxOwnProps): boolean {
     return state.init.data.isTouch;
 }
 
-export function getIsLockedPage(state: IReduxStore, props: IReduxOwnProps): boolean {
+export function getIsPageLocked(state: IReduxStore, props: IReduxOwnProps): boolean {
     return state.init.data.isLockedPage;
 }

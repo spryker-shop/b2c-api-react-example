@@ -20,10 +20,10 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     cartCreated?: boolean;
     isInitStateFulfilled?: boolean;
     clearSearchTerm?: () => void;
-    isLockedPage?: boolean;
+    isPageLocked?: boolean;
 }
 
 export interface IPageContentState {
     topOffset: number | string;
-    isLockedPage: boolean;
+    isPageLocked: boolean;
 }

@@ -4,6 +4,8 @@ import {
     IProductLabelResponse,
     TLocalizedName,
     ValueFacets,
+    IAvailableLabelsCollection,
+    TLabelId
 } from '@interfaces/searchPageData';
 import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
@@ -13,13 +15,14 @@ import {
     TActiveFilters,
     TActiveRangeFilters
 } from '@application/pages/SearchPage/SearchFilterList/types';
+import { getProductLabel } from '@helpers/product/label';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
         return null;
     }
 
-    const {data, included}: ICatalogSearchRawResponse = response;
+    const { data, included }: ICatalogSearchRawResponse = response;
 
     if (!data || !data[0]) {
         return null;
@@ -61,7 +64,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     });
 
     const result: ICatalogSearchDataParsed = {
-        items: attributes.abstractProducts,
+        items: attributes.abstractProducts.map(item => ({...item, labels: null})),
         filters,
         activeFilters,
         category,
@@ -79,45 +82,50 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
             currentPage: pagination.currentPage,
             maxPage: pagination.maxPage,
             currentItemsPerPage: pagination.currentItemsPerPage,
-            validItemsPerPageOptions: pagination.config.validItemsPerPageOptions,
+            validItemsPerPageOptions: pagination.config.validItemsPerPageOptions
         },
         spellingSuggestion: attributes.spellingSuggestion,
-        productsLabeled: null,
-        availableLabels: null,
+        productLabels: null
     };
 
     if (!included) {
         return result;
     }
 
+    const availableLabels: IAvailableLabelsCollection | null = getAvailableLables(included);
+
     included.forEach((row: IRowCatalogSearchIncludedResponse) => {
-        if (row.type === 'abstract-products'
-            && row.relationships
-            && row.relationships['product-labels']
-            && row.relationships['product-labels'].data) {
+        const isProductHasLabels = row.type === 'abstract-products' && row.relationships &&
+            row.relationships['product-labels'] && availableLabels;
 
-            if (!result.productsLabeled) {
-                result.productsLabeled = {};
-            }
-            result.productsLabeled[row.id] = row.relationships['product-labels'].data.map((
-                item: IProductLabelResponse
-            ) => item.id);
-        } else {
-            if (row.type === 'product-labels') {
-                if (!result.productsLabeled) {
-                    result.availableLabels = {};
-                }
+        if (isProductHasLabels) {
+            const labelsIdArr: TLabelId[] = row.relationships['product-labels'].data.map(item => item.id);
+            const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
-                result.availableLabels[row.id] = {
-                    id: row.id,
-                    frontEndReference: row.attributes.frontEndReference,
-                    isExclusive: row.attributes.isExclusive,
-                    name: row.attributes.name,
-                    position: row.attributes.position,
-                };
-            }
+            appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
         }
     });
 
     return result;
+};
+
+const getAvailableLables = (included: IRowCatalogSearchIncludedResponse[]): IAvailableLabelsCollection | null => {
+    const availableLabels: IAvailableLabelsCollection | null = {};
+    const productLabelsType = 'product-labels';
+
+    const includedLabels: IRowCatalogSearchIncludedResponse[] = included.filter(item => (
+        item.type === productLabelsType
+    ));
+
+    includedLabels.forEach((label: IRowCatalogSearchIncludedResponse) => {
+        availableLabels[label.id] = {
+            id: label.id,
+            frontEndReference: label.attributes.frontEndReference,
+            isExclusive: label.attributes.isExclusive,
+            name: label.attributes.name,
+            position: label.attributes.position
+        };
+    });
+
+    return availableLabels;
 };

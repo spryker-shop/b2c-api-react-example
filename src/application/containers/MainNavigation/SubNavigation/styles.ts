@@ -1,6 +1,9 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
+const listWidthMd = 260;
+const listWidthLg = 320;
+
 export const styles = (theme: Theme) => createStyles({
     layout: {
         position: 'relative',
@@ -39,7 +42,7 @@ export const styles = (theme: Theme) => createStyles({
     colList: {
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: 260,
+            width: listWidthMd,
             borderRight: '1px solid rgba(206, 206, 208, 0.5)'
         },
         [theme.breakpoints.only('md')]: {
@@ -47,17 +50,17 @@ export const styles = (theme: Theme) => createStyles({
             justifyContent: 'center'
         },
         [theme.breakpoints.up('lg')]: {
-            width: 320
+            width: listWidthLg
         }
     },
     colPreviews: {
         display: 'none',
         [theme.breakpoints.up('md')]: {
             display: 'block',
-            width: 'calc(100% - 260px)'
+            width: `calc(100% - ${listWidthMd}px)`
         },
         [theme.breakpoints.up('lg')]: {
-            width: 'calc(100% - 320px)'
+            width: `calc(100% - ${listWidthLg}px)`
         }
     },
     listReset: {

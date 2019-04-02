@@ -8,7 +8,7 @@ import { SearchIcon, CrossIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @(withRouter as Function)
 class CatalogSearchDropComponent extends React.Component<Props, State> {
@@ -31,7 +31,7 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { anchorElement } = this.state;
         const { classes } = this.props;
-        const anchorReference = window.innerWidth >= appBreakpoints.values.lg ? 'anchorEl' : 'anchorPosition';
+        const anchorReference = resolutionChecker(window.innerWidth, 'lg') ? 'anchorPosition' : 'anchorEl';
 
         return (
             <>
