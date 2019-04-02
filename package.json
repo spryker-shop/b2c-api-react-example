@@ -163,6 +163,7 @@
 		"dist:prod": "npm run cpy:prod && npm run build:web:prod",
 		"dev": "cross-env NODE_ENV=webpack-dev-server node --max_old_space_size=4096 server.js",
 		"serve:vm": "npm run cpy:local:inside && npm run dev",
-		"serve:local": "npm run cpy:local:outside && npm run dev"
+		"serve:local": "npm run cpy:local:outside && npm run dev",
+		"start": "node ./server.js"
 	}
 }
