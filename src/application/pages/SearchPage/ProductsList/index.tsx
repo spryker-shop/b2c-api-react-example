@@ -17,7 +17,7 @@ const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
             <Grid container spacing={ 24 }>
                 { isProductsExist
                     ? products.map((product: IProductCard) => (
-                        <Grid item xs={ 12 } sm={ 6 } md={ 4 } key={ product.abstractSku }>
+                        <Grid item xs={ 6 } sm={ 4 } key={ product.abstractSku }>
                             <ProductCard
                                 currency={ currency }
                                 images={ product.images }

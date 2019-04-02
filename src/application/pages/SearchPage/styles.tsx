@@ -3,7 +3,10 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        paddingBottom: 60,
+        paddingBottom: 40,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 60,
+        },
         [theme.breakpoints.up('lg')]: {
             paddingBottom: 130
         }

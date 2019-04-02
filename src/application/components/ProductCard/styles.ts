@@ -34,7 +34,10 @@ export const styles = (theme: Theme) => createStyles({
     image: {
         width: '100%',
         minWidth: '100%',
-        height: 280,
+        height: 200,
+        [theme.breakpoints.up('md')]: {
+            height: 280,
+        },
         [theme.breakpoints.up('lg')]: {
             height: 360,
         }
@@ -43,9 +46,16 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
-        padding: 15,
+        padding: '10px 0',
         width: '100%',
-        minHeight: 136
+        minHeight: 112,
+        [theme.breakpoints.up('md')]: {
+            minHeight: 136,
+            padding: '15px 0',
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 15,
+        }
     },
     nameWrapper: {
         paddingBottom: 9,
@@ -63,7 +73,11 @@ export const styles = (theme: Theme) => createStyles({
         flexShrink: 0
     },
     price: {
-        fontSize: 18,
+        fontSize: 16,
+        lineHeight: 1.2,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 18
+        },
         [theme.breakpoints.up('lg')]: {
             fontSize: 20
         }
@@ -72,6 +86,9 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.red
     },
     oldPrice: {
-        fontSize: 14
+        fontSize: 13,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 14
+        },
     }
 });

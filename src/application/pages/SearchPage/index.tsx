@@ -199,13 +199,13 @@ class SearchPageComponent extends React.Component<Props, State> {
 
                 <AppMain>
                     <Grid container spacing={ 24 }>
-                        { isCategoriesExist &&
-                            <Grid item xs={ 12 } lg={ 3 } className={ classes.categoriesList }>
-                                <Hidden only={['xs', 'sm', 'md']}>
+                        <Hidden only={['xs', 'sm', 'md']}>
+                            { isCategoriesExist &&
+                                <Grid item xs={ 12 } lg={ 3 } className={ classes.categoriesList }>
                                     { categoriesList }
-                                </Hidden>
-                            </Grid>
-                        }
+                                </Grid>
+                            }
+                        </Hidden>
                         <Grid item xs={ 12 } lg={ isCategoriesExist ? 9 : 12 }>
                             <SearchFilterList categoriesList={ categoriesList } />
 
