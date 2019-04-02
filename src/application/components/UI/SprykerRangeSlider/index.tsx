@@ -23,10 +23,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
     protected openPopover = ({ currentTarget }: ClickEvent): void => {
         const { currentValue } = this.props;
 
-        this.setState(() => ({
+        this.setState(({anchorElement}) => ({
             currentMinValue: currentValue.min,
             currentMaxValue: currentValue.max,
-            anchorElement: currentTarget,
+            anchorElement: Boolean(anchorElement) ? null : currentTarget,
             minPopoverWidth: currentTarget.clientWidth
         }));
     };
@@ -175,6 +175,8 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
 
                 <PopoverWrapper
                     anchorElement={ anchorElement }
+                    anchorReference="anchorEl"
+                    hideBackdrop={ false }
                     closePopoverHandler={ this.closePopover }
                     classes={{
                         content: classes.popoverContent

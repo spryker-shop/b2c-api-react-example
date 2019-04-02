@@ -34,7 +34,10 @@ export const styles = (theme: Theme) => createStyles({
     image: {
         width: '100%',
         minWidth: '100%',
-        height: 360
+        height: 280,
+        [theme.breakpoints.up('lg')]: {
+            height: 360,
+        }
     },
     content: {
         display: 'flex',
@@ -58,6 +61,12 @@ export const styles = (theme: Theme) => createStyles({
     },
     prices: {
         flexShrink: 0
+    },
+    price: {
+        fontSize: 18,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20
+        }
     },
     newPrice: {
         color: theme.appColors.red

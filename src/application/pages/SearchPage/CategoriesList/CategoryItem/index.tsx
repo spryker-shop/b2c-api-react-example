@@ -3,7 +3,7 @@ import { ICategoryItemProps } from './types';
 import { ListItem, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-export const CategoryItemBase: React.SFC<ICategoryItemProps> = props => {
+const CategoryItemComponent: React.SFC<ICategoryItemProps> = props => {
     const {
         classes,
         categoryName,
@@ -26,14 +26,18 @@ export const CategoryItemBase: React.SFC<ICategoryItemProps> = props => {
                 disableGutters
                 classes={{ selected: classes.selected, disabled: classes.disabled }}
             >
-                <Typography component="strong" variant="subheading" color="inherit">
-                    { categoryName }
-                </Typography>
-                <span className={`${classes.quantity} ${isSelected ? classes.quantityActive : ''}`}>{ quantity }</span>
+                <div className={ classes.holder }>
+                    <Typography component="strong" variant="subheading" color="inherit">
+                        { categoryName }
+                    </Typography>
+                    <span className={`${classes.quantity} ${isSelected ? classes.quantityActive : ''}`}>
+                        { quantity }
+                    </span>
+                </div>
             </ListItem>
             { children && <div className={ classes.children }>{ children }</div> }
         </>
     );
 };
 
-export const CategoryItem = withStyles(styles)(CategoryItemBase);
+export const CategoryItem = withStyles(styles)(CategoryItemComponent);

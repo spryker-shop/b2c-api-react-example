@@ -62,6 +62,8 @@ class SprykerFilterComponent extends React.Component<Props, State> {
                             title ? () => title : () => attributeName ? attributeName.split('_').join(' ') : ''
                         }
                         MenuProps={{
+                            disablePortal: true,
+                            keepMounted: true,
                             getContentAnchorEl: null,
                             disableAutoFocusItem: true,
                             anchorOrigin: {

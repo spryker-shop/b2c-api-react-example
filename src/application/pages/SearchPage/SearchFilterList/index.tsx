@@ -14,8 +14,10 @@ import { TSprykerRangeSliderName } from '@application/components/UI/SprykerRange
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';
 import { ActiveFiltersList } from './ActiveFiltersList';
-import { withStyles } from '@material-ui/core';
+import { Button, Hidden, withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { FiltersIcon } from './icons';
+import { FormattedMessage } from 'react-intl';
 
 @connect
 class SearchFilterListComponent extends React.Component<Props, State> {
@@ -23,7 +25,8 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         activeFilters: this.props.activeFilters,
         activeRangeFilters: this.props.activeRangeFilters,
         isFilterUpdated: false,
-        isFirstLoadPassed: null
+        isFirstLoadPassed: null,
+        isFilterListOpened: false
     };
 
     static getDerivedStateFromProps = (props: Props, state: State): State => {
@@ -138,33 +141,62 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         }
     };
 
+    protected onFiltersChangeStateHandle = (): void => {
+        this.setState(({isFilterListOpened}) => ({isFilterListOpened: !isFilterListOpened}));
+    };
+
     public render = (): JSX.Element => {
-        const { classes, filters, rangeFilters } = this.props;
-        const { activeFilters, activeRangeFilters, isFirstLoadPassed } = this.state;
+        const { classes, filters, rangeFilters, categoriesList } = this.props;
+        const { activeFilters, activeRangeFilters, isFirstLoadPassed, isFilterListOpened } = this.state;
 
         return (
             <>
                 { isFirstLoadPassed &&
                     <div className={ classes.root }>
-                        <FiltersList
-                            filters={ filters }
-                            activeFilters={ activeFilters }
-                            ranges={ rangeFilters }
-                            activeRangeFilters={ activeRangeFilters }
-                            updateStore={ this.updateStoreWithNewFilters }
-                            updateActiveFilters={ this.updateActiveFilters }
-                            updateRangeFilters={ this.updateRangeFilters }
-                        />
+                        <Hidden lgUp>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                onClick={ this.onFiltersChangeStateHandle }
+                                className={`${classes.button} ${isFilterListOpened ? classes.buttonActive : ''}`}
+                            >
+                                <span className={ classes.buttonIcon }>
+                                    <FiltersIcon />
+                                </span>
+                                <FormattedMessage
+                                    id={`${isFilterListOpened ? 'hide.filters.title' : 'word.filters.title'}`}
+                                />
+                            </Button>
+                        </Hidden>
 
-                        <ActiveFiltersList
-                            rangeFilters={ rangeFilters }
-                            activeValuesFilters={ activeFilters }
-                            activeValuesRanges={ activeRangeFilters }
-                            deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
-                            filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
-                            rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
-                            resetHandler={ this.runResetActiveFilters }
-                        />
+                        <div
+                            className={`${classes.filtersHolder} ${isFilterListOpened ? classes.filtersOpen : ''}`}
+                        >
+                            <FiltersList
+                                filters={ filters }
+                                activeFilters={ activeFilters }
+                                ranges={ rangeFilters }
+                                activeRangeFilters={ activeRangeFilters }
+                                updateStore={ this.updateStoreWithNewFilters }
+                                updateActiveFilters={ this.updateActiveFilters }
+                                updateRangeFilters={ this.updateRangeFilters }
+                                categoriesList={ categoriesList }
+                            />
+                        </div>
+
+                        <div
+                            className={`${classes.activeFiltersHolder} ${isFilterListOpened ? '' : classes.activeOpen}`}
+                        >
+                            <ActiveFiltersList
+                                rangeFilters={ rangeFilters }
+                                activeValuesFilters={ activeFilters }
+                                activeValuesRanges={ activeRangeFilters }
+                                deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
+                                filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
+                                rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
+                                resetHandler={ this.runResetActiveFilters }
+                            />
+                        </div>
                     </div>
                 }
             </>

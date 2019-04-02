@@ -17,14 +17,13 @@ import { SearchIntro } from './SearchIntro';
 import { CategoriesList } from './CategoriesList';
 import { SearchFilterList } from './SearchFilterList';
 import { SearchPagination } from './SearchPagination';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles, Hidden } from '@material-ui/core';
 import { ISearchPageProps as Props, ISearchPageState as State } from './types';
 import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class SearchPageComponent extends React.Component<Props, State> {
-
+class SearchPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
         formattedCategoriesTree: null
     };
@@ -170,6 +169,14 @@ export class SearchPageComponent extends React.Component<Props, State> {
         const isCategoriesExist = (category.length > 0);
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
         const { formattedCategoriesTree } = this.state;
+        const categoriesList = (
+            <CategoriesList
+                categories={ category }
+                categoriesTree={ categoriesTree }
+                selectedCategory={ currentCategoryId }
+                locationCategoryId={ locationCategoryId }
+            />
+        );
 
         return (
             <div className={ classes.root }>
@@ -192,16 +199,15 @@ export class SearchPageComponent extends React.Component<Props, State> {
 
                 <AppMain>
                     <Grid container spacing={ 24 }>
-                        <Grid item xs={ isCategoriesExist ? 12 : null } md={ isCategoriesExist ? 3 : null }>
-                            <CategoriesList
-                                categories={ category }
-                                categoriesTree={ categoriesTree }
-                                selectedCategory={ currentCategoryId }
-                                locationCategoryId={ locationCategoryId }
-                            />
-                        </Grid>
-                        <Grid item xs={ 12 } md={ isCategoriesExist ? 9 : 12 }>
-                            <SearchFilterList />
+                        { isCategoriesExist &&
+                            <Grid item xs={ 12 } lg={ 3 } className={ classes.categoriesList }>
+                                <Hidden only={['xs', 'sm', 'md']}>
+                                    { categoriesList }
+                                </Hidden>
+                            </Grid>
+                        }
+                        <Grid item xs={ 12 } lg={ isCategoriesExist ? 9 : 12 }>
+                            <SearchFilterList categoriesList={ categoriesList } />
 
                             <SortPanel />
 

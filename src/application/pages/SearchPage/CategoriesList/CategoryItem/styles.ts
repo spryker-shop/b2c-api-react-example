@@ -3,20 +3,45 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     children: {
-        padding: '3px 0 3px 32px'
+        paddingLeft: 32,
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: 3,
+            paddingBottom: 3
+        }
     },
     categoryItem: {
-        display: 'flex',
-        justifyContent: 'space-between',
         padding: '5px 0',
         color: theme.appColors.grey,
+        [theme.breakpoints.up('md')]: {
+            padding: '4px 0'
+        },
         '&:hover': {
-            background: 'none',
-            color: theme.appColors.blue,
-            '& span': {
-                backgroundColor: 'rgba(8, 148, 161, 0.07)',
-                color: theme.appColors.blue
+            [theme.breakpoints.up('lg')]: {
+                background: 'none',
+                color: theme.appColors.blue,
+            },
+            '& $quantity': {
+                [theme.breakpoints.up('lg')]: {
+                    backgroundColor: 'rgba(8, 148, 161, 0.07)',
+                    color: theme.appColors.blue
+                }
             }
+        }
+    },
+    holder: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '10px 10px 9px 14px',
+        background: theme.appColors.white,
+        borderRadius: 4,
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            background: theme.appColors.weekWhite,
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 0,
+            background: 'none',
+            borderRadius: 0,
         }
     },
     quantity: {
@@ -29,7 +54,8 @@ export const styles = (theme: Theme) => createStyles({
         background: 'rgba(206, 206, 208, 0.16)',
         borderRadius: 9,
         minWidth: 31,
-        padding: '0 3px'
+        padding: '0 3px',
+        marginTop: 3
     },
     quantityActive: {
         background: 'rgba(8, 148, 161, 0.07)',
@@ -40,7 +66,7 @@ export const styles = (theme: Theme) => createStyles({
         background: 'none !important'
     },
     disabled: {
-        color: theme.appColors.lightGrey
-    },
-    root: {}
+        color: theme.appColors.lightGrey,
+        opacity: 1
+    }
 });

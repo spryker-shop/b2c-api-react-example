@@ -9,8 +9,8 @@ export interface IFiltersListProps extends WithStyles<typeof styles> {
     activeFilters: TActiveFilters;
     ranges: RangeFacets[];
     activeRangeFilters: TActiveRangeFilters;
-
     updateStore: Function;
     updateActiveFilters: Function;
     updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: RangeType) => void;
+    categoriesList: JSX.Element;
 }

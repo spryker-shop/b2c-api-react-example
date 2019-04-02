@@ -5,7 +5,7 @@ import { ValueFacets } from '@interfaces/searchPageData';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { SprykerFilter } from '@application/components/UI/SprykerFilter';
 import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles, Hidden } from '@material-ui/core';
 import { styles } from './styles';
 
 const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
@@ -17,7 +17,8 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
         updateStore,
         updateActiveFilters,
         updateRangeFilters,
-        classes
+        classes,
+        categoriesList
     } = props;
 
     const renderFilters = (): JSX.Element[] => {
@@ -29,7 +30,7 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
 
                 if (isFilterItemsExist) {
                     filterItems.push(
-                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ filter.name }>
+                        <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ filter.name }>
                             <SprykerFilter
                                 attributeName={ filter.name }
                                 menuItems={ filter.values }
@@ -63,7 +64,7 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                 const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
 
                 rangeItems.push (
-                    <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ filter.name }>
+                    <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ filter.name }>
                         <SprykerRangeSlider
                             key={ filter.name }
                             attributeName={ filter.name }
@@ -97,6 +98,11 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
             { isItemsExist &&
                 <div className={ classes.filterList }>
                     <Grid container spacing={ 16 }>
+                        <Hidden lgUp>
+                            <Grid item xs={ 12 } sm={ 6 } md={ 4 } className={ classes.categoriesList }>
+                                { categoriesList }
+                            </Grid>
+                        </Hidden>
                         { isFiltersExist && renderFilters() }
                         { isItemsExist &&  renderRange()}
                     </Grid>

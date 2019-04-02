@@ -2,42 +2,49 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { ICategory } from '@interfaces/category';
-import { IActiveFilterCategories, ICategoriesListProps } from './types';
+import { IActiveFilterCategories, ICategoriesListProps as Props } from './types';
 import { getFormattedActiveCategories } from '../helpers';
 import { pathCategoryPageBase } from '@constants/routes';
 import { CategoryItem } from './CategoryItem';
-import { List, Typography, withStyles } from '@material-ui/core';
+import { List, withStyles, withWidth } from '@material-ui/core';
+import { isWidthUp } from '@material-ui/core/withWidth';
+import { ChevronIcon } from './icons';
 import { styles } from './styles';
+import { PopoverWrapper } from '@components/PopoverWrapper';
+import { ClickEvent } from '@interfaces/common';
 
-export const CategoriesListBase: React.SFC<ICategoriesListProps> = (props): JSX.Element  => {
-    const {
-        classes,
-        categories,
-        categoriesTree,
-        selectedCategory,
-        localizedName,
-        locationCategoryId,
-        changeLocation,
-        setCurrentCategory
-    } = props;
+@connect
+class CategoriesListComponent extends React.Component<Props, any> {
+    protected buttonRef: React.RefObject<HTMLDivElement> = React.createRef();
 
-    if (!Array.isArray(categories) || !categories.length) {
-        return null;
-    }
+    public readonly state: any = {
+        anchorElement: null,
+    };
 
-    const activeCategories = getFormattedActiveCategories(categories);
+    protected selectCategory = (categoryId: number) => (event: ClickEvent): void => {
+        const { locationCategoryId, changeLocation, setCurrentCategory } = this.props;
 
-    const selectCategory = (categoryId: number) => (event: React.MouseEvent<HTMLElement>): void => {
         if (locationCategoryId !== categoryId) {
+            this.closePopover();
             setCurrentCategory(categoryId);
             changeLocation(`${pathCategoryPageBase}/${categoryId}`);
         }
     };
 
-    const getCategoriesList = (
+    protected openPopover = ({ currentTarget }: ClickEvent): void => {
+        this.setState(({anchorElement}) => ({ anchorElement: Boolean(anchorElement) ? null : currentTarget, }));
+    };
+
+    protected closePopover = (): void => {
+        this.setState({ anchorElement: null });
+    };
+
+    protected getCategoriesList = (
         data: ICategory[],
         activeData: IActiveFilterCategories,
-        selectedId: ICategoriesListProps['selectedCategory']): JSX.Element[] | null => {
+        selectedId: Props['selectedCategory']
+    ): JSX.Element[] | null => {
+        const { selectedCategory } = this.props;
 
         if (!Array.isArray(data) || !data.length) {
             return null;
@@ -50,16 +57,16 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (props): JSX.
 
             return (
                 <CategoryItem
-                    key={`category-${category.nodeId}`}
-                    categoryValue={category.nodeId}
-                    isSelected={(+selectedId) === category.nodeId}
-                    isActive={Boolean(quantity)}
-                    selectCategoryHandler={ selectCategory }
-                    quantity={quantity}
-                    categoryName={`${category.name ? category.name : <FormattedMessage id={ 'no.name.title' } />}`}
+                    key={ `category-${ category.nodeId }` }
+                    categoryValue={ category.nodeId }
+                    isSelected={ (+selectedId) === category.nodeId }
+                    isActive={ Boolean(quantity) }
+                    selectCategoryHandler={ this.selectCategory }
+                    quantity={ quantity }
+                    categoryName={ `${ category.name ? category.name : <FormattedMessage id={ 'no.name.title' } /> }` }
                 >
                     { Boolean(isSubcategoryExist) &&
-                        getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
+                        this.getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
                     }
 
                 </CategoryItem>
@@ -67,16 +74,61 @@ export const CategoriesListBase: React.SFC<ICategoriesListProps> = (props): JSX.
         });
     };
 
-    return (
-        <div className={classes.root}>
-            <Typography component="h4" variant="display1" color="textSecondary" className={ classes.title }>
-                { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
-            </Typography>
-            <List component="nav" className={classes.list}>
-                {getCategoriesList(categoriesTree, activeCategories, selectedCategory)}
-            </List>
-        </div>
-    );
-};
+    public render = (): JSX.Element => {
+        const { classes, categories, categoriesTree, selectedCategory, localizedName, width } = this.props;
+        const activeCategories = getFormattedActiveCategories(categories);
+        const { anchorElement } = this.state;
+        const isOpen = Boolean(anchorElement);
 
-export const CategoriesList = withStyles(styles)(connect(CategoriesListBase));
+        if (!Array.isArray(categories) || !categories.length) {
+            return null;
+        }
+
+        if (isWidthUp('lg', width)) {
+            return (
+                <div className={classes.root}>
+                    <span className={ classes.title }>
+                        { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                    </span>
+                    <List component="nav" className={classes.list}>
+                        { this.getCategoriesList(categoriesTree, activeCategories, selectedCategory) }
+                    </List>
+                </div>
+            );
+        }
+
+        return (
+            <div className={classes.root}>
+                <span className={ classes.title } ref={ this.buttonRef } onClick={ this.openPopover }>
+                    { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                    <span className={`${classes.chevron} ${isOpen ? classes.chevronOpened : ''}`}>
+                        <ChevronIcon />
+                    </span>
+                </span>
+                <PopoverWrapper
+                    anchorElement={ anchorElement }
+                    anchorReference="anchorEl"
+                    hideBackdrop={ false }
+                    closePopoverHandler={ this.closePopover }
+                    classes={{
+                        content: classes.popoverContent
+                    }}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left'
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                    }}
+                >
+                    <List component="nav" className={classes.list}>
+                        { this.getCategoriesList(categoriesTree, activeCategories, selectedCategory) }
+                    </List>
+                </PopoverWrapper>
+            </div>
+        );
+    }
+}
+
+export const CategoriesList = withWidth()(withStyles(styles)(CategoriesListComponent));

@@ -28,10 +28,12 @@ export const styles = (theme: Theme) => createStyles({
         transform: 'translateY(-50%) rotate(180deg)'
     },
     selectRoot: {
-        transition: 'color 0.3s ease-in-out',
-        color: theme.appColors.black,
-        '&:hover': {
-            color: theme.appColors.blue
+        [theme.breakpoints.only('lg')]: {
+            transition: 'color 0.3s ease-in-out',
+            color: theme.appColors.black,
+            '&:hover': {
+                color: theme.appColors.blue
+            }
         }
     },
     input: {
@@ -64,7 +66,10 @@ export const styles = (theme: Theme) => createStyles({
         boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
         marginTop: -3,
         '&& ul': {
-            padding: '11px 10px 2px'
+            paddingTop: 11,
+            paddingBottom: 2,
+            paddingLeft: 10,
+            paddingRight: '10px !important'
         }
     },
     menuCounter: {

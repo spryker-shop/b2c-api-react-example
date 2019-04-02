@@ -79,7 +79,7 @@ class SortPanelComponent extends React.Component<Props, State> {
 
                 <Grid item xs={ 12 } sm={ 9 }>
                     <Grid container spacing={ 24 } className={ classes.sortsOuter }>
-                        <Grid item xs={ 4 }>
+                        <Grid item xs={ 4 } md={ 5 }>
                             { sortParams.length &&
                                 <SprykerSelect
                                     currentMode={ currentSort ? currentSort : ' ' }
