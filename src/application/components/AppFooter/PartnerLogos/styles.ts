@@ -6,18 +6,24 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'flex-start',
         listStyle: 'none',
-        margin: 0,
+        margin: '0 -10px -14px',
         padding: 0,
-        [theme.breakpoints.down('xs')]: {
-            flexWrap: 'wrap',
-            textAlign: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: 19,
+        flexWrap: 'wrap',
+        [theme.breakpoints.up('sm')]: {
+            paddingBottom: 0
         },
+        [theme.breakpoints.up('md')]: {
+            margin: '0 0 -14px',
+            justifyContent: 'flex-start'
+        }
     },
     logosListItem: {
-        margin: '0 14px',
-        [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            margin: '10px 0',
-        },
-    },
+        padding: '0 10px 14px',
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: 14,
+            paddingRight: 14
+        }
+    }
 });
