@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@application/hoc/Reduxify';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { getAnonymId, isAppStateFulfilled } from '@stores/reducers/common/init';
+import { getAnonymId, isAppStateFulfilled } from '@stores/reducers/common/init/selectors';
 import { getGuestCartAction } from '@stores/actions/common/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 

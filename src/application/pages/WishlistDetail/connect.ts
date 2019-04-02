@@ -8,7 +8,7 @@ import { getRouterMatchParam } from '@helpers/router';
 import { deleteMultiItemsAction, getDetailWishlistAction } from '@stores/actions/pages/wishlist';
 import { multiItemsCartAction } from '@stores/actions/common/cart';
 
-import { isAppInitiated } from '@stores/reducers/common/init';
+import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 import { isWishlistDetailsPresent, isWishlistDetailsStateRejected } from '@stores/reducers/pages/wishlist/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

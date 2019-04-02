@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@application/hoc/Reduxify';
 import { sendSearchAction } from '@stores/actions/pages/search';
-import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init';
+import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { FlyoutSearch } from '@interfaces/searchPageData';

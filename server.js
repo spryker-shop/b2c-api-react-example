@@ -4,12 +4,12 @@ let devServer;
 let webServer;
 
 if (config.webpackDevServer) {
-  devServer = require('./dev-server');
+    devServer = require('./dev-server');
 } else {
-  webServer = require('./web-server');
+    webServer = require('./web-server');
 }
 
 module.exports = {
-  devServer,
-  webServer,
+    devServer,
+    webServer
 };

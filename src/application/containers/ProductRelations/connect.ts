@@ -5,7 +5,7 @@ import { TProductSKU } from '@interfaces/product';
 import { IProductRelationsState } from '@stores/reducers/common/productRelations/types';
 import { getProductRelationsAction, getProductRelationsCartAction } from '@stores/actions/common/productRelations';
 import { IProductRelationsItem } from '@interfaces/productRelations';
-import { getAppCurrency } from '@stores/reducers/common/init';
+import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { TAppCurrency } from '@interfaces/currency';
 import { TCartId } from '@interfaces/cart';
 

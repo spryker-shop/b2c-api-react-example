@@ -3,7 +3,7 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import {
     getAddressesCollectionFromCheckoutStore
 } from '@stores/reducers/pages/checkout/selectors';
-import { getCounties } from '@stores/reducers/common/init';
+import { getCounties } from '@stores/reducers/common/init/selectors';
 import {
     mutateStateNewAddressBillingAction,
     mutateStateBillingSelectionAddNewAction,

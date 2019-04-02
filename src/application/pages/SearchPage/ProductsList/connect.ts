@@ -1,5 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { getAppCurrency } from '@stores/reducers/common/init';
+import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { TAppCurrency } from '@interfaces/currency';
 import { ISearchState } from '@stores/reducers/pages/search/types';

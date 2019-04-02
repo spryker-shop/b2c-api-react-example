@@ -3,7 +3,7 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { reduxify } from '@application/hoc/Reduxify';
 import { logout } from '@stores/actions/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { getAppLocale } from '@stores/reducers/common/init';
+import { getAppLocale } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);

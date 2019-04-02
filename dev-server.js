@@ -9,9 +9,9 @@ if (config.webpackDevServer) {
         publicPath: webpackConfig.output.publicPath,
         hot: true,
         historyApiFallback: true,
-    } ).listen( config.DEV_SERVER_PORT, config.DEV_SERVER_HOST, function (err, result) {
-        if (err) {
-            console.error( err );
+    } ).listen( config.DEV_SERVER_PORT, config.DEV_SERVER_HOST, function (error, result) {
+        if (error) {
+            console.error( error );
         }
         console.info( 'Running Webpack Dev Server at ' + config.DEV_SERVER_HOST + ':' + config.DEV_SERVER_PORT );
     } );

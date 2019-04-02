@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const crypto = require('crypto');
 
 const config = require('./server-config');
 
@@ -9,16 +8,16 @@ let webPath = config.WEB_PATH;
 
 // This feature for Docker container
 try {
-  webPath = JSON.parse(webPath);
+    webPath = JSON.parse(webPath);
 } catch (e) {
 
 }
 
 const webServer = express();
 webServer.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 const appRouter = express.Router();
 
@@ -27,15 +26,7 @@ appRouter.use(express.static(path.join(__dirname, 'build/web')));
 
 // Catch all other routes and return the client app
 appRouter.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/web/index.html'));
-});
-
-webServer.use('/nodeServer/getUniqueUser', (req, res, next) => {
-  const hash = crypto.createHmac('sha256', req.headers['x-forwarded-for'] || req.headers.host)
-    .update(req.headers['user-agent'])
-    .digest('hex');
-
-  res.end(hash);
+    res.sendFile(path.join(__dirname, 'build/web/index.html'));
 });
 
 webServer.use(webPath, appRouter);
