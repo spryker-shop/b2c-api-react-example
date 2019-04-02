@@ -13,7 +13,7 @@ import {
 } from '@stores/reducers/pages/customerProfile';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCustomerReference } from '@stores/reducers/pages/login';
-import { isAppInitiated } from '@stores/reducers/common/init';
+import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading = isPageCustomerProfileLoading(state, ownProps);

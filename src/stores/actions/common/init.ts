@@ -3,15 +3,14 @@ import {
     INIT_APP_ACTION_TYPE,
     SET_AUTH_FROM_STORAGE,
     SWITCH_LOCALE,
-    IS_PAGE_LOCKED
+    IS_PAGE_LOCKED,
+    ANONYM_ID
 } from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
 import { ICategory } from '@interfaces/category';
 import { IInitData } from '@interfaces/init';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { ILocaleActionPayload, IInitAction } from '@stores/reducers/common/Init/types';
-
-export interface IInitApplicationDataPayload {}
 
 export const initApplicationDataPendingStateAction = () => ({
     type: INIT_APP_ACTION_TYPE + '_PENDING',
@@ -61,9 +60,9 @@ export const switchLocaleAction = function(payload: any) {
     };
 };
 
-export const initApplicationDataAction = function(payload: IInitApplicationDataPayload) {
+export const initApplicationDataAction = function() {
     return (dispatch: Function, getState: Function) => {
-        InitAppService.getInitData(dispatch, payload);
+        InitAppService.getInitData(dispatch);
     };
 };
 
@@ -77,6 +76,11 @@ export const getCategoriesAction = function () {
         InitAppService.getCategoriesTree(dispatch);
     };
 };
+
+export const anonymIdFilFilled = (payload: string) => ({
+    type: ANONYM_ID + '_FULFILLED',
+    payloadAnonymIdFulfilled: payload,
+});
 
 export const isLockedPageFulfilledState = (payload: boolean): IInitAction => ({
     type: IS_PAGE_LOCKED + '_FULFILLED',

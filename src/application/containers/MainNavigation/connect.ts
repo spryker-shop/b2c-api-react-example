@@ -1,4 +1,4 @@
-import { getIsTouch } from '@stores/reducers/common/init';
+import { getIsTouch } from '@stores/reducers/common/init/selectors';
 import { reduxify } from '@application/hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 

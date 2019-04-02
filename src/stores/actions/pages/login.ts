@@ -17,12 +17,18 @@ export const registerPendingState = () => ({
     type: PAGES_CUSTOMER_REGISTER + '_PENDING'
 });
 
+export const registerFulfilledState = () => ({
+    type: PAGES_CUSTOMER_REGISTER + '_FULFILLED'
+});
+
+export const registerRejectedState = (message: string) => ({
+    type: PAGES_CUSTOMER_REGISTER + '_REJECTED',
+    payloadRejected: { error: message }
+});
+
 export const customerRegisterAction = function (payload: ICustomerProfile) {
     return (dispatch: Function, getState: Function) => {
-        const anonymId: string = getState().init.data.anonymId;
-
-        dispatch(registerPendingState);
-        PagesLoginService.register(PAGES_CUSTOMER_REGISTER, dispatch, payload, anonymId);
+        PagesLoginService.register(dispatch, payload, getState);
     };
 };
 
@@ -36,7 +42,6 @@ export const logout = function () {
     };
 };
 
-// Login Customer Entity
 export const loginCustomerPendingStateAction = () => ({
     type: PAGES_LOGIN_REQUEST + '_PENDING'
 });
@@ -57,14 +62,40 @@ export const loginCustomerAction = function (payload: ICustomerLoginData) {
     };
 };
 
+export const forgotPasswordPendingState = () => ({
+    type: FORGOT_PASSWORD + '_PENDING'
+});
+
+export const forgotPasswordRejectedState = (message: string) => ({
+    type: FORGOT_PASSWORD + '_REJECTED',
+    payloadRejected: { error: message }
+});
+
+export const forgotPasswordFulfilledState = () => ({
+    type: FORGOT_PASSWORD + '_FULFILLED'
+});
+
 export const forgotPasswordAction = function (email: string) {
     return (dispatch: Function, getState: Function) => {
-        PagesLoginService.forgotPassword(FORGOT_PASSWORD, dispatch, email);
+        PagesLoginService.forgotPassword(dispatch, email);
     };
 };
 
+export const resetPasswordPendingState = () => ({
+    type: RESET_PASSWORD + '_PENDING'
+});
+
+export const resetPasswordRejectedState = (message: string) => ({
+    type: RESET_PASSWORD + '_REJECTED',
+    payloadRejected: { error: message }
+});
+
+export const resetPasswordFulfilledState = () => ({
+    type: RESET_PASSWORD + '_FULFILLED'
+});
+
 export const resetPasswordAction = function (payload: IResetPasswordPayload) {
     return (dispatch: Function, getState: Function) => {
-        PagesLoginService.resetPassword(RESET_PASSWORD, dispatch, payload);
+        PagesLoginService.resetPassword(dispatch, payload);
     };
 };

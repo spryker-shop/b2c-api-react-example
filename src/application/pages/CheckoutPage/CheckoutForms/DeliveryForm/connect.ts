@@ -6,7 +6,7 @@ import {
     getAddressesCollectionFromCheckoutStore
 } from '@stores/reducers/pages/checkout/selectors';
 import { ICountry } from '@interfaces/country';
-import { getCounties } from '@stores/reducers/common/init';
+import { getCounties } from '@stores/reducers/common/init/selectors';
 import {
     IDeliveryAddressState,
     IDeliverySelectionState,
