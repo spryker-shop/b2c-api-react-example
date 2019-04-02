@@ -9,12 +9,13 @@ export const styles = (theme: Theme) => createStyles({
     },
     logo: {
         display: 'block',
+        lineHeight: 0
     },
     logoCopy: {
         color: theme.appColors.black,
         fontSize: '14px',
         lineHeight: '18px',
-        opacity: .4,
+        opacity: 0.4
     },
     mainLogo: {
         display: 'none',

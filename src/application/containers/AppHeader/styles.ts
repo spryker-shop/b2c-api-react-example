@@ -1,6 +1,5 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
-import * as React from 'react';
 
 export const styles = (theme: Theme) => createStyles({
     header: {
@@ -14,10 +13,13 @@ export const styles = (theme: Theme) => createStyles({
         top: 0,
         left: 0,
         width: '100%',
-        padding: '10px 0',
+        padding: '15px 0',
         background: theme.appColors.white,
         boxShadow: '0 2px 16px 0 rgba(193, 193, 193, 0.5)',
         zIndex: 5,
+        [theme.breakpoints.up('sm')]: {
+            padding: '10px 0'
+        }
     },
     container: {
         ...theme.appContainerStyles,
@@ -25,69 +27,59 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        [theme.breakpoints.only('md')]: {
+            flexWrap: 'wrap'
+        }
     },
-    navigationWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        flexGrow: 1
+    logoCol: {
+        flexGrow: 1,
+        [theme.breakpoints.up('lg')]: {
+            flexGrow: 0
+        }
     },
     logoContainer: {
-        ...theme.appFixedDimensions.sprykerLogo,
-        marginRight: 40,
-        [theme.breakpoints.down('md')]: {
-            marginRight: 10,
-            minWidth: 140,
-            width: 140
+        width: 96,
+        height: 30,
+        minWidth: 96,
+        marginRight: 10,
+        [theme.breakpoints.up('sm')]: {
+            width: 170,
+            height: 60,
+            minWidth: 170
         },
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: 10,
-        },
+        [theme.breakpoints.up('xl')]: {
+            marginRight: 40
+        }
     },
     hamburger: {
-        display: 'none',
-        position: 'relative',
-        width: 60,
-        height: 40,
-        cursor: 'pointer',
-        zIndex: 11,
-        '& span, &:before, &:after': {
-            background: theme.palette.primary.main,
-            transition: 'transform .3s .2s ease-in-out, opacity .4s .2s',
-            content: '""',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginLeft: -15,
-            width: 27,
-            height: 2,
-        },
-        '&:before': {transform: 'translate3d(0, -9px, 0)'},
-        '&:after': {transform: 'translate3d(0, 9px, 0)'},
-        [theme.breakpoints.down('sm')]: {
-            display: 'block',
-        },
-    },
-    hamburgerOpened: {
-        '&:before, &:after': {
-            transition: 'transform .3s ease-in-out, opacity .4s .1s',
-            transform: 'translate3d(0, 0, 0)',
-            opacity: 0,
-        },
-        '& span': {
-            transition: 'transform .3s .3s ease-in-out',
-            '&:first-child': {transform: 'rotate(45deg)'},
-            '&:last-child': {transform: 'rotate(-45deg)'},
-        },
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        margin: '-15px 0',
+        paddingRight: 17,
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        }
     },
     checkout: {
         lineHeight: '20px',
         fontSize: theme.appFixedDimensions.fontSize.medium,
-        letterSpacing: '0.3px',
+        letterSpacing: '0.3px'
     },
     mainNav: {
-        display: 'flex',
-        alignSelf: 'stretch',
-        margin: '-10px 0',
-        flexGrow: 1
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            alignSelf: 'stretch',
+            flexGrow: 1,
+        },
+        [theme.breakpoints.only('md')]: {
+            order: 10,
+            height: 50,
+            width: '100%',
+            margin: '10px 0 -10px'
+        },
+        [theme.breakpoints.up('lg')]: {
+            margin: '-10px 0'
+        }
     }
 });

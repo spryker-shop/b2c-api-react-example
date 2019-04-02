@@ -35,9 +35,12 @@ import {
     pathWishlistsPage,
     pathRegisterPage
 } from '@constants/routes';
+import { RoutesProps as Props } from './types';
 
-export const getContentRoutes = (isReadyToShow: boolean): JSX.Element => {
-    if (!isReadyToShow) {
+export const Routes: React.SFC<Props> = (props): JSX.Element => {
+    const { isAppLoading } = props;
+
+    if (!isAppLoading) {
         return <AppMain />;
     }
 

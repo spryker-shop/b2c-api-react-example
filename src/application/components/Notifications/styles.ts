@@ -16,7 +16,6 @@ export const styles = (theme: Theme) => createStyles({
         ...theme.appContainerStyles,
         display: 'flex',
         alignItems: 'center',
-        fontFamily: 'Circular',
         fontSize: 16,
         letterSpacing: 0.6,
         fontWeight: 700

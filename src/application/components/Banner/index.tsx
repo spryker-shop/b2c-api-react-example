@@ -11,7 +11,7 @@ const BannerComponent: React.SFC<Props> = (props): JSX.Element => {
         <div className={ classes.root }>
             <div className={ classes.container }>
                 <Grid container className={ classes.content }>
-                    <Grid item xs={ 12 } sm={ 8 } md={ 6 } className={ classes.holder }>
+                    <Grid item xs={ 7 } sm={ 8 } md={ 7 } lg={ 6 } className={ classes.holder }>
                         <Typography component="h1" variant="display4" className={ classes.title }>
                             <span>{ titleFirst }</span>
                             { titleSecond &&
@@ -28,7 +28,7 @@ const BannerComponent: React.SFC<Props> = (props): JSX.Element => {
                             { linkTitle }
                         </Button>
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 4 } md={ 6 } className={ classes.imageContainer }>
+                    <Grid item xs={ 5 } sm={ 4 } md={ 5 } lg={ 6 } className={ classes.imageContainer }>
                         <span className={ classes.image } style={{ backgroundImage: `url(${imagePath})` }} />
                     </Grid>
                 </Grid>
