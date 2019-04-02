@@ -31,6 +31,10 @@ const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
 
     const renderLabels = (): JSX.Element[] => (
         label.map((item: IProductLabel, index: number) => {
+            if (!item) {
+                return null;
+            }
+
             const colorClassName: string = labelData[item.type].className;
 
             return (
