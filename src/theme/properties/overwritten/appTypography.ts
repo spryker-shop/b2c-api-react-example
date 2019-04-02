@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { appColors } from '@theme/properties/new/appColors';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 interface IAppTypographyElements {
-    fontSize: React.CSSProperties['fontSize'];
-    fontWeight: React.CSSProperties['fontWeight'];
-    lineHeight: React.CSSProperties['lineHeight'];
-    letterSpacing: React.CSSProperties['letterSpacing'];
+    fontSize?: React.CSSProperties['fontSize'];
+    fontWeight?: React.CSSProperties['fontWeight'];
+    lineHeight?: React.CSSProperties['lineHeight'];
+    letterSpacing?: React.CSSProperties['letterSpacing'];
     marginLeft?: React.CSSProperties['marginLeft'];
     color?: React.CSSProperties['color'];
 }
@@ -28,59 +29,120 @@ export const appTypographyStyles: IAppTypography = {
         'Roboto',
     ].join(','),
     display4: {
-        fontSize: 40,
+        fontSize: 22,
+        lineHeight: 1.33,
+        letterSpacing: 0.2,
         fontWeight: 700,
-        lineHeight: 1.25,
-        letterSpacing: 0.4,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 30,
+            lineHeight: 1.33,
+            letterSpacing: 0.3,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 40,
+            lineHeight: 1.25,
+            letterSpacing: 0.4,
+        }
     },
     display3: {
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: 700,
-        lineHeight: 1.67,
-        letterSpacing: 0.3,
+        lineHeight: 1.4,
+        letterSpacing: 0.2,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 24,
+            lineHeight: 1.67,
+            letterSpacing: 0.3,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 30
+        }
     },
     display2: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 500,
-        lineHeight: 1.4,
-        letterSpacing: 0,
+        lineHeight: 1.87,
+        letterSpacing: 0.2,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 20,
+            lineHeight: 1.4
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            letterSpacing: 0,
+        }
     },
     display1: {
-        fontSize: 18,
-        fontWeight: 700,
-        lineHeight: 1.4,
-        letterSpacing: 0.2,
+        fontSize: 14,
+        fontWeight: 500,
+        lineHeight: 1.29,
+        letterSpacing: 0.1,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 15,
+            lineHeight: 1.87,
+            letterSpacing: 0.2,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 18,
+            lineHeight: 1.4,
+            fontWeight: 700
+        }
     },
     headline: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: 500,
-        lineHeight: 1.47,
-        letterSpacing: 0.2,
+        lineHeight: 1.69,
+        letterSpacing: 0.1,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 14,
+            lineHeight: 1.57,
+            letterSpacing: 0.2,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 15,
+            lineHeight: 1.47
+        }
     },
     subheading: {
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: 400,
-        lineHeight: 1.47,
-        letterSpacing: 0.2,
+        lineHeight: 1.83,
+        letterSpacing: 0.1,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 14,
+            lineHeight: 1.69,
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 15,
+            lineHeight: 1.47,
+            letterSpacing: 0.2,
+        }
     },
     body1: {
-        fontSize: 18,
+        fontSize: 13,
         fontWeight: 400,
-        lineHeight: 1.78,
-        letterSpacing: 0.2,
+        lineHeight: 1.69,
+        letterSpacing: 0.1,
         marginLeft: 0,
-        color: appColors.black
+        color: appColors.black,
+        [`@media (min-width: ${appBreakpoints.values.md}px)`]: {
+            fontSize: 14,
+            lineHeight: 1.78
+        },
+        [`@media (min-width: ${appBreakpoints.values.lg}px)`]: {
+            fontSize: 18,
+            letterSpacing: 0.2,
+        }
     }
 };

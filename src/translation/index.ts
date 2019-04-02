@@ -131,7 +131,7 @@ export const messages: IMessages = {
         'place.order.title': 'Place Order',
         'product.description.title': 'Description',
         'product.details.title': 'Product details',
-        'product.relations.title': 'You also may be intrested in',
+        'product.relations.title': 'You also may be interested in',
         'product.sku.title': 'SKU',
         'products.per.page.title': 'Products Per Page',
         'profile.data.successfully.updated.message': 'Your Profile Data was successfully updated!',
