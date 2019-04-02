@@ -80,7 +80,7 @@ class SortPanelComponent extends React.Component<Props, State> {
 
                     <Grid item xs={ 6 } sm={ 9 }>
                         <Grid container spacing={ 24 } className={ classes.sortsOuter }>
-                            <Grid item xs={ 12 } sm={ 5 }>
+                            <Grid item xs={ 12 } sm={ 5 } lg={ 4 }>
                                 { sortParams.length &&
                                     <SprykerSelect
                                         currentMode={ currentSort ? currentSort : ' ' }
@@ -92,7 +92,7 @@ class SortPanelComponent extends React.Component<Props, State> {
                                             disabled: !(this.props.sortParams.length > 0)
                                         }}
                                         name="sort"
-                                        classes={{ menu: classes.relevanceSortMenu }}
+                                        classes={{ menu: classes.relevanceSortMenu, selectRoot: classes.selectRoot }}
                                     />
                                 }
                             </Grid>
@@ -109,6 +109,7 @@ class SortPanelComponent extends React.Component<Props, State> {
                                                 disabled: true
                                             }}
                                             name="pages"
+                                            classes={{ selectRoot: classes.selectRoot }}
                                         />
                                     }
                                 </Grid>

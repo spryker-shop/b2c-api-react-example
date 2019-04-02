@@ -21,6 +21,12 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     relevanceSortMenu: {
-        minWidth: 270
+        minWidth: 200,
+        [theme.breakpoints.up('md')]: {
+            minWidth: 270,
+        }
+    },
+    selectRoot: {
+        color: theme.appColors.grey
     }
 });

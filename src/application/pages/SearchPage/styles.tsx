@@ -3,6 +3,9 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
         paddingBottom: 40,
         [theme.breakpoints.up('md')]: {
             paddingBottom: 60,

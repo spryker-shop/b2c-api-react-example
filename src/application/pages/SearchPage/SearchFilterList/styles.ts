@@ -11,6 +11,25 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     filtersHolder: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        background: theme.appColors.white,
+        zIndex: 999,
+        visibility: 'hidden',
+        opacity: 0,
+        transition: 'visibility 0.2s ease-in-out, opacity 0.2s ease-in-out',
+        [theme.breakpoints.up('md')]: {
+            background: 'none',
+            position: 'static',
+            display: 'block',
+            visibility: 'visible',
+            opacity: 1
+        },
         [theme.breakpoints.only('md')]: {
             display: 'none',
             padding: '21px 21px 11px',
@@ -20,7 +39,11 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     filtersOpen: {
-        display: 'block'
+        visibility: 'visible',
+        opacity: 1,
+        [theme.breakpoints.up('md')]: {
+            display: 'block'
+        }
     },
     activeFiltersHolder: {
         display: 'none',

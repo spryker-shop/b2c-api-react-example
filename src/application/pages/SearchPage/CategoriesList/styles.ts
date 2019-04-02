@@ -30,7 +30,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         background: theme.appColors.white,
         color: theme.appColors.grey,
-        [theme.breakpoints.only('lg')]: {
+        [theme.breakpoints.up('lg')]: {
             display: 'block',
             background: 'none',
             fontSize: 18,

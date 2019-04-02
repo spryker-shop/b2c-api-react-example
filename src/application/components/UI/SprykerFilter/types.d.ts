@@ -1,5 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from '@application/components/UI/SprykerFilter/styles';
+import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
 interface IMenuItemsDropdown {
     value: string | number;
@@ -14,7 +15,7 @@ export interface ISprykerFilterProps extends WithStyles<typeof styles> {
     extraClassName?: string;
     isShowSelected?: boolean;
     handleClose?: Function;
-    title?: string;
+    width: Breakpoint;
     isFullWidth: boolean;
 }
 

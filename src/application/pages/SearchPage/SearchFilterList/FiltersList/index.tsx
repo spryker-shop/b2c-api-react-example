@@ -5,8 +5,12 @@ import { ValueFacets } from '@interfaces/searchPageData';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { SprykerFilter } from '@application/components/UI/SprykerFilter';
 import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
-import { Grid, withStyles, Hidden } from '@material-ui/core';
+import { Grid, withStyles, Hidden, Button } from '@material-ui/core';
 import { styles } from './styles';
+import { FiltersIcon, CrossIcon } from './icons';
+import { FormattedMessage } from 'react-intl';
+import { NavLink } from 'react-router-dom';
+import { pathCheckoutPage } from '@constants/routes';
 
 const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
@@ -30,7 +34,7 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
 
                 if (isFilterItemsExist) {
                     filterItems.push(
-                        <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ filter.name }>
+                        <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
                             <SprykerFilter
                                 attributeName={ filter.name }
                                 menuItems={ filter.values }
@@ -40,6 +44,10 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                                 handleClose={ updateStore }
                                 title={ filter.localizedName }
                                 classes={{
+                                    iconOpened: classes.filterChevronOpened,
+                                    icon: classes.filterChevron,
+                                    modalRootOpened: classes.filtersModalRootOpened,
+                                    modalRoot: classes.filtersModalRoot,
                                     menu: classes.filters
                                 }}
                                 isFullWidth
@@ -64,7 +72,7 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                 const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
 
                 rangeItems.push (
-                    <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ filter.name }>
+                    <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
                         <SprykerRangeSlider
                             key={ filter.name }
                             attributeName={ filter.name }
@@ -94,12 +102,28 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
     const isItemsExist = isFiltersExist || isRangeExist;
 
     return (
-        <>
+        <div className={ classes.wrapper }>
+            <Hidden mdUp>
+                <div className={ classes.heading }>
+                    <span className={ classes.filterIcon }>
+                        <FiltersIcon />
+                    </span>
+                    <span className={ classes.title }>
+                        <FormattedMessage id={ 'word.filters.title' } />
+                    </span>
+
+                    <span className={ classes.close }>
+                        <span className={ classes.closeIcon }>
+                            <CrossIcon />
+                        </span>
+                    </span>
+                </div>
+            </Hidden>
             { isItemsExist &&
                 <div className={ classes.filterList }>
                     <Grid container spacing={ 16 }>
                         <Hidden lgUp>
-                            <Grid item xs={ 12 } sm={ 6 } md={ 4 } className={ classes.categoriesList }>
+                            <Grid item xs={ 12 } md={ 4 } className={ classes.categoriesList }>
                                 { categoriesList }
                             </Grid>
                         </Hidden>
@@ -108,7 +132,18 @@ const FiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                     </Grid>
                 </div>
             }
-        </>
+            <Hidden mdUp>
+                <div className={ classes.apply }>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                    >
+                        <FormattedMessage id={ 'word.apply.title' } />
+                    </Button>
+                </div>
+            </Hidden>
+        </div>
 
     );
 };

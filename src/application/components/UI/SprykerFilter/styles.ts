@@ -4,9 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     root: {
         width: '100%',
-        marginLeft: 0,
-        borderRadius: 4,
-        backgroundColor: theme.appColors.white
+        marginLeft: 0
     },
     formControl: {
         width: '100%',
@@ -36,49 +34,95 @@ export const styles = (theme: Theme) => createStyles({
             }
         }
     },
+    counterTitle: {
+        paddingLeft: 20,
+        fontSize: 12,
+        letterSpacing: 0.1,
+        color: theme.appColors.weakGrey,
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        }
+    },
+    titleCounter: {
+        fontSize: 18
+    },
     input: {
         boxSizing: 'border-box',
         display: 'flex',
         alignItems: 'center',
-        height: 42,
+        height: 50,
         padding: '5px 42px 5px 13px',
-        fontSize: 14,
+        fontSize: 16,
         lineHeight: 1.47,
-        letterSpacing: 0.1,
+        letterSpacing: 0.2,
         borderRadius: 4,
-        background: theme.appColors.white,
+        background: theme.appColors.weekWhite,
         color: theme.appColors.grey,
         transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out',
-        '&:focus:hover, &:hover': {
-            background: theme.appColors.darkWhite,
-            color: theme.appColors.blue
+        '&:focus:hover, &:hover, &:focus': {
+            background: theme.appColors.weekWhite
         },
-        '&:focus': {
-            background: theme.appColors.white
-        }
+        [theme.breakpoints.up('md')]: {
+            background: theme.appColors.white,
+            fontSize: 14,
+            height: 42,
+            letterSpacing: 0.1,
+            '&:focus:hover, &:hover': {
+                background: theme.appColors.white,
+                color: theme.appColors.grey
+            },
+            '&:focus': {
+                background: theme.appColors.white
+            }
+        },
+        [theme.breakpoints.up('lg')]: {
+            '&:focus:hover, &:hover': {
+                background: theme.appColors.darkWhite,
+                color: theme.appColors.blue
+            },
+            '&:focus': {
+                background: theme.appColors.white
+            }
+        },
     },
     inputFocused: {
-        boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        [theme.breakpoints.up('md')]: {
+            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        }
     },
+    modalRoot: {},
+    modalRootOpened: {},
     menu: {
-        minHeight: '0',
-        borderRadius: 4,
-        boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
-        marginTop: -3,
+        minHeight: 0,
+        borderRadius: 0,
+        boxShadow: 'none',
+        backgroundColor: theme.appColors.weekWhite,
+        [theme.breakpoints.up('md')]: {
+            borderRadius: 4,
+            boxShadow: ' 0 4px 10px 0 rgba(216, 216, 216, 0.5)',
+            marginTop: -3,
+            backgroundColor: theme.appColors.white,
+        },
         '&& ul': {
-            paddingTop: 11,
+            paddingTop: 5,
             paddingBottom: 2,
             paddingLeft: 10,
-            paddingRight: '10px !important'
+            paddingRight: '10px !important',
+            [theme.breakpoints.up('md')]: {
+                paddingTop: 11
+            }
         }
     },
     menuCounter: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        pointerEvents: 'none',
-        padding: 0,
-        marginBottom: 12
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            pointerEvents: 'none',
+            padding: 0,
+            marginBottom: 12,
+        }
     },
     menuCounterText: {
         fontSize: 12,
@@ -89,22 +133,35 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         fontSize: 14,
         lineHeight: 1.46,
-        padding: '12px 14px',
+        padding: '11px 14px',
         marginBottom: 8,
         letterSpacing: 0.1,
         height: 'auto',
         borderRadius: 4,
         color: theme.appColors.grey,
-        background: theme.appColors.weekWhite,
+        background: theme.appColors.white,
         '&:hover': {
-            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)',
             background: theme.appColors.white
+        },
+        [theme.breakpoints.up('md')]: {
+            background: theme.appColors.weekWhite,
+            '&:hover': {
+                background: theme.appColors.weekWhite
+            },
+        },
+        [theme.breakpoints.up('lg')]: {
+            '&:hover': {
+                boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)',
+                background: theme.appColors.white
+            },
         },
         '&$selected': {
             color: theme.appColors.white,
             background: theme.appColors.blue,
-            '&:hover': {
-                background: theme.appColors.darkBlue
+            [theme.breakpoints.up('lg')]: {
+                '&:hover': {
+                    background: theme.appColors.darkBlue
+                }
             }
         }
     },
