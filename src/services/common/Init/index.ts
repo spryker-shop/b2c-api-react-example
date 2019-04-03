@@ -35,7 +35,7 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initApplicationDataFulfilledStateAction(responseParsed));
+                dispatch(initApplicationDataFulfilledStateAction({...responseParsed, isTouch}));
                 dispatch(anonymIdFilFilled(anonymId));
                 dispatch(getCategoriesAction());
             } else {
