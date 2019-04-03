@@ -10,7 +10,7 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     categoryItem: {
-        padding: '5px 0',
+        padding: '4px 0',
         color: theme.appColors.grey,
         [theme.breakpoints.up('md')]: {
             padding: '4px 0'
@@ -31,7 +31,7 @@ export const styles = (theme: Theme) => createStyles({
     holder: {
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '10px 10px 9px 14px',
+        padding: '11px 10px 10px 14px',
         background: theme.appColors.white,
         borderRadius: 4,
         width: '100%',

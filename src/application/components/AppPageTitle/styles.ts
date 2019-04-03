@@ -13,6 +13,9 @@ export const styles = (theme: Theme) => createStyles({
         ...theme.appContainerStyles
     },
     title: {
-        paddingBottom: 10
+        paddingBottom: 10,
+        [theme.breakpoints.between('xs', 'sm')]: {
+            fontSize: 22
+        }
     }
 });

@@ -69,6 +69,9 @@ export const styles = (theme: Theme) => createStyles({
             backgroundColor: theme.appColors.white,
             color: theme.appColors.grey,
             borderColor: theme.appColors.lightGrey
+        },
+        [theme.breakpoints.up('lg')]: {
+            display: 'none'
         }
     },
     buttonActive: {

@@ -169,12 +169,14 @@ class SearchPageComponent extends React.Component<Props, State> {
         const isCategoriesExist = (category.length > 0);
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
         const { formattedCategoriesTree } = this.state;
-        const categoriesList = (
+        const categoriesList = (isOpened = false, onTitleClickHandler?: () => void): JSX.Element => (
             <CategoriesList
                 categories={ category }
                 categoriesTree={ categoriesTree }
                 selectedCategory={ currentCategoryId }
                 locationCategoryId={ locationCategoryId }
+                isOpened={ isOpened }
+                onTitleClick={ onTitleClickHandler }
             />
         );
 
@@ -202,7 +204,7 @@ class SearchPageComponent extends React.Component<Props, State> {
                         <Hidden only={['xs', 'sm', 'md']}>
                             { isCategoriesExist &&
                                 <Grid item xs={ 12 } lg={ 3 } className={ classes.categoriesList }>
-                                    { categoriesList }
+                                    { categoriesList() }
                                 </Grid>
                             }
                         </Hidden>

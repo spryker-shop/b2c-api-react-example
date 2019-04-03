@@ -7,6 +7,8 @@ const pathFilter = 'M7.2 0C5.85.008 4.666.918 4.286 2.24h-3.12a.811.811 0 0 0-.5
 const pathCross1 = 'M0 1.468L1.468 0 16 14.532 14.532 16z';
 const pathCross2 = 'M0 14.532L14.532 0 16 1.468 1.468 16z';
 
+const pathChevron = 'M1 12 L16 26 L31 12 L27 8 L16 18 L5 8 z';
+
 /* tslint:enable */
 export const FiltersIcon: React.SFC = (): JSX.Element => (
     <svg width="100%" viewBox="0 0 24 21">
@@ -22,5 +24,11 @@ export const CrossIcon: React.SFC = (props): JSX.Element => (
             <path d={ pathCross1 } />
             <path d={ pathCross2 } />
         </g>
+    </svg>
+);
+
+export const ChevronIcon: React.SFC = (): JSX.Element => (
+    <svg viewBox="0 0 32 32">
+        <path d={ pathChevron } />
     </svg>
 );

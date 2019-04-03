@@ -1,6 +1,5 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
-import { appColors } from '@theme/properties/new/appColors';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
@@ -16,27 +15,45 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        height: 42,
+        height: 50,
         width: '100%',
         padding: '5px 42px 5px 13px',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 400,
         lineHeight: 1.47,
-        letterSpacing: 0.1,
+        letterSpacing: 0.2,
         borderRadius: 4,
-        background: theme.appColors.white,
+        background: theme.appColors.weekWhite,
         color: theme.appColors.grey,
         transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out',
         '&:hover': {
-            background: theme.appColors.darkWhite,
-            color: theme.appColors.blue
+            background: theme.appColors.weekWhite,
+            color: theme.appColors.grey
         },
         '&:active': {
-            background: theme.appColors.white
+            background: theme.appColors.weekWhite,
+            color: theme.appColors.grey
+        },
+        [theme.breakpoints.up('md')]: {
+            background: theme.appColors.white,
+            height: 42,
+            fontSize: 14,
+            letterSpacing: 0.1,
+        },
+        [theme.breakpoints.up('lg')]: {
+            '&:hover': {
+                background: theme.appColors.darkWhite,
+                color: theme.appColors.blue
+            },
+            '&:active': {
+                background: theme.appColors.white
+            }
         }
     },
     isPopupOpened: {
-        boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        [theme.breakpoints.up('md')]: {
+            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        }
     },
     text: {
         minWidth: 0,
@@ -58,6 +75,19 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.blue,
         transform: 'translateY(-50%) rotate(180deg)'
     },
+    wrapper: {
+        padding: '30px 14px 15px',
+        background: theme.appColors.weekWhite,
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            background: 'none',
+            padding: 0,
+            display: 'block'
+        }
+    },
+    wrapperOpened: {
+        display: 'block'
+    },
     popoverContent: {
         padding: '40px 15px 20px',
         borderRadius: 4,
@@ -72,10 +102,10 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         '& .rc-slider-handle': {
             position: 'absolute',
-            border: `4px solid  ${appColors.blue}`,
+            border: `4px solid  ${theme.appColors.blue}`,
             width: '22px',
             height: '22px',
-            backgroundColor: appColors.white,
+            backgroundColor: theme.appColors.white,
             marginLeft: '-11px',
             marginTop: '-9px',
             touchAction: 'pan-x',
@@ -87,15 +117,18 @@ export const styles = (theme: Theme) => createStyles({
             position: 'absolute',
             top: 0,
             left: 0,
-            backgroundColor: appColors.weekWhite,
+            backgroundColor: theme.appColors.white,
             borderRadius: '4px',
             height: '4px',
-            width: '100%'
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                backgroundColor: theme.appColors.weekWhite
+            }
         },
         '& .rc-slider-track': {
             position: 'absolute',
             top: 0,
-            backgroundColor: appColors.blue,
+            backgroundColor: theme.appColors.blue,
             borderRadius: '4px',
             height: '4px'
         }
@@ -121,8 +154,8 @@ export const styles = (theme: Theme) => createStyles({
         boxSizing: 'border-box',
         width: 100,
         height: 36,
-        border: `1px solid ${theme.appColors.weekWhite}`,
-        background: theme.appColors.weekWhite,
+        border: `1px solid ${theme.appColors.white}`,
+        background: theme.appColors.white,
         borderRadius: 4,
         padding: '4px 10px',
         fontSize: 14,
@@ -137,6 +170,12 @@ export const styles = (theme: Theme) => createStyles({
         },
         '&:focus': {
             background: theme.appColors.white
+        },
+        [theme.breakpoints.up('md')]: {
+            background: theme.appColors.weekWhite,
+            '&:focus': {
+                background: theme.appColors.white
+            }
         }
     }
 });

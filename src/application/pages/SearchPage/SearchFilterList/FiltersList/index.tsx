@@ -1,170 +1,152 @@
 import * as React from 'react';
-import { IFiltersListProps as Props } from './types';
-import { rangeMaxType, rangeMinType } from '../types';
-import { ValueFacets } from '@interfaces/searchPageData';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
-import { SprykerFilter } from '@application/components/UI/SprykerFilter';
-import { SprykerRangeSlider } from '@application/components/UI/SprykerRangeSlider';
-import { Grid, withStyles, Hidden, Button } from '@material-ui/core';
+import { IFiltersListProps as Props, IFiltersListState as State } from './types';
+import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { Grid, withStyles, Hidden, Button, withWidth } from '@material-ui/core';
 import { styles } from './styles';
-import { FiltersIcon, CrossIcon } from './icons';
+import { FiltersIcon, CrossIcon, ChevronIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
 import { ClickEvent } from '@interfaces/common';
+import { AttributeFilters } from './AttributeFilters';
+import { RangeFilters } from './RangeFilters';
+import { withRouter } from 'react-router';
 
-class FiltersListComponent extends React.Component<Props, any> {
-    public readonly state: any = {
-        openedFilters: []
+@(withRouter as Function)
+class FiltersListComponent extends React.Component<Props, State> {
+    public readonly state: State = {
+        openedFilters: [],
+        openedRanges: [],
+        openedCategories: false
     };
 
-    protected test = (filter: any) => (event: ClickEvent): void => {
-        event.preventDefault();
-        const { openedFilters } = this.state;
-        const isFilterOpened = openedFilters.includes(filter);
-        console.log(isFilterOpened);
-        if (isFilterOpened) {
-            const removeFilterFromList = openedFilters.filter(filterItem => filterItem !== filter);
+    public componentDidUpdate = (prevProps: Props): void => {
+        const { location } = this.props;
 
-            this.setState({ openedFilters: removeFilterFromList });
+        if (location.pathname !== prevProps.location.pathname) {
+            this.onCloseFiltersHandler();
+        }
+    };
+
+    protected handleOpenFilters = (filter: ValueFacets | RangeFacets, filtersName: string) =>
+        (event: ClickEvent): void => {
+        event.preventDefault();
+        const filters = this.state[filtersName];
+        const isFilterOpened = filters.includes(filter);
+
+        if (isFilterOpened) {
+            const removeFilterFromList = filters
+                .filter((filterItem: ValueFacets | RangeFacets) => filterItem !== filter);
+
+            this.setState({ ...this.state, [filtersName]: removeFilterFromList });
 
             return;
         }
 
-        const openedNFiltersList = [...openedFilters, filter];
-        console.log(openedNFiltersList);
+        const openedNFiltersList = [...filters, filter];
 
-        this.setState({ openedFilters: openedNFiltersList });
+        this.setState({ ...this.state, [filtersName]: openedNFiltersList });
     };
 
-    protected renderFilters = (): JSX.Element[] => {
-        const { filters, activeFilters, updateStore, updateActiveFilters, classes } = this.props;
-        const { openedFilters } = this.state;
-        const filterItems: JSX.Element[] = [];
-        console.log(openedFilters);
+    protected filterRangeFilters = (): RangeFacets[] => {
+        const { ranges } = this.props;
+        const isRangeExist = Array.isArray(ranges) && ranges.length;
 
-        if (Array.isArray(filters)) {
-            filters.forEach((filter: ValueFacets) => {
-                const isFilterItemsExist = Array.isArray(filter.values) && filter.values.length;
-
-                if (isFilterItemsExist) {
-                    const isActive = openedFilters.includes(filter);
-
-                    filterItems.push(
-                        <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
-                            <span className={ classes.testWrapTitle } onClick={ this.test(filter) }>
-                                { filter.name.split('_').join(' ') }
-                            </span>
-
-                            <div className={ `${ classes.testWrap } ${ isActive ? classes.testWrapOpened : '' }` }>
-                                <SprykerFilter
-                                    attributeName={ filter.name }
-                                    menuItems={ filter.values }
-                                    activeValues={ activeFilters[filter.name] || [] }
-                                    handleChange={ updateActiveFilters }
-                                    isShowSelected
-                                    handleClose={ updateStore }
-                                    title={ filter.localizedName }
-                                    classes={ {
-                                        iconOpened: classes.filterChevronOpened,
-                                        icon: classes.filterChevron,
-                                        modalRootOpened: classes.filtersModalRootOpened,
-                                        modalRoot: classes.filtersModalRoot,
-                                        menu: classes.filters
-                                    } }
-                                    isFullWidth
-                                />
-                            </div>
-                        </Grid>
-                    );
-                }
-            });
+        if (!isRangeExist) {
+            return null;
         }
 
-        return filterItems;
+        return ranges.filter(item => (
+            item.min !== 0 && item.max !== 0 && item.name !== 'rating' // rating filter temporary hidden
+        ));
     };
 
-    protected renderRange = (): JSX.Element[] => {
-        const { ranges, activeRangeFilters, updateStore, updateRangeFilters, classes } = this.props;
+    protected onCategoriesTitleClickHandler = (): void =>
+        this.setState(({openedCategories}) => ({ openedCategories: !openedCategories }));
 
-        const rangeItems: JSX.Element[] | null = [];
+    protected onCloseFiltersHandler = (): void => {
+        const { changeWrapperState } = this.props;
 
-        if (Array.isArray(ranges)) {
-            ranges.filter(item => (
-                item.min !== 0 && item.max !== 0 && item.name !== 'rating' // rating filter temporary hidden
-            )).forEach(filter => {
-                const valueFrom = rangeFilterValueToFront(filter.min, rangeMinType);
-                const valueTo = rangeFilterValueToFront(filter.max, rangeMaxType);
+        changeWrapperState(false);
+        this.setState({ openedFilters: [], openedCategories: false, openedRanges: [] });
+    };
 
-                rangeItems.push(
-                    <Grid item xs={ 12 } md={ 4 } lg={ 3 } key={ filter.name }>
-                        <SprykerRangeSlider
-                            key={ filter.name }
-                            attributeName={ filter.name }
-                            title={ filter.localizedName }
-                            min={ valueFrom }
-                            max={ valueTo }
-                            handleChange={ updateRangeFilters }
-                            handleAfterChange={ updateStore }
-                            classes={ {
-                                popoverContent: classes.filters
-                            } }
-                            currentValue={ activeRangeFilters[filter.name] || {
-                                min: valueFrom,
-                                max: valueTo
-                            } }
-                        />
-                    </Grid>
-                );
-            });
-        }
+    protected applyFilters = (): void => {
+        const {updateStore} = this.props;
 
-        return rangeItems;
+        this.onCloseFiltersHandler();
+        updateStore();
     };
 
     public render = (): JSX.Element => {
-        const { classes, categoriesList } = this.props;
+        const {
+            classes,
+            categoriesList,
+            filters,
+            activeFilters,
+            updateStore,
+            updateActiveFilters,
+            width,
+            activeRangeFilters,
+            updateRangeFilters
+        } = this.props;
+        const { openedFilters, openedCategories, openedRanges } = this.state;
 
-        const isFiltersExist = Boolean(this.renderFilters().length);
-        const isRangeExist = Boolean(this.renderRange().length);
+        const isFiltersExist = Array.isArray(filters) && filters.length;
+        const isRangeExist = Boolean(this.filterRangeFilters()) && this.filterRangeFilters().length;
         const isItemsExist = isFiltersExist || isRangeExist;
 
         return (
             <div className={ classes.wrapper }>
                 <Hidden mdUp>
                     <div className={ classes.heading }>
-                    <span className={ classes.filterIcon }>
-                        <FiltersIcon />
-                    </span>
-                        <span className={ classes.title }>
-                        <FormattedMessage id={ 'word.filters.title' } />
-                    </span>
-
-                        <span className={ classes.close }>
-                        <span className={ classes.closeIcon }>
-                            <CrossIcon />
+                        <span className={ classes.filterIcon }>
+                            <FiltersIcon />
                         </span>
-                    </span>
+                            <span className={ classes.title }>
+                            <FormattedMessage id={ 'word.filters.title' } />
+                        </span>
+                        <span className={ classes.close } onClick={ this.onCloseFiltersHandler }>
+                            <span className={ classes.closeIcon }><CrossIcon /></span>
+                        </span>
                     </div>
                 </Hidden>
                 { isItemsExist &&
                 <div className={ classes.filterList }>
-                    <Grid container spacing={ 16 }>
+                    <Grid container className={ classes.gridList }>
                         <Hidden lgUp>
-                            <Grid item xs={ 12 } md={ 4 } className={ classes.categoriesList }>
-                                { categoriesList }
+                            <Grid item xs={ 12 } md={ 4 } className={`${classes.categoriesList} ${classes.gridItem}`}>
+                                { categoriesList(openedCategories, this.onCategoriesTitleClickHandler) }
                             </Grid>
                         </Hidden>
-                        { isFiltersExist && this.renderFilters() }
-                        { isItemsExist && this.renderRange() }
+                        { isFiltersExist &&
+                            <AttributeFilters
+                                filters={ filters }
+                                activeFilters={ activeFilters }
+                                width={ width }
+                                updateStore={ updateStore }
+                                updateActiveFilters={ updateActiveFilters }
+                                openedFilters={ openedFilters }
+                                openFilter={ this.handleOpenFilters }
+                                classes={{ gridItem: classes.gridItem }}
+                                icon={ <ChevronIcon /> }
+                            />
+                        }
+                        { isItemsExist &&
+                            <RangeFilters
+                                ranges={ this.filterRangeFilters() }
+                                updateStore={ updateStore }
+                                activeRangeFilters={ activeRangeFilters }
+                                updateRangeFilters={ updateRangeFilters }
+                                classes={{ gridItem: classes.gridItem }}
+                                openedRanges={ openedRanges }
+                                openFilter={ this.handleOpenFilters }
+                            />
+                        }
                     </Grid>
                 </div>
                 }
                 <Hidden mdUp>
                     <div className={ classes.apply }>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                        >
+                        <Button variant="contained" color="primary" fullWidth onClick={ this.applyFilters }>
                             <FormattedMessage id={ 'word.apply.title' } />
                         </Button>
                     </div>
@@ -173,6 +155,6 @@ class FiltersListComponent extends React.Component<Props, any> {
 
         );
     };
-};
+}
 
-export const FiltersList = withStyles(styles)(FiltersListComponent);
+export const FiltersList = withWidth()(withStyles(styles)(FiltersListComponent));

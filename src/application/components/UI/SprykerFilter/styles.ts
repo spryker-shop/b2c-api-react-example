@@ -34,15 +34,6 @@ export const styles = (theme: Theme) => createStyles({
             }
         }
     },
-    counterTitle: {
-        paddingLeft: 20,
-        fontSize: 12,
-        letterSpacing: 0.1,
-        color: theme.appColors.weakGrey,
-        [theme.breakpoints.up('md')]: {
-            display: 'none'
-        }
-    },
     titleCounter: {
         fontSize: 18
     },
@@ -105,7 +96,7 @@ export const styles = (theme: Theme) => createStyles({
         },
         '&& ul': {
             paddingTop: 5,
-            paddingBottom: 2,
+            paddingBottom: 9,
             paddingLeft: 10,
             paddingRight: '10px !important',
             [theme.breakpoints.up('md')]: {

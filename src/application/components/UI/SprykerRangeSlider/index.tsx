@@ -2,13 +2,15 @@ import * as React from 'react';
 import { connect } from './connect';
 import { NumberFormatValues } from 'react-number-format';
 import { SprykerNumberFormatInput } from '@application/components/UI/SprykerNumberFormatInput';
-import { withStyles, Grid, Button } from '@material-ui/core';
+import { withStyles, Grid, Button, withWidth } from '@material-ui/core';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { Range } from 'rc-slider';
 import { ChevronIcon } from './icons';
 import { ISprykerRangeSliderProps as Props, ISprykerRangeSliderState as State } from './types';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
+import { isWidthUp } from '@material-ui/core/withWidth';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 class SprykerRangeSliderComponent extends React.Component<Props, State> {
     protected buttonRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -20,8 +22,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         currentMaxValue: 0
     };
 
-    protected openPopover = ({ currentTarget }: ClickEvent): void => {
-        const { currentValue } = this.props;
+    protected openPopover = (event: ClickEvent): void => {
+        const { currentTarget } = event;
+        const isMobile = resolutionChecker(window.innerWidth, 'md');
+        const { currentValue, openFilter } = this.props;
 
         this.setState(({anchorElement}) => ({
             currentMinValue: currentValue.min,
@@ -29,6 +33,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
             anchorElement: Boolean(anchorElement) ? null : currentTarget,
             minPopoverWidth: currentTarget.clientWidth
         }));
+
+        if (isMobile) {
+            openFilter(event);
+        }
     };
 
     protected closePopover = (): void => {
@@ -154,87 +162,117 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         }
     };
 
+    protected renderRangeContent = (): JSX.Element => {
+        const { classes, min, max, currency, isActive } = this.props;
+        const { currentMinValue, currentMaxValue } = this.state;
+
+        return (
+            <div className={`${classes.wrapper} ${isActive ? classes.wrapperOpened : ''}`}>
+                <div className={ classes.rangeOuter }>
+                    <Range
+                        className={ classes.range }
+                        value={ [currentMinValue, currentMaxValue] }
+                        min={ min }
+                        max={ max }
+                        defaultValue={ [min, max] }
+                        onChange={ (value: number[]) => this.handleChangeRange(value) }
+                        allowCross={ false }
+                    />
+                </div>
+
+                <Grid container alignItems="center" justify="space-between" spacing={ 24 }>
+                    <Grid item>
+                        <SprykerNumberFormatInput
+                            name="min"
+                            currency={ currency }
+                            className={ classes.input }
+                            value={ currentMinValue }
+                            isAllowed={ this.isShouldUpdateMinField }
+                            type="text"
+                            onBlur={ this.handleBlurMinField }
+                        />
+                    </Grid>
+                    <Grid item>
+                        <SprykerNumberFormatInput
+                            name="min"
+                            currency={ currency }
+                            className={ classes.input }
+                            value={ currentMaxValue }
+                            isAllowed={ this.isShouldUpdateMaxField }
+                            type="text"
+                            onBlur={ this.handleBlurMaxField }
+                        />
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    };
+
     public render(): JSX.Element {
-        const { classes, title, min, max, currency } = this.props;
-        const { anchorElement, minPopoverWidth, currentMinValue, currentMaxValue } = this.state;
+        const { classes, title, width, isActive } = this.props;
+        const { anchorElement, minPopoverWidth } = this.state;
         const isOpen = Boolean(anchorElement);
+
+        if (isWidthUp('md', width)) {
+            return (
+                <>
+                    <div className={ classes.root }>
+                        <Button
+                            buttonRef={ this.buttonRef }
+                            aria-label="range"
+                            onClick={ this.openPopover }
+                            className={ `${classes.button} ${isOpen ? classes.isPopupOpened : '' }` }
+                        >
+                            <span className={ classes.text }>{ title }</span>
+                        </Button>
+                        <span className={ `${classes.icon} ${isOpen ? classes.iconOpened : ''}` }><ChevronIcon /></span>
+                    </div>
+
+                    <PopoverWrapper
+                        anchorElement={ anchorElement }
+                        anchorReference="anchorEl"
+                        hideBackdrop={ false }
+                        closePopoverHandler={ this.closePopover }
+                        classes={{
+                            content: classes.popoverContent
+                        }}
+                        paperProps={{
+                            style: {
+                                minWidth: minPopoverWidth
+                            }
+                        }}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left'
+                        }}
+                        transformOrigin={{
+                             vertical: 'top',
+                             horizontal: 'left'
+                         }}
+                    >
+                        { this.renderRangeContent() }
+                    </PopoverWrapper>
+                </>
+            );
+        }
 
         return (
             <>
                 <div className={ classes.root }>
                     <Button
-                        buttonRef={ this.buttonRef }
                         aria-label="range"
                         onClick={ this.openPopover }
-                        className={ `${classes.button} ${isOpen ? classes.isPopupOpened : '' }` }
+                        className={ `${classes.button} ${isActive ? classes.isPopupOpened : '' }` }
                     >
                         <span className={ classes.text }>{ title }</span>
                     </Button>
-                    <span className={ `${classes.icon} ${isOpen ? classes.iconOpened : ''}` }><ChevronIcon /></span>
+                    <span className={ `${classes.icon} ${isActive ? classes.iconOpened : ''}` }><ChevronIcon /></span>
                 </div>
 
-                <PopoverWrapper
-                    anchorElement={ anchorElement }
-                    anchorReference="anchorEl"
-                    hideBackdrop={ false }
-                    closePopoverHandler={ this.closePopover }
-                    classes={{
-                        content: classes.popoverContent
-                    }}
-                    paperProps={{
-                        style: {
-                            minWidth: minPopoverWidth
-                        }
-                    }}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left'
-                    }}
-                    transformOrigin={{
-                         vertical: 'top',
-                         horizontal: 'left'
-                     }}
-                >
-                    <div className={ classes.rangeOuter }>
-                        <Range
-                            className={ classes.range }
-                            value={ [currentMinValue, currentMaxValue] }
-                            min={ min }
-                            max={ max }
-                            defaultValue={ [min, max] }
-                            onChange={ (value: number[]) => this.handleChangeRange(value) }
-                            allowCross={ false }
-                        />
-                    </div>
-
-                    <Grid container alignItems="center" justify="space-between" spacing={ 24 }>
-                        <Grid item>
-                            <SprykerNumberFormatInput
-                                name="min"
-                                currency={ currency }
-                                className={ classes.input }
-                                value={ currentMinValue }
-                                isAllowed={ this.isShouldUpdateMinField }
-                                type="text"
-                                onBlur={ this.handleBlurMinField }
-                            />
-                        </Grid>
-                        <Grid item>
-                            <SprykerNumberFormatInput
-                                name="min"
-                                currency={ currency }
-                                className={ classes.input }
-                                value={ currentMaxValue }
-                                isAllowed={ this.isShouldUpdateMaxField }
-                                type="text"
-                                onBlur={ this.handleBlurMaxField }
-                            />
-                        </Grid>
-                    </Grid>
-                </PopoverWrapper>
+                { this.renderRangeContent() }
             </>
         );
     }
 }
 
-export const SprykerRangeSlider = connect(withStyles(styles)(SprykerRangeSliderComponent));
+export const SprykerRangeSlider = connect(withWidth()(withStyles(styles)(SprykerRangeSliderComponent)));

@@ -2,6 +2,19 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    gridList: {
+        width: 'auto',
+        margin: -4,
+        [theme.breakpoints.up('md')]: {
+            margin: -8
+        }
+    },
+    gridItem: {
+        padding: 4,
+        [theme.breakpoints.up('md')]: {
+            padding: 8
+        }
+    },
     wrapper: {
         height: '100%',
         display: 'flex',
@@ -63,53 +76,9 @@ export const styles = (theme: Theme) => createStyles({
             display: 'none'
         }
     },
-    filtersModalRoot: {
-        [theme.breakpoints.between('xs', 'sm')]: {
-            display: 'block',
-            position: 'static',
-            visibility: 'visible'
-        }
-    },
-    filtersModalRootOpened: {
-        [theme.breakpoints.between('xs', 'sm')]: {}
-    },
-    filterChevron: {
-        [theme.breakpoints.between('xs', 'sm')]: {
-            top: 25
-        }
-    },
-    filterChevronOpened: {
-        [theme.breakpoints.between('xs', 'sm')]: {
-            top: 19,
-            transform: 'scaleY(-1)'
-        }
-    },
-    testWrapTitle: {
-        display: 'block',
-        height: 40,
-        background: 'red'
-    },
-    testWrap: {
-        display: 'none'
-    },
-    testWrapOpened: {
-        display: 'block'
-    },
-    filters: {
-        width: '100%',
-        [theme.breakpoints.between('xs', 'sm')]: {
-            opacity: '1 !important',
-            transform: 'none !important',
-            position: 'static',
-            minWidth: '0 !important',
-            margin: 0,
-            maxWidth: 'none'
-        },
-        [theme.breakpoints.up('md')]: {
-            width: 240
-        },
+    categoriesList: {
         [theme.breakpoints.up('lg')]: {
-            width: 260
+            display: 'none'
         }
     },
     filterList: {
@@ -120,11 +89,6 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('md')]: {
             padding: '0 0 10px',
             overflow: 'hidden'
-        }
-    },
-    categoriesList: {
-        [theme.breakpoints.up('lg')]: {
-            display: 'none'
         }
     }
 });

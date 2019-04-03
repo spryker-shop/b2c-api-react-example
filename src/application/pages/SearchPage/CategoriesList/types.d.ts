@@ -14,6 +14,12 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     changeLocation: (location: string) => void;
     setCurrentCategory: (categoryId: TCategoryId) => void;
     width: Breakpoint;
+    isOpened: boolean;
+    onTitleClick: () => void;
+}
+
+export interface ICategoriesListState {
+    anchorElement: HTMLElement;
 }
 
 export interface IActiveFilterCategories {

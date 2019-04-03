@@ -141,8 +141,11 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         }
     };
 
-    protected onFiltersChangeStateHandle = (): void => {
-        this.setState(({isFilterListOpened}) => ({isFilterListOpened: !isFilterListOpened}));
+    protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
+        const { isLockedPage } = this.props;
+
+        isLockedPage(isFilterListOpened);
+        this.setState(({isFilterListOpened}));
     };
 
     public render = (): JSX.Element => {
@@ -157,7 +160,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                             <Button
                                 variant="outlined"
                                 fullWidth
-                                onClick={ this.onFiltersChangeStateHandle }
+                                onClick={ () => this.onFiltersChangeStateHandle(!isFilterListOpened) }
                                 className={`${classes.button} ${isFilterListOpened ? classes.buttonActive : ''}`}
                             >
                                 <span className={ classes.buttonIcon }>
@@ -180,6 +183,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                                 updateStore={ this.updateStoreWithNewFilters }
                                 updateActiveFilters={ this.updateActiveFilters }
                                 updateRangeFilters={ this.updateRangeFilters }
+                                changeWrapperState={ this.onFiltersChangeStateHandle }
                                 categoriesList={ categoriesList }
                             />
                         </div>

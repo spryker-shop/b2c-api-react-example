@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { withStyles, MenuItem, FormControl, Select, Button, withWidth } from '@material-ui/core';
+import { withStyles, MenuItem, FormControl, Select, Button } from '@material-ui/core';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { InputChangeEvent } from '@interfaces/common';
 import { ISprykerFilterProps as Props, ISprykerFilterState as State } from './types';
 import { FormattedMessage } from 'react-intl';
-import { isWidthUp } from '@material-ui/core/withWidth';
 
 class SprykerFilterComponent extends React.Component<Props, State> {
     protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
@@ -42,8 +41,8 @@ class SprykerFilterComponent extends React.Component<Props, State> {
             menuItems,
             activeValues,
             isShowSelected,
-            width,
-            isFullWidth
+            isFullWidth,
+            hideBackdrop
         } = this.props;
         const { isOpen } = this.state;
 
@@ -59,23 +58,13 @@ class SprykerFilterComponent extends React.Component<Props, State> {
                             name: attributeName,
                             id: `${attributeName}-filter`
                         }}
-                        renderValue={value => [
-                            attributeName ? attributeName.split('_').join(' ') : '',
-                            activeValues.length
-                                ? <span className={ classes.counterTitle } key={ attributeName }>
-                                    {`${activeValues.length} `}
-                                    <FormattedMessage id={'word.selected.title'} />
-                                </span>
-                                : null
-                            ]
-                        }
-
+                        renderValue={value => attributeName ? attributeName.split('_').join(' ') : '' }
                         MenuProps={{
                             disablePortal: true,
                             keepMounted: true,
                             getContentAnchorEl: null,
                             disableAutoFocusItem: true,
-                            hideBackdrop: !isWidthUp('md', width),
+                            hideBackdrop: hideBackdrop || false,
                             anchorOrigin: {
                                 vertical: 'bottom',
                                 horizontal: 'left'
@@ -147,4 +136,4 @@ class SprykerFilterComponent extends React.Component<Props, State> {
     }
 }
 
-export const SprykerFilter = withWidth()(withStyles(styles)(SprykerFilterComponent));
+export const SprykerFilter = withStyles(styles)(SprykerFilterComponent);
