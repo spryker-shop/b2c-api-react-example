@@ -12,6 +12,7 @@ export interface IInitAction extends IActionData {
     payloadCategoriesTreeFulfilled?: {categories: ICategory[]};
     payloadLocaleFulfilled?: ILocaleActionPayload;
     payloadIsLockedPage?: boolean;
+    payloadAnonymIdFulfilled?: string;
 }
 
 export interface ILocaleActionPayload {

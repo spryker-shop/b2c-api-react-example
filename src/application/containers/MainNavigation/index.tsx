@@ -18,7 +18,6 @@ class MainNavigationComponent extends React.Component<Props, State> {
     protected navRef: Element;
 
     public readonly state: State = {
-        isOpen: false,
         selectedNode: null,
         openedNodes: []
     };

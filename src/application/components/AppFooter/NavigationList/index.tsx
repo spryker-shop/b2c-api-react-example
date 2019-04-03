@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { INavigationListProps as Props, INavigationListState as State } from './types';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
-import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 class NavigationListComponent extends React.Component<Props, State> {
     public readonly state: State = {
@@ -13,7 +13,7 @@ class NavigationListComponent extends React.Component<Props, State> {
     };
 
     protected clickTitleHandler = (): void => {
-        const isMobile = window.innerWidth < appBreakpoints.values.sm;
+        const isMobile = resolutionChecker(window.innerWidth, 'sm');
 
         if (isMobile) {
             this.setState(({isOpen}) => ({isOpen: !isOpen}));

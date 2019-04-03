@@ -11,7 +11,7 @@ import { addItemToCartAction, multiItemsCartAction } from '@stores/actions/commo
 import { deleteItemAction } from '@stores/actions/pages/wishlist';
 
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
-import { getAppCurrency } from '@stores/reducers/common/init';
+import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartLoading: boolean = isCartStateLoading(state, ownProps);

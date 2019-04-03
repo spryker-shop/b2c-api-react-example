@@ -1,5 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { getAnonymId } from '@stores/reducers/common/init';
+import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
 import { getCheckoutDataAction, sendCheckoutDataAction } from '@stores/actions/pages/checkout';

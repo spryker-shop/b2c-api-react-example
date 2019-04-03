@@ -57,7 +57,7 @@ export const styles = (theme: Theme) => createStyles({
     linkItem: {
         padding: '6px 0',
         [theme.breakpoints.up('sm')]: {
-            padding: '11px 0 0'
+            padding: '0 0 11px'
         }
     },
     link: {

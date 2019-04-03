@@ -1,5 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import { getAnonymId, isAppInitiated } from '@stores/reducers/common/init';
+import { getAnonymId, isAppInitiated } from '@stores/reducers/common/init/selectors';
 import {
     getProduct,
     isPageProductStateFulfilled,
