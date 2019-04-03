@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { styles } from './styles';
 
 @(withRouter as Function)
-export class AppPaginationBase extends React.Component<Props, State> {
+export class AppPaginationComponent extends React.Component<Props, State> {
     public onChange = (event: React.ChangeEvent<{}>, value: number | string): void => {
         if (this.props.isAddURLParam) {
             const query = new URLSearchParams(this.props.history.location.search);
@@ -20,14 +20,14 @@ export class AppPaginationBase extends React.Component<Props, State> {
         const {
             classes,
             pagination: {
-                currentPage: page,
+                currentPage: currentPage,
                 maxPage: size
             },
             onChangeHandler,
             step = 1
         } = this.props;
 
-        if (!page) {
+        if (!currentPage) {
             return null;
         }
 
@@ -37,22 +37,11 @@ export class AppPaginationBase extends React.Component<Props, State> {
             label: classes.label
         };
         const pages: JSX.Element[] = [];
-        const isLast = (page === size);
-        const isFirst = (page === 1);
+        const isLast = (currentPage === size);
+        const isFirst = (currentPage === 1);
 
-        const add = (from: number, to: number) => {
-            for (let i = from; i < to; i++) {
-                pages.push(
-                    <BottomNavigationAction
-                        disabled={ page === i }
-                        showLabel
-                        label={ i }
-                        value={ i }
-                        key={ `page-${i}` }
-                        classes={ numberClasses }
-                    />);
-            }
-        };
+        const extremePagesLimit = 1;
+        const nearbyPagesLimit = 2;
 
         const dots = (i: number) => {
             pages.push(
@@ -67,50 +56,77 @@ export class AppPaginationBase extends React.Component<Props, State> {
             );
         };
 
-        const last = () => {
-            dots(size);
-            pages.push(
-                <BottomNavigationAction
-                    showLabel
-                    label={ size }
-                    value={ size }
-                    key={ `page-${size}` }
-                    classes={ numberClasses }
-                />
-            );
-        };
-
-        const first = () => {
-            pages.push(
-                <BottomNavigationAction
-                    showLabel
-                    label={ 1 }
-                    value={ 1 }
-                    key={ `page-${1}` }
-                    classes={ numberClasses }
-                />
-            );
-            dots(1);
-        };
-
-        const build = () => {
-            if (size < step * 2 + 6) {
-                add(1, size + 1);
-            }
-            else {
-                if (page < step * 2 + 1) {
-                    add(1, step * 2 + 4);
-                    last();
-                }
-                else {
-                    if (page > size - step * 2) {
-                        first();
-                        add(size - step * 2 - 2, size + 1);
+        const build = (): void => {
+            if (currentPage > 1) {
+                for (let i = 1; i <= extremePagesLimit; i++) {
+                    if ( i < currentPage - nearbyPagesLimit) {
+                        pages.push(
+                            <BottomNavigationAction
+                                showLabel
+                                label={ i }
+                                value={ i }
+                                key={ `page-${i}` }
+                                classes={ numberClasses }
+                            />);
                     }
-                    else {
-                        first();
-                        add(page - step, page + step + 1);
-                        last();
+                }
+
+                if (extremePagesLimit + 1 < currentPage - nearbyPagesLimit) {
+                    dots(1);
+                }
+
+                for (let i = currentPage - nearbyPagesLimit; i <= currentPage - 1; i++) {
+                    if ( i > 0) {
+                        pages.push(
+                            <BottomNavigationAction
+                                showLabel
+                                label={ i }
+                                value={ i }
+                                key={ `page-${i}` }
+                                classes={ numberClasses }
+                            />);
+                    }
+                }
+            }
+
+            pages.push(
+                <BottomNavigationAction
+                    disabled
+                    showLabel
+                    label={ currentPage }
+                    value={ currentPage }
+                    key={ `page-${currentPage}` }
+                    classes={ numberClasses }
+                />);
+
+            if (currentPage < size) {
+                for (let i = currentPage + 1; i <= currentPage + nearbyPagesLimit; i++) {
+                    if ( i <= size) {
+                        pages.push(
+                            <BottomNavigationAction
+                                showLabel
+                                label={ i }
+                                value={ i }
+                                key={ `page-${i}` }
+                                classes={ numberClasses }
+                            />);
+                    }
+                }
+
+                if ((size - extremePagesLimit) > (currentPage + nearbyPagesLimit)) {
+                    dots(size);
+                }
+
+                for (let i = size - extremePagesLimit + 1; i <= size; i++) {
+                    if ( i > currentPage + nearbyPagesLimit) {
+                        pages.push(
+                            <BottomNavigationAction
+                                showLabel
+                                label={ i }
+                                value={ i }
+                                key={ `page-${i}` }
+                                classes={ numberClasses }
+                            />);
                     }
                 }
             }
@@ -122,7 +138,7 @@ export class AppPaginationBase extends React.Component<Props, State> {
             <Grid container justify="center" alignItems="center" className={ classes.root }>
                 <Grid item xs>
                     <BottomNavigation
-                        value={ page }
+                        value={ currentPage }
                         onChange={ this.onChange }
                         classes={{
                             root: classes.container
@@ -132,7 +148,7 @@ export class AppPaginationBase extends React.Component<Props, State> {
                             disabled={ isFirst }
                             showLabel
                             label={ <FormattedMessage id={ 'word.previous.title' } /> }
-                            value={ page - 1 }
+                            value={ currentPage - 1 }
                             key="prev"
                             classes={{
                                 root: `${classes.item} ${classes.itemKeys} ${classes.itemLeft}`,
@@ -144,7 +160,7 @@ export class AppPaginationBase extends React.Component<Props, State> {
                             disabled={ isLast }
                             showLabel
                             label={ <FormattedMessage id={ 'word.new.title' } /> }
-                            value={ page + 1 }
+                            value={ currentPage + 1 }
                             key="next"
                             classes={{
                                 root: `${classes.item} ${classes.itemKeys} ${classes.itemRight}`,
@@ -158,4 +174,4 @@ export class AppPaginationBase extends React.Component<Props, State> {
     }
 }
 
-export const AppPagination = withStyles(styles)(AppPaginationBase);
+export const AppPagination = withStyles(styles)(AppPaginationComponent);

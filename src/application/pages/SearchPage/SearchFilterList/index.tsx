@@ -123,9 +123,9 @@ class SearchFilterListComponent extends React.Component<Props, State> {
 
     protected updateStoreWithNewFilters = (): void => {
         const isActiveFiltersChanged = this.state.activeFilters !== this.props.activeFilters;
-        const isactiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
+        const isActiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
 
-        if (isActiveFiltersChanged || isactiveRangeFiltersChanged) {
+        if (isActiveFiltersChanged || isActiveRangeFiltersChanged) {
             this.props.setActiveFilters({
                 activeFilters: this.state.activeFilters,
                 activeRangeFilters: this.state.activeRangeFilters
