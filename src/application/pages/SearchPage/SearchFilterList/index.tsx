@@ -18,6 +18,7 @@ import { Button, Hidden, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @connect
 class SearchFilterListComponent extends React.Component<Props, State> {
@@ -143,9 +144,13 @@ class SearchFilterListComponent extends React.Component<Props, State> {
 
     protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
         const { isLockedPage } = this.props;
+        const isMobile = resolutionChecker(window.innerWidth, 'md');
 
-        isLockedPage(isFilterListOpened);
         this.setState(({isFilterListOpened}));
+
+        if (isMobile) {
+            isLockedPage(isFilterListOpened);
+        }
     };
 
     public render = (): JSX.Element => {

@@ -32,6 +32,8 @@ class CategoriesListComponent extends React.Component<Props, State> {
     };
 
     protected openPopover = ({ currentTarget }: ClickEvent): void => {
+        console.log(currentTarget);
+
         this.setState(({anchorElement}) => ({ anchorElement: Boolean(anchorElement) ? null : currentTarget, }));
     };
 
@@ -66,7 +68,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
                     categoryName={ `${ category.name ? category.name : <FormattedMessage id={ 'no.name.title' } /> }` }
                 >
                     { Boolean(isSubcategoryExist) &&
-                        this.getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
+                    this.getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
                     }
 
                 </CategoryItem>
@@ -104,7 +106,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
                         </span>
                     </span>
                     <PopoverWrapper
-                        anchorElement={ isOpen }
+                        anchorElement={ anchorElement }
                         anchorReference="anchorEl"
                         hideBackdrop={ false }
                         closePopoverHandler={ this.closePopover }

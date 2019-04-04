@@ -16,8 +16,8 @@ export const styles = (theme: Theme) => createStyles({
             padding: '4px 0'
         },
         '&:hover': {
+            background: 'none',
             [theme.breakpoints.up('lg')]: {
-                background: 'none',
                 color: theme.appColors.blue,
             },
             '& $quantity': {

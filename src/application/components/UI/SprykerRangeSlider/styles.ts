@@ -26,11 +26,7 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite,
         color: theme.appColors.grey,
         transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out',
-        '&:hover': {
-            background: theme.appColors.weekWhite,
-            color: theme.appColors.grey
-        },
-        '&:active': {
+        '&:hover, &:active': {
             background: theme.appColors.weekWhite,
             color: theme.appColors.grey
         },
@@ -39,6 +35,9 @@ export const styles = (theme: Theme) => createStyles({
             height: 42,
             fontSize: 14,
             letterSpacing: 0.1,
+            '&:hover, &:active': {
+                background: theme.appColors.white
+            }
         },
         [theme.breakpoints.up('lg')]: {
             '&:hover': {
