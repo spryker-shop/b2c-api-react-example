@@ -20,10 +20,12 @@ import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
 import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
+import { NavigationService } from '@services/common/Navigations';
 import { getAnonymId } from '@helpers/common/anonymId';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
+        const isTouch =  'ontouchstart' in window;
         dispatch(initApplicationDataPendingStateAction());
 
         try {
@@ -32,7 +34,8 @@ export class InitAppService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
-                dispatch(initApplicationDataFulfilledStateAction(responseParsed));
+                await NavigationService.getMainNavigation(dispatch);
+                dispatch(initApplicationDataFulfilledStateAction({...responseParsed, isTouch}));
                 dispatch(anonymIdFilFilled(anonymId));
                 dispatch(getCategoriesAction());
             } else {
@@ -93,6 +96,7 @@ export class InitAppService extends ApiServiceAbstract {
             api.setHeader('Accept-Language', payload.locale);
             localStorage.setItem('locale', payload.locale);
 
+            await NavigationService.getMainNavigation(dispatch);
             await this.getCategoriesTree(dispatch);
 
             dispatch(switchLocaleFulfilledState(payload));

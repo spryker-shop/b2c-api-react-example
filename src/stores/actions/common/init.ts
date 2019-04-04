@@ -3,6 +3,7 @@ import {
     INIT_APP_ACTION_TYPE,
     SET_AUTH_FROM_STORAGE,
     SWITCH_LOCALE,
+    IS_PAGE_LOCKED,
     ANONYM_ID
 } from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
@@ -79,4 +80,9 @@ export const getCategoriesAction = function () {
 export const anonymIdFilFilled = (payload: string) => ({
     type: ANONYM_ID + '_FULFILLED',
     payloadAnonymIdFulfilled: payload,
+});
+
+export const isLockedPageFulfilledState = (payload: boolean): IInitAction => ({
+    type: IS_PAGE_LOCKED + '_FULFILLED',
+    payloadIsLockedPage: payload,
 });

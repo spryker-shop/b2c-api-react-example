@@ -27,7 +27,7 @@ export type TCustomerInputValue = TCustomerFirstName
 
 export type TSalutationVariant = {
   value: string,
-  label: React.ReactNode,
+  name: React.ReactNode,
 };
 
 export interface ICustomerProfileIdentity {

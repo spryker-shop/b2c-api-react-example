@@ -8,6 +8,7 @@ export interface IMainNavigationNode {
     validFrom?: boolean | null;
     validTo?: boolean | null;
     children: IMainNavigationNode[];
+    additionalItem?: boolean;
 }
 
 export interface INavLinkData {

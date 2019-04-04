@@ -5,10 +5,10 @@ import { styles } from './styles';
 export interface IUserDropNavigationProps extends WithStyles<typeof styles>, WithRouter {
     isUserLoggedIn?: boolean;
     logout?(): void;
+    isTouch?: boolean;
 }
 
 export interface IUserDropNavigationState {
-    anchorElement: HTMLElement | null;
     isPopupOpened: boolean;
     isContentHovered: boolean;
     isButtonHovered: boolean;

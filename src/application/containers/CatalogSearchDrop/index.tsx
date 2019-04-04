@@ -8,6 +8,7 @@ import { SearchIcon, CrossIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @(withRouter as Function)
 class CatalogSearchDropComponent extends React.Component<Props, State> {
@@ -30,6 +31,7 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { anchorElement } = this.state;
         const { classes } = this.props;
+        const anchorReference = resolutionChecker(window.innerWidth, 'lg') ? 'anchorPosition' : 'anchorEl';
 
         return (
             <>
@@ -39,15 +41,21 @@ class CatalogSearchDropComponent extends React.Component<Props, State> {
                     onClick={ this.openPopover }
                     className={ classes.iconButton }
                 >
-                    <SearchIcon />
+                    <span className={ classes.icon }>
+                        <SearchIcon />
+                    </span>
                 </IconButton>
 
                 <PopoverWrapper
                     anchorElement={ anchorElement }
+                    anchorReference={ anchorReference }
+                    hideBackdrop={ false }
                     closePopoverHandler={ this.closePopover }
                     classes={{
-                        popover: classes.layout,
-                        content: classes.content
+                        backdrop: classes.backdrop,
+                        content: classes.content,
+                        customCoordinates: classes.overlayCustomCoordinates,
+                        contentCustomCoordinates: classes.contentCustomCoordinates
                     }}
                     anchorOrigin={{
                         vertical: 'center',

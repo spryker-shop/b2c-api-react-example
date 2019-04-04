@@ -63,3 +63,11 @@ export function getCategoriesTree(state: IReduxStore, props: IReduxOwnProps): IC
 export function getAnonymId(state: IReduxStore, props: IReduxOwnProps): string {
     return state.init.data.anonymId;
 }
+
+export function getIsTouch(state: IReduxStore, props: IReduxOwnProps): boolean {
+    return state.init.data.isTouch;
+}
+
+export function getIsPageLocked(state: IReduxStore, props: IReduxOwnProps): boolean {
+    return state.init.data.isLockedPage;
+}

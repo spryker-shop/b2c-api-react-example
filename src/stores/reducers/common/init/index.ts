@@ -3,7 +3,8 @@ import {
     ANONYM_ID,
     CATEGORIES_TREE_REQUEST,
     INIT_APP_ACTION_TYPE,
-    SWITCH_LOCALE
+    SWITCH_LOCALE,
+    IS_PAGE_LOCKED
 } from '@stores/actionTypes/common/init';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IInitData } from '@interfaces/init';
@@ -21,6 +22,8 @@ export const initialState: IInitState = {
         categoriesTree: [],
         countries: [],
         anonymId: 'anonym',
+        isTouch: true,
+        isLockedPage: false
     },
 };
 
@@ -44,6 +47,8 @@ export const init = function(state: IInitState = initialState, action: IInitActi
             return handleInitAppClear(state);
         case `${ANONYM_ID}_FULFILLED`:
             return handleAnonymIdFulfilled(state, action.payloadAnonymIdFulfilled);
+        case `${IS_PAGE_LOCKED}_FULFILLED`:
+            return handleIsLockedPageFulfilled(state, action.payloadIsLockedPage);
         default:
             return state;
     }
@@ -59,7 +64,8 @@ const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) => ({
         store: payload.store,
         locale: payload.locale,
         timeZone: payload.timeZone,
-        countries: payload.countries
+        countries: payload.countries,
+        isTouch: payload.isTouch
     },
     ...getReducerPartFulfilled(),
 });
@@ -106,6 +112,16 @@ const handleInitAppClear = (appState: IInitState) => ({
         anonymId: ''
     }
 });
+
+const handleIsLockedPageFulfilled = (appState: IInitState, payload: boolean) =>
+    ({
+        ...appState,
+        data: {
+            ...appState.data,
+            isLockedPage: payload
+        },
+        ...getReducerPartFulfilled(),
+    });
 
 const handleAnonymIdFulfilled = (appState: IInitState, payload: string) => ({
     ...appState,

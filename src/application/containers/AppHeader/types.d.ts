@@ -4,11 +4,10 @@ import { styles } from './styles';
 
 export interface IAppHeaderState {
     headerHeight: number;
+    isMobileNavOpened: boolean;
 }
 
 export interface IAppHeaderProps extends WithStyles<typeof styles>, WithRouter {
     isLoading: boolean;
-    isMobileNavOpened: boolean;
-    locale: string;
-    onMobileNavToggle(): void;
+    isLockedPage?: (value: boolean) => void;
 }
