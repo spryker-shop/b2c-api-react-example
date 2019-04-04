@@ -9,14 +9,18 @@ export const styles = (theme: Theme) => createStyles({
         display: 'inline-flex',
         alignItems: 'center',
         height: 26,
-        marginBottom: 20,
+        marginBottom: 12,
         padding: '5px 14px',
         borderRadius: 14,
         background: theme.appColors.weekWhite,
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: 500,
         letterSpacing: 0.1,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        [theme.breakpoints.up('lg')]: {
+            marginBottom: 20,
+            fontSize: 12,
+        }
     },
     available: {
         color: theme.appColors.green
@@ -26,19 +30,28 @@ export const styles = (theme: Theme) => createStyles({
     },
     title: {
         paddingBottom: 16,
-        fontWeight: 700
+        fontWeight: 700,
+        fontSize: 16,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20,
+        }
     },
     priceBlock: {
         display: 'flex',
         alignItems: 'flex-end',
+        flexWrap: 'wrap',
         paddingBottom: 16,
     },
     price: {
         color: theme.appColors.black,
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 500,
-        lineHeight: 1,
-        paddingRight: 10
+        lineHeight: 1.2,
+        paddingRight: 6,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 24,
+            paddingRight: 10,
+        }
     },
     newPrice: {
         color: theme.appColors.red
@@ -46,14 +59,20 @@ export const styles = (theme: Theme) => createStyles({
     oldPrice: {
         paddingRight: 8,
         color: theme.appColors.grey,
-        fontSize: 18,
+        fontSize: 16,
         letterSpacing: 0.3,
-        lineHeight: 1,
+        lineHeight: 1.2,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 18,
+        }
     },
     vat: {
         color: theme.appColors.lightGrey,
-        fontSize: 14,
-        lineHeight: 1,
-        letterSpacing: 0
+        fontSize: 12,
+        lineHeight: 1.2,
+        letterSpacing: 0,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 14,
+        }
     }
 });

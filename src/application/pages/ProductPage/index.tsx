@@ -151,11 +151,35 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }
     };
 
-    protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => images
-        ? images.map((element: IProductCardImages, index: number) => ({
-            id: index,
-            src: element.externalUrlLarge
-        })) : null;
+    protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => {
+        let test;
+        let test2;
+        let filters = [];
+        if (images) {
+            const test3 = images.map((element: IProductCardImages, index: number) => {
+                test = index;
+                test2 = element.externalUrlLarge;
+
+                return {
+                    id: index,
+                    src: element.externalUrlLarge
+                };
+            });
+
+            for (let i = 0; i < 7; i++) {
+                const test4 = {
+                    id: test,
+                    src: test2
+                };
+
+                filters.push(test4);
+            }
+
+            return filters;
+        }
+
+        return null;
+    };
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
@@ -207,44 +231,48 @@ export class ProductPageComponent extends React.Component<Props, State> {
                     <>
                         <Breadcrumbs breadcrumbsList={ categoriesTree } />
                         <AppMain>
-                            <Grid container spacing={ 40 } className={ classes.productMain }>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
-                                    <ProductImageSlider images={ images } />
+                            <Grid container spacing={ 16 } className={ classes.productMain }>
+                                <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
+                                    <div className={ classes.productPreview }>
+                                        <ProductImageSlider images={ images } />
+                                    </div>
                                 </Grid>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 5 }>
-                                    <ProductGeneralInfo
-                                        name={ name }
-                                        sku={ sku }
-                                        price={ priceDefaultGross }
-                                        oldPrice={ priceOriginalGross ? priceOriginalGross : null }
-                                        availability={ getAvailabilityDisplay(availability) }
-                                    />
-
-                                    { superAttributes &&
-                                        <ErrorBoundary>
-                                            <ProductSuperAttribute
-                                                productData={ superAttributes }
-                                                onChange={ this.handleSuperAttributesChange }
-                                            />
-                                        </ErrorBoundary>
-                                    }
-
-                                    <ErrorBoundary>
-                                        <ProductConfiguratorAddToCart
-                                            productType={ productType }
-                                            product={ this.props.product.concreteProducts[sku] }
+                                <Grid item xs={ 12 } sm={ 6 } md={ 5 }>
+                                    <div className={ classes.productContent }>
+                                        <ProductGeneralInfo
+                                            name={ name }
                                             sku={ sku }
+                                            price={ priceDefaultGross }
+                                            oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                            availability={ getAvailabilityDisplay(availability) }
                                         />
-                                    </ErrorBoundary>
 
-                                    { isUserLoggedIn &&
+                                        { superAttributes &&
+                                            <ErrorBoundary>
+                                                <ProductSuperAttribute
+                                                    productData={ superAttributes }
+                                                    onChange={ this.handleSuperAttributesChange }
+                                                />
+                                            </ErrorBoundary>
+                                        }
+
                                         <ErrorBoundary>
-                                            <ProductConfiguratorAddToWishlist
+                                            <ProductConfiguratorAddToCart
                                                 productType={ productType }
+                                                product={ this.props.product.concreteProducts[sku] }
                                                 sku={ sku }
                                             />
                                         </ErrorBoundary>
-                                    }
+
+                                        { isUserLoggedIn &&
+                                            <ErrorBoundary>
+                                                <ProductConfiguratorAddToWishlist
+                                                    productType={ productType }
+                                                    sku={ sku }
+                                                />
+                                            </ErrorBoundary>
+                                        }
+                                    </div>
                                 </Grid>
                             </Grid>
                             <ProductDetail

@@ -120,24 +120,25 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
 
         return (
             <div className={ classes.root }>
-                <Typography
-                    variant="subheading"
-                    component="span"
-                    color="textSecondary"
-                    className={ classes.title }
-                >
-                    <FormattedMessage id={ 'word.quantity.title' } />
-                </Typography>
-                <SprykerQuantityCounter
-                    name={ sku }
-                    isBigger
-                    handleChangeQty={ this.handleChangeQty }
-                    delayDuration={ 0 }
-                    isUseSubmitInspection={ false }
-                    classes={{ root: classes.counter }}
-                    value={ quantitySelected }
-                    isUpdateToDefault={ isUpdateValue }
-                />
+                <div className={ classes.counter }>
+                    <Typography
+                        variant="subheading"
+                        component="span"
+                        color="textSecondary"
+                        className={ classes.title }
+                    >
+                        <FormattedMessage id={ 'word.quantity.title' } />
+                    </Typography>
+                    <SprykerQuantityCounter
+                        name={ sku }
+                        isBigger
+                        handleChangeQty={ this.handleChangeQty }
+                        delayDuration={ 0 }
+                        isUseSubmitInspection={ false }
+                        value={ quantitySelected }
+                        isUpdateToDefault={ isUpdateValue }
+                    />
+                </div>
 
                 <Button
                     variant="contained"

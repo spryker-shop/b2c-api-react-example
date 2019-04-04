@@ -3,12 +3,13 @@ import { connect } from './connect';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import { SquareImage } from '@application/components/SquareImage';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, Hidden, withStyles } from '@material-ui/core';
 import { ArrowButton } from './ArrowButton';
 import { RightIcon, LeftIcon, BottomIcon, TopIcon } from './icons';
 import { IProductImageSliderProps as Props } from './types';
 import { styles } from './styles';
 import { ProductLabel } from '@application/components/ProductLabel';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 @connect
 export class ProductImageSliderComponent extends React.Component<Props> {
@@ -29,8 +30,8 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         const { images, classes } = this.props;
 
         return (
-            images.map(image => (
-                <div className={ classes.mainSliderItem } key={ image.id }>
+            images.map((image, index) => (
+                <div className={ classes.mainSliderItem } key={`${image.id}-${index}`}>
                     <SquareImage image={ image.src } alt={ image.id } classes={ { imgWrapper: classes.imageMain } } />
                 </div>
             ))
@@ -41,8 +42,8 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         const { images, classes } = this.props;
 
         return (
-            images.map(image => (
-                <div className={ classes.thumbnailItem } key={ image.id }>
+            images.map((image, index) => (
+                <div className={ classes.thumbnailItem } key={`${image.id}-${index}`}>
                     <SquareImage
                         image={ image.src }
                         alt={ image.id }
@@ -61,11 +62,32 @@ export class ProductImageSliderComponent extends React.Component<Props> {
 
         const mainSliderSettings: Settings = {
             dots: true,
-            prevArrow: (<ArrowButton icon={ <LeftIcon /> } customClass={ classes.slideArrow } />),
-            nextArrow: (<ArrowButton icon={ <RightIcon /> } customClass={ classes.slideArrow } />),
             customPaging: this.customPaging,
             appendDots: this.renderDots,
-            asNavFor: this.thumbnailsSliderRef
+            prevArrow: (
+                <ArrowButton icon={ <LeftIcon /> } classes={{
+                    button: classes.slideArrow,
+                    icon: classes.slideArrowIcon
+                }} />
+            ),
+            nextArrow: (
+                <ArrowButton icon={ <RightIcon /> } classes={{
+                    button: classes.slideArrow,
+                    icon: classes.slideArrowIcon
+                }} />
+            ),
+            asNavFor: this.thumbnailsSliderRef,
+            responsive: [
+                {
+                    breakpoint: appBreakpoints.values.sm,
+                    settings: {
+                        arrows: false,
+                        centerPadding: '30px',
+                        centerMode: true,
+                        infinite: false,
+                    }
+                }
+            ]
         };
 
         const thumbnailSliderSettings: Settings = {
@@ -75,8 +97,18 @@ export class ProductImageSliderComponent extends React.Component<Props> {
             infinite: isSliderScrollable,
             asNavFor: this.mainSliderRef,
             focusOnSelect: true,
-            prevArrow: (<ArrowButton icon={ <TopIcon /> } customClass={ classes.slideArrowThumbs } />),
-            nextArrow: (<ArrowButton icon={ <BottomIcon /> } customClass={ classes.slideArrowThumbs } />)
+            prevArrow: (
+                <ArrowButton icon={ <TopIcon /> } classes={{
+                    button: classes.slideArrowThumbs,
+                    icon: classes.slideArrowThumbsIcon
+                }} />
+            ),
+            nextArrow: (
+                <ArrowButton icon={ <BottomIcon /> } classes={{
+                    button: classes.slideArrowThumbs,
+                    icon: classes.slideArrowThumbsIcon
+                }} />
+            )
         };
 
         if (!images.length) {
@@ -85,21 +117,23 @@ export class ProductImageSliderComponent extends React.Component<Props> {
 
         return (
             <Grid container>
-                <Grid
-                    item
-                    className={`${classes.thumbnailsCol} ${isSingleSlide ? classes.thumbnailsHidden : ''}`}
-                >
-                    <Slider
-                        { ...thumbnailSliderSettings }
-                        ref={ slider => (this.thumbnailsSliderRef = slider) }
-                        className={`
-                            ${classes.thumbnailSlider}
-                            ${isSliderScrollable ? classes.thumbnailSliderScrolled : ''}
-                        `}
+                <Hidden only={['xs', 'sm']} implementation="css">
+                    <Grid
+                        item
+                        className={`${classes.thumbnailsCol} ${isSingleSlide ? classes.thumbnailsHidden : ''}`}
                     >
-                        { this.renderThumbnailItems() }
-                    </Slider>
-                </Grid>
+                        <Slider
+                            { ...thumbnailSliderSettings }
+                            ref={ slider => (this.thumbnailsSliderRef = slider) }
+                            className={`
+                                ${classes.thumbnailSlider}
+                                ${isSliderScrollable ? classes.thumbnailSliderScrolled : ''}
+                            `}
+                        >
+                            { this.renderThumbnailItems() }
+                        </Slider>
+                    </Grid>
+                </Hidden>
                 <Grid
                     item
                     className={`${classes.mainSliderCol} ${isSingleSlide ? classes.mainSliderFullWidth : ''}`}

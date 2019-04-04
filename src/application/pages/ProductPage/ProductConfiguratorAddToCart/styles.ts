@@ -3,16 +3,39 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
-        paddingBottom: 20
+        paddingBottom: 30,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20
+        }
     },
     counter: {
-        paddingBottom: 30
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        paddingBottom: 30,
+        [theme.breakpoints.up('sm')]: {
+            display: 'block',
+            paddingBottom: 20
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 30,
+        }
     },
     icon: {
-        paddingLeft: 10,
+        paddingLeft: 8,
         lineHeight: 0
     },
     title: {
-        paddingBottom: 15
-    },
+        padding: '5px 24px 5px 0',
+        fontSize: 14,
+        lineHeight: 1.3,
+        [theme.breakpoints.up('md')]: {
+            padding: '0 0 10px',
+            display: 'block'
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 15,
+            paddingBottom: 15
+        }
+    }
 });
