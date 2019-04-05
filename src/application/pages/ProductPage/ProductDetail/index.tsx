@@ -40,9 +40,9 @@ export class ProductDetailComponent extends React.Component<Props, State> {
 
                 <div className={ classes.tabContent }>
                     { value === 0 &&
-                        <Grid container spacing={ 24 }>
+                        <Grid container spacing={ 16 }>
                             { Object.entries(attributes).map((data: [string, string]) => (
-                                <Grid item xs={ 12 } sm={ 6 } lg={ 4 } key={`${attributeNames[data[0]] }-${ data[1]}`}>
+                                <Grid item xs={ 12 } sm={ 6 } md={ 4 } key={`${attributeNames[data[0]] }-${ data[1]}`}>
                                     <div className={ classes.attributes }>
                                         <strong className={ classes.attributesName }>
                                             { `${ attributeNames[data[0]]

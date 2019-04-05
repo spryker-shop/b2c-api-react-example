@@ -5,7 +5,14 @@ export const styles = (theme: Theme) => createStyles({
     root: {},
     title: {
         textAlign: 'center',
-        paddingBottom: '40px'
+        paddingBottom: 15,
+        fontSize: 20,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 20
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 40
+        }
     },
     slider: {}
 });

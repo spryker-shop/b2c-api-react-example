@@ -273,5 +273,11 @@ export const styles = (theme: Theme) => createStyles({
             top: 20,
             left: 15
         }
+    },
+    labelSingleSlide: {
+        left: 5,
+        [theme.breakpoints.up('md')]: {
+            left: 15
+        }
     }
 });

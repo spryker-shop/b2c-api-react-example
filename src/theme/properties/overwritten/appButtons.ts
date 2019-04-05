@@ -14,7 +14,6 @@ export const appButtons: Overrides = {
             borderStyle: 'solid',
             borderColor: 'transparent',
             textTransform: 'none',
-
             '&:hover': {
                 '&$disabled': {
                     backgroundColor: appColors.lightGrey,
@@ -22,7 +21,6 @@ export const appButtons: Overrides = {
                     borderColor: appColors.lightGrey,
                 }
             },
-
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,
@@ -42,7 +40,6 @@ export const appButtons: Overrides = {
             '&:hover': {
                 backgroundColor: appColors.darkRed
             },
-
             '&:active': {
                 backgroundColor: appColors.weekRed,
                 boxShadow: 'none'
@@ -50,11 +47,10 @@ export const appButtons: Overrides = {
             '@media (hover: none)': {
                 '&:active, &:hover': {
                     boxShadow: 'none',
-                    backgroundColor: `${appColors.red}`,
+                    backgroundColor: appColors.red,
                     color: appColors.white,
                 },
             },
-
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,

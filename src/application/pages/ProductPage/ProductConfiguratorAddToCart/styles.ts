@@ -1,5 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
+import { appColors } from '@theme/properties/new/appColors';
 
 export const styles = (theme: Theme) => createStyles({
     root: {
@@ -36,6 +37,15 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('lg')]: {
             fontSize: 15,
             paddingBottom: 15
+        }
+    },
+    button: {
+        '@media (hover: none)': {
+            '&:active, &:hover': {
+                boxShadow: 'none',
+                backgroundColor: theme.appColors.red,
+                color: appColors.white,
+            }
         }
     }
 });

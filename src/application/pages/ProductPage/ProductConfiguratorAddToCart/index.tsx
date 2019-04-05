@@ -144,6 +144,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
                     variant="contained"
                     disabled={ this.state.isBuyBtnDisabled }
                     onClick={ this.handleBuyBtnClick }
+                    className={ classes.button }
                     fullWidth
                 >
                     <FormattedMessage id={ 'add.to.cart.button.title' } />

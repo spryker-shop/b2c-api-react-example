@@ -151,35 +151,11 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }
     };
 
-    protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => {
-        let test;
-        let test2;
-        let filters = [];
-        if (images) {
-            const test3 = images.map((element: IProductCardImages, index: number) => {
-                test = index;
-                test2 = element.externalUrlLarge;
-
-                return {
-                    id: index,
-                    src: element.externalUrlLarge
-                };
-            });
-
-            for (let i = 0; i < 7; i++) {
-                const test4 = {
-                    id: test,
-                    src: test2
-                };
-
-                filters.push(test4);
-            }
-
-            return filters;
-        }
-
-        return null;
-    };
+    protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => images
+        ? images.map((element: IProductCardImages, index: number) => ({
+            id: index,
+            src: element.externalUrlLarge
+        })) : null;
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
@@ -284,6 +260,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                             {shouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
                                     <ProductRelations
+                                        classes={{ root: classes.sliderWrapper, slider: classes.slider }}
                                         sku={ this.props.product.abstractProduct.sku }
                                         title={ <FormattedMessage id={ 'product.relations.title' } /> }
                                     />

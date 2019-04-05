@@ -24,6 +24,7 @@ export const styles: any = (theme: Theme) => createStyles({
             }
         ],
         body: {
+            minWidth: 320,
             fontFamily: 'Circular'
         }
     },

@@ -4,7 +4,13 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     root: {
         flexGrow: 1,
-        paddingBottom: 130
+        paddingBottom: 90,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 60
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 130
+        }
     },
     productMain: {
         paddingBottom: 40,
@@ -26,6 +32,21 @@ export const styles = (theme: Theme) => createStyles({
     productContent: {
         [theme.breakpoints.up('lg')]: {
             paddingLeft: 12
+        }
+    },
+    sliderWrapper: {
+        paddingTop: 50,
+        [theme.breakpoints.up('md')]: {
+            paddingTop: 60
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: 80
+        }
+    },
+    slider: {
+        margin: '0 -16px',
+        [theme.breakpoints.up('sm')]: {
+            margin: 0
         }
     }
 });

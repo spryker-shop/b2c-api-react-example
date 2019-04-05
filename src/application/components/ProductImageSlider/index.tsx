@@ -82,7 +82,7 @@ export class ProductImageSliderComponent extends React.Component<Props> {
                     breakpoint: appBreakpoints.values.sm,
                     settings: {
                         arrows: false,
-                        centerPadding: '30px',
+                        centerPadding: isSingleSlide ? '0' : '30px',
                         centerMode: true,
                         infinite: false,
                     }
@@ -139,7 +139,13 @@ export class ProductImageSliderComponent extends React.Component<Props> {
                     className={`${classes.mainSliderCol} ${isSingleSlide ? classes.mainSliderFullWidth : ''}`}
                 >
                     <div className={ classes.sliderWrapper }>
-                        <ProductLabel label={ productLabels } classes={{ labelsOuter: classes.label }} />
+                        <ProductLabel
+                            label={ productLabels }
+                            classes={{
+                                labelsOuter: `${classes.label}
+                                ${isSingleSlide ? classes.labelSingleSlide : ''}`
+                            }}
+                        />
                         <Slider
                             { ...mainSliderSettings }
                             ref={ slider => (this.mainSliderRef = slider) }
