@@ -5,13 +5,14 @@ import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@application/components/ProductCard';
 import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles, withWidth } from '@material-ui/core';
 import { styles } from './styles';
 import 'slick-carousel/slick/slick.css';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { isWidthUp } from '@material-ui/core/withWidth';
 
 const ProductsSliderComponent = (props: Props): JSX.Element => {
-    const { classes, products, currency, onSelectProduct } = props;
+    const { classes, products, currency, onSelectProduct, width } = props;
     const defaultAmountSlides = 3;
     const shouldRenderSlider = products.length > defaultAmountSlides;
 
@@ -96,7 +97,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         ]
     };
 
-    if (!shouldRenderSlider) {
+    if (isWidthUp('sm', width) && !shouldRenderSlider) {
         return (
             <div className={ classes.layout }>
                 <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
@@ -117,4 +118,4 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
     );
 };
 
-export const ProductsSlider = withStyles(styles)(ProductsSliderComponent);
+export const ProductsSlider = withWidth()(withStyles(styles)(ProductsSliderComponent));
