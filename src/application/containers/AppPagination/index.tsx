@@ -19,10 +19,10 @@ export class AppPaginationComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { pagination: { currentPage }, width } = this.props;
-        const isChangedLocation = currentPage !== prevProps.pagination.currentPage;
+        const { pagination, width } = this.props;
+        const isChangedPagination = pagination !== prevProps.pagination;
         const isChangedOnMobile = isWidthUp('md', prevProps.width) !== isWidthUp('md', width);
-        const shouldRerenderPagination = isChangedOnMobile || isChangedLocation;
+        const shouldRerenderPagination = isChangedOnMobile || isChangedPagination;
 
         if (shouldRerenderPagination) {
             this.buildPagination();
