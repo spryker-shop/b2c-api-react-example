@@ -13,7 +13,7 @@ export interface ISearchFilterListProps extends WithStyles<typeof styles> {
     clearActiveFilters: () => void;
     updateStore: Function;
     categoriesList: (isOpened: boolean, Function: void) => JSX.Element;
-    isLockedPage?: (value: boolean) => void;
+    isPageLocked?: (value: boolean) => void;
 }
 
 export interface ISearchFilterListState {

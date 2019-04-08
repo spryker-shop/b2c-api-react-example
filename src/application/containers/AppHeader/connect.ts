@@ -1,11 +1,11 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { isLockedPageFulfilledState } from '@stores/actions/common/init';
+import { isPageLockedFulfilledState } from '@stores/actions/common/init';
 import { reduxify } from '@hoc/Reduxify';
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators(
         {
-            isLockedPage: (payload: boolean) => isLockedPageFulfilledState(payload)
+            isPageLocked: (payload: boolean) => isPageLockedFulfilledState(payload)
         },
         dispatch,
     )

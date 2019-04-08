@@ -143,13 +143,13 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
-        const { isLockedPage } = this.props;
+        const { isPageLocked } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
 
         this.setState(({isFilterListOpened}));
 
         if (isMobile) {
-            isLockedPage(isFilterListOpened);
+            isPageLocked(isFilterListOpened);
         }
     };
 
