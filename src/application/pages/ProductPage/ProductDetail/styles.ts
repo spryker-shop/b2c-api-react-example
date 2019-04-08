@@ -54,8 +54,7 @@ export const styles = (theme: Theme) => createStyles({
         padding: '30px 15px',
         background: theme.appColors.weekWhite,
         [theme.breakpoints.up('md')]: {
-            paddingLeft: 20,
-            paddingRight: 20
+            padding: '30px 20px'
         },
         [theme.breakpoints.up('lg')]: {
             padding: '47px 49px 47px 40px'
