@@ -102,10 +102,10 @@ export interface IBillingSelectionState {
 }
 
 export interface ICheckoutStepsCompletionState {
-    first: boolean;
-    second: boolean;
-    third: boolean;
-    fourth: boolean;
+    checkoutAddressStep: boolean;
+    checkoutBillingStep: boolean;
+    checkoutShipmentStep: boolean;
+    checkoutPaymentStep: boolean;
 }
 
 export interface ICheckoutCreditCardState {
@@ -133,5 +133,5 @@ export interface IFormFieldMutate {
 
 export interface IFormUpdatePaymentStatus {
     value: string;
-    isFourthStepCompleted: boolean;
+    isSummaryStepCompleted: boolean;
 }

@@ -1,19 +1,8 @@
-import {
-    ICheckoutFormsProps,
-} from '@application/pages/CheckoutPage/CheckoutForms/types';
-import {
-    ICheckoutPageProps
-} from '@application/pages/CheckoutPage/types';
-import {
-    ICheckoutAddressState,
-    ICheckoutStepsCompletionState
-} from '@interfaces/checkout';
+import { ICheckoutPageProps } from '@application/pages/CheckoutPage/types';
+import { ICheckoutAddressState } from '@interfaces/checkout';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
 import { IParamFormValidity, IParamInputValidity } from './types';
-import {
-    TAddressType,
-    TExtraOptionsToSelection
-} from '@constants/checkout/types';
+import { TAddressType, TExtraOptionsToSelection } from '@constants/checkout/types';
 import { checkoutSelectionInputs } from '@constants/checkout';
 import { RegExpZipCode } from '@constants/forms/regexp';
 import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
@@ -111,41 +100,6 @@ export const checkFormValidity = (param: IParamFormValidity): boolean => {
     }
 
     return result;
-};
-
-export const getCheckoutPanelsSettings = (params: ICheckoutStepsCompletionState): ICheckoutFormsProps['panels'] => {
-    const {
-        first,
-        second,
-        third,
-        fourth,
-    } = params;
-
-    const isFirstPanelDisabled = false;
-    const isSecondPanelDisabled = !first;
-    const isThirdPanelDisabled = !first || !second;
-    const isFourthPanelDisabled = !first || !second || !third;
-
-    const response = {
-        first: {
-            title: FormattedMessageTemplate('delivery.address.title'),
-            isDisabled: isFirstPanelDisabled,
-        },
-        second: {
-            title: FormattedMessageTemplate('billing.address.title'),
-            isDisabled: isSecondPanelDisabled,
-        },
-        third: {
-            title: FormattedMessageTemplate('word.shipment.title'),
-            isDisabled: isThirdPanelDisabled,
-        },
-        fourth: {
-            title: FormattedMessageTemplate('word.payment.title'),
-            isDisabled: isFourthPanelDisabled,
-        },
-    };
-
-    return response;
 };
 
 export const getAddressForm = (address: ICheckoutAddressState): IAddressItem => {

@@ -33,9 +33,10 @@ import {
     pathSearchPage,
     pathWishlistDetailPage,
     pathWishlistsPage,
-    pathRegisterPage
+    pathRegisterPage, pathCheckoutLoginStep
 } from '@constants/routes';
 import { RoutesProps as Props } from './types';
+import { LoadableCheckoutLoginStep } from '@pages/CheckoutPage/CheckoutLoginStep/loadable';
 
 export const Routes: React.SFC<Props> = (props): JSX.Element => {
     const { isAppLoading } = props;
@@ -72,7 +73,7 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
                 render={ props => <LoadableWishlistDetail {...props} /> }
             />
 
-            <Route path={ pathCheckoutPage } exact render={ props => <LoadableCheckoutPage {...props} /> }/>
+            <Route path={ pathCheckoutPage } render={ props => <LoadableCheckoutPage {...props} /> }/>
             <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
             <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>
 

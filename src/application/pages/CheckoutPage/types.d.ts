@@ -16,8 +16,9 @@ import {
     ICheckoutInvoiceState
 } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
+import { WithRouter } from '@interfaces/common';
 
-export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps {
+export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     isUserLoggedIn: boolean;
     isCheckoutLoading: boolean;
     isCheckoutFulfilled: boolean;

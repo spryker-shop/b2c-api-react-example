@@ -12,7 +12,7 @@ import {
 import { styles } from './styles';
 
 @connect
-export class CheckoutCartBase extends React.Component<Props, State> {
+class CheckoutCartComponent extends React.Component<Props, State> {
     protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
     protected designImgWidth: number = 0.33;
 
@@ -62,7 +62,7 @@ export class CheckoutCartBase extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, order, isSendBtnDisabled, sendData } = this.props;
+        const { classes, order, children: submitButton } = this.props;
         const { products, totals, listItemHeight } = this.state;
 
         return (
@@ -88,21 +88,10 @@ export class CheckoutCartBase extends React.Component<Props, State> {
                     title={ <FormattedMessage id={ `${order ? 'order.amount' : 'grand.total.title'}` } /> }
                 />
 
-                { !order &&
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        disabled={ isSendBtnDisabled }
-                        fullWidth
-                        className={ classes.btnWrapper }
-                        onClick={ sendData }
-                >
-                    { <FormattedMessage id={ 'place.order.title' } /> }
-                </Button>
-                }
+                { submitButton }
             </div>
         );
     }
 }
 
-export const CheckoutCart = withStyles(styles)(CheckoutCartBase);
+export const CheckoutCart = withStyles(styles)(CheckoutCartComponent);

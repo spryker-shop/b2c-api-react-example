@@ -5,10 +5,10 @@ import { pathOrderDetailsPageBase } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DoneIcon from '@material-ui/icons/Done';
 import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
-import { OrderSuccessProps } from './types';
+import { ICheckoutThanksProps as Props } from './types';
 import { styles } from './styles';
 
-export const OrderSuccessBase: React.SFC<OrderSuccessProps> = (props): JSX.Element => {
+const CheckoutThanksComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, order } = props;
 
     return (
@@ -30,4 +30,4 @@ export const OrderSuccessBase: React.SFC<OrderSuccessProps> = (props): JSX.Eleme
     );
 };
 
-export const OrderSuccess = withStyles(styles)(OrderSuccessBase);
+export const CheckoutThanks = withStyles(styles)(CheckoutThanksComponent);

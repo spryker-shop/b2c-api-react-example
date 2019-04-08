@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, Button } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { CheckoutCart } from '@application/pages/CheckoutPage/CheckoutCart';
-import { OrderSuccess } from '@application/pages/CheckoutPage/OrderSuccess';
 import { AppPageTitle } from '@application/components/AppPageTitle';
-import {
-    getCheckoutPanelsSettings,
-    getAddressForm
-} from '@helpers/checkout';
-import { FormEvent } from '@interfaces/common';
+import { getAddressForm } from '@helpers/checkout';
+import { ClickEvent } from '@interfaces/common';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { ICheckoutRequest } from '@interfaces/checkout';
-import {
-    ICheckoutPageProps as Props,
-    ICheckoutPageState as State
-} from './types';
+import { ICheckoutPageProps as Props, ICheckoutPageState as State } from './types';
 import { styles } from './styles';
-import { AppPageSubTitle } from '@application/components/AppPageSubTitle';
-import { CheckoutForms } from './CheckoutForms';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { CheckoutRouting } from './CheckoutRouting';
+import { Redirect, withRouter } from 'react-router-dom';
+import {
+    pathCheckoutAddressStep,
+    pathCheckoutLoginStep,
+    pathCheckoutPage,
+    pathCheckoutSummaryStep,
+    pathCheckoutThanks
+} from '@constants/routes';
 
+@(withRouter as Function)
 @connect
-export class CheckoutPageBase extends React.Component<Props, State> {
+class CheckoutPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
         isButtonDisabled: true
     };
@@ -34,7 +35,7 @@ export class CheckoutPageBase extends React.Component<Props, State> {
         } else {
             this.props.getCheckoutData({ idCart: this.props.cartId }, this.props.anonymId);
         }
-    }
+    };
 
     public componentDidUpdate = (prevProps: Props): void => {
         if (!prevProps.isCheckoutFulfilled && this.props.isCheckoutFulfilled) {
@@ -43,15 +44,21 @@ export class CheckoutPageBase extends React.Component<Props, State> {
             }
         }
 
-        const { first, second, third, fourth } = this.props.stepsCompletion;
         const {
-            first: prevFirst,
-            second: prevSecond,
-            third: prevThird,
-            fourth: prevFourth
+            checkoutAddressStep,
+            checkoutBillingStep,
+            checkoutShipmentStep,
+            checkoutPaymentStep
+        } = this.props.stepsCompletion;
+        const {
+            checkoutAddressStep: prevAddressStep,
+            checkoutBillingStep: prevBillingStep,
+            checkoutShipmentStep: prevShipmentStep,
+            checkoutPaymentStep: prevPaymentStep,
         } = prevProps.stepsCompletion;
-        const checkCheckoutFormValidity = first && second && third && fourth;
-        const prevCheckCheckoutFormValidity = prevFirst && prevSecond && prevThird && prevFourth;
+        const checkCheckoutFormValidity = checkoutAddressStep && checkoutBillingStep && checkoutShipmentStep &&
+            checkoutPaymentStep;
+        const prevCheckCheckoutFormValidity = prevAddressStep && prevBillingStep && prevShipmentStep && prevPaymentStep;
         const { isCheckoutLoading: previousStateLoading } = prevProps;
         const isShouldChangeButtonState = (prevCheckCheckoutFormValidity !== checkCheckoutFormValidity) ||
             previousStateLoading;
@@ -61,7 +68,7 @@ export class CheckoutPageBase extends React.Component<Props, State> {
         }
     };
 
-    protected handleSubmit = (event: FormEvent): void => {
+    protected handleSubmit = (event: ClickEvent): void => {
         this.setState({ isButtonDisabled: true });
         event.preventDefault();
         const {
@@ -76,7 +83,8 @@ export class CheckoutPageBase extends React.Component<Props, State> {
             deliveryNewAddress,
             billingNewAddress,
             paymentMethod,
-            shipmentMethod
+            shipmentMethod,
+            history
         } = this.props;
 
         const payload: ICheckoutRequest = {};
@@ -121,6 +129,7 @@ export class CheckoutPageBase extends React.Component<Props, State> {
         };
 
         sendCheckoutData(payload, customerIdInspection);
+        history.push(pathCheckoutThanks);
     };
 
     public render(): JSX.Element {
@@ -131,14 +140,27 @@ export class CheckoutPageBase extends React.Component<Props, State> {
             isUserLoggedIn,
             anonymId,
             stepsCompletion,
-            isCheckoutLoading
+            isCheckoutLoading,
+            location: { pathname }
         } = this.props;
         const { isButtonDisabled } = this.state;
-        const panels = getCheckoutPanelsSettings(stepsCompletion);
+        const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
+        const isSummaryPage = pathCheckoutSummaryStep === pathname;
+        const placeOrderButton = isSummaryPage ? (
+            <Button
+                disabled={ isButtonDisabled }
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={ this.handleSubmit  }
+            >
+                { <FormattedMessage id={ 'place.order.title' } /> }
+            </Button>
+        ) : null;
 
-        const CheckoutFormsView = isCheckoutLoading
-            ? <AppPageSubTitle title={ <FormattedMessage id={ 'form.waiting.for.response.title' } /> } />
-            : <CheckoutForms panels={ panels } />;
+        if (pathCheckoutPage === pathname) {
+            return <Redirect to={ redirectPath } />;
+        }
 
         return (
             <AppMain>
@@ -146,20 +168,22 @@ export class CheckoutPageBase extends React.Component<Props, State> {
                     ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
                     : <Grid container className={ classes.container }>
                         <Grid item xs={ 12 } md={ 7 } className={ classes.leftColumn }>
-                            { orderId
-                                ? <OrderSuccess order={ orderId } />
-                                : CheckoutFormsView
+                            { !isCheckoutLoading &&
+                                <CheckoutRouting stepsCompletion={ stepsCompletion } />
                             }
+
+                            { placeOrderButton }
                         </Grid>
                         <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
                             <ErrorBoundary>
                                 <CheckoutCart
-                                    isSendBtnDisabled={ isButtonDisabled }
                                     sendData={ this.handleSubmit }
                                     order={ orderId }
                                     isUserLoggedIn={ isUserLoggedIn }
                                     anonymId={ anonymId }
-                                />
+                                >
+                                    { placeOrderButton }
+                                </CheckoutCart>
                             </ErrorBoundary>
                         </Grid>
                     </Grid>
@@ -169,4 +193,4 @@ export class CheckoutPageBase extends React.Component<Props, State> {
     }
 }
 
-export const CheckoutPage = withStyles(styles)(CheckoutPageBase);
+export const CheckoutPage = withStyles(styles)(CheckoutPageComponent);
