@@ -10,17 +10,12 @@ import { ClickEvent } from '@interfaces/common';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { ICheckoutRequest } from '@interfaces/checkout';
 import { ICheckoutPageProps as Props, ICheckoutPageState as State } from './types';
-import { styles } from './styles';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { CheckoutRouting } from './CheckoutRouting';
 import { Redirect, withRouter } from 'react-router-dom';
-import {
-    pathCheckoutAddressStep,
-    pathCheckoutLoginStep,
-    pathCheckoutPage,
-    pathCheckoutSummaryStep
-} from '@constants/routes';
+import { pathCheckoutAddressStep, pathCheckoutLoginStep, pathCheckoutPage } from '@constants/routes';
 import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
+import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
