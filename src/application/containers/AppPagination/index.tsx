@@ -108,7 +108,7 @@ export class AppPaginationComponent extends React.Component<Props, State> {
             for (let i = currentPage - nearbyPagesLimitDependsOnResolution; i <= currentPage - 1; i++) {
                 if (i > 0) {
                     pagination.push(
-                        this.renderPaginationButton(i, false)
+                        this.renderPaginationButton(i)
                     );
                 }
             }
