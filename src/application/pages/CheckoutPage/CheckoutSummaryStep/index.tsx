@@ -6,7 +6,6 @@ import {
     pathCheckoutAddressStep,
     pathCheckoutPaymentStep,
     pathCheckoutShipmentStep,
-    pathCheckoutThanks,
     pathCheckoutLoginStep
 } from '@constants/routes';
 import { NavLink, Redirect } from 'react-router-dom';
@@ -31,7 +30,6 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
             <NavLink to={ pathCheckoutAddressStep }><FormattedMessage id={ 'word.address.title' } /></NavLink>
             <NavLink to={ pathCheckoutShipmentStep }><FormattedMessage id={ 'word.shipment.title' } /></NavLink>
             <NavLink to={ pathCheckoutPaymentStep }><FormattedMessage id={ 'word.payment.title' } /></NavLink>
-            <NavLink to={ pathCheckoutThanks }>Thanks</NavLink>
 
             <Button
                 variant="contained"

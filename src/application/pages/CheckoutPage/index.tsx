@@ -13,7 +13,12 @@ import { ICheckoutPageProps as Props, ICheckoutPageState as State } from './type
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { CheckoutRouting } from './CheckoutRouting';
 import { Redirect, withRouter } from 'react-router-dom';
-import { pathCheckoutAddressStep, pathCheckoutLoginStep, pathCheckoutPage } from '@constants/routes';
+import {
+    pathCheckoutAddressStep,
+    pathCheckoutLoginStep,
+    pathCheckoutPage,
+    pathCheckoutThanks
+} from '@constants/routes';
 import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
 import { styles } from './styles';
 
@@ -62,7 +67,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             deliveryNewAddress,
             billingNewAddress,
             paymentMethod,
-            shipmentMethod
+            shipmentMethod,
+            history
         } = this.props;
 
         const payload: ICheckoutRequest = {};
@@ -107,6 +113,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         };
 
         sendCheckoutData(payload, customerIdInspection);
+        history.push(pathCheckoutThanks);
     };
 
     public render(): JSX.Element {
