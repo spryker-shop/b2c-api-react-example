@@ -31,11 +31,8 @@ class CategoriesListComponent extends React.Component<Props, State> {
         }
     };
 
-    protected openPopover = ({ currentTarget }: ClickEvent): void => {
-        console.log(currentTarget);
-
+    protected openPopover = ({ currentTarget }: ClickEvent): void =>
         this.setState(({anchorElement}) => ({ anchorElement: Boolean(anchorElement) ? null : currentTarget, }));
-    };
 
     protected closePopover = (): void => {
         this.setState({ anchorElement: null });

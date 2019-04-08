@@ -29,7 +29,7 @@ class FiltersListComponent extends React.Component<Props, State> {
     protected handleOpenFilters = (filter: ValueFacets | RangeFacets, filtersName: string) =>
         (event: ClickEvent): void => {
         event.preventDefault();
-        const filters = this.state[filtersName];
+        const filters = this.state[filtersName] as (ValueFacets | RangeFacets)[];
         const isFilterOpened = filters.includes(filter);
 
         if (isFilterOpened) {
@@ -41,9 +41,9 @@ class FiltersListComponent extends React.Component<Props, State> {
             return;
         }
 
-        const openedNFiltersList = [...filters, filter];
+        const openedFiltersList = [...filters, filter];
 
-        this.setState({ ...this.state, [filtersName]: openedNFiltersList });
+        this.setState({ ...this.state, [filtersName]: openedFiltersList });
     };
 
     protected filterRangeFilters = (): RangeFacets[] => {

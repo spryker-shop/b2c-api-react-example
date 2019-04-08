@@ -30,15 +30,6 @@ export const styles = (theme: Theme) => createStyles({
             padding: 5
         },
     },
-    // pageAfterEllipsis1: {
-    //
-    // },
-    // pageAfterEllipsis2: {
-    //     display: 'none',
-    //     [theme.breakpoints.up('sm')]: {
-    //         display: 'block'
-    //     },
-    // },
     button: {
         display: 'flex',
         justifyContent: 'center',

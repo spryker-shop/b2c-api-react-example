@@ -20,7 +20,8 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
 }
 
 export interface IFiltersListState {
-    [key: string]: any;
+    [key: string]: boolean | (ValueFacets | RangeFacets)[];
     openedFilters: ValueFacets[];
     openedCategories: boolean;
+    openedRanges: RangeFacets[];
 }
