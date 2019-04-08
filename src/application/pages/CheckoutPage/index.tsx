@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid, Button } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { CheckoutCart } from '@application/pages/CheckoutPage/CheckoutCart';
 import { AppPageTitle } from '@application/components/AppPageTitle';
@@ -18,9 +18,9 @@ import {
     pathCheckoutAddressStep,
     pathCheckoutLoginStep,
     pathCheckoutPage,
-    pathCheckoutSummaryStep,
-    pathCheckoutThanks
+    pathCheckoutSummaryStep
 } from '@constants/routes';
+import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
 
 @(withRouter as Function)
 @connect
@@ -44,27 +44,11 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             }
         }
 
-        const {
-            checkoutAddressStep,
-            checkoutBillingStep,
-            checkoutShipmentStep,
-            checkoutPaymentStep
-        } = this.props.stepsCompletion;
-        const {
-            checkoutAddressStep: prevAddressStep,
-            checkoutBillingStep: prevBillingStep,
-            checkoutShipmentStep: prevShipmentStep,
-            checkoutPaymentStep: prevPaymentStep,
-        } = prevProps.stepsCompletion;
-        const checkCheckoutFormValidity = checkoutAddressStep && checkoutBillingStep && checkoutShipmentStep &&
-            checkoutPaymentStep;
-        const prevCheckCheckoutFormValidity = prevAddressStep && prevBillingStep && prevShipmentStep && prevPaymentStep;
+        const { isCheckoutLoading } = this.props;
         const { isCheckoutLoading: previousStateLoading } = prevProps;
-        const isShouldChangeButtonState = (prevCheckCheckoutFormValidity !== checkCheckoutFormValidity) ||
-            previousStateLoading;
 
-        if (isShouldChangeButtonState) {
-            this.setState({ isButtonDisabled: !checkCheckoutFormValidity });
+        if (isCheckoutLoading !== previousStateLoading) {
+            this.setState({ isButtonDisabled: isCheckoutLoading });
         }
     };
 
@@ -83,8 +67,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             deliveryNewAddress,
             billingNewAddress,
             paymentMethod,
-            shipmentMethod,
-            history
+            shipmentMethod
         } = this.props;
 
         const payload: ICheckoutRequest = {};
@@ -129,7 +112,6 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         };
 
         sendCheckoutData(payload, customerIdInspection);
-        history.push(pathCheckoutThanks);
     };
 
     public render(): JSX.Element {
@@ -145,18 +127,6 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         } = this.props;
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
-        const isSummaryPage = pathCheckoutSummaryStep === pathname;
-        const placeOrderButton = isSummaryPage ? (
-            <Button
-                disabled={ isButtonDisabled }
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={ this.handleSubmit  }
-            >
-                { <FormattedMessage id={ 'place.order.title' } /> }
-            </Button>
-        ) : null;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
@@ -166,27 +136,31 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             <AppMain>
                 { !isProductsExists && !orderId
                     ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
-                    : <Grid container className={ classes.container }>
-                        <Grid item xs={ 12 } md={ 7 } className={ classes.leftColumn }>
-                            { !isCheckoutLoading &&
-                                <CheckoutRouting stepsCompletion={ stepsCompletion } />
-                            }
-
-                            { placeOrderButton }
+                    : <>
+                        <CheckoutBreadcrumbs />
+                        <Grid container className={ classes.container }>
+                            <Grid item xs={ 12 } md={ 7 } className={ classes.leftColumn }>
+                                { !isCheckoutLoading &&
+                                    <CheckoutRouting
+                                        stepsCompletion={ stepsCompletion }
+                                        isSendBtnDisabled={ isButtonDisabled }
+                                        sendData={ this.handleSubmit }
+                                    />
+                                }
+                            </Grid>
+                            <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
+                                <ErrorBoundary>
+                                    <CheckoutCart
+                                        isSendBtnDisabled={ isButtonDisabled }
+                                        sendData={ this.handleSubmit }
+                                        order={ orderId }
+                                        isUserLoggedIn={ isUserLoggedIn }
+                                        anonymId={ anonymId }
+                                    />
+                                </ErrorBoundary>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
-                            <ErrorBoundary>
-                                <CheckoutCart
-                                    sendData={ this.handleSubmit }
-                                    order={ orderId }
-                                    isUserLoggedIn={ isUserLoggedIn }
-                                    anonymId={ anonymId }
-                                >
-                                    { placeOrderButton }
-                                </CheckoutCart>
-                            </ErrorBoundary>
-                        </Grid>
-                    </Grid>
+                    </>
                 }
             </AppMain>
         );

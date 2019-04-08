@@ -33,10 +33,9 @@ import {
     pathSearchPage,
     pathWishlistDetailPage,
     pathWishlistsPage,
-    pathRegisterPage, pathCheckoutLoginStep
+    pathRegisterPage,
 } from '@constants/routes';
 import { RoutesProps as Props } from './types';
-import { LoadableCheckoutLoginStep } from '@pages/CheckoutPage/CheckoutLoginStep/loadable';
 
 export const Routes: React.SFC<Props> = (props): JSX.Element => {
     const { isAppLoading } = props;

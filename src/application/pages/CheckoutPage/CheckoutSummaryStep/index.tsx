@@ -1,18 +1,30 @@
 import * as React from 'react';
 import { ICheckoutSummaryStepProps as Props } from './types';
-import { withStyles } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import {
     pathCheckoutAddressStep,
     pathCheckoutPaymentStep,
     pathCheckoutShipmentStep,
-    pathCheckoutThanks
+    pathCheckoutThanks,
+    pathCheckoutLoginStep
 } from '@constants/routes';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes } = props;
+    const {
+        classes,
+        isSendBtnDisabled,
+        sendData,
+        stepsCompletion: { checkoutAddressStep, checkoutBillingStep, checkoutShipmentStep, checkoutPaymentStep }
+    } = props;
+    const isAllCheckoutFormsFulfilled = checkoutAddressStep && checkoutBillingStep && checkoutShipmentStep &&
+        checkoutPaymentStep;
+
+    if (!isAllCheckoutFormsFulfilled) {
+        return <Redirect to={ pathCheckoutLoginStep } />;
+    }
 
     return (
         <div>
@@ -20,6 +32,16 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
             <NavLink to={ pathCheckoutShipmentStep }><FormattedMessage id={ 'word.shipment.title' } /></NavLink>
             <NavLink to={ pathCheckoutPaymentStep }><FormattedMessage id={ 'word.payment.title' } /></NavLink>
             <NavLink to={ pathCheckoutThanks }>Thanks</NavLink>
+
+            <Button
+                variant="contained"
+                color="primary"
+                disabled={ isSendBtnDisabled }
+                fullWidth
+                onClick={ sendData }
+            >
+                { <FormattedMessage id={ 'place.order.title' } /> }
+            </Button>
         </div>
     );
 };

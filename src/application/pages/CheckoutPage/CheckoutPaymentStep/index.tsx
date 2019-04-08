@@ -4,11 +4,15 @@ import { ICheckoutPaymentStepProps as Props } from './types';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { pathCheckoutShipmentStep, pathCheckoutSummaryStep } from '@constants/routes';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const CheckoutPaymentStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, stepsCompletion: { checkoutPaymentStep } } = props;
+    const { classes, stepsCompletion: { checkoutPaymentStep, checkoutShipmentStep } } = props;
+
+    if (!checkoutShipmentStep) {
+        return <Redirect to={ pathCheckoutShipmentStep } />;
+    }
 
     return (
         <div>

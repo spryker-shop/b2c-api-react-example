@@ -17,7 +17,7 @@ import { LoadableCheckoutThanks } from '@pages/CheckoutPage/CheckoutThanks/loada
 import { ICheckoutRoutingProps as Props } from './types';
 
 export const CheckoutRouting: React.SFC<Props> = (props): JSX.Element => {
-    const { stepsCompletion } = props;
+    const { stepsCompletion, isSendBtnDisabled, sendData } = props;
 
     return (
         <Switch>
@@ -40,7 +40,14 @@ export const CheckoutRouting: React.SFC<Props> = (props): JSX.Element => {
             <Route
                 path={ pathCheckoutSummaryStep }
                 exact
-                render={ props => <LoadableCheckoutSummaryStep {...props} /> }
+                render={ props =>
+                    <LoadableCheckoutSummaryStep
+                        {...props}
+                        stepsCompletion={ stepsCompletion }
+                        isSendBtnDisabled={ isSendBtnDisabled }
+                        sendData={ sendData }
+                    />
+                }
             />
             <Route path={ pathCheckoutThanks } exact render={ props => <LoadableCheckoutThanks {...props} /> } />
         </Switch>

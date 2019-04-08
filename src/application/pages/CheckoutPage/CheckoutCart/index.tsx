@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { withRouter } from 'react-router';
+import { pathCheckoutSummaryStep } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, List, Button } from '@material-ui/core';
 import { CartTotal } from '@application/components/CartTotal';
@@ -11,6 +13,7 @@ import {
 } from './types';
 import { styles } from './styles';
 
+@(withRouter as Function)
 @connect
 class CheckoutCartComponent extends React.Component<Props, State> {
     protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -62,8 +65,9 @@ class CheckoutCartComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, order, children: submitButton } = this.props;
+        const { classes, order, isSendBtnDisabled, sendData, location: { pathname } } = this.props;
         const { products, totals, listItemHeight } = this.state;
+        const isSummaryPage = pathname === pathCheckoutSummaryStep;
 
         return (
             <div className={ classes.root } ref={ this.containerRef }>
@@ -88,7 +92,18 @@ class CheckoutCartComponent extends React.Component<Props, State> {
                     title={ <FormattedMessage id={ `${order ? 'order.amount' : 'grand.total.title'}` } /> }
                 />
 
-                { submitButton }
+                { (!order && isSummaryPage) &&
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={ isSendBtnDisabled }
+                        fullWidth
+                        className={ classes.btnWrapper }
+                        onClick={ sendData }
+                >
+                    { <FormattedMessage id={ 'place.order.title' } /> }
+                </Button>
+                }
             </div>
         );
     }
