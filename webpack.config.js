@@ -7,6 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const envConfig = require('./configs/env.config');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 const lintIndex = process.argv.join('').indexOf('lint');
 
@@ -222,6 +223,12 @@ const config = {
             devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
+        new BrotliPlugin({
+            asset: '[path].br[query]',
+            test: /\.(js|css|html|svg)$/,
+            threshold: 10240,
+            minRatio: 0.8
+        }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ...(
             envConfig.IS_DEV_SERVER ? [
@@ -261,7 +268,7 @@ const config = {
     },
     watch: envConfig.IS_DEV_SERVER,
     watchOptions,
-    devtool: envConfig.IS_PRODUCTION ? 'source-map' : 'inline-source-map',
+    devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
     devServer
 };
 
