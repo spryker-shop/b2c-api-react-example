@@ -7,7 +7,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const envConfig = require('./configs/env.config');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 const lintIndex = process.argv.join('').indexOf('lint');
 
@@ -223,13 +222,7 @@ const config = {
             devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
-        new CompressionPlugin({
-            filename: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js(\?.*)?$/i,
-            threshold: 10240,
-            minRatio: 0
-        }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ...(
             envConfig.IS_DEV_SERVER ? [
                 new webpack.HotModuleReplacementPlugin(),
