@@ -1,42 +1,51 @@
 const path = require('path');
-const env = require('dotenv');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const envConfig = require('./configs/env.config');
 
-env.config();
+const lintIndex = process.argv.join('').indexOf('lint');
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.argv.indexOf('-p') !== -1;
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const IS_DEV_SERVER = NODE_ENV === 'webpack-dev-server';
-const DEV_SERVER_HOST = process.env.DEV_SERVER_HOST ? process.env.DEV_SERVER_HOST : 'localhost';
-const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT ? process.env.DEV_SERVER_PORT : '2992';
-const WEB_PORT = process.env.WEB_PORT ? process.env.WEB_PORT : '4200';
-const WEB_PATH = process.env.WEB_PATH ? process.env.WEB_PATH : '/api/';
-const API_URL = process.env.API_URL ? process.env.API_URL : 'http://localhost:8080/api/';
-const APP_TITLE = process.env.APP_TITLE || 'App';
-const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.html', '.json', '.node'];
-const webExtensions = ['.css', '.less', '.sass', '.scss', '.woff', '.woff2', '.ttf', '.eot', '.svg', '.md', '.jpg', '.png', '.ico'];
+const aliases = {
+    src: path.resolve(__dirname, 'src'),
+    '@constants': path.resolve(__dirname, 'src/constants'),
+    '@application': path.resolve(__dirname, 'src/application'),
+    '@components': path.resolve(__dirname, 'src/application/components'),
+    '@containers': path.resolve(__dirname, 'src/application/containers'),
+    '@hoc': path.resolve(__dirname, 'src/application/hoc'),
+    '@pages': path.resolve(__dirname, 'src/application/pages'),
+    '@helpers': path.resolve(__dirname, 'src/helpers'),
+    '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+    '@stores': path.resolve(__dirname, 'src/stores'),
+    '@services': path.resolve(__dirname, 'src/services'),
+    '@configs': path.resolve(__dirname, './configs'),
+    '@translation': path.resolve(__dirname, 'src/translation'),
+    '@theme': path.resolve(__dirname, 'src/theme')
+};
 
 const definableConstants = {
-    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    'process.env.WEB_PORT': JSON.stringify(WEB_PORT),
-    'process.env.WEB_PATH': JSON.stringify(WEB_PATH),
-    'process.env.API_URL': JSON.stringify(API_URL),
-    'process.env.DEV_SERVER_HOST': JSON.stringify(DEV_SERVER_HOST),
-    'process.env.DEV_SERVER_PORT': JSON.stringify(DEV_SERVER_PORT),
-    'process.env.APP_TITLE': JSON.stringify(APP_TITLE)
+    'process.env.NODE_ENV': JSON.stringify(envConfig.NODE_ENV),
+    'process.env.WEB_PORT': JSON.stringify(envConfig.WEB_PORT),
+    'process.env.WEB_PATH': JSON.stringify(envConfig.WEB_PATH),
+    'process.env.API_URL': JSON.stringify(envConfig.API_URL),
+    'process.env.DEV_SERVER_HOST': JSON.stringify(envConfig.DEV_SERVER_HOST),
+    'process.env.DEV_SERVER_PORT': JSON.stringify(envConfig.DEV_SERVER_PORT),
+    'process.env.APP_TITLE': JSON.stringify(envConfig.APP_TITLE)
 };
+
+const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.html', '.json', '.node'];
+const webExtensions = ['.css', '.md', '.jpg', '.png', '.ico'];
 
 const globalCssLoaderOptions = {
     loader: 'css-loader',
     options: {
         modules: false,
-        sourceMap: !IS_PRODUCTION,
-        minimize: IS_PRODUCTION,
+        sourceMap: !envConfig.IS_PRODUCTION,
+        minimize: envConfig.IS_PRODUCTION,
         discardComments: {removeAll: true}
     }
 };
@@ -46,9 +55,9 @@ const localCssLoaderOptions = {
     options: {
         camelCase: true,
         modules: true,
-        localIdentName: !IS_PRODUCTION ? '[path]___[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
-        sourceMap: !IS_PRODUCTION,
-        minimize: IS_PRODUCTION,
+        localIdentName: !envConfig.IS_PRODUCTION ? '[path]___[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
+        sourceMap: !envConfig.IS_PRODUCTION,
+        minimize: envConfig.IS_PRODUCTION,
         discardComments: {removeAll: true}
     }
 };
@@ -81,26 +90,16 @@ const tsLoader = {
         path.resolve(__dirname, 'src')
     ],
     use: [
-        {loader: 'ts-loader', options: {transpileOnly: true, experimentalWatchApi: true}},
-        {loader: 'tslint-loader'}
+        {loader: 'ts-loader', options: {transpileOnly: true}},
+        ...(
+            lintIndex > 0 ? [{loader: 'tslint-loader'}] : []
+        )
     ]
 };
 
 const staticLoaders = [
     {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
-    {test: /\.(jpg|png|svg)$/, loader: 'url-loader?limit=8000'},
-    {
-        test: /\.(ttf|otf|eot|svg|ico|woff(2)?)$/,
-        include: [
-            path.join(__dirname, 'src'),
-        ],
-        use: [{
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]',
-            },
-        }]
-    }
+    {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
 ];
 
 const stylesLoaders = [
@@ -125,7 +124,7 @@ const webLoaders = [
 let devServer = {};
 let watchOptions = {};
 
-if (IS_DEV_SERVER) {
+if (envConfig.IS_DEV_SERVER) {
     watchOptions = {
         aggregateTimeout: 1000,
         poll: 1000
@@ -137,8 +136,8 @@ if (IS_DEV_SERVER) {
         historyApiFallback: {
             disableDotRule: true
         },
-        host: DEV_SERVER_HOST,
-        port: DEV_SERVER_PORT,
+        host: envConfig.DEV_SERVER_HOST,
+        port: envConfig.DEV_SERVER_PORT,
         https: false,
         inline: true,
         noInfo: false
@@ -151,45 +150,46 @@ const entry = {
     ]
 };
 
-if(IS_DEV_SERVER) {
-    entry['dev-server-client'] = 'webpack-dev-server/client?http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT;
+if(envConfig.IS_DEV_SERVER) {
+    entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
     entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
 }
 
 const config = {
-    mode: IS_PRODUCTION ? 'production' : 'development',
+    mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
     target: 'web',
     context: __dirname,
     entry,
     node: {
-        __dirname: true
+        __dirname: true,
+        fs: 'empty'
     },
     output: {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: IS_DEV_SERVER ? 'http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT + '/' : WEB_PATH
+        publicPath: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : WEB_PATH
     },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 parallel: true,
                 sourceMap: true,
-                cache: !IS_PRODUCTION,
-                extractComments: IS_PRODUCTION,
+                cache: !envConfig.IS_PRODUCTION,
+                extractComments: envConfig.IS_PRODUCTION,
                 uglifyOptions: {
                     ecma: 8,
                     parse: {
                         ecma: 8
                     },
-                    mangle: IS_PRODUCTION ? {
+                    mangle: envConfig.IS_PRODUCTION ? {
                         keep_classnames: true,
                         keep_fnames: true
                     } : false,
                     keep_classnames: true,
                     keep_fnames: true,
                     compress: {
-                        drop_console: IS_PRODUCTION,
+                        drop_console: envConfig.IS_PRODUCTION,
                         keep_classnames: true,
                         comparisons: false
                     },
@@ -230,8 +230,8 @@ const config = {
             dry: false
         }),
         new webpack.LoaderOptionsPlugin({
-            minimize: IS_PRODUCTION,
-            debug: !IS_PRODUCTION,
+            minimize: envConfig.IS_PRODUCTION,
+            debug: !envConfig.IS_PRODUCTION,
             options: {
                 context: __dirname
             }
@@ -243,23 +243,26 @@ const config = {
             ...definableConstants
         }),
         new MiniCssExtractPlugin({
-            filename: IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
-            chunkFilename: IS_DEV_SERVER ? '[id].css' : '[id].[hash].css'
+            filename: envConfig.IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
+            chunkFilename: envConfig.IS_DEV_SERVER ? '[id].css' : '[id].[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.ejs'),
-            title: APP_TITLE || '',
+            title: envConfig.APP_TITLE || '',
             filename: 'index.html',
             hash: true,
             compile: true,
             favicon: path.resolve(__dirname, `favicon.png`),
             minify: false,
-            devServer: IS_DEV_SERVER ? 'http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT : '',
+            devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
         ...(
-            IS_DEV_SERVER ? [
+            envConfig.IS_DEV_SERVER ? [
                 new webpack.HotModuleReplacementPlugin(),
+                new ForkTsCheckerWebpackPlugin({
+                    tslint: true
+                }),
             ] : []
         ),
     ],
@@ -273,20 +276,7 @@ const config = {
             ...webExtensions
         ],
         alias: {
-            src: path.resolve(__dirname, 'src'),
-            '@constants': path.resolve(__dirname, 'src/constants'),
-            '@application': path.resolve(__dirname, 'src/application'),
-            '@components': path.resolve(__dirname, 'src/application/components'),
-            '@containers': path.resolve(__dirname, 'src/application/containers'),
-            '@hoc': path.resolve(__dirname, 'src/application/hoc'),
-            '@pages': path.resolve(__dirname, 'src/application/pages'),
-            '@helpers': path.resolve(__dirname, 'src/helpers'),
-            '@interfaces': path.resolve(__dirname, 'src/interfaces'),
-            '@stores': path.resolve(__dirname, 'src/stores'),
-            '@services': path.resolve(__dirname, 'src/services'),
-            '@configs': path.resolve(__dirname, 'src/configs'),
-            '@translation': path.resolve(__dirname, 'src/translation'),
-            '@theme': path.resolve(__dirname, 'src/theme')
+            ...aliases
         }
     },
     module: {
@@ -297,15 +287,15 @@ const config = {
     },
     stats: {
         children: false,
-        reasons: !IS_PRODUCTION
+        reasons: !envConfig.IS_PRODUCTION
     },
     cache: true,
     performance: {
         hints: 'warning'
     },
-    watch: IS_DEV_SERVER,
+    watch: envConfig.IS_DEV_SERVER,
     watchOptions,
-    devtool: IS_PRODUCTION ? 'source-map' : 'inline-source-map',
+    devtool: envConfig.IS_PRODUCTION ? 'source-map' : 'inline-source-map',
     devServer
 };
 

@@ -6,7 +6,7 @@ import { TAppPriceMode } from '@interfaces/product';
 import { TAppStore } from '@interfaces/store';
 import { ICategory } from '@interfaces/category';
 import { ICountry } from '@interfaces/country';
-import { APP_LOCALE_DEFAULT } from '@configs/environment';
+import { APP_LOCALE_DEFAULT } from '@constants/common';
 
 export function isAppInitiated(state: IReduxStore, props: IReduxOwnProps): boolean {
     return (state.init.data.ok);

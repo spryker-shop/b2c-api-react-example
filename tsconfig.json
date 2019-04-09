@@ -8,7 +8,7 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"sourceMap": false,
+		"sourceMap": true,
 		"noEmitHelpers": true,
 		"importHelpers": true,
 		"strictNullChecks": false,
@@ -43,7 +43,7 @@
 			"@interfaces*": ["src/interfaces*"],
 			"@stores*": ["src/stores*"],
 			"@services*": ["src/services*"],
-			"@configs*": ["src/configs*"],
+			"@configs*": ["./configs*"],
 			"@translation*": ["src/translation*"],
 			"@theme*": ["src/theme*"]
 		}

@@ -1,4 +1,4 @@
-import { APP_LOCALE_DEFAULT } from '@configs/environment';
+import { APP_LOCALE_DEFAULT } from '@constants/common';
 
 interface IAvailabilityValues {
     yes: string;

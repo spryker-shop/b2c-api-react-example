@@ -1,4 +1,4 @@
-import { PRICE_MODE_DEFAULT } from '@configs/environment';
+import { PRICE_MODE_DEFAULT } from '@constants/common';
 import api from '@services/api';
 import { ILocaleItem } from '@interfaces/locale';
 import { IStoreRawResponse } from '@helpers/init/types';

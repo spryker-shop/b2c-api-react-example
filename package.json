@@ -23,7 +23,6 @@
 		"jest",
 		"enzyme",
 		"webpack",
-		"scss",
 		"css modules"
 	],
 	"homepage": "https://github.com/spryker/react-app",
@@ -109,6 +108,7 @@
 		"css-loader": "0.28.11",
 		"dotenv": "6.0.0",
 		"file-loader": "1.1.11",
+		"fork-ts-checker-webpack-plugin": "^0.5.2",
 		"html-loader": "0.5.5",
 		"html-webpack-plugin": "4.0.0-beta.2",
 		"htmllint-loader": "2.1.4",
@@ -124,7 +124,6 @@
 		"precss": "^4.0.0",
 		"prettier": "1.13.7",
 		"react-dev-utils": "6.1.1",
-		"react-hot-loader": "4.3.3",
 		"react-transform-hmr": "1.0.4",
 		"redux-devtools": "3.4.1",
 		"redux-devtools-dock-monitor": "1.1.3",

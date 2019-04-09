@@ -11,7 +11,7 @@ import { sprykerTheme } from '@theme/sprykerTheme';
 import { configureStore } from '@stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
 import PageContent from '@application/containers/PageContent';
-import config from './configs/server';
+const config =  require('@configs/env.config');
 
 const history = createHistory();
 const store: Store<any> = configureStore(history);

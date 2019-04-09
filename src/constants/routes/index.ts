@@ -1,4 +1,4 @@
-import config from '@configs/server';
+const config = require('@configs/env.config');
 export const pathHomePage = `${config.WEB_PATH}`;
 export const pathSearchPage = `${config.WEB_PATH}search`;
 export const pathCategoryPageBase = `${config.WEB_PATH}category`;
