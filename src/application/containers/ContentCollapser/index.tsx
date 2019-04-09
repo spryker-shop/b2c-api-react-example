@@ -67,7 +67,7 @@ class ContentCollapserComponent extends React.Component<Props, State> {
                 <div
                     style={{ maxHeight: limitedValue }}
                     ref={ this.contentRef }
-                    className={ classes.content }
+                    className={`${isLimited ? classes.contentLimited : ''}`}
                 >
                     { children }
                 </div>
