@@ -82,7 +82,8 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                     slidesToShow: 1,
                     arrows: false,
                     centerPadding: '55px',
-                    centerMode: true
+                    centerMode: true,
+                    infinite: false
                 }
             },
             {
@@ -91,7 +92,8 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                     slidesToShow: 1,
                     arrows: false,
                     centerPadding: '25px',
-                    centerMode: true
+                    centerMode: true,
+                    infinite: false
                 }
             }
         ]
