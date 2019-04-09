@@ -7,124 +7,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const envConfig = require('./configs/env_config');
-
-const lintIndex = process.argv.join('').indexOf('lint');
-
-const aliases = {
-    src: path.resolve(__dirname, 'src'),
-    '@constants': path.resolve(__dirname, 'src/constants'),
-    '@application': path.resolve(__dirname, 'src/application'),
-    '@components': path.resolve(__dirname, 'src/application/components'),
-    '@containers': path.resolve(__dirname, 'src/application/containers'),
-    '@hoc': path.resolve(__dirname, 'src/application/hoc'),
-    '@pages': path.resolve(__dirname, 'src/application/pages'),
-    '@helpers': path.resolve(__dirname, 'src/helpers'),
-    '@interfaces': path.resolve(__dirname, 'src/interfaces'),
-    '@stores': path.resolve(__dirname, 'src/stores'),
-    '@services': path.resolve(__dirname, 'src/services'),
-    '@configs': path.resolve(__dirname, './configs'),
-    '@translation': path.resolve(__dirname, 'src/translation'),
-    '@theme': path.resolve(__dirname, 'src/theme')
-};
-
-const definableConstants = {
-    'process.env.NODE_ENV': JSON.stringify(envConfig.NODE_ENV),
-    'process.env.WEB_PORT': JSON.stringify(envConfig.WEB_PORT),
-    'process.env.WEB_PATH': JSON.stringify(envConfig.WEB_PATH),
-    'process.env.API_URL': JSON.stringify(envConfig.API_URL),
-    'process.env.DEV_SERVER_HOST': JSON.stringify(envConfig.DEV_SERVER_HOST),
-    'process.env.DEV_SERVER_PORT': JSON.stringify(envConfig.DEV_SERVER_PORT),
-    'process.env.APP_TITLE': JSON.stringify(envConfig.APP_TITLE)
-};
-
-const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.html', '.json', '.node', '.md'];
-const webExtensions = ['.css', '.jpg', '.png'];
-
-const cssLoader = {
-    test: /\.css$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        {
-            loader: 'css-loader',
-            options: {
-                modules: false,
-                sourceMap: !envConfig.IS_PRODUCTION,
-                minimize: envConfig.IS_PRODUCTION,
-                discardComments: {removeAll: true}
-            }
-        },
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
-    ]
-};
-
-const webLoaders = [
-    cssLoader,
-    {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
-];
-
-const tsLoader = {
-    test: /\.tsx?$/,
-    include: [
-        path.resolve(__dirname, 'src')
-    ],
-    use: [
-        {loader: 'ts-loader', options: {transpileOnly: true}},
-        ...(
-            lintIndex > 0 ? [{loader: 'tslint-loader'}] : []
-        )
-    ]
-};
-
-const commonLoaders = [
-    {test: /\.node$/, loader: 'node-loader'},
-    {test: /\.json$/, loader: 'json-loader'},
-    tsLoader,
-    {test: /\.html$/, loader: 'htmllint-loader!html-loader'},
-    {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
-    {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'}
-];
-
-let devServer = {};
-let watchOptions = {};
-
-if (envConfig.IS_DEV_SERVER) {
-    watchOptions = {
-        aggregateTimeout: 1000,
-        poll: 1000
-    };
-    devServer = {
-        contentBase: path.resolve(__dirname, 'build', 'web'),
-        public: true,
-        compress: true,
-        historyApiFallback: {
-            disableDotRule: true
-        },
-        host: envConfig.DEV_SERVER_HOST,
-        port: envConfig.DEV_SERVER_PORT,
-        https: false,
-        inline: true,
-        noInfo: false
-    };
-}
-
-const entry = {
-    app: [
-        './src/index.tsx'
-    ]
-};
-
-if(envConfig.IS_DEV_SERVER) {
-    entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
-    entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
-}
+const webpackSettings = require('./webpack-settings');
 
 const config = {
     mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
     target: 'web',
     context: __dirname,
-    entry,
+    entry: webpackSettings.entry,
+    watchOptions: webpackSettings.watchOptions,
+    devServer: webpackSettings.devServer,
+    watch: envConfig.IS_DEV_SERVER,
+    devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
     node: {
         __dirname: true,
         fs: 'empty'
@@ -205,7 +98,7 @@ const config = {
             __WEB__: true,
             __SERVER__: false,
             'global.GENTLY': false,
-            ...definableConstants
+            ...webpackSettings.definableConstants
         }),
         new MiniCssExtractPlugin({
             filename: envConfig.IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
@@ -238,17 +131,15 @@ const config = {
             'node_modules'
         ],
         extensions: [
-            ...commonExtensions,
-            ...webExtensions
+            ...webpackSettings.extensions
         ],
         alias: {
-            ...aliases
+            ...webpackSettings.aliases
         }
     },
     module: {
         rules: [
-            ...commonLoaders,
-            ...webLoaders
+            ...webpackSettings.loaders
         ]
     },
     stats: {
@@ -258,11 +149,7 @@ const config = {
     cache: true,
     performance: {
         hints: 'warning'
-    },
-    watch: envConfig.IS_DEV_SERVER,
-    watchOptions,
-    devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
-    devServer
+    }
 };
 
 module.exports = config;
