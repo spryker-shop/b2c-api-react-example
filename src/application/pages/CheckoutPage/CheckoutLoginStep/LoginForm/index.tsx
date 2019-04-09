@@ -46,7 +46,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
         });
     };
 
-    public render() {
+    public render = (): JSX.Element => {
         const { classes, isLoading } = this.props;
 
         return (
