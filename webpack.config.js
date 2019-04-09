@@ -7,6 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const envConfig = require('./configs/env.config');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const lintIndex = process.argv.join('').indexOf('lint');
 
@@ -37,52 +38,32 @@ const definableConstants = {
     'process.env.APP_TITLE': JSON.stringify(envConfig.APP_TITLE)
 };
 
-const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.html', '.json', '.node'];
-const webExtensions = ['.css', '.md', '.jpg', '.png', '.ico'];
+const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.html', '.json', '.node', '.md'];
+const webExtensions = ['.css', '.jpg', '.png'];
 
-const globalCssLoaderOptions = {
-    loader: 'css-loader',
-    options: {
-        modules: false,
-        sourceMap: !envConfig.IS_PRODUCTION,
-        minimize: envConfig.IS_PRODUCTION,
-        discardComments: {removeAll: true}
-    }
-};
-
-const localCssLoaderOptions = {
-    loader: 'css-loader',
-    options: {
-        camelCase: true,
-        modules: true,
-        localIdentName: !envConfig.IS_PRODUCTION ? '[path]___[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
-        sourceMap: !envConfig.IS_PRODUCTION,
-        minimize: envConfig.IS_PRODUCTION,
-        discardComments: {removeAll: true}
-    }
-};
-
-const localCssLoader = {
-    test: /\.css$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
-    ]
-};
-
-const globalCssLoader = {
+const cssLoader = {
     test: /\.css$/,
     include: /node_modules/,
     use: [
         MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
+        {
+            loader: 'css-loader',
+            options: {
+                modules: false,
+                sourceMap: !envConfig.IS_PRODUCTION,
+                minimize: envConfig.IS_PRODUCTION,
+                discardComments: {removeAll: true}
+            }
+        },
         {loader: 'resolve-url-loader'},
         {loader: 'postcss-loader'}
     ]
 };
+
+const webLoaders = [
+    cssLoader,
+    {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
+];
 
 const tsLoader = {
     test: /\.tsx?$/,
@@ -97,16 +78,6 @@ const tsLoader = {
     ]
 };
 
-const staticLoaders = [
-    {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
-    {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
-];
-
-const stylesLoaders = [
-    localCssLoader,
-    globalCssLoader
-];
-
 const commonLoaders = [
     {test: /\.node$/, loader: 'node-loader'},
     {test: /\.json$/, loader: 'json-loader'},
@@ -114,11 +85,6 @@ const commonLoaders = [
     {test: /\.html$/, loader: 'htmllint-loader!html-loader'},
     {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
     {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'}
-];
-
-const webLoaders = [
-    ...stylesLoaders,
-    ...staticLoaders
 ];
 
 let devServer = {};
@@ -256,6 +222,13 @@ const config = {
             minify: false,
             devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
+        }),
+        new CompressionPlugin({
+            filename: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js(\?.*)?$/i,
+            threshold: 10240,
+            minRatio: 0
         }),
         ...(
             envConfig.IS_DEV_SERVER ? [
