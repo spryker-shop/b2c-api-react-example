@@ -8,7 +8,7 @@ import {
     pathCheckoutSummaryStep,
     pathCheckoutThanks
 } from '@constants/routes';
-import { CheckoutLoginStep } from '@pages/CheckoutPage/CheckoutLoginStep';
+import { LoadableCheckoutLoginStep } from '@pages/CheckoutPage/CheckoutLoginStep/loadable';
 import { LoadableCheckoutAddressStep } from '@pages/CheckoutPage/CheckoutAddressStep/loadable';
 import { LoadableCheckoutShipmentStep } from '@pages/CheckoutPage/CheckoutShipmentStep/loadable';
 import { LoadableCheckoutPaymentStep } from '@pages/CheckoutPage/CheckoutPaymentStep/loadable';
@@ -21,7 +21,7 @@ export const CheckoutRouting: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <Switch>
-            <Route path={ pathCheckoutLoginStep } exact render={ props => <CheckoutLoginStep {...props} /> } />
+            <Route path={ pathCheckoutLoginStep } exact render={ props => <LoadableCheckoutLoginStep {...props} /> } />
             <Route
                 path={ pathCheckoutAddressStep }
                 exact
