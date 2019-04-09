@@ -6,8 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const envConfig = require('./configs/env.config');
-const BrotliPlugin = require('brotli-webpack-plugin');
+const envConfig = require('./configs/env_config');
 
 const lintIndex = process.argv.join('').indexOf('lint');
 
@@ -134,7 +133,7 @@ const config = {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : WEB_PATH
+        publicPath: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : envConfig.WEB_PATH
     },
     optimization: {
         minimizer: [
@@ -222,12 +221,6 @@ const config = {
             minify: false,
             devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
-        }),
-        new BrotliPlugin({
-            asset: '[path].br[query]',
-            test: /\.(js|css|html|svg)$/,
-            threshold: 10240,
-            minRatio: 0.8
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ...(

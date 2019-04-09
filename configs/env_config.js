@@ -7,8 +7,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const IS_DEV_SERVER = NODE_ENV === 'webpack-dev-server';
 const DEV_SERVER_HOST = process.env.DEV_SERVER_HOST || 'localhost';
 const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || '2992';
-const WEB_PORT = process.env.WEB_PORT || '4092';
-const WEB_PATH = process.env.WEB_PATH || '/api/';
+const WEB_PORT = process.env.WEB_PORT || '3000';
+const WEB_PATH = process.env.WEB_PATH || '/';
 const API_URL = process.env.API_URL || 'http://localhost:8080/api/';
 const APP_TITLE = process.env.APP_TITLE || 'App';
 

@@ -1,7 +1,7 @@
 const webpack = require( 'webpack' );
 const WebpackDevServer = require( 'webpack-dev-server' );
 
-const config = require('./configs/env.config');
+const config = require('./configs/env_config');
 const webpackConfig = require( './webpack.config' );
 
 if (config.IS_DEV_SERVER) {
