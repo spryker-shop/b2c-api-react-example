@@ -6,11 +6,13 @@ import { priceTypeNameOriginal } from '@interfaces/product';
 import { IProductGeneralInfoProps } from './types';
 import { styles } from './styles';
 
-export const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props): JSX.Element => {
+const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props): JSX.Element => {
     const {
         classes,
         name = <FormattedMessage id={ 'no.name.title' } />,
-        price = <FormattedMessage id={ 'no.price.title' } />, oldPrice, availability
+        price = <FormattedMessage id={ 'no.price.title' } />,
+        oldPrice,
+        availability
     } = props;
 
     return (

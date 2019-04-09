@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Grid, Tabs, Tab } from '@material-ui/core';
+import { ContentCollapser } from '@containers/ContentCollapser';
 import { IProductDetailProps as Props, IProductDetailState as State } from './types';
 import { styles } from './styles';
 
@@ -40,32 +41,42 @@ export class ProductDetailComponent extends React.Component<Props, State> {
 
                 <div className={ classes.tabContent }>
                     { value === 0 &&
-                        <Grid container spacing={ 24 }>
-                            { Object.entries(attributes).map((data: [string, string]) => (
-                                <Grid item xs={ 12 } sm={ 6 } lg={ 4 } key={`${attributeNames[data[0]] }-${ data[1]}`}>
-                                    <div className={ classes.attributes }>
-                                        <strong className={ classes.attributesName }>
-                                            { `${ attributeNames[data[0]]
-                                                ? attributeNames[data[0]]
-                                                : <FormattedMessage id={ 'no.translations.title' } /> }: `
-                                            }
-                                        </strong>
-                                        <span className={ classes.attributesValue }>{ data[1] }</span>
-                                    </div>
-                                </Grid>
-                            )) }
-                        </Grid>
+                        <ContentCollapser>
+                            <Grid container spacing={ 16 }>
+                                { Object.entries(attributes).map((data: [string, string]) => (
+                                    <Grid
+                                        item
+                                        xs={ 12 }
+                                        sm={ 6 }
+                                        md={ 4 }
+                                        key={`${attributeNames[data[0]] }-${ data[1]}`}
+                                    >
+                                        <div className={ classes.attributes }>
+                                            <strong className={ classes.attributesName }>
+                                                { `${ attributeNames[data[0]]
+                                                    ? attributeNames[data[0]]
+                                                    : <FormattedMessage id={ 'no.translations.title' } /> }: `
+                                                }
+                                            </strong>
+                                            <span className={ classes.attributesValue }>{ data[1] }</span>
+                                        </div>
+                                    </Grid>
+                                )) }
+                            </Grid>
+                        </ContentCollapser>
                     }
 
                     { value === 1 &&
-                        <div className={ classes.descriptionContent }>
-                            <Typography color="textSecondary" component="p" className={ classes.description }>
-                                { description }
-                            </Typography>
-                            <span className={ classes.descriptionSku }>
-                                <FormattedMessage id={ 'product.sku.title' } />: { sku }
-                            </span>
-                        </div>
+                        <ContentCollapser>
+                            <div className={ classes.descriptionContent }>
+                                <Typography color="textSecondary" component="p" className={ classes.description }>
+                                    { description }
+                                </Typography>
+                                <span className={ classes.descriptionSku }>
+                                    <FormattedMessage id={ 'product.sku.title' } />: { sku }
+                                </span>
+                            </div>
+                        </ContentCollapser>
                     }
                 </div>
             </div>

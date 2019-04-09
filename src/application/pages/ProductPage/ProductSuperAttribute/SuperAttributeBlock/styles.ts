@@ -11,7 +11,13 @@ export const styles = (theme: Theme) => createStyles({
         margin: -5
     },
     attributeTitle: {
-        paddingBottom: 15
+        paddingBottom: 10,
+        fontSize: 14,
+        lineHeight: 1.3,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 15,
+            paddingBottom: 15
+        }
     },
     attributesItem: {
         padding: 5,

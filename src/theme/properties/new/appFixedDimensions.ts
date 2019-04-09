@@ -1,13 +1,7 @@
 import * as React from 'react';
-import { GridSpacing } from '@material-ui/core/Grid';
 
 export interface IAppFixedDimensions {
-    card: {
-        actionAreaWidth: React.CSSProperties['width'];
-        actionAreaHeight: React.CSSProperties['height'];
-    };
     borderRadius: React.CSSProperties['borderRadius'];
-    gridSpacing: GridSpacing;
     fontSize: {
         mini: React.CSSProperties['fontSize'];
         small: React.CSSProperties['fontSize'];
@@ -19,26 +13,11 @@ export interface IAppFixedDimensions {
         xxl: React.CSSProperties['fontSize'];
         xxxl: React.CSSProperties['fontSize'];
     };
-    customBreakpoints: {
-        tablet: number;
-        smallTablet: number;
-        phone: number;
-    };
     customerSubPageWidth: React.CSSProperties['width'];
-    sprykerLogo: {
-        width: number;
-        minWidth: number;
-        height: number;
-    };
 }
 
 export const appFixedDimensions: IAppFixedDimensions = {
-    card: {
-        actionAreaWidth: 282,
-        actionAreaHeight: 428,
-    },
     borderRadius: 4,
-    gridSpacing: 24,
     fontSize: {
         mini: '0.69rem', // 11px
         small: '0.875rem', // 14px
@@ -50,15 +29,5 @@ export const appFixedDimensions: IAppFixedDimensions = {
         xxl: '2.12rem', // 34px
         xxxl: '3.5rem', // 56px
     },
-    customBreakpoints: {
-        tablet: 1280,
-        smallTablet: 960,
-        phone: 600,
-    },
-    customerSubPageWidth: 740,
-    sprykerLogo: {
-        width: 170,
-        height: 60,
-        minWidth: 170
-    }
+    customerSubPageWidth: 740
 };

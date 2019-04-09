@@ -5,19 +5,20 @@ export const styles = (theme: Theme) => createStyles({
     layout: {
         background: theme.appColors.weekWhite
     },
+    container: {
+        padding: '17px 0',
+        ...theme.appContainerStyles,
+    },
     list: {
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
         listStyle: 'none',
-        padding: '12px 0',
         margin: 0,
-        ...theme.appContainerStyles
+        padding: 0,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     item: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '5px 0',
+        display: 'inline',
         fontSize: 13
     },
     link: {
@@ -25,7 +26,6 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: 0.3,
         textDecoration: 'none',
         transition: 'color .2s ease-in-out',
-
         '&:hover': {
             color: theme.appColors.black
         }
@@ -35,7 +35,7 @@ export const styles = (theme: Theme) => createStyles({
         pointerEvents: 'none'
     },
     separator: {
-        width: 37,
+        margin: '0 15px',
         color: theme.appColors.grey,
         textAlign: 'center',
         pointerEvents: 'none'
