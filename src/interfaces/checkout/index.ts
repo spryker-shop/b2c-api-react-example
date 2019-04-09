@@ -102,10 +102,10 @@ export interface IBillingSelectionState {
 }
 
 export interface ICheckoutStepsCompletionState {
-    checkoutAddressStep: boolean;
-    checkoutBillingStep: boolean;
-    checkoutShipmentStep: boolean;
-    checkoutPaymentStep: boolean;
+    isAddressStepPassed: boolean;
+    isBillingStepPassed: boolean;
+    isShipmentStepPassed: boolean;
+    isPaymentStepPassed: boolean;
 }
 
 export interface ICheckoutCreditCardState {

@@ -3,9 +3,7 @@ import Loadable from 'react-loadable';
 
 export const LoadablePasswordResetPage = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadablePasswordReset" */
-            '@application/pages/ResetPasswordPage').then(
+        import('@application/pages/ResetPasswordPage').then(
             module => module.ResetPasswordPage,
         ),
     loading: () => <div>Loading...</div>,

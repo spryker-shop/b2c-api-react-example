@@ -9,8 +9,8 @@ import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, stepsCompletion: { checkoutAddressStep, checkoutBillingStep } } = props;
-    const isFormFulfilled = checkoutBillingStep && checkoutAddressStep;
+    const { classes, stepsCompletion: { isAddressStepPassed, isBillingStepPassed } } = props;
+    const isFormFulfilled = isBillingStepPassed && isAddressStepPassed;
 
     return (
         <div>

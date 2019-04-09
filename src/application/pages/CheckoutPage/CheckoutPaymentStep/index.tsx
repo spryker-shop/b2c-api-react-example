@@ -8,9 +8,9 @@ import { NavLink, Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const CheckoutPaymentStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, stepsCompletion: { checkoutPaymentStep, checkoutShipmentStep } } = props;
+    const { classes, stepsCompletion: { isPaymentStepPassed, isShipmentStepPassed } } = props;
 
-    if (!checkoutShipmentStep) {
+    if (!isShipmentStepPassed) {
         return <Redirect to={ pathCheckoutShipmentStep } />;
     }
 
@@ -18,7 +18,7 @@ const CheckoutPaymentStepComponent: React.SFC<Props> = (props): JSX.Element => {
         <div>
             <PaymentMethod />
             <NavLink to={ pathCheckoutShipmentStep }><FormattedMessage id={ 'word.back.title' } /></NavLink>
-            { checkoutPaymentStep &&
+            { isPaymentStepPassed &&
                 <NavLink to={ pathCheckoutSummaryStep }><FormattedMessage id={ 'word.summary.title' } /></NavLink>
             }
         </div>

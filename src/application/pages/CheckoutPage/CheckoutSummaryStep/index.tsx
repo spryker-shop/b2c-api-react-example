@@ -16,10 +16,10 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
         classes,
         isSendBtnDisabled,
         sendData,
-        stepsCompletion: { checkoutAddressStep, checkoutBillingStep, checkoutShipmentStep, checkoutPaymentStep }
+        stepsCompletion: { isAddressStepPassed, isBillingStepPassed, isShipmentStepPassed, isPaymentStepPassed }
     } = props;
-    const isAllCheckoutFormsFulfilled = checkoutAddressStep && checkoutBillingStep && checkoutShipmentStep &&
-        checkoutPaymentStep;
+    const isAllCheckoutFormsFulfilled = isAddressStepPassed && isBillingStepPassed && isShipmentStepPassed &&
+        isPaymentStepPassed;
 
     if (!isAllCheckoutFormsFulfilled) {
         return <Redirect to={ pathCheckoutLoginStep } />;

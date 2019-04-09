@@ -3,9 +3,7 @@ import Loadable from 'react-loadable';
 
 export const LoadableCheckoutShipmentStep = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadableLoginPage" */
-            '@pages/CheckoutPage/CheckoutShipmentStep').then(
+        import('@pages/CheckoutPage/CheckoutShipmentStep').then(
             module => module.CheckoutShipmentStep,
         ),
     loading: () => <div>Loading...</div>,
