@@ -63,8 +63,7 @@ export const getAddressFormSettings = (
                     isRequired: salutationConfig.isRequired,
                     label: <FormattedMessage id={'salutation.label'} />,
                     isError: salutation.isError,
-                    menuItems: SalutationVariants
-                        .map((item: TSalutationVariant) => ({value: item.value, name: item.label})),
+                    menuItems: SalutationVariants,
                     menuItemFirst: {
                         value: ' ',
                         name: <FormattedMessage id={'first.item.in.select'} />,
