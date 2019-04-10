@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
-import { AppPagination } from '@application/components/AppPagination';
+import { AppPagination } from '@application/containers/AppPagination';
 
-const SearchPaginationComponent: React.SFC<Props> = ({ pagination, history, setPaginationPage }) => {
-    const handlePagination = async (event: React.ChangeEvent<{}>, value: number | string): Promise<void> => {
+const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { pagination, history, setPaginationPage } = props;
+
+    const handlePagination = async (value: number | string): Promise<void> => {
         setPaginationParam(String(value));
     };
 

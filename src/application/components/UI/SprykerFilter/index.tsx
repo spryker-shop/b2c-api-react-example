@@ -41,8 +41,8 @@ class SprykerFilterComponent extends React.Component<Props, State> {
             menuItems,
             activeValues,
             isShowSelected,
-            title,
-            isFullWidth
+            isFullWidth,
+            hideBackdrop
         } = this.props;
         const { isOpen } = this.state;
 
@@ -58,12 +58,13 @@ class SprykerFilterComponent extends React.Component<Props, State> {
                             name: attributeName,
                             id: `${attributeName}-filter`
                         }}
-                        renderValue={
-                            title ? () => title : () => attributeName ? attributeName.split('_').join(' ') : ''
-                        }
+                        renderValue={value => attributeName ? attributeName.split('_').join(' ') : '' }
                         MenuProps={{
+                            disablePortal: true,
+                            keepMounted: true,
                             getContentAnchorEl: null,
                             disableAutoFocusItem: true,
+                            hideBackdrop: hideBackdrop || false,
                             anchorOrigin: {
                                 vertical: 'bottom',
                                 horizontal: 'left'
@@ -71,6 +72,9 @@ class SprykerFilterComponent extends React.Component<Props, State> {
                             transformOrigin: {
                                 vertical: 'top',
                                 horizontal: 'left'
+                            },
+                            ModalClasses: {
+                                root: `${isOpen ? classes.modalRootOpened : ''} ${classes.modalRoot}`
                             },
                             classes: {
                                 paper: classes.menu

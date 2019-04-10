@@ -11,10 +11,12 @@ export const styles = (theme: Theme) => createStyles({
         bottom: 'auto',
         width: '100%'
     },
-    backdrop: {},
+    backdrop: {
+        background: 'none'
+    },
     content: {
         borderRadius: 0,
-        overflow: 'visible'
+        overflowX: 'visible'
     },
     contentCustomCoordinates: {
         right: 0,

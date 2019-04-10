@@ -2,14 +2,11 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    wrapper: {
-        flexGrow: 1
-    },
-    layout: {
-        paddingTop: 20,
-        ...theme.appContainerStyles,
-        [theme.breakpoints.up('lg')]: {
-            paddingTop: 40
+    gridItem: {},
+    rangeFilters: {
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: 300
         }
     }
 });

@@ -9,5 +9,5 @@ export interface IAppHeaderState {
 
 export interface IAppHeaderProps extends WithStyles<typeof styles>, WithRouter {
     isLoading: boolean;
-    isLockedPage?: (value: boolean) => void;
+    isPageLocked?: (value: boolean) => void;
 }

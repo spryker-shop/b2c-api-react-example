@@ -27,7 +27,8 @@ export const styles = (theme: Theme) => createStyles({
         padding: '3px 13px',
         letterSpacing: 0.1,
         lineHeight: 1,
-        borderRadius: 14
+        borderRadius: 14,
+        textAlign: 'center'
     },
     saleLabel: {
         background: theme.appColors.red
