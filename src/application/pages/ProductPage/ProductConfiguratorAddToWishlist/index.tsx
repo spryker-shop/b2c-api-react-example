@@ -85,7 +85,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         return (
             <Grid container spacing={ 8 }>
                 { wishlistSelected &&
-                <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
+                <Grid item xs={ 12 } lg={ 7 }>
                     <SprykerSelect
                         currentMode={ wishlistSelected }
                         changeHandler={ this.handleWishlistChange }
@@ -105,7 +105,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                     />
                 </Grid>
                 }
-                <Grid item xs={ 12 } md={ wishlistSelected ? 5 : 12 }>
+                <Grid item xs={ 12 } lg={ wishlistSelected ? 5 : 12 }>
                     <Button
                         variant="outlined"
                         disabled={ this.isAddToWishlistBtnDisabled() }

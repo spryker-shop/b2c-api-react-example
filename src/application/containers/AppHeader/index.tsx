@@ -49,10 +49,10 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     };
 
     protected mobileNavToggleHandler = (isMobileNavOpened: boolean): void => {
-        const { isLockedPage } = this.props;
+        const { isPageLocked } = this.props;
 
         this.setState({ isMobileNavOpened });
-        isLockedPage(isMobileNavOpened);
+        isPageLocked(isMobileNavOpened);
     };
 
     public render(): JSX.Element {

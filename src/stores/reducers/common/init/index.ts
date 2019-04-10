@@ -23,7 +23,7 @@ export const initialState: IInitState = {
         countries: [],
         anonymId: 'anonym',
         isTouch: true,
-        isLockedPage: false
+        isPageLocked: false
     },
 };
 
@@ -48,7 +48,7 @@ export const init = function(state: IInitState = initialState, action: IInitActi
         case `${ANONYM_ID}_FULFILLED`:
             return handleAnonymIdFulfilled(state, action.payloadAnonymIdFulfilled);
         case `${IS_PAGE_LOCKED}_FULFILLED`:
-            return handleIsLockedPageFulfilled(state, action.payloadIsLockedPage);
+            return handleisPageLockedFulfilled(state, action.payloadisPageLocked);
         default:
             return state;
     }
@@ -113,12 +113,12 @@ const handleInitAppClear = (appState: IInitState) => ({
     }
 });
 
-const handleIsLockedPageFulfilled = (appState: IInitState, payload: boolean) =>
+const handleisPageLockedFulfilled = (appState: IInitState, payload: boolean) =>
     ({
         ...appState,
         data: {
             ...appState.data,
-            isLockedPage: payload
+            isPageLocked: payload
         },
         ...getReducerPartFulfilled(),
     });

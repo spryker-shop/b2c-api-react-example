@@ -6,7 +6,10 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1
     },
     layout: {
-        paddingTop: 40,
-        ...theme.appContainerStyles
+        paddingTop: 20,
+        ...theme.appContainerStyles,
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: 40
+        }
     }
 });

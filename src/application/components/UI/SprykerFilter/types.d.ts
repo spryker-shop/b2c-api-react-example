@@ -14,8 +14,8 @@ export interface ISprykerFilterProps extends WithStyles<typeof styles> {
     extraClassName?: string;
     isShowSelected?: boolean;
     handleClose?: Function;
-    title?: string;
     isFullWidth: boolean;
+    hideBackdrop?: boolean;
 }
 
 export interface ISprykerFilterState {

@@ -14,7 +14,13 @@ export const appButtons: Overrides = {
             borderStyle: 'solid',
             borderColor: 'transparent',
             textTransform: 'none',
-
+            '&:hover': {
+                '&$disabled': {
+                    backgroundColor: appColors.lightGrey,
+                    color: appColors.white,
+                    borderColor: appColors.lightGrey,
+                }
+            },
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,
@@ -25,62 +31,74 @@ export const appButtons: Overrides = {
                     color: appColors.white,
                     borderColor: appColors.lightGrey
                 }
-            }
+            },
         },
         contained: {
             boxShadow: 'none',
             backgroundColor: appColors.red,
             color: appColors.white,
-
             '&:hover': {
                 backgroundColor: appColors.darkRed
             },
-
             '&:active': {
                 backgroundColor: appColors.weekRed,
                 boxShadow: 'none'
             },
-
+            '@media (hover: none)': {
+                '&:active, &:hover': {
+                    boxShadow: 'none',
+                    backgroundColor: appColors.red,
+                    color: appColors.white,
+                },
+            },
             '&$disabled': {
                 backgroundColor: appColors.lightGrey,
                 color: appColors.white,
                 borderColor: appColors.lightGrey,
-
                 '&:active, &:hover': {
                     backgroundColor: appColors.lightGrey,
                     color: appColors.white,
                     borderColor: appColors.lightGrey
-                }
+                },
             }
         },
         containedPrimary: {
             backgroundColor: appColors.blue,
             color: appColors.white,
-
             '&:hover': {
                 backgroundColor: appColors.darkBlue
             },
-
             '&:active': {
                 backgroundColor: appColors.weekBlue
+            },
+            '@media (hover: none)': {
+                '&:hover, &:active': {
+                    backgroundColor: appColors.blue,
+                    color: appColors.white,
+                }
             }
         },
         outlined: {
             backgroundColor: appColors.white,
             color: appColors.blue,
             borderColor: appColors.lightGrey,
-
             '&:hover': {
                 backgroundColor: appColors.blue,
                 color: appColors.white,
                 borderColor: appColors.blue
             },
-
             '&:active': {
                 backgroundColor: appColors.darkBlue,
                 color: appColors.white,
                 borderColor: appColors.darkBlue
-            }
+            },
+            '@media (hover: none)': {
+                '&:hover, &:active': {
+                    backgroundColor: appColors.white,
+                    color: appColors.blue,
+                    borderColor: appColors.lightGrey,
+                }
+            },
         }
     },
     MuiIconButton: {

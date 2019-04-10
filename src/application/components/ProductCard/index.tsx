@@ -49,7 +49,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                             <Typography
                                 component="span"
                                 variant="display2"
-                                className={`${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
+                                className={`${classes.price} ${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
                             >
                                 <AppPrice value={ actualPriceGross } isStylesInherited />
                             </Typography>
