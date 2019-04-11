@@ -41,6 +41,7 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     iconInner: {
+        fill: 'currentColor',
         position: 'absolute',
         right: 5,
         top: '50%',
@@ -50,11 +51,6 @@ export const styles = (theme: Theme) => createStyles({
         margin: 0,
         borderRadius: '50%',
         border: '1px solid currentColor',
-        transition: 'none'
-    },
-    icon: {
-        width: '100%',
-        height: '100%',
         transition: 'none'
     },
     resetBtn: {

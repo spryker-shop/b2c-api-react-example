@@ -7,7 +7,6 @@ import {
     ExpansionPanelDetails,
     Typography
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
     IFormWrapperProps as Props,
     IFormWrapperState as State
@@ -51,7 +50,6 @@ export class FormWrapperBase extends React.Component<Props, State> {
                     >
                         <ExpansionPanelSummary
                             onClick={this.handleShowing}
-                            expandIcon={<ExpandMoreIcon/>}
                             classes={{
                                 expandIcon: classes.icon,
                                 root: classes.panelSummaryRoot,
