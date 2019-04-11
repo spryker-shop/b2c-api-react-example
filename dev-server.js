@@ -7,7 +7,7 @@ const webpackConfig = require( './webpack.config' );
 if (config.webpackDevServer) {
     new WebpackDevServer( webpack( webpackConfig ), {
         publicPath: webpackConfig.output.publicPath,
-        hot: true,
+        // hot: true,
         historyApiFallback: true,
     } ).listen( config.DEV_SERVER_PORT, config.DEV_SERVER_HOST, function (error, result) {
         if (error) {

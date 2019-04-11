@@ -5,6 +5,10 @@ interface IMessages {
 
 export const messages: IMessages = {
     'en': {
+        'secure.checkout.title': 'Secure checkout',
+        'continue.as.guest.title': 'Continue as Guest',
+        'returning.customers.title': 'Returning Customers',
+        'login.customers.message': 'Sign in to speed up the checkout process and save payments to account.',
         'accept.terms.title': 'Accept terms',
         'account.title': 'My Account',
         'account.was.deleted.message': 'Your account was deleted!',
@@ -92,10 +96,12 @@ export const messages: IMessages = {
         'loading.page.title': 'Waiting for results',
         'log.in.button.title': 'Log In',
         'log.out.button.title': 'Logout',
+        'login.guest.customers.message': 'Proceed to checkout and you will have an opportunity to create an account at the end if one does not already exist for you.',
         'logo.spryker.main.title': 'API demo',
         'logo.spryker.title': 'Artboard 1',
         'manage.addresses': 'Manage Addresses',
         'new.address.added.message': 'New address added successfully.',
+        'new.customers.title': 'New Customers',
         'new.password.label': 'New Password',
         'no.found.message': 'Sorry, we couldn\'t find any results matching your search term',
         'no.name.title': 'No name',
@@ -242,6 +248,10 @@ export const messages: IMessages = {
         'zip.code.label': 'Zipcode'
     },
     'de': {
+        'secure.checkout.title': 'Sichere Kasse',
+        'returning.customers.title': 'Wiederkehrende Kunden',
+        'login.customers.message': 'Melden Sie sich an, um die Kaufabwicklung zu beschleunigen und Zahlungen auf Konto zu speichern.',
+        'continue.as.guest.title': 'Als Gast fortfahren',
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
         'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',
@@ -330,10 +340,12 @@ export const messages: IMessages = {
         'loading.page.title': 'Warten auf Ergebnisse',
         'log.in.button.title': 'Ammelden',
         'log.out.button.title': 'Abmelden',
+        'login.guest.customers.message': 'Gehen Sie zur Kasse und Sie haben am Ende die Möglichkeit, ein Konto anzulegen, falls noch kein Konto für Sie vorhanden ist.',
         'logo.spryker.main.title': 'API-Demo',
         'logo.spryker.title': 'Artboard 1',
         'manage.addresses': 'Adressen verwalten',
         'new.address.added.message': 'Neue Adresse wurde erfolgreich hinzugefügt.',
+        'new.customers.title': 'Neue Kunden',
         'new.password.label': 'Neues Passwort',
         'no.found.message': 'Keine Suchresultatte',
         'no.name.title': 'Kein Name',
