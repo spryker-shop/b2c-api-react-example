@@ -8,7 +8,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const envConfig = require('./configs/env_config');
 const webpackSettings = require('./webpack-settings');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
     mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
@@ -116,8 +115,6 @@ const config = {
             devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new BundleAnalyzerPlugin(),
         ...(
             envConfig.IS_DEV_SERVER ? [
                 new webpack.HotModuleReplacementPlugin(),
