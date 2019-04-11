@@ -9,10 +9,11 @@ export interface ISearchFilterListProps extends WithStyles<typeof styles> {
     activeFilters: TActiveFilters;
     rangeFilters: RangeFacets[];
     activeRangeFilters: TActiveRangeFilters;
-
     setActiveFilters: (activeFilters: IActiveFilters) => void;
     clearActiveFilters: () => void;
     updateStore: Function;
+    categoriesList: (isOpened: boolean, Function: void) => JSX.Element;
+    isPageLocked?: (value: boolean) => void;
 }
 
 export interface ISearchFilterListState {
@@ -20,6 +21,7 @@ export interface ISearchFilterListState {
     activeRangeFilters?: TActiveRangeFilters;
     isFilterUpdated?: boolean;
     isFirstLoadPassed: boolean | null;
+    isFilterListOpened: boolean;
 }
 
 export type TFilterItemTypeFilter = 'filter';

@@ -9,22 +9,28 @@ const dotChange = (theme: Theme) => ({
 const animationDuration = '0.15s';
 
 export const styles = (theme: Theme) => createStyles({
+    wrapper: {},
+    layout: {
+        overflow: 'hidden'
+    },
     root: {
         position: 'relative',
-        margin: '0 -10px',
-
-        [theme.breakpoints.only('md')]: {
+        margin: '0 -5px',
+        [theme.breakpoints.up('md')]: {
             margin: '0 -16px'
         },
-
+        [theme.breakpoints.up('lg')]: {
+            margin: '0 -10px'
+        },
         '& .slick-slide': {
             transition: `opacity ${ animationDuration }`,
 
             '&:not(.slick-active)': {
-                opacity: 0.3
+                [theme.breakpoints.up('lg')]: {
+                    opacity: 0.3,
+                }
             }
         },
-
         '& .slick-arrow': {
             position: 'absolute',
             top: 0,
@@ -35,18 +41,15 @@ export const styles = (theme: Theme) => createStyles({
             padding: '0 20px',
             height: '100%',
             cursor: 'pointer',
-
             [theme.breakpoints.down('md')]: {
                 top: '50%',
                 transform: 'translate3d(0, -50%, 0)',
                 width: 'auto',
                 height: 'auto'
             },
-
             '&.slick-prev': {
                 left: 0
             },
-
             '&.slick-next': {
                 right: 0,
                 justifyContent: 'flex-end'
@@ -65,36 +68,45 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: '50%',
         backgroundColor: theme.appColors.weekWhite,
         transition: `box-shadow ${ animationDuration }`,
-
-        [theme.breakpoints.down('md')]: {
-            boxShadow: '0 5px 13px 0 rgba(187, 187, 187, 0.5)'
-        },
-
+        boxShadow: '0 5px 13px 0 rgba(187, 187, 187, 0.5)',
         [theme.breakpoints.up('lg')]: {
+            boxShadow: 'none',
             '&:hover': {
                 boxShadow: '0 5px 5px 0 rgba(187, 187, 187, 0.5)'
+            },
+            '@media (hover: none)': {
+                '&:hover': {
+                    boxShadow: 'none'
+                }
             }
         }
     },
     slide: {
-        padding: '4px 10px',
-
-        '&:focus': {
-            outline: 'none'
-        },
-
-        [theme.breakpoints.only('md')]: {
+        padding: '4px 5px',
+        [theme.breakpoints.up('md')]: {
             paddingLeft: '16px',
             paddingRight: '16px'
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingLeft: '10px',
+            paddingRight: '10px'
+        },
+        '&:focus': {
+            outline: 'none'
         }
     },
     dotsContainer: {
         width: '100%',
-        padding: '54px 0 0',
+        padding: '22px 0 0',
         margin: 0,
         textAlign: 'center',
         listStyleType: 'none',
-
+        [theme.breakpoints.only('md')]: {
+            paddingTop: 42
+        },
+        [theme.breakpoints.only('lg')]: {
+            paddingTop: 52
+        },
         '& li': {
             margin: '4px 8px',
             display: 'inline-block',
@@ -111,7 +123,6 @@ export const styles = (theme: Theme) => createStyles({
         width: '10px',
         height: '10px',
         cursor: 'pointer',
-
         '&:hover': {
             '& span': {
                 ...dotChange(theme)
@@ -131,5 +142,10 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.softGrey,
         transition: `width ${ animationDuration }, height ${ animationDuration }, 
             background ${ animationDuration }`
+    },
+    image: {
+        [theme.breakpoints.between('xs', 'sm')]: {
+            height: 260
+        }
     }
 });

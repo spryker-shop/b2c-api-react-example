@@ -5,12 +5,14 @@ import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@application/components/ProductCard';
 import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles, withWidth } from '@material-ui/core';
 import { styles } from './styles';
 import 'slick-carousel/slick/slick.css';
+import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
+import { isWidthUp } from '@material-ui/core/withWidth';
 
 const ProductsSliderComponent = (props: Props): JSX.Element => {
-    const { classes, products, currency, onSelectProduct } = props;
+    const { classes, products, currency, onSelectProduct, width } = props;
     const defaultAmountSlides = 3;
     const shouldRenderSlider = products.length > defaultAmountSlides;
 
@@ -39,6 +41,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                         sku={ product.sku }
                         onSelectProduct={ onSelectProduct }
                         label={ product.label }
+                        classes={{ image: classes.image }}
                     />
                 </Grid>
             </div>
@@ -46,7 +49,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
 
         if (!shouldRenderSlider) {
             return productsList.map((item, index) => (
-                <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ index }>{ item }</Grid>
+                <Grid item xs={ 12 } sm={ 3 } key={ index }>{ item }</Grid>
             ));
         }
 
@@ -67,37 +70,54 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         appendDots: renderDots,
         responsive: [
             {
-                breakpoint: 1280,
+                breakpoint: appBreakpoints.values.lg,
                 settings: {
-                    slidesToShow: defaultAmountSlides,
                     centerPadding: '0',
-                    centerMode: false,
+                    centerMode: false
                 }
             },
             {
-                breakpoint: 680,
+                breakpoint: appBreakpoints.values.sm,
                 settings: {
-                    slidesToShow: 2,
-                    centerPadding: '0',
-                    centerMode: false,
+                    slidesToShow: 1,
+                    arrows: false,
+                    centerPadding: '55px',
+                    centerMode: true,
+                    infinite: false
+                }
+            },
+            {
+                breakpoint: appBreakpoints.values.xs,
+                settings: {
+                    slidesToShow: 1,
+                    arrows: false,
+                    centerPadding: '25px',
+                    centerMode: true,
+                    infinite: false
                 }
             }
         ]
     };
 
-    if (!shouldRenderSlider ) {
+    if (isWidthUp('sm', width) && !shouldRenderSlider) {
         return (
-            <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
-                { renderProductCards() }
-            </Grid>
+            <div className={ classes.layout }>
+                <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
+                    { renderProductCards() }
+                </Grid>
+            </div>
         );
     }
 
     return (
-        <Slider className={ classes.root } { ...sliderSettings }>
-            { renderProductCards() }
-        </Slider>
+        <div className={ classes.wrapper }>
+            <div className={ classes.layout }>
+                <Slider className={ classes.root } { ...sliderSettings }>
+                    { renderProductCards() }
+                </Slider>
+            </div>
+        </div>
     );
 };
 
-export const ProductsSlider = withStyles(styles)(ProductsSliderComponent);
+export const ProductsSlider = withWidth()(withStyles(styles)(ProductsSliderComponent));

@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover/Popover';
 import { IPopoverWrapperProps as Props } from './types';
 import { styles } from './styles';
 
-export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
+export const PopoverWrapperComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         classes,
         children,
@@ -42,13 +42,13 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
                 className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
                 disablePortal={ true }
                 keepMounted={ true }
-                    PaperProps={{
-                        ...paperProps,
-                        classes: {
-                            root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
+                PaperProps={{
+                    ...paperProps,
+                    classes: {
+                        root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
                     }
                 }}
-                    BackdropProps={{ classes: { root: classes.backdrop } }}
+                BackdropProps={{ classes: { root: classes.backdrop } }}
                 >
                     { children }
                 </Popover>
@@ -57,7 +57,7 @@ export const PopoverWrapperBase: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-PopoverWrapperBase.defaultProps = {
+PopoverWrapperComponent.defaultProps = {
     anchorReference: 'anchorPosition',
     anchorPosition: { top: 0, left: 0 },
     hideBackdrop: true,
@@ -72,4 +72,4 @@ PopoverWrapperBase.defaultProps = {
     }
 };
 
-export const PopoverWrapper = withStyles(styles)(PopoverWrapperBase);
+export const PopoverWrapper = withStyles(styles)(PopoverWrapperComponent);

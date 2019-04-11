@@ -6,7 +6,7 @@ export interface IAppBreakpoints {
 
 export const appBreakpoints: IAppBreakpoints = {
     values: {
-        xs: 0,
+        xs: 320,
         sm: 550,
         md: 768,
         lg: 1024,

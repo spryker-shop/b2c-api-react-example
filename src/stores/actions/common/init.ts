@@ -82,7 +82,7 @@ export const anonymIdFilFilled = (payload: string) => ({
     payloadAnonymIdFulfilled: payload,
 });
 
-export const isLockedPageFulfilledState = (payload: boolean): IInitAction => ({
+export const isPageLockedFulfilledState = (payload: boolean): IInitAction => ({
     type: IS_PAGE_LOCKED + '_FULFILLED',
-    payloadIsLockedPage: payload,
+    payloadisPageLocked: payload,
 });

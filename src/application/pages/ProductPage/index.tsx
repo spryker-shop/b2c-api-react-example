@@ -207,44 +207,48 @@ export class ProductPageComponent extends React.Component<Props, State> {
                     <>
                         <Breadcrumbs breadcrumbsList={ categoriesTree } />
                         <AppMain>
-                            <Grid container spacing={ 40 } className={ classes.productMain }>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 7 }>
-                                    <ProductImageSlider images={ images } />
+                            <Grid container spacing={ 16 } className={ classes.productMain }>
+                                <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
+                                    <div className={ classes.productPreview }>
+                                        <ProductImageSlider images={ images } />
+                                    </div>
                                 </Grid>
-                                <Grid item xs={ 12 } sm={ 12 } md={ 5 }>
-                                    <ProductGeneralInfo
-                                        name={ name }
-                                        sku={ sku }
-                                        price={ priceDefaultGross }
-                                        oldPrice={ priceOriginalGross ? priceOriginalGross : null }
-                                        availability={ getAvailabilityDisplay(availability) }
-                                    />
-
-                                    { superAttributes &&
-                                        <ErrorBoundary>
-                                            <ProductSuperAttribute
-                                                productData={ superAttributes }
-                                                onChange={ this.handleSuperAttributesChange }
-                                            />
-                                        </ErrorBoundary>
-                                    }
-
-                                    <ErrorBoundary>
-                                        <ProductConfiguratorAddToCart
-                                            productType={ productType }
-                                            product={ this.props.product.concreteProducts[sku] }
+                                <Grid item xs={ 12 } sm={ 6 } md={ 5 }>
+                                    <div className={ classes.productContent }>
+                                        <ProductGeneralInfo
+                                            name={ name }
                                             sku={ sku }
+                                            price={ priceDefaultGross }
+                                            oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                            availability={ getAvailabilityDisplay(availability) }
                                         />
-                                    </ErrorBoundary>
 
-                                    { isUserLoggedIn &&
+                                        { superAttributes &&
+                                            <ErrorBoundary>
+                                                <ProductSuperAttribute
+                                                    productData={ superAttributes }
+                                                    onChange={ this.handleSuperAttributesChange }
+                                                />
+                                            </ErrorBoundary>
+                                        }
+
                                         <ErrorBoundary>
-                                            <ProductConfiguratorAddToWishlist
+                                            <ProductConfiguratorAddToCart
                                                 productType={ productType }
+                                                product={ this.props.product.concreteProducts[sku] }
                                                 sku={ sku }
                                             />
                                         </ErrorBoundary>
-                                    }
+
+                                        { isUserLoggedIn &&
+                                            <ErrorBoundary>
+                                                <ProductConfiguratorAddToWishlist
+                                                    productType={ productType }
+                                                    sku={ sku }
+                                                />
+                                            </ErrorBoundary>
+                                        }
+                                    </div>
                                 </Grid>
                             </Grid>
                             <ProductDetail
@@ -256,6 +260,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                             {shouldLoadRelationsImmediately &&
                                 <ErrorBoundary>
                                     <ProductRelations
+                                        classes={{ root: classes.sliderWrapper, slider: classes.slider }}
                                         sku={ this.props.product.abstractProduct.sku }
                                         title={ <FormattedMessage id={ 'product.relations.title' } /> }
                                     />

@@ -69,5 +69,5 @@ export function getIsTouch(state: IReduxStore, props: IReduxOwnProps): boolean {
 }
 
 export function getIsPageLocked(state: IReduxStore, props: IReduxOwnProps): boolean {
-    return state.init.data.isLockedPage;
+    return state.init.data.isPageLocked;
 }
