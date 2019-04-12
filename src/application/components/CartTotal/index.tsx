@@ -19,7 +19,7 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'word.subtotal.title' } />
                 </Typography>
                 <Typography component="span" variant="headline" color="textSecondary">
-                    <AppPrice value={ totals.subtotal } isStylesInherited />
+                    <AppPrice value={ totals.subtotal } />
                 </Typography>
             </div>
 
@@ -28,7 +28,7 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'word.tax.title' } />
                 </Typography>
                 <Typography component="span" variant="headline" color="textSecondary">
-                    <AppPrice value={ totals.taxTotal || 0 } isStylesInherited />
+                    <AppPrice value={ totals.taxTotal || 0 } />
                 </Typography>
             </div>
 
@@ -37,8 +37,8 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                     <Typography component="span" variant="headline" color="textSecondary">
                         <FormattedMessage id={ 'word.discount.title' } />
                     </Typography>
-                    <Typography component="span" variant="headline" color="textSecondary">
-                        <AppPrice value={ totals.discountTotal } isStylesInherited />
+                    <Typography component="span" variant="headline" className={ classes.discountText }>
+                        <AppPrice value={ totals.discountTotal } isMinus />
                     </Typography>
                 </div>
             }
@@ -48,7 +48,7 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'grand.total.title' } />
                 </Typography>
                 <Typography component="span" className={ classes.totalText }>
-                    <AppPrice value={ totals.grandTotal } isStylesInherited />
+                    <AppPrice value={ totals.grandTotal } />
                 </Typography>
             </div>
         </div>

@@ -62,7 +62,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                                 <FormattedMessage id={ 'word.subtotal.title' } />:
                             </Typography>
                             <Typography component="span" variant="display2">
-                                <AppPrice value={ totals.subtotal } isStylesInherited />
+                                <AppPrice value={ totals.subtotal } />
                             </Typography>
                         </div>
                     </div>

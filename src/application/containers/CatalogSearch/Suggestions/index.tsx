@@ -30,19 +30,21 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                 <div className={ classes.description }>
                     <span className={ classes.itemName }>{ suggestion.abstractName }</span>
                     <div className={ classes.prices }>
-                        <AppPrice
-                            value={ isPriceExist ? suggestion.prices[0].grossAmount : suggestion.price }
-                            priceType={ isPriceExist ? suggestion.prices[0].priceTypeName : '' }
-                            extraClassName={ `${classes.priceItem} ${isOldPriceExist ?
-                                classes.newPrice : classes.mainPrice}` }
-                        />
+                        <span className={`${classes.priceItem} ${isOldPriceExist ?
+                            classes.newPrice : classes.mainPrice}`}>
+                            <AppPrice
+                                value={ isPriceExist ? suggestion.prices[0].grossAmount : suggestion.price }
+                                priceType={ isPriceExist ? suggestion.prices[0].priceTypeName : '' }
+                            />
+                        </span>
 
                         { isOldPriceExist &&
-                            <AppPrice
-                                value={ suggestion.prices[1].grossAmount }
-                                priceType={ suggestion.prices[1].priceTypeName }
-                                extraClassName={ `${classes.priceItem} ${classes.oldPrice}` }
-                            />
+                            <span className={ `${classes.priceItem} ${classes.oldPrice}` }>
+                                <AppPrice
+                                    value={ suggestion.prices[1].grossAmount }
+                                    priceType={ suggestion.prices[1].priceTypeName }
+                                />
+                            </span>
                         }
                     </div>
                 </div>

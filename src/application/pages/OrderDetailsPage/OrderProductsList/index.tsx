@@ -41,18 +41,12 @@ export const OrderProductListBase: React.SFC<Props> = (props): JSX.Element => {
             },
             {
                 id: `price-${item.sku}`,
-                content: <AppPrice
-                    value={item.sumPrice}
-                    isStylesInherited={true}
-                />
+                content: <AppPrice value={item.sumPrice} />
             },
             {id: `quantity-${item.sku}`, content: item.quantity},
             {
                 id: `total-${item.sku}`,
-                content: <AppPrice
-                    value={item.sumPriceToPayAggregation}
-                    isStylesInherited={true}
-                />,
+                content: <AppPrice value={item.sumPriceToPayAggregation} />,
                 extraClassName: classes.total
             }
         ]

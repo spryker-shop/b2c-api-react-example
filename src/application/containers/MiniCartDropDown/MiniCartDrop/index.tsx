@@ -62,21 +62,18 @@ class MiniCartDropComponent extends React.Component<Props> {
                             <Typography component="h5" variant="display1" className={ classes.fontTotal }>
                                 <FormattedMessage id={ 'word.discount.title' } />
                             </Typography>
-                            <AppPrice
-                                value={ totals.discountTotal }
-                                isMinus
-                                extraClassName={`${classes.priceTotal} ${classes.discountPriceTotal}`}
-                            />
+                            <span className={`${classes.priceTotal} ${classes.discountPriceTotal}`}>
+                                <AppPrice value={ totals.discountTotal } isMinus />
+                            </span>
                         </div>
                     }
                     <div className={ classes.cartTotal }>
                         <Typography component="h5" variant="display1" className={ classes.fontTotal }>
                             <FormattedMessage id={ 'word.total.title' } />
                         </Typography>
-                        <AppPrice
-                            value={ totals.grandTotal }
-                            extraClassName={ classes.priceTotal }
-                        />
+                        <span className={ classes.priceTotal }>
+                            <AppPrice value={ totals.grandTotal }/>
+                        </span>
                     </div>
                 </div>
 

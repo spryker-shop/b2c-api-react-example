@@ -66,16 +66,12 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                                         component="p"
                                         className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                     >
-                                        <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                        <AppPrice value={ priceDefaultGross } />
                                     </Typography>
                                     { priceOriginalGross &&
-                                        <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                            <AppPrice
-                                                value={ priceOriginalGross }
-                                                priceType={ priceTypeNameOriginal }
-                                                isStylesInherited
-                                            />
-                                        </Typography>
+                                    <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
+                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                                    </Typography>
                                     }
                                 </div>
                             </Grid>

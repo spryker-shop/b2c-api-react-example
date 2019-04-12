@@ -25,9 +25,9 @@ export const createRangeFilterItemCombined = (
     if (isPrice) {
         label = (
             <>
-                <AppPrice value={rangeFilterValueToBack(value.min)} isStylesInherited />
+                <AppPrice value={rangeFilterValueToBack(value.min)} />
                 &nbsp;{'-'}&nbsp;
-                <AppPrice value={rangeFilterValueToBack(value.max)} isStylesInherited />
+                <AppPrice value={rangeFilterValueToBack(value.max)} />
             </>
         );
     } else {

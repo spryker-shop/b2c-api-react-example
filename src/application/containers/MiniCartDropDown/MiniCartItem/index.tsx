@@ -43,16 +43,12 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                                     component="p"
                                     className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                 >
-                                    <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                    <AppPrice value={ priceDefaultGross } />
                                 </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice
-                                            value={ priceOriginalGross }
-                                            priceType={ priceTypeNameOriginal }
-                                            isStylesInherited
-                                        />
+                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                     </Typography>
                                 }
                             </Grid>

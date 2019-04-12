@@ -6,50 +6,24 @@ import { priceTypeNameOriginal } from '@interfaces/product';
 import { IAppPriceProps as Props } from './types';
 import { styles } from './styles';
 
-export const AppPriceBase: React.SFC<Props> = (props): JSX.Element => {
-    const {
-        classes,
-        currency,
-        value,
-        specificCurrency,
-        priceType,
-        title,
-        extraClassName,
-        isStylesInherited,
-        isMinus
-    } = props;
+const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, currency, value, specificCurrency, priceType, isMinus } = props;
+    const isPriceExist = value || value === 0;
 
-    if (!currency) {
+    if (!currency || !isPriceExist) {
         return null;
-    }
-    const valueFormatted = value ? (value / 100) : 0;
-    let priceClassName = '';
-    if (priceType === priceTypeNameOriginal) {
-        priceClassName = classes.strikethrough;
-    } else {
-        priceClassName = classes.defaultPrice;
-    }
-
-    let classNames = priceClassName;
-    if (extraClassName) {
-        classNames += ` ${extraClassName}`;
-    }
-    if (isStylesInherited) {
-        classNames += ` ${classes.stylesInherited}`;
     }
 
     return (
-        value || value === 0 ?
-        <span className={classNames}>
-            {title ? title : null}
-            {isMinus ? <span>&nbsp; -</span> : null}
+        <span className={`${ priceType === priceTypeNameOriginal ? classes.strikethrough : '' }`}>
+            { isMinus && <span>&nbsp; -</span>  }
             <FormattedNumber
-                value={valueFormatted}
+                value={ value / 100 }
                 style="currency"
-                currency={specificCurrency ? specificCurrency : currency}
+                currency={ specificCurrency ? specificCurrency : currency }
             />
-        </span> : null
+        </span>
     );
 };
 
-export const AppPrice = connect(withStyles(styles)(AppPriceBase));
+export const AppPrice = connect(withStyles(styles)(AppPriceComponent));

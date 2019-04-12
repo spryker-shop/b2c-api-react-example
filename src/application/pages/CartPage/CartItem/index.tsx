@@ -72,22 +72,18 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 component="p"
                                 className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                <AppPrice value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
                                 <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                    <AppPrice
-                                        value={ priceOriginalGross }
-                                        priceType={ priceTypeNameOriginal }
-                                        isStylesInherited
-                                    />
+                                    <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                 </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
                             <div className={ classes.eachPrice }>
                                 (
-                                <AppPrice value={ unitPriceToPayAggregation } isStylesInherited />&nbsp;
+                                <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
                                 <FormattedMessage id={ 'word.each.title' } />)
                             </div>
                         }
