@@ -9,15 +9,20 @@ export const styles = (theme: Theme) => createStyles({
         flexShrink: 0
     },
     content: {
+        display: 'flex',
+        alignItems: 'center',
+        minHeight: 60,
+        padding: '5px 0',
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
-        padding: '15px 0',
         background: theme.appColors.white,
         boxShadow: '0 2px 16px 0 rgba(193, 193, 193, 0.5)',
         zIndex: 5,
         [theme.breakpoints.up('sm')]: {
+            display: 'block',
+            height: 'auto',
             padding: '10px 0'
         }
     },
@@ -61,16 +66,17 @@ export const styles = (theme: Theme) => createStyles({
             display: 'none'
         }
     },
-    checkout: {
-        lineHeight: '20px',
-        fontSize: theme.appFixedDimensions.fontSize.medium,
-        letterSpacing: '0.3px'
+    hamburgerIcon: {
+        lineHeight: 0,
+        width: 26,
+        height: 20,
+        fill: theme.appColors.grey
     },
     mainNav: {
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             alignSelf: 'stretch',
-            flexGrow: 1,
+            flexGrow: 1
         },
         [theme.breakpoints.only('md')]: {
             order: 10,
@@ -80,6 +86,54 @@ export const styles = (theme: Theme) => createStyles({
         },
         [theme.breakpoints.up('lg')]: {
             margin: '-10px 0'
+        }
+    },
+    checkout: {
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: 36,
+        position: 'relative',
+        lineHeight: 1.6,
+        fontSize: 14,
+        fontWeight: 500,
+        color: theme.appColors.lightGrey,
+        letterSpacing: 0.1,
+        [theme.breakpoints.up('sm')]: {
+            flexDirection: 'row',
+            alignItems: 'center'
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: 15,
+            paddingLeft: 40
+        }
+    },
+    checkoutIcon: {
+        position: 'absolute',
+        left: 2,
+        top: 0,
+        lineHeight: 0,
+        width: 24,
+        height: 24,
+        fill: 'currentColor',
+        [theme.breakpoints.up('sm')]: {
+            left: 4
+        }
+    },
+    checkoutPhone: {
+        color: theme.appColors.black,
+        textDecoration: 'none',
+        outline: 'none',
+        transition: 'color 0.3s ease-in-out',
+        '&:hover': {
+            color: theme.appColors.grey
+        },
+        '@media (hover: none)': {
+            '&:hover': {
+                color: theme.appColors.black
+            }
+        },
+        [theme.breakpoints.up('sm')]: {
+            margin: '0 8px'
         }
     }
 });
