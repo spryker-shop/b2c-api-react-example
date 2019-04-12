@@ -15,7 +15,7 @@ const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <span className={`${ priceType === priceTypeNameOriginal ? classes.strikethrough : '' }`}>
+        <span className={`${classes.price} ${ priceType === priceTypeNameOriginal ? classes.strikethrough : '' }`}>
             { isMinus && <span>&nbsp; -</span>  }
             <FormattedNumber
                 value={ value / 100 }
