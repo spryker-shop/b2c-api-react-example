@@ -22,9 +22,11 @@ class MiniCartDropComponent extends React.Component<Props> {
 
         if (isUserLoggedIn) {
             cartDeleteItemAction(cartId, cartItemId);
-        } else {
-            removeItemGuestCartAction(cartId, cartItemId, anonymId);
+
+            return;
         }
+
+        removeItemGuestCartAction(cartId, cartItemId, anonymId);
     };
 
     public render(): JSX.Element {

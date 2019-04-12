@@ -17,6 +17,7 @@ import {
     pathCheckoutAddressStep,
     pathCheckoutLoginStep,
     pathCheckoutPage,
+    pathCheckoutSummaryStep,
     pathCheckoutThanks
 } from '@constants/routes';
 import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
@@ -127,60 +128,58 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const {
             classes,
             isProductsExists,
-            orderId,
             isUserLoggedIn,
-            anonymId,
             stepsCompletion,
             isCheckoutLoading,
             location: { pathname }
         } = this.props;
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
-        const isOrderExist = !isProductsExists && !orderId;
+        const isSummaryPage = pathname === pathCheckoutSummaryStep;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
+        if (!isProductsExists) {
+            return (
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
+                </AppMain>
+            );
+        }
+
         return (
             <>
-                {!isOrderExist && <CheckoutBreadcrumbs />}
-                <AppMain classes={{ wrapper: classes.wrapper }}>
-                    { isOrderExist
-                        ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
-                        : <>
-                            <Grid container className={ classes.container }>
-                                <Grid
-                                    item
-                                    xs={ 12 }
-                                    md={this.shouldHideOrderInfo() ? 12 : 7}
-                                    className={ classes.leftColumn }
-                                >
-                                    { !isCheckoutLoading &&
-                                        <CheckoutRouting
-                                            stepsCompletion={ stepsCompletion }
-                                            isSendBtnDisabled={ isButtonDisabled }
-                                            sendData={ this.handleSubmit }
-                                        />
-                                    }
-                                </Grid>
-                                {!this.shouldHideOrderInfo() &&
-                                    <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
-                                        <ErrorBoundary>
-                                            <CheckoutCart
-                                                isSendBtnDisabled={ isButtonDisabled }
-                                                sendData={ this.handleSubmit }
-                                                order={ orderId }
-                                                isUserLoggedIn={ isUserLoggedIn }
-                                                anonymId={ anonymId }
-                                            />
-                                        </ErrorBoundary>
-                                    </Grid>
-                                }
-                            </Grid>
-                        </>
-                    }
-                </AppMain>
+                <CheckoutBreadcrumbs />
+                { !isCheckoutLoading &&
+                    <AppMain classes={{ wrapper: classes.wrapper }}>
+                        <div className={ classes.container }>
+                            <div
+                                className={`
+                                    ${classes.contentColumn} ${this.shouldHideOrderInfo() ? classes.fullWidth : ''}
+                                `}
+                            >
+                                <ErrorBoundary>
+                                    <CheckoutRouting
+                                        stepsCompletion={ stepsCompletion }
+                                        isSendBtnDisabled={ isButtonDisabled }
+                                        sendData={ this.handleSubmit }
+                                    />
+                                </ErrorBoundary>
+                            </div>
+                            {!this.shouldHideOrderInfo() &&
+                                <div className={ classes.summaryColumn }>
+                                    <CheckoutCart
+                                        isSendBtnDisabled={ isButtonDisabled }
+                                        sendData={ this.handleSubmit }
+                                        isSummaryPage={ isSummaryPage }
+                                    />
+                                </div>
+                            }
+                        </div>
+                    </AppMain>
+                }
             </>
         );
     }

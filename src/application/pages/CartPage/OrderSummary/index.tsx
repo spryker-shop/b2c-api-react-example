@@ -25,7 +25,7 @@ export class OrderSummaryComponent extends React.Component<OrderSummaryProps, Or
                     <FormattedMessage id={ 'your.order.title' } />
                 </Typography>
 
-                <CartTotal totals={ totals } title={ <FormattedMessage id={ 'grand.total.title' } /> } />
+                <CartTotal totals={ totals } />
 
                 <Button
                     component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } /> }

@@ -22,16 +22,11 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
         },
         deleteItem
     } = props;
-    const cartProductImageSize = 80;
 
     return (
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    size={ cartProductImageSize }
-                    image={ image }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.content }>

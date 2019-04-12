@@ -9,7 +9,6 @@ import { styles } from './styles';
 
 export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
     const { suggestion, classes, isHighlighted, clearSuggestion } = props;
-    const listItemHeight = 45;
     const isPriceExist = suggestion.prices && suggestion.prices.length;
     const isOldPriceExist = suggestion.prices && suggestion.prices.length > 1;
 
@@ -22,9 +21,8 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
             <MenuItem selected={ isHighlighted } component="div" className={ classes.menuItem }>
                 <div className={ classes.imageWrapper }>
                     <SquareImage
-                        classes={{ actionAreaOverlay: classes.imageOverlay }}
+                        classes={{ actionAreaOverlay: classes.imageOverlay, imgWrapper: classes.image }}
                         image={ suggestion.images.length ? suggestion.images[0].externalUrlSmall : '' }
-                        size={ listItemHeight }
                         alt={ suggestion.abstractName }
                     />
                 </div>

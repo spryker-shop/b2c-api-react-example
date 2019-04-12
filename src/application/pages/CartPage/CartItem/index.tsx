@@ -11,7 +11,6 @@ import { NavLink } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
-    const imageItemHeight: number = 132;
     const {
         classes,
         sku,
@@ -32,11 +31,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
 
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    image={ image }
-                    size={ imageItemHeight }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>

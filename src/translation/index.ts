@@ -5,6 +5,7 @@ interface IMessages {
 
 export const messages: IMessages = {
     'en': {
+        'order.summary.title': 'Order Summary',
         'accept.terms.title': 'Accept terms',
         'account.title': 'My Account',
         'account.was.deleted.message': 'Your account was deleted!',
@@ -250,6 +251,7 @@ export const messages: IMessages = {
         'zip.code.label': 'Zipcode'
     },
     'de': {
+        'order.summary.title': 'Bestellübersicht',
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
         'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',

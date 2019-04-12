@@ -7,12 +7,18 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 50
     },
     container: {
-
+        display: 'flex',
+        margin: -10,
     },
-    leftColumn: {
-
+    contentColumn: {
+        width: '62%',
+        padding: 10,
     },
-    rightColumn: {
-
+    summaryColumn: {
+        width: '38%',
+        padding: 10,
+    },
+    fullWidth: {
+        width: '100%'
     }
 });
