@@ -7,10 +7,9 @@ import {
 } from '@constants/checkout/types';
 import { TFormInputValue } from '@application/components/UI/SprykerForm/types';
 import {
-    IBillingAddressState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState,
-    IDeliveryAddressState
+    ICheckoutAddressState
 } from '@interfaces/checkout';
 
 export interface IParamInputValidity {
@@ -19,7 +18,7 @@ export interface IParamInputValidity {
 }
 
 export interface IParamFormValidity {
-    form: IDeliveryAddressState | IBillingAddressState | ICheckoutInvoiceState | ICheckoutCreditCardState;
+    form: ICheckoutAddressState | ICheckoutInvoiceState | ICheckoutCreditCardState;
     fieldsConfig: IDeliveryObjectConfigInputStable
         | IBillingObjectConfigInputStable
         | IInvoiceObjectConfigInputStable

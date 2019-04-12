@@ -84,7 +84,7 @@ class SortPanelComponent extends React.Component<Props, State> {
                                 { sortParams.length &&
                                     <SprykerSelect
                                         currentMode={ currentSort ? currentSort : ' ' }
-                                        changeHandler={ this.handleSetSorting }
+                                        onChangeHandler={ this.handleSetSorting }
                                         menuItems={ this.sortMenuItems() }
                                         menuItemFirst={{
                                             value: ' ',
@@ -101,7 +101,7 @@ class SortPanelComponent extends React.Component<Props, State> {
                                     { pagination.validItemsPerPageOptions &&
                                         <SprykerSelect
                                             currentMode={ currentItemsPerPage }
-                                            changeHandler={ this.handleSetItemsPerPage }
+                                            onChangeHandler={ this.handleSetItemsPerPage }
                                             menuItems={ this.itemsPerPageMenuItems() }
                                             menuItemFirst={{
                                                 value: ' ',

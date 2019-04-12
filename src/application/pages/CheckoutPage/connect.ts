@@ -19,7 +19,7 @@ import {
     IBillingAddressState, IBillingSelectionState,
     ICheckoutRequest,
     ICheckoutStepsCompletionState,
-    IDeliveryAddressState,
+    ICheckoutAddressState,
     IDeliverySelectionState,
     IPaymentMethod,
     IShipmentMethod
@@ -41,7 +41,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     );
     const orderId: string = getCreatedOrder(state, ownProps);
     const stepsCompletion: ICheckoutStepsCompletionState = state.pageCheckout.stepsCompletion;
-    const deliveryNewAddress: IDeliveryAddressState = state.pageCheckout.deliveryNewAddress;
+    const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
     const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;

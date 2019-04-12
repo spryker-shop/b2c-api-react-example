@@ -28,7 +28,7 @@ export const styles = (theme: Theme) => createStyles({
     error: {
         color: theme.appColors.red,
         '& input': {
-            borderColor: theme.appColors.red,
+            borderColor: theme.appColors.red
         }
     },
     label: {
@@ -43,9 +43,13 @@ export const styles = (theme: Theme) => createStyles({
         transform: 'none',
         '&$labelFocused': {
             color: theme.appColors.grey
+        },
+        '&$labelError': {
+            color: theme.appColors.red
         }
     },
     labelFocused: {},
+    labelError: {},
     asterisk: {
         color: theme.appColors.blue
     },

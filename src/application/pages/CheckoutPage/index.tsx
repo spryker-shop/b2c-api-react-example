@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { CheckoutCart } from '@application/pages/CheckoutPage/CheckoutCart';
 import { AppPageTitle } from '@application/components/AppPageTitle';

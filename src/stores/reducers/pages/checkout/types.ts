@@ -9,7 +9,7 @@ import {
     ICheckoutCreditCardState,
     ICheckoutInvoiceState,
     ICheckoutStepsCompletionState,
-    IDeliveryAddressState,
+    ICheckoutAddressState,
     IDeliverySelectionState,
     IFormUpdatePaymentStatus,
     IFormFieldMutate
@@ -18,7 +18,7 @@ import {
 export interface ICheckoutState extends IReduxState {
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;
-    deliveryNewAddress: IDeliveryAddressState;
+    deliveryNewAddress: ICheckoutAddressState;
     billingNewAddress: IBillingAddressState;
     stepsCompletion: ICheckoutStepsCompletionState;
     shipmentMethod: IShipmentMethod['id'] | null;

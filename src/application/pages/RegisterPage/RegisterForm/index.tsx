@@ -81,7 +81,7 @@ export class RegisterForm extends React.Component<Props, State> {
                     <Grid item xs={ 12 }>
                         <SprykerSelect
                             currentMode={ this.state.salutation }
-                            changeHandler={ this.handleChangeSalutation }
+                            onChangeHandler={ this.handleChangeSalutation }
                             menuItems={ SalutationVariants }
                             label={ <FormattedMessage id={ 'salutation.label' } /> }
                             menuItemFirst={{

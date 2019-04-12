@@ -1,42 +1,37 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { Grid, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { getAddressFormSettings } from '@helpers/formCreations/checkout/addressSettings';
 import { getDeliverySavedAddressFormSettings } from '@helpers/formCreations/checkout/savedAddressSettings';
-import {
-    checkoutFormsNames,
-    checkoutSelectionInputs, creditCardConfigInputStable,
-    deliveryConfigInputStable
-} from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation/';
+import { checkoutFormsNames, checkoutSelectionInputs, deliveryConfigInputStable } from '@constants/checkout';
 import {
     checkFormInputValidity,
     checkFormValidity,
     getDefaultAddressId,
     getExtraOptionsToSelection
 } from '@helpers/checkout';
-import { IAddressItemCollection } from '@interfaces/addresses';
-import {
-    IAddressParams,
-    IDeliveryAddressesParams
-} from '@helpers/formCreations/checkout/types';
+import { IDeliveryAddressesParams } from '@helpers/formCreations/checkout/types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
-import { IDeliveryFormProps, TCurrentValueDeliverySelection } from './types';
-import { IDeliveryAddressState } from '@interfaces/checkout';
+import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
 import { styles } from './styles';
+import { AddressForm } from '../AddressForm';
 
 @connect
-export class DeliveryFormBase extends React.Component<IDeliveryFormProps> {
+export class DeliveryFormBase extends React.Component<Props> {
     public componentDidMount = (): void => {
         this.setDefaultAddresses();
     };
 
+    public componentDidUpdate = (prevProps: Props): void => {
+        const shouldCheckFormValidity = prevProps.deliveryNewAddress !== this.props.deliveryNewAddress;
+
+        if (shouldCheckFormValidity) {
+            this.handleDeliveryNewAddressValidity();
+        }
+    };
+
     protected handleDeliverySelection = (value: string): void => {
-        const {
-            mutateStateDeliverySelectionAddNew,
-            mutateStateDeliverySelectionAddressId
-        } = this.props;
+        const { mutateStateDeliverySelectionAddNew, mutateStateDeliverySelectionAddressId } = this.props;
 
         if (value === checkoutSelectionInputs.isAddNewDeliveryValue) {
             mutateStateDeliverySelectionAddNew();
@@ -48,62 +43,36 @@ export class DeliveryFormBase extends React.Component<IDeliveryFormProps> {
 
     protected setDefaultAddresses = (): void => {
         const { addressesCollection } = this.props;
-        const defaultValueDelivery = getDefaultAddressId(addressesCollection, 'delivery');
+        const defaultValueDelivery = getDefaultAddressId(addressesCollection, checkoutFormsNames.delivery);
+
         if (defaultValueDelivery) {
             this.handleDeliverySelection(defaultValueDelivery);
-        } else {
-            this.handleDeliverySelection(checkoutSelectionInputs.isAddNewDeliveryValue);
+
+            return;
         }
+
+        this.handleDeliverySelection(checkoutSelectionInputs.isAddNewDeliveryValue);
     };
-
-    protected validateDeliveryInput = (key: string, value: string): boolean => (
-        checkFormInputValidity({ value, fieldConfig: deliveryConfigInputStable[ key ] })
-    );
-
-    protected validateDeliveryNewAddressForm = (formState: IDeliveryAddressState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: deliveryConfigInputStable })
-    );
 
     protected handleDeliveryInputs = (event: InputChangeEvent): void => {
         const { name, value } = event.target;
-        const {
-            mutateStateNewAddressDelivery,
-            deliveryNewAddress
-        } = this.props;
+        const { mutateStateNewAddressDelivery } = this.props;
 
-        if (!deliveryNewAddress.hasOwnProperty(name)) {
-            throw new Error(InputSaveErrorMessage);
-        }
-
-        const isInputValid = this.validateDeliveryInput(name, value);
-        const changedFiledData = {
-            key: name,
-            value,
-            isError: !isInputValid
-        };
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: deliveryConfigInputStable[name] });
+        const changedFiledData = { key: name, value, isError: !isInputValid };
 
         mutateStateNewAddressDelivery(changedFiledData);
-
-        const namesList = [
-            deliveryConfigInputStable.salutation.inputName,
-            deliveryConfigInputStable.country.inputName
-        ];
-
-        const isSelectChanged = namesList.includes(name);
-
-        if (isSelectChanged) {
-            this.handleDeliveryNewAddressValidity();
-        }
     };
 
     protected handleDeliveryNewAddressValidity = (): void => {
-        const { mutateDeliveryStep } = this.props;
-        const newAddress = { ...this.props.deliveryNewAddress };
+        const { mutateDeliveryStep, deliveryNewAddress, isUserLoggedIn } = this.props;
+        const newAddress = { ...deliveryNewAddress };
 
-        if (this.props.isUserLoggedIn) {
+        if (isUserLoggedIn) {
             delete newAddress.email;
         }
-        const isFormValid = this.validateDeliveryNewAddressForm(newAddress);
+
+        const isFormValid = checkFormValidity({ form: newAddress, fieldsConfig: deliveryConfigInputStable });
         mutateDeliveryStep(isFormValid);
     };
 
@@ -128,21 +97,10 @@ export class DeliveryFormBase extends React.Component<IDeliveryFormProps> {
             addressesCollection,
             isUserLoggedIn,
             isAddressesCollectionExist,
-            countriesCollection,
             deliveryNewAddress,
-            deliverySelection: {
-                isAddNew
-            }
+            deliverySelection: { isAddNew }
         } = this.props;
 
-        const deliveryParams: IAddressParams = {
-            inputsData: deliveryNewAddress,
-            inputsConfig: deliveryConfigInputStable,
-            countriesCollection,
-            submitHandler: this.handleSubmit,
-            inputChangeHandler: this.handleDeliveryInputs,
-            onBlurHandler: this.handleDeliveryNewAddressValidity
-        };
         const savedDeliveryParams: IDeliveryAddressesParams = {
             currentValueInSelection: this.getCurrentValueDeliverySelection(),
             addressesCollection,
@@ -153,11 +111,6 @@ export class DeliveryFormBase extends React.Component<IDeliveryFormProps> {
             submitHandler: this.handleSubmit,
             inputChangeHandler: this.handleSelectionsChange
         };
-        const deliveryFormSettings = getAddressFormSettings(
-            checkoutFormsNames.delivery,
-            deliveryParams,
-            isUserLoggedIn
-        );
 
         const savedAddressFormSettings = getDeliverySavedAddressFormSettings(
             checkoutFormsNames.savedDelivery,
@@ -165,18 +118,19 @@ export class DeliveryFormBase extends React.Component<IDeliveryFormProps> {
         );
 
         return (
-            <Grid container>
-                <Grid item xs={ 12 }>
-                    <React.Fragment>
-                        { (addressesCollection && addressesCollection.length) &&
-                            <SprykerForm form={ savedAddressFormSettings } />
-                        }
-                        { (isAddNew || !isUserLoggedIn) &&
-                            <SprykerForm form={ deliveryFormSettings } />
-                        }
-                    </React.Fragment>
-                </Grid>
-            </Grid>
+            <>
+                { Boolean(addressesCollection) &&
+                    <SprykerForm form={ savedAddressFormSettings } />
+                }
+                { (isAddNew || !isUserLoggedIn) &&
+                    <AddressForm
+                        shouldShowEmail={ !isUserLoggedIn }
+                        formName={ checkoutFormsNames.delivery }
+                        onFieldChangeHandler={ this.handleDeliveryInputs }
+                        data={ deliveryNewAddress }
+                    />
+                }
+            </>
         );
     }
 }

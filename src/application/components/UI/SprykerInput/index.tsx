@@ -38,7 +38,8 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
                 FormLabelClasses: {
                     root: classes.label,
                     focused: classes.labelFocused,
-                    asterisk: classes.asterisk
+                    asterisk: classes.asterisk,
+                    error: classes.labelError
                 }
             }}
             type={ inputType || 'text' }

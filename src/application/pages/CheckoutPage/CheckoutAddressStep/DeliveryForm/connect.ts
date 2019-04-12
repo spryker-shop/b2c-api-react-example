@@ -2,16 +2,8 @@ import { reduxify } from '@application/hoc/Reduxify';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import {
-    getAddressesCollectionFromCheckoutStore
-} from '@stores/reducers/pages/checkout/selectors';
-import { ICountry } from '@interfaces/country';
-import { getCounties } from '@stores/reducers/common/init/selectors';
-import {
-    IDeliveryAddressState,
-    IDeliverySelectionState,
-    IFormFieldMutate
-} from '@interfaces/checkout';
+import { getAddressesCollectionFromCheckoutStore } from '@stores/reducers/pages/checkout/selectors';
+import { ICheckoutAddressState, IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
 import {
     mutateStateNewAddressDeliveryAction,
     mutateStateDeliverySelectionAddNewAction,
@@ -24,15 +16,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const addressesCollection: IAddressItemCollection[] | null =
         getAddressesCollectionFromCheckoutStore(state, ownProps);
     const isAddressesCollectionExist: boolean = addressesCollection && addressesCollection.length > 0;
-    const countriesCollection: ICountry[] = getCounties(state, ownProps);
-    const deliveryNewAddress: IDeliveryAddressState = state.pageCheckout.deliveryNewAddress;
+    const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
 
     return {
         isUserLoggedIn,
         addressesCollection,
         isAddressesCollectionExist,
-        countriesCollection,
         deliveryNewAddress,
         deliverySelection
     };

@@ -14,7 +14,7 @@ import {
 import {
     billingConfigInputStable,
     checkoutFormsNames,
-    checkoutSelectionInputs, deliveryConfigInputStable
+    checkoutSelectionInputs,
 } from '@constants/checkout';
 import { InputSaveErrorMessage } from '@translation/';
 import {

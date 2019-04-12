@@ -51,7 +51,6 @@ export type TCurrentValueBillingSelection = ICheckoutSelectionInputs['isAddNewBi
     | IAddressItemCollection['id']
     | null;
 
-
 export interface IConfigInputStable {
     isRequired: boolean;
     inputName: string;

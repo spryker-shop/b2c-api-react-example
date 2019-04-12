@@ -3,7 +3,7 @@ import { ICheckoutAddressState } from '@interfaces/checkout';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
 import { IParamFormValidity, IParamInputValidity } from './types';
 import { TAddressType, TExtraOptionsToSelection } from '@constants/checkout/types';
-import { checkoutSelectionInputs } from '@constants/checkout';
+import { checkoutFormsNames, checkoutSelectionInputs } from '@constants/checkout';
 import { RegExpZipCode } from '@constants/forms/regexp';
 import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
 
@@ -18,7 +18,7 @@ export const addressDefault: IAddressItem = {
     city: '',
     country: '',
     company: '',
-    phone: '',
+    phone: ''
 };
 
 export const getExtraOptionsToSelection = (
@@ -35,7 +35,9 @@ export const getExtraOptionsToSelection = (
             value: checkoutSelectionInputs.isAddNewDeliveryValue,
             label: FormattedMessageTemplate('add.new.delivery.address.label')
         });
-    } else if (addressType === 'billing') {
+    }
+
+    if (addressType === 'billing') {
         response.push(
             {
                 value: checkoutSelectionInputs.isAddNewBillingValue,
@@ -51,24 +53,23 @@ export const getExtraOptionsToSelection = (
     return response;
 };
 
-export const getDefaultAddressId = (
-    collection: ICheckoutPageProps['addressesCollection'],
-    addressType: TAddressType) => {
+export const getDefaultAddressId = (collection: ICheckoutPageProps['addressesCollection'], addressType: string) => {
     if (!collection || !collection.length) {
         return null;
     }
-    const variantData = collection
-        .filter((item: IAddressItemCollection) => {
-            if (addressType === 'delivery') {
-                return item.isDefaultShipping === true;
-            } else if (addressType === 'billing') {
-                return item.isDefaultBilling === true;
-            } else {
-                return false;
-            }
-        });
+    const variantData = collection.filter((item: IAddressItemCollection) => {
+        if (addressType === 'delivery') {
+            return item.isDefaultShipping === true;
+        }
 
-    return ((variantData && variantData[ 0 ]) ? variantData[ 0 ].id : null);
+        if (addressType === 'billing') {
+            return item.isDefaultBilling === true;
+        }
+
+        return false;
+    });
+
+    return ((variantData && variantData[0]) ? variantData[0].id : null);
 };
 
 export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
@@ -91,10 +92,10 @@ export const checkFormValidity = (param: IParamFormValidity): boolean => {
     let result: boolean = true;
 
     for (const field in form) {
-        const { value } = form[ field ];
+        const { value } = form[field];
         const cleanValue = typeof value === 'string' ? value.trim() : value;
 
-        if (form[ field ].isError || (fieldsConfig[ field ].isRequired && !cleanValue)) {
+        if (form[field].isError || (fieldsConfig[field].isRequired && !cleanValue)) {
             result = false;
         }
     }
@@ -106,8 +107,8 @@ export const getAddressForm = (address: ICheckoutAddressState): IAddressItem => 
     let payloadAddress: IAddressItem = addressDefault;
 
     Object.keys(address).map((field: string) => {
-        const { value } = address[ field ];
-        payloadAddress = { ...payloadAddress, [ field ]: typeof value === 'string' ? value.trim() : value };
+        const { value } = address[field];
+        payloadAddress = { ...payloadAddress, [field]: typeof value === 'string' ? value.trim() : value };
     });
 
     payloadAddress = { ...payloadAddress, iso2Code: payloadAddress.country };

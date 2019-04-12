@@ -79,9 +79,6 @@ export interface ICheckoutAddressState {
     [key: string]: IConfigInputState;
 }
 
-export interface IDeliveryAddressState extends ICheckoutAddressState {
-}
-
 export interface IBillingAddressState extends ICheckoutAddressState {
 }
 
