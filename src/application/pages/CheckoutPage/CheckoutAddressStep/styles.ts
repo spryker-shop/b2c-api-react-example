@@ -3,7 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     box: {
-        padding: '30px 50px 30px 30px',
+        padding: '30px 50px 18px 30px',
         borderRadius: 4,
         background: theme.appColors.white,
         marginBottom: 20

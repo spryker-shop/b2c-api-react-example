@@ -1,16 +1,10 @@
-import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import {
-    ICheckoutAddressState,
-    IDeliverySelectionState,
-    IFormFieldMutate
-} from '@interfaces/checkout';
+import { ICheckoutAddressState, IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
 
-export interface IDeliveryFormProps extends WithStyles<typeof styles> {
+export interface IDeliveryFormProps {
     isUserLoggedIn: boolean;
     addressesCollection: IAddressItemCollection[] | null;
-    isAddressesCollectionExist: boolean;
     deliveryNewAddress: ICheckoutAddressState;
     deliverySelection:  IDeliverySelectionState;
     mutateStateDeliverySelectionAddressId: (payload: string) => void;

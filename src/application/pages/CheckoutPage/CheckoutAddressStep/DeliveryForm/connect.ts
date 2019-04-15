@@ -15,14 +15,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
     const addressesCollection: IAddressItemCollection[] | null =
         getAddressesCollectionFromCheckoutStore(state, ownProps);
-    const isAddressesCollectionExist: boolean = addressesCollection && addressesCollection.length > 0;
     const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
 
     return {
         isUserLoggedIn,
         addressesCollection,
-        isAddressesCollectionExist,
         deliveryNewAddress,
         deliverySelection
     };

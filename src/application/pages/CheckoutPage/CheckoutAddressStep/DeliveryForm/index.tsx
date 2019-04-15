@@ -1,23 +1,14 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withStyles } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { getDeliverySavedAddressFormSettings } from '@helpers/formCreations/checkout/savedAddressSettings';
 import { checkoutFormsNames, checkoutSelectionInputs, deliveryConfigInputStable } from '@constants/checkout';
-import {
-    checkFormInputValidity,
-    checkFormValidity,
-    getDefaultAddressId,
-    getExtraOptionsToSelection
-} from '@helpers/checkout';
-import { IDeliveryAddressesParams } from '@helpers/formCreations/checkout/types';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
+import { checkFormInputValidity, checkFormValidity, getDefaultAddressId } from '@helpers/checkout';
+import { InputChangeEvent } from '@interfaces/common';
 import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
-import { styles } from './styles';
 import { AddressForm } from '../AddressForm';
+import { SavedAddressForm } from '../SavedAddressForm';
 
 @connect
-export class DeliveryFormBase extends React.Component<Props> {
+export class DeliveryForm extends React.Component<Props> {
     public componentDidMount = (): void => {
         this.setDefaultAddresses();
     };
@@ -89,40 +80,16 @@ export class DeliveryFormBase extends React.Component<Props> {
         return selectedAddressId || (isAddNew && checkoutSelectionInputs.isAddNewDeliveryValue) || null;
     };
 
-    protected handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
-    };
-
     public render(): JSX.Element {
-        const {
-            addressesCollection,
-            isUserLoggedIn,
-            isAddressesCollectionExist,
-            deliveryNewAddress,
-            deliverySelection: { isAddNew }
-        } = this.props;
-
-        const savedDeliveryParams: IDeliveryAddressesParams = {
-            currentValueInSelection: this.getCurrentValueDeliverySelection(),
-            addressesCollection,
-            extraOptionsToSelection: getExtraOptionsToSelection(
-                isAddressesCollectionExist,
-                'delivery'
-            ),
-            submitHandler: this.handleSubmit,
-            inputChangeHandler: this.handleSelectionsChange
-        };
-
-        const savedAddressFormSettings = getDeliverySavedAddressFormSettings(
-            checkoutFormsNames.savedDelivery,
-            savedDeliveryParams
-        );
+        const { isUserLoggedIn, deliveryNewAddress, deliverySelection: { isAddNew } } = this.props;
 
         return (
             <>
-                { Boolean(addressesCollection) &&
-                    <SprykerForm form={ savedAddressFormSettings } />
-                }
+                <SavedAddressForm
+                    formName={ checkoutFormsNames.savedDelivery }
+                    currentMode={ this.getCurrentValueDeliverySelection() }
+                    onFieldChangeHandler={ this.handleSelectionsChange }
+                />
                 { (isAddNew || !isUserLoggedIn) &&
                     <AddressForm
                         shouldShowEmail={ !isUserLoggedIn }
@@ -135,5 +102,3 @@ export class DeliveryFormBase extends React.Component<Props> {
         );
     }
 }
-
-export const DeliveryForm = withStyles(styles)(DeliveryFormBase);

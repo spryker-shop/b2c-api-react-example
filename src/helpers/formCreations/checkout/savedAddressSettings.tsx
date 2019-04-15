@@ -9,41 +9,6 @@ import {
 import { getSalutationToShow } from '@helpers/customer/salutation';
 import { FormattedMessage } from 'react-intl';
 
-export const getDeliverySavedAddressFormSettings = (
-    formName: string,
-    params: IDeliveryAddressesParams): IFormSettings => {
-
-    const {
-        addressesCollection,
-        submitHandler,
-        inputChangeHandler,
-        extraOptionsToSelection,
-        currentValueInSelection
-    } = params;
-
-    const formSettings: IFormSettings = {
-        formName,
-        onChangeHandler: inputChangeHandler,
-        onSubmitHandler: submitHandler,
-        fields: [
-            [
-                {
-                    type: 'radio',
-                    inputName: 'deliverySelection',
-                    inputValue: currentValueInSelection,
-                    spaceNumber: 12,
-                    isRequired: false,
-                    label: <FormattedMessage id={'select.delivery.address.label'} />,
-                    isError: false,
-                    radioItems: getRadioItems(addressesCollection, extraOptionsToSelection)
-                }
-            ]
-        ]
-    };
-
-    return formSettings;
-};
-
 export const getBillingSavedAddressFormSettings = (
     formName: string,
     params: IBillingAddressesParams): IFormSettings => {
@@ -79,7 +44,7 @@ export const getBillingSavedAddressFormSettings = (
     return formSettings;
 };
 
-const getRadioItems = (
+export const getRadioItems = (
     collection: IAddressesParams['addressesCollection'],
     extraOptions: IAddressesParams['extraOptionsToSelection']) => {
     let items = convertAddressesToRadioItems(collection);
@@ -95,7 +60,7 @@ const getRadioItems = (
     return items;
 };
 
-const convertAddressesToRadioItems = (collection: IAddressesParams['addressesCollection']) =>
+export const convertAddressesToRadioItems = (collection: IAddressesParams['addressesCollection']) =>
     (isAddressesCollectionExist(collection) &&
         collection.map((item: IAddressItemCollection) => (
             {value: item.id, label: createRadioItemFullInforamtion(item)}

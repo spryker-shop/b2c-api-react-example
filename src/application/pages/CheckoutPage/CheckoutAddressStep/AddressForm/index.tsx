@@ -1,21 +1,30 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { Grid } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { SalutationVariants } from '@constants/customer';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { ICountry } from '@interfaces/country';
 import { IAddressFormProps as Props } from './types';
+import { styles } from './styles';
 
 const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { countriesCollection, shouldShowEmail, formName, onFieldChangeHandler, onFieldBlurHandler, data } = props;
+    const {
+        classes,
+        countriesCollection,
+        shouldShowEmail,
+        formName,
+        onFieldChangeHandler,
+        onFieldBlurHandler,
+        data
+    } = props;
     const isCountriesCollectionExist = Boolean(Array.isArray(countriesCollection) && countriesCollection.length > 0);
     const countriesList = isCountriesCollectionExist ? countriesCollection
         .map((item: ICountry) => ({value: item.iso2Code, name: item.name})) : null;
 
     return (
-        <form name={ formName }>
+        <form name={ formName } className={ classes.form }>
             <Grid container spacing={ 24 }>
                 <Grid item xs={ 12 }>
                     <SprykerSelect
@@ -171,4 +180,4 @@ AddressFormComponent.defaultProps = {
     shouldShowEmail: false
 };
 
-export const AddressForm = connect(AddressFormComponent);
+export const AddressForm = connect(withStyles(styles)(AddressFormComponent));
