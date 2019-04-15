@@ -35,10 +35,11 @@ export class DeliveryFormBase extends React.Component<Props> {
 
         if (value === checkoutSelectionInputs.isAddNewDeliveryValue) {
             mutateStateDeliverySelectionAddNew();
-            this.handleDeliveryNewAddressValidity();
-        } else {
-            mutateStateDeliverySelectionAddressId(value);
+
+            return;
         }
+
+        mutateStateDeliverySelectionAddressId(value);
     };
 
     protected setDefaultAddresses = (): void => {
