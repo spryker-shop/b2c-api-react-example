@@ -45,5 +45,6 @@ export interface ISprykerFormProps extends WithStyles<typeof sprykerFormStyles> 
 
 export interface IRadioItem {
     value: string;
-    label: React.ReactNode;
+    label: string | React.ReactNode;
+    salutation?: React.ReactNode;
 }

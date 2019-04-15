@@ -15,13 +15,19 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
         return null;
     }
 
-    const createRadioItemFullInforamtion = (address: IAddressItemCollection): string | React.ReactNode => {
-        let response: string = '';
+    const getSalutation = (address: IAddressItemCollection): React.ReactNode => {
         let salutation: React.ReactNode = null;
 
         if (address.salutation) {
             salutation = getSalutationToShow(address.salutation);
         }
+
+        return salutation;
+    };
+
+    const getFullInforamtion = (address: IAddressItemCollection): string | React.ReactNode => {
+        let response: string = '';
+
         if (address.firstName) {
             response += ` ${address.firstName}`;
         }
@@ -44,25 +50,26 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
             response += `, ${address.country.name}`;
         }
 
-        return [salutation, response];
+        return response;
     };
 
     const savedAddressList = (): IRadioItem[] => (
-        addressesCollection.map((item: IAddressItemCollection) => (
-            {value: item.id, label: createRadioItemFullInforamtion(item)}
+        addressesCollection.map((item: IAddressItemCollection): IRadioItem => (
+            {value: item.id, label: getFullInforamtion(item), salutation: getSalutation(item)}
         )).concat(extraField)
     );
 
-    const renderSavedAddressItems = (): JSX.Element[] => savedAddressList().map((item: IRadioItem) => (
+    const renderSavedAddressItems = (): JSX.Element[] => savedAddressList().map((item: IRadioItem, index: number) => (
         <FormControlLabel
+            key={`${formName}${item.value}`}
+            aria-label={ item.value }
             value={ item.value }
-            key={`${item.value}`}
             classes={{
                 root: `${classes.inputRadio} ${(currentMode === item.value) ? classes.checkedInputRadio : '' }`,
                 label: `${classes.radioLabel} ${(currentMode === item.value) ? classes.checkedRadioLabel : '' }`
             }}
-            control={ <Radio classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
-            label={ item.label }
+            control={ <Radio key={ index } classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
+            label={ <>{ Boolean(item.salutation) && item.salutation }{ item.label }</> }
         />
     ));
 
@@ -76,7 +83,6 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 }}
             >
                 { renderSavedAddressItems() }
-
             </RadioGroup>
         </form>
     );

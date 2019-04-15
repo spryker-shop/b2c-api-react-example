@@ -5,7 +5,6 @@ interface IMessages {
 
 export const messages: IMessages = {
     'en': {
-        'order.summary.title': 'Order Summary',
         'accept.terms.title': 'Accept terms',
         'account.title': 'My Account',
         'account.was.deleted.message': 'Your account was deleted!',
@@ -121,6 +120,7 @@ export const messages: IMessages = {
         'order.id.title': 'Order ID',
         'order.success.thank.message': 'Thank you for your order! You can view details of your order',
         'order.successfully.created.message': 'Order created successfully.',
+        'order.summary.title': 'Order Summary',
         'orders.date.title': 'Order Date',
         'orders.history.title': 'Orders History',
         'orders.total.title': 'Total',
@@ -171,6 +171,7 @@ export const messages: IMessages = {
         'search.result.default.title': 'Start searching',
         'search.result.title': 'Results for "{terms}"',
         'secure.checkout.title': 'Secure checkout',
+        'see.more.title': 'See More',
         'select.billing.address.label': 'Select billing address',
         'select.delivery.address.label': 'Select delivery address',
         'select.wish.list.label': 'Select wish list',
@@ -251,7 +252,6 @@ export const messages: IMessages = {
         'zip.code.label': 'Zipcode'
     },
     'de': {
-        'order.summary.title': 'Bestellübersicht',
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
         'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',
@@ -369,6 +369,7 @@ export const messages: IMessages = {
         'order.id.title': 'Bestellnummer: ',
         'order.success.thank.message': 'Sie können die Details der Bestellung hier einsehen.',
         'order.successfully.created.message': 'Bestellung erfolgreich erstellt.',
+        'order.summary.title': 'Bestellübersicht',
         'orders.date.title': 'Datum',
         'orders.history.title': 'Bestellungen',
         'orders.total.title': 'Summe',
@@ -417,6 +418,7 @@ export const messages: IMessages = {
         'search.result.default.title': 'Fang an zu suchen',
         'search.result.title': 'Ergebnisse für ',
         'secure.checkout.title': 'Sichere Kasse',
+        'see.more.title': 'Mehr sehen',
         'select.billing.address.label': 'Rechungsadress wählen',
         'select.delivery.address.label': 'Lieferadresse wählen',
         'select.wish.list.label': 'Wunschliste auswählen',

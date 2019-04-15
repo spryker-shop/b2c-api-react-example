@@ -11,14 +11,14 @@ import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
 
 const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { products, classes } = props;
+    const { products, classes, productsAmountThreshold, isProductsExpanded } = props;
 
     if (!products) {
         return null;
     }
 
     const renderProductItems = (): JSX.Element[] => (
-        products.map((item: ICartItem) => {
+        products.map((item: ICartItem, index: number) => {
             const { sku, image, name, quantity, priceDefaultGross, priceOriginalGross, superAttributes } = item;
             const renderSuperAttributes = superAttributes ? (
                 superAttributes.map((attr: { [key: string]: string }, idx: number) => (
@@ -30,9 +30,11 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                     </div>
                 ))
             ) : null;
+            const shouldHideItems = !isProductsExpanded && index + 1 > productsAmountThreshold;
+            const hiddenClass = shouldHideItems ? classes.productItemHidden : '';
 
             return (
-                <Grid container key={ sku } className={ classes.productItem }>
+                <Grid container key={ sku } className={`${classes.productItem} ${hiddenClass}`}>
                     <Grid item className={ classes.imageOuter }>
                         <SquareImage image={ image } alt={ name } />
                     </Grid>

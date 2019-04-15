@@ -13,6 +13,9 @@ export const styles = (theme: Theme) => createStyles({
             border: 'none'
         }
     },
+    productItemHidden: {
+        display: 'none'
+    },
     imageOuter: {
         flexShrink: 0
     },
