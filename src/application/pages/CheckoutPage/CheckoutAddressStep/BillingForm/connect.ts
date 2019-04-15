@@ -24,16 +24,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
     const addressesCollection: IAddressItemCollection[] | null =
         getAddressesCollectionFromCheckoutStore(state, ownProps);
-    const isAddressesCollectionExist: boolean = addressesCollection && addressesCollection.length > 0;
-    const countriesCollection: ICountry[] = getCounties(state, ownProps);
     const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
 
     return {
         isUserLoggedIn,
         addressesCollection,
-        isAddressesCollectionExist,
-        countriesCollection,
         billingNewAddress,
         billingSelection
     };
@@ -50,8 +46,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
     mutateStateBillingSelectionAddressId: (payload: string): void => {
         dispatch(mutateStateBillingSelectionAddressIdAction(payload));
     },
-    mutateStateBillingSelectionSameAsDelivery: (): void => {
-        dispatch(mutateStateBillingSelectionSameAsDeliveryAction());
+    mutateStateBillingSelectionSameAsDelivery: (payload: boolean): void => {
+        dispatch(mutateStateBillingSelectionSameAsDeliveryAction(payload));
     },
     mutateBillingStep: (payload: boolean): void => {
         dispatch(mutateBillingStepAction(payload));

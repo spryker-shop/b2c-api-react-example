@@ -1,25 +1,11 @@
-import {
-    IPaymentMethod,
-    ISameAsDelivery,
-    IShipmentMethod,
-    ICheckoutAddressState,
-    ICheckoutCreditCardState,
-    ICheckoutInvoiceState
-} from '@interfaces/checkout';
-import { IFormField } from '@application/components/UI/SprykerForm/types';
-import { IAddressItemCollection } from '@interfaces/addresses';
+import { IPaymentMethod, IShipmentMethod, ICheckoutCreditCardState, ICheckoutInvoiceState } from '@interfaces/checkout';
 import {
     IPaymentMethodGroupItem,
-    TCurrentValueBillingSelection,
-    TCurrentValueDeliverySelection,
-    TExtraOptionsToSelection,
     TPaymentProvidersCollection,
     ICreditCardObjectConfigInputStable,
-    IInvoiceObjectConfigInputStable,
-    IObjectConfigInputStable
+    IInvoiceObjectConfigInputStable
 } from '@constants/checkout/types';
 import { BlurEvent, FormEvent, InputChangeEvent } from '@interfaces/common';
-import { ICountry } from '@interfaces/country';
 
 // Base handlers for checkout's page forms
 export interface IBaseCheckoutFormHandler {
@@ -27,32 +13,6 @@ export interface IBaseCheckoutFormHandler {
     inputChangeHandler: (event: InputChangeEvent) => void;
     onBlurHandler?: (event: BlurEvent) => void;
 }
-
-// Param to create address forms
-export interface IAddressParams extends IBaseCheckoutFormHandler {
-    inputsData: ICheckoutAddressState;
-    inputsConfig: IObjectConfigInputStable;
-    countriesCollection: ICountry[] | null;
-    listFieldNameToChangeHandler?: {
-        [key: string]: IFormField['onChangeOwnHandler']
-    };
-}
-
-// Param to create SameAsDelivery form
-export interface ISameAsDeliveryParams extends IBaseCheckoutFormHandler {
-    isSameAsDelivery: ISameAsDelivery['isSameAsDelivery'];
-}
-
-// Param to create saved addresses form
-export interface IAddressesParams extends IBaseCheckoutFormHandler {
-    addressesCollection: IAddressItemCollection[] | null;
-    extraOptionsToSelection: TExtraOptionsToSelection;
-    currentValueInSelection: TCurrentValueDeliverySelection | TCurrentValueBillingSelection;
-}
-
-export interface IDeliveryAddressesParams extends IAddressesParams {}
-
-export interface IBillingAddressesParams extends IAddressesParams {}
 
 // Param to create shipping methods form
 export interface IShippingMethodsParams extends IBaseCheckoutFormHandler {

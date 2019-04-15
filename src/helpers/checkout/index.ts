@@ -1,11 +1,7 @@
-import { ICheckoutPageProps } from '@application/pages/CheckoutPage/types';
 import { ICheckoutAddressState } from '@interfaces/checkout';
-import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
+import { IAddressItem } from '@interfaces/addresses';
 import { IParamFormValidity, IParamInputValidity } from './types';
-import { TAddressType, TExtraOptionsToSelection } from '@constants/checkout/types';
-import { checkoutFormsNames, checkoutSelectionInputs } from '@constants/checkout';
 import { RegExpZipCode } from '@constants/forms/regexp';
-import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
 
 export const addressDefault: IAddressItem = {
     firstName: '',
@@ -21,57 +17,6 @@ export const addressDefault: IAddressItem = {
     phone: ''
 };
 
-export const getExtraOptionsToSelection = (
-    isAddressesCollectionExist: boolean,
-    addressType: TAddressType): TExtraOptionsToSelection | null => {
-    const response: TExtraOptionsToSelection = [];
-
-    if (!isAddressesCollectionExist) {
-        return null;
-    }
-
-    if (addressType === 'delivery') {
-        response.push({
-            value: checkoutSelectionInputs.isAddNewDeliveryValue,
-            label: FormattedMessageTemplate('add.new.delivery.address.label')
-        });
-    }
-
-    if (addressType === 'billing') {
-        response.push(
-            {
-                value: checkoutSelectionInputs.isAddNewBillingValue,
-                label: FormattedMessageTemplate('add.new.billing.address.label')
-            },
-            {
-                value: checkoutSelectionInputs.isSameAsDeliveryValue,
-                label: FormattedMessageTemplate('same.ass.current.delivery.address.label')
-            }
-        );
-    }
-
-    return response;
-};
-
-export const getDefaultAddressId = (collection: ICheckoutPageProps['addressesCollection'], addressType: string) => {
-    if (!collection || !collection.length) {
-        return null;
-    }
-    const variantData = collection.filter((item: IAddressItemCollection) => {
-        if (addressType === 'delivery') {
-            return item.isDefaultShipping === true;
-        }
-
-        if (addressType === 'billing') {
-            return item.isDefaultBilling === true;
-        }
-
-        return false;
-    });
-
-    return ((variantData && variantData[0]) ? variantData[0].id : null);
-};
-
 export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
     const { value, fieldConfig } = param;
     if (!value && fieldConfig.isRequired) {
@@ -79,9 +24,8 @@ export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
     }
     if (fieldConfig.inputName === 'zipCode' && typeof value === 'string') {
         const regExp = new RegExp(RegExpZipCode);
-        const result = regExp.test(value);
 
-        return result;
+        return regExp.test(value);
     }
 
     return true;

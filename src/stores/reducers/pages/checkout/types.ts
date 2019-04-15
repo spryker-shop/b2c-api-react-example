@@ -37,6 +37,7 @@ export interface IPageCheckoutAction extends IActionData {
     payloadCurrentSelection?: string;
     payloadFormUpdatePaymentStatus?: IFormUpdatePaymentStatus;
     payloadUpdateSectionStatus?: boolean;
+    payloadSelectionSameAsDelivery?: boolean;
 }
 
 export interface ICheckoutResponseData {

@@ -1,91 +1,56 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withStyles, Grid } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { getAddressFormSettings } from '@helpers/formCreations/checkout/addressSettings';
-import { getSameAsDeliveryFormSettings } from '@helpers/formCreations/checkout/sameAsDeliverySettings';
-import { getBillingSavedAddressFormSettings } from '@helpers/formCreations/checkout/savedAddressSettings';
-import {
-    checkFormInputValidity,
-    checkFormValidity,
-    getDefaultAddressId,
-    getExtraOptionsToSelection
-} from '@helpers/checkout';
-import {
-    billingConfigInputStable,
-    checkoutFormsNames,
-    checkoutSelectionInputs,
-} from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation/';
-import {
-    IAddressParams,
-    IBillingAddressesParams,
-    ISameAsDeliveryParams
-} from '@helpers/formCreations/checkout/types';
-import { IBillingFormProps } from './types';
+import { withStyles } from '@material-ui/core';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { newAddressConfigInputStable, checkoutFormsNames, checkoutSelectionInputs } from '@constants/checkout';
+import { IBillingFormProps as Props } from './types';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { IBillingAddressState } from '@interfaces/checkout';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
+import { InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
+import { AddressForm } from '@pages/CheckoutPage/CheckoutAddressStep/AddressForm';
+import { FormattedMessage } from 'react-intl';
+import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
+import { SavedAddressForm } from '@pages/CheckoutPage/CheckoutAddressStep/SavedAddressForm';
 
 @connect
-export class BillingFormBase extends React.Component<IBillingFormProps> {
+class BillingFormComponent extends React.Component<Props> {
     public componentDidMount = (): void => {
         this.setDefaultAddresses();
     };
 
-    protected setDefaultAddresses = (): void => {
-        const defaultValueBilling = getDefaultAddressId(this.props.addressesCollection, 'billing');
-        if (defaultValueBilling) {
-            this.handleBillingSelection(defaultValueBilling);
-        } else {
-            this.handleBillingSelection(checkoutSelectionInputs.isSameAsDeliveryValue);
-        }
-    };
+    public componentDidUpdate = (prevProps: Props): void => {
+        const shouldCheckFormValidity = prevProps.billingNewAddress !== this.props.billingNewAddress;
 
-    protected validateBillingInput = (key: string, value: string): boolean => (
-        checkFormInputValidity({ value, fieldConfig: billingConfigInputStable[ key ] })
-    );
-
-    protected validateBillingNewAddressForm = (formState: IBillingAddressState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: billingConfigInputStable })
-    );
-
-    protected handleBillingInputs = (event: InputChangeEvent): void => {
-        const { name, value } = event.target;
-        const {
-            mutateStateNewAddressBilling,
-            billingNewAddress
-        } = this.props;
-
-        if (!billingNewAddress.hasOwnProperty(name)) {
-            throw new Error(InputSaveErrorMessage);
-        }
-
-        const isInputValid = this.validateBillingInput(name, value);
-        const changedFiledData = {
-            key: name,
-            value,
-            isError: !isInputValid
-        };
-
-        mutateStateNewAddressBilling(changedFiledData);
-
-        const namesList = [
-            billingConfigInputStable.salutation.inputName,
-            billingConfigInputStable.country.inputName
-        ];
-
-        const isSelectChanged = namesList.includes(name);
-
-        if (isSelectChanged) {
+        if (shouldCheckFormValidity) {
             this.handleBillingNewAddressValidity();
         }
     };
 
+    protected setDefaultAddresses = (): void => {
+        const { addressesCollection: collection } = this.props;
+        const filteredCollection = collection.filter((item: IAddressItemCollection) => item.isDefaultBilling === true);
+        const defaultValueBilling = filteredCollection && filteredCollection[0] ? filteredCollection[0].id : null;
+
+        if (defaultValueBilling) {
+            this.handleBillingSelection(checkoutSelectionInputs.isSameAsDeliveryValue);
+            this.handleBillingSelection(defaultValueBilling);
+
+            return null;
+        }
+    };
+
+    protected handleBillingInputs = (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
+        const { mutateStateNewAddressBilling } = this.props;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: newAddressConfigInputStable[name] });
+        const changedFiledData = { key: name, value, isError: !isInputValid };
+
+        mutateStateNewAddressBilling(changedFiledData);
+    };
+
     protected handleBillingNewAddressValidity = (): boolean => {
         const { mutateBillingStep, billingNewAddress } = this.props;
-        const isFormValid = this.validateBillingNewAddressForm(billingNewAddress);
+        const isFormValid = checkFormValidity({ form: billingNewAddress, fieldsConfig: newAddressConfigInputStable });
         mutateBillingStep(isFormValid);
 
         return isFormValid;
@@ -101,100 +66,78 @@ export class BillingFormBase extends React.Component<IBillingFormProps> {
         const {
             mutateStateBillingSelectionSameAsDelivery,
             mutateStateBillingSelectionAddressId,
-            mutateStateBillingSelectionAddNew
+            mutateStateBillingSelectionAddNew,
+            billingSelection: { isSameAsDelivery }
         } = this.props;
 
         if (value === checkoutSelectionInputs.isAddNewBillingValue) {
             mutateStateBillingSelectionAddNew();
-        } else if (value === checkoutSelectionInputs.isSameAsDeliveryValue) {
-            mutateStateBillingSelectionSameAsDelivery();
-        } else {
-            mutateStateBillingSelectionAddressId(value);
+
+            return null;
         }
+
+        if (value === checkoutSelectionInputs.isSameAsDeliveryValue) {
+            mutateStateBillingSelectionSameAsDelivery(!isSameAsDelivery);
+
+            return null;
+        }
+
+        mutateStateBillingSelectionAddressId(value);
     };
 
-    protected getCurrentValueBillingSelection = (): IAddressItemCollection['id'] | string | null => (
-        this.props.billingSelection.selectedAddressId
-        || (this.props.billingSelection.isAddNew && checkoutSelectionInputs.isAddNewBillingValue)
-        || (this.props.billingSelection.isSameAsDelivery && checkoutSelectionInputs.isSameAsDeliveryValue)
-        || null
-    );
+    protected getCurrentValueBillingSelection = (): IAddressItemCollection['id'] | string | null => {
+        const { selectedAddressId, isAddNew, isSameAsDelivery } = this.props.billingSelection;
 
-    protected handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
+        return selectedAddressId || (isAddNew && checkoutSelectionInputs.isAddNewBillingValue) ||
+            (isSameAsDelivery && checkoutSelectionInputs.isSameAsDeliveryValue) || null;
     };
 
     public render(): JSX.Element {
         const {
             billingNewAddress,
             addressesCollection,
-            isAddressesCollectionExist,
             isUserLoggedIn,
-            countriesCollection,
-            billingSelection: {
-                isAddNew,
-                isSameAsDelivery
-            }
+            billingSelection: { isAddNew, isSameAsDelivery },
+            classes
         } = this.props;
 
-        const billingParams: IAddressParams = {
-            inputsData: billingNewAddress,
-            inputsConfig: billingConfigInputStable,
-            countriesCollection,
-            submitHandler: this.handleSubmit,
-            inputChangeHandler: this.handleBillingInputs,
-            onBlurHandler: this.handleBillingNewAddressValidity
-        };
-        const sameAsDeliveryParams: ISameAsDeliveryParams = {
-            isSameAsDelivery,
-            submitHandler: this.handleSubmit,
-            inputChangeHandler: this.handleSelectionsChange
-        };
-        const savedBillingParams: IBillingAddressesParams = {
-            currentValueInSelection: this.getCurrentValueBillingSelection(),
-            addressesCollection,
-            extraOptionsToSelection: getExtraOptionsToSelection(
-                isAddressesCollectionExist,
-                'billing'
-            ),
-            submitHandler: this.handleSubmit,
-            inputChangeHandler: this.handleSelectionsChange
-        };
-        const billingFormSettings = getAddressFormSettings(checkoutFormsNames.billing, billingParams, true);
-        const sameAsDeliveryFormSettings = getSameAsDeliveryFormSettings(
-            checkoutFormsNames.sameAsDeliveryForm,
-            sameAsDeliveryParams
-        );
-        const savedAddressFormSettings = getBillingSavedAddressFormSettings(
-            checkoutFormsNames.savedBilling,
-            savedBillingParams
-        );
-
-        const inputsForm = isSameAsDelivery ? null :
-            <SprykerForm key="inputsForm" form={ billingFormSettings } />;
-        const sameAsDeliveryForm = <SprykerForm key="sameAsDeliveryForm"
-                                                form={ sameAsDeliveryFormSettings } />;
-        const selectionForm = <SprykerForm key="selectionForm" form={ savedAddressFormSettings } />;
+        const isAddressCollectionExist = addressesCollection && addressesCollection.length;
+        const shouldShowNewAddressForm = isAddressCollectionExist ? isAddNew || !isUserLoggedIn : true;
 
         return (
-            <Grid container>
-                <Grid item xs={ 12 }>
-                    { isUserLoggedIn
-                        ? (
-                            <>
-                                { addressesCollection && addressesCollection.length
-                                    ? selectionForm
-                                    : sameAsDeliveryForm
-                                }
-                                { isAddNew && inputsForm }
-                            </>
-                        )
-                        : [ sameAsDeliveryForm, inputsForm ]
-                    }
-                </Grid>
-            </Grid>
+            <>
+                <form name={ checkoutFormsNames.sameAsDeliveryForm } className={ classes.sameFormCheckbox }>
+                    <SprykerCheckbox
+                        isChecked={ isSameAsDelivery }
+                        changeHandler={ this.handleSelectionsChange }
+                        label={ <FormattedMessage id={'same.as.delivery.label'} /> }
+                        inputName={ checkoutSelectionInputs.isSameAsDeliveryValue }
+                    />
+                </form>
+                { !isSameAsDelivery &&
+                    <>
+                        <SavedAddressForm
+                            formName={ checkoutFormsNames.savedBilling }
+                            currentMode={ this.getCurrentValueBillingSelection() }
+                            onFieldChangeHandler={ this.handleSelectionsChange }
+                            extraField={{
+                                value: checkoutSelectionInputs.isAddNewBillingValue,
+                                label: <FormattedMessage id={'add.new.billing.address.label'} />
+                            }}
+                        />
+                        { shouldShowNewAddressForm &&
+                            <AddressForm
+                                shouldShowEmail
+                                formName={ checkoutFormsNames.billing }
+                                onFieldChangeHandler={ this.handleBillingInputs }
+                                data={ billingNewAddress }
+                            />
+                        }
+                    </>
+                }
+            </>
         );
     }
 }
 
-export const BillingFormComponent = withStyles(styles)(BillingFormBase);
+export const BillingForm = withStyles(styles)(BillingFormComponent);

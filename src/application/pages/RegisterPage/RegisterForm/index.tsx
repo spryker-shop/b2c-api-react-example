@@ -148,7 +148,7 @@ export class RegisterForm extends React.Component<Props, State> {
                             isChecked={ this.state.acceptedTerms }
                             changeHandler={ this.handleChangeAgreement }
                             label={  <FormattedMessage id={ 'accept.terms.title' } /> }
-                            name="acceptedTerms"
+                            inputName="acceptedTerms"
                         />
                     </Grid>
                     <Grid item xs={ 12 }>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DeliveryForm } from './DeliveryForm';
-import { BillingFormComponent } from './BillingForm';
+import { BillingForm } from './BillingForm';
 import { ICheckoutAddressStepProps as Props } from './types';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
@@ -25,7 +25,7 @@ const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Typography component="h2" variant="display3" className={ classes.title }>
                     <FormattedMessage id={ 'billing.address.title' } />
                 </Typography>
-                <BillingFormComponent />
+                <BillingForm />
             </div>
             <div className={ classes.actions }>
                 <Button

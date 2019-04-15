@@ -47,6 +47,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'first.name.label' } /> }
                         inputName="firstName"
                         onChangeHandler={ onFieldChangeHandler }
@@ -58,6 +59,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'last.name.label' } /> }
                         inputName="lastName"
                         onChangeHandler={ onFieldChangeHandler }
@@ -70,6 +72,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                     <SprykerInput
                         label={ <FormattedMessage id={ 'company.label' } /> }
                         inputName="company"
+                        formName={ formName }
                         onChangeHandler={ onFieldChangeHandler }
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.company.value }
@@ -79,6 +82,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 6 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'street.label' } /> }
                         inputName="address1"
                         onChangeHandler={ onFieldChangeHandler }
@@ -90,6 +94,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 6 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'number.label' } /> }
                         inputName="address2"
                         onChangeHandler={ onFieldChangeHandler }
@@ -100,6 +105,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 </Grid>
                 <Grid item xs={ 12 }>
                     <SprykerInput
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'street.extra.label' } /> }
                         inputName="address3"
                         onChangeHandler={ onFieldChangeHandler }
@@ -112,6 +118,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
+                            formName={ formName }
                             label={ <FormattedMessage id={ 'email.label' } /> }
                             inputName="email"
                             onChangeHandler={ onFieldChangeHandler }
@@ -124,6 +131,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 6 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'city.label' } /> }
                         inputName="city"
                         onChangeHandler={ onFieldChangeHandler }
@@ -135,6 +143,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 6 }>
                     <SprykerInput
                         isRequired
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'zip.code.label' } /> }
                         inputName="zipCode"
                         onChangeHandler={ onFieldChangeHandler }
@@ -163,6 +172,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 </Grid>
                 <Grid item xs={ 6 }>
                     <SprykerInput
+                        formName={ formName }
                         label={ <FormattedMessage id={ 'phone.label' } /> }
                         inputName="phone"
                         onChangeHandler={ onFieldChangeHandler }

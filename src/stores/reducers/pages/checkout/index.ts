@@ -154,11 +154,11 @@ export const pageCheckout = produce<ICheckoutState>(
                 draft.billingSelection = {
                     selectedAddressId: null,
                     isAddNew: false,
-                    isSameAsDelivery: true
+                    isSameAsDelivery: action.payloadSelectionSameAsDelivery
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    isBillingStepPassed: true
+                    isBillingStepPassed: action.payloadSelectionSameAsDelivery
                 };
                 break;
             }

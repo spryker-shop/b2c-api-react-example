@@ -56,7 +56,7 @@ export interface IConfigInputStable {
     inputName: string;
 }
 
-export interface IObjectConfigInputStable {
+export interface IAddressConfigInputStable {
     firstName: IConfigInputStable;
     lastName: IConfigInputStable;
     salutation: IConfigInputStable;
@@ -71,10 +71,6 @@ export interface IObjectConfigInputStable {
 
     [key: string]: IConfigInputStable;
 }
-
-export interface IDeliveryObjectConfigInputStable extends IObjectConfigInputStable {}
-
-export interface IBillingObjectConfigInputStable extends IObjectConfigInputStable {}
 
 export interface ICreditCardObjectConfigInputStable {
     paymentProvider: IConfigInputStable;

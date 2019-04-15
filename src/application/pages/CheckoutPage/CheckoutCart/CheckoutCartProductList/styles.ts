@@ -31,17 +31,11 @@ export const styles = (theme: Theme) => createStyles({
         maxHeight: 42,
         marginBottom: 10,
         overflow: 'hidden',
+        color: theme.appColors.grey,
         // Multiline truncation with ellipsis Chrome only
         display: '-webkit-box',
         lineClamp: 2,
         boxOrient: 'vertical'
-    },
-    nameLink: {
-        textDecoration: 'none',
-        color: theme.appColors.grey,
-        '&:hover': {
-            color: theme.appColors.blue
-        }
     },
     attributes: {
         dispay: 'block',

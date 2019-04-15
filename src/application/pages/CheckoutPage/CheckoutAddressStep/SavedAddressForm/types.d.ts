@@ -9,4 +9,8 @@ export interface ISavedAddressFormProps extends WithStyles<typeof styles> {
     addressesCollection: IAddressItemCollection[] | null;
     formName: string;
     onFieldChangeHandler: (event: InputChangeEvent) => void;
+    extraField: {
+        value: string;
+        label: React.ReactNode
+    };
 }

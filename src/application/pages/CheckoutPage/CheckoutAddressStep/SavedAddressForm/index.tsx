@@ -2,25 +2,55 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormControlLabel, Radio, RadioGroup, withStyles } from '@material-ui/core';
 import { ISavedAddressFormProps as Props } from './types';
-import { checkoutSelectionInputs } from '@constants/checkout';
 import { IRadioItem } from '@components/UI/SprykerForm/types';
 import { styles } from './styles';
-import { convertAddressesToRadioItems } from '@helpers/formCreations/checkout/savedAddressSettings';
-import { FormattedMessage } from 'react-intl';
+import { IAddressItemCollection } from '@interfaces/addresses';
+import { getSalutationToShow } from '@helpers/customer/salutation';
 
 const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, currentMode, addressesCollection, onFieldChangeHandler, formName } = props;
+    const { classes, currentMode, addressesCollection, onFieldChangeHandler, formName, extraField } = props;
     const isAddressesCollectionExist = addressesCollection && addressesCollection.length > 0;
 
     if (!isAddressesCollectionExist) {
         return null;
     }
 
+    const createRadioItemFullInforamtion = (address: IAddressItemCollection): string | React.ReactNode => {
+        let response: string = '';
+        let salutation: React.ReactNode = null;
+
+        if (address.salutation) {
+            salutation = getSalutationToShow(address.salutation);
+        }
+        if (address.firstName) {
+            response += ` ${address.firstName}`;
+        }
+        if (address.lastName) {
+            response += ` ${address.lastName}`;
+        }
+        if (address.address1) {
+            response += `, ${address.address1}`;
+        }
+        if (address.address2) {
+            response += ` ${address.address2}`;
+        }
+        if (address.city) {
+            response += `, ${address.city}`;
+        }
+        if (address.zipCode) {
+            response += `, ${address.zipCode}`;
+        }
+        if (address.country && address.country.name) {
+            response += `, ${address.country.name}`;
+        }
+
+        return [salutation, response];
+    };
+
     const savedAddressList = (): IRadioItem[] => (
-        convertAddressesToRadioItems(addressesCollection).concat({
-            value: checkoutSelectionInputs.isAddNewDeliveryValue,
-            label: <FormattedMessage id={ 'add.new.delivery.address.label' } />
-        })
+        addressesCollection.map((item: IAddressItemCollection) => (
+            {value: item.id, label: createRadioItemFullInforamtion(item)}
+        )).concat(extraField)
     );
 
     const renderSavedAddressItems = (): JSX.Element[] => savedAddressList().map((item: IRadioItem) => (

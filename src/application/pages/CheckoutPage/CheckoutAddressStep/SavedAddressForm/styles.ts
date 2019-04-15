@@ -6,7 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         marginBottom: 0,
     },
     inputRadio: {
-        padding: '26px 20px',
+        padding: '18px 20px',
         border: `solid 1px ${theme.appColors.weekWhite}`,
         borderRadius: 4,
         margin: '0 0 12px',

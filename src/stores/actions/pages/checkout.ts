@@ -94,8 +94,9 @@ export const mutateStateBillingSelectionAddressIdAction = (payload: string): IPa
     payloadCurrentSelection: payload,
 });
 
-export const mutateStateBillingSelectionSameAsDeliveryAction = (): IPageCheckoutAction => ({
-    type: CHECKOUT_MUTATE_BILLING_SELECTION_SAME_AS_DELIVERY
+export const mutateStateBillingSelectionSameAsDeliveryAction = (payload: boolean): IPageCheckoutAction => ({
+    type: CHECKOUT_MUTATE_BILLING_SELECTION_SAME_AS_DELIVERY,
+    payloadSelectionSameAsDelivery: payload,
 });
 
 export const mutateDeliveryStepAction = (payload: boolean): IPageCheckoutAction => ({
