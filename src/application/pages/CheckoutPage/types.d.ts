@@ -41,6 +41,7 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     paymentMethod: IPaymentMethod['paymentMethodName'] | null;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData:  ICheckoutInvoiceState;
+    clearCheckoutDataForm: () => void;
 }
 
 export interface ICheckoutPageState {

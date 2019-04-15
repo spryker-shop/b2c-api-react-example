@@ -14,7 +14,8 @@ import {
     CHECKOUT_MUTATE_PAYMENT_METHOD,
     CHECKOUT_MUTATE_PAYMENT_SECTION,
     CHECKOUT_MUTATE_CREDIT_CARD_FORM,
-    CHECKOUT_MUTATE_INVOICE_FORM
+    CHECKOUT_MUTATE_INVOICE_FORM,
+    CHECKOUT_CLEAR_DATA_FORM
 } from '@stores/actionTypes/pages/checkout';
 import { CheckoutService } from '@services/pages/Checkout';
 import {
@@ -132,4 +133,8 @@ export const mutateStateCreditCardAction = (payload: IFormFieldMutate): IPageChe
 export const mutateStateInvoiceFormAction = (payload: IFormFieldMutate): IPageCheckoutAction => ({
     type: CHECKOUT_MUTATE_INVOICE_FORM,
     payloadFormFieldMutate: payload
+});
+
+export const clearCheckoutDataForm = (): IPageCheckoutAction => ({
+    type: CHECKOUT_CLEAR_DATA_FORM,
 });

@@ -16,7 +16,7 @@ export const deliverySelectionDefault: IDeliverySelectionState = {
 export const billingSelectionDefault: IBillingSelectionState = {
     selectedAddressId: null,
     isAddNew: false,
-    isSameAsDelivery: true,
+    isSameAsDelivery: false,
 };
 
 export const deliveryNewAddressDefault: ICheckoutAddressState = {
@@ -76,7 +76,7 @@ export const billingNewAddressDefault: IBillingAddressState = {
 
 export const stepCompletionCheckoutDefault: ICheckoutStepsCompletionState = {
     isAddressStepPassed: false,
-    isBillingStepPassed: true,
+    isBillingStepPassed: false,
     isShipmentStepPassed: false,
     isPaymentStepPassed: false
 };

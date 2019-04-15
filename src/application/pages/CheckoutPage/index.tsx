@@ -53,6 +53,12 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         }
     };
 
+    public componentWillUnmount= (): void  => {
+        const { clearCheckoutDataForm } = this.props;
+
+        clearCheckoutDataForm();
+    };
+
     protected handleSubmit = (event: ClickEvent): void => {
         this.setState({ isButtonDisabled: true });
         event.preventDefault();

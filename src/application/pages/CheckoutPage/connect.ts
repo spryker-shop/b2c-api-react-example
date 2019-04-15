@@ -2,7 +2,7 @@ import { reduxify } from '@application/hoc/Reduxify';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
-import { getCheckoutDataAction, sendCheckoutDataAction } from '@stores/actions/pages/checkout';
+import { getCheckoutDataAction, sendCheckoutDataAction, clearCheckoutDataForm } from '@stores/actions/pages/checkout';
 import {
     getAddressesCollectionFromCheckoutStore,
     getCreatedOrder,
@@ -69,18 +69,18 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-export const connect = reduxify(
-    mapStateToProps,
-    (dispatch: Function) => ({
-        dispatch,
-        getCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-            dispatch(getCheckoutDataAction(payload, anonymId));
-        },
-        sendCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-            dispatch(sendCheckoutDataAction(payload, anonymId));
-        },
-        getCustomerData: (customerReference: TCustomerReference): void => {
-            dispatch(getCustomerProfileAction(customerReference));
-        }
-    })
-);
+const mapDispatchToProps = (dispatch: Function) => ({
+    dispatch,
+    getCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
+        dispatch(getCheckoutDataAction(payload, anonymId));
+    },
+    sendCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
+        dispatch(sendCheckoutDataAction(payload, anonymId));
+    },
+    getCustomerData: (customerReference: TCustomerReference): void => {
+        dispatch(getCustomerProfileAction(customerReference));
+    },
+    clearCheckoutDataForm: (): void => dispatch(clearCheckoutDataForm())
+});
+
+export const connect = reduxify(mapStateToProps, mapDispatchToProps);

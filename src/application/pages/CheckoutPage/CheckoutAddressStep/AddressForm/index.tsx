@@ -121,6 +121,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                             formName={ formName }
                             label={ <FormattedMessage id={ 'email.label' } /> }
                             inputName="email"
+                            inputType="email"
                             onChangeHandler={ onFieldChangeHandler }
                             onBlurHandler={ onFieldBlurHandler }
                             inputValue={ data.email.value }

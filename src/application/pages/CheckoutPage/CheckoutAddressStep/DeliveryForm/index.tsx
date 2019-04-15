@@ -36,9 +36,14 @@ export class DeliveryForm extends React.Component<Props> {
     };
 
     protected setDefaultAddresses = (): void => {
-        const { addressesCollection: collection } = this.props;
-        const filteredCollection = collection.filter((item: IAddressItemCollection) => item.isDefaultShipping === true);
+        const { addressesCollection: collection, deliverySelection: { isAddNew, selectedAddressId } } = this.props;
+        const filteredCollection = Boolean(collection) ? collection.filter((item: IAddressItemCollection) =>
+            item.isDefaultShipping === true) : null;
         const defaultValueDelivery = filteredCollection && filteredCollection[0] ? filteredCollection[0].id : null;
+
+        if (isAddNew || Boolean(selectedAddressId)) {
+            return;
+        }
 
         if (defaultValueDelivery) {
             this.handleDeliverySelection(defaultValueDelivery);

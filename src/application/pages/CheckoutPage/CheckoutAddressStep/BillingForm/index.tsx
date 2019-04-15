@@ -28,15 +28,23 @@ class BillingFormComponent extends React.Component<Props> {
 
     protected setDefaultAddresses = (): void => {
         const { addressesCollection: collection } = this.props;
-        const filteredCollection = collection.filter((item: IAddressItemCollection) => item.isDefaultBilling === true);
+        const { isAddNew, selectedAddressId, isSameAsDelivery } = this.props.billingSelection;
+        const filteredCollection = Boolean(collection) ? collection.filter((item: IAddressItemCollection) =>
+            item.isDefaultBilling === true) : null;
         const defaultValueBilling = filteredCollection && filteredCollection[0] ? filteredCollection[0].id : null;
 
+        if (isAddNew || Boolean(selectedAddressId) || isSameAsDelivery) {
+            return;
+        }
+
         if (defaultValueBilling) {
-            this.handleBillingSelection(checkoutSelectionInputs.isSameAsDeliveryValue);
+            this.handleBillingSelection(checkoutSelectionInputs.isSameAsDeliveryValue, false);
             this.handleBillingSelection(defaultValueBilling);
 
             return null;
         }
+
+        this.handleBillingSelection(checkoutSelectionInputs.isSameAsDeliveryValue, true);
     };
 
     protected handleBillingInputs = (event: InputChangeEvent): void => {
@@ -62,7 +70,7 @@ class BillingFormComponent extends React.Component<Props> {
         this.handleBillingSelection(value);
     };
 
-    protected handleBillingSelection = (value: string): void => {
+    protected handleBillingSelection = (value: string, checker = false): void => {
         const {
             mutateStateBillingSelectionSameAsDelivery,
             mutateStateBillingSelectionAddressId,
@@ -77,7 +85,8 @@ class BillingFormComponent extends React.Component<Props> {
         }
 
         if (value === checkoutSelectionInputs.isSameAsDeliveryValue) {
-            mutateStateBillingSelectionSameAsDelivery(!isSameAsDelivery);
+            const mutatedValue = checker ? checker : !isSameAsDelivery;
+            mutateStateBillingSelectionSameAsDelivery(mutatedValue);
 
             return null;
         }
