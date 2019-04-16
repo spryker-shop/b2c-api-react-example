@@ -11,12 +11,13 @@ import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { IShipmentMethodProps } from './types';
 import { styles } from './styles';
 
-export const ShipmentMethodBase: React.SFC<IShipmentMethodProps> = (props): JSX.Element => {
-    const {
-        classes,
-        shipmentMethod,
-        shipmentMethods
-    } = props;
+export const ShipmentFormsComponent: React.SFC<IShipmentMethodProps> = (props): JSX.Element => {
+    const { classes, shipmentMethod, shipmentMethods } = props;
+    const isShipmentMethodsExist = Boolean(Array.isArray(shipmentMethods) && shipmentMethods.length > 0);
+
+    if (!isShipmentMethodsExist) {
+        return null;
+    }
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
@@ -34,17 +35,12 @@ export const ShipmentMethodBase: React.SFC<IShipmentMethodProps> = (props): JSX.
         'Spryker Drone Shipment': <PartnerIconHermes />
     };
 
-    const isShipmentMethodsExist = Boolean(Array.isArray(shipmentMethods) && shipmentMethods.length > 0);
-    if (!isShipmentMethodsExist) {
-        return null;
-    }
-
     const shipmentMethodsGrouped: IShipmentMethodsGrouped = {};
     for (const shipmentMethod of shipmentMethods) {
         if (!shipmentMethodsGrouped[ shipmentMethod.carrierName ]) {
             shipmentMethodsGrouped[ shipmentMethod.carrierName ] = [];
         }
-        shipmentMethodsGrouped[ shipmentMethod.carrierName ].push(shipmentMethod);
+        shipmentMethodsGrouped[shipmentMethod.carrierName].push(shipmentMethod);
     }
 
     const shipmentMethodsForms: JSX.Element[] = [];
@@ -74,4 +70,4 @@ export const ShipmentMethodBase: React.SFC<IShipmentMethodProps> = (props): JSX.
     );
 };
 
-export const ShipmentMethod = connect(withStyles(styles)(ShipmentMethodBase));
+export const ShipmentForms = connect(withStyles(styles)(ShipmentFormsComponent));
