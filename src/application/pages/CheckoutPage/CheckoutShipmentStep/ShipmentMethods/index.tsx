@@ -49,9 +49,9 @@ const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 
     return (
-        <div>
+        <>
             { shipmentMethodsForms }
-        </div>
+        </>
     );
 };
 
