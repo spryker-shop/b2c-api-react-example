@@ -51,6 +51,7 @@ export const styles = (theme: Theme) => createStyles({
             display: 'none'
         }
     },
+    itemLevel0: {},
     itemActive: {
         color: theme.appColors.blue,
         '&:before': {
@@ -82,6 +83,9 @@ export const styles = (theme: Theme) => createStyles({
         },
         '& $link:hover': {
             color: theme.appColors.darkBlue
+        },
+        '&$itemLevel0': {
+            pointerEvents: 'none'
         }
     },
     link: {

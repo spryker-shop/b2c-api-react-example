@@ -31,26 +31,45 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     public componentDidMount = (): void => {
-        if (this.props.isUserLoggedIn) {
-            this.props.getCheckoutData({ idCart: this.props.cartId }, '');
-        } else {
-            this.props.getCheckoutData({ idCart: this.props.cartId }, this.props.anonymId);
-        }
+        this.getCheckoutData();
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        if (!prevProps.isCheckoutFulfilled && this.props.isCheckoutFulfilled) {
-            if (!this.props.profile && this.props.isUserLoggedIn && this.props.customerReference) {
-                this.props.getCustomerData(this.props.customerReference);
+        const {
+            isCheckoutLoading,
+            profile,
+            isUserLoggedIn,
+            isCheckoutFulfilled,
+            customerReference,
+            getCustomerData,
+            isCheckoutInitiated
+        } = this.props;
+
+        if (!prevProps.isCheckoutFulfilled && isCheckoutFulfilled) {
+            if (!profile && isUserLoggedIn && customerReference) {
+                getCustomerData(customerReference);
             }
         }
 
-        const { isCheckoutLoading } = this.props;
-        const { isCheckoutLoading: previousStateLoading } = prevProps;
+        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated) {
+            this.getCheckoutData();
+        }
 
-        if (isCheckoutLoading !== previousStateLoading) {
+        if (isCheckoutLoading !== prevProps.isCheckoutLoading) {
             this.setState({ isButtonDisabled: isCheckoutLoading });
         }
+    };
+
+    protected getCheckoutData = (): void => {
+        const { isUserLoggedIn, anonymId, getCheckoutData, cartId } = this.props;
+
+        if (isUserLoggedIn) {
+            getCheckoutData({ idCart: cartId }, '');
+
+            return;
+        }
+
+        getCheckoutData({ idCart: cartId }, anonymId);
     };
 
     public componentWillUnmount= (): void  => {

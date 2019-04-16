@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from './connect';
 import { DeliveryForm } from './DeliveryForm';
 import { BillingForm } from './BillingForm';
 import { ICheckoutAddressStepProps as Props } from './types';
@@ -10,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { PrevIcon } from './icons';
 
 const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, stepsCompletion: { isAddressStepPassed, isBillingStepPassed } } = props;
+    const { classes, stepsCompletion: { isAddressStepPassed, isBillingStepPassed }, isUserLoggedIn } = props;
     const isFormFulfilled = isBillingStepPassed && isAddressStepPassed;
 
     return (
@@ -37,15 +38,17 @@ const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'go.to.shipment.title' } />
                 </Button>
 
-                <NavLink to={ pathCheckoutLoginStep } className={ classes.back }>
-                    <span className={ classes.icon } >
-                        <PrevIcon />
-                    </span>
-                    <FormattedMessage id={ 'word.back.title' } />
-                </NavLink>
+                { !isUserLoggedIn &&
+                    <NavLink to={ pathCheckoutLoginStep } className={ classes.back }>
+                        <span className={ classes.icon } >
+                            <PrevIcon />
+                        </span>
+                        <FormattedMessage id={ 'word.back.title' } />
+                    </NavLink>
+                }
             </div>
         </>
     );
 };
 
-export const CheckoutAddressStep = withStyles(styles)(CheckoutAddressStepComponent);
+export const CheckoutAddressStep = connect(withStyles(styles)(CheckoutAddressStepComponent));

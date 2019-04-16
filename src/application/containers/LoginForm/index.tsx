@@ -30,13 +30,15 @@ export class LoginFormComponent extends React.Component<Props, State> {
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
         const { username, password } = this.state;
+        const { handleSubmitLoginForm, onSubmitHandler } = this.props;
 
         if (!Boolean(username) || !Boolean(password)) {
             return null;
         }
 
         const payload = { username, password };
-        this.props.handleSubmitLoginForm(payload);
+        onSubmitHandler();
+        handleSubmitLoginForm(payload);
     };
 
     protected handleChange = () => (event: InputChangeEvent): void => {

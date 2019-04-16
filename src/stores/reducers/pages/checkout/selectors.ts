@@ -14,6 +14,10 @@ export function isPageCheckoutFulfilled(state: IReduxStore, props: IReduxOwnProp
     return Boolean(isStateExist(state, props) && state.pageCheckout.fulfilled);
 }
 
+export function isPageCheckoutInitiated(state: IReduxStore, props: IReduxOwnProps): boolean {
+    return Boolean(isStateExist(state, props) && state.pageCheckout.initiated);
+}
+
 export function getShipmentMethodsFromStore(state: IReduxStore, props: IReduxOwnProps): IShipmentMethod[] | null {
     return isShipmentMethodsExist(state, props) ? state.pageCheckout.data.shipments : null;
 }

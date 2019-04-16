@@ -3,4 +3,5 @@ import { styles } from './styles';
 
 export interface ICheckoutLoginStep extends WithStyles<typeof styles> {
     isUserLoggedIn: boolean;
+    clearCheckoutDataForm: () => void;
 }

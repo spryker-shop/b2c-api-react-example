@@ -7,7 +7,8 @@ import {
     getAddressesCollectionFromCheckoutStore,
     getCreatedOrder,
     isPageCheckoutFulfilled,
-    isPageCheckoutStateLoading
+    isPageCheckoutStateLoading,
+    isPageCheckoutInitiated
 } from '@stores/reducers/pages/checkout/selectors';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
@@ -30,6 +31,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId = getAnonymId(state, ownProps);
     const isCheckoutFulfilled: boolean = isPageCheckoutFulfilled(state, ownProps);
     const isCheckoutLoading: boolean = isPageCheckoutStateLoading(state, ownProps);
+    const isCheckoutInitiated: boolean = isPageCheckoutInitiated(state, ownProps);
     const {items}: {items: ICartItem[]} = getProductsFromCart(state, ownProps);
     const isProductsExists = Boolean(items && items.length);
     const cartId: TCartId = getCartId(state, ownProps);
@@ -49,6 +51,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const shipmentMethod: IShipmentMethod['id'] | null = state.pageCheckout.shipmentMethod;
 
     return ({
+        isCheckoutInitiated,
         isUserLoggedIn,
         isCheckoutFulfilled,
         isCheckoutLoading,
