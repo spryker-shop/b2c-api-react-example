@@ -61,7 +61,6 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         paymentMethodsGrouped[key].forEach((item: IPaymentMethod) => {
             if (key === checkoutPaymentMethodsNames.creditCard) {
                 creditCardProvidersCollection.push({
-                    name: item.paymentProviderName,
                     value: item.paymentProviderName,
                     labelIcon: paymentProviderToIcon[item.paymentProviderName]
                 });

@@ -101,13 +101,9 @@ export const creditCardConfigInputStable: ICreditCardObjectConfigInputStable = {
         isRequired: true,
         inputName: 'cardName',
     },
-    cardExpiryMonth: {
+    cardExpiryDate: {
         isRequired: true,
-        inputName: 'cardExpiryMonth',
-    },
-    cardExpiryYear: {
-        isRequired: true,
-        inputName: 'cardExpiryYear',
+        inputName: 'cardExpiryDate',
     },
     cardCVC: {
         isRequired: true,

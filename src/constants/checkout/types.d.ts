@@ -63,8 +63,7 @@ export interface ICreditCardObjectConfigInputStable {
     paymentProvider: IConfigInputStable;
     cardNumber: IConfigInputStable;
     cardName: IConfigInputStable;
-    cardExpiryMonth: IConfigInputStable;
-    cardExpiryYear: IConfigInputStable;
+    cardExpiryDate: IConfigInputStable;
     cardCVC: IConfigInputStable;
 
     [key: string]: IConfigInputStable;
