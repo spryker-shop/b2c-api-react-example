@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { ShipmentForms } from './ShipmentForms';
+import { ShipmentMethods } from './ShipmentMethods';
 import { ICheckoutShipmentStepProps as Props } from './types';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import { pathCheckoutAddressStep, pathCheckoutPaymentStep } from '@constants/routes';
@@ -23,7 +23,7 @@ const CheckoutShipmentStepComponent: React.SFC<Props> = (props): JSX.Element => 
                 <Typography component="h2" variant="display3" className={ classes.title }>
                     <FormattedMessage id={ 'word.shipment.title' } />
                 </Typography>
-                <ShipmentForms />
+                <ShipmentMethods />
             </div>
             <div className={ classes.actions }>
                 <Button

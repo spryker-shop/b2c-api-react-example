@@ -14,16 +14,6 @@ export interface IBaseCheckoutFormHandler {
     onBlurHandler?: (event: BlurEvent) => void;
 }
 
-// Param to create shipping methods form
-export interface IShippingMethodsParams extends IBaseCheckoutFormHandler {
-    shipmentMethods: IShipmentMethod[] | null;
-    currentValueShipmentMethod: IShipmentMethod['id'] | null;
-    carrierName: IShipmentMethod['carrierName'];
-    shipmentCarrierNameToIcon: {
-        [key: string]: JSX.Element;
-    };
-}
-
 export interface IPaymentProviderToIcon {
     [key: string]: JSX.Element;
 }
