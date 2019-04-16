@@ -7,4 +7,5 @@ export interface CartPageProps extends WithStyles<typeof styles> {
     totalQty: number;
     totals: ICartTotals;
     cartId: TCartId;
+    clearCheckoutDataForm: () => void;
 }

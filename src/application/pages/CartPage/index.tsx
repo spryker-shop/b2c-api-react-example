@@ -12,7 +12,7 @@ import { styles } from './styles';
 import { ProductRelations } from '@application/containers/ProductRelations';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isCartEmpty, totalQty, totals, cartId } = props;
+    const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
 
     if (isCartEmpty) {
         return (
@@ -71,7 +71,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 } md={ 4 }>
                     <div className={ classes.layout }>
                         <ErrorBoundary>
-                            <OrderSummary totals={ totals } />
+                            <OrderSummary totals={ totals } clearCheckoutDataForm={ clearCheckoutDataForm } />
                         </ErrorBoundary>
                     </div>
                 </Grid>

@@ -82,8 +82,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     },
     getCustomerData: (customerReference: TCustomerReference): void => {
         dispatch(getCustomerProfileAction(customerReference));
-    },
-    clearCheckoutDataForm: (): void => dispatch(clearCheckoutDataForm())
+    }
 });
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

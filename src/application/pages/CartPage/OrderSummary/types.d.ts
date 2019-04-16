@@ -4,8 +4,5 @@ import { styles } from './styles';
 
 export interface OrderSummaryProps extends WithStyles<typeof styles> {
     totals: ICartTotals;
-}
-
-export interface OrderSummaryState {
-    voucherCode: string;
+    clearCheckoutDataForm: () => void;
 }

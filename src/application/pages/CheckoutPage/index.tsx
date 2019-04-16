@@ -31,7 +31,11 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     public componentDidMount = (): void => {
-        this.getCheckoutData();
+        const { isCheckoutFulfilled } = this.props;
+
+        if (!isCheckoutFulfilled) {
+            this.getCheckoutData();
+        }
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
@@ -70,12 +74,6 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         }
 
         getCheckoutData({ idCart: cartId }, anonymId);
-    };
-
-    public componentWillUnmount= (): void  => {
-        const { clearCheckoutDataForm } = this.props;
-
-        clearCheckoutDataForm();
     };
 
     protected handleSubmit = (event: ClickEvent): void => {
