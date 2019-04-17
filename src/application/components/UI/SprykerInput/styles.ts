@@ -29,10 +29,19 @@ export const styles = (theme: Theme) => createStyles({
             backgroundColor: theme.appColors.white
         }
     },
+    inputStartIcon: {
+        paddingLeft: 57
+    },
+    inputEndIcon: {
+        paddingRight: 57
+    },
     error: {
         color: theme.appColors.red,
         '& input': {
             borderColor: theme.appColors.red
+        },
+        '& $icon': {
+            fill: theme.appColors.red
         }
     },
     label: {
@@ -78,8 +87,21 @@ export const styles = (theme: Theme) => createStyles({
         display: 'none'
     },
     icon: {
-
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        fill: theme.appColors.lightGrey,
+        margin: 0,
+        maxHeight: 'none',
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        lineHeight: 0
     },
-    iconPositionStart: {},
-    iconPositionEnd: {}
+    iconPositionStart: {
+        left: 20
+    },
+    iconPositionEnd: {
+        right: 20
+    }
 });

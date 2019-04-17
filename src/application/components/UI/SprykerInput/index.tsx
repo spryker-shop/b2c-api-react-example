@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { InputMask } from './InputMask';
 import { withStyles, TextField, InputAdornment } from '@material-ui/core';
-import { SprykerInputProps as Props } from './types';
+import { ISprykerInputProps as Props } from './types';
 import { styles } from './styles';
 
 const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
@@ -17,7 +18,8 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         onBlurHandler,
         placeholderText,
         icon,
-        iconPosition
+        iconPosition,
+        maskProps
     } = props;
     const iconComponent = Boolean(icon) ? (
         <InputAdornment
@@ -31,22 +33,25 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
             { icon }
         </InputAdornment>
     ) : null;
+    const inputIconModifier = iconPosition === 'start' ? classes.inputStartIcon : classes.inputEndIcon;
 
     return (
         <TextField
             required={ Boolean(isRequired) }
-            id={`${formName}-${inputName}`}
+            id={`${formName}_${inputName}`}
             label={ label || null }
             name={ inputName }
             error={ isError }
             InputProps={{
+                inputProps: {...maskProps},
                 disableUnderline: true,
                 classes: {
                     root: classes.inputRoot,
-                    input: classes.input,
+                    input: `${classes.input} ${icon ? inputIconModifier : ''}`,
                     error: classes.error
                 },
                 startAdornment: iconComponent,
+                inputComponent: maskProps ? InputMask : 'input',
             }}
             InputLabelProps={{
                 shrink: true,
@@ -76,7 +81,8 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
 
 SprykerInputComponent.defaultProps = {
     icon: null,
-    iconPosition: 'start'
+    iconPosition: 'start',
+    maskProps: null
 };
 
 export const SprykerInput = withStyles(styles)(SprykerInputComponent);

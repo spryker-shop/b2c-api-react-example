@@ -9,7 +9,7 @@ import { IPaymentInvoiceParams } from '@helpers/formCreations/checkout/types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { ICheckoutInvoiceState } from '@interfaces/checkout';
 import { IInvoicePaymentFormProps } from './types';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
 
 export const InvoicePaymentFormBase: React.SFC<IInvoicePaymentFormProps> = (props): JSX.Element => {
     const {

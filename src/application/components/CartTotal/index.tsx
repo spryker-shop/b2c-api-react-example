@@ -32,7 +32,7 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                 </Typography>
             </div>
 
-            { totals.discountTotal &&
+            { Boolean(totals.discountTotal) &&
                 <div className={ classes.row }>
                     <Typography component="span" variant="headline" color="textSecondary">
                         <FormattedMessage id={ 'word.discount.title' } />

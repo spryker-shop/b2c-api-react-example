@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Radio, FormControlLabel } from '@material-ui/core';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { cardExpiry } from '@helpers/forms';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { ICreditCardPaymentFormProps as Props } from './types';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
-import { CardIcon } from './icons';
+import { CardIcon, CalendarIcon, LockIcon } from './icons';
 
 @connect
-export class CreditCardPaymentFormComponent extends React.Component<Props> {
+class CreditCardPaymentFormComponent extends React.Component<Props> {
     public componentDidUpdate = (prevProps: Props): void => {
         const shouldCheckFormValidity = prevProps.paymentCreditCardData !== this.props.paymentCreditCardData;
 
@@ -88,8 +89,12 @@ export class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardNumber.value }
                             isError={ paymentCreditCardData.cardNumber.isError }
-                            inputType="number"
                             icon={ <CardIcon />}
+                            maskProps={{
+                                mask: '-',
+                                format: '# # # #   # # # #   # # # #   # # # #',
+                                placeholder: '- - - -   - - - -   - - - -   - - - -'
+                            }}
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
@@ -110,7 +115,11 @@ export class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardExpiryDate.value }
                             isError={ paymentCreditCardData.cardExpiryDate.isError }
-                            inputType="number"
+                            icon={ <CalendarIcon />}
+                            maskProps={{
+                                format: cardExpiry,
+                                placeholder: 'MM/YY'
+                            }}
                         />
                     </Grid>
                     <Grid item xs={ 6 }>
@@ -121,7 +130,7 @@ export class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardCVC.value }
                             isError={ paymentCreditCardData.cardCVC.isError }
-                            inputType="number"
+                            icon={ <LockIcon />}
                         />
                     </Grid>
                 </Grid>

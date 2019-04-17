@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withStyles, FormControlLabel, Radio } from '@material-ui/core';
+import { withStyles, FormControlLabel, Radio, Grid } from '@material-ui/core';
 import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
-import { PartnerIconVisa, PartnerIconMasterCard } from './icons';
-import { checkFormValidity } from '@helpers/checkout';
+import { PartnerIconVisa } from './icons';
+import { checkFormValidity } from '@helpers/forms/validation';
 import { IPaymentMethod } from '@interfaces/checkout';
 import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
 import { InputChangeEvent } from '@interfaces/common';
@@ -42,7 +42,6 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
     };
 
     const paymentProviderToIcon: IPaymentProviderToIcon = {
-        masterCard: <PartnerIconMasterCard key="masterCard" />,
         DummyPayment: <PartnerIconVisa key="visa" />
     };
 
@@ -67,6 +66,16 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
             }
         });
     });
+
+    const renderCreditCardIcons = (): JSX.Element => {
+        const iconItems = Object.values(paymentProviderToIcon).map((icon, index) => (
+            <Grid item key={ index }>
+                <span className={ classes.labelIcon }>{ icon }</span>
+            </Grid>
+        ));
+
+        return <Grid container spacing={ 24 }>{ iconItems }</Grid>;
+    };
 
     const renderPaymentItems = (): JSX.Element[] => Object.keys(paymentMethodsGrouped).map(value => {
         const isChecked = paymentMethod === value;
@@ -96,9 +105,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
                     label={
                         <span className={ classes.label }>
                             { value }
-                            { isCreditCardForm &&
-                                <span className={ classes.labelIcon }><PartnerIconVisa key="visa" /></span>
-                            }
+                            { isCreditCardForm && <span>{ renderCreditCardIcons() }</span> }
                         </span>
                     }
                 />
