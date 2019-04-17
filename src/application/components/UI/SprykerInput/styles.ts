@@ -76,5 +76,10 @@ export const styles = (theme: Theme) => createStyles({
     },
     filled: {
         display: 'none'
-    }
+    },
+    icon: {
+
+    },
+    iconPositionStart: {},
+    iconPositionEnd: {}
 });

@@ -13,4 +13,6 @@ export interface SprykerInputProps extends WithStyles<typeof styles> {
     isRequired: IFormField['isRequired'];
     placeholderText?: string | null;
     inputType: IFormField['inputType'];
+    icon?: React.ReactNode | null;
+    iconPosition?: 'start' | 'end';
 }

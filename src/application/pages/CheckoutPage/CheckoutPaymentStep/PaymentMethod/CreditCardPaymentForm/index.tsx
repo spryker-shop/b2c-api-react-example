@@ -8,6 +8,7 @@ import { ICreditCardPaymentFormProps as Props } from './types';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
+import { CardIcon } from './icons';
 
 @connect
 export class CreditCardPaymentFormComponent extends React.Component<Props> {
@@ -88,6 +89,7 @@ export class CreditCardPaymentFormComponent extends React.Component<Props> {
                             inputValue={ paymentCreditCardData.cardNumber.value }
                             isError={ paymentCreditCardData.cardNumber.isError }
                             inputType="number"
+                            icon={ <CardIcon />}
                         />
                     </Grid>
                     <Grid item xs={ 12 }>

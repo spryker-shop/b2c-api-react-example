@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles, TextField } from '@material-ui/core';
+import { withStyles, TextField, InputAdornment } from '@material-ui/core';
 import { SprykerInputProps as Props } from './types';
 import { styles } from './styles';
 
@@ -15,8 +15,22 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         isError,
         isRequired,
         onBlurHandler,
-        placeholderText
+        placeholderText,
+        icon,
+        iconPosition
     } = props;
+    const iconComponent = Boolean(icon) ? (
+        <InputAdornment
+            position={ iconPosition }
+            classes={{
+                root: classes.icon,
+                positionStart: classes.iconPositionStart,
+                positionEnd: classes.iconPositionEnd
+            }}
+        >
+            { icon }
+        </InputAdornment>
+    ) : null;
 
     return (
         <TextField
@@ -32,6 +46,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
                     input: classes.input,
                     error: classes.error
                 },
+                startAdornment: iconComponent,
             }}
             InputLabelProps={{
                 shrink: true,
@@ -57,6 +72,11 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
             fullWidth
         />
     );
+};
+
+SprykerInputComponent.defaultProps = {
+    icon: null,
+    iconPosition: 'start'
 };
 
 export const SprykerInput = withStyles(styles)(SprykerInputComponent);
