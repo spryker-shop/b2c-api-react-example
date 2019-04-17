@@ -41,6 +41,8 @@ export interface ICheckoutSelectionInputs {
 export interface IConfigInputStable {
     isRequired: boolean;
     inputName: string;
+    minLength?: number;
+    isEmail?: boolean;
 }
 
 export interface IAddressConfigInputStable {

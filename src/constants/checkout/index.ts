@@ -58,10 +58,12 @@ export const newAddressConfigInputStable: IAddressConfigInputStable = {
     email: {
         isRequired: true,
         inputName: 'email',
+        isEmail: true
     },
     zipCode: {
         isRequired: true,
         inputName: 'zipCode',
+        minLength: 5
     },
     city: {
         isRequired: true,
@@ -96,6 +98,7 @@ export const creditCardConfigInputStable: ICreditCardObjectConfigInputStable = {
     cardNumber: {
         isRequired: true,
         inputName: 'cardNumber',
+        minLength: 16
     },
     cardName: {
         isRequired: true,
@@ -104,9 +107,11 @@ export const creditCardConfigInputStable: ICreditCardObjectConfigInputStable = {
     cardExpiryDate: {
         isRequired: true,
         inputName: 'cardExpiryDate',
+        minLength: 4
     },
     cardCVC: {
         isRequired: true,
         inputName: 'cardCVC',
+        minLength: 3
     },
 };

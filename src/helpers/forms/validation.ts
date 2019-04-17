@@ -2,13 +2,24 @@ import { IParamFormValidity, IParamInputValidity } from '@helpers/forms/types';
 
 export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
     const { value, fieldConfig } = param;
-    if (!value && fieldConfig.isRequired) {
+    const comparedValue = value.toString();
+
+    if (!Boolean(value) && fieldConfig.isRequired) {
         return false;
     }
-    if (fieldConfig.inputName === 'zipCode' && typeof value === 'string') {
-        const zipCodeMinDigits = 5;
 
-        return value.length >= zipCodeMinDigits;
+    if (Boolean(fieldConfig.minLength)) {
+        const { minLength } = fieldConfig;
+
+        return comparedValue.length >= minLength;
+    }
+
+    if (Boolean(fieldConfig.isEmail)) {
+        /* tslint:disable */
+        const emailPattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+        /* tslint:enable */
+        return emailPattern.test(comparedValue);
     }
 
     return true;

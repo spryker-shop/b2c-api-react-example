@@ -131,12 +131,16 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             inputValue={ paymentCreditCardData.cardCVC.value }
                             isError={ paymentCreditCardData.cardCVC.isError }
                             icon={ <LockIcon />}
+                            maskProps={{
+                                format: '####',
+                                placeholder: 'XXX'
+                            }}
                         />
                     </Grid>
                 </Grid>
             </form>
         );
     };
-};
+}
 
 export const CreditCardPaymentForm = withStyles(styles)(CreditCardPaymentFormComponent);
