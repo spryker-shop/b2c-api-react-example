@@ -79,6 +79,7 @@ export const appButtons: Overrides = {
             }
         },
         outlined: {
+            padding: '13px 15px',
             backgroundColor: appColors.white,
             color: appColors.blue,
             borderColor: appColors.lightGrey,
