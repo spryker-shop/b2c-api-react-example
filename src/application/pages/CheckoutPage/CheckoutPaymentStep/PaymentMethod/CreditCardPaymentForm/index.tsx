@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Radio, FormControlLabel } from '@material-ui/core';
 import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
-import { cardExpiry } from '@helpers/forms';
+import { cardExpiryFormat } from '@helpers/forms';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { ICreditCardPaymentFormProps as Props } from './types';
@@ -125,7 +125,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                                 }
                             }}
                             maskProps={{
-                                format: cardExpiry,
+                                format: cardExpiryFormat,
                                 placeholder: 'MM/YY'
                             }}
                         />

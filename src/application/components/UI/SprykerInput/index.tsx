@@ -18,7 +18,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         isError,
         isRequired,
         onBlurHandler,
-        placeholderText,
+        helperText,
         maskProps,
         iconProps: {
             iconStartComponent,
@@ -29,7 +29,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         <InputIcon
             { ...iconProps }
             position={ position }
-
+            classes={{ icon: classes.icon }}
         />
     );
     const inputStartIconModifier = iconStartComponent ? classes.inputStartIcon : '';
@@ -65,11 +65,12 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
             }}
             type={ inputType || 'text' }
             value={ inputValue }
-            helperText={ placeholderText || null }
+            helperText={ helperText || null }
             FormHelperTextProps={{
+                error: isError,
                 classes: {
-                    root: classes.placeholder,
-                    filled: inputValue.toString().length > 0 ? classes.filled : ''
+                    root: classes.helperText,
+                    error: classes.helperTextError
                 }
             }}
             className={ classes.textField }

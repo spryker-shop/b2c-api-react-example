@@ -45,6 +45,8 @@ export const styles = (theme: Theme) => createStyles({
         '& $input': {
             color: theme.appColors.red,
             borderColor: theme.appColors.red,
+            background: 'rgba(235, 85, 60, 0.05)',
+            boxShadow: `inset 0 0 0 0.5px ${theme.appColors.red}`,
             '&::-webkit-input-placeholder, &::placeholder': {
                 color: theme.appColors.red
             },
@@ -75,27 +77,15 @@ export const styles = (theme: Theme) => createStyles({
     asterisk: {
         color: theme.appColors.blue
     },
-    placeholder: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        left: '0',
-        right: '0',
-        overflow: 'hidden',
-        margin: '12px 14px 0',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        zIndex: 3,
-        pointerEvents: 'none',
-        lineHeight: '20px',
-        fontWeight: 500,
-        color: theme.appColors.black,
-        opacity: 0.43
-    },
-    filled: {
-        display: 'none'
-    },
     icon: {},
-    iconPositionStart: {},
-    iconPositionEnd: {}
+    helperText: {
+        display: 'none',
+        marginTop: 8,
+        fontSize: 13,
+        letterSpacing: 0.1
+    },
+    helperTextError: {
+        display: 'block',
+        color: theme.appColors.red
+    }
 });

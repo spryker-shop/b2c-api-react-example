@@ -27,7 +27,8 @@ import { styles } from './styles';
 @connect
 class CheckoutPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        isButtonDisabled: true
+        isButtonDisabled: true,
+        isDataSending: false
     };
 
     public componentDidMount = (): void => {
@@ -48,6 +49,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             getCustomerData,
             isCheckoutInitiated
         } = this.props;
+        const { isDataSending } = this.state;
 
         if (!prevProps.isCheckoutFulfilled && isCheckoutFulfilled) {
             if (!profile && isUserLoggedIn && customerReference) {
@@ -55,7 +57,11 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             }
         }
 
-        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated) {
+        if (isCheckoutLoading && !prevProps.isCheckoutLoading) {
+            this.setState({ isDataSending: false });
+        }
+
+        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated && !isDataSending) {
             this.getCheckoutData();
         }
 
@@ -77,7 +83,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     protected handleSubmit = (event: ClickEvent): void => {
-        this.setState({ isButtonDisabled: true });
+        this.setState({ isButtonDisabled: true, isDataSending: true });
         event.preventDefault();
         const {
             addressesCollection,

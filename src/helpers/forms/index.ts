@@ -45,10 +45,20 @@ const limit = (val: string, max: string): string => {
     return val;
 };
 
-export const cardExpiry = (val: string): string => {
+export const cardExpiryFormat = (val: string): string => {
     const month = limit(val.substring(0, 2), '12');
     const year = val.substring(2, 4);
     const isMonthFulfilled = val.length >= 2;
 
     return `${month}${isMonthFulfilled ? `/${year}` : ''}`;
+};
+
+export const dateBirthFormat = (val: string): string => {
+    const days = limit(val.substring(0, 2), '31');
+    const month = limit(val.substring(2, 4), '12');
+    const year = val.substring(4, 8);
+    const isMonthFulfilled = val.length >= 4;
+    const isDaysFulfilled = val.length >= 2;
+
+    return `${days}${isDaysFulfilled ? `/${month}` : ''}${isMonthFulfilled ? `/${year}` : ''}`;
 };

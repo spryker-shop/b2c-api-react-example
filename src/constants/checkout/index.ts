@@ -87,6 +87,7 @@ export const invoiceConfigInputStable: IInvoiceObjectConfigInputStable = {
     dateOfBirth: {
         isRequired: true,
         inputName: 'dateOfBirth',
+        minLength: 8
     },
 };
 

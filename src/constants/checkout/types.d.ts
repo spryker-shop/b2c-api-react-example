@@ -1,7 +1,5 @@
-import { IRadioItem } from '@application/components/UI/SprykerForm/types';
 import { IMenuItemSelect } from './types';
 import { IPaymentMethod, IShipmentMethod } from '@interfaces/checkout';
-import { IAddressItemCollection } from '@interfaces/addresses';
 
 export interface ICheckoutFormsNames {
     billing: string;
@@ -25,8 +23,6 @@ export interface IPaymentMethodsGrouped {
 }
 
 export type TPaymentProvidersCollection = IMenuItemSelect[];
-
-export interface IPaymentMethodGroupItem extends IRadioItem {}
 
 export interface IShipmentMethodsGrouped {
     [key: string]: IShipmentMethod[];
