@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { InputMask } from './InputMask';
-import { withStyles, TextField, InputAdornment } from '@material-ui/core';
+import { withStyles, TextField } from '@material-ui/core';
 import { ISprykerInputProps as Props } from './types';
+import { InputIcon } from './InputIcon';
 import { styles } from './styles';
+import { IInputIconProps } from './InputIcon/types';
 
 const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
@@ -17,23 +19,21 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         isRequired,
         onBlurHandler,
         placeholderText,
-        icon,
-        iconPosition,
-        maskProps
+        maskProps,
+        iconProps: {
+            iconStartComponent,
+            iconEndComponent
+        }
     } = props;
-    const iconComponent = Boolean(icon) ? (
-        <InputAdornment
-            position={ iconPosition }
-            classes={{
-                root: classes.icon,
-                positionStart: classes.iconPositionStart,
-                positionEnd: classes.iconPositionEnd
-            }}
-        >
-            { icon }
-        </InputAdornment>
-    ) : null;
-    const inputIconModifier = iconPosition === 'start' ? classes.inputStartIcon : classes.inputEndIcon;
+    const renderIconComponent = (iconProps: IInputIconProps, position: 'end' | 'start'): JSX.Element => (
+        <InputIcon
+            { ...iconProps }
+            position={ position }
+
+        />
+    );
+    const inputStartIconModifier = iconStartComponent ? classes.inputStartIcon : '';
+    const inputEndIconModifier = iconEndComponent ? classes.inputEndIcon : '';
 
     return (
         <TextField
@@ -47,10 +47,11 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
                 disableUnderline: true,
                 classes: {
                     root: classes.inputRoot,
-                    input: `${classes.input} ${icon ? inputIconModifier : ''}`,
+                    input: `${classes.input} ${inputStartIconModifier} ${inputEndIconModifier}`,
                     error: classes.error
                 },
-                startAdornment: iconComponent,
+                startAdornment: renderIconComponent(iconStartComponent, 'start'),
+                endAdornment: renderIconComponent(iconEndComponent, 'end'),
                 inputComponent: maskProps ? InputMask : 'input',
             }}
             InputLabelProps={{
@@ -80,8 +81,10 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
 };
 
 SprykerInputComponent.defaultProps = {
-    icon: null,
-    iconPosition: 'start',
+    iconProps: {
+        iconStartComponent: null,
+        iconEndComponent: null,
+    },
     maskProps: null
 };
 

@@ -9,7 +9,7 @@ import { ICreditCardPaymentFormProps as Props } from './types';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
-import { CardIcon, CalendarIcon, LockIcon } from './icons';
+import { CardIcon, CalendarIcon, LockIcon, QuestionIcon } from './icons';
 
 @connect
 class CreditCardPaymentFormComponent extends React.Component<Props> {
@@ -89,7 +89,11 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardNumber.value }
                             isError={ paymentCreditCardData.cardNumber.isError }
-                            icon={ <CardIcon />}
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <CardIcon />
+                                }
+                            }}
                             maskProps={{
                                 mask: '-',
                                 format: '# # # #   # # # #   # # # #   # # # #',
@@ -115,7 +119,11 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardExpiryDate.value }
                             isError={ paymentCreditCardData.cardExpiryDate.isError }
-                            icon={ <CalendarIcon />}
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <CalendarIcon />
+                                }
+                            }}
                             maskProps={{
                                 format: cardExpiry,
                                 placeholder: 'MM/YY'
@@ -130,7 +138,24 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             onChangeHandler={ this.handleCreditCardInputs }
                             inputValue={ paymentCreditCardData.cardCVC.value }
                             isError={ paymentCreditCardData.cardCVC.isError }
-                            icon={ <LockIcon />}
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <LockIcon />
+                                },
+                                iconEndComponent: {
+                                    icon: <span className={ classes.tooltipContainer }><QuestionIcon /></span>,
+                                    tooltip: true,
+                                    tooltipArrowed: true,
+                                    tooltipComponent: (
+                                        <>
+                                            <span className={ classes.tooltipTitle }>
+                                                <FormattedMessage id={ 'cvc.hint.title' } />
+                                            </span>
+                                            <FormattedMessage id={ 'cvc.hint.message' } />
+                                        </>
+                                    )
+                                }
+                            }}
                             maskProps={{
                                 format: '####',
                                 placeholder: 'XXX'

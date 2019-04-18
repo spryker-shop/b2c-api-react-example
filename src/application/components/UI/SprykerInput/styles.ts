@@ -25,6 +25,11 @@ export const styles = (theme: Theme) => createStyles({
             appearance: 'none',
             margin: 0
         },
+        '&::-webkit-input-placeholder, &::placeholder': {
+            opacity: 1,
+            color: theme.appColors.lightGrey
+
+        },
         '&:focus': {
             backgroundColor: theme.appColors.white
         }
@@ -37,8 +42,12 @@ export const styles = (theme: Theme) => createStyles({
     },
     error: {
         color: theme.appColors.red,
-        '& input': {
-            borderColor: theme.appColors.red
+        '& $input': {
+            color: theme.appColors.red,
+            borderColor: theme.appColors.red,
+            '&::-webkit-input-placeholder, &::placeholder': {
+                color: theme.appColors.red
+            },
         },
         '& $icon': {
             fill: theme.appColors.red
@@ -86,22 +95,7 @@ export const styles = (theme: Theme) => createStyles({
     filled: {
         display: 'none'
     },
-    icon: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        fill: theme.appColors.lightGrey,
-        margin: 0,
-        maxHeight: 'none',
-        width: 20,
-        height: 20,
-        justifyContent: 'center',
-        lineHeight: 0
-    },
-    iconPositionStart: {
-        left: 20
-    },
-    iconPositionEnd: {
-        right: 20
-    }
+    icon: {},
+    iconPositionStart: {},
+    iconPositionEnd: {}
 });

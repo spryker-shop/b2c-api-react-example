@@ -42,5 +42,22 @@ export const styles = (theme: Theme) => createStyles({
     radioLabel: {
         fill: 'currentColor',
         color: 'inherit'
+    },
+    tooltipContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 21,
+        height: 21,
+        background: theme.appColors.white,
+        borderRadius: '50%',
+        fill: theme.appColors.blue,
+    },
+    tooltipTitle: {
+        display: 'block',
+        paddingBottom: 5,
+        fontSize: 15,
+        fontWeight: 700,
+        letterSpacing: 0.2
     }
 });

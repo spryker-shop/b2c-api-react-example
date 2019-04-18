@@ -1,6 +1,7 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { IFormField, IFormSettings } from '@application/components/UI/SprykerForm/types';
 import { NumberFormatProps } from 'react-number-format';
+import { IInputIconProps } from './InputIcon/types';
 import { styles } from './styles';
 
 export interface ISprykerInputProps extends WithStyles<typeof styles> {
@@ -14,7 +15,9 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
     isRequired: IFormField['isRequired'];
     placeholderText?: string | null;
     inputType: IFormField['inputType'];
-    icon?: React.ReactNode | null;
-    iconPosition?: 'start' | 'end';
-    maskProps: NumberFormatProps | null;
+    iconProps?: {
+        iconStartComponent?: IInputIconProps,
+        iconEndComponent?: IInputIconProps
+    };
+    maskProps?: NumberFormatProps | null;
 }

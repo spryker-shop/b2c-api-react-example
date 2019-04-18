@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IMaskProps as Props } from './types';
+import { IInputMaskProps as Props } from './types';
 import NumberFormat from 'react-number-format';
 
 export const InputMask: React.SFC<Props> = (props): JSX.Element => {
