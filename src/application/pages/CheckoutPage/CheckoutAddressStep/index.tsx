@@ -38,14 +38,14 @@ const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'go.to.shipment.title' } />
                 </Button>
 
-                {/*{ !isUserLoggedIn &&*/}
+                { !isUserLoggedIn &&
                     <NavLink to={ pathCheckoutLoginStep } className={ classes.back }>
                         <span className={ classes.icon } >
                             <PrevIcon />
                         </span>
                         <FormattedMessage id={ 'word.back.title' } />
                     </NavLink>
-                {/*}*/}
+                }
             </div>
         </>
     );
