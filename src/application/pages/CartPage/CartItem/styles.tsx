@@ -48,7 +48,7 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 4,
         fontSize: 13,
         letterSpacing: 0.1,
-        lineHeight: 1.69,
+        lineHeight: 1.7,
         '&:first-letter': {
             textTransform: 'uppercase'
         }
