@@ -14,7 +14,7 @@ import { invoiceConfigInputStable, checkoutPaymentMethodsNames, creditCardConfig
 import { styles } from './styles';
 
 const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, paymentMethod, paymentMethods, paymentInvoiceData, paymentCreditCardData } = props;
+    const { classes, paymentMethod, paymentMethods } = props;
     const isPaymentMethodsExist = Boolean(Array.isArray(paymentMethods) && paymentMethods.length > 0);
 
     if (!isPaymentMethodsExist) {
@@ -23,13 +23,14 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
-        const { mutatePaymentMethod } = props;
+        const { mutatePaymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
         const { invoice, creditCard } = checkoutPaymentMethodsNames;
 
         const isInvoiceFormValid = checkFormValidity({
             form: paymentInvoiceData,
             fieldsConfig: invoiceConfigInputStable
         });
+
         const isCreditCardFormValid = checkFormValidity({
             form: paymentCreditCardData,
             fieldsConfig: creditCardConfigInputStable

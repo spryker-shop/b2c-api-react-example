@@ -129,5 +129,5 @@ export interface IFormFieldMutate {
 
 export interface IFormUpdatePaymentStatus {
     value: string;
-    isSummaryStepCompleted: boolean;
+    isPaymentStepCompleted: boolean;
 }

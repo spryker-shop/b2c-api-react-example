@@ -1,8 +1,5 @@
 import { reduxify } from '@application/hoc/Reduxify';
-import {
-    mutatePaymentSectionAction,
-    mutateStateCreditCardAction
-} from '@stores/actions/pages/checkout';
+import { mutatePaymentSectionAction, mutateStateCreditCardAction } from '@stores/actions/pages/checkout';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICheckoutCreditCardState, IFormFieldMutate } from '@interfaces/checkout';
 
