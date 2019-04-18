@@ -17,13 +17,13 @@ const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
     return (
         <>
             <div className={ classes.box }>
-                <Typography component="h2" variant="display3" className={ classes.title }>
+                <Typography component="h2" variant="h2" className={ classes.title }>
                     <FormattedMessage id={ 'shipping.address.title' } />
                 </Typography>
                 <DeliveryForm />
             </div>
             <div className={ classes.box }>
-                <Typography component="h2" variant="display3" className={ classes.title }>
+                <Typography component="h2" variant="h2" className={ classes.title }>
                     <FormattedMessage id={ 'billing.address.title' } />
                 </Typography>
                 <BillingForm />

@@ -27,7 +27,7 @@ class CheckoutCartComponent extends React.Component<Props> {
         return (
             <>
                 <div className={ classes.box }>
-                    <Typography component="h3" variant="display2" className={ classes.title }>
+                    <Typography component="h3" variant="h3" className={ classes.title }>
                         <FormattedMessage id={ 'order.summary.title' } />
                     </Typography>
 

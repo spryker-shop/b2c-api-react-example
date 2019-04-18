@@ -62,7 +62,7 @@ class SortPanelComponent extends React.Component<Props, State> {
             <div className={ classes.root }>
                 <Grid container alignItems="center" spacing={ 24 }>
                     <Grid item xs={ 6 } sm={ 3 }>
-                        <Typography color="textSecondary" component="span" variant="subheading">
+                        <Typography color="textSecondary" component="span" variant="h6">
                             { pagination.numFound
                                 ? [
                                     `${pagination.numFound} `,

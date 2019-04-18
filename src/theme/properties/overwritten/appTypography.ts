@@ -13,13 +13,13 @@ interface IAppTypographyElements {
 
 export interface IAppTypography {
     fontFamily: React.CSSProperties['fontFamily'];
-    display4: IAppTypographyElements;
-    display3: IAppTypographyElements;
-    display2: IAppTypographyElements;
-    display1: IAppTypographyElements;
-    headline: IAppTypographyElements;
-    subheading: IAppTypographyElements;
-    body1: IAppTypographyElements;
+    h1: IAppTypographyElements;
+    h2: IAppTypographyElements;
+    h3: IAppTypographyElements;
+    h4: IAppTypographyElements;
+    h5: IAppTypographyElements;
+    h6: IAppTypographyElements;
+    body2: IAppTypographyElements;
 }
 
 export const appTypographyStyles: IAppTypography = {
@@ -28,7 +28,7 @@ export const appTypographyStyles: IAppTypography = {
         'Segoe UI',
         'Roboto',
     ].join(','),
-    display4: {
+    h1: {
         fontSize: 22,
         lineHeight: 1.3,
         letterSpacing: 0.2,
@@ -46,7 +46,7 @@ export const appTypographyStyles: IAppTypography = {
             letterSpacing: 0.4,
         }
     },
-    display3: {
+    h2: {
         fontSize: 20,
         fontWeight: 700,
         lineHeight: 1.4,
@@ -62,7 +62,7 @@ export const appTypographyStyles: IAppTypography = {
             fontSize: 30
         }
     },
-    display2: {
+    h3: {
         fontSize: 15,
         fontWeight: 500,
         lineHeight: 1.9,
@@ -77,7 +77,7 @@ export const appTypographyStyles: IAppTypography = {
             letterSpacing: 0,
         }
     },
-    display1: {
+    h4: {
         fontSize: 14,
         fontWeight: 500,
         lineHeight: 1.3,
@@ -95,7 +95,7 @@ export const appTypographyStyles: IAppTypography = {
             fontWeight: 700
         }
     },
-    headline: {
+    h5: {
         fontSize: 13,
         fontWeight: 500,
         lineHeight: 1.7,
@@ -112,7 +112,7 @@ export const appTypographyStyles: IAppTypography = {
             lineHeight: 1.5
         }
     },
-    subheading: {
+    h6: {
         fontSize: 12,
         fontWeight: 400,
         lineHeight: 1.9,
@@ -129,7 +129,7 @@ export const appTypographyStyles: IAppTypography = {
             letterSpacing: 0.2,
         }
     },
-    body1: {
+    body2: {
         fontSize: 13,
         fontWeight: 400,
         lineHeight: 1.7,

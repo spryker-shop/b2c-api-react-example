@@ -122,7 +122,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
             <div className={ classes.root }>
                 <div className={ classes.counter }>
                     <Typography
-                        variant="subheading"
+                        variant="h6"
                         component="span"
                         color="textSecondary"
                         className={ classes.title }

@@ -31,7 +31,7 @@ const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
                         </Grid>
                     ))
                     : <Grid item>
-                        <Typography component="h3" align="center" variant="display2">
+                        <Typography component="h3" align="center" variant="h3">
                             <FormattedMessage id={ isLoading ? 'loading.page.title' : 'empty.page.title' } />
                         </Typography>
                     </Grid>

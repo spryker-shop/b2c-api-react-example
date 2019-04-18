@@ -31,7 +31,7 @@ const ShipmentFormComponent: React.SFC<Props> = (props): JSX.Element => {
     return (
         <form key={ formName } className={ classes.form }>
             <FormLabel component="legend" className={classes.formHeading}>
-                <Typography component="span" variant="display2" color="textSecondary" className={ classes.formTitle }>
+                <Typography component="span" variant="h3" color="textSecondary" className={ classes.formTitle }>
                     { labelForm.name }
                 </Typography>
                 <span className={ classes.formIcon }>{ labelForm.icon }</span>

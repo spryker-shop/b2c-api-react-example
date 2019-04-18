@@ -92,7 +92,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
                         </Grid>
                     </Grid>
                 </form>
-                <Typography align="center" component="div" variant="headline" color="textSecondary">
+                <Typography align="center" component="div" variant="h5" color="textSecondary">
                     <NavLink to={ pathForgotPassword } className={ classes.link }>
                         <FormattedMessage id={ 'forgot.password.title' } />
                     </NavLink>

@@ -27,7 +27,7 @@ const CategoryItemComponent: React.SFC<ICategoryItemProps> = props => {
                 classes={{ selected: classes.selected, disabled: classes.disabled }}
             >
                 <div className={ classes.holder }>
-                    <Typography component="strong" variant="subheading" color="inherit">
+                    <Typography component="strong" variant="h6" color="inherit">
                         { categoryName }
                     </Typography>
                     <span className={`${classes.quantity} ${isSelected ? classes.quantityActive : ''}`}>

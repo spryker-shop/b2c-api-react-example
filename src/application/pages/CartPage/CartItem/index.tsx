@@ -37,7 +37,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid container className={ classes.fullHeight }>
                     <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
-                            <Typography component="h5" variant="headline" className={classes.name}>
+                            <Typography component="h5" variant="h5" className={classes.name}>
                                 <NavLink
                                     to={`${pathProductPageBase}/${abstractSku}`}
                                     className={classes.nameLink}

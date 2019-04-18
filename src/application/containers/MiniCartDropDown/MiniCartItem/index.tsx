@@ -33,7 +33,7 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                     <Grid item xs={ 12 }>
                         <Grid container>
                             <Grid item xs={ 12 } sm={ 9 }>
-                                <Typography component="h5" variant="headline" className={ classes.name }>
+                                <Typography component="h5" variant="h5" className={ classes.name }>
                                     { name }
                                 </Typography>
                             </Grid>

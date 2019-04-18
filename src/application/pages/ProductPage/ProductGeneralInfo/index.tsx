@@ -25,7 +25,7 @@ const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props)
             >
                 { availability }
             </Typography>
-            <Typography component="h1" variant="display2" color="textSecondary" className={ classes.title }>
+            <Typography component="h1" variant="h3" color="textSecondary" className={ classes.title }>
                 { name }
             </Typography>
             { price &&

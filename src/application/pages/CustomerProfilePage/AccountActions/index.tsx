@@ -48,7 +48,7 @@ export class AccountActionsComponent extends React.Component<Props, State> {
             <>
                 <Grid container justify="flex-start" className={ classes.section }>
                     <Grid item xs={ 12 }>
-                        <Typography variant="title" className={ classes.sectionTitle }>
+                        <Typography variant="h6" className={ classes.sectionTitle }>
                             <FormattedMessage id={ 'delete.account.title' } />
                         </Typography>
 
@@ -56,7 +56,7 @@ export class AccountActionsComponent extends React.Component<Props, State> {
                     </Grid>
 
                     <Grid item xs={ 12 }>
-                        <Typography variant="body1" className={ classes.warningTitle }>
+                        <Typography variant="body2" className={ classes.warningTitle }>
                             <FormattedMessage id={ 'delete.account.message' } />
                         </Typography>
                     </Grid>

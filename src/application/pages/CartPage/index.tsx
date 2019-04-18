@@ -19,7 +19,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
             <AppMain>
                 <Grid item xs={ 12 } className={ classes.root }>
                     <Typography
-                        variant="display2"
+                        variant="h3"
                         noWrap
                         align="center"
                     >
@@ -36,10 +36,10 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 } md={ 8 }>
                     <div className={ classes.layout }>
                         <div className={ classes.heading }>
-                            <Typography component="h3" variant="display2" className={ classes.title }>
+                            <Typography component="h3" variant="h3" className={ classes.title }>
                                 <FormattedMessage id={ 'word.my.cart.title' } />
                             </Typography>
-                            <Typography component="span" variant="headline" className={ classes.amount }>
+                            <Typography component="span" variant="h5" className={ classes.amount }>
                                 {`${totalQty} `}
                                 <FormattedPlural
                                     value={ totalQty }
@@ -55,13 +55,13 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <div className={ classes.subtotal }>
                             <Typography
                                 component="span"
-                                variant="headline"
+                                variant="h5"
                                 color="textSecondary"
                                 className={ classes.subtotalText }
                             >
                                 <FormattedMessage id={ 'word.subtotal.title' } />:
                             </Typography>
-                            <Typography component="span" variant="display2">
+                            <Typography component="span" variant="h3">
                                 <AppPrice value={ totals.subtotal } />
                             </Typography>
                         </div>

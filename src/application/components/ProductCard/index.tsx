@@ -39,7 +39,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
             </div>
             <div className={ classes.content }>
                 <div className={ classes.nameWrapper }>
-                    <Typography color="textSecondary" component="h5" variant="headline" className={classes.name}>
+                    <Typography color="textSecondary" component="h5" variant="h5" className={classes.name}>
                         { name }
                     </Typography>
                 </div>
@@ -48,7 +48,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                         <Grid item>
                             <Typography
                                 component="span"
-                                variant="display2"
+                                variant="h3"
                                 className={`${classes.price} ${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
                             >
                                 <AppPrice value={ actualPriceGross } />

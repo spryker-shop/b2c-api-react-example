@@ -30,10 +30,10 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
             <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
-                        <Typography variant="display3" component="h2">
+                        <Typography variant="h2" component="h2">
                             <FormattedMessage id={ 'recovery.password.title' } />
                         </Typography>
-                        <Typography variant="headline" paragraph>
+                        <Typography variant="h5" paragraph>
                             <FormattedMessage id={ 'enter.email.address.message' } />
                         </Typography>
                         <form autoComplete="off">

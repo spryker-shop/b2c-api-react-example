@@ -47,7 +47,7 @@ class ProductRelationsComponent extends React.Component<Props> {
         return (
             <div className={ classes.root }>
                 { Boolean(title) &&
-                    <Typography className={ classes.title } color="textSecondary" component="h2" variant="display3">
+                    <Typography className={ classes.title } color="textSecondary" component="h2" variant="h2">
                         { title }
                     </Typography>
                 }

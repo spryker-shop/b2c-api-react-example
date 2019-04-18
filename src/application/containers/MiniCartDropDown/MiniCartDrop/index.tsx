@@ -41,10 +41,10 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
     return (
         <div className={ classes.cartDrop } onMouseLeave={ onMouseLeave } onMouseEnter={ onMouseEnter }>
             <div className={ classes.cartHeading }>
-                <Typography component="h4" variant="display1" color="inherit">
+                <Typography component="h4" variant="h4" color="inherit">
                     <FormattedMessage id={ 'word.my.cart.title' } />
                 </Typography>
-                <Typography component="span" variant="headline" color="inherit">
+                <Typography component="span" variant="h5" color="inherit">
                     {`${cartItemsQuantity} `}
                     <FormattedPlural
                         value={ cartItemsQuantity }
@@ -65,7 +65,7 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
             <div className={ classes.cartTotalContainer }>
                 { (!!totals.discountTotal && totals.discountTotal > 0) &&
                     <div className={ classes.cartTotal }>
-                        <Typography component="h5" variant="display1" className={ classes.fontTotal }>
+                        <Typography component="h5" variant="h4" className={ classes.fontTotal }>
                             <FormattedMessage id={ 'word.discount.title' } />
                         </Typography>
                         <span className={`${classes.priceTotal} ${classes.discountPriceTotal}`}>
@@ -74,7 +74,7 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
                     </div>
                 }
                 <div className={ classes.cartTotal }>
-                    <Typography component="h5" variant="display1" className={ classes.fontTotal }>
+                    <Typography component="h5" variant="h4" className={ classes.fontTotal }>
                         <FormattedMessage id={ 'word.total.title' } />
                     </Typography>
                     <span className={ classes.priceTotal }>

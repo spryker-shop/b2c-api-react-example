@@ -20,7 +20,7 @@ const CheckoutShipmentStepComponent: React.SFC<Props> = (props): JSX.Element => 
     return (
         <>
             <div className={ classes.box }>
-                <Typography component="h2" variant="display3" className={ classes.title }>
+                <Typography component="h2" variant="h2" className={ classes.title }>
                     <FormattedMessage id={ 'word.shipment.title' } />
                 </Typography>
                 <ShipmentMethods />

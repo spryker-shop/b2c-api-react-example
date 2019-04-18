@@ -12,7 +12,7 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            <Typography component="h3" variant="display2" className={ classes.title }>
+            <Typography component="h3" variant="h3" className={ classes.title }>
                 <FormattedMessage id={ 'your.order.title' } />
             </Typography>
 
