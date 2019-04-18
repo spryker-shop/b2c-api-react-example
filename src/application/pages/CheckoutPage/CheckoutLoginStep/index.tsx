@@ -12,9 +12,9 @@ import { styles } from './styles';
 const CheckoutLoginStepComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, isUserLoggedIn, clearCheckoutDataForm } = props;
 
-    if (isUserLoggedIn) {
-        return <Redirect to={ pathCheckoutAddressStep } />;
-    }
+    // if (isUserLoggedIn) {
+    //     return <Redirect to={ pathCheckoutAddressStep } />;
+    // }
 
     return (
         <>

@@ -109,8 +109,7 @@ export interface ICheckoutCreditCardState {
     paymentProvider: IConfigInputState;
     cardNumber: IConfigInputState;
     cardName: IConfigInputState;
-    cardExpiryMonth: IConfigInputState;
-    cardExpiryYear: IConfigInputState;
+    cardExpiryDate: IConfigInputState;
     cardCVC: IConfigInputState;
 
     [key: string]: IConfigInputState;

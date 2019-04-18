@@ -37,7 +37,10 @@ export class LoginFormComponent extends React.Component<Props, State> {
         }
 
         const payload = { username, password };
-        onSubmitHandler();
+        if (Boolean(onSubmitHandler)) {
+            onSubmitHandler();
+        }
+
         handleSubmitLoginForm(payload);
     };
 

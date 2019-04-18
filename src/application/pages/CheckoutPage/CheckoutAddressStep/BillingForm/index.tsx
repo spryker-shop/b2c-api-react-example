@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles } from '@material-ui/core';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
 import { newAddressConfigInputStable, checkoutFormsNames, checkoutSelectionInputs } from '@constants/checkout';
 import { IBillingFormProps as Props } from './types';
 import { IAddressItemCollection } from '@interfaces/addresses';
