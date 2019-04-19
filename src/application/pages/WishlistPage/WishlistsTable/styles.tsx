@@ -28,5 +28,11 @@ export const styles = (theme: Theme) => createStyles({
     tableActionDisabled: {
         pointerEvents: 'none',
         opacity: 0.5
+    },
+    icon: {
+        fill: 'currentColor',
+        width: 24,
+        height: 24,
+        lineHeight: 0
     }
 });

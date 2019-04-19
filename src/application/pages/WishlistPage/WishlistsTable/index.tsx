@@ -10,7 +10,7 @@ import { AppTable } from '@application/components/AppTable';
 import { NavLink } from 'react-router-dom';
 import { pathWishlistPageBase } from '@constants/routes';
 import { Paper, Divider, Typography, TextField, IconButton, withStyles } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+import { SaveIcon } from './icons';
 import { styles } from './styles';
 
 @connect
@@ -79,7 +79,9 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
                                             onClick={ this.handleUpdateWishlist }
                                             disabled={ isLoading }
                                         >
-                                            <SaveIcon />
+                                            <span className={ classes.icon }>
+                                                <SaveIcon />
+                                            </span>
                                         </IconButton>
                                     </form>
                                 ) : (

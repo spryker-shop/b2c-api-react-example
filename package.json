@@ -23,13 +23,11 @@
 		"jest",
 		"enzyme",
 		"webpack",
-		"scss",
 		"css modules"
 	],
 	"homepage": "https://github.com/spryker/react-app",
 	"dependencies": {
 		"@material-ui/core": "3.1.0",
-		"@material-ui/icons": "3.0.1",
 		"apisauce": "0.16.0",
 		"autosuggest-highlight": "3.1.1",
 		"connected-react-router": "^6.3.1",
@@ -109,6 +107,7 @@
 		"css-loader": "0.28.11",
 		"dotenv": "6.0.0",
 		"file-loader": "1.1.11",
+		"fork-ts-checker-webpack-plugin": "^0.5.2",
 		"html-loader": "0.5.5",
 		"html-webpack-plugin": "4.0.0-beta.2",
 		"htmllint-loader": "2.1.4",
