@@ -5,13 +5,11 @@ import { styles } from './styles';
 const spinner = require('./img/spinner.gif');
 
 const PreloaderComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes } = props;
+    const { classes, isStatic } = props;
 
     return (
-        <div className={ classes.preloader }>
-            <div className={ classes.preloaderInner }>
-                { spinner }
-            </div>
+        <div className={`${classes.preloader} ${isStatic ? classes.preloaderStatic : ''}`}>
+            <img src={ spinner } className={ classes.preloaderImage } />
         </div>
     );
 };

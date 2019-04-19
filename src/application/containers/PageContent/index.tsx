@@ -22,7 +22,6 @@ import { messages } from '@translation/';
 import { IPageContentProps as Props, IPageContentState as State } from './types';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { styles } from './styles';
-import { Preloader } from '@components/Preloader';
 
 setConfig({ ErrorOverlay: () => null });
 
@@ -121,7 +120,6 @@ class PageContentComponent extends React.Component<Props, State> {
                 <div className={ classes.root }>
                     <AppHeader />
                     <ErrorBoundary>
-                        <Preloader />
                         <Routes isAppLoading={ this.isDataFulfilled() } />
                     </ErrorBoundary>
                     { !this.shouldHideFooter() && <AppFooter /> }

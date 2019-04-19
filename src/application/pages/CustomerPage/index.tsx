@@ -22,8 +22,8 @@ class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
                         </ErrorBoundary>
                     </Grid>
                     <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
-                        <Grid container className={ classes.rightPart }>
-                            <Grid item xs={ 12 }>
+                        <Grid container className={`${classes.rightPart} ${classes.fullHeight}`}>
+                            <Grid item xs={ 12 } className={ classes.fullHeight }>
                                 <CustomerRouting />
                             </Grid>
                         </Grid>

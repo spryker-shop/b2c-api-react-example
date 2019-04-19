@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
 import { ProtectedRoute } from '@application/hoc/ProtectedRoute';
-import { AppMain } from '@application/components/AppMain';
 import { LoadableHomePage } from '@application/pages/HomePage/loadable';
 import { LoadableSearchPage } from '@application/pages/SearchPage/loadable';
 import { LoadableProductPage } from '@application/pages/ProductPage/loadable';
@@ -36,12 +35,13 @@ import {
     pathRegisterPage,
 } from '@constants/routes';
 import { RoutesProps as Props } from './types';
+import { Preloader } from '@components/Preloader';
 
 export const Routes: React.SFC<Props> = (props): JSX.Element => {
     const { isAppLoading } = props;
 
     if (!isAppLoading) {
-        return <AppMain />;
+        return <Preloader />;
     }
 
     return (
