@@ -48,6 +48,7 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     iconInner: {
+        fill: 'currentColor',
         position: 'absolute',
         right: 13,
         top: '50%',
@@ -61,11 +62,6 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('lg')]: {
             right: 5
         }
-    },
-    icon: {
-        width: '100%',
-        height: '100%',
-        transition: 'none'
     },
     resetBtn: {
         minWidth: 0,

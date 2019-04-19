@@ -1,9 +1,9 @@
-const config = require('./server-config');
+const config = require('./configs/env_config');
 
 let devServer;
 let webServer;
 
-if (config.webpackDevServer) {
+if (config.IS_DEV_SERVER) {
     devServer = require('./dev-server');
 } else {
     webServer = require('./web-server');

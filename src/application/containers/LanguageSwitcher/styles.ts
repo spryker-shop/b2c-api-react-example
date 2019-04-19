@@ -24,5 +24,15 @@ export const styles = (theme: Theme) => createStyles({
     },
     content: {
         minWidth: 123
+    },
+    icon: {
+        fill: 'currentColor',
+        width: 12,
+        height: 12,
+        margin: 6,
+        lineHeight: 0
+    },
+    iconOpened: {
+        transform: 'scaleY(-1)'
     }
 });
