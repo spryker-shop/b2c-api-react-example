@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
+import { FormattedMessage } from 'react-intl';
 
 export const LoadableNotFound = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadableNotFound" */
-            '@application/pages/NotFound').then(
+        import('@application/pages/NotFound').then(
             module => module.default,
         ),
-    loading: () => <div>Loading...</div>,
+    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
 });

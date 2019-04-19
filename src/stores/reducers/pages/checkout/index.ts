@@ -104,7 +104,7 @@ export const pageCheckout = produce<ICheckoutState>(
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    first: false
+                    isAddressStepPassed: false
                 };
                 break;
             }
@@ -115,14 +115,14 @@ export const pageCheckout = produce<ICheckoutState>(
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    first: true
+                    isAddressStepPassed: true
                 };
                 break;
             }
             case CHECKOUT_MUTATE_DELIVERY_STEP: {
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    first: action.payloadUpdateSectionStatus
+                    isAddressStepPassed: action.payloadUpdateSectionStatus
                 };
                 break;
             }
@@ -134,7 +134,7 @@ export const pageCheckout = produce<ICheckoutState>(
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    second: false
+                    isBillingStepPassed: false
                 };
                 break;
             }
@@ -146,7 +146,7 @@ export const pageCheckout = produce<ICheckoutState>(
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    second: true
+                    isBillingStepPassed: true
                 };
                 break;
             }
@@ -158,14 +158,14 @@ export const pageCheckout = produce<ICheckoutState>(
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    second: true
+                    isBillingStepPassed: true
                 };
                 break;
             }
             case CHECKOUT_MUTATE_BILLING_STEP: {
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    second: action.payloadUpdateSectionStatus
+                    isBillingStepPassed: action.payloadUpdateSectionStatus
                 };
                 break;
             }
@@ -183,7 +183,7 @@ export const pageCheckout = produce<ICheckoutState>(
                 draft.shipmentMethod = action.payloadCurrentSelection;
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    third: true
+                    isShipmentStepPassed: true
                 };
                 break;
             }
@@ -191,14 +191,14 @@ export const pageCheckout = produce<ICheckoutState>(
                 draft.paymentMethod = action.payloadFormUpdatePaymentStatus.value;
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    fourth: action.payloadFormUpdatePaymentStatus.isFourthStepCompleted
+                    isPaymentStepPassed: action.payloadFormUpdatePaymentStatus.isSummaryStepCompleted
                 };
                 break;
             }
             case CHECKOUT_MUTATE_PAYMENT_SECTION: {
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    fourth: action.payloadUpdateSectionStatus
+                    isPaymentStepPassed: action.payloadUpdateSectionStatus
                 };
                 break;
             }

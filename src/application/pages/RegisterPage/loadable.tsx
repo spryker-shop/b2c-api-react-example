@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
+import { FormattedMessage } from 'react-intl';
 
 export const LoadableRegisterPage = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadableLoginPage" */
-            '@application/pages/RegisterPage').then(
+        import('@application/pages/RegisterPage').then(
             module => module.RegisterPage,
         ),
-    loading: () => <div>Loading...</div>,
+    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
 });

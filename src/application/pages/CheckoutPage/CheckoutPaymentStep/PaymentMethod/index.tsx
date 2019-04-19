@@ -59,10 +59,10 @@ export const PaymentMethodBase: React.SFC<IPaymentMethodProps> = (props): JSX.El
         const isInvoiceFormValid = validateInvoiceForm(paymentInvoiceData);
         const isCreditCardFormValid = validateCreditCardForm(paymentCreditCardData);
 
-        const isFourthStepCompleted = (value === invoice && isInvoiceFormValid) ||
+        const isSummaryStepCompleted = (value === invoice && isInvoiceFormValid) ||
             (value === creditCard && isCreditCardFormValid);
 
-        mutatePaymentMethod({ value, isFourthStepCompleted });
+        mutatePaymentMethod({ value, isSummaryStepCompleted });
     };
 
     const handleSubmit = (event: FormEvent): void => {

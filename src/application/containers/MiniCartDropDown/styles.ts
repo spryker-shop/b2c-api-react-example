@@ -6,6 +6,14 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         height: '100%'
     },
+    wrapperHoverable: {
+        '&:hover': {
+            '& $tooltip': {
+                transform: 'scale(1)',
+                opacity: 1
+            }
+        }
+    },
     cartPopover: {
         marginTop: -10
     },
@@ -37,5 +45,23 @@ export const styles = (theme: Theme) => createStyles({
     iconButton: {},
     isPopupOpened: {},
     iconButtonUnhoverable: {},
-    icon: {}
+    icon: {},
+    tooltip: {
+        position: 'absolute',
+        top: '100%',
+        right: 0,
+        transform: 'scale(0)',
+        opacity: 0,
+        marginTop: 5,
+        padding: '4px 8px',
+        fontSize: 10,
+        lineHeight: 1,
+        borderRadius: 4,
+        background: 'rgba(97, 97, 97, 0.9)',
+        color: theme.appColors.white,
+        transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
+        whiteSpace: 'nowrap',
+        pointerEvents: 'none',
+        transformOrigin: 'top right'
+    }
 });

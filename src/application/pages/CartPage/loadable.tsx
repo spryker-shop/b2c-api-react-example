@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
+import { FormattedMessage } from 'react-intl';
 
 export const LoadableCartPage = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadableCartPage" */
-            '@application/pages/CartPage').then(
+        import('@application/pages/CartPage').then(
             module => module.CartPage,
         ),
-    loading: () => <div>Loading...</div>,
+    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
 });
