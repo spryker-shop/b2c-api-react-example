@@ -90,7 +90,6 @@ export class CatalogSearchInputComponent extends React.Component<Props, State> {
                         inputRef: node => ref(node),
                         classes: {
                             root: classes.inputRoot,
-                            formControl: inputClasses.formControl,
                             input: `${classes.input} ${extraInputClassName ? extraInputClassName : ''}`
                         },
                         startAdornment: (
