@@ -16,10 +16,6 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         appFixedDimensions?: IAppFixedDimensions;
         appColors?: IAppColors;
     }
-
-    interface TypographyOptions {
-        typography?: ThemeOptions['typography'];
-    }
 }
 
 export function createSprykerTheme(options: ThemeOptions): Theme {
