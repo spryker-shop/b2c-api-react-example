@@ -233,22 +233,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                         anchorReference="anchorEl"
                         hideBackdrop={ false }
                         closePopoverHandler={ this.closePopover }
-                        classes={{
-                            content: classes.popoverContent
-                        }}
-                        paperProps={{
-                            style: {
-                                minWidth: minPopoverWidth
-                            }
-                        }}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left'
-                        }}
-                        transformOrigin={{
-                             vertical: 'top',
-                             horizontal: 'left'
-                         }}
+                        classes={{ content: classes.popoverContent }}
+                        paperProps={{ style: { minWidth: minPopoverWidth } }}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                     >
                         { this.renderRangeContent() }
                     </PopoverWrapper>
