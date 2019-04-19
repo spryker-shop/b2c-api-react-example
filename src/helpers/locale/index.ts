@@ -2,7 +2,7 @@ import * as de from 'react-intl/locale-data/de';
 import * as en from 'react-intl/locale-data/en';
 import { TAppLocale } from '@interfaces/locale';
 import { LocaleData } from 'react-intl';
-import { APP_LOCALE_DE, APP_LOCALE_EN } from '@configs/environment';
+import { APP_LOCALE_DE, APP_LOCALE_EN } from '@constants/common';
 
 export const getLocaleData = (locale: TAppLocale): LocaleData => {
     switch (locale) {

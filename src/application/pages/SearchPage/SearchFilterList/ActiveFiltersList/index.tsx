@@ -6,7 +6,7 @@ import { filterTypeFilter, IFilterItem, TFilterItemValue } from '../types';
 import { isWordHasPrice } from '@helpers/common/transform';
 import { createRangeFilterItemCombined } from './helper';
 import { Grid, Chip, withStyles, Button } from '@material-ui/core';
-import { CloseOutlined } from '@material-ui/icons';
+import { CloseOutlinedIcon } from './icons';
 import { styles } from './styles';
 
 const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
@@ -85,7 +85,7 @@ const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                                 deleteIcon={
                                     <span className={ classes.iconOverlay }>
                                         <span className={ classes.iconInner }>
-                                            <CloseOutlined className={ classes.icon } />
+                                            <CloseOutlinedIcon />
                                         </span>
                                     </span>
                                 }

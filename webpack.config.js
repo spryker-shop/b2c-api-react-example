@@ -1,195 +1,53 @@
 const path = require('path');
-const env = require('dotenv');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-env.config();
-
-const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.argv.indexOf('-p') !== -1;
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const IS_DEV_SERVER = NODE_ENV === 'webpack-dev-server';
-const DEV_SERVER_HOST = process.env.DEV_SERVER_HOST ? process.env.DEV_SERVER_HOST : 'localhost';
-const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT ? process.env.DEV_SERVER_PORT : '2992';
-const WEB_PORT = process.env.WEB_PORT ? process.env.WEB_PORT : '4200';
-const WEB_PATH = process.env.WEB_PATH ? process.env.WEB_PATH : '/api/';
-const API_URL = process.env.API_URL ? process.env.API_URL : 'http://localhost:8080/api/';
-const APP_TITLE = process.env.APP_TITLE || 'App';
-const commonExtensions = ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.html', '.json', '.node'];
-const webExtensions = ['.css', '.less', '.sass', '.scss', '.woff', '.woff2', '.ttf', '.eot', '.svg', '.md', '.jpg', '.png', '.ico'];
-
-const definableConstants = {
-    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    'process.env.WEB_PORT': JSON.stringify(WEB_PORT),
-    'process.env.WEB_PATH': JSON.stringify(WEB_PATH),
-    'process.env.API_URL': JSON.stringify(API_URL),
-    'process.env.DEV_SERVER_HOST': JSON.stringify(DEV_SERVER_HOST),
-    'process.env.DEV_SERVER_PORT': JSON.stringify(DEV_SERVER_PORT),
-    'process.env.APP_TITLE': JSON.stringify(APP_TITLE)
-};
-
-const globalCssLoaderOptions = {
-    loader: 'css-loader',
-    options: {
-        modules: false,
-        sourceMap: !IS_PRODUCTION,
-        minimize: IS_PRODUCTION,
-        discardComments: {removeAll: true}
-    }
-};
-
-const localCssLoaderOptions = {
-    loader: 'css-loader',
-    options: {
-        camelCase: true,
-        modules: true,
-        localIdentName: !IS_PRODUCTION ? '[path]___[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
-        sourceMap: !IS_PRODUCTION,
-        minimize: IS_PRODUCTION,
-        discardComments: {removeAll: true}
-    }
-};
-
-const localCssLoader = {
-    test: /\.css$/,
-    exclude: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        localCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
-    ]
-};
-
-const globalCssLoader = {
-    test: /\.css$/,
-    include: /node_modules/,
-    use: [
-        MiniCssExtractPlugin.loader,
-        globalCssLoaderOptions,
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
-    ]
-};
-
-const tsLoader = {
-    test: /\.tsx?$/,
-    include: [
-        path.resolve(__dirname, 'src')
-    ],
-    use: [
-        {loader: 'ts-loader', options: {transpileOnly: true, experimentalWatchApi: true}},
-        {loader: 'tslint-loader'}
-    ]
-};
-
-const staticLoaders = [
-    {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
-    {test: /\.(jpg|png|svg)$/, loader: 'url-loader?limit=8000'},
-    {
-        test: /\.(ttf|otf|eot|svg|ico|woff(2)?)$/,
-        include: [
-            path.join(__dirname, 'src'),
-        ],
-        use: [{
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]',
-            },
-        }]
-    }
-];
-
-const stylesLoaders = [
-    localCssLoader,
-    globalCssLoader
-];
-
-const commonLoaders = [
-    {test: /\.node$/, loader: 'node-loader'},
-    {test: /\.json$/, loader: 'json-loader'},
-    tsLoader,
-    {test: /\.html$/, loader: 'htmllint-loader!html-loader'},
-    {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
-    {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'}
-];
-
-const webLoaders = [
-    ...stylesLoaders,
-    ...staticLoaders
-];
-
-let devServer = {};
-let watchOptions = {};
-
-if (IS_DEV_SERVER) {
-    watchOptions = {
-        aggregateTimeout: 1000,
-        poll: 1000
-    };
-    devServer = {
-        contentBase: path.resolve(__dirname, 'build', 'web'),
-        public: true,
-        compress: true,
-        historyApiFallback: {
-            disableDotRule: true
-        },
-        host: DEV_SERVER_HOST,
-        port: DEV_SERVER_PORT,
-        https: false,
-        inline: true,
-        noInfo: false
-    };
-}
-
-const entry = {
-    app: [
-        './src/index.tsx'
-    ]
-};
-
-if(IS_DEV_SERVER) {
-    entry['dev-server-client'] = 'webpack-dev-server/client?http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT;
-    entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
-}
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const envConfig = require('./configs/env_config');
+const webpackSettings = require('./webpack-settings');
 
 const config = {
-    mode: IS_PRODUCTION ? 'production' : 'development',
+    mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
     target: 'web',
     context: __dirname,
-    entry,
+    entry: webpackSettings.entry,
+    watchOptions: webpackSettings.watchOptions,
+    devServer: webpackSettings.devServer,
+    watch: envConfig.IS_DEV_SERVER,
+    devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
     node: {
-        __dirname: true
+        __dirname: true,
+        fs: 'empty'
     },
     output: {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: IS_DEV_SERVER ? 'http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT + '/' : WEB_PATH
+        publicPath: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : envConfig.WEB_PATH
     },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 parallel: true,
                 sourceMap: true,
-                cache: !IS_PRODUCTION,
-                extractComments: IS_PRODUCTION,
+                cache: !envConfig.IS_PRODUCTION,
+                extractComments: envConfig.IS_PRODUCTION,
                 uglifyOptions: {
                     ecma: 8,
                     parse: {
                         ecma: 8
                     },
-                    mangle: IS_PRODUCTION ? {
+                    mangle: envConfig.IS_PRODUCTION ? {
                         keep_classnames: true,
                         keep_fnames: true
                     } : false,
                     keep_classnames: true,
                     keep_fnames: true,
                     compress: {
-                        drop_console: IS_PRODUCTION,
+                        drop_console: envConfig.IS_PRODUCTION,
                         keep_classnames: true,
                         comparisons: false
                     },
@@ -230,8 +88,8 @@ const config = {
             dry: false
         }),
         new webpack.LoaderOptionsPlugin({
-            minimize: IS_PRODUCTION,
-            debug: !IS_PRODUCTION,
+            minimize: envConfig.IS_PRODUCTION,
+            debug: !envConfig.IS_PRODUCTION,
             options: {
                 context: __dirname
             }
@@ -240,26 +98,29 @@ const config = {
             __WEB__: true,
             __SERVER__: false,
             'global.GENTLY': false,
-            ...definableConstants
+            ...webpackSettings.definableConstants
         }),
         new MiniCssExtractPlugin({
-            filename: IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
-            chunkFilename: IS_DEV_SERVER ? '[id].css' : '[id].[hash].css'
+            filename: envConfig.IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
+            chunkFilename: envConfig.IS_DEV_SERVER ? '[id].css' : '[id].[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.ejs'),
-            title: APP_TITLE || '',
+            title: envConfig.APP_TITLE || '',
             filename: 'index.html',
             hash: true,
             compile: true,
             favicon: path.resolve(__dirname, `favicon.png`),
             minify: false,
-            devServer: IS_DEV_SERVER ? 'http://' + DEV_SERVER_HOST + ':' + DEV_SERVER_PORT : '',
+            devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
         ...(
-            IS_DEV_SERVER ? [
+            envConfig.IS_DEV_SERVER ? [
                 new webpack.HotModuleReplacementPlugin(),
+                new ForkTsCheckerWebpackPlugin({
+                    tslint: true
+                }),
             ] : []
         ),
     ],
@@ -269,44 +130,25 @@ const config = {
             'node_modules'
         ],
         extensions: [
-            ...commonExtensions,
-            ...webExtensions
+            ...webpackSettings.extensions
         ],
         alias: {
-            src: path.resolve(__dirname, 'src'),
-            '@constants': path.resolve(__dirname, 'src/constants'),
-            '@application': path.resolve(__dirname, 'src/application'),
-            '@components': path.resolve(__dirname, 'src/application/components'),
-            '@containers': path.resolve(__dirname, 'src/application/containers'),
-            '@hoc': path.resolve(__dirname, 'src/application/hoc'),
-            '@pages': path.resolve(__dirname, 'src/application/pages'),
-            '@helpers': path.resolve(__dirname, 'src/helpers'),
-            '@interfaces': path.resolve(__dirname, 'src/interfaces'),
-            '@stores': path.resolve(__dirname, 'src/stores'),
-            '@services': path.resolve(__dirname, 'src/services'),
-            '@configs': path.resolve(__dirname, 'src/configs'),
-            '@translation': path.resolve(__dirname, 'src/translation'),
-            '@theme': path.resolve(__dirname, 'src/theme')
+            ...webpackSettings.aliases
         }
     },
     module: {
         rules: [
-            ...commonLoaders,
-            ...webLoaders
+            ...webpackSettings.loaders
         ]
     },
     stats: {
         children: false,
-        reasons: !IS_PRODUCTION
+        reasons: !envConfig.IS_PRODUCTION
     },
     cache: true,
     performance: {
         hints: 'warning'
-    },
-    watch: IS_DEV_SERVER,
-    watchOptions,
-    devtool: IS_PRODUCTION ? 'source-map' : 'inline-source-map',
-    devServer
+    }
 };
 
 module.exports = config;

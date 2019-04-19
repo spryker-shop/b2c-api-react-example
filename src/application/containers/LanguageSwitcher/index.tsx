@@ -3,8 +3,7 @@ import api from '@services/api';
 import { connect } from './connect';
 import { availableLanguages } from './fixtures';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import { ChevronIcon } from './icons';
 import { TAppLocale } from '@interfaces/locale';
 import { ILangProps as Props, ILangState as State, TLanguage } from './types';
 import { styles } from './styles';
@@ -68,7 +67,9 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
                 >
                     <span className={ classes.langBtnInner }>
                         <span className={ classes.langBtnText }>{ selectedLanguage.name }</span>
-                        { isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown /> }
+                        <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`} >
+                             <ChevronIcon />
+                        </span>
                     </span>
                 </Button>
                 {anchorElement &&
