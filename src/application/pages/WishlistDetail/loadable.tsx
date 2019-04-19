@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 export const LoadableWishlistDetail = Loadable({
     loader: () =>
-        import('@application/pages/WishlistDetail').then(
+        import('@pages/WishlistDetail').then(
             module => module.default,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 export const LoadablePasswordForgotPage = Loadable({
     loader: () =>
-        import('@application/pages/ForgotPasswordPage').then(
+        import('@pages/ForgotPasswordPage').then(
             module => module.ForgotPasswordPage,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,

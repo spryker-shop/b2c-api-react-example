@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 export const LoadableOrderDetailsPage = Loadable({
     loader: () =>
-        import('@application/pages/OrderDetailsPage').then(
+        import('@pages/OrderDetailsPage').then(
             module => module.OrderDetailsContainer,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,

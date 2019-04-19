@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 export const LoadablePasswordResetPage = Loadable({
     loader: () =>
-        import('@application/pages/ResetPasswordPage').then(
+        import('@pages/ResetPasswordPage').then(
             module => module.ResetPasswordPage,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,

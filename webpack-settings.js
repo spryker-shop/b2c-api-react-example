@@ -53,7 +53,6 @@ const loaders = [
 const aliases = {
     src: path.resolve(__dirname, 'src'),
     '@constants': path.resolve(__dirname, 'src/constants'),
-    '@application': path.resolve(__dirname, 'src/application'),
     '@components': path.resolve(__dirname, 'src/application/components'),
     '@containers': path.resolve(__dirname, 'src/application/containers'),
     '@hoc': path.resolve(__dirname, 'src/application/hoc'),

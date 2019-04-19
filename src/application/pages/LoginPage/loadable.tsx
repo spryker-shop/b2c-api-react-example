@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 export const LoadableLoginPage = Loadable({
     loader: () =>
-        import('@application/pages/LoginPage').then(
+        import('@pages/LoginPage').then(
             module => module.LoginPage,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
