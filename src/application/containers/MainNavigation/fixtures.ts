@@ -1,9 +1,9 @@
-const img01 = require('./images/menu-img-1.png');
-const img02 = require('./images/menu-img-2.png');
-const img03 = require('./images/menu-img-3.png');
-const img04 = require('./images/menu-img-4.png');
-const img05 = require('./images/menu-img-5.png');
-const img06 = require('./images/menu-img-6.png');
+const img01 = require('./images/menu-img-1.jpg');
+const img02 = require('./images/menu-img-2.jpg');
+const img03 = require('./images/menu-img-3.jpg');
+const img04 = require('./images/menu-img-4.jpg');
+const img05 = require('./images/menu-img-5.jpg');
+const img06 = require('./images/menu-img-6.jpg');
 
 export type IRelatedProductDataFixture = {
     sku: number;
