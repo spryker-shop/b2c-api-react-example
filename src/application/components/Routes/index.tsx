@@ -46,37 +46,22 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <Switch>
-            <Route path={ pathHomePage } exact render={ props => <LoadableHomePage {...props} /> }/>
-            <Route path={ pathCategoryPage } exact render={ props => <LoadableSearchPage {...props} /> }/>
-            <Route path={ pathSearchPage } exact render={ props => <LoadableSearchPage {...props} /> }/>
-            <Route path={ pathProductPage } exact render={ props => <LoadableProductPage {...props} /> }/>
-            <Route path={ pathLoginPage } exact render={ props => <LoadableLoginPage {...props} /> }/>
-            <Route path={ pathRegisterPage } exact render={ props => <LoadableRegisterPage {...props} /> }/>
-            <Route path={ pathCartPage } exact render={ props => <LoadableCartPage {...props} /> }/>
-            <ProtectedRoute path={ pathCustomerPage } render={ props => <LoadableCustomerPage {...props} /> }/>
-            <Route path={ pathForgotPassword } exact render={ props => <LoadablePasswordForgotPage {...props} /> }/>
-            <Route
-                path={ `${pathResetPassword}/:restoreKey` }
-                exact
-                render={ props => <LoadablePasswordResetPage {...props} /> }
-            />
-
-            <ProtectedRoute
-                path={ pathWishlistsPage }
-                exact
-                render={ props => <LoadableWishlistPage {...props} /> }
-            />
-            <ProtectedRoute
-                path={ pathWishlistDetailPage }
-                exact
-                render={ props => <LoadableWishlistDetail {...props} /> }
-            />
-
-            <Route path={ pathCheckoutPage } render={ props => <LoadableCheckoutPage {...props} /> }/>
-            <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
-            <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>
-
-            <Route path={ pathNotFoundPage } exact render={ props => <LoadableNotFound {...props} /> }/>
+            <Route path={ pathHomePage } exact render={ () => <LoadableHomePage /> }/>
+            <Route path={ pathCategoryPage } exact render={ () => <LoadableSearchPage /> }/>
+            <Route path={ pathSearchPage } exact render={ () => <LoadableSearchPage /> }/>
+            <Route path={ pathProductPage } exact render={ () => <LoadableProductPage /> }/>
+            <Route path={ pathLoginPage } exact render={ () => <LoadableLoginPage /> }/>
+            <Route path={ pathRegisterPage } exact render={ () => <LoadableRegisterPage /> }/>
+            <Route path={ pathCartPage } exact render={ () => <LoadableCartPage /> }/>
+            <ProtectedRoute path={ pathCustomerPage } render={ () => <LoadableCustomerPage /> }/>
+            <Route path={ pathForgotPassword } exact render={ () => <LoadablePasswordForgotPage /> }/>
+            <Route path={ `${pathResetPassword}/:restoreKey` } exact render={ () => <LoadablePasswordResetPage /> } />
+            <ProtectedRoute path={ pathWishlistsPage } exact render={ () => <LoadableWishlistPage /> } />
+            <ProtectedRoute path={ pathWishlistDetailPage } exact render={ () => <LoadableWishlistDetail /> } />
+            <Route path={ pathCheckoutPage } render={ () => <LoadableCheckoutPage /> }/>
+            <Route path={ pathOrderDetailsPage } exact render={ () => <LoadableOrderDetailsPage /> }/>
+            <Route path={ pathAddressFormUpdate } exact render={ () => <CustomerAddressForm /> }/>
+            <Route path={ pathNotFoundPage } exact render={ () => <LoadableNotFound /> }/>
         </Switch>
     );
 };

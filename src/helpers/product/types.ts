@@ -8,11 +8,13 @@ import { IAbstractRowIncludedResponse } from '@interfaces/abstract/rowIncludedre
 import { IProductRelationsItemRelationships } from '@helpers/productRelations/types';
 import { IProductLabelResponse } from '@interfaces/searchPageData';
 
+export interface IProductDataResponse {
+    attributes: IProductAttributesRawResponse;
+    relationships: IProductRelationsItemRelationships;
+}
+
 export interface IProductRawResponse {
-    data: {
-        attributes: IProductAttributesRawResponse;
-        relationships: IProductRelationsItemRelationships;
-    };
+    data: IProductDataResponse;
     links: {
         self: string;
     };

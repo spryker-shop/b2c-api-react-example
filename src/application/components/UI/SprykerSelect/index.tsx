@@ -7,8 +7,7 @@ import { styles } from './styles';
 
 class SprykerSelectComponent extends React.Component<Props, State> {
     public static defaultProps = {
-        isFullWidth: false,
-        menuItemFirst: false
+        isFullWidth: false
     };
 
     public state: State = {
@@ -145,6 +144,6 @@ class SprykerSelectComponent extends React.Component<Props, State> {
             </Grid>
         );
     }
-};
+}
 
 export const SprykerSelect = withStyles(styles)(SprykerSelectComponent);

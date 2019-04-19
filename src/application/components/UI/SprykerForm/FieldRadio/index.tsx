@@ -36,7 +36,6 @@ export const FieldRadioBase: React.SFC<Props> = (props): JSX.Element => {
             }
 
             <RadioGroup
-                aria-label={ label }
                 name={ inputName }
                 value={ currentMode }
                 onChange={ changeHandler }

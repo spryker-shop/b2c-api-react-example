@@ -4,17 +4,19 @@ import {
     concreteProductType,
     IConcreteProductAvailability,
     IProductAttributeNames,
-    IProductDataParsed,
+    IProductDataParsed, IProductLabel,
     IProductPricesItem,
     priceTypeNameDefault,
     priceTypeNameOriginal
 } from '@interfaces/product';
 import {
-    IProductAvailabilitiesRawResponse, IProductRawResponse,
-    TRowProductResponseIncluded
+    IProductAvailabilitiesRawResponse,
+    IProductRawResponse,
+    IRowProductLabelsResponse,
+    TRowProductResponseIncluded,
+    IProductDataResponse
 } from '@helpers/product/types';
 import { IAvailableLabelsCollection, IProductLabelResponse } from '@interfaces/searchPageData';
-import { IProductRelationsIncluded, IProductRelationsLabel } from '@helpers/productRelations/types';
 import { getProductLabel } from '@helpers/product/label';
 
 const defaultProductQuantity = 10;
@@ -156,7 +158,10 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     return result;
 };
 
-const parseProductLabelsResponse = (data: any, row: any): any => {
+const parseProductLabelsResponse = (
+    data: IProductDataResponse,
+    row: IRowProductLabelsResponse
+): IProductLabel[] | null => {
     const productAvailableLabels = data.relationships['product-labels'].data;
     const filteredAvailableLabels = productAvailableLabels.map((item: IProductLabelResponse) => item.id);
 
