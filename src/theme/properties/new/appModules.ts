@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { baseTheme } from '@theme/';
-import { appColors } from '@theme/properties/new/appColors';
 
 export interface IAppModules {
     chip: {

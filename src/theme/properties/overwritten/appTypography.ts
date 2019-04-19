@@ -1,28 +1,9 @@
-import * as React from 'react';
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 import { appColors } from '@theme/properties/new/appColors';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
-interface IAppTypographyElements {
-    fontSize?: React.CSSProperties['fontSize'];
-    fontWeight?: React.CSSProperties['fontWeight'];
-    lineHeight?: React.CSSProperties['lineHeight'];
-    letterSpacing?: React.CSSProperties['letterSpacing'];
-    marginLeft?: React.CSSProperties['marginLeft'];
-    color?: React.CSSProperties['color'];
-}
-
-export interface IAppTypography {
-    fontFamily: React.CSSProperties['fontFamily'];
-    h1: IAppTypographyElements;
-    h2: IAppTypographyElements;
-    h3: IAppTypographyElements;
-    h4: IAppTypographyElements;
-    h5: IAppTypographyElements;
-    h6: IAppTypographyElements;
-    body2: IAppTypographyElements;
-}
-
-export const appTypographyStyles: IAppTypography = {
+export const appTypographyStyles: ThemeOptions['typography'] = {
+    useNextVariants: true,
     fontFamily: [
         'Circular',
         'Segoe UI',

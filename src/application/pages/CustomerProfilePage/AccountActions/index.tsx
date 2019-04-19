@@ -56,7 +56,7 @@ export class AccountActionsComponent extends React.Component<Props, State> {
                     </Grid>
 
                     <Grid item xs={ 12 }>
-                        <Typography variant="body2" className={ classes.warningTitle }>
+                        <Typography className={ classes.warningTitle }>
                             <FormattedMessage id={ 'delete.account.message' } />
                         </Typography>
                     </Grid>
