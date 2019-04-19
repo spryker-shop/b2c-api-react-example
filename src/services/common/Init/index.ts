@@ -18,7 +18,7 @@ import { IApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/category';
 import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import { NavigationService } from '@services/common/Navigations';
 import { getAnonymId } from '@helpers/common/anonymId';

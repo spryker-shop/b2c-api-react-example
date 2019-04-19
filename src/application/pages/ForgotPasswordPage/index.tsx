@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { IForgotPasswordPageProps as Props, IForgotPasswordPageState as State } from './types';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
 import { styles } from './styles';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
+import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
 export class ForgotPasswordPageBase extends React.Component<Props, State> {

@@ -14,7 +14,7 @@ import {
     rangeMaxType,
     TActiveFilters,
     TActiveRangeFilters
-} from '@application/pages/SearchPage/SearchFilterList/types';
+} from '@pages/SearchPage/SearchFilterList/types';
 import { getProductLabel } from '@helpers/product/label';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {

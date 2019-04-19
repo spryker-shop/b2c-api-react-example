@@ -1,8 +1,8 @@
 import { IProductCard, IProductLabel } from '@interfaces/product';
-import { IPagination } from '@application/components/AppPagination/types';
-import { TCategoryId } from '@application/pages/SearchPage/types';
+import { IPagination } from '@components/AppPagination/types';
+import { TCategoryId } from '@pages/SearchPage/types';
 import { TAppCurrency } from '@interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@application/pages/SearchPage/SearchFilterList/types';
+import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
 
 export type TSpellingSuggestion = string;
 export type TLocalizedName = string;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router';
-import { Routes } from '@application/components/Routes';
+import { Routes } from '@components/Routes';
 import {
     pathCategoryPageBase,
     pathLoginPage,
@@ -14,13 +14,13 @@ import {
     pathResetPassword, pathCheckoutPage
 } from '@constants/routes';
 import { withStyles } from '@material-ui/core';
-import { AppHeader } from '@application/containers/AppHeader';
-import { AppFooter } from '@application/components/AppFooter';
+import { AppHeader } from '@containers/AppHeader';
+import { AppFooter } from '@components/AppFooter';
 import { getLocaleData } from '@helpers/locale';
-import { Notifications } from '@application/components/Notifications';
+import { Notifications } from '@components/Notifications';
 import { messages } from '@translation/';
 import { IPageContentProps as Props, IPageContentState as State } from './types';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { styles } from './styles';
 
 setConfig({ ErrorOverlay: () => null });

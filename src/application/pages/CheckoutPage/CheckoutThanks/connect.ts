@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { getCreatedOrder } from '@stores/reducers/pages/checkout/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 

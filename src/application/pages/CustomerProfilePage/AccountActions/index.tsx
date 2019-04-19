@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
 import { IAccountActionsProps as Props, IAccountActionsState as State } from './types';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
-import { SprykerDialog } from '@application/components/UI/SprykerDialog';
+import { SprykerButton } from '@components/UI/SprykerButton';
+import { SprykerDialog } from '@components/UI/SprykerDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 

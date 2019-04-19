@@ -2,8 +2,8 @@ import * as React from 'react';
 import { pathProductPageBase } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, MenuItem } from '@material-ui/core';
-import { SquareImage } from '@application/components/SquareImage';
-import { AppPrice } from '@application/components/AppPrice';
+import { SquareImage } from '@components/SquareImage';
+import { AppPrice } from '@components/AppPrice';
 import { ISuggestionsProps as Props } from './types';
 import { styles } from './styles';
 

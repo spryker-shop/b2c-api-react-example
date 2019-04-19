@@ -2,7 +2,7 @@ import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { IFoundItemsProps } from './FoundItems/types';
-import { IPagination } from '@application/components/AppPagination/types';
+import { IPagination } from '@components/AppPagination/types';
 import { IActiveSort, ILocalizedNamesMap } from '@interfaces/searchPageData';
 
 export interface ISortPanelProps extends WithStyles<typeof styles> {

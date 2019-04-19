@@ -12,7 +12,7 @@ import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract
 import { IConcreteProductAvailability, IProductDataParsed, TProductSKU } from '@interfaces/product';
 import { parseProductAvailabilityResponse } from '@helpers/product/productResponse';
 import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
 export class ProductService extends ApiServiceAbstract {

@@ -4,7 +4,7 @@ import { pathCartPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Button, Typography } from '@material-ui/core';
-import { CartTotal } from '@application/components/CartTotal';
+import { CartTotal } from '@components/CartTotal';
 import { CheckoutCartProductList } from './CheckoutCartProductList';
 import { ICartDataProps as Props } from './types';
 import { LockIcon, EditIcon } from './icons';

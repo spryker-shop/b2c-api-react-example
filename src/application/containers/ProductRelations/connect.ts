@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { push } from 'connected-react-router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { TProductSKU } from '@interfaces/product';

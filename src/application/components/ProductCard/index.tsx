@@ -2,11 +2,11 @@ import * as React from 'react';
 import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
-import { ProductLabel } from '@application/components/ProductLabel';
+import { ProductLabel } from '@components/ProductLabel';
 import { getOneProductImage } from '@helpers/product/imageSetsParser';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
-import { SquareImage } from '@application/components/SquareImage';
+import { SquareImage } from '@components/SquareImage';
 
 export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, images, name = '', prices, sku, label, onSelectProduct } = props;

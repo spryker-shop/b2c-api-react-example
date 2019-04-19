@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { IProductRelationsProps as Props } from './types';
 import { TProductSKU } from '@interfaces/product';
-import { ProductsSlider } from '@application/components/ProductsSlider';
+import { ProductsSlider } from '@components/ProductsSlider';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { pathProductPageBase } from '@constants/routes';

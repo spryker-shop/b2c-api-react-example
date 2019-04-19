@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import {
     getPaymentMethodsFromStore,
 } from '@stores/reducers/pages/checkout/selectors';

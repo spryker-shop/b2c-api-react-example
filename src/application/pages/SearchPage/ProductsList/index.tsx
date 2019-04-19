@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { IProductsListProps as Props } from './types';
 import { IProductCard } from '@interfaces/product';
-import { ProductCard } from '@application/components/ProductCard';
+import { ProductCard } from '@components/ProductCard';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 

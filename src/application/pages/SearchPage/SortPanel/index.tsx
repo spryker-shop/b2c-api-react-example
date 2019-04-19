@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { ISortPanelProps as Props, ISortPanelState as State } from './types';
-import { SprykerSelect } from '@application/components/UI/SprykerSelect';
+import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { Grid, Hidden, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 

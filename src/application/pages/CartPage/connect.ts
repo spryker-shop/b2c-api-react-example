@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { ICartItem, ICartTotals, TCartId } from '@interfaces/cart';
 import { getCartTotals, getProductsFromCart, getCartId } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

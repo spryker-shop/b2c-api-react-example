@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/components/UI/SprykerDialog/styles';
+import { styles } from '@components/UI/SprykerDialog/styles';
 import * as React from 'react';
 
 export interface ISprykerDialogProps extends WithStyles<typeof styles> {

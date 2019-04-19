@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CartItemProps as Props } from './types';
-import { SquareImage } from '@application/components/SquareImage';
-import { AppPrice } from '@application/components/AppPrice';
+import { SquareImage } from '@components/SquareImage';
+import { AppPrice } from '@components/AppPrice';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
-import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
+import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     const {

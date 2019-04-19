@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withStyles, Grid } from '@material-ui/core';
-import { AddressDetails } from '@application/components/AddressDetails';
+import { AddressDetails } from '@components/AddressDetails';
 import { IOrderAddressesProps } from './types';
 import { styles } from './styles';
 

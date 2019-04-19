@@ -4,13 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider, Store } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router';
-import { ScrollToTopRoute } from '@application/hoc/ScrollToTopRoute';
+import { ScrollToTopRoute } from '@hoc/ScrollToTopRoute';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { sprykerTheme } from '@theme/sprykerTheme';
 import { configureStore } from '@stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
-import PageContent from '@application/containers/PageContent';
+import PageContent from '@containers/PageContent';
 import config from './configs/server';
 
 const history = createHistory();

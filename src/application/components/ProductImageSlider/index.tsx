@@ -2,13 +2,13 @@ import * as React from 'react';
 import { connect } from './connect';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
-import { SquareImage } from '@application/components/SquareImage';
+import { SquareImage } from '@components/SquareImage';
 import { Grid, Hidden, withStyles } from '@material-ui/core';
 import { ArrowButton } from './ArrowButton';
 import { RightIcon, LeftIcon, BottomIcon, TopIcon } from './icons';
 import { IProductImageSliderProps as Props } from './types';
 import { styles } from './styles';
-import { ProductLabel } from '@application/components/ProductLabel';
+import { ProductLabel } from '@components/ProductLabel';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 @connect

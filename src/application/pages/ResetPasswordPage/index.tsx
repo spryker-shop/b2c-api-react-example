@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
 import { IResetPasswordPageProps as Props, IResetPasswordPageState as State } from './types';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { IResetPasswordPayload } from '@interfaces/customer';
 import { FormattedMessage } from 'react-intl';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
+import { SprykerInput } from '@components/UI/SprykerInput';
 import { styles } from './styles';
 
 @connect

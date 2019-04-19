@@ -2,10 +2,10 @@ import * as React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
-import { SquareImage } from '@application/components/SquareImage';
+import { SquareImage } from '@components/SquareImage';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { FormattedMessage } from 'react-intl';
 

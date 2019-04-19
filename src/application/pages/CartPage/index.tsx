@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedPlural, FormattedMessage } from 'react-intl';
 import { CartPageProps as Props } from './types';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { AppMain } from '@application/components/AppMain';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { AppMain } from '@components/AppMain';
 import { CartRows } from './CartRows';
 import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { styles } from './styles';
-import { ProductRelations } from '@application/containers/ProductRelations';
+import { ProductRelations } from '@containers/ProductRelations';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
@@ -81,7 +81,6 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <ProductRelations
                             cartId={ cartId }
                             title={ <FormattedMessage id={ 'similar.products.title' } /> }
-                            type="cart"
                             classes={{ root: classes.sliderWrapper }}
                         />
                     </ErrorBoundary>

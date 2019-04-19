@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { pathCartPage, pathCheckoutPage } from '@constants/routes';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Typography, Grid, Button } from '@material-ui/core';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { MiniCartItem } from '../MiniCartItem';
 import { IMiniCartDropProps as Props } from './types';
 import { styles } from './styles';

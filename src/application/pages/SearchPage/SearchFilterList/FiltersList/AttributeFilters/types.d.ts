@@ -1,5 +1,5 @@
 import { ValueFacets } from '@interfaces/searchPageData';
-import { RangeType } from '@application/Pages/SearchPage/types';
+import { RangeType } from '@pages/SearchPage/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';

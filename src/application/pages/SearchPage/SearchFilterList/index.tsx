@@ -10,7 +10,7 @@ import {
     TFilterItemValue,
     TFilterItemName
 } from './types';
-import { TSprykerRangeSliderName } from '@application/components/UI/SprykerRangeSlider/types';
+import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';
 import { ActiveFiltersList } from './ActiveFiltersList';

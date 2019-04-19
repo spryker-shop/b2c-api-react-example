@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
-import { ProtectedRoute } from '@application/hoc/ProtectedRoute';
-import { AppMain } from '@application/components/AppMain';
-import { LoadableHomePage } from '@application/pages/HomePage/loadable';
-import { LoadableSearchPage } from '@application/pages/SearchPage/loadable';
-import { LoadableProductPage } from '@application/pages/ProductPage/loadable';
-import { LoadableLoginPage } from '@application/pages/LoginPage/loadable';
-import { LoadableRegisterPage } from '@application/pages/RegisterPage/loadable';
-import { LoadableCartPage } from '@application/pages/CartPage/loadable';
-import { LoadableCustomerPage } from '@application/pages/CustomerPage/loadable';
-import { LoadablePasswordForgotPage } from '@application/pages/ForgotPasswordPage/loadable';
-import { LoadablePasswordResetPage } from '@application/pages/ResetPasswordPage/loadable';
-import { LoadableWishlistPage } from '@application/pages/WishlistPage/loadable';
-import { LoadableWishlistDetail } from '@application/pages/WishlistDetail/loadable';
-import { LoadableCheckoutPage } from '@application/pages/CheckoutPage/loadable';
-import { LoadableOrderDetailsPage } from '@application/pages/OrderDetailsPage/loadable';
-import { CustomerAddressForm } from '@application/pages/CustomerAddressForm';
-import { LoadableNotFound } from '@application/pages/NotFound/loadable';
+import { ProtectedRoute } from '@hoc/ProtectedRoute';
+import { AppMain } from '@components/AppMain';
+import { LoadableHomePage } from '@pages/HomePage/loadable';
+import { LoadableSearchPage } from '@pages/SearchPage/loadable';
+import { LoadableProductPage } from '@pages/ProductPage/loadable';
+import { LoadableLoginPage } from '@pages/LoginPage/loadable';
+import { LoadableRegisterPage } from '@pages/RegisterPage/loadable';
+import { LoadableCartPage } from '@pages/CartPage/loadable';
+import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
+import { LoadablePasswordForgotPage } from '@pages/ForgotPasswordPage/loadable';
+import { LoadablePasswordResetPage } from '@pages/ResetPasswordPage/loadable';
+import { LoadableWishlistPage } from '@pages/WishlistPage/loadable';
+import { LoadableWishlistDetail } from '@pages/WishlistDetail/loadable';
+import { LoadableCheckoutPage } from '@pages/CheckoutPage/loadable';
+import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
+import { CustomerAddressForm } from '@pages/CustomerAddressForm';
+import { LoadableNotFound } from '@pages/NotFound/loadable';
 import {
     pathAddressFormUpdate,
     pathCartPage,
