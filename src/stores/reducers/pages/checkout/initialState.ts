@@ -75,10 +75,10 @@ export const billingNewAddressDefault: IBillingAddressState = {
 };
 
 export const stepCompletionCheckoutDefault: ICheckoutStepsCompletionState = {
-    first: false,
-    second: false,
-    third: false,
-    fourth: false,
+    isAddressStepPassed: false,
+    isBillingStepPassed: false,
+    isShipmentStepPassed: false,
+    isPaymentStepPassed: false
 };
 
 export const paymentCreditCardDefault: ICheckoutCreditCardState = {

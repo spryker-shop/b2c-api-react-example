@@ -135,6 +135,9 @@ export const styles = (theme: Theme) => createStyles({
             display: 'block'
         }
     },
+    navItemAdditionalTouched: {
+        display: 'block'
+    },
     productContainer: {
         display: 'flex',
         flexDirection: 'column',

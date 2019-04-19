@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { withRouter } from 'react-router';
+import { pathCheckoutSummaryStep } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, List, Button } from '@material-ui/core';
 import { CartTotal } from '@application/components/CartTotal';
@@ -11,8 +13,9 @@ import {
 } from './types';
 import { styles } from './styles';
 
+@(withRouter as Function)
 @connect
-export class CheckoutCartBase extends React.Component<Props, State> {
+class CheckoutCartComponent extends React.Component<Props, State> {
     protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
     protected designImgWidth: number = 0.33;
 
@@ -62,8 +65,9 @@ export class CheckoutCartBase extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, order, isSendBtnDisabled, sendData } = this.props;
+        const { classes, order, isSendBtnDisabled, sendData, location: { pathname } } = this.props;
         const { products, totals, listItemHeight } = this.state;
+        const isSummaryPage = pathname === pathCheckoutSummaryStep;
 
         return (
             <div className={ classes.root } ref={ this.containerRef }>
@@ -88,7 +92,7 @@ export class CheckoutCartBase extends React.Component<Props, State> {
                     title={ <FormattedMessage id={ `${order ? 'order.amount' : 'grand.total.title'}` } /> }
                 />
 
-                { !order &&
+                { (!order && isSummaryPage) &&
                     <Button
                         variant="contained"
                         color="primary"
@@ -105,4 +109,4 @@ export class CheckoutCartBase extends React.Component<Props, State> {
     }
 }
 
-export const CheckoutCart = withStyles(styles)(CheckoutCartBase);
+export const CheckoutCart = withStyles(styles)(CheckoutCartComponent);

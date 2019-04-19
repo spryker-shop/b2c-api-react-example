@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
+import { FormattedMessage } from 'react-intl';
 
 export const LoadableCustomerAddressPage = Loadable({
     loader: () =>
-        import(
-            /* webpackPrefetch: true, webpackChunkName: "LoadableCustomerAddressPage" */
-            '@application/pages/CustomerAddressesPage').then(
+        import('@application/pages/CustomerAddressesPage').then(
             module => module.CustomerAddressPage
         ),
-    loading: () => <div>Loading...</div>,
+    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
 });

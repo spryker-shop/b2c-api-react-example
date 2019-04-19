@@ -56,7 +56,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes } = this.props;
+        const { classes, location: { pathname } } = this.props;
         const { headerHeight, isMobileNavOpened } = this.state;
 
         return (
@@ -74,7 +74,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                             <AppLogo addlLogoWithoutImage classes={{ logoContainer: classes.logoContainer }} />
                         </div>
 
-                        { this.props.location.pathname.endsWith(pathCheckoutPage)
+                        { pathname.includes(pathCheckoutPage)
                             ? <div className={ classes.checkout }>
                                 <FormattedMessage id="word.checkout.title" />
                             </div>

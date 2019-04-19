@@ -2,12 +2,11 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
-import { withStyles, Badge, Tooltip } from '@material-ui/core';
+import { withStyles, Badge, IconButton } from '@material-ui/core';
 import { pathCartPage } from '@constants/routes';
 import { PopoverWrapper } from '@application/components/PopoverWrapper';
 import { MiniCartDrop } from './MiniCartDrop';
 import { CartIcon } from './icons';
-import IconButton from '@material-ui/core/IconButton';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
@@ -78,9 +77,8 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { pathname } = this.props.location;
         const { isPopupOpened } = this.state;
-        const { classes, cartItemsQuantity } = this.props;
+        const { classes, cartItemsQuantity, isTouch, location: { pathname } } = this.props;
         const pathToRedirect = cartItemsQuantity !== 0 ? pathCartPage : pathname;
 
         const cartButton = (
@@ -109,13 +107,12 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
 
         if (cartItemsQuantity === 0) {
             return (
-                <Tooltip
-                    disableFocusListener
-                     placement="top"
-                     title={ <FormattedMessage id={ 'empty.cart.title' } /> }
-                >
+                <div className={`${classes.wrapper} ${!isTouch ? classes.wrapperHoverable : ''}`}>
                     { cartButton }
-                </Tooltip>
+                    <span className={ classes.tooltip }>
+                        <FormattedMessage id={ 'empty.cart.title' } />
+                    </span>
+                </div>
             );
         }
 
