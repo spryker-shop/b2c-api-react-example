@@ -2,35 +2,87 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    root: {
-        width: '90%',
-        marginTop: '18px',
-        marginLeft: '10%',
-        [theme.breakpoints.down('xs')]: {
-            width: '100%',
-            marginLeft: '0',
-        },
+    box: {
+        padding: '25px 20px 20px',
+        background: theme.appColors.white,
+        borderRadius: 4,
+        marginBottom: 20
     },
     title: {
-        fontSize: theme.appFixedDimensions.fontSize.xl,
-        fontWeight: 'normal',
-        lineHeight: 1.13,
-        letterSpacing: -0.8,
+        paddingBottom: 15
     },
-    summaryTitle: {
-        marginTop: theme.spacing.unit * 8,
-        marginBottom: theme.spacing.unit * 2,
+    totals: {
+        paddingBottom: 20
     },
-    titleDivider: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 2,
+    totalsInner: {
+        padding: '20px 15px 18px',
+        marginBottom: 10,
+        background: theme.appColors.weekWhite,
+        borderRadius: 4
     },
-    btnWrapper: {
-        marginTop: theme.spacing.unit * 4,
-        marginBottom: theme.spacing.unit * 10,
-        height: '44px',
-        borderRadius: '4px',
-        fontSize: theme.appFixedDimensions.fontSize.medium,
-        letterSpacing: '1.5px',
+    productHeading: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingBottom: 15,
+        marginBottom: 20,
+        borderBottom: `1px solid ${theme.appColors.weekWhite}`
     },
+    editLink: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 15,
+        letterSpacing: 0.2,
+        color: theme.appColors.weakGrey,
+        transition: 'color 0.3s ease-in-out',
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.appColors.blue,
+            '& $editDecor': {
+                background: 'rgba(8, 148, 161, 0.1)'
+            }
+        }
+    },
+    editDecor: {
+        width: 30,
+        height: 30,
+        marginLeft: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '50%',
+        background: theme.appColors.weekWhite,
+        transition: 'background 0.3s ease-in-out'
+    },
+    editIcon: {
+        width: 16,
+        height: 16,
+        fill: 'currentColor',
+        lineHeight: 0
+    },
+    amount: {
+        padding: '6px 14px',
+        borderRadius: 4,
+        background: theme.appColors.weekWhite,
+        fontSize: 15,
+        letterSpacing: 0.2,
+        color: theme.appColors.weakGrey,
+        lineHeight: 1
+    },
+    secure: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        color: theme.appColors.lightGrey
+    },
+    secureIcon: {
+        fill: 'currentColor',
+        width: 13,
+        height: 17
+    },
+    secureText: {
+        fontSize: 14,
+        fontWeight: 500,
+        paddingLeft: 9
+    }
 });

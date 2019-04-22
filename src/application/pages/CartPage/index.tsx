@@ -12,7 +12,7 @@ import { styles } from './styles';
 import { ProductRelations } from '@application/containers/ProductRelations';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isCartEmpty, totalQty, totals, cartId } = props;
+    const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
 
     if (isCartEmpty) {
         return (
@@ -62,7 +62,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                                 <FormattedMessage id={ 'word.subtotal.title' } />:
                             </Typography>
                             <Typography component="span" variant="display2">
-                                <AppPrice value={ totals.subtotal } isStylesInherited />
+                                <AppPrice value={ totals.subtotal } />
                             </Typography>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 } md={ 4 }>
                     <div className={ classes.layout }>
                         <ErrorBoundary>
-                            <OrderSummary totals={ totals } />
+                            <OrderSummary totals={ totals } clearCheckoutDataForm={ clearCheckoutDataForm } />
                         </ErrorBoundary>
                     </div>
                 </Grid>

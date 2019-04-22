@@ -88,7 +88,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                 <Grid item xs={ 12 } lg={ 7 }>
                     <SprykerSelect
                         currentMode={ wishlistSelected }
-                        changeHandler={ this.handleWishlistChange }
+                        onChangeHandler={ this.handleWishlistChange }
                         menuItems={ createWishlistMenuVariants(wishlists) }
                         name="wishlists"
                         menuItemFirst={ {

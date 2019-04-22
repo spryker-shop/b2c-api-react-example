@@ -2,9 +2,8 @@ import {
     ICheckoutFormsNames,
     ICheckoutPaymentMethodsNames,
     ICheckoutSelectionInputs,
-    IBillingObjectConfigInputStable,
     ICreditCardObjectConfigInputStable,
-    IDeliveryObjectConfigInputStable,
+    IAddressConfigInputStable,
     IInvoiceObjectConfigInputStable
 } from './types';
 
@@ -31,7 +30,7 @@ export const checkoutPaymentMethodsNames: ICheckoutPaymentMethodsNames = {
     creditCard: 'credit card',
 };
 
-export const deliveryConfigInputStable: IDeliveryObjectConfigInputStable = {
+export const newAddressConfigInputStable: IAddressConfigInputStable = {
     firstName: {
         isRequired: true,
         inputName: 'firstName',
@@ -59,10 +58,12 @@ export const deliveryConfigInputStable: IDeliveryObjectConfigInputStable = {
     email: {
         isRequired: true,
         inputName: 'email',
+        isEmail: true
     },
     zipCode: {
         isRequired: true,
         inputName: 'zipCode',
+        minLength: 5
     },
     city: {
         isRequired: true,
@@ -82,17 +83,11 @@ export const deliveryConfigInputStable: IDeliveryObjectConfigInputStable = {
     },
 };
 
-export const billingConfigInputStable: IBillingObjectConfigInputStable = {
-    ...deliveryConfigInputStable, email: {
-        isRequired: false,
-        inputName: 'email',
-    },
-};
-
 export const invoiceConfigInputStable: IInvoiceObjectConfigInputStable = {
     dateOfBirth: {
         isRequired: true,
         inputName: 'dateOfBirth',
+        minLength: 8
     },
 };
 
@@ -104,21 +99,20 @@ export const creditCardConfigInputStable: ICreditCardObjectConfigInputStable = {
     cardNumber: {
         isRequired: true,
         inputName: 'cardNumber',
+        minLength: 16
     },
     cardName: {
         isRequired: true,
         inputName: 'cardName',
     },
-    cardExpiryMonth: {
+    cardExpiryDate: {
         isRequired: true,
-        inputName: 'cardExpiryMonth',
-    },
-    cardExpiryYear: {
-        isRequired: true,
-        inputName: 'cardExpiryYear',
+        inputName: 'cardExpiryDate',
+        minLength: 4
     },
     cardCVC: {
         isRequired: true,
         inputName: 'cardCVC',
+        minLength: 3
     },
 };

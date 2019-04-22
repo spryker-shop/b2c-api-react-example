@@ -79,9 +79,6 @@ export interface ICheckoutAddressState {
     [key: string]: IConfigInputState;
 }
 
-export interface IDeliveryAddressState extends ICheckoutAddressState {
-}
-
 export interface IBillingAddressState extends ICheckoutAddressState {
 }
 
@@ -112,8 +109,7 @@ export interface ICheckoutCreditCardState {
     paymentProvider: IConfigInputState;
     cardNumber: IConfigInputState;
     cardName: IConfigInputState;
-    cardExpiryMonth: IConfigInputState;
-    cardExpiryYear: IConfigInputState;
+    cardExpiryDate: IConfigInputState;
     cardCVC: IConfigInputState;
 
     [key: string]: IConfigInputState;
@@ -133,5 +129,5 @@ export interface IFormFieldMutate {
 
 export interface IFormUpdatePaymentStatus {
     value: string;
-    isSummaryStepCompleted: boolean;
+    isPaymentStepCompleted: boolean;
 }

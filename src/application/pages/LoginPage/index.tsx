@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { pathForgotPassword, pathLoginPage, pathRegisterPage } from '@constants/routes';
+import { pathLoginPage, pathRegisterPage, pathCustomerProfilePage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
-import { LoginForm } from './LoginForm';
+import { LoginForm } from '@containers/LoginForm';
 import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
 import { styles } from './styles';
@@ -31,13 +31,8 @@ export class LoginPageComponent extends React.Component<Props> {
                         </ul>
                         <div className={ classes.inner }>
                             <ErrorBoundary>
-                                <LoginForm classes={{ wrapper: classes.formWrapper }} />
+                                <LoginForm redirectAfterLoginPath={ pathCustomerProfilePage } />
                             </ErrorBoundary>
-                            <Typography align="center" component="div" variant="headline" color="textSecondary">
-                                <NavLink to={ pathForgotPassword } className={ classes.link }>
-                                    <FormattedMessage id={ 'forgot.password.title' } />
-                                </NavLink>
-                            </Typography>
                         </div>
                     </Grid>
                 </Grid>

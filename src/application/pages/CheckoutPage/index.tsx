@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { CheckoutCart } from '@application/pages/CheckoutPage/CheckoutCart';
 import { AppPageTitle } from '@application/components/AppPageTitle';
-import { getAddressForm } from '@helpers/checkout';
+import { getAddressForm } from '@helpers/forms';
 import { ClickEvent } from '@interfaces/common';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { ICheckoutRequest } from '@interfaces/checkout';
@@ -17,6 +17,7 @@ import {
     pathCheckoutAddressStep,
     pathCheckoutLoginStep,
     pathCheckoutPage,
+    pathCheckoutSummaryStep,
     pathCheckoutThanks
 } from '@constants/routes';
 import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
@@ -26,34 +27,63 @@ import { styles } from './styles';
 @connect
 class CheckoutPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        isButtonDisabled: true
+        isButtonDisabled: true,
+        isDataSending: false
     };
 
     public componentDidMount = (): void => {
-        if (this.props.isUserLoggedIn) {
-            this.props.getCheckoutData({ idCart: this.props.cartId }, '');
-        } else {
-            this.props.getCheckoutData({ idCart: this.props.cartId }, this.props.anonymId);
+        const { isCheckoutFulfilled } = this.props;
+
+        if (!isCheckoutFulfilled) {
+            this.getCheckoutData();
         }
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        if (!prevProps.isCheckoutFulfilled && this.props.isCheckoutFulfilled) {
-            if (!this.props.profile && this.props.isUserLoggedIn && this.props.customerReference) {
-                this.props.getCustomerData(this.props.customerReference);
+        const {
+            isCheckoutLoading,
+            profile,
+            isUserLoggedIn,
+            isCheckoutFulfilled,
+            customerReference,
+            getCustomerData,
+            isCheckoutInitiated
+        } = this.props;
+        const { isDataSending } = this.state;
+
+        if (!prevProps.isCheckoutFulfilled && isCheckoutFulfilled) {
+            if (!profile && isUserLoggedIn && customerReference) {
+                getCustomerData(customerReference);
             }
         }
 
-        const { isCheckoutLoading } = this.props;
-        const { isCheckoutLoading: previousStateLoading } = prevProps;
+        if (isCheckoutLoading && !prevProps.isCheckoutLoading) {
+            this.setState({ isDataSending: false });
+        }
 
-        if (isCheckoutLoading !== previousStateLoading) {
+        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated && !isDataSending) {
+            this.getCheckoutData();
+        }
+
+        if (isCheckoutLoading !== prevProps.isCheckoutLoading) {
             this.setState({ isButtonDisabled: isCheckoutLoading });
         }
     };
 
+    protected getCheckoutData = (): void => {
+        const { isUserLoggedIn, anonymId, getCheckoutData, cartId } = this.props;
+
+        if (isUserLoggedIn) {
+            getCheckoutData({ idCart: cartId }, '');
+
+            return;
+        }
+
+        getCheckoutData({ idCart: cartId }, anonymId);
+    };
+
     protected handleSubmit = (event: ClickEvent): void => {
-        this.setState({ isButtonDisabled: true });
+        this.setState({ isButtonDisabled: true, isDataSending: true });
         event.preventDefault();
         const {
             addressesCollection,
@@ -116,55 +146,70 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         history.push(pathCheckoutThanks);
     };
 
+    protected shouldHideOrderInfo = (): boolean => {
+        const forbiddenPaths = [pathCheckoutLoginStep, pathCheckoutThanks];
+        const currentLocation = this.props.location.pathname;
+
+        return forbiddenPaths.some(path => currentLocation.includes(path));
+    };
+
     public render(): JSX.Element {
         const {
             classes,
             isProductsExists,
-            orderId,
             isUserLoggedIn,
-            anonymId,
             stepsCompletion,
             isCheckoutLoading,
             location: { pathname }
         } = this.props;
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
+        const isSummaryPage = pathname === pathCheckoutSummaryStep;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
+        if (!isProductsExists) {
+            return (
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
+                </AppMain>
+            );
+        }
+
         return (
-            <AppMain>
-                { !isProductsExists && !orderId
-                    ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
-                    : <>
-                        <CheckoutBreadcrumbs />
-                        <Grid container className={ classes.container }>
-                            <Grid item xs={ 12 } md={ 7 } className={ classes.leftColumn }>
-                                { !isCheckoutLoading &&
+            <>
+                <CheckoutBreadcrumbs />
+                { !isCheckoutLoading &&
+                    <AppMain classes={{ wrapper: classes.wrapper }}>
+                        <div className={ classes.container }>
+                            <div
+                                className={`
+                                    ${classes.contentColumn} ${this.shouldHideOrderInfo() ? classes.fullWidth : ''}
+                                `}
+                            >
+                                <ErrorBoundary>
                                     <CheckoutRouting
                                         stepsCompletion={ stepsCompletion }
                                         isSendBtnDisabled={ isButtonDisabled }
                                         sendData={ this.handleSubmit }
                                     />
-                                }
-                            </Grid>
-                            <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
-                                <ErrorBoundary>
+                                </ErrorBoundary>
+                            </div>
+                            {!this.shouldHideOrderInfo() &&
+                                <div className={ classes.summaryColumn }>
                                     <CheckoutCart
                                         isSendBtnDisabled={ isButtonDisabled }
                                         sendData={ this.handleSubmit }
-                                        order={ orderId }
-                                        isUserLoggedIn={ isUserLoggedIn }
-                                        anonymId={ anonymId }
+                                        isSummaryPage={ isSummaryPage }
                                     />
-                                </ErrorBoundary>
-                            </Grid>
-                        </Grid>
-                    </>
+                                </div>
+                            }
+                        </div>
+                    </AppMain>
                 }
-            </AppMain>
+            </>
         );
     }
 }

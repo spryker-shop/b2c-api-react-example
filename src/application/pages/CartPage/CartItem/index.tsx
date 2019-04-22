@@ -11,7 +11,6 @@ import { NavLink } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
-    const imageItemHeight: number = 132;
     const {
         classes,
         sku,
@@ -32,11 +31,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
 
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    image={ image }
-                    size={ imageItemHeight }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>
@@ -77,22 +72,18 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 component="p"
                                 className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                <AppPrice value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
                                 <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                    <AppPrice
-                                        value={ priceOriginalGross }
-                                        priceType={ priceTypeNameOriginal }
-                                        isStylesInherited
-                                    />
+                                    <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                 </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
                             <div className={ classes.eachPrice }>
                                 (
-                                <AppPrice value={ unitPriceToPayAggregation } isStylesInherited />&nbsp;
+                                <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
                                 <FormattedMessage id={ 'word.each.title' } />)
                             </div>
                         }

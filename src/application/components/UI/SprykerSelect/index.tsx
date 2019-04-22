@@ -53,7 +53,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
         const {
             classes,
             currentMode,
-            changeHandler,
+            onChangeHandler,
             menuItems,
             name,
             title,
@@ -97,7 +97,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
                             onClose={ this.handleChangeShowing }
                             onOpen={ this.handleChangeShowing }
                             value={ currentMode }
-                            onChange={ changeHandler }
+                            onChange={ onChangeHandler }
                             name={ name }
                             MenuProps={{
                                 getContentAnchorEl: null,

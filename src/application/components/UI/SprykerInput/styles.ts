@@ -21,14 +21,38 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black,
         fontSize: 15,
         fontWeight: 500,
+        '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
+            appearance: 'none',
+            margin: 0
+        },
+        '&::-webkit-input-placeholder, &::placeholder': {
+            opacity: 1,
+            color: theme.appColors.lightGrey
+
+        },
         '&:focus': {
             backgroundColor: theme.appColors.white
         }
     },
+    inputStartIcon: {
+        paddingLeft: 57
+    },
+    inputEndIcon: {
+        paddingRight: 57
+    },
     error: {
         color: theme.appColors.red,
-        '& input': {
+        '& $input': {
+            color: theme.appColors.red,
             borderColor: theme.appColors.red,
+            background: 'rgba(235, 85, 60, 0.05)',
+            boxShadow: `inset 0 0 0 0.5px ${theme.appColors.red}`,
+            '&::-webkit-input-placeholder, &::placeholder': {
+                color: theme.appColors.red
+            },
+        },
+        '& $icon': {
+            fill: theme.appColors.red
         }
     },
     label: {
@@ -43,30 +67,25 @@ export const styles = (theme: Theme) => createStyles({
         transform: 'none',
         '&$labelFocused': {
             color: theme.appColors.grey
+        },
+        '&$labelError': {
+            color: theme.appColors.red
         }
     },
     labelFocused: {},
+    labelError: {},
     asterisk: {
         color: theme.appColors.blue
     },
-    placeholder: {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        left: '0',
-        right: '0',
-        overflow: 'hidden',
-        margin: '12px 14px 0',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        zIndex: 3,
-        pointerEvents: 'none',
-        lineHeight: '20px',
-        fontWeight: 500,
-        color: theme.appColors.black,
-        opacity: 0.43
+    icon: {},
+    helperText: {
+        display: 'none',
+        marginTop: 8,
+        fontSize: 13,
+        letterSpacing: 0.1
     },
-    filled: {
-        display: 'none'
+    helperTextError: {
+        display: 'block',
+        color: theme.appColors.red
     }
 });

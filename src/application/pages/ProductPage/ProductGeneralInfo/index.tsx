@@ -34,11 +34,11 @@ const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props)
                         component="span"
                         className={`${classes.price} ${oldPrice ? classes.newPrice : ''}`}
                     >
-                        <AppPrice value={ price } isStylesInherited />
+                        <AppPrice value={ price } />
                     </Typography>
                     { oldPrice &&
                     <Typography component="span" className={ classes.oldPrice }>
-                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } isStylesInherited />
+                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } />
                     </Typography>
                     }
                     <Typography component="span" className={ classes.vat }>

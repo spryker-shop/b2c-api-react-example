@@ -68,16 +68,5 @@ export const styles = (theme: Theme) => createStyles({
             minHeight: 80,
             fontSize: 18
         }
-    },
-    formWrapper: {
-        paddingBottom: 20
-    },
-    link: {
-        textDecoration: 'none',
-        color: theme.appColors.grey,
-        transition: 'color 0.3s ease-in-out',
-        '&:hover': {
-            color: theme.appColors.blue
-        }
     }
 });
