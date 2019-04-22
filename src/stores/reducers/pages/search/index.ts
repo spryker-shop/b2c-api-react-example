@@ -11,7 +11,7 @@ import {
     PAGES_SEARCH_PAGINATION_PAGE_SET,
     PAGES_SEARCH_CURRENT_CATEGORY_SET
 } from '@stores/actionTypes/pages/search';
-import { ILocalizedNamesMap, TLocalizedName, TSpellingSuggestion, } from '@interfaces/searchPageData/index';
+import { ILocalizedNamesMap, TLocalizedName, TSpellingSuggestion, } from '@interfaces/searchPageData';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
 import { DefaultItemsPerPage } from '@constants/search';
