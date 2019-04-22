@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 
 const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethod } = props;
-    const isShipmentMethodsExist = Boolean(Array.isArray(shipmentMethods) && shipmentMethods.length > 0);
+    const isShipmentMethodsExist = Array.isArray(shipmentMethods) && shipmentMethods.length > 0;
 
     if (!isShipmentMethodsExist) {
         return null;
