@@ -2,22 +2,21 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    root: {
-        marginTop: theme.spacing.unit * 3,
+    orderItem: {
+        padding: '16px 20px',
+        marginBottom: 20,
+        borderRadius: 4,
+        background: theme.appColors.weekWhite
     },
-    price: {
-        fontWeight: 'bold',
-    },
-    orderBtn: {
-        color: theme.appColors.black,
-        fontSize: theme.appFixedDimensions.fontSize.small,
+    orderText: {
+        display: 'block',
+        fonSize: 16,
+        lineHeight: 1.7,
         letterSpacing: 0.2,
-        marginLeft: theme.spacing.unit * 1.5,
-        marginRight: theme.spacing.unit * 1.5,
-        textDecoration: 'none',
-        padding: 0,
-        '&:hover': {
-            color: theme.appColors.blue,
-        },
+        color: theme.appColors.grey
     },
+    orderTitle: {
+        fontWeight: 500,
+        color: theme.appColors.black
+    }
 });
