@@ -11,60 +11,72 @@ import { IOrderListProps as Props } from '@application/pages/OrderHistoryPage/Or
 import { IOrderItem } from '@interfaces/order';
 import { ICellInfo, ITableRow } from '@application/components/AppTable/types';
 import { styles } from './styles';
+import { Grid } from '@material-ui/core';
 
-export const OrderListBase: React.SFC<Props> = (props): JSX.Element => {
-    const {classes, orders} = props;
+class OrderListBase extends React.Component<Props> {
+    public render = (): JSX.Element => {
+        const { classes, orders } = this.props;
 
-    const headerCellPart = 'header-';
-    const rowPart = 'order-';
+        const headerCellPart = 'header-';
+        const rowPart = 'order-';
 
-    const headerCells: ICellInfo[] = [
-        {id: `${headerCellPart}1`, content: <FormattedMessage id={ 'order.id.title' } />},
-        {id: `${headerCellPart}2`, content: <FormattedMessage id={ 'orders.date.title' } />},
-        {id: `${headerCellPart}3`, content: <FormattedMessage id={ 'orders.total.title' } />},
-        {id: `${headerCellPart}4`, content: ''},
-    ];
+        const headerCells: ICellInfo[] = [
+            { id: `${ headerCellPart }1`, content: <FormattedMessage id={ 'order.id.title' } /> },
+            { id: `${ headerCellPart }2`, content: <FormattedMessage id={ 'orders.date.title' } /> },
+            { id: `${ headerCellPart }3`, content: <FormattedMessage id={ 'orders.total.title' } /> },
+            { id: `${ headerCellPart }4`, content: '' }
+        ];
 
-    const bodyRows: ITableRow[] = orders.map((item: IOrderItem) => {
-        const date = formattedDate(item.dateCreated);
+        const bodyRows: ITableRow[] = orders.map((order: IOrderItem) => {
+            const date = formattedDate(order.dateCreated);
 
-        return {
-            id: `${rowPart}${item.id}`,
-            cells: [
-                {id: `id-${item.id}`, content: `#${item.id}`},
-                {id: `date-${item.id}`, content: formatDateToString(new Date(date))},
-                {
-                    id: `price-${item.id}`,
-                    content: <AppPrice
-                        value={item.totals.grandTotal}
-                        specificCurrency={item.currency}
-                        extraClassName={classes.price}
-                        isStylesInherited={true}
-                    />
-                },
-                {
-                    id: `actions-${item.id}`,
-                    content: <NavLink
-                        to={`${pathOrderDetailsPageBase}/${item.id}`}
-                        className={classes.orderBtn}
-                    >
-                        <FormattedMessage id={ 'orders.view.order.title' } />
-                    </NavLink>
-                },
-            ],
-        };
-    });
+            return {
+                id: `${ rowPart }${ order.id }`,
+                cells: [
+                    { id: `id-${ order.id }`, content: `#${ order.id }` },
+                    { id: `date-${ order.id }`, content: formatDateToString(new Date(date)) },
+                    {
+                        id: `price-${ order.id }`,
+                        content: <AppPrice
+                            value={ order.totals.grandTotal }
+                            specificCurrency={ order.currency }
+                            extraClassName={ classes.price }
+                            isStylesInherited={ true }
+                        />
+                    },
+                    {
+                        id: `actions-${ order.id }`,
+                        content: <NavLink
+                            to={ `${ pathOrderDetailsPageBase }/${ order.id }` }
+                            className={ classes.orderBtn }
+                        >
+                            <FormattedMessage id={ 'orders.view.order.title' } />
+                        </NavLink>
+                    }
+                ],
+                ddd: (
+                    <div key={`id-${ order.id }`} className={ classes.orderItem }>
+                        <Grid container spacing={ 8 }>
+                            <Grid item>
 
-    return (
-        <div className={classes.root}>
-            <AppTable
-                headerCells={headerCells}
-                bodyRows={bodyRows}
-                isResponsive={true}
-                width={appFixedDimensions.customerSubPageWidth}
-            />
-        </div>
-    );
-};
+                            </Grid>
+                        </Grid>
+                    </div>
+                )
+            };
+        });
+
+        return (
+            <div className={ classes.orderList }>
+                <AppTable
+                    headerCells={ headerCells }
+                    bodyRows={ bodyRows }
+                    isResponsive={ true }
+                    width={ appFixedDimensions.customerSubPageWidth }
+                />
+            </div>
+        );
+    };
+}
 
 export const OrderList = withStyles(styles)(OrderListBase);
