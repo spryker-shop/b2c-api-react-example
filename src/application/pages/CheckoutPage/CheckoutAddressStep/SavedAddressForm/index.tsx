@@ -59,7 +59,7 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
         )).concat(extraField)
     );
 
-    const renderSavedAddressItems = (): JSX.Element[] => savedAddressList().map((item: IRadioItem, index: number) => (
+    const renderSavedAddressItems = (): JSX.Element[] => savedAddressList().map((item: IRadioItem) => (
         <FormControlLabel
             key={`${formName}${item.value}`}
             aria-label={ item.value }
@@ -68,7 +68,7 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 root: `${classes.inputRadio} ${(currentMode === item.value) ? classes.checkedInputRadio : '' }`,
                 label: `${classes.radioLabel} ${(currentMode === item.value) ? classes.checkedRadioLabel : '' }`
             }}
-            control={ <Radio key={ index } classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
+            control={ <Radio classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
             label={ <>{ Boolean(item.salutation) && item.salutation }{ item.label }</> }
         />
     ));
