@@ -6,6 +6,7 @@ import { formatDateToString, formattedDate } from '@helpers/common/dates';
 import { pathOrderDetailsPageBase } from '@constants/routes';
 import { AppPrice } from '@application/components/AppPrice';
 import { IOrderListProps as Props } from '@application/pages/OrderHistoryPage/OrderList/types';
+import { ViewIcon } from './icons';
 import { styles } from './styles';
 
 class OrderListComponent extends React.Component<Props> {
@@ -44,12 +45,14 @@ class OrderListComponent extends React.Component<Props> {
                             </span>
                         </Grid>
                         <Grid item xs={ 3 }>
-                            <NavLink
-                                to={ `${ pathOrderDetailsPageBase }/${ order.id }` }
-                                className={ classes.orderBtn }
-                            >
-                                <FormattedMessage id={ 'orders.view.order.title' } />
-                            </NavLink>
+                            <div className={ classes.actions }>
+                                {/*<FormattedMessage id={ 'orders.view.order.title' } />*/}
+                                <NavLink to={`${pathOrderDetailsPageBase}/${order.id}`} className={ classes.viewLink }>
+                                    <span className={ classes.viewIcon }>
+                                        <ViewIcon />
+                                    </span>
+                                </NavLink>
+                            </div>
                         </Grid>
                     </Grid>
                 </div>
