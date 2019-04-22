@@ -1,158 +1,128 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withStyles, Grid, Typography } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
+import { withStyles, FormControlLabel, Radio, Grid } from '@material-ui/core';
 import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
-import {
-    PartnerIconVisa,
-    PartnerIconPaypal,
-    PartnerIconMasterCard
-} from './icons';
-import { getPaymentMethodsFormSettings } from '@helpers/formCreations/checkout/paymentSettings';
-import { checkFormValidity } from '@helpers/checkout';
-import {
-    IPaymentMethod,
-    ICheckoutInvoiceState,
-    ICheckoutCreditCardState
-} from '@interfaces/checkout';
-import {
-    IPaymentMethodsGrouped,
-    TPaymentProvidersCollection
-} from '@constants/checkout/types';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
-import { IPaymentMethodProps } from './types';
-import {
-    IPaymentMethodsParams,
-    IPaymentProviderToIcon
-} from '@helpers/formCreations/checkout/types';
-import {
-    creditCardConfigInputStable,
-    invoiceConfigInputStable,
-    checkoutFormsNames,
-    checkoutPaymentMethodsNames
-} from '@constants/checkout';
+import { PartnerIconVisa } from './icons';
+import { checkFormValidity } from '@helpers/forms/validation';
+import { IPaymentMethod } from '@interfaces/checkout';
+import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
+import { InputChangeEvent } from '@interfaces/common';
+import { IPaymentMethodProps as Props } from './types';
+import { IPaymentProviderToIcon } from '@helpers/formCreations/checkout/types';
+import { invoiceConfigInputStable, checkoutPaymentMethodsNames, creditCardConfigInputStable } from '@constants/checkout';
 import { styles } from './styles';
 
-export const PaymentMethodBase: React.SFC<IPaymentMethodProps> = (props): JSX.Element => {
-    const {
-        classes,
-        paymentMethod: currentValuePaymentMethod,
-        paymentMethods,
-        paymentInvoiceData,
-        paymentCreditCardData
-    } = props;
-
-    const validateInvoiceForm = (formState: ICheckoutInvoiceState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: invoiceConfigInputStable })
-    );
-
-    const validateCreditCardForm = (formState: ICheckoutCreditCardState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: creditCardConfigInputStable })
-    );
-
-    const handleSelectionsChange = (event: InputChangeEvent): void => {
-        const { value } = event.target;
-        const { mutatePaymentMethod } = props;
-        const { invoice, creditCard } = checkoutPaymentMethodsNames;
-
-        const isInvoiceFormValid = validateInvoiceForm(paymentInvoiceData);
-        const isCreditCardFormValid = validateCreditCardForm(paymentCreditCardData);
-
-        const isSummaryStepCompleted = (value === invoice && isInvoiceFormValid) ||
-            (value === creditCard && isCreditCardFormValid);
-
-        mutatePaymentMethod({ value, isSummaryStepCompleted });
-    };
-
-    const handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
-    };
-
-    const paymentProviderToIcon: IPaymentProviderToIcon = {
-        masterCard: <PartnerIconMasterCard key="masterCard" />,
-        paypal: <PartnerIconPaypal key="paypal" />,
-        visa: <PartnerIconVisa key="visa" />
-    };
-
+const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, paymentMethod, paymentMethods } = props;
     const isPaymentMethodsExist = Boolean(Array.isArray(paymentMethods) && paymentMethods.length > 0);
+
     if (!isPaymentMethodsExist) {
         return null;
     }
 
-    const creditCardProvidersCollection: TPaymentProvidersCollection = [];
+    const handleSelectionsChange = (event: InputChangeEvent): void => {
+        const { value } = event.target;
+        const { mutatePaymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
+        const { invoice, creditCard } = checkoutPaymentMethodsNames;
+
+        const isInvoiceFormValid = checkFormValidity({
+            form: paymentInvoiceData,
+            fieldsConfig: invoiceConfigInputStable
+        });
+
+        const isCreditCardFormValid = checkFormValidity({
+            form: paymentCreditCardData,
+            fieldsConfig: creditCardConfigInputStable
+        });
+
+        const isPaymentStepCompleted = (value === invoice && isInvoiceFormValid) ||
+            (value === creditCard && isCreditCardFormValid);
+
+        mutatePaymentMethod({ value, isPaymentStepCompleted });
+    };
+
+    const paymentProviderToIcon: IPaymentProviderToIcon = {
+        DummyPayment: <PartnerIconVisa key="visa" />
+    };
 
     const paymentMethodsGrouped: IPaymentMethodsGrouped = {};
-    for (const paymentMethod of paymentMethods) {
-        if (!paymentMethodsGrouped[ paymentMethod.paymentMethodName ]) {
-            paymentMethodsGrouped[ paymentMethod.paymentMethodName ] = [];
+    paymentMethods.forEach(item => {
+        if (!paymentMethodsGrouped[item.paymentMethodName]) {
+            paymentMethodsGrouped[item.paymentMethodName] = [];
         }
-        paymentMethodsGrouped[ paymentMethod.paymentMethodName ].push(paymentMethod);
-    }
 
-    const paymentMethodGroupItems: IPaymentMethodsParams['paymentMethodGroupItems'] = [];
+        paymentMethodsGrouped[item.paymentMethodName].push(item);
+    });
 
-    for (const groupName in paymentMethodsGrouped) {
-        if (!paymentMethodsGrouped.hasOwnProperty(groupName)
-            || !Array.isArray(paymentMethodsGrouped[ groupName ])
-            || !paymentMethodsGrouped[ groupName ].length
-        ) {
-            continue;
-        }
-        const paymentMethodLabel: React.ReactNode[] = [];
-        paymentMethodLabel.push(
-            <Typography
-                key={ groupName }
-                align="left"
-                component="p"
-                color="inherit"
-            >
-                { groupName }
-            </Typography>
-        );
+    const creditCardProvidersCollection: TPaymentProvidersCollection = [];
 
-        paymentMethodsGrouped[ groupName ].forEach((item: IPaymentMethod) => {
-            if (paymentProviderToIcon[ item.paymentProviderName ]) {
-                paymentMethodLabel.push(paymentProviderToIcon[ item.paymentProviderName ]);
-            }
-            if (groupName === checkoutPaymentMethodsNames.creditCard) {
+    Object.keys(paymentMethodsGrouped).forEach(key => {
+        paymentMethodsGrouped[key].forEach((item: IPaymentMethod) => {
+            if (key === checkoutPaymentMethodsNames.creditCard) {
                 creditCardProvidersCollection.push({
-                    name: item.paymentProviderName,
-                    value: item.paymentProviderName
+                    value: item.paymentProviderName,
+                    labelIcon: paymentProviderToIcon[item.paymentProviderName]
                 });
             }
         });
+    });
 
-        paymentMethodGroupItems.push({ value: groupName, label: paymentMethodLabel });
-    }
+    const renderCreditCardIcons = (): JSX.Element => {
+        const iconItems = Object.values(paymentProviderToIcon).map((icon, index) => (
+            <Grid item key={ index }>
+                <span className={ classes.labelIcon }>{ icon }</span>
+            </Grid>
+        ));
 
-    const paymentMethodsParams = {
-        paymentMethodGroupItems,
-        currentValuePaymentMethod,
-        paymentProviderToIcon,
-        submitHandler: handleSubmit,
-        inputChangeHandler: handleSelectionsChange
+        return <Grid container spacing={ 24 }>{ iconItems }</Grid>;
     };
-    const paymentMethodFormSettings = getPaymentMethodsFormSettings(
-        checkoutFormsNames.paymentMethod,
-        paymentMethodsParams
-    );
+
+    const renderPaymentItems = (): JSX.Element[] => Object.keys(paymentMethodsGrouped).map(value => {
+        const isChecked = paymentMethod === value;
+        const isCreditCardForm = value === checkoutPaymentMethodsNames.creditCard;
+        const shouldShowInvoiceForm = paymentMethod === checkoutPaymentMethodsNames.invoice;
+        const shouldShowCreditCardForm = paymentMethod === checkoutPaymentMethodsNames.creditCard;
+        const childForm = !isCreditCardForm ? <InvoicePaymentForm /> :
+            <CreditCardPaymentForm providersCollection={ creditCardProvidersCollection } />;
+        const inspectionForChildForm = isCreditCardForm ? shouldShowCreditCardForm : shouldShowInvoiceForm;
+
+        return (
+            <div className={ classes.formItem } key={`${value}`}>
+                <FormControlLabel
+                    value={ value }
+                    classes={{
+                        root: `${classes.inputRadio} ${isChecked ? classes.checkedInputRadio : '' }`,
+                        label: `${classes.radioLabel} ${isChecked ? classes.checkedRadioLabel : '' }`
+                    }}
+                    control={
+                        <Radio
+                            name="paymentMethodSelection"
+                            classes={{ root: classes.radio, checked: classes.checkedRadio }}
+                            onChange={ handleSelectionsChange }
+                            checked={ value === paymentMethod }
+                        />
+                    }
+                    label={
+                        <span className={ classes.label }>
+                            { value }
+                            { isCreditCardForm && <span>{ renderCreditCardIcons() }</span> }
+                        </span>
+                    }
+                />
+
+                { inspectionForChildForm &&
+                    <div className={ classes.formInner }>{ childForm }</div>
+                }
+            </div>
+        );
+    });
 
     return (
-        <Grid container>
-            <Grid item xs={ 12 }>
-                <SprykerForm form={ paymentMethodFormSettings } formClassName={ classes.paymentMethodsForm } />
-                { (currentValuePaymentMethod === checkoutPaymentMethodsNames.invoice) &&
-                <InvoicePaymentForm />
-                }
-                { (currentValuePaymentMethod === checkoutPaymentMethodsNames.creditCard) &&
-                <CreditCardPaymentForm
-                    providersCollection={ creditCardProvidersCollection }
-                />
-                }
-            </Grid>
-        </Grid>
+        <div className={ classes.root }>
+            { renderPaymentItems() }
+        </div>
     );
 };
 
-export const PaymentMethod = connect(withStyles(styles)(PaymentMethodBase));
+export const PaymentMethod = connect(withStyles(styles)(PaymentMethodComponent));

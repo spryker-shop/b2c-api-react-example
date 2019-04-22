@@ -46,4 +46,5 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
 
 export interface ICheckoutPageState {
     isButtonDisabled: boolean;
+    isDataSending: boolean;
 }

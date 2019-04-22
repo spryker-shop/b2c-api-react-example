@@ -94,11 +94,7 @@ export const paymentCreditCardDefault: ICheckoutCreditCardState = {
         value: '',
         isError: false,
     },
-    cardExpiryMonth: {
-        value: ' ',
-        isError: false,
-    },
-    cardExpiryYear: {
+    cardExpiryDate: {
         value: ' ',
         isError: false,
     },

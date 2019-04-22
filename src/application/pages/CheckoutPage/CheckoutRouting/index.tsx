@@ -24,11 +24,7 @@ export const CheckoutRouting: React.SFC<Props> = (props): JSX.Element => {
             <Route path={ pathCheckoutLoginStep } exact render={ () => <LoadableCheckoutLoginStep /> } />
             <Route path={ pathCheckoutAddressStep } exact render={ () => <LoadableCheckoutAddressStep /> } />
             <Route path={ pathCheckoutShipmentStep } exact render={ () => <LoadableCheckoutShipmentStep /> } /> } />
-            <Route
-                path={ pathCheckoutPaymentStep }
-                exact
-                render={ props => <LoadableCheckoutPaymentStep {...props} stepsCompletion={ stepsCompletion } /> } /> }
-            />
+            <Route path={ pathCheckoutPaymentStep } exact render={ () => <LoadableCheckoutPaymentStep /> } /> } />
             <Route
                 path={ pathCheckoutSummaryStep }
                 exact

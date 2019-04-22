@@ -15,7 +15,8 @@ export interface IReactSFC extends Styles, React.SFC<P> {
 }
 
 export type ClickEvent = React.MouseEvent<HTMLElement>;
-export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
+export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement |
+    HTMLSelectElement> ;
 export type FormEvent = React.FormEvent<HTMLFormElement>;
 export type BlurEvent = React.FocusEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
 

@@ -101,6 +101,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.address2.value }
                         isError={ data.address2.isError }
+                        inputType="number"
                     />
                 </Grid>
                 <Grid item xs={ 12 }>
@@ -151,6 +152,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.zipCode.value }
                         isError={ data.zipCode.isError }
+                        inputType="number"
                     />
                 </Grid>
                 <Grid item xs={ 6 }>
@@ -180,6 +182,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.phone.value }
                         isError={ data.phone.isError }
+                        inputType="number"
                     />
                 </Grid>
             </Grid>
