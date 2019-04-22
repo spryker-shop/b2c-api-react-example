@@ -2,17 +2,31 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    form: {},
+    formHeading: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingBottom: 20
+    },
+    formTitle: {
+        fontWeight: 700
+    },
+    formIcon: {
+        width: 90,
+        height: 14,
+        fill: theme.appColors.lightGrey
+    },
     radioGroup: {
         marginBottom: 0,
     },
     inputRadio: {
-        padding: '18px 20px',
+        padding: '26px 20px',
         border: `solid 1px ${theme.appColors.weekWhite}`,
         borderRadius: 4,
         margin: '0 0 12px',
         width: '100%',
         background: theme.appColors.weekWhite,
-        color: theme.appColors.grey,
         transition: 'border-color 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
         '&:hover': {
             borderColor: theme.appColors.white,

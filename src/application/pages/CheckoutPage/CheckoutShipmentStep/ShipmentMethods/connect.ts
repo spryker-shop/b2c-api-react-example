@@ -1,12 +1,8 @@
 import { reduxify } from '@application/hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import {
-    getShipmentMethodsFromStore
-} from '@stores/reducers/pages/checkout/selectors';
-import { IPaymentMethod, IShipmentMethod } from '@interfaces/checkout';
-import {
-    mutateShipmentMethodAction
-} from '@stores/actions/pages/checkout';
+import { getShipmentMethodsFromStore } from '@stores/reducers/pages/checkout/selectors';
+import { IShipmentMethod } from '@interfaces/checkout';
+import { mutateShipmentMethodAction } from '@stores/actions/pages/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const shipmentMethods: IShipmentMethod[] | null = getShipmentMethodsFromStore(state, ownProps);
