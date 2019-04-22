@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { INotificationsMessageWithStyles } from './types';
+import { INotificationsMessageWithStylesProps as Props } from './types';
 
-export const NotificationsMessageTemplateBase: React.SFC<INotificationsMessageWithStyles> = (props): JSX.Element => {
+export const NotificationsMessageTemplateBase: React.SFC<Props> = (props): JSX.Element => {
     const {message, messageWithCustomText, icon, id, classes} = props;
 
     const messageWithInformation = messageWithCustomText

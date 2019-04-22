@@ -68,7 +68,6 @@ export class WishlistDetailBase extends React.Component<Props, State> {
                     <AppPageTitle
                         classes={{
                             root: classes.appPageTitleRoot,
-                            pageHeader: classes.appPageTitleRootPageHeader
                         }}
 
                         title={<FormattedMessage id={'word.wishlist.title'} />}

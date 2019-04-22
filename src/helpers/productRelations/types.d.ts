@@ -45,7 +45,7 @@ export interface IProductRelationsLabel {
 }
 
 export interface IProductOptions {
-    label?: IProductLabel;
+    label?: IProductLabel[];
     price?: number;
     prices?: IProductPricesItem[];
     images?: IProductCardImages[];

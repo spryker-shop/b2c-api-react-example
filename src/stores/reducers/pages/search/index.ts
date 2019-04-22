@@ -11,17 +11,10 @@ import {
     PAGES_SEARCH_PAGINATION_PAGE_SET,
     PAGES_SEARCH_CURRENT_CATEGORY_SET
 } from '@stores/actionTypes/pages/search';
-import {
-    IAvailableLabelsCollection,
-    ILocalizedNamesMap,
-    IProductsLabeledCollection,
-    TLocalizedName,
-    TSpellingSuggestion,
-} from '@interfaces/searchPageData/index';
+import { ILocalizedNamesMap, TLocalizedName, TSpellingSuggestion, } from '@interfaces/searchPageData';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
 import { DefaultItemsPerPage } from '@constants/search';
-import { IProductLabel } from '@interfaces/product';
 
 export const initialState: ISearchState = {
     data: {
@@ -55,9 +48,7 @@ export const initialState: ISearchState = {
             validItemsPerPageOptions: [DefaultItemsPerPage],
         },
         category: [],
-        spellingSuggestion: null,
-        productsLabeled: null,
-        availableLabels: null,
+        spellingSuggestion: null
     },
 };
 
@@ -110,8 +101,6 @@ export const pageSearch = produce<ISearchState>(
                 draft.data.currentPaginationPage = action.payloadSearchFulfilled.currentPaginationPage;
                 draft.data.currentCategoryId = action.payloadSearchFulfilled.currentCategoryId;
                 draft.data.spellingSuggestion = action.payloadSearchFulfilled.spellingSuggestion || null;
-                draft.data.productsLabeled = action.payloadSearchFulfilled.productsLabeled || null;
-                draft.data.availableLabels = action.payloadSearchFulfilled.availableLabels || null;
                 draft.data.searchTerm = action.payloadSearchFulfilled.searchTerm;
                 draft.data.isFiltersUpdated = false;
                 draft.data.isCategoryAsFilter = false;
