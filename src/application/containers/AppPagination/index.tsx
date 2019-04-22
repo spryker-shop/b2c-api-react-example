@@ -162,7 +162,6 @@ export class AppPaginationComponent extends React.Component<Props, State> {
             </div>
         );
     }
-
-};
+}
 
 export const AppPagination = withWidth()(withStyles(styles)(AppPaginationComponent));

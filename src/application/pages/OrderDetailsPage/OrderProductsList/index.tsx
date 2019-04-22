@@ -6,7 +6,7 @@ import { AppPrice } from '@components/AppPrice';
 import { AppTable } from '@components/AppTable';
 import { IOrderProductListProps as Props } from './types';
 import { IOrderDetailsItem } from '@interfaces/order';
-import { ICellInfo, ITableRow } from './types';
+import { ICellInfo, ITableRow } from '@application/components/AppTable/types';
 import { styles } from './styles';
 
 export const OrderProductListBase: React.SFC<Props> = (props): JSX.Element => {

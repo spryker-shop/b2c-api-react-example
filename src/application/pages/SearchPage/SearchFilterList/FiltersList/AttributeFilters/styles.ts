@@ -79,7 +79,7 @@ export const styles = (theme: Theme) => createStyles({
     filters: {
         width: '100%',
         [theme.breakpoints.between('xs', 'sm')]: {
-            opacity: '1 !important',
+            opacity: '1 !important' as any,
             transform: 'none !important',
             position: 'static',
             minWidth: '0 !important',

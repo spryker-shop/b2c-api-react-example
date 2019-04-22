@@ -84,8 +84,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
             currentItemsPerPage: pagination.currentItemsPerPage,
             validItemsPerPageOptions: pagination.config.validItemsPerPageOptions
         },
-        spellingSuggestion: attributes.spellingSuggestion,
-        productLabels: null
+        spellingSuggestion: attributes.spellingSuggestion
     };
 
     if (!included) {

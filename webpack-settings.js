@@ -47,6 +47,7 @@ const loaders = [
     {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
     {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'},
     cssLoader,
+    {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
     {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
 ];
 

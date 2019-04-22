@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
 import { ICustomerProfilePageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { UpdateProfile } from './UpdateProfile';
@@ -8,6 +7,7 @@ import { ChangePassword } from './ChangePassword';
 import { AccountActions } from './AccountActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
+import { Preloader } from '@components/Preloader';
 
 @connect
 class CustomerProfilePageBase extends React.Component<Props> {
@@ -31,13 +31,7 @@ class CustomerProfilePageBase extends React.Component<Props> {
 
     public render = (): JSX.Element => {
         if (!this.props.isCustomerDataExist) {
-            return (
-                <>
-                    <div>
-                        <FormattedMessage id={ 'word.loading.title' }  />
-                    </div>
-                </>
-            );
+            return <Preloader isStatic />;
         }
 
         return (

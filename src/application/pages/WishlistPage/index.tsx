@@ -27,7 +27,7 @@ export class WishlistPageBase extends React.Component<Props> {
             <Grid container>
                 <Grid item xs={12}>
                     <AppPageTitle
-                        classes={{root: classes.appPageTitleRoot, pageHeader: classes.appPageTitleRootPageHeader}}
+                        classes={{root: classes.appPageTitleRoot}}
                         title={<FormattedMessage id={ 'word.wishlist.title' } />}
                     />
                 </Grid>

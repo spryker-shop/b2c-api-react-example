@@ -46,8 +46,7 @@ export const setFormFields = (
             isRequired: true,
             label: <FormattedMessage id={ 'salutation.label' } />,
             isError: submitted && !salutation,
-            menuItems: SalutationVariants
-                .map((item: TSalutationVariant) => ({ value: item.value, name: item.label })),
+            menuItems: SalutationVariants,
             menuItemFirst: {
                 value: ' ',
                 name: <FormattedMessage id={ 'first.item.in.select' } />,

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
-import { FormattedMessage } from 'react-intl';
+import { Preloader } from '@components/Preloader';
 
 export const LoadableLoginPage = Loadable({
     loader: () =>
         import('@pages/LoginPage').then(
             module => module.LoginPage,
         ),
-    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
+    loading: () => <Preloader />,
 });

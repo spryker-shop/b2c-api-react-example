@@ -1,5 +1,5 @@
-import { IProductCard, IProductLabel } from '@interfaces/product';
-import { IPagination } from '@components/AppPagination/types';
+import { IProductCard } from '@interfaces/product';
+import { IPagination } from '@containers/AppPagination/types';
 import { TCategoryId } from '@pages/SearchPage/types';
 import { TAppCurrency } from '@interfaces/currency';
 import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
@@ -64,10 +64,6 @@ export interface IAvailableLabel {
     position: number;
 }
 
-export interface IProductsLabeledCollection {
-    [id: string]: TLabelId[];
-}
-
 export interface IAvailableLabelsCollection {
     [id: string]: IAvailableLabel;
 }
@@ -90,7 +86,6 @@ export interface ICatalogSearchDataParsed extends IActiveFilters {
     categoriesLocalizedName: TLocalizedName | null;
     pagination: IPagination;
     spellingSuggestion: TSpellingSuggestion | null;
-    productLabels: IProductLabel[] | null;
     searchTerm?: TSearchTerm;
 }
 

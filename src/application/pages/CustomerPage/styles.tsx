@@ -21,4 +21,8 @@ export const styles = (theme: Theme) => createStyles({
             paddingLeft: 0,
         }
     },
+    fullHeight: {
+        height: '100%',
+        flexGrow: 1
+    }
 });

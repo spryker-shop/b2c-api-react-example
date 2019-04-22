@@ -3,12 +3,13 @@ import { ICartAddItem, ICartItem } from '@interfaces/cart';
 
 export const createCartItemAddToCart = (sku: TProductSKU, quantity: TProductQuantity): ICartAddItem => ({
     sku,
-    quantity,
+    quantity
 });
 
 export const getCartItemBlueprint = (): ICartItem => (
     {
         sku: null,
+        abstractSku: null,
         name: null,
         image: null,
         quantity: null,
@@ -22,6 +23,6 @@ export const getCartItemBlueprint = (): ICartItem => (
         priceOriginalGross: null,
         priceOriginalNet: null,
         priceDefaultGross: null,
-        priceDefaultNet: null,
+        priceDefaultNet: null
     }
 );
