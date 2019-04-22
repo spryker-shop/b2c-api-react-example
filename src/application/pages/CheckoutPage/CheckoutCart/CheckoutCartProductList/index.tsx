@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import { pathProductPageBase } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
@@ -21,14 +19,17 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
         products.map((item: ICartItem, index: number) => {
             const { sku, image, name, quantity, priceDefaultGross, priceOriginalGross, superAttributes } = item;
             const renderSuperAttributes = superAttributes ? (
-                superAttributes.map((attr: { [key: string]: string }, idx: number) => (
-                    <div key={`${sku}-attr-${idx}`} className={ classes.attributes }>
-                        {`${Object.keys(attr)[0].split('_').join(' ')}: `}
-                        <span className={ classes.attributesValue }>
-                            { Object.values(attr)[0] }
-                        </span>
-                    </div>
-                ))
+                superAttributes.map((attr: { [key: string]: string }, index: number) => {
+                    const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
+                    const attributeValue = Object.values(attr)[0];
+
+                    return (
+                        <div key={`${sku}-attr-${index}`} className={ classes.attributes }>
+                            {`${attributeTitle}: `}
+                            <span className={ classes.attributesValue }>{ attributeValue }</span>
+                        </div>
+                    );
+                })
             ) : null;
             const shouldHideItems = !isProductsExpanded && index + 1 > productsAmountThreshold;
             const hiddenClass = shouldHideItems ? classes.productItemHidden : '';
