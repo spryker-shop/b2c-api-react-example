@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { INavLinkData } from '@interfaces/navigations';
 import { NavLink } from 'react-router-dom';
-import { customerProfileNavLinks } from '@constants/navLinks';
+import { navLinks } from './fixtures';
 import { withStyles } from '@material-ui/core';
 import { ISideBarProps as Props } from './types';
 import { styles } from './styles';
@@ -10,22 +10,24 @@ import { styles } from './styles';
 const SideBarComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, location } = props;
 
-    return (
-        <div className={ classes.rootPaper }>
-            <div>
-                { customerProfileNavLinks.map((item: INavLinkData) => {
-                    const isSelected = location.pathname.includes(item.path);
+    const renderNavigationlinks = (): JSX.Element[] => navLinks.map((item: INavLinkData) => {
+        const isSelected = location.pathname.includes(item.path);
 
-                    return (
-                        <div key={ item.title } selected={ isSelected }>
-                            <NavLink to={ item.path }
-                                     className={ classes.link }>
-                                <FormattedMessage id={ item.title } />
-                            </NavLink>
-                        </div>
-                    );
-                }) }
-            </div>
+        return (
+            <li className={ classes.item } key={ item.title }>
+                <NavLink to={ item.path } className={`${classes.link} ${isSelected ? classes.linkSelected : ''}`}>
+                    <span className={ classes.icon }>
+                        { item.icon }
+                    </span>
+                    <span className={ classes.text }><FormattedMessage id={ item.title } /></span>
+                </NavLink>
+            </li>
+        );
+    });
+
+    return (
+        <div className={ classes.root }>
+            <ul className={ classes.list }>{ renderNavigationlinks() }</ul>
         </div>
     );
 }

@@ -10,47 +10,14 @@ import { styles } from './styles';
 
 @connect
 class OrderHistoryPageBase extends React.Component<Props> {
-    public componentDidMount = (): void => {
-        if (!this.props.isLoading && this.props.isAppDataSet) {
-            this.props.getOrdersCollection();
-        }
-    };
-
-    public componentDidUpdate = (prevProps: Props): void => {
-        if (this.props.isRejected || this.props.isLoading || !this.props.isAppDataSet) {
-            return;
-        }
-
-        if (!this.props.isFulfilled && !prevProps.isHasOrders) {
-            this.props.getOrdersCollection();
-        }
-    };
-
     public render() {
         const {classes, isHasOrders, isFulfilled, orders} = this.props;
 
         return (
-            <div>
-                {isFulfilled &&
-                    <div className={classes.root}>
-                        <Grid container justify="center">
-                            <Grid item xs={12}>
-                                <CustomerPageTitle
-                                    title={<FormattedMessage id={'orders.history.title'} />}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            {isHasOrders
-                                ? <Grid item xs={12}>
-                                    <OrderList orders={orders} />
-                                </Grid>
-                                : <EmptyOrder intro={<FormattedMessage id={'no.order.message'} />} />
-                            }
-                        </Grid>
-                    </div>
-                }
-            </div>
+            <>
+                <FormattedMessage id={'orders.history.title'} />
+                <OrderList />
+            </>
         );
     }
 }

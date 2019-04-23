@@ -4,7 +4,8 @@ import { CustomerPageProps } from './types';
 import { AppMain } from '@application/components/AppMain';
 import { SideBar } from './SideBar';
 import { CustomerRouting } from './CustomerRouting';
-import { withStyles, Grid } from '@material-ui/core';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @(withRouter as Function)
@@ -19,7 +20,9 @@ class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
                         <SideBar location={ location } />
                     </div>
                     <div className={ classes.colContent }>
-                        <CustomerRouting />
+                        <ErrorBoundary>
+                            <CustomerRouting />
+                        </ErrorBoundary>
                     </div>
                 </div>
             </AppMain>

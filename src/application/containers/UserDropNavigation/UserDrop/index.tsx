@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { pathLoginPage, pathRegisterPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Button } from '@material-ui/core';
-import { customerProfileNavLinks } from '@constants/navLinks';
+import { navLinks } from './fixtures';
 import { LogoutIcon } from './icons';
 import { INavLinkData } from '@interfaces/navigations';
 import { IUserDropProps as Props } from './types';
@@ -14,7 +14,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
 
     const loggedInUser = (
         <ul className={ classes.userDropNav }>
-            { customerProfileNavLinks.map((item: INavLinkData) => (
+            { navLinks.map((item: INavLinkData) => (
                 <li key={ item.title } className={ classes.userItem }>
                     <NavLink to={ item.path } className={ classes.userLink }>
                         <span className={ classes.userIcon }>{ item.icon }</span>

@@ -6,11 +6,11 @@ import {
     pathOrderHistoryPage,
     pathWishlistsPage
 } from '@constants/routes';
-import { UserIcon, AddressesIcon, ListIcon, HistoryIcon } from './icons';
+import { UserIcon, AddressesIcon, HeartIcon, HistoryIcon, OverviewIcon } from './icons';
 
-export const customerProfileNavLinks: INavLinkData[] = [
+export const navLinks: INavLinkData[] = [
     { path: pathCustomerProfilePage, title: 'word.profile.title', icon: <UserIcon /> },
     { path: pathCustomerAddressesPage, title: 'word.addresses.title', icon: <AddressesIcon /> },
     { path: pathOrderHistoryPage, title: 'word.order.history.title', icon: <HistoryIcon /> },
-    { path: pathWishlistsPage, title: 'word.wishlist.title', icon: <ListIcon />}
+    { path: pathWishlistsPage, title: 'word.wishlist.title', icon: <HeartIcon />}
 ];
