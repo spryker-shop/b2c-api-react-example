@@ -170,12 +170,13 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
         const isSummaryPage = pathname === pathCheckoutSummaryStep;
         const isThanksPage = pathname === pathCheckoutThanks;
+        const isLoginPage = pathname === pathCheckoutLoginStep;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
-        if (!isProductsExists && !isThanksPage) {
+        if (!isProductsExists && !isThanksPage && !isLoginPage) {
             return (
                 <AppMain classes={{ wrapper: classes.wrapper }}>
                     <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
@@ -186,8 +187,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         return (
             <>
                 <CheckoutBreadcrumbs />
-                { (!isCheckoutLoading || isSummaryPage) &&
-                    <AppMain classes={{ wrapper: classes.wrapper }}>
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>
                             <div
                                 className={`
@@ -212,8 +213,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                                 </div>
                             }
                         </div>
-                    </AppMain>
-                }
+                    }
+                </AppMain>
             </>
         );
     }
