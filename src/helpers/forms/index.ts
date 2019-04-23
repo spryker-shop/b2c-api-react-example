@@ -29,36 +29,36 @@ export const getAddressForm = (address: ICheckoutAddressState): IAddressItem => 
     return payloadAddress;
 };
 
-const limit = (val: string, max: string): string => {
-    if (val.length === 1 && val[0] > max[0]) {
-        val = '0' + val;
+const limit = (value: string, max: string): string => {
+    if (value.length === 1 && value[0] > max[0]) {
+        value = '0' + value;
     }
 
-    if (val.length === 2) {
-        if (Number(val) === 0) {
-            val = '01';
-        } else if (val > max) {
-            val = max;
+    if (value.length === 2) {
+        if (Number(value) === 0) {
+            value = '01';
+        } else if (value > max) {
+            value = max;
         }
     }
 
-    return val;
+    return value;
 };
 
-export const cardExpiryFormat = (val: string): string => {
-    const month = limit(val.substring(0, 2), '12');
-    const year = val.substring(2, 4);
-    const isMonthFulfilled = val.length >= 2;
+export const cardExpiryFormat = (value: string): string => {
+    const month = limit(value.substring(0, 2), '12');
+    const year = value.substring(2, 4);
+    const isMonthFulfilled = value.length >= 2;
 
     return `${month}${isMonthFulfilled ? `/${year}` : ''}`;
 };
 
-export const dateBirthFormat = (val: string): string => {
-    const days = limit(val.substring(0, 2), '31');
-    const month = limit(val.substring(2, 4), '12');
-    const year = val.substring(4, 8);
-    const isMonthFulfilled = val.length >= 4;
-    const isDaysFulfilled = val.length >= 2;
+export const dateBirthFormat = (value: string): string => {
+    const days = limit(value.substring(0, 2), '31');
+    const month = limit(value.substring(2, 4), '12');
+    const year = value.substring(4, 8);
+    const isMonthFulfilled = value.length >= 4;
+    const isDaysFulfilled = value.length >= 2;
 
     return `${days}${isDaysFulfilled ? `/${month}` : ''}${isMonthFulfilled ? `/${year}` : ''}`;
 };
