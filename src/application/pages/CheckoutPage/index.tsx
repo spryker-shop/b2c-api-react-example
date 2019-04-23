@@ -47,7 +47,9 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             isCheckoutFulfilled,
             customerReference,
             getCustomerData,
-            isCheckoutInitiated
+            isCheckoutInitiated,
+            orderId,
+            history
         } = this.props;
         const { isDataSending } = this.state;
 
@@ -67,6 +69,10 @@ class CheckoutPageComponent extends React.Component<Props, State> {
 
         if (isCheckoutLoading !== prevProps.isCheckoutLoading) {
             this.setState({ isButtonDisabled: isCheckoutLoading });
+        }
+
+        if (!prevProps.orderId && orderId) {
+            history.push(pathCheckoutThanks);
         }
     };
 
@@ -97,8 +103,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             deliveryNewAddress,
             billingNewAddress,
             paymentMethod,
-            shipmentMethod,
-            history
+            shipmentMethod
         } = this.props;
 
         const payload: ICheckoutRequest = {};
@@ -143,7 +148,6 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         };
 
         sendCheckoutData(payload, customerIdInspection);
-        history.push(pathCheckoutThanks);
     };
 
     protected shouldHideOrderInfo = (): boolean => {
@@ -165,12 +169,14 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
         const isSummaryPage = pathname === pathCheckoutSummaryStep;
+        const isThanksPage = pathname === pathCheckoutThanks;
+        const isLoginPage = pathname === pathCheckoutLoginStep;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
-        if (!isProductsExists) {
+        if (!isProductsExists && !isThanksPage && !isLoginPage) {
             return (
                 <AppMain classes={{ wrapper: classes.wrapper }}>
                     <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
@@ -181,8 +187,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         return (
             <>
                 <CheckoutBreadcrumbs />
-                { !isCheckoutLoading &&
-                    <AppMain classes={{ wrapper: classes.wrapper }}>
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>
                             <div
                                 className={`
@@ -207,8 +213,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                                 </div>
                             }
                         </div>
-                    </AppMain>
-                }
+                    }
+                </AppMain>
             </>
         );
     }
