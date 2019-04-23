@@ -24,6 +24,10 @@ class OrdersListComponent extends React.Component<Props> {
     protected renderOrderItems = (): JSX.Element[] => {
         const { classes, orders } = this.props;
 
+        if (!Boolean(orders.length)) {
+            return null;
+        }
+
         return orders.map(order => {
             const date = formattedDate(order.dateCreated);
             const renderDate = formatDateToString(new Date(date));

@@ -4,10 +4,10 @@ import { INavLinkData } from '@interfaces/navigations';
 import { NavLink } from 'react-router-dom';
 import { navLinks } from './fixtures';
 import { withStyles } from '@material-ui/core';
-import { ISideBarProps as Props } from './types';
+import { ICustomerSideBarProps as Props } from './types';
 import { styles } from './styles';
 
-const SideBarComponent: React.SFC<Props> = (props): JSX.Element => {
+const CustomerSideBarComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, location } = props;
 
     const renderNavigationlinks = (): JSX.Element[] => navLinks.map((item: INavLinkData) => {
@@ -32,4 +32,4 @@ const SideBarComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 }
 
-export const SideBar = withStyles(styles)(SideBarComponent);
+export const CustomerSideBar = withStyles(styles)(CustomerSideBarComponent);
