@@ -47,6 +47,7 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.white,
         color: theme.appColors.black,
         boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
+        pointerEvents: 'none',
         '&:after': {
             opacity: 1
         }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withStyles, Grid, Typography, Tooltip } from '@material-ui/core';
 import { formatDateToString, formattedDate } from '@helpers/common/dates';
 import { pathOrderDetailsPageBase } from '@constants/routes';
 import { AppPrice } from '@application/components/AppPrice';
@@ -57,12 +57,25 @@ class OrdersListComponent extends React.Component<Props> {
                         </Grid>
                         <Grid item xs={ 3 }>
                             <div className={ classes.actions }>
-                                {/*<FormattedMessage id={ 'orders.view.order.title' } />*/}
-                                <NavLink to={`${pathOrderDetailsPageBase}/${order.id}`} className={ classes.viewLink }>
-                                    <span className={ classes.viewIcon }>
-                                        <ViewIcon />
-                                    </span>
-                                </NavLink>
+                                <Tooltip
+                                    title={
+                                        <>
+                                            <FormattedMessage id={ 'orders.view.order.title' } />
+                                            <span className={ classes.tooltipArrow } />
+                                        </>
+                                    }
+                                    placement="top"
+                                    classes={{ tooltip: classes.tooltipWrapper }}
+                                >
+                                    <NavLink
+                                        to={`${pathOrderDetailsPageBase}/${order.id}`}
+                                        className={ classes.viewLink }
+                                    >
+                                        <span className={ classes.viewIcon }>
+                                            <ViewIcon />
+                                        </span>
+                                    </NavLink>
+                                </Tooltip>
                             </div>
                         </Grid>
                     </Grid>
