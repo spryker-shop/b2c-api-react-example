@@ -39,6 +39,7 @@ export const messages: IMessages = {
         'category.suggestion.title': 'Did you mean {suggestionTerm}?',
         'change.language.error.message': 'Error occurs during the changing a language: {messageText}',
         'change.password.title': 'Change Password',
+        'checkout.login.message': 'Login and use one of your saved carts',
         'city.label': 'City',
         'company.label': 'Company',
         'confirm.delete.account.message': 'Are you sure you want to delete your account',
@@ -291,6 +292,7 @@ export const messages: IMessages = {
         'category.suggestion.title': 'Meinten Sie {suggestionTerm}?',
         'change.language.error.message': 'Fehler beim Ändern einer Sprache: {messageText}',
         'change.password.title': 'Passwort ändern',
+        'checkout.login.message': 'Anmelden sich an und verwenden Sie einen Ihrer gespeicherten Einkaufswagen',
         'city.label': 'Stadt',
         'company.label': 'Firma',
         'confirm.delete.account.message': 'Möchten Sie Ihr Konto wirklich löschen?',
@@ -513,6 +515,5 @@ export const messages: IMessages = {
 // Console Messages
 export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
 export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const InputSaveErrorMessage = 'Can\'t handle this value or field name';
 export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
 export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
