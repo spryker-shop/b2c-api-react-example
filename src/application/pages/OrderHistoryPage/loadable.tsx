@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 export const LoadableOrderHistoryPage = Loadable({
     loader: () =>
         import('@application/pages/OrderHistoryPage').then(
-            module => module.OrderHistoryContainer,
+            module => module.OrderHistory,
         ),
     loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
 });

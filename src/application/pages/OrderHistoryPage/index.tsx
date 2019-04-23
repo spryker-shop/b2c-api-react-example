@@ -1,25 +1,21 @@
 import * as React from 'react';
-import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid } from '@material-ui/core';
-import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
-import { EmptyOrder } from '@application/pages/OrderDetailsPage/EmptyOrder';
-import { OrderList } from './OrderList';
+import { withStyles, Typography } from '@material-ui/core';
+import { OrdersList } from '@containers/OrdersList';
 import { IOrderHistoryPageProps as Props } from './types';
 import { styles } from './styles';
 
-@connect
-class OrderHistoryPageBase extends React.Component<Props> {
-    public render() {
-        const {classes, isHasOrders, isFulfilled, orders} = this.props;
+const OrderHistoryPageComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes } = props;
 
-        return (
-            <>
+    return (
+        <>
+            <Typography component="h2" variant="display3" className={classes.title}>
                 <FormattedMessage id={'orders.history.title'} />
-                <OrderList />
-            </>
-        );
-    }
-}
+            </Typography>
+            <OrdersList />
+        </>
+    );
+};
 
-export const OrderHistoryContainer = withStyles(styles)(OrderHistoryPageBase);
+export const OrderHistory = withStyles(styles)(OrderHistoryPageComponent);

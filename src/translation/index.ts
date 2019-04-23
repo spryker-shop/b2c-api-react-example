@@ -217,6 +217,8 @@ export const messages: IMessages = {
         'word.my.cart.title': 'My Cart',
         'word.next.title': 'Next',
         'word.order.history.title': 'Order History',
+        'word.order.title': 'auftrag',
+        'word.orders.title': 'orders',
         'word.password.title': 'Password',
         'word.payment.title': 'Payment',
         'word.previous.title': 'Previous',
@@ -239,7 +241,7 @@ export const messages: IMessages = {
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
         'your.order.title': 'Your Order',
-        'zip.code.label': 'Zipcode'
+        'zip.code.label': 'Zipcode',
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -454,6 +456,8 @@ export const messages: IMessages = {
         'word.my.cart.title': 'Mein Warenkorb',
         'word.next.title': 'Nächster',
         'word.order.history.title': 'Bestellungen',
+        'word.order.title': 'order',
+        'word.orders.title': 'aufträge',
         'word.password.title': 'Passwort',
         'word.payment.title': 'Zahlung',
         'word.previous.title': 'Zurück',
@@ -476,7 +480,7 @@ export const messages: IMessages = {
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
         'your.order.title': 'Deine Bestellung',
-        'zip.code.label': 'PLZ'
+        'zip.code.label': 'PLZ',
     }
 };
 

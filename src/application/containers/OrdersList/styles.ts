@@ -40,5 +40,9 @@ export const styles = (theme: Theme) => createStyles({
         fill: 'currentColor',
         width: 26,
         height: 14
+    },
+    amount: {
+        display: 'block',
+        paddingBottom: 12
     }
 });

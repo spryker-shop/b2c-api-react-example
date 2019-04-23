@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { formatDateToString, formattedDate } from '@helpers/common/dates';
 import { pathOrderDetailsPageBase } from '@constants/routes';
 import { AppPrice } from '@application/components/AppPrice';
-import { IOrderListProps as Props } from '@application/pages/OrderHistoryPage/OrderList/types';
+import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
-import { EmptyOrder } from '@pages/OrderDetailsPage/EmptyOrder';
 
 @connect
-class OrderListComponent extends React.Component<Props> {
+class OrdersListComponent extends React.Component<Props> {
+    public static defaultProps = {
+        shouldShowEmptyList: true,
+        shouldShowOrdersAmount: true
+    };
+
     public componentDidMount = (): void => {
         this.props.getOrdersCollection();
     };
@@ -68,20 +72,30 @@ class OrderListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, isFulfilled, isHasOrders } = this.props;
+        const { classes, isFulfilled, isHasOrders, shouldShowEmptyList, shouldShowOrdersAmount, orders } = this.props;
 
         return (
             <>
                 { isFulfilled &&
                     <>
-                        { !isHasOrders
+                        { (!isHasOrders && shouldShowEmptyList)
                             ? (
-                                <Typography component="h3" variant="display3" className={ classes.title }>
+                                <Typography component="h3" variant="display2">
                                     <FormattedMessage id={'no.order.message'} />
                                 </Typography>
                             )
                             : (
                                 <div className={ classes.orderList }>
+                                    { shouldShowOrdersAmount &&
+                                        <Typography component="span" variant="headline" className={ classes.amount }>
+                                            {`${orders.length} `}
+                                            <FormattedPlural
+                                                value={ orders.length }
+                                                one={ <FormattedMessage id={ 'word.order.title' } /> }
+                                                other={ <FormattedMessage id={ 'word.orders.title' } /> }
+                                            />
+                                        </Typography>
+                                    }
                                     { this.renderOrderItems() }
                                 </div>
                             )
@@ -94,4 +108,4 @@ class OrderListComponent extends React.Component<Props> {
     };
 }
 
-export const OrderList = withStyles(styles)(OrderListComponent);
+export const OrdersList = withStyles(styles)(OrdersListComponent);
