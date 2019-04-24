@@ -10,7 +10,7 @@ import {
     ICheckoutRequest,
     IShipmentMethod,
     IPaymentMethod,
-    IDeliveryAddressState,
+    ICheckoutAddressState,
     IBillingAddressState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState
@@ -35,12 +35,13 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     stepsCompletion: ICheckoutStepsCompletionState;
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;
-    deliveryNewAddress: IDeliveryAddressState;
+    deliveryNewAddress: ICheckoutAddressState;
     billingNewAddress: IBillingAddressState;
     shipmentMethod: IShipmentMethod['id'] | null;
     paymentMethod: IPaymentMethod['paymentMethodName'] | null;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData:  ICheckoutInvoiceState;
+    isCheckoutInitiated: boolean;
 }
 
 export interface ICheckoutPageState {

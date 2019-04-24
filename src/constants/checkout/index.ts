@@ -2,9 +2,8 @@ import {
     ICheckoutFormsNames,
     ICheckoutPaymentMethodsNames,
     ICheckoutSelectionInputs,
-    IBillingObjectConfigInputStable,
     ICreditCardObjectConfigInputStable,
-    IDeliveryObjectConfigInputStable,
+    IAddressConfigInputStable,
     IInvoiceObjectConfigInputStable
 } from './types';
 
@@ -31,7 +30,7 @@ export const checkoutPaymentMethodsNames: ICheckoutPaymentMethodsNames = {
     creditCard: 'credit card',
 };
 
-export const deliveryConfigInputStable: IDeliveryObjectConfigInputStable = {
+export const newAddressConfigInputStable: IAddressConfigInputStable = {
     firstName: {
         isRequired: true,
         inputName: 'firstName',
@@ -79,13 +78,6 @@ export const deliveryConfigInputStable: IDeliveryObjectConfigInputStable = {
     phone: {
         isRequired: false,
         inputName: 'phone',
-    },
-};
-
-export const billingConfigInputStable: IBillingObjectConfigInputStable = {
-    ...deliveryConfigInputStable, email: {
-        isRequired: false,
-        inputName: 'email',
     },
 };
 

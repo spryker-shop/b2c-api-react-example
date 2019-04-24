@@ -22,16 +22,11 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
         },
         deleteItem
     } = props;
-    const cartProductImageSize = 80;
 
     return (
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    size={ cartProductImageSize }
-                    image={ image }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.content }>
@@ -48,16 +43,12 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                                     component="p"
                                     className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                 >
-                                    <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                    <AppPrice value={ priceDefaultGross } />
                                 </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice
-                                            value={ priceOriginalGross }
-                                            priceType={ priceTypeNameOriginal }
-                                            isStylesInherited
-                                        />
+                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                     </Typography>
                                 }
                             </Grid>

@@ -78,11 +78,7 @@ const createRadioItemLabel = (shipmentMethod: IShipmentMethod) => {
 
     if (shipmentMethod.price) {
         response.push(
-            <AppPrice
-                key={`price-${shipmentMethod.id}`}
-                value={shipmentMethod.price}
-                isStylesInherited
-            />
+            <AppPrice key={`price-${shipmentMethod.id}`} value={shipmentMethod.price} />
         );
     }
 

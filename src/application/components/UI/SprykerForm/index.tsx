@@ -41,7 +41,7 @@ export const SprykerFormBase: React.SFC<Props> = (props): JSX.Element => {
     const getSelectField = (field: IFormField) => (
         <SprykerSelect
             currentMode={ field.inputValue }
-            changeHandler={ field.onChangeOwnHandler ? field.onChangeOwnHandler : onChangeHandler }
+            onChangeHandler={ field.onChangeOwnHandler ? field.onChangeOwnHandler : onChangeHandler }
             menuItems={ field.menuItems }
             name={ field.inputName }
             label={ field.label ? field.label : null }

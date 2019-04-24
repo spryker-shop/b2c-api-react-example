@@ -8,8 +8,5 @@ interface IAppPriceProps extends WithStyles<typeof styles> {
     value: number | null;
     specificCurrency?: TAppCurrency;
     priceType?: TPriceTypeName;
-    title?: string;
-    extraClassName?: string;
-    isStylesInherited?: boolean;
     isMinus?: boolean;
 }

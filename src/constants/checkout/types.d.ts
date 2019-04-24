@@ -38,26 +38,12 @@ export interface ICheckoutSelectionInputs {
     isSameAsDeliveryValue: string;
 }
 
-export type TAddressType = 'delivery' | 'billing';
-
-export type TExtraOptionsToSelection = IRadioItem[] | null;
-
-export type TCurrentValueDeliverySelection = ICheckoutSelectionInputs['isAddNewDeliveryValue']
-    | IAddressItemCollection['id']
-    | null;
-
-export type TCurrentValueBillingSelection = ICheckoutSelectionInputs['isAddNewBillingValue']
-    | ICheckoutSelectionInputs['isSameAsDeliveryValue']
-    | IAddressItemCollection['id']
-    | null;
-
-
 export interface IConfigInputStable {
     isRequired: boolean;
     inputName: string;
 }
 
-export interface IObjectConfigInputStable {
+export interface IAddressConfigInputStable {
     firstName: IConfigInputStable;
     lastName: IConfigInputStable;
     salutation: IConfigInputStable;
@@ -72,10 +58,6 @@ export interface IObjectConfigInputStable {
 
     [key: string]: IConfigInputStable;
 }
-
-export interface IDeliveryObjectConfigInputStable extends IObjectConfigInputStable {}
-
-export interface IBillingObjectConfigInputStable extends IObjectConfigInputStable {}
 
 export interface ICreditCardObjectConfigInputStable {
     paymentProvider: IConfigInputStable;

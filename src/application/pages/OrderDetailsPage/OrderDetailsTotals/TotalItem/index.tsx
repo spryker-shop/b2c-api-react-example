@@ -30,11 +30,9 @@ export const TotalItemBase: React.SFC<ITotalItemProps> = (props): JSX.Element =>
             </Grid>
             <Grid item xs={12} sm={5} className={classes.valueOuter}>
                 {valueSign ? valueSign : null}
-                <AppPrice
-                    value={value}
-                    extraClassName={classes.price}
-                    isStylesInherited={true}
-                />
+                <span className={ classes.price }>
+                    <AppPrice value={value} />
+                </span>
             </Grid>
         </Grid>
     );

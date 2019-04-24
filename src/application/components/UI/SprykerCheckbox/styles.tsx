@@ -8,7 +8,7 @@ export const styles = (theme: Theme) => createStyles({
         height: 20,
         borderRadius: 2,
         border: `1px solid ${theme.appColors.lightGrey}`,
-        poisiton: 'relative',
+        position: 'relative',
         transition: 'background 0.3s ease-in-out, border 0.3s ease-in-out',
         '& svg': {
             position: 'absolute',
@@ -25,6 +25,10 @@ export const styles = (theme: Theme) => createStyles({
     checkedCheckbox: {
         borderColor: theme.appColors.blue,
         background: theme.appColors.blue,
+        '&:hover': {
+            borderColor: theme.appColors.blue,
+            background: theme.appColors.blue,
+        },
         '& svg': {
             opacity: 1,
             visibility: 'visible'

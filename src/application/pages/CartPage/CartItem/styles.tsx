@@ -17,6 +17,11 @@ export const styles = (theme: Theme) => createStyles({
     imageOuter: {
         flexShrink: 0
     },
+    imgWrapper: {
+        width: 132,
+        minWidth: 132,
+        height: 132
+    },
     contentOuter: {
         flexGrow: 1,
         paddingLeft: 20

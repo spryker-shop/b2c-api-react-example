@@ -51,7 +51,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                                 variant="display2"
                                 className={`${classes.price} ${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ actualPriceGross } isStylesInherited />
+                                <AppPrice value={ actualPriceGross } />
                             </Typography>
                         </Grid>
                         { Boolean(oldPriceGross) &&

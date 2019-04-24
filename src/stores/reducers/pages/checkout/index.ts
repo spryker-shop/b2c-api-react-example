@@ -15,7 +15,8 @@ import {
     CHECKOUT_MUTATE_PAYMENT_METHOD,
     CHECKOUT_MUTATE_PAYMENT_SECTION,
     CHECKOUT_MUTATE_INVOICE_FORM,
-    CHECKOUT_MUTATE_CREDIT_CARD_FORM
+    CHECKOUT_MUTATE_CREDIT_CARD_FORM,
+    CHECKOUT_CLEAR_DATA_FORM
 } from '@stores/actionTypes/pages/checkout';
 import { ICheckoutState, IPageCheckoutAction } from '@stores/reducers/pages/checkout/types';
 import {
@@ -43,7 +44,12 @@ export const initialState: ICheckoutState = {
         shipments: [],
         addressesCollection: [],
         orderId: ''
-    }
+    },
+    error: null,
+    pending: true,
+    fulfilled: false,
+    rejected: false,
+    initiated: false
 };
 
 export const pageCheckout = produce<ICheckoutState>(
@@ -154,11 +160,11 @@ export const pageCheckout = produce<ICheckoutState>(
                 draft.billingSelection = {
                     selectedAddressId: null,
                     isAddNew: false,
-                    isSameAsDelivery: true
+                    isSameAsDelivery: action.payloadSelectionSameAsDelivery
                 };
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    isBillingStepPassed: true
+                    isBillingStepPassed: action.payloadSelectionSameAsDelivery
                 };
                 break;
             }
@@ -221,6 +227,9 @@ export const pageCheckout = produce<ICheckoutState>(
                     }
                 };
                 break;
+            }
+            case CHECKOUT_CLEAR_DATA_FORM: {
+                return initialState;
             }
             default:
                 break;

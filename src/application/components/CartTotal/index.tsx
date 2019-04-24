@@ -6,51 +6,52 @@ import { ICartTotalProps as Props } from './types';
 import { styles } from './styles';
 
 export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, totals, title } = props;
+    const { classes, totals } = props;
+
+    if (!totals) {
+        return null;
+    }
 
     return (
-        <>
-            { totals &&
-                <>
-                    <div className={ classes.row }>
-                        <Typography component="span" variant="headline" color="textSecondary">
-                            <FormattedMessage id={ 'word.subtotal.title' } />
-                        </Typography>
-                        <Typography component="span" variant="headline" color="textSecondary">
-                            <AppPrice value={ totals.subtotal } isStylesInherited />
-                        </Typography>
-                    </div>
+        <div className={ classes.wrapper }>
+            <div className={ classes.row }>
+                <Typography component="span" variant="headline" color="textSecondary">
+                    <FormattedMessage id={ 'word.subtotal.title' } />
+                </Typography>
+                <Typography component="span" variant="headline" color="textSecondary">
+                    <AppPrice value={ totals.subtotal } />
+                </Typography>
+            </div>
 
-                    <div className={classes.row}>
-                        <Typography component="span" variant="headline" color="textSecondary">
-                            <FormattedMessage id={ 'word.tax.title' } />
-                        </Typography>
-                        <Typography component="span" variant="headline" color="textSecondary">
-                            <AppPrice value={ totals.taxTotal || 0 } isStylesInherited />
-                        </Typography>
-                    </div>
-                </>
-            }
-            { (totals && totals.discountTotal) &&
+            <div className={classes.row}>
+                <Typography component="span" variant="headline" color="textSecondary">
+                    <FormattedMessage id={ 'word.tax.title' } />
+                </Typography>
+                <Typography component="span" variant="headline" color="textSecondary">
+                    <AppPrice value={ totals.taxTotal || 0 } />
+                </Typography>
+            </div>
+
+            { totals.discountTotal &&
                 <div className={ classes.row }>
                     <Typography component="span" variant="headline" color="textSecondary">
                         <FormattedMessage id={ 'word.discount.title' } />
                     </Typography>
-                    <Typography component="span" variant="headline" color="textSecondary">
-                        <AppPrice value={ totals.discountTotal } isStylesInherited />
+                    <Typography component="span" variant="headline" className={ classes.discountText }>
+                        <AppPrice value={ totals.discountTotal } isMinus />
                     </Typography>
                 </div>
             }
 
-            <div className={`${classes.row} ${classes.total}`}>
-                <Typography component="span" className={ classes.totalText }>{ title }</Typography>
+            <div className={ classes.row }>
                 <Typography component="span" className={ classes.totalText }>
-                    { totals &&
-                        <AppPrice value={ totals.grandTotal } isStylesInherited />
-                    }
+                    <FormattedMessage id={ 'grand.total.title' } />
+                </Typography>
+                <Typography component="span" className={ classes.totalText }>
+                    <AppPrice value={ totals.grandTotal } />
                 </Typography>
             </div>
-        </>
+        </div>
     );
 };
 

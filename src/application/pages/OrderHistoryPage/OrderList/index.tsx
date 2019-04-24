@@ -35,12 +35,7 @@ export const OrderListBase: React.SFC<Props> = (props): JSX.Element => {
                 {id: `date-${item.id}`, content: formatDateToString(new Date(date))},
                 {
                     id: `price-${item.id}`,
-                    content: <AppPrice
-                        value={item.totals.grandTotal}
-                        specificCurrency={item.currency}
-                        extraClassName={classes.price}
-                        isStylesInherited={true}
-                    />
+                    content: <AppPrice value={item.totals.grandTotal} specificCurrency={item.currency} />
                 },
                 {
                     id: `actions-${item.id}`,

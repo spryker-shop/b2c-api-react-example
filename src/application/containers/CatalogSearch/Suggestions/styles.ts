@@ -60,5 +60,10 @@ export const styles = (theme: Theme) => createStyles({
     },
     imageOverlay: {
         background: 'none'
+    },
+    image: {
+        width: 45,
+        minWidth: 45,
+        height: 45
     }
 });

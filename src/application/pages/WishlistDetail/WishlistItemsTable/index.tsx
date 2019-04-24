@@ -85,18 +85,20 @@ export class WishlistItemsTableComponent extends React.Component<WishListItemsTa
                     {
                         content: (
                             <div className={classes.vertical}>
-                                <AppPrice
-                                    value={prices.original}
-                                    extraClassName={classes.price}
-                                    currency={currency}
-                                    priceType={priceTypeNameOriginal}
-                                />
-                                <AppPrice
-                                    value={prices.default}
-                                    extraClassName={classes.price}
-                                    currency={currency}
-                                    priceType={priceTypeNameDefault}
-                                />
+                                <span className={ classes.price }>
+                                    <AppPrice
+                                        value={prices.original}
+                                        currency={currency}
+                                        priceType={priceTypeNameOriginal}
+                                    />
+                                </span>
+                                <span className={ classes.price }>
+                                    <AppPrice
+                                        value={prices.default}
+                                        currency={currency}
+                                        priceType={priceTypeNameDefault}
+                                    />
+                                </span>
                             </div>
                         ),
                         id: `${this.bodyCellPart}2`

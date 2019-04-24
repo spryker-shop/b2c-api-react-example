@@ -4,7 +4,7 @@ import {
     ICheckoutCreditCardState,
     ICheckoutInvoiceState,
     ICheckoutStepsCompletionState,
-    IDeliveryAddressState,
+    ICheckoutAddressState,
     IDeliverySelectionState
 } from '@interfaces/checkout';
 
@@ -19,7 +19,11 @@ export const billingSelectionDefault: IBillingSelectionState = {
     isSameAsDelivery: false,
 };
 
-export const deliveryNewAddressDefault: IDeliveryAddressState = {
+export const deliveryNewAddressDefault: ICheckoutAddressState = {
+    salutation: {
+        value: ' ',
+        isError: false,
+    },
     firstName: {
         value: '',
         isError: false,
@@ -28,8 +32,8 @@ export const deliveryNewAddressDefault: IDeliveryAddressState = {
         value: '',
         isError: false,
     },
-    salutation: {
-        value: ' ',
+    company: {
+        value: '',
         isError: false,
     },
     address1: {
@@ -48,20 +52,16 @@ export const deliveryNewAddressDefault: IDeliveryAddressState = {
         value: '',
         isError: false,
     },
-    zipCode: {
+    city: {
         value: '',
         isError: false,
     },
-    city: {
+    zipCode: {
         value: '',
         isError: false,
     },
     country: {
         value: ' ',
-        isError: false,
-    },
-    company: {
-        value: '',
         isError: false,
     },
     phone: {
