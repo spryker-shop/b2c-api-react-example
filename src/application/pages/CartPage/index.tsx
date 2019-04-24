@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedPlural, FormattedMessage } from 'react-intl';
 import { CartPageProps as Props } from './types';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { AppMain } from '@application/components/AppMain';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { AppMain } from '@components/AppMain';
 import { CartRows } from './CartRows';
 import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { styles } from './styles';
-import { ProductRelations } from '@application/containers/ProductRelations';
+import { ProductRelations } from '@containers/ProductRelations';
 
 export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
@@ -19,7 +19,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
             <AppMain>
                 <Grid item xs={ 12 } className={ classes.root }>
                     <Typography
-                        variant="display2"
+                        variant="h3"
                         noWrap
                         align="center"
                     >
@@ -36,10 +36,10 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Grid item xs={ 12 } md={ 8 }>
                     <div className={ classes.layout }>
                         <div className={ classes.heading }>
-                            <Typography component="h3" variant="display2" className={ classes.title }>
+                            <Typography component="h3" variant="h3" className={ classes.title }>
                                 <FormattedMessage id={ 'word.my.cart.title' } />
                             </Typography>
-                            <Typography component="span" variant="headline" className={ classes.amount }>
+                            <Typography component="span" variant="h5" className={ classes.amount }>
                                 {`${totalQty} `}
                                 <FormattedPlural
                                     value={ totalQty }
@@ -55,13 +55,13 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <div className={ classes.subtotal }>
                             <Typography
                                 component="span"
-                                variant="headline"
+                                variant="h5"
                                 color="textSecondary"
                                 className={ classes.subtotalText }
                             >
                                 <FormattedMessage id={ 'word.subtotal.title' } />:
                             </Typography>
-                            <Typography component="span" variant="display2">
+                            <Typography component="span" variant="h3">
                                 <AppPrice value={ totals.subtotal } />
                             </Typography>
                         </div>
@@ -81,7 +81,6 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <ProductRelations
                             cartId={ cartId }
                             title={ <FormattedMessage id={ 'similar.products.title' } /> }
-                            type="cart"
                             classes={{ root: classes.sliderWrapper }}
                         />
                     </ErrorBoundary>

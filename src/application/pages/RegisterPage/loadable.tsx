@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableRegisterPage = Loadable({
     loader: () =>
-        import('@application/pages/RegisterPage').then(
+        import('@pages/RegisterPage').then(
             module => module.RegisterPage,
         ),
     loading: () => <Preloader />,

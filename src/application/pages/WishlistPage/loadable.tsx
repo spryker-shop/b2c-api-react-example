@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableWishlistPage = Loadable({
     loader: () =>
-        import('@application/pages/WishlistPage').then(
+        import('@pages/WishlistPage').then(
             module => module.default,
         ),
     loading: () => <Preloader />,

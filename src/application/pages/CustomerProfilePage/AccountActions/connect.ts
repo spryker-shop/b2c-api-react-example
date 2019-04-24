@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { TCustomerReference } from '@interfaces/customer';
 
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 
 import { deleteCustomerAction } from '@stores/actions/pages/customerProfile';
 

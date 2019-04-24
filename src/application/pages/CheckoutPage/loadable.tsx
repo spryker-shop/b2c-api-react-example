@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableCheckoutPage = Loadable({
     loader: () =>
-        import('@application/pages/CheckoutPage').then(
+        import('@pages/CheckoutPage').then(
             module => module.CheckoutPage,
         ),
     loading: () => <Preloader />,

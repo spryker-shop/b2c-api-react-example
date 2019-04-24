@@ -48,7 +48,7 @@ export class SuperAttributeBlockComponent extends React.Component<Props, State> 
         return (
             <div className={ classes.attributeBlock }>
                 <Typography
-                    variant="subheading"
+                    variant="h6"
                     component="span"
                     color="textSecondary"
                     className={ classes.attributeTitle }

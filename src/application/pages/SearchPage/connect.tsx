@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { push } from 'connected-react-router';
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 import { ISearchQuery, TSpellingSuggestion } from '@interfaces/searchPageData';

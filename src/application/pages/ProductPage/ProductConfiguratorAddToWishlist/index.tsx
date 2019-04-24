@@ -11,7 +11,7 @@ import { concreteProductType, defaultItemValueDropdown } from '@interfaces/produ
 import { ClickEvent } from '@interfaces/common';
 import { TWishlistName } from '@interfaces/wishlist';
 import { styles } from './styles';
-import { SprykerSelect } from '@application/components/UI/SprykerSelect';
+import { SprykerSelect } from '@components/UI/SprykerSelect';
 
 @connect
 export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {

@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/components/UI/SprykerSelect/styles';
+import { styles } from '@components/UI/SprykerSelect/styles';
 import * as React from 'react';
 
 interface IMenuItemSelect {

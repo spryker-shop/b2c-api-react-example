@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { cartDeleteItemAction, removeItemGuestCartAction } from '@stores/actions/common/cart';
 import { ICartState } from '@stores/reducers/common/cart/types';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';

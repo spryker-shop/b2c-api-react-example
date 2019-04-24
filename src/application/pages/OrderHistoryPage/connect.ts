@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { getOrdersCollectionAction } from '@stores/actions/pages/order';
 import {
     getOrdersCollectionFromStore,

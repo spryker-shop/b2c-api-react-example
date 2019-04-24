@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { IProductRelationsProps as Props } from './types';
 import { TProductSKU } from '@interfaces/product';
-import { ProductsSlider } from '@application/components/ProductsSlider';
+import { ProductsSlider } from '@components/ProductsSlider';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { pathProductPageBase } from '@constants/routes';
@@ -47,7 +47,7 @@ class ProductRelationsComponent extends React.Component<Props> {
         return (
             <div className={ classes.root }>
                 { Boolean(title) &&
-                    <Typography className={ classes.title } color="textSecondary" component="h2" variant="display3">
+                    <Typography className={ classes.title } color="textSecondary" component="h2" variant="h2">
                         { title }
                     </Typography>
                 }

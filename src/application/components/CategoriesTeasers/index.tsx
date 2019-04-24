@@ -39,7 +39,7 @@ export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element
                             </Grid>
                             <Grid item xs={ 12 } md={ 6 } className={ classes.contentHolder }>
                                 <Grid item xs={ 12 } className={ classes.content }>
-                                    <Typography component="h2" variant="display4" className={ classes.title }>
+                                    <Typography component="h2" variant="h1" className={ classes.title }>
                                         <FormattedMessage id={ title } />
                                     </Typography>
 

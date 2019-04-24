@@ -5,7 +5,7 @@ import { IProductCard } from '@interfaces/product';
 import { ISearchQuery } from '@interfaces/searchPageData';
 import { IApiResponseData } from '@services/types';
 import { TRowProductResponseIncluded } from '@helpers/product/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import {
     sendSearchPendingState,

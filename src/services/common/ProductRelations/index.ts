@@ -9,7 +9,7 @@ import {
 } from '@stores/actions/common/productRelations';
 import { parsePorductRelationsRequest } from '@helpers/productRelations/response';
 import api from '@services/api';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { TCartId } from '@interfaces/cart';
 
 export class ProductRelationsService extends ApiServiceAbstract {

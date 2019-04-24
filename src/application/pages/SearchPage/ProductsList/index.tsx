@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { IProductsListProps as Props } from './types';
 import { IProductCard } from '@interfaces/product';
-import { ProductCard } from '@application/components/ProductCard';
+import { ProductCard } from '@components/ProductCard';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
@@ -31,7 +31,7 @@ const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
                         </Grid>
                     ))
                     : <Grid item>
-                        <Typography component="h3" align="center" variant="display2">
+                        <Typography component="h3" align="center" variant="h3">
                             <FormattedMessage id={ isLoading ? 'loading.page.title' : 'empty.page.title' } />
                         </Typography>
                     </Grid>

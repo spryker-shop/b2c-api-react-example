@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableCustomerAddressPage = Loadable({
     loader: () =>
-        import('@application/pages/CustomerAddressesPage').then(
+        import('@pages/CustomerAddressesPage').then(
             module => module.CustomerAddressPage
         ),
     loading: () => <Preloader />,

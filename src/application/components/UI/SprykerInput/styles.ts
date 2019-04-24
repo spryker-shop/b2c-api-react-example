@@ -16,7 +16,7 @@ export const styles = (theme: Theme) => createStyles({
         padding: '4px 16px',
         width: '100%',
         height: 50,
-        lineHeight: 1.47,
+        lineHeight: 1.5,
         letterSpacing: 0.2,
         color: theme.appColors.black,
         fontSize: 15,
@@ -62,7 +62,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.grey,
         fontSize: 15,
         letterSpacing: 0.2,
-        lineHeight: 1.26,
+        lineHeight: 1.3,
         fontWeight: 400,
         transform: 'none',
         '&$labelFocused': {

@@ -21,10 +21,10 @@ const CheckoutLoginStepComponent: React.SFC<Props> = (props): JSX.Element => {
             <div className={ classes.box }>
                 <Grid container className={ classes.grid }>
                     <Grid item xs={ 6 } className={ classes.col }>
-                        <Typography component="h3" variant="display3" className={ classes.title }>
+                        <Typography component="h3" variant="h2" className={ classes.title }>
                             <FormattedMessage id={ 'new.customers.title' } />
                         </Typography>
-                        <Typography color="textSecondary" variant="subheading" className={ classes.subheading }>
+                        <Typography color="textSecondary" variant="h6" className={ classes.subheading }>
                             <FormattedMessage id={ 'login.guest.customers.message' } />
                         </Typography>
                         <Button
@@ -39,10 +39,10 @@ const CheckoutLoginStepComponent: React.SFC<Props> = (props): JSX.Element => {
                         </Button>
                     </Grid>
                     <Grid item xs={ 6 } className={ classes.col }>
-                        <Typography component="h3" variant="display3" className={ classes.title }>
+                        <Typography component="h3" variant="h2" className={ classes.title }>
                             <FormattedMessage id={ 'returning.customers.title' } />
                         </Typography>
-                        <Typography color="textSecondary" variant="subheading" className={ classes.subheading }>
+                        <Typography color="textSecondary" variant="h6" className={ classes.subheading }>
                             <FormattedMessage id={ 'login.customers.message' } />
                         </Typography>
                         <LoginForm

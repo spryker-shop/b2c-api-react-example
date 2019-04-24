@@ -1,7 +1,7 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
 import { TCartId } from '@interfaces/cart';
-import { TFormInputValue } from '@application/components/UI/SprykerForm/types';
+import { TFormInputValue } from '@components/UI/SprykerForm/types';
 
 export type TShipmentCarrierName = string;
 export type TShipmentId = string;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { ISortPanelProps as Props, ISortPanelState as State } from './types';
-import { SprykerSelect } from '@application/components/UI/SprykerSelect';
+import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { Grid, Hidden, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
@@ -62,7 +62,7 @@ class SortPanelComponent extends React.Component<Props, State> {
             <div className={ classes.root }>
                 <Grid container alignItems="center" spacing={ 24 }>
                     <Grid item xs={ 6 } sm={ 3 }>
-                        <Typography color="textSecondary" component="span" variant="subheading">
+                        <Typography color="textSecondary" component="span" variant="h6">
                             { pagination.numFound
                                 ? [
                                     `${pagination.numFound} `,

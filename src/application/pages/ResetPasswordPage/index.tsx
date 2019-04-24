@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
 import { IResetPasswordPageProps as Props, IResetPasswordPageState as State } from './types';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { IResetPasswordPayload } from '@interfaces/customer';
 import { FormattedMessage } from 'react-intl';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
+import { SprykerInput } from '@components/UI/SprykerInput';
 import { styles } from './styles';
 
 @connect
@@ -48,7 +48,7 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
             <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
-                        <Typography variant="display3" component="h2" className={ classes.title }>
+                        <Typography variant="h2" component="h2" className={ classes.title }>
                             <FormattedMessage id={ 'reset.password.title' } />
                         </Typography>
                         <form noValidate autoComplete="off">

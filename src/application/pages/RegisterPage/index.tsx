@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, Grid } from '@material-ui/core';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
 import { RegisterForm } from './RegisterForm';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
 import { styles } from './styles';
 

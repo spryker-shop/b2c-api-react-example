@@ -2,9 +2,9 @@ import * as React from 'react';
 import { withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { pathCategoryComputers } from '@constants/routes';
-import { CategoriesTeasers } from '@application/components/CategoriesTeasers';
-import { AppMain } from '@application/components/AppMain';
-import { Banner } from '@application/components/Banner';
+import { CategoriesTeasers } from '@components/CategoriesTeasers';
+import { AppMain } from '@components/AppMain';
+import { Banner } from '@components/Banner';
 import { IHomePageProps as Props } from './types';
 import { styles } from './styles';
 

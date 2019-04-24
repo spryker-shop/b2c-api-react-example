@@ -4,7 +4,7 @@ import { RouteProps } from 'react-router';
 import { WithRouter } from 'src/shared/interfaces/common/react';
 import { ICategory } from 'src/shared/interfaces/category';
 import { TAppCurrency } from '@interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@application';
+import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
 import { TSpellingSuggestion } from '@interfaces/searchPageData';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';

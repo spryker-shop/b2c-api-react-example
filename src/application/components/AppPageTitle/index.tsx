@@ -10,7 +10,7 @@ export const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
         <div className={ classes.root }>
             <div className={ classes.container }>
                 { title &&
-                    <Typography component="h1" variant="display3" className={ classes.title }>
+                    <Typography component="h1" variant="h2" className={ classes.title }>
                         { title }
                     </Typography>
                 }

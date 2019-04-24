@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { isUserAuthenticated, isPageLoginStateLoading } from '@stores/reducers/pages/login';
 import { loginCustomerAction } from '@stores/actions/pages/login';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';

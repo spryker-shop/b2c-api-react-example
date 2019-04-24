@@ -10,8 +10,8 @@ export type TLanguage = {
 };
 
 export interface ILangProps extends WithStyles<typeof styles> {
-    appLocale: TAppLocale;
-    switchLocaleAction: (payload: ILocaleActionPayload) => void;
+    appLocale?: TAppLocale;
+    switchLocaleAction?: (payload: ILocaleActionPayload) => void;
 }
 
 export interface ILangState {

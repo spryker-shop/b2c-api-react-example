@@ -1,5 +1,5 @@
 import { RangeFacets } from '@interfaces/searchPageData';
-import { RangeType } from '@application/Pages/SearchPage/types';
+import { RangeType } from '@pages/SearchPage/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';

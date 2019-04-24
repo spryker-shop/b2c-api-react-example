@@ -11,7 +11,7 @@ import {
     IWishlistRawResponse,
     TRowWishlistIncludedResponse
 } from '@services/pages/Wishlist/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
     typeNotificationError

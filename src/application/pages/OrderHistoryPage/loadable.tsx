@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableOrderHistoryPage = Loadable({
     loader: () =>
-        import('@application/pages/OrderHistoryPage').then(
+        import('@pages/OrderHistoryPage').then(
             module => module.OrderHistoryContainer,
         ),
     loading: () => <Preloader />,

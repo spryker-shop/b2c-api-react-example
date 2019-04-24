@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadableHomePage = Loadable({
     loader: () =>
-        import('@application/pages/HomePage').then(
+        import('@pages/HomePage').then(
             module => module.HomePage,
         ),
     loading: () => <Preloader />,

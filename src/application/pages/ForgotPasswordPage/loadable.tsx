@@ -4,7 +4,7 @@ import { Preloader } from '@components/Preloader';
 
 export const LoadablePasswordForgotPage = Loadable({
     loader: () =>
-        import('@application/pages/ForgotPasswordPage').then(
+        import('@pages/ForgotPasswordPage').then(
             module => module.ForgotPasswordPage,
         ),
     loading: () => <Preloader />,

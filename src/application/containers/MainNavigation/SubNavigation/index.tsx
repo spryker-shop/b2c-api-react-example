@@ -28,7 +28,7 @@ const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
                     <NavLink className={ classes.productContainer } to={`${pathProductPageBase}/${sku}`}>
                         <span className={ classes.productImage } style={{ backgroundImage: `url(${image})`}} />
                         <span className={ classes.productTitle }>
-                            <Typography variant="headline" component="span" color="textSecondary">{ title }</Typography>
+                            <Typography variant="h5" component="span" color="textSecondary">{ title }</Typography>
                         </span>
                     </NavLink>
                 </Grid>

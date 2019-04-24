@@ -27,7 +27,7 @@
 	],
 	"homepage": "https://github.com/spryker/react-app",
 	"dependencies": {
-		"@material-ui/core": "3.1.0",
+		"@material-ui/core": "^3.9.3",
 		"apisauce": "0.16.0",
 		"autosuggest-highlight": "3.1.1",
 		"connected-react-router": "^6.3.1",
