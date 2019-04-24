@@ -116,6 +116,13 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         history.push(pathCheckoutThanks);
     };
 
+    protected shouldHideOrderInfo = (): boolean => {
+        const forbiddenPaths = [pathCheckoutLoginStep, pathCheckoutThanks];
+        const currentLocation = this.props.location.pathname;
+
+        return forbiddenPaths.some(path => currentLocation.includes(path));
+    };
+
     public render(): JSX.Element {
         const {
             classes,
@@ -129,42 +136,52 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         } = this.props;
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
+        const isOrderExist = !isProductsExists && !orderId;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
         return (
-            <AppMain>
-                { !isProductsExists && !orderId
-                    ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
-                    : <>
-                        <CheckoutBreadcrumbs />
-                        <Grid container className={ classes.container }>
-                            <Grid item xs={ 12 } md={ 7 } className={ classes.leftColumn }>
-                                { !isCheckoutLoading &&
-                                    <CheckoutRouting
-                                        stepsCompletion={ stepsCompletion }
-                                        isSendBtnDisabled={ isButtonDisabled }
-                                        sendData={ this.handleSubmit }
-                                    />
+            <>
+                {!isOrderExist && <CheckoutBreadcrumbs />}
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    { isOrderExist
+                        ? <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
+                        : <>
+                            <Grid container className={ classes.container }>
+                                <Grid
+                                    item
+                                    xs={ 12 }
+                                    md={this.shouldHideOrderInfo() ? 12 : 7}
+                                    className={ classes.leftColumn }
+                                >
+                                    { !isCheckoutLoading &&
+                                        <CheckoutRouting
+                                            stepsCompletion={ stepsCompletion }
+                                            isSendBtnDisabled={ isButtonDisabled }
+                                            sendData={ this.handleSubmit }
+                                        />
+                                    }
+                                </Grid>
+                                {!this.shouldHideOrderInfo() &&
+                                    <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
+                                        <ErrorBoundary>
+                                            <CheckoutCart
+                                                isSendBtnDisabled={ isButtonDisabled }
+                                                sendData={ this.handleSubmit }
+                                                order={ orderId }
+                                                isUserLoggedIn={ isUserLoggedIn }
+                                                anonymId={ anonymId }
+                                            />
+                                        </ErrorBoundary>
+                                    </Grid>
                                 }
                             </Grid>
-                            <Grid item xs={ 12 } md={ 5 } className={ classes.rightColumn }>
-                                <ErrorBoundary>
-                                    <CheckoutCart
-                                        isSendBtnDisabled={ isButtonDisabled }
-                                        sendData={ this.handleSubmit }
-                                        order={ orderId }
-                                        isUserLoggedIn={ isUserLoggedIn }
-                                        anonymId={ anonymId }
-                                    />
-                                </ErrorBoundary>
-                            </Grid>
-                        </Grid>
-                    </>
-                }
-            </AppMain>
+                        </>
+                    }
+                </AppMain>
+            </>
         );
     }
 }

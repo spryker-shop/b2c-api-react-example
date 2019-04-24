@@ -9,6 +9,7 @@ export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, 
     handleSubmitLoginForm: Function;
     getCustomerCart: Function;
     isLoading: boolean;
+    redirectAfterLoginPath: string;
 }
 
 export interface ILoginFormState {

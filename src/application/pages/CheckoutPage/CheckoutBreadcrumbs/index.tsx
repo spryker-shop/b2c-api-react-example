@@ -27,7 +27,12 @@ const CheckoutBreadcrumbsComponent: React.SFC<Props> = props => {
                     className={`${ classes.item } ${ activeClass } ${ passedFlag ? classes.itemPassed : '' }`}
                 >
                     <NavLink to={ item.path } className={ classes.link }>
-                        <FormattedMessage id={ item.title } />
+                        <div className={classes.itemInner}>
+                             <span className={classes.itemText}>
+                                 <FormattedMessage id={ item.title } />
+                             </span>
+                            <span className={`${classes.itemDecor} ${classes.bgColor}`} />
+                        </div>
                     </NavLink>
                 </li>
             );
@@ -35,10 +40,12 @@ const CheckoutBreadcrumbsComponent: React.SFC<Props> = props => {
     };
 
     return (
-        <div>
-            <ul>
-                { renderBreadcrumbs() }
-            </ul>
+        <div className={`${classes.wrapper} ${classes.bgColor}`}>
+            <div className={ classes.inner }>
+                <ul className={ classes.list }>
+                    { renderBreadcrumbs() }
+                </ul>
+            </div>
         </div>
     );
 };
