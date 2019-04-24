@@ -1,7 +1,5 @@
-import { IRadioItem } from '@application/components/UI/SprykerForm/types';
 import { IMenuItemSelect } from './types';
 import { IPaymentMethod, IShipmentMethod } from '@interfaces/checkout';
-import { IAddressItemCollection } from '@interfaces/addresses';
 
 export interface ICheckoutFormsNames {
     billing: string;
@@ -26,8 +24,6 @@ export interface IPaymentMethodsGrouped {
 
 export type TPaymentProvidersCollection = IMenuItemSelect[];
 
-export interface IPaymentMethodGroupItem extends IRadioItem {}
-
 export interface IShipmentMethodsGrouped {
     [key: string]: IShipmentMethod[];
 }
@@ -41,6 +37,8 @@ export interface ICheckoutSelectionInputs {
 export interface IConfigInputStable {
     isRequired: boolean;
     inputName: string;
+    minLength?: number;
+    isEmail?: boolean;
 }
 
 export interface IAddressConfigInputStable {
@@ -63,8 +61,7 @@ export interface ICreditCardObjectConfigInputStable {
     paymentProvider: IConfigInputStable;
     cardNumber: IConfigInputStable;
     cardName: IConfigInputStable;
-    cardExpiryMonth: IConfigInputStable;
-    cardExpiryYear: IConfigInputStable;
+    cardExpiryDate: IConfigInputStable;
     cardCVC: IConfigInputStable;
 
     [key: string]: IConfigInputStable;

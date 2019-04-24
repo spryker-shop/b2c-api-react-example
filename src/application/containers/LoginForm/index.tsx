@@ -15,14 +15,19 @@ import { NavLink } from 'react-router-dom';
 export class LoginFormComponent extends React.Component<Props, State> {
     public readonly state: State = {
         username: '',
-        password: ''
+        password: '',
+        isCartLoading: false
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isAuth, getCustomerCart, history, redirectAfterLoginPath } = this.props;
+        const { isAuth, getCustomerCart, history, redirectAfterLoginPath, isCartLoading } = this.props;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
+            this.setState({ isCartLoading: true });
+        }
+
+        if (prevProps.isCartLoading && !isCartLoading) {
             history.push(redirectAfterLoginPath);
         }
     };
@@ -30,16 +35,13 @@ export class LoginFormComponent extends React.Component<Props, State> {
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
         const { username, password } = this.state;
-        const { handleSubmitLoginForm, onSubmitHandler } = this.props;
+        const { handleSubmitLoginForm } = this.props;
 
         if (!Boolean(username) || !Boolean(password)) {
             return null;
         }
 
         const payload = { username, password };
-        if (Boolean(onSubmitHandler)) {
-            onSubmitHandler();
-        }
 
         handleSubmitLoginForm(payload);
     };
@@ -54,6 +56,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
 
     public render() {
         const { classes, isLoading } = this.props;
+        const { isCartLoading } = this.state;
 
         return (
             <>
@@ -86,7 +89,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
                             />
                         </Grid>
                         <Grid item xs={ 12 }>
-                            <Button disabled={ isLoading } fullWidth type="submit" variant="contained">
+                            <Button disabled={ isLoading || isCartLoading } fullWidth type="submit" variant="contained">
                                 <FormattedMessage id={ 'word.login.title' } />
                             </Button>
                         </Grid>

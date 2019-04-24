@@ -13,26 +13,25 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         background: theme.appColors.weekWhite,
         color: theme.appColors.grey,
-        transition: 'border-color 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out',
+        transition: 'border-color 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
         '&:hover': {
-            borderColor: theme.appColors.blue,
-            background: theme.appColors.blue,
-            color: theme.appColors.white,
-            '& $radio': {
-                color: theme.appColors.white,
-            }
+            borderColor: theme.appColors.white,
+            background: theme.appColors.white,
+            boxShadow: '0 2px 10px 0 rgba(216, 216, 216, 0.5)'
         }
     },
     checkedInputRadio: {
         borderColor: theme.appColors.blue,
-        background: theme.appColors.blue
+        background: theme.appColors.blue,
+        pointerEvents: 'none'
     },
     radioLabel: {
-        color: 'inherit',
+        color: theme.appColors.grey,
         paddingLeft: 20,
         letterSpacing: 0.2,
         fontSize: 15,
-        fontWeight: 500
+        fontWeight: 500,
+        transition: 'color 0.2s ease-in-out',
     },
     checkedRadioLabel: {
         color: theme.appColors.white

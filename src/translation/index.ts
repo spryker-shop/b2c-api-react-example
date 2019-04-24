@@ -39,6 +39,7 @@ export const messages: IMessages = {
         'category.suggestion.title': 'Did you mean {suggestionTerm}?',
         'change.language.error.message': 'Error occurs during the changing a language: {messageText}',
         'change.password.title': 'Change Password',
+        'checkout.login.message': 'Login and use one of your saved carts',
         'city.label': 'City',
         'company.label': 'Company',
         'confirm.delete.account.message': 'Are you sure you want to delete your account',
@@ -50,6 +51,9 @@ export const messages: IMessages = {
         'create.list.message': 'You do not have any lists yet, create one above to get started.',
         'customer.login.message': 'You are now logged in.',
         'customer.logout.message': 'You are now logged out.',
+        'cvc.hint.message': 'A credit card Identification Number is an added safeguard for your credit card purchases. Depending on the type of credit card you use, it is the 3- or 4-digit number printed on the back or front of your credit card. For most online credit card purchases from us, the Identification Number is required information.',
+        'cvc.hint.title': 'Credit Card Identification Number',
+        'date.of.birth.error.message': 'Date of Birth consists of DD/MM/YYYY',
         'default.billing.address.label': 'Default Billing Address',
         'default.shipping.address.label': 'Default Shipping Address',
         'delete.account.message': 'All personal information and account history will be permanently deleted.',
@@ -131,7 +135,7 @@ export const messages: IMessages = {
         'password.successfull.updated.message': 'Password updated successfull.',
         'password.successfully.updated.message': 'Your Password was successfully updated!',
         'payment.credit.card.cvc.label': 'CVC',
-        'payment.credit.card.name.label': 'Name on Card',
+        'payment.credit.card.name.label': 'Card Name',
         'payment.credit.card.number.label': 'Card Number',
         'payment.date.of.birth.label': 'Date of Birth',
         'payment.expiry.date.label': 'Expiry Date',
@@ -175,6 +179,8 @@ export const messages: IMessages = {
         'select.billing.address.label': 'Select billing address',
         'select.delivery.address.label': 'Select delivery address',
         'select.wish.list.label': 'Select wish list',
+        'shipment.method.dhl.title': 'DHL',
+        'shipment.method.hermes.title': 'Hermes',
         'shipment.tax.rate.label': 'Tax Rate',
         'shipping.address.title': 'Shipping Address',
         'shipping.fee.calculated.text': 'Shipping fee will be calculated based on Shipping address',
@@ -286,6 +292,7 @@ export const messages: IMessages = {
         'category.suggestion.title': 'Meinten Sie {suggestionTerm}?',
         'change.language.error.message': 'Fehler beim Ändern einer Sprache: {messageText}',
         'change.password.title': 'Passwort ändern',
+        'checkout.login.message': 'Anmelden sich an und verwenden Sie einen Ihrer gespeicherten Einkaufswagen',
         'city.label': 'Stadt',
         'company.label': 'Firma',
         'confirm.delete.account.message': 'Möchten Sie Ihr Konto wirklich löschen?',
@@ -297,6 +304,9 @@ export const messages: IMessages = {
         'create.list.message': 'Du hast noch keine Wunschzettel',
         'customer.login.message': 'Sie sind jetzt angemeldet.',
         'customer.logout.message': 'Sie sind jetzt abgemeldet.',
+        'cvc.hint.message': 'Eine Kreditkarten-Identifikationsnummer ist ein zusätzlicher Schutz für Ihre Kreditkarteneinkäufe. Je nach Art der verwendeten Kreditkarte handelt es sich um die 3- oder 4-stellige Nummer, die auf der Vorder- oder Rückseite Ihrer Kreditkarte aufgedruckt ist. Bei den meisten Online-Kreditkartenkäufen bei uns ist die Identifikationsnummer die erforderliche Information.',
+        'cvc.hint.title': 'Kreditkarten-Identifikationsnummer',
+        'date.of.birth.error.message': 'Geburtsdatum besteht aus DD/MM/YYYY',
         'default.billing.address.label': 'Standard Lieferadresse',
         'default.shipping.address.label': 'Standard LIEFERADRESSE',
         'delete.account.message': 'Zusammen mit dem Account werden alle persönlichen Daten gelöscht.',
@@ -380,7 +390,7 @@ export const messages: IMessages = {
         'password.successfull.updated.message': 'Passwort erfolgreich aktualisiert.',
         'password.successfully.updated.message': 'Ihr Passwort wurde erfolgreich aktualisiert!',
         'payment.credit.card.cvc.label': 'CVC',
-        'payment.credit.card.name.label': 'Name auf der Karte',
+        'payment.credit.card.name.label': 'Name der Karte',
         'payment.credit.card.number.label': 'Kartennummer',
         'payment.date.of.birth.label': 'Geburtsdatum',
         'payment.expiry.date.label': 'Verfallsdatum',
@@ -422,6 +432,8 @@ export const messages: IMessages = {
         'select.billing.address.label': 'Rechungsadress wählen',
         'select.delivery.address.label': 'Lieferadresse wählen',
         'select.wish.list.label': 'Wunschliste auswählen',
+        'shipment.method.dhl.title': 'DHL',
+        'shipment.method.hermes.title': 'Hermes',
         'shipment.tax.rate.label': 'Steuersatz',
         'shipping.address.title': 'Lieferadresse',
         'shipping.fee.calculated.text': 'Die Versandkosten werden basierend auf der Versandadresse berechnet',
@@ -503,6 +515,5 @@ export const messages: IMessages = {
 // Console Messages
 export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
 export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const InputSaveErrorMessage = 'Can\'t handle this value or field name';
 export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
 export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';

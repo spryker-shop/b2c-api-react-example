@@ -2,36 +2,61 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    creditCardForm: {
-        '& div[data-form-row=\'2\']': {
-            [theme.breakpoints.down('xs')]: {
-                justifyContent: 'space-between',
-            },
-            '& div[data-form-column=\'2-0\']': {
-                '& .spryker-select': {
-                    position: 'relative',
-                    '&:after': {
-                        content: `"/"`,
-                        position: 'absolute',
-                        display: 'block',
-                        right: -theme.spacing.unit * 2,
-                        top: 11,
-                        fontSize: 21,
-                    },
-                },
-            },
-            '&>div': {
-                maxWidth: 141,
-                [theme.breakpoints.down('xs')]: {
-                    maxWidth: `calc(50% - ${theme.spacing.unit * 1.5}px)`,
-                },
-                '&:last-child': {
-                    paddingLeft: theme.spacing.unit * 3,
-                    [theme.breakpoints.down('xs')]: {
-                        paddingLeft: 0
-                    },
-                }
-            }
-        },
+    label: {
+        display: 'block',
+        paddingBottom: 10,
+        color: theme.appColors.grey,
+        fontSize: 15,
+        letterSpacing: 0.2,
+        lineHeight: 1.26,
+        fontWeight: 400,
+        transform: 'none'
     },
+    asterisk: {
+        color: theme.appColors.blue
+    },
+    inputRadio: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: 140,
+        padding: 5,
+        borderRadius: 4,
+        margin: 0,
+        border: `1px solid ${theme.appColors.lightGrey}`,
+        color: theme.appColors.blue,
+        transition: 'background 0.3s ease-in-out, border 0.3s ease-in-out, color 0.3s ease-in-out',
+        '&:hover': {
+            borderColor: theme.appColors.blue
+        }
+    },
+    checkedInputRadio: {
+        borderColor: theme.appColors.blue,
+        color: theme.appColors.white,
+        background: theme.appColors.blue
+    },
+    radio: {
+        display: 'none'
+    },
+    radioLabel: {
+        fill: 'currentColor',
+        color: 'inherit'
+    },
+    tooltipContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 21,
+        height: 21,
+        background: theme.appColors.white,
+        borderRadius: '50%',
+        fill: theme.appColors.blue,
+    },
+    tooltipTitle: {
+        display: 'block',
+        paddingBottom: 5,
+        fontSize: 15,
+        fontWeight: 700,
+        letterSpacing: 0.2
+    }
 });

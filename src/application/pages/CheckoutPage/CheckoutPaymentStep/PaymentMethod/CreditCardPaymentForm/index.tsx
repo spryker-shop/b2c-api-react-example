@@ -1,91 +1,171 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withStyles, Grid } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { getCreditCardFormSettings } from '@helpers/formCreations/checkout/creditCardSettings';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { withStyles, Grid, Radio, FormControlLabel } from '@material-ui/core';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { cardExpiryFormat } from '@helpers/forms';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation/';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
-import { ICheckoutCreditCardState } from '@interfaces/checkout';
-import { IPaymentCreditCardParams } from '@helpers/formCreations/checkout/types';
-import { ICreditCardPaymentFormProps } from './types';
+import { InputChangeEvent } from '@interfaces/common';
+import { ICreditCardPaymentFormProps as Props } from './types';
 import { styles } from './styles';
+import { FormattedMessage } from 'react-intl';
+import { SprykerInput } from '@components/UI/SprykerInput';
+import { CardIcon, CalendarIcon, LockIcon, QuestionIcon } from './icons';
 
-export const CreditCardPaymentFormBase: React.SFC<ICreditCardPaymentFormProps> = (props): JSX.Element => {
-    const {
-        classes,
-        providersCollection,
-        paymentCreditCardData,
-        mutateStateCreditCard,
-        mutatePaymentSection
-    } = props;
+@connect
+class CreditCardPaymentFormComponent extends React.Component<Props> {
+    public componentDidUpdate = (prevProps: Props): void => {
+        const shouldCheckFormValidity = prevProps.paymentCreditCardData !== this.props.paymentCreditCardData;
 
-    const validateCreditCardInput = (key: string, value: string): boolean => (
-        checkFormInputValidity({ value, fieldConfig: creditCardConfigInputStable[ key ] })
-    );
-
-    const validateCreditCardForm = (formState: ICheckoutCreditCardState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: creditCardConfigInputStable })
-    );
-
-    const handleCreditCardInputs = (event: InputChangeEvent): void => {
-        const { name, value } = event.target;
-        if (!paymentCreditCardData.hasOwnProperty(name)) {
-            throw new Error(InputSaveErrorMessage);
+        if (shouldCheckFormValidity) {
+            this.handleCreditCardValidity();
         }
-        const isInputValid = validateCreditCardInput(name, value);
-        const changedFiledData = {
-            key: name,
-            value,
-            isError: !isInputValid
-        };
+    };
+
+    protected handleCreditCardInputs = (event: InputChangeEvent): void => {
+        const { mutateStateCreditCard } = this.props;
+        const { name, value } = event.target;
+
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: creditCardConfigInputStable[name] });
+        const changedFiledData = { key: name, value, isError: !isInputValid };
 
         mutateStateCreditCard(changedFiledData);
-
-        const namesList = [
-            creditCardConfigInputStable.paymentProvider.inputName,
-            creditCardConfigInputStable.cardExpiryMonth.inputName,
-            creditCardConfigInputStable.cardExpiryYear.inputName
-        ];
-
-        const isSelectChanged = namesList.includes(name);
-
-        if (isSelectChanged) {
-            handleCreditCardValidity();
-        }
     };
 
-    const handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
-    };
+    protected handleCreditCardValidity = (): void => {
+        const { paymentCreditCardData, mutatePaymentSection } = this.props;
 
-    const handleCreditCardValidity = (): void => {
-        const isFormValid = validateCreditCardForm(paymentCreditCardData);
+        const isFormValid = checkFormValidity({form: paymentCreditCardData, fieldsConfig: creditCardConfigInputStable});
         mutatePaymentSection(isFormValid);
     };
 
-    const creditCardParams: IPaymentCreditCardParams = {
-        inputsData: paymentCreditCardData,
-        inputsConfig: creditCardConfigInputStable,
-        providersCollection,
-        submitHandler: handleSubmit,
-        inputChangeHandler: handleCreditCardInputs,
-        onBlurHandler: handleCreditCardValidity
+    protected renderPaymentProviderItems = (): JSX.Element[] => {
+        const { classes, providersCollection, paymentCreditCardData } = this.props;
+        const selectedValue = paymentCreditCardData.paymentProvider.value;
+
+        return providersCollection.map(item => (
+            <Grid item xs={ 3 } key={ item.value }>
+                <FormControlLabel
+                    value={ item.value }
+                    classes={{
+                        root: `${classes.inputRadio} ${item.value === selectedValue ? classes.checkedInputRadio : '' }`,
+                        label: classes.radioLabel
+                    }}
+                    control={
+                        <Radio
+                            name={ creditCardConfigInputStable.paymentProvider.inputName }
+                            classes={{ root: classes.radio }}
+                            onChange={ this.handleCreditCardInputs }
+                            checked={ item.value === selectedValue }
+                            checkedIcon={<></>}
+                            icon={<></>}
+                        />
+                    }
+                    label={ item.labelIcon }
+                />
+            </Grid>
+        ));
     };
 
-    const creditCardFormSettings = getCreditCardFormSettings(
-        checkoutFormsNames.creditCard,
-        creditCardParams
-    );
+    public render = (): JSX.Element => {
+        const { classes, paymentCreditCardData } = this.props;
 
-    return (
-        <Grid container>
-            <Grid item xs={ 12 }>
-                <SprykerForm form={ creditCardFormSettings } formClassName={ classes.creditCardForm } />
-            </Grid>
-        </Grid>
-    );
-};
+        return (
+            <form name={ checkoutFormsNames.creditCard }>
+                <Grid container spacing={ 24 }>
+                    <Grid item xs={ 12 }>
+                        <span className={ classes.label }>
+                            <FormattedMessage id={ 'payment.provider.label' } />
+                            <span className={ classes.asterisk }>{`${' '}`}*</span>
+                        </span>
+                        <Grid container spacing={ 16 }>
+                            { this.renderPaymentProviderItems() }
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'payment.credit.card.number.label' } /> }
+                            inputName={ creditCardConfigInputStable.cardNumber.inputName }
+                            onChangeHandler={ this.handleCreditCardInputs }
+                            inputValue={ paymentCreditCardData.cardNumber.value }
+                            isError={ paymentCreditCardData.cardNumber.isError }
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <CardIcon />
+                                }
+                            }}
+                            maskProps={{
+                                mask: '-',
+                                format: '# # # #   # # # #   # # # #   # # # #',
+                                placeholder: '- - - -   - - - -   - - - -   - - - -'
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'payment.credit.card.name.label' } /> }
+                            inputName={ creditCardConfigInputStable.cardName.inputName }
+                            onChangeHandler={ this.handleCreditCardInputs }
+                            inputValue={ paymentCreditCardData.cardName.value }
+                            isError={ paymentCreditCardData.cardName.isError }
+                        />
+                    </Grid>
+                    <Grid item xs={ 6 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'payment.expiry.date.label' } /> }
+                            inputName={ creditCardConfigInputStable.cardExpiryDate.inputName }
+                            onChangeHandler={ this.handleCreditCardInputs }
+                            inputValue={ paymentCreditCardData.cardExpiryDate.value }
+                            isError={ paymentCreditCardData.cardExpiryDate.isError }
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <CalendarIcon />
+                                }
+                            }}
+                            maskProps={{
+                                format: cardExpiryFormat,
+                                placeholder: 'MM/YY'
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={ 6 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'payment.credit.card.cvc.label' } /> }
+                            inputName={ creditCardConfigInputStable.cardCVC.inputName }
+                            onChangeHandler={ this.handleCreditCardInputs }
+                            inputValue={ paymentCreditCardData.cardCVC.value }
+                            isError={ paymentCreditCardData.cardCVC.isError }
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <LockIcon />
+                                },
+                                iconEndComponent: {
+                                    icon: <span className={ classes.tooltipContainer }><QuestionIcon /></span>,
+                                    tooltip: true,
+                                    tooltipArrowed: true,
+                                    tooltipComponent: (
+                                        <>
+                                            <span className={ classes.tooltipTitle }>
+                                                <FormattedMessage id={ 'cvc.hint.title' } />
+                                            </span>
+                                            <FormattedMessage id={ 'cvc.hint.message' } />
+                                        </>
+                                    )
+                                }
+                            }}
+                            maskProps={{
+                                format: '####',
+                                placeholder: 'XXX'
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </form>
+        );
+    };
+}
 
-export const CreditCardPaymentForm = connect(withStyles(styles)(CreditCardPaymentFormBase));
+export const CreditCardPaymentForm = withStyles(styles)(CreditCardPaymentFormComponent);

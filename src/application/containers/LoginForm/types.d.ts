@@ -10,10 +10,11 @@ export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, 
     getCustomerCart: Function;
     isLoading: boolean;
     redirectAfterLoginPath: string;
-    onSubmitHandler?: () => void;
+    isCartLoading: boolean;
 }
 
 export interface ILoginFormState {
     username: TCustomerUsername;
     password: TCustomerPassword;
+    isCartLoading: boolean;
 }

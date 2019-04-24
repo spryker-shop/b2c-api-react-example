@@ -197,7 +197,7 @@ export const pageCheckout = produce<ICheckoutState>(
                 draft.paymentMethod = action.payloadFormUpdatePaymentStatus.value;
                 draft.stepsCompletion = {
                     ...draft.stepsCompletion,
-                    isPaymentStepPassed: action.payloadFormUpdatePaymentStatus.isSummaryStepCompleted
+                    isPaymentStepPassed: action.payloadFormUpdatePaymentStatus.isPaymentStepCompleted
                 };
                 break;
             }

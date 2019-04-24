@@ -1,72 +1,68 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { Grid } from '@material-ui/core';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { getInvoiceFormSettings } from '@helpers/formCreations/checkout/invoiceSettings';
 import { checkoutFormsNames, invoiceConfigInputStable } from '@constants/checkout';
-import { InputSaveErrorMessage } from '@translation/';
-import { IPaymentInvoiceParams } from '@helpers/formCreations/checkout/types';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
-import { ICheckoutInvoiceState } from '@interfaces/checkout';
-import { IInvoicePaymentFormProps } from './types';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/checkout';
+import { InputChangeEvent } from '@interfaces/common';
+import { IInvoicePaymentFormProps as Props } from './types';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { FormattedMessage } from 'react-intl';
+import { CalendarIcon } from './icons';
+import { dateBirthFormat } from '@helpers/forms';
+import { SprykerInput } from '@components/UI/SprykerInput';
 
-export const InvoicePaymentFormBase: React.SFC<IInvoicePaymentFormProps> = (props): JSX.Element => {
-    const {
-        paymentInvoiceData,
-        mutatePaymentSection,
-        mutateStateInvoiceForm
-    } = props;
+@connect
+export class InvoicePaymentForm extends React.Component<Props> {
+    public componentDidUpdate = (prevProps: Props): void => {
+        const shouldCheckFormValidity = prevProps.paymentInvoiceData !== this.props.paymentInvoiceData;
 
-    const validateInvoiceInput = (key: string, value: string): boolean => (
-        checkFormInputValidity({ value, fieldConfig: invoiceConfigInputStable[ key ] })
-    );
-
-    const validateInvoiceForm = (formState: ICheckoutInvoiceState): boolean => (
-        checkFormValidity({ form: formState, fieldsConfig: invoiceConfigInputStable })
-    );
-
-    const handleInvoiceInputs = (event: InputChangeEvent): void => {
-        const { name, value } = event.target;
-        if (!paymentInvoiceData.hasOwnProperty(name)) {
-            throw new Error(InputSaveErrorMessage);
+        if (shouldCheckFormValidity) {
+            this.handleInvoiceValidity();
         }
-        const isInputValid = validateInvoiceInput(name, value);
-        const changedFiledData = {
-            key: name,
-            value,
-            isError: !isInputValid
-        };
+    };
+
+    protected handleInvoiceInputs = (event: InputChangeEvent): void => {
+        const { mutateStateInvoiceForm } = this.props;
+        const { name, value } = event.target;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: invoiceConfigInputStable[name] });
+        const changedFiledData = { key: name, value, isError: !isInputValid };
 
         mutateStateInvoiceForm(changedFiledData);
     };
 
-    const handleInvoiceValidity = (): void => {
-        const isFormValid = validateInvoiceForm(paymentInvoiceData);
+    protected handleInvoiceValidity = (): void => {
+        const { paymentInvoiceData, mutatePaymentSection } = this.props;
+        const isFormValid = checkFormValidity({ form: paymentInvoiceData, fieldsConfig: invoiceConfigInputStable });
         mutatePaymentSection(isFormValid);
     };
 
-    const handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
+    public render = (): JSX.Element => {
+        const { paymentInvoiceData } = this.props;
+
+        return (
+            <form name={ checkoutFormsNames.invoice }>
+                <Grid container spacing={ 24 }>
+                    <Grid item xs={ 12 }>
+                        <SprykerInput
+                            isRequired
+                            label={ <FormattedMessage id={ 'payment.date.of.birth.label' } /> }
+                            inputName={ invoiceConfigInputStable.dateOfBirth.inputName }
+                            onChangeHandler={ this.handleInvoiceInputs }
+                            inputValue={ paymentInvoiceData.dateOfBirth.value }
+                            isError={ paymentInvoiceData.dateOfBirth.isError }
+                            iconProps={{
+                                iconStartComponent: {
+                                    icon: <CalendarIcon />
+                                }
+                            }}
+                            maskProps={{
+                                format: dateBirthFormat,
+                                placeholder: 'DD/MM/YYYY'
+                            }}
+                            helperText={ <FormattedMessage id={ 'date.of.birth.error.message' } /> }
+                        />
+                    </Grid>
+                </Grid>
+            </form>
+        );
     };
-
-    const invoiceParams: IPaymentInvoiceParams = {
-        inputsData: paymentInvoiceData,
-        inputsConfig: invoiceConfigInputStable,
-        submitHandler: handleSubmit,
-        inputChangeHandler: handleInvoiceInputs,
-        onBlurHandler: handleInvoiceValidity
-    };
-
-    const invoiceFormSettings = getInvoiceFormSettings(checkoutFormsNames.invoice, invoiceParams);
-
-    return (
-        <Grid container>
-            <Grid item xs={ 12 }>
-                <SprykerForm form={ invoiceFormSettings } />
-            </Grid>
-        </Grid>
-    );
-};
-
-export const InvoicePaymentForm = connect(InvoicePaymentFormBase);
+}

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core';
 import { AppMain } from '@application/components/AppMain';
 import { CheckoutCart } from '@application/pages/CheckoutPage/CheckoutCart';
 import { AppPageTitle } from '@application/components/AppPageTitle';
-import { getAddressForm } from '@helpers/checkout';
+import { getAddressForm } from '@helpers/forms';
 import { ClickEvent } from '@interfaces/common';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { ICheckoutRequest } from '@interfaces/checkout';
@@ -27,7 +27,8 @@ import { styles } from './styles';
 @connect
 class CheckoutPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        isButtonDisabled: true
+        isButtonDisabled: true,
+        isDataSending: false
     };
 
     public componentDidMount = (): void => {
@@ -46,8 +47,11 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             isCheckoutFulfilled,
             customerReference,
             getCustomerData,
-            isCheckoutInitiated
+            isCheckoutInitiated,
+            orderId,
+            history
         } = this.props;
+        const { isDataSending } = this.state;
 
         if (!prevProps.isCheckoutFulfilled && isCheckoutFulfilled) {
             if (!profile && isUserLoggedIn && customerReference) {
@@ -55,12 +59,20 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             }
         }
 
-        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated) {
+        if (isCheckoutLoading && !prevProps.isCheckoutLoading) {
+            this.setState({ isDataSending: false });
+        }
+
+        if (prevProps.isCheckoutInitiated && !isCheckoutInitiated && !isDataSending) {
             this.getCheckoutData();
         }
 
         if (isCheckoutLoading !== prevProps.isCheckoutLoading) {
             this.setState({ isButtonDisabled: isCheckoutLoading });
+        }
+
+        if (!prevProps.orderId && orderId) {
+            history.push(pathCheckoutThanks);
         }
     };
 
@@ -77,7 +89,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     protected handleSubmit = (event: ClickEvent): void => {
-        this.setState({ isButtonDisabled: true });
+        this.setState({ isButtonDisabled: true, isDataSending: true });
         event.preventDefault();
         const {
             addressesCollection,
@@ -91,8 +103,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             deliveryNewAddress,
             billingNewAddress,
             paymentMethod,
-            shipmentMethod,
-            history
+            shipmentMethod
         } = this.props;
 
         const payload: ICheckoutRequest = {};
@@ -137,7 +148,6 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         };
 
         sendCheckoutData(payload, customerIdInspection);
-        history.push(pathCheckoutThanks);
     };
 
     protected shouldHideOrderInfo = (): boolean => {
@@ -159,12 +169,14 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
         const isSummaryPage = pathname === pathCheckoutSummaryStep;
+        const isThanksPage = pathname === pathCheckoutThanks;
+        const isLoginPage = pathname === pathCheckoutLoginStep;
 
         if (pathCheckoutPage === pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
-        if (!isProductsExists) {
+        if (!isProductsExists && !isThanksPage && !isLoginPage) {
             return (
                 <AppMain classes={{ wrapper: classes.wrapper }}>
                     <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
@@ -175,8 +187,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         return (
             <>
                 <CheckoutBreadcrumbs />
-                { !isCheckoutLoading &&
-                    <AppMain classes={{ wrapper: classes.wrapper }}>
+                <AppMain classes={{ wrapper: classes.wrapper }}>
+                    { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>
                             <div
                                 className={`
@@ -201,8 +213,8 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                                 </div>
                             }
                         </div>
-                    </AppMain>
-                }
+                    }
+                </AppMain>
             </>
         );
     }
