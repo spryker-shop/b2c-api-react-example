@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { NavLink, Redirect } from 'react-router-dom';
 import { pathCheckoutLoginStep, pathOrderDetailsPageBase } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import DoneIcon from '@material-ui/icons/Done';
 import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
 import { ICheckoutThanksProps as Props } from './types';
 import { styles } from './styles';
@@ -36,20 +35,17 @@ class CheckoutThanksComponent extends React.Component<Props> {
                 <div className={ classes.thank }>
                     <FormattedMessage id={ 'order.success.thank.message' } />
                     { isUserLoggedIn &&
-                        <NavLink to={ `${pathOrderDetailsPageBase}/${orderId}` } className={ classes.link }>
-                            <FormattedMessage id={ 'word.here.title' } />
-                        </NavLink>
+                    <NavLink to={ `${ pathOrderDetailsPageBase }/${ orderId }` } className={ classes.link }>
+                        <FormattedMessage id={ 'word.here.title' } />
+                    </NavLink>
                     }
                 </div>
-                <div className={ `${classes.thank} ${classes.order}` }>
+                <div className={ `${ classes.thank } ${ classes.order }` }>
                     <FormattedMessage id={ 'order.id.title' } />: <span>{ orderId }</span>
-                </div>
-                <div className={ classes.doneIcon }>
-                    <DoneIcon />
                 </div>
             </div>
         );
-    }
+    };
 };
 
 export const CheckoutThanks = withStyles(styles)(CheckoutThanksComponent);

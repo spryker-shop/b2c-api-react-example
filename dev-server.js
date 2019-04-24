@@ -1,10 +1,10 @@
 const webpack = require( 'webpack' );
 const WebpackDevServer = require( 'webpack-dev-server' );
 
-const config = require( './server-config' );
+const config = require('./configs/env_config');
 const webpackConfig = require( './webpack.config' );
 
-if (config.webpackDevServer) {
+if (config.IS_DEV_SERVER) {
     new WebpackDevServer( webpack( webpackConfig ), {
         publicPath: webpackConfig.output.publicPath,
         hot: true,
