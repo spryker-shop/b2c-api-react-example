@@ -44,7 +44,7 @@ export const styles = (theme: Theme) => createStyles({
         height: 50,
         padding: '5px 42px 5px 13px',
         fontSize: 16,
-        lineHeight: 1.47,
+        lineHeight: 1.5,
         letterSpacing: 0.2,
         borderRadius: 4,
         background: theme.appColors.weekWhite,
@@ -123,7 +123,7 @@ export const styles = (theme: Theme) => createStyles({
     menuItem: {
         display: 'flex',
         fontSize: 14,
-        lineHeight: 1.46,
+        lineHeight: 1.5,
         padding: '11px 14px',
         marginBottom: 8,
         letterSpacing: 0.1,

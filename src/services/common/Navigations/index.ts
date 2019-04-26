@@ -1,5 +1,5 @@
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import * as navigationsActions from '@stores/actions/common/navigations';
 import { IApiResponseData } from '@services/types';

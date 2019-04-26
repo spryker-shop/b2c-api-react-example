@@ -21,7 +21,7 @@ import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
 import { getAnonymId, clearAnonymId } from '@helpers/common/anonymId';
 import { anonymIdFilFilled } from '@stores/actions/common/init';

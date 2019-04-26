@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { OrderSummaryProps as Props } from './types';
 import { NavLink } from 'react-router-dom';
 import { pathCheckoutPage } from '@constants/routes';
-import { CartTotal } from '@application/components/CartTotal';
+import { CartTotal } from '@components/CartTotal';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
@@ -12,7 +12,7 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            <Typography component="h3" variant="display2" className={ classes.title }>
+            <Typography component="h3" variant="h3" className={ classes.title }>
                 <FormattedMessage id={ 'your.order.title' } />
             </Typography>
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { CustomerPageProps } from './types';
-import { AppMain } from '@application/components/AppMain';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { AppMain } from '@components/AppMain';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { SideBar } from './SideBar';
 import { CustomerRouting } from './CustomerRouting';
 import { withStyles, Grid } from '@material-ui/core';
@@ -22,8 +22,8 @@ class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
                         </ErrorBoundary>
                     </Grid>
                     <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
-                        <Grid container className={ classes.rightPart }>
-                            <Grid item xs={ 12 }>
+                        <Grid container className={`${classes.rightPart} ${classes.fullHeight}`}>
+                            <Grid item xs={ 12 } className={ classes.fullHeight }>
                                 <CustomerRouting />
                             </Grid>
                         </Grid>

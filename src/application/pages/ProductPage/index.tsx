@@ -10,21 +10,22 @@ import {
 } from '@helpers/product';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
-import { AppMain } from '@application/components/AppMain';
-import { ProductImageSlider } from '@application/components/ProductImageSlider';
+import { AppMain } from '@components/AppMain';
+import { ProductImageSlider } from '@components/ProductImageSlider';
 import { ProductGeneralInfo } from './ProductGeneralInfo';
 import { ProductSuperAttribute } from './ProductSuperAttribute';
 import { ProductConfiguratorAddToCart } from './ProductConfiguratorAddToCart';
 import { ProductConfiguratorAddToWishlist } from './ProductConfiguratorAddToWishlist';
 import { ProductDetail } from './ProductDetail';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { IProductImage } from '@application/components/ProductImageSlider/types';
-import { ProductRelations } from '@application/containers/ProductRelations';
-import { Breadcrumbs } from '@application/components/Breadcrumbs';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { IProductImage } from '@components/ProductImageSlider/types';
+import { ProductRelations } from '@containers/ProductRelations';
+import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
 import { IBreadcrumbItem } from '@interfaces/category';
 import { styles } from './styles';
+import { Preloader } from '@components/Preloader';
 
 @(withRouter as Function)
 @connect
@@ -201,74 +202,71 @@ export class ProductPageComponent extends React.Component<Props, State> {
             this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
 
+        if (isComponentLoading) {
+            return <Preloader />;
+        }
+
         return (
             <div className={ classes.root }>
-                { !isComponentLoading &&
-                    <>
-                        <Breadcrumbs breadcrumbsList={ categoriesTree } />
-                        <AppMain>
-                            <Grid container spacing={ 16 } className={ classes.productMain }>
-                                <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
-                                    <div className={ classes.productPreview }>
-                                        <ProductImageSlider images={ images } />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={ 12 } sm={ 6 } md={ 5 }>
-                                    <div className={ classes.productContent }>
-                                        <ProductGeneralInfo
-                                            name={ name }
-                                            sku={ sku }
-                                            price={ priceDefaultGross }
-                                            oldPrice={ priceOriginalGross ? priceOriginalGross : null }
-                                            availability={ getAvailabilityDisplay(availability) }
-                                        />
+                <Breadcrumbs breadcrumbsList={ categoriesTree } />
+                <AppMain>
+                    <Grid container spacing={ 16 } className={ classes.productMain }>
+                        <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
+                            <div className={ classes.productPreview }>
+                                <ProductImageSlider images={ images } />
+                            </div>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 6 } md={ 5 }>
+                            <div className={ classes.productContent }>
+                                <ProductGeneralInfo
+                                    name={ name }
+                                    sku={ sku }
+                                    price={ priceDefaultGross }
+                                    oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                    availability={ getAvailabilityDisplay(availability) }
+                                />
 
-                                        { superAttributes &&
-                                            <ErrorBoundary>
-                                                <ProductSuperAttribute
-                                                    productData={ superAttributes }
-                                                    onChange={ this.handleSuperAttributesChange }
-                                                />
-                                            </ErrorBoundary>
-                                        }
-
-                                        <ErrorBoundary>
-                                            <ProductConfiguratorAddToCart
-                                                productType={ productType }
-                                                product={ this.props.product.concreteProducts[sku] }
-                                                sku={ sku }
-                                            />
-                                        </ErrorBoundary>
-
-                                        { isUserLoggedIn &&
-                                            <ErrorBoundary>
-                                                <ProductConfiguratorAddToWishlist
-                                                    productType={ productType }
-                                                    sku={ sku }
-                                                />
-                                            </ErrorBoundary>
-                                        }
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <ProductDetail
-                                attributes={ attributes }
-                                attributeNames={ attributeNames }
-                                description={ description }
-                                sku={ sku ? sku : this.props.product.abstractProduct.sku }
-                            />
-                            {shouldLoadRelationsImmediately &&
+                                { superAttributes &&
                                 <ErrorBoundary>
-                                    <ProductRelations
-                                        classes={{ root: classes.sliderWrapper, slider: classes.slider }}
-                                        sku={ this.props.product.abstractProduct.sku }
-                                        title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                                    <ProductSuperAttribute
+                                        productData={ superAttributes }
+                                        onChange={ this.handleSuperAttributesChange }
                                     />
                                 </ErrorBoundary>
-                            }
-                        </AppMain>
-                    </>
-                }
+                                }
+
+                                <ErrorBoundary>
+                                    <ProductConfiguratorAddToCart
+                                        productType={ productType }
+                                        product={ this.props.product.concreteProducts[sku] }
+                                        sku={ sku }
+                                    />
+                                </ErrorBoundary>
+
+                                { isUserLoggedIn &&
+                                <ErrorBoundary>
+                                    <ProductConfiguratorAddToWishlist productType={ productType } sku={ sku } />
+                                </ErrorBoundary>
+                                }
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <ProductDetail
+                        attributes={ attributes }
+                        attributeNames={ attributeNames }
+                        description={ description }
+                        sku={ sku ? sku : this.props.product.abstractProduct.sku }
+                    />
+                    {shouldLoadRelationsImmediately &&
+                    <ErrorBoundary>
+                        <ProductRelations
+                            classes={{ root: classes.sliderWrapper, slider: classes.slider }}
+                            sku={ this.props.product.abstractProduct.sku }
+                            title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                        />
+                    </ErrorBoundary>
+                    }
+                </AppMain>
             </div>
         );
     }

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { WishlistPageProps as Props, WishlistPageState as State } from './types';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
-import { AppPageTitle } from '@application/components/AppPageTitle';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { AppPageTitle } from '@components/AppPageTitle';
 import { WishlistMenu } from './WishlistMenu';
 import { WishlistItemsTable } from './WishlistItemsTable';
 import { Grid, withStyles } from '@material-ui/core';
@@ -68,7 +68,6 @@ export class WishlistDetailBase extends React.Component<Props, State> {
                     <AppPageTitle
                         classes={{
                             root: classes.appPageTitleRoot,
-                            pageHeader: classes.appPageTitleRootPageHeader
                         }}
 
                         title={<FormattedMessage id={'word.wishlist.title'} />}

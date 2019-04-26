@@ -57,7 +57,7 @@ export interface ICartItem {
 }
 
 export interface ICartDataResponse extends ICommonDataInCart {
-    isCartEmpty: boolean;
+    isCartEmpty?: boolean;
     items: ICartItem[];
     totalQty?: number;
 }

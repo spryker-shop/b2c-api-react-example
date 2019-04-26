@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { getCartTotals, getProductsFromCart, getTotalItemsQuantity } from '@stores/reducers/common/cart/selectors';
 import { getAppLocale } from '@stores/reducers/common/init/selectors';
 import { ICartItem, ICartTotals } from '@interfaces/cart';

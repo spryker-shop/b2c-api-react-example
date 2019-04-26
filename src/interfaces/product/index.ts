@@ -1,5 +1,4 @@
 import { ISuperAttribute } from '@helpers/product/types';
-import { IAvailableLabelsCollection, IProductsLabeledCollection } from '@interfaces/searchPageData';
 
 // Constants
 export const concreteProductType = 'concreteProduct';
@@ -27,8 +26,6 @@ export type TProductCurrencySymbol = string;
 export type TProductAvailability = boolean;
 export type TProductAttributes = object;
 export type TProductImageSRC = string;
-export type TProductAttributeMap = object;
-export type TProductLabelPosition = number;
 export type TProductIsNeverOutOfStock = boolean;
 
 export const priceTypeNameDefault = 'DEFAULT';
@@ -42,8 +39,6 @@ export type TPriceTypeOriginalNet = number | null;
 export type TPriceTypeDefaultGross = number | null;
 export type TPriceTypeDefaultNet = number | null;
 export type TAppPriceMode = string | null;
-
-export type TProductCardImagesCollection = IProductCardImages[];
 
 // Interfaces
 
@@ -130,7 +125,7 @@ export interface IProductDataParsed {
 export interface IProductLabel {
     type: string;
     text: string;
-    position: TProductLabelPosition;
+    position: number;
 }
 
 export interface IProductAttributesRawResponse {

@@ -1,5 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 
 import { getRouterHistoryBack, getRouterMatchParam } from '@helpers/router';
 import { ICountry } from '@interfaces/country';

@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

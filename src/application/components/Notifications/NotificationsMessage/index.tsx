@@ -1,15 +1,11 @@
 import React from 'react';
-import { NotificationsMessageTemplate } from '@application/components/Notifications/NotificationsMessageTemplate';
-import { INotificationsMessage } from '../types';
+import { NotificationsMessageTemplate } from '@components/Notifications/NotificationsMessageTemplate';
+import { INotificationsMessageProps as Props } from '../types';
 import { toast } from 'react-toastify';
 import { SuccessIcon, RejectIcon } from './icons';
-import {
-    typeNotificationWarning,
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
+import { typeNotificationWarning, typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
-export const NotificationsMessage: Function = (props: INotificationsMessage) => {
+export const NotificationsMessage: Function = (props: Props) => {
     const {type} = props;
     let toastType;
     let iconComponent;
@@ -34,7 +30,7 @@ export const NotificationsMessage: Function = (props: INotificationsMessage) => 
     const propsForMessage = {
         ...props,
         icon: iconComponent
-    }
+    };
 
     return (
         toast(<NotificationsMessageTemplate {...propsForMessage} />, {

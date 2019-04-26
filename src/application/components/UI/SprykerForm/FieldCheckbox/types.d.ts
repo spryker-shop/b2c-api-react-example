@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { sprykerFormStyles } from '@application/components/UI/SprykerForm/sprykerFormStyles';
-import { IFormField } from '@application/components/UI/SprykerForm/types';
+import { sprykerFormStyles } from '@components/UI/SprykerForm/sprykerFormStyles';
+import { IFormField } from '@components/UI/SprykerForm/types';
 
 export interface IFieldCheckboxProps extends WithStyles<typeof sprykerFormStyles> {
     label: IFormField['label'];

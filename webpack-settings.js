@@ -47,13 +47,13 @@ const loaders = [
     {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
     {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'},
     cssLoader,
+    {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
     {test: /\.(jpg|png)$/, loader: 'url-loader?limit=8000'}
 ];
 
 const aliases = {
     src: path.resolve(__dirname, 'src'),
     '@constants': path.resolve(__dirname, 'src/constants'),
-    '@application': path.resolve(__dirname, 'src/application'),
     '@components': path.resolve(__dirname, 'src/application/components'),
     '@containers': path.resolve(__dirname, 'src/application/containers'),
     '@hoc': path.resolve(__dirname, 'src/application/hoc'),

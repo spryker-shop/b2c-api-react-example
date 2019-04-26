@@ -14,7 +14,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black,
         fontSize: theme.appFixedDimensions.fontSize.medium,
         letterSpacing: '-0.4px',
-        lineHeight: 1.63,
+        lineHeight: 1.6,
         marginBottom: theme.spacing.unit * 1.5,
         marginTop: theme.spacing.unit * 2,
     },

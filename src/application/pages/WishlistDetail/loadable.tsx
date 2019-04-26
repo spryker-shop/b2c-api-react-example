@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
-import { FormattedMessage } from 'react-intl';
+import { Preloader } from '@components/Preloader';
 
 export const LoadableWishlistDetail = Loadable({
     loader: () =>
-        import('@application/pages/WishlistDetail').then(
+        import('@pages/WishlistDetail').then(
             module => module.default,
         ),
-    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
+    loading: () => <Preloader />,
 });

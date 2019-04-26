@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
-import { FormattedMessage } from 'react-intl';
+import { Preloader } from '@components/Preloader';
 
 export const LoadableCheckoutSummaryStep = Loadable({
     loader: () =>
         import('@pages/CheckoutPage/CheckoutSummaryStep').then(
             module => module.CheckoutSummaryStep,
         ),
-    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
+    loading: () => <Preloader />,
 });

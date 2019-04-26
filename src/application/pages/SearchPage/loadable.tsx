@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Loadable from 'react-loadable';
-import { FormattedMessage } from 'react-intl';
+import { Preloader } from '@components/Preloader';
 
 export const LoadableSearchPage = Loadable({
     loader: () =>
-        import('@application/pages/SearchPage').then(
+        import('@pages/SearchPage').then(
             module => module.SearchPage,
         ),
-    loading: () => <div><FormattedMessage id={ 'word.loading.title' } /></div>,
+    loading: () => <Preloader />,
 });

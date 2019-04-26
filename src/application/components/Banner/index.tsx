@@ -12,7 +12,7 @@ const BannerComponent: React.SFC<Props> = (props): JSX.Element => {
             <div className={ classes.container }>
                 <Grid container className={ classes.content }>
                     <Grid item xs={ 7 } sm={ 8 } md={ 7 } lg={ 6 } className={ classes.holder }>
-                        <Typography component="h1" variant="display4" className={ classes.title }>
+                        <Typography component="h1" variant="h1" className={ classes.title }>
                             <span>{ titleFirst }</span>
                             { titleSecond &&
                                 <span>{ titleSecond }</span>

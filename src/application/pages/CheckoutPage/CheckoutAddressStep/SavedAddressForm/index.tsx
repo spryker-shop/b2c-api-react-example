@@ -68,7 +68,11 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 root: `${classes.inputRadio} ${(currentMode === item.value) ? classes.checkedInputRadio : '' }`,
                 label: `${classes.radioLabel} ${(currentMode === item.value) ? classes.checkedRadioLabel : '' }`
             }}
-            control={ <Radio classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
+            control={ <Radio
+                classes={{ root: classes.radio }}
+                checkedIcon={ <span className={ classes.radioIcon } /> }
+                icon={ <span className={ classes.radioIcon } /> }
+            /> }
             label={ <>{ Boolean(item.salutation) && item.salutation }{ item.label }</> }
         />
     ));

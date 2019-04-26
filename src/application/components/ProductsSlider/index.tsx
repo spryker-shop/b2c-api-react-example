@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ISlickSliderProps as Props } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import Slider, { Settings } from 'react-slick';
-import { ProductCard } from '@application/components/ProductCard';
+import { ProductCard } from '@components/ProductCard';
 import { ArrowButton } from './ArrowButton';
 import { PrevIcon, NextIcon } from './icons';
 import { Grid, withStyles, withWidth } from '@material-ui/core';

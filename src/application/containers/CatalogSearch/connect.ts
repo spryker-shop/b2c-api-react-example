@@ -1,5 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { FlyoutSearch } from '@interfaces/searchPageData';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { clearSuggestions, sendSuggestionAction } from '@stores/actions/pages/search';

@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { clearCheckoutDataForm } from '@stores/actions/pages/checkout';
 
 const mapDispatchToProps = (dispatch: Function) => ({

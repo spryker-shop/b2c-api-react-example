@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { getRouterMatchParam } from '@helpers/router';
 import { resetPasswordAction } from '@stores/actions/pages/login';
 import { isPageLoginStateLoading } from '@stores/reducers/pages/login';

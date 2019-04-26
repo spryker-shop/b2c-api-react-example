@@ -4,7 +4,7 @@ import { pathForgotPassword } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import { withStyles, Button, Grid, Typography } from '@material-ui/core';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
+import { SprykerInput } from '@components/UI/SprykerInput';
 import { ILoginFormProps as Props, ILoginFormState as State } from './types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
@@ -95,7 +95,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
                         </Grid>
                     </Grid>
                 </form>
-                <Typography align="center" component="div" variant="headline" color="textSecondary">
+                <Typography align="center" component="div" variant="h5" color="textSecondary">
                     <NavLink to={ pathForgotPassword } className={ classes.link }>
                         <FormattedMessage id={ 'forgot.password.title' } />
                     </NavLink>

@@ -7,9 +7,9 @@ import { WishListItemsTableProps, WishListItemsTableState, ItemPrices } from './
 import { ClickEvent } from '@interfaces/common';
 import { IWishlistProduct } from '@interfaces/wishlist';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
-import { ICellInfo, ITableRow } from '@application/components/AppTable/types';
-import { AppTable } from '@application/components/AppTable';
-import { AppPrice } from '@application/components/AppPrice';
+import { ICellInfo, ITableRow } from '@components/AppTable/types';
+import { AppTable } from '@components/AppTable';
+import { AppPrice } from '@components/AppPrice';
 import { WishlistItemBaseInfo } from '../WishlistItemBaseInfo';
 import { Typography, Paper, Button, Divider, withStyles } from '@material-ui/core';
 import { styles } from './styles';

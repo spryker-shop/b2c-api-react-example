@@ -11,13 +11,13 @@ import {
     pathWishlistDetailPage,
     pathWishlistsPage,
 } from '@constants/routes';
-import { LoadableOrderHistoryPage } from '@application/pages/OrderHistoryPage/loadable';
-import { LoadableCustomerAddressPage } from '@application/pages/CustomerAddressesPage/loadable';
-import { LoadableWishlistPage } from '@application/pages/WishlistPage/loadable';
-import { LoadableOrderDetailsPage } from '@application/pages/OrderDetailsPage/loadable';
-import { LoadableCustomerProfilePage } from '@application/pages/CustomerProfilePage/loadable';
-import { LoadableWishlistDetail } from '@application/pages/WishlistDetail/loadable';
-import { CustomerAddressForm } from '@application/pages/CustomerAddressForm';
+import { LoadableOrderHistoryPage } from '@pages/OrderHistoryPage/loadable';
+import { LoadableCustomerAddressPage } from '@pages/CustomerAddressesPage/loadable';
+import { LoadableWishlistPage } from '@pages/WishlistPage/loadable';
+import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
+import { LoadableCustomerProfilePage } from '@pages/CustomerProfilePage/loadable';
+import { LoadableWishlistDetail } from '@pages/WishlistDetail/loadable';
+import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 
 export const CustomerRouting: React.SFC = (): JSX.Element => (
     <Switch>

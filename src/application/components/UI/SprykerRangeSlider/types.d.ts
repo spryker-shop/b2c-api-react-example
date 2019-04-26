@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/components/UI/SprykerRangeSlider/styles';
+import { styles } from '@components/UI/SprykerRangeSlider/styles';
 import { TAppCurrency } from '@interfaces/currency';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 import { ClickEvent } from '@interfaces/common';

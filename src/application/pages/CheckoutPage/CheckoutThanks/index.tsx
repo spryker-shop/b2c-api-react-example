@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { NavLink, Redirect } from 'react-router-dom';
 import { pathCheckoutLoginStep, pathOrderDetailsPageBase } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
+import { CustomerPageTitle } from '@components/CustomerPageTitle';
 import { ICheckoutThanksProps as Props } from './types';
 import { styles } from './styles';
 

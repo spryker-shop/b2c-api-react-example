@@ -60,7 +60,7 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <div className={ classes.userDrop } onMouseLeave={ onMouseLeave } onMouseEnter={ onMouseEnter }>
-            <Typography component="h4" variant="display1" className={ classes.title }>
+            <Typography component="h4" variant="h4" className={ classes.title }>
                 <FormattedMessage id={ 'account.title' } />
             </Typography>
             { isUserLoggedIn ? loggedInUser : notLoggedInUser }

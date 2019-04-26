@@ -13,7 +13,7 @@ import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICartCreatePayload } from './types';
 import { IResponseError } from '@services/apiAbstractions/types';
 import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
     typeNotificationError

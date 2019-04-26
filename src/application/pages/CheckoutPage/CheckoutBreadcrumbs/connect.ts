@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 

@@ -7,10 +7,10 @@ import {
     IProfileFieldInput
 } from './types';
 import { TSalutationVariant } from '@interfaces/customer';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
-import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
+import { SprykerButton } from '@components/UI/SprykerButton';
+import { SprykerForm } from '@components/UI/SprykerForm';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
+import { CustomerPageTitle } from '@components/CustomerPageTitle';
 import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { Grid, withStyles } from '@material-ui/core';

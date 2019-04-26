@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import { SquareImage } from '@application/components/SquareImage';
-import { AppPrice } from '@application/components/AppPrice';
+import { SquareImage } from '@components/SquareImage';
+import { AppPrice } from '@components/AppPrice';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { ICartItem } from '@interfaces/cart';
 import { ICheckoutCartProductListProps as Props } from './types';
@@ -42,7 +42,7 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                     <Grid item className={ classes.contentOuter }>
                         <Grid container>
                             <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
-                                <Typography component="h5" variant="headline" className={classes.name}>
+                                <Typography component="h5" variant="h5" className={classes.name}>
                                     { name }
                                 </Typography>
                                 { renderSuperAttributes }

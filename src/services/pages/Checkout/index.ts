@@ -13,7 +13,7 @@ import {
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICheckoutResponseData } from '@stores/reducers/pages/checkout/types';
 import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
     typeNotificationError

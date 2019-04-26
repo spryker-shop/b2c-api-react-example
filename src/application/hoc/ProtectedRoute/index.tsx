@@ -3,7 +3,7 @@ import { Route, withRouter } from 'react-router';
 import { Props } from './types';
 import { connect } from './connect';
 import { pathLoginPage } from '@constants/routes';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
 
 @connect
@@ -16,7 +16,7 @@ export class ProtectedRoute extends React.PureComponent<Props> {
     // Component lifecycle methods
     public componentDidMount = (): void => {
         this.checkAuthorized(false);
-    }
+    };
 
     public componentDidUpdate = (prevProps: Props): void => {
         if (prevProps.isUserLoggedIn && !this.props.isUserLoggedIn) {

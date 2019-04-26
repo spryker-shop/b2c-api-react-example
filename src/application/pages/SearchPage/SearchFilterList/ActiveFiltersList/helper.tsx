@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { filterTypeRange, IFilterItem, RangeType } from '../types';
 import { rangeFilterValueToBack } from '@helpers/common/transform';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 
 /**
  *

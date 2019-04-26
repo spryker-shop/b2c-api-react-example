@@ -79,6 +79,7 @@ export const appButtons: Overrides = {
             }
         },
         outlined: {
+            padding: '13px 15px',
             backgroundColor: appColors.white,
             color: appColors.blue,
             borderColor: appColors.lightGrey,
@@ -91,6 +92,9 @@ export const appButtons: Overrides = {
                 backgroundColor: appColors.darkBlue,
                 color: appColors.white,
                 borderColor: appColors.darkBlue
+            },
+            '&$disabled': {
+                borderColor: appColors.lightGrey
             },
             '@media (hover: none)': {
                 '&:hover, &:active': {
