@@ -4,7 +4,6 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     label: {
         display: 'block',
-        position: 'static',
         paddingBottom: 10,
         color: theme.appColors.grey,
         fontSize: 15,

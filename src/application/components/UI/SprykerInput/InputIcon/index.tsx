@@ -48,7 +48,7 @@ export const InputIconComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            { tooltip ?  renderTooltip() : renderIconComponent()}
+            { tooltip ?  renderTooltip() : renderIconComponent() }
         </>
     );
 };

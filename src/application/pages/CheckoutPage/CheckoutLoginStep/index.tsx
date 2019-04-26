@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { pathCheckoutAddressStep } from '@constants/routes';
+import { pathCheckoutAddressStep, pathCartPage } from '@constants/routes';
 import { Button, Grid, Typography, withStyles } from '@material-ui/core';
 import { LoginForm } from '@containers/LoginForm';
 import { ICheckoutLoginStep as Props } from './types';
@@ -10,11 +10,7 @@ import { LockIcon } from './icons';
 import { styles } from './styles';
 
 const CheckoutLoginStepComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, isUserLoggedIn, clearCheckoutDataForm } = props;
-
-    if (isUserLoggedIn) {
-        return <Redirect to={ pathCheckoutAddressStep } />;
-    }
+    const { classes, clearCheckoutDataForm } = props;
 
     return (
         <>
@@ -43,12 +39,9 @@ const CheckoutLoginStepComponent: React.SFC<Props> = (props): JSX.Element => {
                             <FormattedMessage id={ 'returning.customers.title' } />
                         </Typography>
                         <Typography color="textSecondary" variant="h6" className={ classes.subheading }>
-                            <FormattedMessage id={ 'login.customers.message' } />
+                            <FormattedMessage id={ 'checkout.login.message'} />
                         </Typography>
-                        <LoginForm
-                            redirectAfterLoginPath={ pathCheckoutAddressStep }
-                            onSubmitHandler={ clearCheckoutDataForm }
-                        />
+                        <LoginForm redirectAfterLoginPath={ pathCartPage } />
                     </Grid>
                 </Grid>
             </div>
