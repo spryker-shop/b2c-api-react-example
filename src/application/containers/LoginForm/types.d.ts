@@ -6,11 +6,11 @@ import { WithRouter } from '@interfaces/common';
 
 export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     isAuth?: boolean;
-    handleSubmitLoginForm: Function;
-    getCustomerCart: Function;
-    isLoading: boolean;
+    handleSubmitLoginForm?: Function;
+    getCustomerCart?: Function;
+    isLoading?: boolean;
     redirectAfterLoginPath: string;
-    isCartLoading: boolean;
+    isCartLoading?: boolean;
 }
 
 export interface ILoginFormState {

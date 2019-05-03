@@ -38,30 +38,11 @@ export const SprykerFormBase: React.SFC<Props> = (props): JSX.Element => {
         />
     );
 
-    const getSelectField = (field: IFormField) => (
-        <SprykerSelect
-            currentMode={ field.inputValue }
-            onChangeHandler={ field.onChangeOwnHandler ? field.onChangeOwnHandler : onChangeHandler }
-            menuItems={ field.menuItems }
-            name={ field.inputName }
-            label={ field.label ? field.label : null }
-            selectClassName={ classes.input }
-            isFullWidth={ true }
-            isRequired={ field.isRequired ? field.isRequired : false }
-            menuItemFirst={ field.menuItemFirst ? field.menuItemFirst : null }
-            extraTitleClassName={ `${classes.selectLabel} ${classes.label}` }
-            extraFormControlClassName={ classes.selectFormControlClassName }
-            extraRootClassName={ classes.selectRoot }
-            extraInputRootClassName={ classes.selectInputRoot }
-            extraSelectFieldClassName={ classes.inputRoot }
-        />
-    );
-
     const getCheckboxField = (field: IFormField) => (
         <FieldCheckbox
             inputName={ field.inputName }
             label={ field.label ? field.label : null }
-            isChecked={ field.inputValue }
+            isChecked={ Boolean(field.inputValue) }
             changeHandler={ field.onChangeOwnHandler ? field.onChangeOwnHandler : onChangeHandler }
         />
     );
@@ -69,7 +50,7 @@ export const SprykerFormBase: React.SFC<Props> = (props): JSX.Element => {
     const getRadioField = (field: IFormField) => (
         <FieldRadio
             inputName={ field.inputName }
-            currentMode={ field.inputValue }
+            currentMode={ field.inputValue.toString() }
             radioItems={ field.radioItems }
             label={ field.label ? field.label : null }
             labelIcon={ field.labelIcon ? field.labelIcon : null }
@@ -103,8 +84,6 @@ export const SprykerFormBase: React.SFC<Props> = (props): JSX.Element => {
                             let fieldComponent: JSX.Element | null;
                             if (field.type === 'input') {
                                 fieldComponent = getTextInput(field);
-                            } else if (field.type === 'select' && field.menuItems && field.menuItems.length > 0) {
-                                fieldComponent = getSelectField(field);
                             } else if (field.type === 'checkbox') {
                                 fieldComponent = getCheckboxField(field);
                             } else if (field.type === 'radio') {

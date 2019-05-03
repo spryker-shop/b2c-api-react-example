@@ -62,11 +62,11 @@ class CustomerAddressBase extends React.Component<Props, State> {
                 </Grid>
 
                 <Grid item xs={ 12 } sm={ 3 } className={ classes.addButton }>
-                    <SprykerButton
-                        title={ <FormattedMessage id={ 'add.address.title' } /> }
-                        onClick={ this.handleAddAddress }
-                        disabled={ isLoading }
-                    />
+                    {/*<SprykerButton*/}
+                        {/*title={ <FormattedMessage id={ 'add.address.title' } /> }*/}
+                        {/*onClick={ this.handleAddAddress }*/}
+                        {/*disabled={ isLoading }*/}
+                    {/*/>*/}
                 </Grid>
             </Grid>
         );

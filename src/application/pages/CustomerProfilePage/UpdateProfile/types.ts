@@ -10,10 +10,9 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from '../styles';
 
 export interface IUpdateProfileProps extends WithStyles<typeof styles> {
-    customerData: ICustomerDataParsed;
+    customerData?: ICustomerDataParsed;
     customerReference: TCustomerReference;
-
-    updateCustomerData(customerReference: TCustomerReference, payload: ICustomerProfileIdentity): void;
+    updateCustomerData?: (customerReference: TCustomerReference, payload: ICustomerProfileIdentity) => void;
 }
 
 export interface IUpdateProfileState extends ICustomerProfileIdentity {

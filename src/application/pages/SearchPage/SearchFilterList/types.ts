@@ -3,16 +3,16 @@ import { styles } from './styles';
 import { IActiveFilters, RangeFacets, ValueFacets } from '@interfaces/searchPageData';
 
 export interface ISearchFilterListProps extends WithStyles<typeof styles> {
-    isLoading: boolean;
-    isFulfilled: boolean;
-    filters: ValueFacets[];
-    activeFilters: TActiveFilters;
-    rangeFilters: RangeFacets[];
-    activeRangeFilters: TActiveRangeFilters;
-    setActiveFilters: (activeFilters: IActiveFilters) => void;
-    clearActiveFilters: () => void;
-    updateStore: Function;
-    categoriesList: (isOpened: boolean, Function: void) => JSX.Element;
+    isLoading?: boolean;
+    isFulfilled?: boolean;
+    filters?: ValueFacets[];
+    activeFilters?: TActiveFilters;
+    rangeFilters?: RangeFacets[];
+    activeRangeFilters?: TActiveRangeFilters;
+    setActiveFilters?: (activeFilters: IActiveFilters) => void;
+    clearActiveFilters?: () => void;
+    updateStore?: Function;
+    categoriesList: (isOpened: boolean, onTitleClickHandler?: () => void) => JSX.Element;
     isPageLocked?: (value: boolean) => void;
 }
 

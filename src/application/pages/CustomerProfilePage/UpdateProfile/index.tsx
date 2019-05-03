@@ -111,21 +111,21 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
             <>
                 <CustomerPageTitle title="profile" />
 
-                <SprykerForm
-                    form={ formOptions }
-                    SubmitButton={
-                        <Grid container>
-                            <Grid item xs={ 12 } sm={ 2 }>
-                                <SprykerButton
-                                    title={ <FormattedMessage id={ 'word.update.title' } /> }
-                                    btnType="submit"
-                                    extraClasses={ classes.submitButton }
-                                />
-                            </Grid>
-                        </Grid>
-                    }
-                    formClassName={ classes.form }
-                />
+                {/*<SprykerForm*/}
+                    {/*form={ formOptions }*/}
+                    {/*SubmitButton={*/}
+                        {/*<Grid container>*/}
+                            {/*<Grid item xs={ 12 } sm={ 2 }>*/}
+                                {/*<SprykerButton*/}
+                                    {/*title={ <FormattedMessage id={ 'word.update.title' } /> }*/}
+                                    {/*btnType="submit"*/}
+                                    {/*extraClasses={ classes.submitButton }*/}
+                                {/*/>*/}
+                            {/*</Grid>*/}
+                        {/*</Grid>*/}
+                    {/*}*/}
+                    {/*formClassName={ classes.form }*/}
+                {/*/>*/}
             </>
         );
     }

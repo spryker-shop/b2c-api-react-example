@@ -9,5 +9,5 @@ export type IProductImage = {
 
 export interface IProductImageSliderProps extends WithStyles<typeof styles> {
     images: IProductImage[];
-    productLabels: IProductLabel[] | null;
+    productLabels?: IProductLabel[] | null;
 }

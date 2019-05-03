@@ -112,21 +112,21 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
             <>
                 <CustomerPageTitle title={<FormattedMessage id={ 'change.password.title' } />} />
 
-                <SprykerForm
-                    form={ formOptions }
-                    SubmitButton={
-                        <Grid container>
-                            <Grid item xs={ 12 } sm={ 2 }>
-                                <SprykerButton
-                                    title={ <FormattedMessage id={ 'word.update.title' } /> }
-                                    btnType="submit"
-                                    extraClasses={ classes.submitButton }
-                                />
-                            </Grid>
-                        </Grid>
-                    }
-                    formClassName={ classes.form }
-                />
+                {/*<SprykerForm*/}
+                    {/*form={ formOptions }*/}
+                    {/*SubmitButton={*/}
+                        {/*<Grid container>*/}
+                            {/*<Grid item xs={ 12 } sm={ 2 }>*/}
+                                {/*<SprykerButton*/}
+                                    {/*title={ <FormattedMessage id={ 'word.update.title' } /> }*/}
+                                    {/*btnType="submit"*/}
+                                    {/*extraClasses={ classes.submitButton }*/}
+                                {/*/>*/}
+                            {/*</Grid>*/}
+                        {/*</Grid>*/}
+                    {/*}*/}
+                    {/*formClassName={ classes.form }*/}
+                {/*/>*/}
             </>
         );
     }

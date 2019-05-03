@@ -8,12 +8,11 @@ import {
 import { WithStyles } from '@material-ui/core';
 import { styles } from '../styles';
 
-export interface IChangePasswordProps extends ICustomerProfilePassword, WithStyles<typeof styles> {
-    customerData: ICustomerDataParsed;
+export interface IChangePasswordProps extends Partial<ICustomerProfilePassword>, WithStyles<typeof styles> {
+    customerData?: ICustomerDataParsed;
     customerReference: TCustomerReference;
-    passwordUpdated: boolean;
-
-    updateCustomerPassword(customerReference: TCustomerReference, payload: ICustomerProfilePassword): void;
+    passwordUpdated?: boolean;
+    updateCustomerPassword?: (customerReference: TCustomerReference, payload: ICustomerProfilePassword) => void;
 }
 
 export interface IChangePasswordState extends ICustomerProfilePassword {

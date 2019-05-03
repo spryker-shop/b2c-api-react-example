@@ -14,14 +14,14 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
     product: IProductPropFullData | null;
     productType: TProductType | null;
     sku: TProductSKU | null;
-    isUserLoggedIn: boolean;
-    addItemToCart: Function;
-    addItemGuestCart: Function;
-    createCartAndAddItem: Function;
-    cartCreated: boolean;
-    cartId: TCartId;
-    payloadForCreateCart: ICartCreatePayload;
-    anonymId: string;
+    isUserLoggedIn?: boolean;
+    addItemToCart?: Function;
+    addItemGuestCart?: Function;
+    createCartAndAddItem?: Function;
+    cartCreated?: boolean;
+    cartId?: TCartId;
+    payloadForCreateCart?: ICartCreatePayload;
+    anonymId?: string;
 }
 
 export interface IProductConfiguratorAddToCartState {

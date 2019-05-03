@@ -21,14 +21,14 @@ import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 
 export const CustomerRouting: React.SFC = (): JSX.Element => (
     <Switch>
-        <Route path={ pathCustomerPage } exact render={ props => <LoadableCustomerProfilePage {...props} /> }/>
-        <Route path={ pathCustomerAddressesPage } exact render={ props => <LoadableCustomerAddressPage {...props} /> }/>
-        <Route path={ pathAddressFormUpdate } exact render={ props => <CustomerAddressForm {...props} /> }/>
-        <Route path={ pathAddressFormNew } exact render={ props => <CustomerAddressForm {...props} /> }/>
-        <Route path={ pathWishlistsPage } exact render={ props => <LoadableWishlistPage {...props} /> }/>
-        <Route path={ pathWishlistDetailPage } exact render={ props => <LoadableWishlistDetail {...props} /> }/>
-        <Route path={ pathOrderHistoryPage } exact render={ props => <LoadableOrderHistoryPage {...props} /> }/>
-        <Route path={ pathOrderDetailsPage } exact render={ props => <LoadableOrderDetailsPage {...props} /> }/>
-        <Route path={ pathCustomerProfilePage } exact render={ props => <LoadableCustomerProfilePage {...props} /> }/>
+        <Route path={ pathCustomerPage } exact component={ LoadableCustomerProfilePage } />
+        <Route path={ pathCustomerAddressesPage } exact component={ LoadableCustomerAddressPage }/>
+        <Route path={ pathAddressFormUpdate } exact component={ CustomerAddressForm }/>
+        <Route path={ pathAddressFormNew } exact component={ CustomerAddressForm }/>
+        <Route path={ pathWishlistsPage } exact component={ LoadableWishlistPage }/>
+        <Route path={ pathWishlistDetailPage } exact component={ LoadableWishlistDetail }/>
+        <Route path={ pathOrderHistoryPage } exact component={ LoadableOrderHistoryPage }/>
+        <Route path={ pathOrderDetailsPage } exact component={ LoadableOrderDetailsPage }/>
+        <Route path={ pathCustomerProfilePage } exact component={ LoadableCustomerProfilePage }/>
     </Switch>
 );

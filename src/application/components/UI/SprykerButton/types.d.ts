@@ -9,5 +9,5 @@ export interface ISprykerButtonProps extends WithStyles<typeof styles> {
     onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
     iconComponent?: JSX.Element;
     value?: string | number;
-    btnType?: string;
+    btnType?: 'button' | 'reset' | 'submit';
 }

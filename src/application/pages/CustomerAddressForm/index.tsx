@@ -144,26 +144,26 @@ export class CustomerAddressFormComponent extends React.Component<Props, State> 
                 </Grid>
 
                 <Grid item xs={9}>
-                    <SprykerForm
-                        form={{
-                            formName: 'addressForm',
-                            onChangeHandler: this.handleChange,
-                            onSubmitHandler: this.handleSubmitForm,
-                            fields: setFormFields(currentState, countries, this.handleCheckbox)
-                        }}
-                        SubmitButton={
-                            <Grid container>
-                                <Grid item xs={12} sm={4}>
-                                    <SprykerButton
-                                        title={<FormattedMessage id={'word.save.title'} />}
-                                        btnType="submit"
-                                        extraClasses={classes.addButton}
-                                        disabled={isLoading}
-                                    />
-                                </Grid>
-                            </Grid>
-                        }
-                    />
+                    {/*<SprykerForm*/}
+                        {/*form={{*/}
+                            {/*formName: 'addressForm',*/}
+                            {/*onChangeHandler: this.handleChange,*/}
+                            {/*onSubmitHandler: this.handleSubmitForm,*/}
+                            {/*fields: setFormFields(currentState, countries, this.handleCheckbox)*/}
+                        {/*}}*/}
+                        {/*SubmitButton={*/}
+                            {/*<Grid container>*/}
+                                {/*<Grid item xs={12} sm={4}>*/}
+                                    {/*<SprykerButton*/}
+                                        {/*title={<FormattedMessage id={'word.save.title'} />}*/}
+                                        {/*btnType="submit"*/}
+                                        {/*extraClasses={classes.addButton}*/}
+                                        {/*disabled={isLoading}*/}
+                                    {/*/>*/}
+                                {/*</Grid>*/}
+                            {/*</Grid>*/}
+                        {/*}*/}
+                    {/*/>*/}
                 </Grid>
                 <Grid item xs={12} className={classes.addButton}>
                     <Button

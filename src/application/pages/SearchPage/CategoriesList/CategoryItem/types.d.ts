@@ -5,9 +5,8 @@ import { TCategoryId } from 'src/shared/components/Pages/SearchPage/types';
 export interface ICategoryItemProps extends WithStyles<typeof styles> {
     categoryValue: TCategoryId;
     categoryName: string;
-    quantity: string;
+    quantity: string | number;
     isSelected: boolean;
     isActive: boolean;
-
     selectCategoryHandler: (categoryId: TCategoryId) => Function;
 }

@@ -31,11 +31,11 @@ class SortPanelComponent extends React.Component<Props, State> {
         });
     };
 
-    protected itemsPerPageMenuItems = (): object => (
+    protected itemsPerPageMenuItems = (): {value: number; name: number}[] => (
         this.props.pagination.validItemsPerPageOptions.map((item: number) => ({ value: item, name: item }))
     );
 
-    protected sortMenuItems = (): object => (
+    protected sortMenuItems = (): {value: string; name: string}[] => (
         this.props.sortParams.filter((item: string) => item !== 'rating').map((item: string) => ({
             value: item,
             name:

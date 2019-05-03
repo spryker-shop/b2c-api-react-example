@@ -20,5 +20,5 @@ export interface IAppTableProps extends WithStyles<typeof styles> {
     bodyRows: ITableRow[];
     footerCells?: ICellInfo[] | null;
     isResponsive?: boolean;
-    width?: number;
+    width?: number | string;
 }

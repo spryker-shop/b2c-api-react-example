@@ -8,7 +8,7 @@ export const SquareImageComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <div className={ classes.imgWrapper }>
-            <img src={ image } alt={ alt } className={ classes.image } />
+            <img src={ image } alt={ alt.toString() } className={ classes.image } />
             <div className={ classes.actionAreaOverlay } />
         </div>
     );

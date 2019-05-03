@@ -41,9 +41,7 @@ class CustomerProfilePageBase extends React.Component<Props> {
                         customerReference={ this.props.customerReference }
                     />
 
-                    <ChangePassword
-                        customerReference={ this.props.customerReference }
-                    />
+                    <ChangePassword customerReference={ this.props.customerReference } />
 
                     <AccountActions
                         customerReference={ this.props.customerReference }

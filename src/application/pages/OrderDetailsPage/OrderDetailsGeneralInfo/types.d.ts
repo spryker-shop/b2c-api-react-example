@@ -7,5 +7,5 @@ export interface IOrderDetailsGeneralInfoProps extends WithStyles<typeof styles>
     orderId: IOrderDetailsParsed['id'];
     dateOrder: IOrderDetailsParsed['dateCreated'];
     priceMode: IOrderDetailsParsed['priceMode'];
-    timeZone: TAppTimeZone;
+    timeZone?: TAppTimeZone;
 }

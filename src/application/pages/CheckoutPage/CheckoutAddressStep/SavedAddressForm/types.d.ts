@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IRadioItem } from '@components/UI/SprykerForm/types';
@@ -13,4 +14,10 @@ export interface ISavedAddressFormProps extends WithStyles<typeof styles> {
         value: string;
         label: React.ReactNode
     };
+}
+
+export interface IRadioItem {
+    value: string;
+    label: string | React.ReactNode;
+    salutation?: React.ReactNode;
 }

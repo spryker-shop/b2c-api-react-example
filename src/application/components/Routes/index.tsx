@@ -46,22 +46,22 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <Switch>
-            <Route path={ pathHomePage } exact render={ () => <LoadableHomePage /> }/>
-            <Route path={ pathCategoryPage } exact render={ () => <LoadableSearchPage /> }/>
-            <Route path={ pathSearchPage } exact render={ () => <LoadableSearchPage /> }/>
-            <Route path={ pathProductPage } exact render={ () => <LoadableProductPage /> }/>
-            <Route path={ pathLoginPage } exact render={ () => <LoadableLoginPage /> }/>
-            <Route path={ pathRegisterPage } exact render={ () => <LoadableRegisterPage /> }/>
-            <Route path={ pathCartPage } exact render={ () => <LoadableCartPage /> }/>
-            <ProtectedRoute path={ pathCustomerPage } render={ () => <LoadableCustomerPage /> }/>
-            <Route path={ pathForgotPassword } exact render={ () => <LoadablePasswordForgotPage /> }/>
-            <Route path={ `${pathResetPassword}/:restoreKey` } exact render={ () => <LoadablePasswordResetPage /> } />
-            <ProtectedRoute path={ pathWishlistsPage } exact render={ () => <LoadableWishlistPage /> } />
-            <ProtectedRoute path={ pathWishlistDetailPage } exact render={ () => <LoadableWishlistDetail /> } />
-            <Route path={ pathCheckoutPage } render={ () => <LoadableCheckoutPage /> }/>
-            <Route path={ pathOrderDetailsPage } exact render={ () => <LoadableOrderDetailsPage /> }/>
-            <Route path={ pathAddressFormUpdate } exact render={ () => <CustomerAddressForm /> }/>
-            <Route path={ pathNotFoundPage } exact render={ () => <LoadableNotFound /> }/>
+            <Route path={ pathHomePage } exact component={  LoadableHomePage }/>
+            <Route path={ pathCategoryPage } exact component={  LoadableSearchPage }/>
+            <Route path={ pathSearchPage } exact component={  LoadableSearchPage }/>
+            <Route path={ pathProductPage } exact component={  LoadableProductPage }/>
+            <Route path={ pathLoginPage } exact component={  LoadableLoginPage }/>
+            <Route path={ pathRegisterPage } exact component={  LoadableRegisterPage }/>
+            <Route path={ pathCartPage } exact component={  LoadableCartPage }/>
+            <ProtectedRoute path={ pathCustomerPage } component={  LoadableCustomerPage }/>
+            <Route path={ pathForgotPassword } exact component={  LoadablePasswordForgotPage }/>
+            <Route path={ `${pathResetPassword}/:restoreKey` } exact component={  LoadablePasswordResetPage } />
+            <ProtectedRoute path={ pathWishlistsPage } exact component={  LoadableWishlistPage } />
+            <ProtectedRoute path={ pathWishlistDetailPage } exact component={  LoadableWishlistDetail } />
+            <Route path={ pathCheckoutPage } component={  LoadableCheckoutPage }/>
+            <Route path={ pathOrderDetailsPage } exact component={  LoadableOrderDetailsPage }/>
+            <Route path={ pathAddressFormUpdate } exact component={  CustomerAddressForm }/>
+            <Route path={ pathNotFoundPage } exact component={  LoadableNotFound }/>
         </Switch>
     );
 };

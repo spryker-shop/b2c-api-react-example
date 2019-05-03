@@ -3,10 +3,10 @@ import { styles } from './styles';
 import { IOrderItem } from '@interfaces/order';
 
 export interface IOrdersListProps extends WithStyles<typeof styles> {
-    orders: IOrderItem[] | null;
-    getOrdersCollection: Function;
-    isHasOrders: boolean;
-    isFulfilled: boolean;
-    shouldShowEmptyList: boolean;
-    shouldShowOrdersAmount: boolean;
+    orders?: IOrderItem[] | null;
+    getOrdersCollection?: Function;
+    isHasOrders?: boolean;
+    isFulfilled?: boolean;
+    shouldShowEmptyList?: boolean;
+    shouldShowOrdersAmount?: boolean;
 }

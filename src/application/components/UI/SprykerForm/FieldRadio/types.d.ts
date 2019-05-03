@@ -8,7 +8,7 @@ export interface IFieldRadioProps extends WithStyles<typeof sprykerFormStyles> {
     inputName: IFormField['inputName'];
     currentMode: IRadioItem['value'];
     radioItems: IFormField['radioItems'];
-    isError: IFormField['isError'];
+    isError?: IFormField['isError'];
     changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
     labelIcon?: IFormField['labelIcon'];
     isItemsInRow?: IFormField['isItemsInRow'];

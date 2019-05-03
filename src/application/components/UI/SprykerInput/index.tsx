@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { InputMask } from './InputMask';
 import { withStyles, TextField } from '@material-ui/core';
-import { ISprykerInputProps as Props } from './types';
+import { ISprykerInputProps as Props, IIconProps } from './types';
 import { InputIcon } from './InputIcon';
 import { styles } from './styles';
-import { IInputIconProps } from './InputIcon/types';
 
 const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
@@ -25,7 +24,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
             iconEndComponent
         }
     } = props;
-    const renderIconComponent = (iconProps: IInputIconProps, position: 'end' | 'start'): JSX.Element => (
+    const renderIconComponent = (iconProps: IIconProps, position: 'end' | 'start'): JSX.Element => (
         <InputIcon
             { ...iconProps }
             position={ position }

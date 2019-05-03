@@ -3,7 +3,7 @@ import { IProductCardImages, IProductLabel, IProductPricesItem, TProductName, TP
 export interface IProductRelationsItem {
     name: TProductName;
     sku: TProductSKU;
-    label?: IProductLabel;
+    label?: IProductLabel[];
     price?: number;
     prices?: IProductPricesItem[];
     images?: IProductCardImages[];

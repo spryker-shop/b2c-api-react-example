@@ -62,11 +62,11 @@ export class AccountActionsComponent extends React.Component<Props, State> {
                     </Grid>
 
                     <Grid item xs={ 12 } sm={ 2 }>
-                        <SprykerButton
-                            title={ <FormattedMessage id={ 'delete.account.title' } /> }
-                            onClick={ this.handleSubmitDeleteAccount }
-                            extraClasses={ classes.deleteBtn }
-                        />
+                        {/*<SprykerButton*/}
+                            {/*title={ <FormattedMessage id={ 'delete.account.title' } /> }*/}
+                            {/*onClick={ this.handleSubmitDeleteAccount }*/}
+                            {/*extraClasses={ classes.deleteBtn }*/}
+                        {/*/>*/}
                     </Grid>
                 </Grid>
 

@@ -6,7 +6,7 @@ const img05 = require('./images/menu-img-5.jpg');
 const img06 = require('./images/menu-img-6.jpg');
 
 export type IRelatedProductDataFixture = {
-    sku: number;
+    sku: number | string;
     image: string;
     title: string;
 };

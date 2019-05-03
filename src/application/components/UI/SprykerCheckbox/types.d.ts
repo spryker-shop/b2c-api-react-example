@@ -6,7 +6,7 @@ import { IFormField } from '@components/UI/SprykerForm/types';
 export interface IFieldCheckboxProps extends WithStyles<typeof sprykerFormStyles> {
     label: IFormField['label'];
     inputName: IFormField['inputName'];
-    isError: IFormField['isError'];
+    isError?: IFormField['isError'];
     isChecked: boolean;
     changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

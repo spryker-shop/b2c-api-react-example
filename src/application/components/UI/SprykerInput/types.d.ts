@@ -5,9 +5,13 @@ import { IInputIconProps } from './InputIcon/types';
 import { styles } from './styles';
 import { BlurEvent, InputChangeEvent } from '@interfaces/common';
 
+export interface IIconProps extends IInputIconProps {
+    classes?: { [key: string]: string };
+}
+
 export interface ISprykerInputProps extends WithStyles<typeof styles> {
     inputValue: string | number | boolean;
-    formName: string;
+    formName?: string;
     inputName: string;
     onChangeHandler: (event: InputChangeEvent) => void;
     onBlurHandler?: (event: BlurEvent) => void;
@@ -17,8 +21,8 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
     helperText?: string | null | React.ReactNode;
     inputType?: 'email' | 'password' | 'number' | 'range' | 'tel';
     iconProps?: {
-        iconStartComponent?: IInputIconProps,
-        iconEndComponent?: IInputIconProps
+        iconStartComponent?: IIconProps,
+        iconEndComponent?: IIconProps
     };
     maskProps?: NumberFormatProps | null;
 }
