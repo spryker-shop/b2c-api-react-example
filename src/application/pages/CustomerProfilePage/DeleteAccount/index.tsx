@@ -3,8 +3,7 @@ import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
 import { IAccountActionsProps as Props, IAccountActionsState as State } from './types';
-import { Grid, Typography, Divider } from '@material-ui/core';
-import { SprykerButton } from '@components/UI/SprykerButton';
+import { Grid, Typography, Button } from '@material-ui/core';
 import { SprykerDialog } from '@components/UI/SprykerDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
@@ -15,70 +14,71 @@ export class DeleteAccountComponent extends React.Component<Props, State> {
         isDeleteProfileDialogOpen: false
     };
 
-    protected handleDeleteProfileDialogAgree = (event: React.MouseEvent<HTMLElement>): void => {
-        if (!this.props.customerReference) {
+    protected handleDeleteProfileDialogAgree = (): void => {
+        const { customerReference, deleteCustomerEntity, routerPush } = this.props;
+
+        if (!customerReference) {
             return;
         }
-        this.props.deleteCustomerEntity(this.props.customerReference);
-        this.handleDeleteProfileDialogShowing(event);
 
-        this.props.routerPush(`${pathLoginPage}`);
+        deleteCustomerEntity(customerReference);
+        this.handleDeleteProfileDialogShowing();
+
+        routerPush(`${pathLoginPage}`);
     };
 
-    protected handleDeleteProfileDialogDisagree = (event: React.MouseEvent<HTMLElement>): void => {
-        this.handleDeleteProfileDialogShowing(event);
-    };
-
-    protected handleDeleteProfileDialogShowing = (event: React.SyntheticEvent<{}>): void => {
+    protected handleDeleteProfileDialogShowing = (): void =>
         this.setState(prev => ({isDeleteProfileDialogOpen: !prev.isDeleteProfileDialogOpen}));
-    };
 
-    protected handleSubmitDeleteAccount = (event: React.FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-
-        this.setState({
-            isDeleteProfileDialogOpen: true
-        });
-    };
+    protected handleSubmitDeleteAccount = (): void => this.setState({ isDeleteProfileDialogOpen: true });
 
     public render = (): JSX.Element => {
         const { classes } = this.props;
 
         return (
             <>
-                <Grid container justify="flex-start" className={ classes.section }>
-                    <Grid item xs={ 12 }>
-                        <Typography variant="h6" className={ classes.sectionTitle }>
-                            <FormattedMessage id={ 'delete.account.title' } />
-                        </Typography>
+                <Typography component="h2" variant="h2" className={ classes.text }>
+                    <FormattedMessage id={ 'delete.account.title' } />
+                </Typography>
 
-                        <Divider/>
-                    </Grid>
+                <Typography className={ classes.text } color="textSecondary" >
+                    <FormattedMessage id={ 'delete.account.message' } />
+                </Typography>
 
-                    <Grid item xs={ 12 }>
-                        <Typography className={ classes.warningTitle }>
-                            <FormattedMessage id={ 'delete.account.message' } />
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={ 12 } sm={ 2 }>
-                        {/*<SprykerButton*/}
-                            {/*title={ <FormattedMessage id={ 'delete.account.title' } /> }*/}
-                            {/*onClick={ this.handleSubmitDeleteAccount }*/}
-                            {/*extraClasses={ classes.deleteBtn }*/}
-                        {/*/>*/}
-                    </Grid>
-                </Grid>
+                <Button variant="outlined" onClick={ this.handleSubmitDeleteAccount } className={ classes.submit }>
+                    <FormattedMessage id={ 'word.delete.title' } />
+                </Button>
 
                 { this.state.isDeleteProfileDialogOpen && (
                     <SprykerDialog
                         handleShow={ this.handleDeleteProfileDialogShowing }
-                        content={ <FormattedMessage id={ 'confirm.delete.account.message' } /> }
                         isOpen={ this.state.isDeleteProfileDialogOpen }
-                        handleAgree={ this.handleDeleteProfileDialogAgree }
-                        handleDisagree={ this.handleDeleteProfileDialogDisagree }
-                    />
-                ) }
+                    >
+                        <Typography component="h3" variant="h3" className={ classes.text } >
+                            <FormattedMessage id={ 'confirm.delete.account.message' } />
+                        </Typography>
+                        <Grid container spacing={ 16 }>
+                            <Grid item xs={ 12 } sm={ 6 }>
+                                <Button
+                                    variant="outlined"
+                                    onClick={ this.handleDeleteProfileDialogShowing }
+                                    fullWidth
+                                >
+                                    <FormattedMessage id={ 'word.disagree.title' } />
+                                </Button>
+                            </Grid>
+                            <Grid item xs={ 12 } sm={ 6 }>
+                                <Button
+                                    onClick={ this.handleDeleteProfileDialogAgree }
+                                    variant="contained"
+                                    fullWidth
+                                >
+                                    <FormattedMessage id={ 'word.agree.title' } />
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </SprykerDialog>
+                )}
             </>
         );
     }

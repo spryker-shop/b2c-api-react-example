@@ -42,7 +42,7 @@ export const messages: IMessages = {
         'checkout.login.message': 'Login and use one of your saved carts',
         'city.label': 'City',
         'company.label': 'Company',
-        'confirm.delete.account.message': 'Are you sure you want to delete your account',
+        'confirm.delete.account.message': 'Are you sure you want to delete your account?',
         'confirm.password.label': 'Confirm New Password',
         'confirm.password.title': 'Confirm Passwort',
         'continue.as.guest.title': 'Continue as Guest',
