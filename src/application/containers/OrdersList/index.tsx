@@ -5,7 +5,7 @@ import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography, Tooltip } from '@material-ui/core';
 import { formatDateToString, formattedDate } from '@helpers/common/dates';
 import { pathOrderDetailsPageBase } from '@constants/routes';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';

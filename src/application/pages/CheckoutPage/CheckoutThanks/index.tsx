@@ -46,6 +46,6 @@ class CheckoutThanksComponent extends React.Component<Props> {
             </div>
         );
     };
-};
+}
 
 export const CheckoutThanks = withStyles(styles)(CheckoutThanksComponent);

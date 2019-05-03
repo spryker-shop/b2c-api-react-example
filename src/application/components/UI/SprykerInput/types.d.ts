@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { IFormField, IFormSettings } from '@components/UI/SprykerForm/types';
 import { NumberFormatProps } from 'react-number-format';
 import { IInputIconProps } from './InputIcon/types';
 import { styles } from './styles';
+import { BlurEvent, InputChangeEvent } from '@interfaces/common';
 
 export interface ISprykerInputProps extends WithStyles<typeof styles> {
-    inputValue: IFormField['inputValue'];
-    formName: IFormSettings['formName'];
-    inputName: IFormField['inputName'];
-    onChangeHandler: IFormSettings['onChangeHandler'] | IFormField['onChangeOwnHandler'];
-    onBlurHandler?: IFormSettings['onBlurHandler'] | IFormField['onBlurOwnHandler'];
-    label?: IFormField['label'];
-    isError: IFormField['isError'];
-    isRequired: IFormField['isRequired'];
+    inputValue: string | number | boolean;
+    formName: string;
+    inputName: string;
+    onChangeHandler: (event: InputChangeEvent) => void;
+    onBlurHandler?: (event: BlurEvent) => void;
+    label?: React.ReactNode | string;
+    isError?: boolean;
+    isRequired?: boolean;
     helperText?: string | null | React.ReactNode;
-    inputType: IFormField['inputType'];
+    inputType?: 'email' | 'password' | 'number' | 'range' | 'tel';
     iconProps?: {
         iconStartComponent?: IInputIconProps,
         iconEndComponent?: IInputIconProps

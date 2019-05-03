@@ -5,6 +5,6 @@ import { IAddressItemOrder } from '@interfaces/addresses';
 export interface IOrderAddressesProps extends WithStyles<typeof styles> {
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
-    billingBlockTitle: string;
-    shippingBlockTitle: string;
+    billingBlockTitle: string | JSX.Element;
+    shippingBlockTitle: string | JSX.Element;
 }

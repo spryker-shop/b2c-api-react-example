@@ -1,8 +1,11 @@
 import { IReduxState, IActionData } from '@stores/reducers/types';
 import {
-    FlyoutSearch, IActiveFilters, ICatalogSearchDataParsed, ISearchPageData
+    FlyoutSearch,
+    IActiveFilters,
+    ICatalogSearchDataParsed,
+    ISearchPageData,
+    IActiveSort
 } from '@interfaces/searchPageData';
-import { IActiveSort } from '@interfaces/searchPageData';
 
 export interface ISearchState extends IReduxState {
     data: ISearchPageData;

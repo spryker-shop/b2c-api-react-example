@@ -109,6 +109,6 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
             </Grid>
         </div>
     );
-}
+};
 
 export const MiniCartDrop = connect(withStyles(styles)(MiniCartDropComponent));

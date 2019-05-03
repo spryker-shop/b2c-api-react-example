@@ -31,6 +31,6 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
             <span className={ classes.info }><FormattedMessage id={ 'shipping.fee.calculated.text' } /></span>
         </>
     );
-}
+};
 
 export const OrderSummary = withStyles(styles)(OrderSummaryComponent);

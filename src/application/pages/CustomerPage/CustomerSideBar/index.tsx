@@ -30,6 +30,6 @@ const CustomerSideBarComponent: React.SFC<Props> = (props): JSX.Element => {
             <ul className={ classes.list }>{ renderNavigationlinks() }</ul>
         </div>
     );
-}
+};
 
 export const CustomerSideBar = withStyles(styles)(CustomerSideBarComponent);

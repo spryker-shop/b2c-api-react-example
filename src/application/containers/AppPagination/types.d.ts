@@ -4,7 +4,7 @@ import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
-export interface IAppPaginationProps extends WithStyles<typeof styles>, RouteComponentProps<any>, WithRouter {
+export interface IAppPaginationProps extends WithStyles<typeof styles>, RouteComponentProps, WithRouter {
     classes: { [key: string]: string };
     pagination: IPagination;
     onChangeHandler: (value: number | string) => void;

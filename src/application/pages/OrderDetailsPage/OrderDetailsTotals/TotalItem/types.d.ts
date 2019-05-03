@@ -4,7 +4,7 @@ import { TAbstractTotal } from '@interfaces/abstract/totals';
 
 export interface ITotalItemProps extends WithStyles<typeof styles> {
     value: TAbstractTotal;
-    title: string;
-    valueSign: string | null;
+    title: string | JSX.Element;
+    valueSign?: string | null;
     extraClassName?: string;
 }
