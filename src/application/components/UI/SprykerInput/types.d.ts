@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { NumberFormatProps } from 'react-number-format';
+import { FormatInputValueFunction } from 'react-number-format';
 import { IInputIconProps } from './InputIcon/types';
 import { styles } from './styles';
 import { BlurEvent, InputChangeEvent } from '@interfaces/common';
@@ -24,5 +24,9 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
         iconStartComponent?: IIconProps,
         iconEndComponent?: IIconProps
     };
-    maskProps?: NumberFormatProps | null;
+    maskProps?: {
+        mask?: string | string[],
+        format?: string | FormatInputValueFunction,
+        placeholder?: string
+    } | null;
 }
