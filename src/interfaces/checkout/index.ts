@@ -1,7 +1,7 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
 import { TCartId } from '@interfaces/cart';
-import { TFormInputValue } from '@application/components/UI/SprykerForm/types';
+import { TFormInputValue } from '@components/UI/SprykerForm/types';
 
 export type TShipmentCarrierName = string;
 export type TShipmentId = string;
@@ -79,9 +79,6 @@ export interface ICheckoutAddressState {
     [key: string]: IConfigInputState;
 }
 
-export interface IDeliveryAddressState extends ICheckoutAddressState {
-}
-
 export interface IBillingAddressState extends ICheckoutAddressState {
 }
 
@@ -112,8 +109,7 @@ export interface ICheckoutCreditCardState {
     paymentProvider: IConfigInputState;
     cardNumber: IConfigInputState;
     cardName: IConfigInputState;
-    cardExpiryMonth: IConfigInputState;
-    cardExpiryYear: IConfigInputState;
+    cardExpiryDate: IConfigInputState;
     cardCVC: IConfigInputState;
 
     [key: string]: IConfigInputState;
@@ -133,5 +129,5 @@ export interface IFormFieldMutate {
 
 export interface IFormUpdatePaymentStatus {
     value: string;
-    isSummaryStepCompleted: boolean;
+    isPaymentStepCompleted: boolean;
 }

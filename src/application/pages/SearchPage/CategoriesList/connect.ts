@@ -1,5 +1,5 @@
 import { push } from 'connected-react-router';
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getCategoriesLocalizedName } from '@stores/reducers/pages/search';
 import { setCurrentCategoryAction } from '@stores/actions/pages/search';

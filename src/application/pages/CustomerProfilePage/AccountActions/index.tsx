@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
 import { IAccountActionsProps as Props, IAccountActionsState as State } from './types';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
-import { SprykerDialog } from '@application/components/UI/SprykerDialog';
+import { SprykerButton } from '@components/UI/SprykerButton';
+import { SprykerDialog } from '@components/UI/SprykerDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
@@ -48,7 +48,7 @@ export class AccountActionsComponent extends React.Component<Props, State> {
             <>
                 <Grid container justify="flex-start" className={ classes.section }>
                     <Grid item xs={ 12 }>
-                        <Typography variant="title" className={ classes.sectionTitle }>
+                        <Typography variant="h6" className={ classes.sectionTitle }>
                             <FormattedMessage id={ 'delete.account.title' } />
                         </Typography>
 
@@ -56,7 +56,7 @@ export class AccountActionsComponent extends React.Component<Props, State> {
                     </Grid>
 
                     <Grid item xs={ 12 }>
-                        <Typography variant="body1" className={ classes.warningTitle }>
+                        <Typography className={ classes.warningTitle }>
                             <FormattedMessage id={ 'delete.account.message' } />
                         </Typography>
                     </Grid>

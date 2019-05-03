@@ -1,12 +1,13 @@
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { cartDeleteItemAction, removeItemGuestCartAction } from '@stores/actions/common/cart';
 import { ICartState } from '@stores/reducers/common/cart/types';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { clearCheckoutDataForm } from '@stores/actions/pages/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartProps: ICartState = state.cart ? state.cart : null;
@@ -31,6 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         {
             cartDeleteItemAction,
             removeItemGuestCartAction,
+            clearCheckoutDataForm
         },
         dispatch,
     );

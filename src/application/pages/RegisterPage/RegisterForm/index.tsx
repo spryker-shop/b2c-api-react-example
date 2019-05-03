@@ -6,12 +6,12 @@ import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
 import { Button, Grid } from '@material-ui/core';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { IRegisterFormProps as Props, IRegisterFormState as State } from './types';
 import { InputChangeEvent, FormEvent } from '@interfaces/common';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
-import { SprykerSelect } from '@application/components/UI/SprykerSelect';
-import { SprykerCheckbox } from '@application/components/UI/SprykerCheckbox';
+import { SprykerInput } from '@components/UI/SprykerInput';
+import { SprykerSelect } from '@components/UI/SprykerSelect';
+import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
 
 @(withRouter as Function)
 @connect
@@ -81,7 +81,7 @@ export class RegisterForm extends React.Component<Props, State> {
                     <Grid item xs={ 12 }>
                         <SprykerSelect
                             currentMode={ this.state.salutation }
-                            changeHandler={ this.handleChangeSalutation }
+                            onChangeHandler={ this.handleChangeSalutation }
                             menuItems={ SalutationVariants }
                             label={ <FormattedMessage id={ 'salutation.label' } /> }
                             menuItemFirst={{
@@ -148,7 +148,7 @@ export class RegisterForm extends React.Component<Props, State> {
                             isChecked={ this.state.acceptedTerms }
                             changeHandler={ this.handleChangeAgreement }
                             label={  <FormattedMessage id={ 'accept.terms.title' } /> }
-                            name="acceptedTerms"
+                            inputName="acceptedTerms"
                         />
                     </Grid>
                     <Grid item xs={ 12 }>

@@ -43,7 +43,7 @@ export const styles = (theme: Theme) => createStyles({
         minWidth: 90,
         padding: '2px 42px 2px 16px',
         fontSize: 12,
-        lineHeight: 1.47,
+        lineHeight: 1.5,
         letterSpacing: 0.1,
         borderRadius: 4,
         background: theme.appColors.weekWhite,
@@ -90,7 +90,7 @@ export const styles = (theme: Theme) => createStyles({
     menuItem: {
         display: 'flex',
         fontSize: 14,
-        lineHeight: 1.46,
+        lineHeight: 1.5,
         padding: '12px 44px 12px 14px',
         marginBottom: 8,
         letterSpacing: 0.1,
@@ -156,7 +156,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.grey,
         fontSize: 15,
         letterSpacing: 0.2,
-        lineHeight: 1.26,
+        lineHeight: 1.3,
         fontWeight: 400,
         transform: 'none',
         '&$labelFocused': {

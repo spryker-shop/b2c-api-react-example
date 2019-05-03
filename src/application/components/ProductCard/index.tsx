@@ -2,11 +2,11 @@ import * as React from 'react';
 import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
-import { ProductLabel } from '@application/components/ProductLabel';
+import { ProductLabel } from '@components/ProductLabel';
 import { getOneProductImage } from '@helpers/product/imageSetsParser';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
-import { SquareImage } from '@application/components/SquareImage';
+import { SquareImage } from '@components/SquareImage';
 
 export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, images, name = '', prices, sku, label, onSelectProduct } = props;
@@ -39,7 +39,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
             </div>
             <div className={ classes.content }>
                 <div className={ classes.nameWrapper }>
-                    <Typography color="textSecondary" component="h5" variant="headline" className={classes.name}>
+                    <Typography color="textSecondary" component="h5" variant="h5" className={classes.name}>
                         { name }
                     </Typography>
                 </div>
@@ -48,10 +48,10 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                         <Grid item>
                             <Typography
                                 component="span"
-                                variant="display2"
+                                variant="h3"
                                 className={`${classes.price} ${Boolean(oldPriceGross) ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ actualPriceGross } isStylesInherited />
+                                <AppPrice value={ actualPriceGross } />
                             </Typography>
                         </Grid>
                         { Boolean(oldPriceGross) &&

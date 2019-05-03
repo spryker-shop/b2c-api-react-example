@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/components/UI/SprykerSelect/styles';
+import { styles } from '@components/UI/SprykerSelect/styles';
 import * as React from 'react';
 
 interface IMenuItemSelect {
@@ -14,7 +14,7 @@ interface IMenuItemFirst extends IMenuItemSelect {
 
 export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     currentMode: string | number | boolean;
-    changeHandler: (event: React.ChangeEvent<HTMLSelectElement>, child: React.ReactNode) => void;
+    onChangeHandler: (event: React.ChangeEvent<HTMLSelectElement>, child: React.ReactNode) => void;
     name: string;
     menuItems: IMenuItemSelect[];
     menuItemFirst?: IMenuItemFirst | null;

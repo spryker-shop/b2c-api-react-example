@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/pages/WishlistPage/styles';
+import { styles } from '@pages/WishlistPage/styles';
 
 export interface IWishlistPageProps extends WithStyles<typeof styles> {
     dispatch: Function;

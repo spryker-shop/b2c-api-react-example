@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { withStyles, IconButton } from '@material-ui/core';
 import { pathCustomerPage, pathCustomerProfilePage, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
-import { PopoverWrapper } from '@application/components/PopoverWrapper';
+import { PopoverWrapper } from '@components/PopoverWrapper';
 import { logoutSetTimeoutTime } from '@constants/customer';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';

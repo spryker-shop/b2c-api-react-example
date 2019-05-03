@@ -4,7 +4,7 @@ import { parseLoginDataResponse } from '@helpers/customer/loginDataResponse';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
 export class RefreshTokenService extends ApiServiceAbstract {

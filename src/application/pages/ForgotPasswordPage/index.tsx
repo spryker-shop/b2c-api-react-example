@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { IForgotPasswordPageProps as Props, IForgotPasswordPageState as State } from './types';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
 import { styles } from './styles';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
-import { SprykerInput } from '@application/components/UI/SprykerInput';
+import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
 export class ForgotPasswordPageBase extends React.Component<Props, State> {
@@ -30,10 +30,10 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
             <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
-                        <Typography variant="display3" component="h2">
+                        <Typography variant="h2" component="h2">
                             <FormattedMessage id={ 'recovery.password.title' } />
                         </Typography>
-                        <Typography variant="headline" paragraph>
+                        <Typography variant="h5" paragraph>
                             <FormattedMessage id={ 'enter.email.address.message' } />
                         </Typography>
                         <form autoComplete="off">

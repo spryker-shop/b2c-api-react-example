@@ -1,13 +1,9 @@
-import { reduxify } from '@application/hoc/Reduxify';
-import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { reduxify } from '@hoc/Reduxify';
+import { clearCheckoutDataForm } from '@stores/actions/pages/checkout';
 
-const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
+const mapDispatchToProps = (dispatch: Function) => ({
+    dispatch,
+    clearCheckoutDataForm: (): void => dispatch(clearCheckoutDataForm())
+});
 
-    return ({
-        isUserLoggedIn
-    });
-};
-
-export const connect = reduxify(mapStateToProps);
+export const connect = reduxify(null, mapDispatchToProps);

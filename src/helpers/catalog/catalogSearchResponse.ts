@@ -14,7 +14,7 @@ import {
     rangeMaxType,
     TActiveFilters,
     TActiveRangeFilters
-} from '@application/pages/SearchPage/SearchFilterList/types';
+} from '@pages/SearchPage/SearchFilterList/types';
 import { getProductLabel } from '@helpers/product/label';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
@@ -84,8 +84,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
             currentItemsPerPage: pagination.currentItemsPerPage,
             validItemsPerPageOptions: pagination.config.validItemsPerPageOptions
         },
-        spellingSuggestion: attributes.spellingSuggestion,
-        productLabels: null
+        spellingSuggestion: attributes.spellingSuggestion
     };
 
     if (!included) {

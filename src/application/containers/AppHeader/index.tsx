@@ -5,13 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import debounce from 'lodash/debounce';
 import { pathCheckoutPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { AppLogo } from '@application/components/AppLogo';
-import { MainNavigation } from '@application/containers/MainNavigation';
+import { AppLogo } from '@components/AppLogo';
+import { MainNavigation } from '@containers/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
-import { ErrorBoundary } from '@application/hoc/ErrorBoundary';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
 import { styles } from './styles';
-import { BurgerLogo } from './icons';
+import { BurgerIcon, PhoneIcon } from './icons';
+import { Hidden } from '@material-ui/core';
 
 @connect
 @(withRouter as Function)
@@ -58,38 +59,56 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     public render(): JSX.Element {
         const { classes, location: { pathname } } = this.props;
         const { headerHeight, isMobileNavOpened } = this.state;
+        const isCheckoutPage = pathname.includes(pathCheckoutPage);
 
         return (
             <div className={ classes.header } style={ { paddingTop: headerHeight } }>
                 <div className={ classes.content } ref={ this.stickyTriggerRef }>
                     <div className={ classes.container }>
-                        <div
-                            className={ classes.hamburger }
-                            onClick={ () => this.mobileNavToggleHandler(!isMobileNavOpened) }
-                        >
-                            <BurgerLogo />
-                        </div>
+                        { !isCheckoutPage &&
+                            < div
+                                className={ classes.hamburger }
+                                onClick={ () => this.mobileNavToggleHandler(!isMobileNavOpened) }
+                                >
+                                <span className={ classes.hamburgerIcon }>
+                                    <BurgerIcon />
+                                </span>
+                            </div>
+                        }
 
                         <div className={ classes.logoCol }>
                             <AppLogo addlLogoWithoutImage classes={{ logoContainer: classes.logoContainer }} />
                         </div>
 
-                        { pathname.includes(pathCheckoutPage)
-                            ? <div className={ classes.checkout }>
-                                <FormattedMessage id="word.checkout.title" />
-                            </div>
-                            : <div className={ classes.mainNav }>
-                                <ErrorBoundary>
-                                    <MainNavigation
-                                        headerHeight={ headerHeight }
-                                        onMobileNavToggle={ this.mobileNavToggleHandler }
-                                        isMobileNavOpened={ isMobileNavOpened }
-                                    />
-                                </ErrorBoundary>
-                            </div>
+                        { !isCheckoutPage &&
+                            <>
+                                 <div className={ classes.mainNav }>
+                                    <ErrorBoundary>
+                                        <MainNavigation
+                                            headerHeight={ headerHeight }
+                                            onMobileNavToggle={ this.mobileNavToggleHandler }
+                                            isMobileNavOpened={ isMobileNavOpened }
+                                        />
+                                    </ErrorBoundary>
+                                </div>
+                                <AdditionalNavigation />
+                            </>
                         }
 
-                        <AdditionalNavigation />
+                        { isCheckoutPage &&
+                            <div className={ classes.checkout }>
+                                <span className={ classes.checkoutIcon }>
+                                    <PhoneIcon />
+                                </span>
+                                <Hidden only={['xs', 'sm']} implementation="css">
+                                    <FormattedMessage id={ 'word.question.title' } />
+                                </Hidden>
+                                <a className={ classes.checkoutPhone } href="tel:+4930208498350">
+                                    +49 / 30 / 2084983 50
+                                </a>
+                                <FormattedMessage id={ 'schedule.title' } />
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

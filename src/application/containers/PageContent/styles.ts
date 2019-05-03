@@ -8,21 +8,24 @@ export const styles: any = (theme: Theme) => createStyles({
                 fontFamily: 'Circular',
                 fontStyle: 'normal',
                 fontWeight: 400,
-                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-book.woff2") format("woff2")'
+                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/' +
+                    'lineto-circular-pro-book.woff2") format("woff2")'
             },
             {
                 fontFamily: 'Circular',
                 fontStyle: 'normal',
                 fontWeight: 500,
-                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-medium.woff2") format("woff2")'
+                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/' +
+                    'lineto-circular-pro-medium.woff2") format("woff2")'
             },
             {
                 fontFamily: 'Circular',
                 fontStyle: 'normal',
                 fontWeight: 700,
-                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/lineto-circular-pro-bold.woff2") format("woff2")'
+                src: 'url("https://s3.eu-central-1.amazonaws.com/spryker/fonts/circular-pro/' +
+                    'lineto-circular-pro-bold.woff2") format("woff2")'
             }
-        ],
+        ] as any,
         body: {
             minWidth: 320,
             fontFamily: 'Circular'

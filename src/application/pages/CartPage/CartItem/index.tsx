@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CartItemProps as Props } from './types';
-import { SquareImage } from '@application/components/SquareImage';
-import { AppPrice } from '@application/components/AppPrice';
+import { SquareImage } from '@components/SquareImage';
+import { AppPrice } from '@components/AppPrice';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
-import { SprykerQuantityCounter } from '@application/components/UI/SprykerQuantityCounter';
+import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
-    const imageItemHeight: number = 132;
     const {
         classes,
         sku,
@@ -32,17 +31,13 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
 
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    image={ image }
-                    size={ imageItemHeight }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>
                     <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
-                            <Typography component="h5" variant="headline" className={classes.name}>
+                            <Typography component="h5" variant="h5" className={classes.name}>
                                 <NavLink
                                     to={`${pathProductPageBase}/${abstractSku}`}
                                     className={classes.nameLink}
@@ -77,22 +72,18 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 component="p"
                                 className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                <AppPrice value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
                                 <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                    <AppPrice
-                                        value={ priceOriginalGross }
-                                        priceType={ priceTypeNameOriginal }
-                                        isStylesInherited
-                                    />
+                                    <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                 </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
                             <div className={ classes.eachPrice }>
                                 (
-                                <AppPrice value={ unitPriceToPayAggregation } isStylesInherited />&nbsp;
+                                <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
                                 <FormattedMessage id={ 'word.each.title' } />)
                             </div>
                         }

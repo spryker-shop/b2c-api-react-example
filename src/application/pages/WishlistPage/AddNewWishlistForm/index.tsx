@@ -52,7 +52,6 @@ export class AddNewWishlistFormComponent extends React.Component<Props, State> {
                                 filled: name.length > 0 ? classes.filled : null
                             }
                         } }
-                        variant={ 'outlined' }
                         onChange={ this.handleChangeName }
                         inputProps={ { className: classes.input } }
                     />

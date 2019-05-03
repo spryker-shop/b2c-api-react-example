@@ -6,7 +6,7 @@ import { InputChangeEvent } from '@interfaces/common';
 import { ICountry } from '@interfaces/country';
 import { AddressFormState } from './types';
 
-import { IFormField } from '@application/components/UI/SprykerForm/types';
+import { IFormField } from '@components/UI/SprykerForm/types';
 
 import { SalutationVariants } from '@constants/customer';
 
@@ -46,8 +46,7 @@ export const setFormFields = (
             isRequired: true,
             label: <FormattedMessage id={ 'salutation.label' } />,
             isError: submitted && !salutation,
-            menuItems: SalutationVariants
-                .map((item: TSalutationVariant) => ({ value: item.value, name: item.label })),
+            menuItems: SalutationVariants,
             menuItemFirst: {
                 value: ' ',
                 name: <FormattedMessage id={ 'first.item.in.select' } />,

@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@application/components/UI/SprykerFilter/styles';
+import { styles } from '@components/UI/SprykerFilter/styles';
 
 interface IMenuItemsDropdown {
     value: string | number;

@@ -7,9 +7,9 @@ import { WishListItemsTableProps, WishListItemsTableState, ItemPrices } from './
 import { ClickEvent } from '@interfaces/common';
 import { IWishlistProduct } from '@interfaces/wishlist';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
-import { ICellInfo, ITableRow } from '@application/components/AppTable/types';
-import { AppTable } from '@application/components/AppTable';
-import { AppPrice } from '@application/components/AppPrice';
+import { ICellInfo, ITableRow } from '@components/AppTable/types';
+import { AppTable } from '@components/AppTable';
+import { AppPrice } from '@components/AppPrice';
 import { WishlistItemBaseInfo } from '../WishlistItemBaseInfo';
 import { Typography, Paper, Button, Divider, withStyles } from '@material-ui/core';
 import { styles } from './styles';
@@ -85,18 +85,20 @@ export class WishlistItemsTableComponent extends React.Component<WishListItemsTa
                     {
                         content: (
                             <div className={classes.vertical}>
-                                <AppPrice
-                                    value={prices.original}
-                                    extraClassName={classes.price}
-                                    currency={currency}
-                                    priceType={priceTypeNameOriginal}
-                                />
-                                <AppPrice
-                                    value={prices.default}
-                                    extraClassName={classes.price}
-                                    currency={currency}
-                                    priceType={priceTypeNameDefault}
-                                />
+                                <span className={ classes.price }>
+                                    <AppPrice
+                                        value={prices.original}
+                                        currency={currency}
+                                        priceType={priceTypeNameOriginal}
+                                    />
+                                </span>
+                                <span className={ classes.price }>
+                                    <AppPrice
+                                        value={prices.default}
+                                        currency={currency}
+                                        priceType={priceTypeNameDefault}
+                                    />
+                                </span>
                             </div>
                         ),
                         id: `${this.bodyCellPart}2`

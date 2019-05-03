@@ -1,7 +1,5 @@
-import { IRadioItem } from '@application/components/UI/SprykerForm/types';
 import { IMenuItemSelect } from './types';
 import { IPaymentMethod, IShipmentMethod } from '@interfaces/checkout';
-import { IAddressItemCollection } from '@interfaces/addresses';
 
 export interface ICheckoutFormsNames {
     billing: string;
@@ -26,8 +24,6 @@ export interface IPaymentMethodsGrouped {
 
 export type TPaymentProvidersCollection = IMenuItemSelect[];
 
-export interface IPaymentMethodGroupItem extends IRadioItem {}
-
 export interface IShipmentMethodsGrouped {
     [key: string]: IShipmentMethod[];
 }
@@ -38,26 +34,14 @@ export interface ICheckoutSelectionInputs {
     isSameAsDeliveryValue: string;
 }
 
-export type TAddressType = 'delivery' | 'billing';
-
-export type TExtraOptionsToSelection = IRadioItem[] | null;
-
-export type TCurrentValueDeliverySelection = ICheckoutSelectionInputs['isAddNewDeliveryValue']
-    | IAddressItemCollection['id']
-    | null;
-
-export type TCurrentValueBillingSelection = ICheckoutSelectionInputs['isAddNewBillingValue']
-    | ICheckoutSelectionInputs['isSameAsDeliveryValue']
-    | IAddressItemCollection['id']
-    | null;
-
-
 export interface IConfigInputStable {
     isRequired: boolean;
     inputName: string;
+    minLength?: number;
+    isEmail?: boolean;
 }
 
-export interface IObjectConfigInputStable {
+export interface IAddressConfigInputStable {
     firstName: IConfigInputStable;
     lastName: IConfigInputStable;
     salutation: IConfigInputStable;
@@ -73,16 +57,11 @@ export interface IObjectConfigInputStable {
     [key: string]: IConfigInputStable;
 }
 
-export interface IDeliveryObjectConfigInputStable extends IObjectConfigInputStable {}
-
-export interface IBillingObjectConfigInputStable extends IObjectConfigInputStable {}
-
 export interface ICreditCardObjectConfigInputStable {
     paymentProvider: IConfigInputStable;
     cardNumber: IConfigInputStable;
     cardName: IConfigInputStable;
-    cardExpiryMonth: IConfigInputStable;
-    cardExpiryYear: IConfigInputStable;
+    cardExpiryDate: IConfigInputStable;
     cardCVC: IConfigInputStable;
 
     [key: string]: IConfigInputStable;

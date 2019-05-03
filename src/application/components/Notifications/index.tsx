@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { INotifications } from './types';
+import { INotificationsProps as Props } from './types';
 import { styles } from './styles';
 
-export const NotificationsBase: React.SFC<INotifications> = (props): JSX.Element => {
+export const NotificationsBase: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

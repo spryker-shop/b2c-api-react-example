@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
@@ -163,7 +164,8 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: '50%',
         backgroundColor: 'transparent',
         border: `1px solid ${theme.appColors.lightGrey}`,
-        transition: `box-shadow ${animationDuration}, border ${animationDuration}, stroke ${animationDuration}, background-color ${animationDuration}`,
+        transition: `box-shadow ${animationDuration}, border ${animationDuration}, stroke ${animationDuration}, 
+        background-color ${animationDuration}`,
         cursor: 'pointer',
         stroke: theme.appColors.lightGrey,
         [theme.breakpoints.up('lg')]: {

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import { withStyles, Badge, IconButton } from '@material-ui/core';
 import { pathCartPage } from '@constants/routes';
-import { PopoverWrapper } from '@application/components/PopoverWrapper';
+import { PopoverWrapper } from '@components/PopoverWrapper';
 import { MiniCartDrop } from './MiniCartDrop';
 import { CartIcon } from './icons';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';

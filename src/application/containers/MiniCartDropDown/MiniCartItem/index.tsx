@@ -2,10 +2,10 @@ import * as React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
-import { SquareImage } from '@application/components/SquareImage';
+import { SquareImage } from '@components/SquareImage';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { FormattedMessage } from 'react-intl';
 
@@ -22,23 +22,18 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
         },
         deleteItem
     } = props;
-    const cartProductImageSize = 80;
 
     return (
         <Grid container className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage
-                    size={ cartProductImageSize }
-                    image={ image }
-                    alt={ name }
-                />
+                <SquareImage image={ image } alt={ name } />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.content }>
                     <Grid item xs={ 12 }>
                         <Grid container>
                             <Grid item xs={ 12 } sm={ 9 }>
-                                <Typography component="h5" variant="headline" className={ classes.name }>
+                                <Typography component="h5" variant="h5" className={ classes.name }>
                                     { name }
                                 </Typography>
                             </Grid>
@@ -48,16 +43,12 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                                     component="p"
                                     className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                 >
-                                    <AppPrice value={ priceDefaultGross } isStylesInherited />
+                                    <AppPrice value={ priceDefaultGross } />
                                 </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice
-                                            value={ priceOriginalGross }
-                                            priceType={ priceTypeNameOriginal }
-                                            isStylesInherited
-                                        />
+                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                     </Typography>
                                 }
                             </Grid>

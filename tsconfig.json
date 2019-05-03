@@ -34,7 +34,6 @@
 		"paths": {
 			"src": ["src"],
 			"@constants*": ["src/constants*"],
-			"@application*": ["src/application*"],
 			"@components*": ["src/application/components*"],
 			"@containers*": ["src/application/containers*"],
 			"@hoc*": ["src/application/hoc*"],

@@ -17,6 +17,11 @@ export const styles = (theme: Theme) => createStyles({
     imageOuter: {
         flexShrink: 0
     },
+    imgWrapper: {
+        width: 132,
+        minWidth: 132,
+        height: 132
+    },
     contentOuter: {
         flexGrow: 1,
         paddingLeft: 20
@@ -43,7 +48,7 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 4,
         fontSize: 13,
         letterSpacing: 0.1,
-        lineHeight: 1.69,
+        lineHeight: 1.7,
         '&:first-letter': {
             textTransform: 'uppercase'
         }

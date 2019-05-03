@@ -1,4 +1,4 @@
-import { reduxify } from '@application/hoc/Reduxify';
+import { reduxify } from '@hoc/Reduxify';
 import { switchLocaleAction } from '@stores/actions/common/init';
 import { getAppLocale } from '@stores/reducers/common/init/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

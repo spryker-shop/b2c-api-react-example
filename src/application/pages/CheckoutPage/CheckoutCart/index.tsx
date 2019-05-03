@@ -1,110 +1,88 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
-import { pathCheckoutSummaryStep } from '@constants/routes';
-import { FormattedMessage } from 'react-intl';
-import { withStyles, List, Button } from '@material-ui/core';
-import { CartTotal } from '@application/components/CartTotal';
-import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
+import { pathCartPage } from '@constants/routes';
+import { NavLink } from 'react-router-dom';
+import { FormattedMessage, FormattedPlural } from 'react-intl';
+import { withStyles, Button, Typography } from '@material-ui/core';
+import { CartTotal } from '@components/CartTotal';
 import { CheckoutCartProductList } from './CheckoutCartProductList';
-import {
-    ICartDataProps as Props,
-    ICartDataState as State
-} from './types';
+import { ICartDataProps as Props } from './types';
+import { LockIcon, EditIcon } from './icons';
 import { styles } from './styles';
 
-@(withRouter as Function)
 @connect
-class CheckoutCartComponent extends React.Component<Props, State> {
-    protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
-    protected designImgWidth: number = 0.33;
-
-    public readonly state: State = {
-        listItemHeight: 100,
-        products: [],
-        totals: null,
-        order: null
+class CheckoutCartComponent extends React.Component<Props> {
+    protected readonly productsAmountThreshold = 10;
+    public readonly state: any = {
+        isProductsExpanded: false
     };
 
-    public static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
-        if (prevState.order !== nextProps.order) {
-            const { order, products, totals } = nextProps;
-            const { products: prevProducts, totals: prevTotals } = prevState;
-            const productList = order ? prevProducts : products;
-            const totalsList = order ? prevTotals : totals;
+    protected onExpandButtonClickHandler = (): void => this.setState({ isProductsExpanded: true });
 
-            if (order) {
-                nextProps.isUserLoggedIn
-                    ? nextProps.updateCart()
-                    : nextProps.updateGuestCart(nextProps.anonymId);
-            }
-
-            return {
-                order,
-                products: productList,
-                totals: totalsList
-            };
-        }
-
-        return null;
-    }
-
-    public componentDidMount = (): void => {
-        window.addEventListener('resize', this.setListItemHeight);
-        this.setListItemHeight();
-    }
-
-    public componentWillUnmount = (): void => {
-        window.removeEventListener('resize', this.setListItemHeight);
-    }
-
-    protected setListItemHeight = (): void => {
-        if (this.containerRef && this.containerRef.current) {
-            this.setState({ listItemHeight: this.containerRef.current.offsetWidth * this.designImgWidth });
-        }
-    };
-
-    public render(): JSX.Element {
-        const { classes, order, isSendBtnDisabled, sendData, location: { pathname } } = this.props;
-        const { products, totals, listItemHeight } = this.state;
-        const isSummaryPage = pathname === pathCheckoutSummaryStep;
+    public render = (): JSX.Element => {
+        const { isProductsExpanded } = this.state;
+        const { classes, isSendBtnDisabled, sendData, isSummaryPage, products, totals, cartItemsQuantity } = this.props;
+        const shouldShowMoreButton = !isProductsExpanded && products.length > this.productsAmountThreshold;
 
         return (
-            <div className={ classes.root } ref={ this.containerRef }>
-                <CustomerPageTitle
-                    title={ order
-                        ? <FormattedMessage id={ 'word.total.title' } />
-                        : <FormattedMessage id={ 'word.cart.title' } /> }
-                />
-                <List>
+            <>
+                <div className={ classes.box }>
+                    <Typography component="h3" variant="h3" className={ classes.title }>
+                        <FormattedMessage id={ 'order.summary.title' } />
+                    </Typography>
+
+                    <div className={ classes.totals }>
+                        <CartTotal totals={ totals } classes={{ wrapper: classes.totalsInner }}/>
+                        { isSummaryPage &&
+                            <Button variant="contained" disabled={ isSendBtnDisabled } fullWidth onClick={ sendData }>
+                                { <FormattedMessage id={ 'place.order.title' } /> }
+                            </Button>
+                        }
+                    </div>
+
+                    <div className={ classes.productHeading }>
+                        <NavLink to={ pathCartPage } className={ classes.editLink }>
+                            <FormattedMessage id={ 'word.edit.title' } />
+                            <span className={ classes.editDecor }>
+                                <span className={ classes.editIcon }>
+                                    <EditIcon />
+                                </span>
+                            </span>
+                        </NavLink>
+                        <div className={ classes.amount }>
+                            {`${cartItemsQuantity} `}
+                            <FormattedPlural
+                                value={ cartItemsQuantity }
+                                one={ <FormattedMessage id={ 'word.item.title' } /> }
+                                other={ <FormattedMessage id={ 'word.items.title' } /> }
+                            />
+                        </div>
+                    </div>
                     <CheckoutCartProductList
                         products={ products }
-                        listItemHeight={ listItemHeight }
+                        productsAmountThreshold={ this.productsAmountThreshold }
+                        isProductsExpanded={ isProductsExpanded }
                     />
-                </List>
-
-                { !order &&
-                    <CustomerPageTitle title={ <FormattedMessage id={ 'word.total.title' } /> } />
-                }
-
-                <CartTotal
-                    totals={ totals }
-                    title={ <FormattedMessage id={ `${order ? 'order.amount' : 'grand.total.title'}` } /> }
-                />
-
-                { (!order && isSummaryPage) &&
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        disabled={ isSendBtnDisabled }
-                        fullWidth
-                        className={ classes.btnWrapper }
-                        onClick={ sendData }
-                >
-                    { <FormattedMessage id={ 'place.order.title' } /> }
-                </Button>
-                }
-            </div>
+                    { shouldShowMoreButton &&
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            onClick={ this.onExpandButtonClickHandler }
+                        >
+                            { <FormattedMessage id={ 'see.more.title' } /> }
+                        </Button>
+                    }
+                </div>
+                <span className={ classes.secure }>
+                    <span className={ classes.secureIcon }>
+                        <LockIcon />
+                    </span>
+                    <span className={ classes.secureText }>
+                        <FormattedMessage id={ 'secure.checkout.title' } />
+                    </span>
+                </span>
+            </>
         );
     }
 }

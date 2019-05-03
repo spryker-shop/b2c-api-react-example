@@ -5,7 +5,7 @@ export const styles = (theme: Theme) => createStyles({
     pageHeader: {
         color: theme.appColors.black,
         fontSize: theme.appFixedDimensions.fontSize.xl,
-        lineHeight: 1.13,
+        lineHeight: 1.1,
         letterSpacing: -0.8,
         textTransform: 'capitalize',
     },

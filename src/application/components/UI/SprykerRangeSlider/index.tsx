@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { NumberFormatValues } from 'react-number-format';
-import { SprykerNumberFormatInput } from '@application/components/UI/SprykerNumberFormatInput';
+import { SprykerNumberFormatInput } from '@components/UI/SprykerNumberFormatInput';
 import { withStyles, Grid, Button, withWidth } from '@material-ui/core';
-import { PopoverWrapper } from '@application/components/PopoverWrapper';
+import { PopoverWrapper } from '@components/PopoverWrapper';
 import { Range } from 'rc-slider';
 import { ChevronIcon } from './icons';
 import { ISprykerRangeSliderProps as Props, ISprykerRangeSliderState as State } from './types';
@@ -233,22 +233,10 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                         anchorReference="anchorEl"
                         hideBackdrop={ false }
                         closePopoverHandler={ this.closePopover }
-                        classes={{
-                            content: classes.popoverContent
-                        }}
-                        paperProps={{
-                            style: {
-                                minWidth: minPopoverWidth
-                            }
-                        }}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left'
-                        }}
-                        transformOrigin={{
-                             vertical: 'top',
-                             horizontal: 'left'
-                         }}
+                        classes={{ content: classes.popoverContent }}
+                        paperProps={{ style: { minWidth: minPopoverWidth } }}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                     >
                         { this.renderRangeContent() }
                     </PopoverWrapper>

@@ -3,14 +3,14 @@ import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IAppPageTitleProps as Props } from './types';
 import { styles } from './styles';
 
-export const AppPageTitleBase: React.SFC<Props> = (props): JSX.Element => {
+export const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, title, children } = props;
 
     return (
         <div className={ classes.root }>
             <div className={ classes.container }>
                 { title &&
-                    <Typography component="h1" variant="display3" className={ classes.title }>
+                    <Typography component="h1" variant="h2" className={ classes.title }>
                         { title }
                     </Typography>
                 }
@@ -20,4 +20,4 @@ export const AppPageTitleBase: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AppPageTitle = withStyles(styles)(AppPageTitleBase);
+export const AppPageTitle = withStyles(styles)(AppPageTitleComponent);

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { CustomerPageProps } from './types';
-import { AppMain } from '@application/components/AppMain';
+import { AppMain } from '@components/AppMain';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { SideBar } from './SideBar';
 import { CustomerSideBar } from './CustomerSideBar';
 import { CustomerRouting } from './CustomerRouting';
-import { ErrorBoundary } from '@hoc/ErrorBoundary';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { styles } from './styles';
 
 @(withRouter as Function)
-class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
+class CustomerPageComponent extends React.PureComponent<CustomerPageProps> {
     public render() {
         const { classes, location } = this.props;
 
@@ -21,13 +22,20 @@ class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
                     </div>
                     <div className={ classes.colContent }>
                         <ErrorBoundary>
-                            <CustomerRouting />
+                            <SideBar location={ location } />
                         </ErrorBoundary>
-                    </div>
-                </div>
+                    </Grid>
+                    <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
+                        <Grid container className={`${classes.rightPart} ${classes.fullHeight}`}>
+                            <Grid item xs={ 12 } className={ classes.fullHeight }>
+                                <CustomerRouting />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </AppMain>
         );
     }
 }
 
-export const CustomerPage = withStyles(styles)(CustomerPageBase);
+export const CustomerPage = withStyles(styles)(CustomerPageComponent);

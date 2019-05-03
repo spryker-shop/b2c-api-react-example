@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
-import { AppPrice } from '@application/components/AppPrice';
+import { AppPrice } from '@components/AppPrice';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { IProductGeneralInfoProps } from './types';
 import { styles } from './styles';
@@ -25,7 +25,7 @@ const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props)
             >
                 { availability }
             </Typography>
-            <Typography component="h1" variant="display2" color="textSecondary" className={ classes.title }>
+            <Typography component="h1" variant="h3" color="textSecondary" className={ classes.title }>
                 { name }
             </Typography>
             { price &&
@@ -34,11 +34,11 @@ const ProductGeneralInfoComponent: React.SFC<IProductGeneralInfoProps> = (props)
                         component="span"
                         className={`${classes.price} ${oldPrice ? classes.newPrice : ''}`}
                     >
-                        <AppPrice value={ price } isStylesInherited />
+                        <AppPrice value={ price } />
                     </Typography>
                     { oldPrice &&
                     <Typography component="span" className={ classes.oldPrice }>
-                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } isStylesInherited />
+                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } />
                     </Typography>
                     }
                     <Typography component="span" className={ classes.vat }>

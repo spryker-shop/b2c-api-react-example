@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
-import { AppPagination } from '@application/containers/AppPagination';
+import { AppPagination } from '@containers/AppPagination';
 
 const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
     const { pagination, history, setPaginationPage } = props;

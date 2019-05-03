@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { IChangePasswordProps as Props, IChangePasswordState as State, IProfileFieldInput } from './types';
 import { typeNotificationWarning } from '@constants/notifications';
-import { CustomerPageTitle } from '@application/components/CustomerPageTitle';
-import { SprykerButton } from '@application/components/UI/SprykerButton';
-import { SprykerForm } from '@application/components/UI/SprykerForm';
-import { NotificationsMessage } from '@application/components/Notifications/NotificationsMessage';
+import { CustomerPageTitle } from '@components/CustomerPageTitle';
+import { SprykerButton } from '@components/UI/SprykerButton';
+import { SprykerForm } from '@components/UI/SprykerForm';
+import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { Grid, withStyles } from '@material-ui/core';
 import { styles } from '../styles';
 
