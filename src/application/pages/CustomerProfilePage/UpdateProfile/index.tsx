@@ -45,7 +45,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
         const isDefaultData = isDefaultFirstName && isDefaultLastName && isDefaultEmail && isDefaultSalutation;
 
         if (isDefaultData && validForm) {
-            this.setState({validForm: false});
+            this.setState({ validForm: false });
 
             return;
         }
@@ -58,7 +58,6 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
     protected handleInputChange = (event: InputChangeEvent): void => {
         const { name, value } = event.target;
         const cleanValue = value.trim();
-
         const isInputValid = checkFormInputValidity({ value, fieldConfig: updateAccountConfigInputStable[name] });
 
         this.setState({
@@ -79,7 +78,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
             fieldsConfig: updateAccountConfigInputStable
         });
 
-        this.setState({validForm: isFormValid});
+        this.setState({ validForm: isFormValid });
     };
 
     protected handleSubmitUpdateProfile = (): void => {
@@ -98,7 +97,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
         };
 
         updateCustomerData(customerReference, profileData);
-        this.setState({validForm: false});
+        this.setState({ validForm: false });
     };
 
     public render = (): JSX.Element => {
@@ -113,10 +112,10 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
 
         return (
             <>
-                <Typography component="h2" variant="h2" className={classes.title}>
-                    <FormattedMessage id={'orders.history.title'} />
+                <Typography component="h2" variant="h2" className={ classes.title }>
+                    <FormattedMessage id={ 'word.profile.title' } />
                 </Typography>
-                <form id="profileForm" name="profileForm" className={classes.form}>
+                <form id="profileForm" name="profileForm" className={ classes.form }>
                     <Grid container direction="column" spacing={ 24 }>
                         <Grid item xs={ 12 }>
                             <SprykerSelect
@@ -124,11 +123,11 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
                                 onChangeHandler={ this.handleInputChange }
                                 menuItems={ SalutationVariants }
                                 label={ <FormattedMessage id={ 'salutation.label' } /> }
-                                menuItemFirst={{
+                                menuItemFirst={ {
                                     value: ' ',
                                     name: <FormattedMessage id={ 'salutation.label' } />,
                                     disabled: true
-                                }}
+                                } }
                                 name={ salutationConfig.inputName }
                                 isFullWidth
                                 isSimple
@@ -180,7 +179,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
                 </form>
             </>
         );
-    }
+    };
 }
 
 export const UpdateProfile = withStyles(styles)(UpdateProfileComponent);

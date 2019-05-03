@@ -46,4 +46,19 @@ export const updateAccountConfigInputStable: {[key: string]: IConfigInputStable}
     }
 };
 
+export const changePasswordConfigInputStable: {[key: string]: IConfigInputStable} = {
+    password: {
+        isRequired: true,
+        inputName: 'password',
+    },
+    newPassword: {
+        isRequired: true,
+        inputName: 'newPassword',
+    },
+    confirmPassword: {
+        isRequired: true,
+        inputName: 'confirmPassword'
+    }
+};
+
 export const logoutSetTimeoutTime: number = 250;

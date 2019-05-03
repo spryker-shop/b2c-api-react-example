@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
 @connect
-export class AccountActionsComponent extends React.Component<Props, State> {
+export class DeleteAccountComponent extends React.Component<Props, State> {
     readonly state: State = {
         isDeleteProfileDialogOpen: false
     };
@@ -84,4 +84,4 @@ export class AccountActionsComponent extends React.Component<Props, State> {
     }
 }
 
-export const AccountActions = withStyles(styles)(AccountActionsComponent);
+export const DeleteAccount = withStyles(styles)(DeleteAccountComponent);

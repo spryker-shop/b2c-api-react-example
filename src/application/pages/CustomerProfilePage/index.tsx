@@ -4,7 +4,7 @@ import { ICustomerProfilePageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { UpdateProfile } from './UpdateProfile';
 import { ChangePassword } from './ChangePassword';
-import { AccountActions } from './AccountActions';
+import { DeleteAccount } from './DeleteAccount';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
@@ -30,23 +30,21 @@ class CustomerProfilePageComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        if (!this.props.isCustomerDataExist) {
+        const { customerReference, routerPush, isCustomerDataExist } = this.props;
+        if (!isCustomerDataExist) {
             return <Preloader isStatic />;
         }
 
         return (
             <>
                 <ErrorBoundary>
-                    <UpdateProfile customerReference={ this.props.customerReference } />
+                    <UpdateProfile customerReference={ customerReference } />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <ChangePassword customerReference={ this.props.customerReference } />
+                    <ChangePassword customerReference={ customerReference } />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <AccountActions
-                        customerReference={ this.props.customerReference }
-                        routerPush={ this.props.routerPush }
-                    />
+                    <DeleteAccount customerReference={ customerReference } routerPush={ routerPush } />
                 </ErrorBoundary>
             </>
         );
