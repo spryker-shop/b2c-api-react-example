@@ -11,7 +11,6 @@ import {
     ICustomerProfileIdentity,
     ICustomerProfilePassword,
     ILoginDataToLocalStorage,
-    TCustomerReference,
 } from '@interfaces/customer';
 import { IPageCustomerProfileAction } from '@stores/reducers/pages/customerProfile/types';
 import { IPageLoginAction } from '@stores/reducers/pages/login/types';
@@ -31,7 +30,7 @@ export const getCustomerProfileFulfilledStateAction = (payload: ICustomerDataPar
     payloadProfileFulfilled: payload,
 });
 
-export const getCustomerProfileAction = function (customerReference: TCustomerReference) {
+export const getCustomerProfileAction = function (customerReference: string) {
     return (dispatch: Function, getState: Function) => {
         CustomerProfileService.getProfileData(dispatch, customerReference);
     };
@@ -54,7 +53,7 @@ export const updateCustomerProfileFulfilledStateAction = (payload: ICustomerData
 });
 
 export const updateCustomerProfileAction = function (
-    customerReference: TCustomerReference,
+    customerReference: string,
     payload: ICustomerProfileIdentity
 ) {
     return (dispatch: Function, getState: Function) => {
@@ -83,7 +82,7 @@ export const updateCustomerPasswordFulfilledStateAction = (): IPageCustomerProfi
 });
 
 export const updateCustomerPasswordAction = function (
-    customerReference: TCustomerReference, payload: ICustomerProfilePassword
+    customerReference: string, payload: ICustomerProfilePassword
 ) {
     return (dispatch: Function, getState: Function) => {
         CustomerProfileService.updatePasswordData(dispatch, customerReference, payload);
@@ -104,7 +103,7 @@ export const deleteCustomerFulfilledStateAction = (): IPageCustomerProfileAction
     type: CUSTOMER_DELETE_ENTITY + '_FULFILLED',
 });
 
-export const deleteCustomerAction = function (customerReference: TCustomerReference) {
+export const deleteCustomerAction = function (customerReference: string) {
     return (dispatch: Function, getState: Function) => {
         CustomerProfileService.deleteCustomerEntity(dispatch, customerReference);
     };

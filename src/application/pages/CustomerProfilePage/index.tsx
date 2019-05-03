@@ -10,7 +10,7 @@ import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
 
 @connect
-class CustomerProfilePageBase extends React.Component<Props> {
+class CustomerProfilePageComponent extends React.Component<Props> {
     public componentDidMount = () => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
@@ -37,12 +37,12 @@ class CustomerProfilePageBase extends React.Component<Props> {
         return (
             <>
                 <ErrorBoundary>
-                    <UpdateProfile
-                        customerReference={ this.props.customerReference }
-                    />
-
+                    <UpdateProfile customerReference={ this.props.customerReference } />
+                </ErrorBoundary>
+                <ErrorBoundary>
                     <ChangePassword customerReference={ this.props.customerReference } />
-
+                </ErrorBoundary>
+                <ErrorBoundary>
                     <AccountActions
                         customerReference={ this.props.customerReference }
                         routerPush={ this.props.routerPush }
@@ -53,4 +53,4 @@ class CustomerProfilePageBase extends React.Component<Props> {
     }
 }
 
-export const CustomerProfilePage = withStyles(styles)(CustomerProfilePageBase);
+export const CustomerProfilePage = withStyles(styles)(CustomerProfilePageComponent);

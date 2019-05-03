@@ -1,18 +1,12 @@
-import {
-    ICustomerDataParsed,
-    ICustomerProfile,
-    ICustomerProfilePassword, TCustomerInputValue,
-    TCustomerReference
-} from '@interfaces/customer';
-
+import { ICustomerDataParsed, ICustomerProfile, ICustomerProfilePassword } from '@interfaces/customer';
 import { WithStyles } from '@material-ui/core';
 import { styles } from '../styles';
 
 export interface IChangePasswordProps extends Partial<ICustomerProfilePassword>, WithStyles<typeof styles> {
     customerData?: ICustomerDataParsed;
-    customerReference: TCustomerReference;
+    customerReference: string;
     passwordUpdated?: boolean;
-    updateCustomerPassword?: (customerReference: TCustomerReference, payload: ICustomerProfilePassword) => void;
+    updateCustomerPassword?: (customerReference: string, payload: ICustomerProfilePassword) => void;
 }
 
 export interface IChangePasswordState extends ICustomerProfilePassword {
@@ -21,5 +15,5 @@ export interface IChangePasswordState extends ICustomerProfilePassword {
 
 export interface IProfileFieldInput {
     name: (keyof ICustomerProfile);
-    value: TCustomerInputValue;
+    value: string;
 }

@@ -3,8 +3,7 @@ import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
 import {
     ICustomerDataParsed,
     ICustomerProfileIdentity,
-    ICustomerProfilePassword,
-    TCustomerReference
+    ICustomerProfilePassword
 } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/customer/customerDataResponse';
 import { RefreshTokenService } from '@services/common/RefreshToken';
@@ -21,19 +20,19 @@ import {
 interface IRequestBody {
     data: {
         type: string;
-        id?: TCustomerReference;
+        id?: string;
         include?: string;
         attributes: ICustomerProfileIdentity | ICustomerProfilePassword;
     };
 }
 
 export class CustomerProfileService extends ApiServiceAbstract {
-    private static getCustomersEndpoint = (customerReference: TCustomerReference) => (
+    private static getCustomersEndpoint = (customerReference: string) => (
         `/customers/${customerReference}`
     );
 
     // Retrieve customer data.
-    public static async getProfileData(dispatch: Function, customerReference: TCustomerReference): Promise<void> {
+    public static async getProfileData(dispatch: Function, customerReference: string): Promise<void> {
         try {
             dispatch(CustomerProfileActions.getCustomerProfilePendingStateAction());
 
@@ -73,7 +72,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
 
     // Update customer data
     public static async updateProfileData(dispatch: Function,
-                                          customerReference: TCustomerReference,
+                                          customerReference: string,
                                           payload: ICustomerProfileIdentity): Promise<void> {
         try {
             dispatch(CustomerProfileActions.updateCustomerProfilePendingStateAction());
@@ -128,7 +127,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
     // Update customer password.
     public static async updatePasswordData(
         dispatch: Function,
-        customerReference: TCustomerReference,
+        customerReference: string,
         payload: ICustomerProfilePassword
     ): Promise<void> {
         try {
@@ -175,7 +174,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
     }
 
     // Delete Customer Profile - Anonymize customers.
-    public static async deleteCustomerEntity(dispatch: Function, customerReference: TCustomerReference): Promise<void> {
+    public static async deleteCustomerEntity(dispatch: Function, customerReference: string): Promise<void> {
         try {
             dispatch(CustomerProfileActions.deleteCustomerPendingStateAction());
 

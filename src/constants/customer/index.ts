@@ -1,5 +1,6 @@
 import { TSalutationVariant } from '@interfaces/customer';
 import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
+import { IConfigInputStable } from '@interfaces/forms';
 
 const SalutationVariantMrValue = 'Mr';
 const SalutationVariantMrsValue = 'Mrs';
@@ -24,5 +25,25 @@ export const SalutationVariants: TSalutationVariant[] = [
         name: FormattedMessageTemplate('salutation.variant.dr')
     },
 ];
+
+export const updateAccountConfigInputStable: {[key: string]: IConfigInputStable} = {
+    salutation: {
+        isRequired: true,
+        inputName: 'salutation',
+    },
+    firstName: {
+        isRequired: true,
+        inputName: 'firstName',
+    },
+    lastName: {
+        isRequired: true,
+        inputName: 'lastName',
+    },
+    email: {
+        isRequired: true,
+        inputName: 'email',
+        isEmail: true
+    }
+};
 
 export const logoutSetTimeoutTime: number = 250;

@@ -1,10 +1,3 @@
-import {
-    TCustomerEmail,
-    TCustomerFirstName,
-    TCustomerLastName,
-    TCustomerPassword,
-    TCustomerSalutation
-} from '@interfaces/customer';
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
 
@@ -16,11 +9,11 @@ export interface IRegisterFormProps extends RouteProps, WithRouter {
 }
 
 export interface IRegisterFormState {
-    salutation: TCustomerSalutation;
-    firstName: TCustomerFirstName;
-    lastName: TCustomerLastName;
-    email: TCustomerEmail;
-    password: TCustomerPassword;
-    confirmPassword: TCustomerPassword;
+    salutation: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
     acceptedTerms: boolean;
 }

@@ -1,7 +1,7 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
 import { TCartId } from '@interfaces/cart';
-import { TFormInputValue } from '@components/UI/SprykerForm/types';
+import { IConfigInputState } from '@interfaces/forms';
 
 export type TShipmentCarrierName = string;
 export type TShipmentId = string;
@@ -80,11 +80,6 @@ export interface ICheckoutAddressState {
 }
 
 export interface IBillingAddressState extends ICheckoutAddressState {
-}
-
-export interface IConfigInputState {
-    value: TFormInputValue;
-    isError: boolean;
 }
 
 export interface IDeliverySelectionState {

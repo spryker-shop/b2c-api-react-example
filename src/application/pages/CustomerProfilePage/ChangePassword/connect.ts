@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { ICustomerProfilePassword, TCustomerReference } from '@interfaces/customer';
+import { ICustomerProfilePassword } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { updateCustomerPasswordAction } from '@stores/actions/pages/customerProfile';
 import { getCustomerProfile, isCustomerPasswordUpdated } from '@stores/reducers/pages/customerProfile';
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
             updateCustomerPassword: (
-                customerReference: TCustomerReference, payload: ICustomerProfilePassword
+                customerReference: string, payload: ICustomerProfilePassword
             ) => updateCustomerPasswordAction(customerReference, payload)
         },
         dispatch,

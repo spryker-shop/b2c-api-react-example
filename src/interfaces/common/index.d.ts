@@ -10,10 +10,6 @@ export interface Component extends Styles {
     children?: React.ReactNode[] | React.Element | string;
 }
 
-export interface IReactSFC extends Styles, React.SFC<P> {
-    [key: string]: number | string | Function | React.ReactNode[] | React.Element | JSX.Element;
-}
-
 export type ClickEvent = React.MouseEvent<HTMLElement>;
 export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement |
     HTMLSelectElement> ;

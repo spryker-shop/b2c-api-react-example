@@ -1,4 +1,4 @@
-import { ICustomerLoginDataParsed, TCustomerId } from '@interfaces/customer';
+import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { TAccessToken } from '@interfaces/login';
 import jwtDecoder from 'jwt-decode';
 
@@ -10,7 +10,7 @@ interface ICustomerLoginDataResponse {
             refreshToken: TAccessToken;
             tokenType: string;
         },
-        id: TCustomerId | null;
+        id: string | null;
     };
 }
 
