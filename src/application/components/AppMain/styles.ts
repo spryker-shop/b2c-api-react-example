@@ -3,8 +3,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     wrapper: {
-        flexGrow: 1,
-        overflowX: 'hidden'
+        flexGrow: 1
     },
     layout: {
         paddingTop: 20,

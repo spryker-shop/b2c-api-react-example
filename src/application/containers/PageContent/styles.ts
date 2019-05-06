@@ -29,6 +29,9 @@ export const styles: any = (theme: Theme) => createStyles({
         body: {
             minWidth: 320,
             fontFamily: 'Circular'
+        },
+        '.app-wrapper': {
+            overflow: 'hidden'
         }
     },
     root: {
