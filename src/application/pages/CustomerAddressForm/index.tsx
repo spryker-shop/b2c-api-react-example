@@ -21,7 +21,6 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
     public state: State = { ...initialState };
 
     public componentDidMount = (): void => {
-        console.log(this.props.currentAddress);
         if (this.props.currentAddress) {
             this.setInitialData();
 
@@ -135,7 +134,6 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
                 stateData[fieldName].value = currentAddress[fieldName];
             });
         }
-        console.log(currentAddress);
         this.setState((prevState: State) => ({ fields: { ...prevState.fields, ...stateData } }));
     };
 

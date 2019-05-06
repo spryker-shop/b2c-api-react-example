@@ -22,13 +22,10 @@ class MainNavigationComponent extends React.Component<Props, State> {
         openedNodes: []
     };
 
-    public componentDidMount = (): void  => {
-        document.addEventListener('touchstart', this.handleClickOutside, false);
-    };
+    public componentDidMount = (): void  => document.addEventListener('touchstart', this.handleClickOutside, false);
 
-    public componentWillUnmount= (): void  => {
+    public componentWillUnmount = (): void  =>
         document.removeEventListener('touchstart', this.handleClickOutside, false);
-    };
 
     protected closeMenuItems = (): void => this.setState({ selectedNode: null, openedNodes: [] });
 
@@ -80,7 +77,6 @@ class MainNavigationComponent extends React.Component<Props, State> {
 
         if (isNodeOpened) {
             const removeNodeFromList = openedNodes.filter(nodeItem => nodeItem !== node);
-
             this.setState({ openedNodes: removeNodeFromList, selectedNode: null });
 
             return;
@@ -114,11 +110,9 @@ class MainNavigationComponent extends React.Component<Props, State> {
                 children: []
             }
         ];
-
         const navigationList = nodesTree.concat(commonItems);
 
         return navigationList.map((node: IMainNavigationNode, index: Number) => {
-
             const { selectedNode, openedNodes } = this.state;
             const { title, resourceId, children, nodeType } = node;
             const productsPreviewList = fixtures.filter(item => item.relatedCategoryId === resourceId)
@@ -150,10 +144,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
                     break;
                 default:
                     linkType = (
-                        <span
-                            onClick={ this.onClickLinkHandler(node) }
-                            className={ classes.mainNavLink }
-                        >
+                        <span onClick={ this.onClickLinkHandler(node) } className={ classes.mainNavLink }>
                             { title } { chevronTemplate }
                         </span>
                     );
@@ -204,9 +195,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
                 ref={nav => this.navRef = nav }
             >
                 <div className={ classes.mainNavInner }>
-                    <div className={ classes.mainNavList }>
-                        { isFulfilled && this.renderCategoriesList() }
-                    </div>
+                    <div className={ classes.mainNavList }>{ isFulfilled && this.renderCategoriesList() }</div>
                     <span className={ classes.close } onClick={ () => onMobileNavToggle(false) } >
                         <span className={ classes.closeIcon }><CrossIcon /></span>
                     </span>

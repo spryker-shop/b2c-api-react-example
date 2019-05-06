@@ -14,7 +14,3 @@ export interface ICustomerOverviewPageProps extends WithStyles<typeof styles> {
     isCustomerDataExist: boolean;
     isAddressesListInitiated?: boolean;
 }
-
-export interface ICustomerOverviewPageState {
-
-}

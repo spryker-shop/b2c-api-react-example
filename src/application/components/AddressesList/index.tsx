@@ -14,10 +14,13 @@ import { styles } from './styles';
 @connect
 class AddressesListComponent extends React.Component<Props> {
     public static defaultProps = {
-        isMainOnly: false
+        isMainOnly: false,
+        isEditOnly: false
     };
 
     public componentDidMount = (): void => {
+        this.props.setCurrentAddressAction(null);
+
         this.initRequestData();
     };
 
@@ -42,6 +45,7 @@ class AddressesListComponent extends React.Component<Props> {
             isLoading,
             customer,
             deleteAddressAction,
+            isEditOnly
         } = this.props;
         const mainAddressTitle = type === 'shipping' ? 'shipping.address.title' : 'billing.address.title';
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
@@ -52,11 +56,11 @@ class AddressesListComponent extends React.Component<Props> {
                     <Typography component="h3" variant="h3" className={ classes.title }>
                         <FormattedMessage id={ addressTitle } />
                     </Typography>
-                    <div>{ `${ data.salutation } ${ data.firstName } ${ data.lastName }` }</div>
-                    <div>{ `${ data.company || '' }` }</div>
-                    <div>{ `${ data.address1 } ${ data.address2 } ${ data.address3 }` }</div>
-                    <div>{ `${ data.zipCode } ${ data.city }, ${ data.country }` }</div>
-                    <div>{ `${ data.phone || '' }` }</div>
+                    <div>{`${ data.salutation } ${ data.firstName } ${ data.lastName }`}</div>
+                    <div>{`${ data.company || '' }`}</div>
+                    <div>{`${ data.address1 } ${ data.address2 } ${ data.address3 }`}</div>
+                    <div>{`${ data.zipCode } ${ data.city }, ${ data.country }`}</div>
+                    <div>{`${ data.phone || '' }`}</div>
                     <div className={ classes.actions }>
                         <IconButton
                             className={ `${ classes.actionItem } ${ classes.actionEdit }` }
@@ -66,13 +70,15 @@ class AddressesListComponent extends React.Component<Props> {
                             <EditIcon />
                         </IconButton>
 
-                        <IconButton
-                            className={ `${ classes.actionItem } ${ classes.actionDelete }` }
-                            onClick={ () => deleteAddressAction(data.id, customer) }
-                            disabled={ isLoading }
-                        >
-                            <DeleteIcon />
-                        </IconButton>
+                        { !isEditOnly &&
+                            <IconButton
+                                className={ `${ classes.actionItem } ${ classes.actionDelete }` }
+                                onClick={ () => deleteAddressAction(data.id, customer) }
+                                disabled={ isLoading }
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        }
                     </div>
                 </div>
             </Grid>

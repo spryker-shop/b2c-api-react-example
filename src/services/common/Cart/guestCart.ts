@@ -33,14 +33,10 @@ export class GuestCartService extends ApiServiceAbstract {
     ): Promise<void> {
         try {
             removeAuthToken();
-
             dispatch(cartActions.cartAddItemPendingStateAction());
 
             const body = {
-                data: {
-                    type: 'guest-cart-items',
-                    attributes: payload
-                }
+                data: { type: 'guest-cart-items', attributes: payload }
             };
             const endpoint = this.endpoint('guest-cart-items');
             const response: IApiResponseData = await api.post(endpoint, body,
@@ -121,7 +117,6 @@ export class GuestCartService extends ApiServiceAbstract {
     ): Promise<void> {
         try {
             removeAuthToken();
-
             dispatch(cartActions.cartDeleteItemPendingStateAction);
 
             const endpoint = `guest-carts/${cartUid}/guest-cart-items/${sku}`;
@@ -157,14 +152,10 @@ export class GuestCartService extends ApiServiceAbstract {
     ): Promise<void> {
         try {
             removeAuthToken();
-
             dispatch(cartActions.cartUpdateItemPendingStateAction());
 
             const body = {
-                data: {
-                    type: 'guest-cart-items',
-                    attributes: payload
-                }
+                data: { type: 'guest-cart-items', attributes: payload }
             };
             const { sku } = payload;
 

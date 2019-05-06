@@ -1,26 +1,16 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles } from '@material-ui/core';
-import { ICustomerOverviewPageProps as Props, ICustomerOverviewPageState as State } from './types';
+import { ICustomerOverviewPageProps as Props } from './types';
 import { styles } from './styles';
 import { OrdersList } from '@containers/OrdersList';
 import { AddressesList } from '@components/AddressesList';
 
 @connect
-class CustomerOverviewPageComponent extends React.PureComponent<Props, State> {
-    public readonly state: State = {};
-
+class CustomerOverviewPageComponent extends React.PureComponent<Props> {
     public componentDidMount = ():void => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
-        }
-    };
-
-    public componentDidUpdate = (prevProps: Props): void => {
-        const { orders, customerData } = this.props;
-
-        if (!Boolean(orders) && !prevProps.customerData && customerData) {
-
         }
     };
 
@@ -43,7 +33,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props, State> {
                         </div>
 
                         <div>{ customerData.email }</div>
-                        <AddressesList isMainOnly />
+                        <AddressesList isMainOnly isEditOnly />
 
                         { Boolean(isAddressesListInitiated) &&
                             <OrdersList
