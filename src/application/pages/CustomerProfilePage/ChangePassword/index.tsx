@@ -28,7 +28,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
                 isError: false
             }
         },
-        validForm: false
+        isFormValid: false
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
@@ -64,7 +64,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
             fieldsConfig: changePasswordConfigInputStable
         });
 
-        this.setState({ validForm: isFormValid });
+        this.setState({ isFormValid });
     };
 
     protected handleSubmitPassword = (): void => {
@@ -90,7 +90,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
 
     protected clearPasswords = (): void => {
         this.setState({
-            validForm: false,
+            isFormValid: false,
             fields: {
                 password: {
                     value: '',
@@ -111,7 +111,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
     public render = (): JSX.Element => {
         const { classes } = this.props;
 
-        const { validForm, fields: { password, newPassword, confirmPassword } } = this.state;
+        const { isFormValid, fields: { password, newPassword, confirmPassword } } = this.state;
         const {
             password: passwordConfig,
             newPassword: newPasswordConfig,
@@ -161,7 +161,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
                         </Grid>
                         <Grid item xs={ 12 }>
                             <Button
-                                disabled={ !validForm }
+                                disabled={ !isFormValid }
                                 variant="contained"
                                 onClick={ this.handleSubmitPassword }
                                 className={ classes.submit }

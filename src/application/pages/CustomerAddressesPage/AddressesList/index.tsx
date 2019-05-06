@@ -5,7 +5,7 @@ import { IAddressItem } from '@interfaces/addresses';
 import { Chip, Button, Divider, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-export const AddressesListBase: React.SFC<Props> = (props): JSX.Element => {
+const AddressesListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         classes,
         isLoading,
@@ -66,4 +66,4 @@ export const AddressesListBase: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AddressesList = withStyles(styles)(AddressesListBase);
+export const AddressesList = withStyles(styles)(AddressesListComponent);

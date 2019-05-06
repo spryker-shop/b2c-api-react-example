@@ -1,180 +1,197 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { FormEvent, InputChangeEvent } from '@interfaces/common';
-import { AddressFormProps as Props, AddressFormState as State } from './types';
-import { setFormFields, IFieldInput } from './settings';
-import { CustomerPageTitle } from '@components/CustomerPageTitle';
-import { SprykerButton } from '@components/UI/SprykerButton';
-import { SprykerForm } from '@components/UI/SprykerForm';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationWarning } from '@constants/notifications';
-import { Grid, Button, withStyles } from '@material-ui/core';
+import { InputChangeEvent } from '@interfaces/common';
+import { ICustomerAddressFormProps as Props, ICustomerAddressFormState as State } from './types';
+import { Grid, Button, withStyles, Typography } from '@material-ui/core';
 import { styles } from './styles';
+import { AddressForm } from '@components/AddressForm';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { customerAddressConfigInputStable as inputsConfig } from '@constants/customer';
+import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
+import { IAddressItem } from '@interfaces/addresses';
+import { initialState } from './settings';
+import { pathCustomerAddressesPage } from '@constants/routes';
+import { PrevIcon } from './icons';
+import { NavLink } from 'react-router-dom';
 
 @connect
-export class CustomerAddressFormComponent extends React.Component<Props, State> {
-    public state: State = {
-        salutation: '',
-        firstName: '',
-        lastName: '',
-        company: '',
-        address1: '',
-        address2: '',
-        address3: '',
-        zipCode: '',
-        city: '',
-        country: '',
-        iso2Code: '',
-        phone: '',
-        isDefaultShipping: false,
-        isDefaultBilling: false,
-        submitted: false
-    };
+class CustomerAddressFormComponent extends React.Component<Props, State> {
+    public state: State = { ...initialState };
 
-    public componentDidMount = () => {
+    public componentDidMount = (): void => {
         if (this.props.currentAddress) {
             this.setInitialData();
-        } else if (!this.props.isAddressExist
-            || (this.props.isAddressExist && this.props.addressIdParam !== this.props.currentAddress.id)
-        ) {
-            this.initRequestData();
-        }
-    };
-
-    public componentDidUpdate = (prevProps: Props, prevState: State) => {
-        // After updating data
-        if (!prevState.submitted && this.state.submitted) {
-            this.props.routerGoBack();
 
             return;
         }
-
-        // First load of the page
-        if (!this.props.isRejected && !this.props.isAddressExist && !this.state.submitted) {
+        if (!this.props.isAddressExist ||
+            (this.props.isAddressExist && this.props.addressIdParam !== this.props.currentAddress.id)) {
             this.initRequestData();
+        }
+    };
+
+    public componentDidUpdate = (prevProps: Props, prevState: State): void => {
+        const stateData = this.transformFieldsData();
+        const { currentAddress } = this.props;
+        const isSameFieldData: boolean[] = [];
+        Object.keys(stateData).forEach(fieldName =>
+            isSameFieldData.push(currentAddress ? stateData[fieldName] === currentAddress[fieldName] : false));
+
+        if (this.state.isSubmitted && prevProps.isLoading && !this.props.isLoading) {
+            this.props.routerGoBack();
         }
 
         if (!prevProps.isAddressExist && this.props.isAddressExist) {
             this.setInitialData();
         }
-    };
 
-    public handleChange = (event: {target: IFieldInput}): void => {
-        const {name, value}: IFieldInput = event.target;
-        this.setState(state => ({...state, [ name ]: value}));
-    };
-
-    public handleCheckbox = (event: InputChangeEvent): void => {
-        event.persist();
-        this.setState((prevState: State) => ({...prevState, [ event.target.name ]: !prevState[ event.target.name ]}));
-    };
-
-    public handleSubmitForm = (e: FormEvent) => {
-        e.preventDefault();
-        const {salutation, firstName, lastName, address1, address2, zipCode, city, iso2Code} = this.state;
-        this.setState(() => ({submitted: true}));
-
-        if (!salutation || !firstName || !lastName || !address1 || !address2 || !zipCode || !city || !iso2Code) {
-            NotificationsMessage({
-                id: 'empty.required.fields.message',
-                type: typeNotificationWarning
-            });
+        if (!isSameFieldData.includes(false) && this.state.isFormValid) {
+            this.setState({ isFormValid: false });
 
             return;
         }
 
-        const payload = {...this.state};
-        delete payload.submitted;
-
-        if (this.props.currentAddress) {
-            this.props.updateAddress(this.props.currentAddress.id, this.props.customer, payload);
-        } else {
-            this.props.addAddress(payload, this.props.customer);
+        if (prevState.fields !== this.state.fields) {
+            this.handleFormValidity();
         }
     };
 
-    private initRequestData = () => {
+    protected handleInputChange = (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: inputsConfig[name] });
+        const isCheckboxes = value === inputsConfig.isDefaultBilling.inputName ||
+            value === inputsConfig.isDefaultShipping.inputName;
+
+        this.setState((prevState: State) => ({
+            ...this.state,
+            fields: {
+                ...this.state.fields,
+                [name]: { value: isCheckboxes ? !prevState.fields[name].value : value.trim(), isError: !isInputValid }
+            }
+        }));
+    };
+
+    protected handleFormValidity = (): void => {
+        const isFormValid = checkFormValidity({ form: this.state.fields, fieldsConfig: inputsConfig });
+        this.setState({ isFormValid });
+    };
+
+    protected transformFieldsData = (): IAddressItem => {
+        const payload: IAddressItem = {};
+        const { fields } = this.state;
+
+        Object.keys(fields).forEach(fieldName => {
+            if (fieldName === 'country') {
+                payload.iso2Code = fields[fieldName].value;
+
+                return;
+            }
+
+            payload[fieldName] = fields[fieldName].value;
+        });
+
+        return payload;
+    };
+
+    protected handleSubmitForm = (): void => {
+        const payload = this.transformFieldsData();
+        const { currentAddress, updateAddress, addAddress, customer } = this.props;
+        this.setState({ isSubmitted: true, isFormValid: false });
+
+        if (currentAddress) {
+            updateAddress(currentAddress.id, customer, payload);
+
+            return;
+        }
+        addAddress(payload, customer);
+    };
+
+    protected initRequestData = (): void => {
         if (this.props.isLoading) {
             return;
         }
-        if (this.props.isAppDataSet && this.props.customer && this.props.addressIdParam) {
+
+        if (this.props.customer && this.props.addressIdParam) {
             this.props.getOneAddress(this.props.customer, this.props.addressIdParam);
         }
     };
 
-    private setInitialData = () => {
-        const {currentAddress} = this.props;
-        const isAddressDataExist = Boolean(currentAddress);
+    protected setInitialData = (): void => {
+        const { currentAddress } = this.props;
+        const { fields } = this.state;
+        const stateData: State['fields'] = {};
 
-        const stateData = {
-            salutation: isAddressDataExist ? currentAddress.salutation : '',
-            firstName: isAddressDataExist ? currentAddress.firstName : '',
-            lastName: isAddressDataExist ? currentAddress.lastName : '',
-            company: isAddressDataExist ? currentAddress.company || '' : '',
-            address1: isAddressDataExist ? currentAddress.address1 : '',
-            address2: isAddressDataExist ? currentAddress.address2 : '',
-            address3: isAddressDataExist ? currentAddress.address3 || '' : '',
-            zipCode: isAddressDataExist ? currentAddress.zipCode : '',
-            city: isAddressDataExist ? currentAddress.city : '',
-            country: isAddressDataExist ? currentAddress.country : '',
-            iso2Code: isAddressDataExist ? currentAddress.iso2Code : '',
-            phone: isAddressDataExist ? currentAddress.phone || '' : '',
-            isDefaultShipping: isAddressDataExist && currentAddress.isDefaultShipping,
-            isDefaultBilling: isAddressDataExist && currentAddress.isDefaultBilling,
-            submitted: false
-        };
-        this.setState((prevState: State) => ({
-            ...prevState,
-            ...stateData
-        }));
+        if (currentAddress) {
+            Object.keys(fields).forEach(fieldName => {
+                stateData[fieldName] = { value: '' };
+
+                if (fieldName === 'country') {
+                    stateData.country.value = currentAddress['iso2Code'];
+
+                    return;
+                }
+
+                stateData[fieldName].value = currentAddress[fieldName];
+            });
+        }
+        this.setState((prevState: State) => ({ fields: { ...prevState.fields, ...stateData } }));
     };
 
     public render(): JSX.Element {
-        const {classes, currentAddress, countries, routerGoBack, isLoading} = this.props;
+        const { classes, currentAddress } = this.props;
         const pageTitle = currentAddress ? 'edit.address.title' : 'add.new.address.title';
-        const currentState = {...this.state};
+        const { fields, isFormValid } = this.state;
 
         return (
-            <Grid container>
-                <Grid item xs={12}>
-                    <CustomerPageTitle
-                        title={<FormattedMessage id={pageTitle} />}
-                    />
-                </Grid>
-
-                <Grid item xs={9}>
-                    {/*<SprykerForm*/}
-                        {/*form={{*/}
-                            {/*formName: 'addressForm',*/}
-                            {/*onChangeHandler: this.handleChange,*/}
-                            {/*onSubmitHandler: this.handleSubmitForm,*/}
-                            {/*fields: setFormFields(currentState, countries, this.handleCheckbox)*/}
-                        {/*}}*/}
-                        {/*SubmitButton={*/}
-                            {/*<Grid container>*/}
-                                {/*<Grid item xs={12} sm={4}>*/}
-                                    {/*<SprykerButton*/}
-                                        {/*title={<FormattedMessage id={'word.save.title'} />}*/}
-                                        {/*btnType="submit"*/}
-                                        {/*extraClasses={classes.addButton}*/}
-                                        {/*disabled={isLoading}*/}
-                                    {/*/>*/}
-                                {/*</Grid>*/}
-                            {/*</Grid>*/}
-                        {/*}*/}
-                    {/*/>*/}
-                </Grid>
-                <Grid item xs={12} className={classes.addButton}>
-                    <Button
-                        color="primary"
-                        onClick={() => routerGoBack()}
-                        disabled={isLoading}
-                    >
-                        Cancel
-                    </Button>
-                </Grid>
-            </Grid>
+            <>
+                <Typography component="h2" variant="h2" className={ classes.title }>
+                    <FormattedMessage id={ pageTitle } />
+                </Typography>
+                <AddressForm
+                    formName={ 'addressForm' }
+                    onFieldChangeHandler={ this.handleInputChange }
+                    data={ fields }
+                    additionalActions={
+                        <>
+                            <Grid item xs={ 12 }>
+                                <SprykerCheckbox
+                                    isChecked={ Boolean(fields.isDefaultBilling.value) }
+                                    changeHandler={ this.handleInputChange }
+                                    label={ <FormattedMessage id={ 'default.billing.address.label' } /> }
+                                    inputName={ inputsConfig.isDefaultBilling.inputName }
+                                />
+                            </Grid>
+                            <Grid item xs={ 12 }>
+                                <SprykerCheckbox
+                                    isChecked={ Boolean(fields.isDefaultShipping.value) }
+                                    changeHandler={ this.handleInputChange }
+                                    label={ <FormattedMessage id={ 'default.shipping.address.label' } /> }
+                                    inputName={ inputsConfig.isDefaultShipping.inputName }
+                                />
+                            </Grid>
+                            <Grid item xs={ 12 }>
+                                <div className={ classes.actions }>
+                                    <NavLink to={ pathCustomerAddressesPage } className={ classes.back }>
+                                                <span className={ classes.icon }>
+                                                    <PrevIcon />
+                                                </span>
+                                        <FormattedMessage id={ 'word.back.title' } />
+                                    </NavLink>
+                                    <Button
+                                        disabled={ !isFormValid }
+                                        variant="contained"
+                                        onClick={ this.handleSubmitForm }
+                                        className={ classes.submit }
+                                    >
+                                        <FormattedMessage id={ 'word.save.title' } />
+                                    </Button>
+                                </div>
+                            </Grid>
+                        </>
+                    }
+                />
+            </>
         );
     }
 }

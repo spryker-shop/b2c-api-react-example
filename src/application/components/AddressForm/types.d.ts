@@ -11,4 +11,5 @@ export interface IAddressFormProps extends WithStyles<typeof styles> {
     onFieldChangeHandler: (event: InputChangeEvent) => void;
     onFieldBlurHandler?: () => boolean;
     data: ICheckoutAddressState;
+    additionalActions: JSX.Element | null;
 }

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IRadioItem } from '@components/UI/SprykerForm/types';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { InputChangeEvent } from '@interfaces/common';
 

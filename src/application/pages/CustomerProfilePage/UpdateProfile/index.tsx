@@ -31,11 +31,11 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
                 isError: false
             }
         },
-        validForm: false
+        isFormValid: false
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { fields, validForm } = this.state;
+        const { fields, isFormValid } = this.state;
         const { customerData } = this.props;
         const shouldCheckFormValidity = prevState.fields !== fields;
         const isDefaultFirstName = fields.firstName.value === customerData.firstName;
@@ -44,8 +44,8 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
         const isDefaultSalutation = fields.salutation.value === customerData.salutation;
         const isDefaultData = isDefaultFirstName && isDefaultLastName && isDefaultEmail && isDefaultSalutation;
 
-        if (isDefaultData && validForm) {
-            this.setState({ validForm: false });
+        if (isDefaultData && isFormValid) {
+            this.setState({ isFormValid: false });
 
             return;
         }
@@ -78,7 +78,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
             fieldsConfig: updateAccountConfigInputStable
         });
 
-        this.setState({ validForm: isFormValid });
+        this.setState({ isFormValid });
     };
 
     protected handleSubmitUpdateProfile = (): void => {
@@ -97,12 +97,12 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
         };
 
         updateCustomerData(customerReference, profileData);
-        this.setState({ validForm: false });
+        this.setState({ isFormValid: false });
     };
 
     public render = (): JSX.Element => {
         const { classes } = this.props;
-        const { validForm, fields: { firstName, lastName, salutation, email } } = this.state;
+        const { isFormValid, fields: { firstName, lastName, salutation, email } } = this.state;
         const {
             firstName: firstNameConfig,
             lastName: lastNameConfig,
@@ -167,7 +167,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
                         </Grid>
                         <Grid item xs={ 12 }>
                             <Button
-                                disabled={ !validForm }
+                                disabled={ !isFormValid }
                                 variant="contained"
                                 onClick={ this.handleSubmitUpdateProfile }
                                 className={ classes.submit }

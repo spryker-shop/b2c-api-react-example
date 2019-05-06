@@ -1,6 +1,7 @@
 import { TSalutationVariant } from '@interfaces/customer';
 import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
 import { IConfigInputStable } from '@interfaces/forms';
+import { IAddressConfigInputStable } from '@constants/checkout/types';
 
 const SalutationVariantMrValue = 'Mr';
 const SalutationVariantMrsValue = 'Mrs';
@@ -58,6 +59,62 @@ export const changePasswordConfigInputStable: {[key: string]: IConfigInputStable
     confirmPassword: {
         isRequired: true,
         inputName: 'confirmPassword'
+    }
+};
+
+export const customerAddressConfigInputStable: IAddressConfigInputStable = {
+    firstName: {
+        isRequired: true,
+        inputName: 'firstName',
+    },
+    lastName: {
+        isRequired: true,
+        inputName: 'lastName',
+    },
+    salutation: {
+        isRequired: true,
+        inputName: 'salutation',
+    },
+    address1: {
+        isRequired: true,
+        inputName: 'address1',
+    },
+    address2: {
+        isRequired: true,
+        inputName: 'address2',
+    },
+    address3: {
+        isRequired: false,
+        inputName: 'address3',
+    },
+    zipCode: {
+        isRequired: true,
+        inputName: 'zipCode',
+        minLength: 5
+    },
+    city: {
+        isRequired: true,
+        inputName: 'city',
+    },
+    country: {
+        isRequired: true,
+        inputName: 'country',
+    },
+    company: {
+        isRequired: false,
+        inputName: 'company',
+    },
+    phone: {
+        isRequired: false,
+        inputName: 'phone',
+    },
+    isDefaultShipping: {
+        isRequired: false,
+        inputName: 'isDefaultShipping',
+    },
+    isDefaultBilling: {
+        isRequired: false,
+        inputName: 'isDefaultBilling',
     }
 };
 

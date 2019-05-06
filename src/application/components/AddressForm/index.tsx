@@ -17,7 +17,8 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
         formName,
         onFieldChangeHandler,
         onFieldBlurHandler,
-        data
+        data,
+        additionalActions
     } = props;
     const isCountriesCollectionExist = Boolean(Array.isArray(countriesCollection) && countriesCollection.length > 0);
     const countriesList = isCountriesCollectionExist ? countriesCollection
@@ -75,7 +76,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         formName={ formName }
                         onChangeHandler={ onFieldChangeHandler }
                         onBlurHandler={ onFieldBlurHandler }
-                        inputValue={ data.company.value }
+                        inputValue={ data.company.value || '' }
                         isError={ data.company.isError }
                     />
                 </Grid>
@@ -111,7 +112,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         inputName="address3"
                         onChangeHandler={ onFieldChangeHandler }
                         onBlurHandler={ onFieldBlurHandler }
-                        inputValue={ data.address3.value }
+                        inputValue={ data.address3.value || '' }
                         isError={ data.address3.isError }
                     />
                 </Grid>
@@ -180,18 +181,19 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         inputName="phone"
                         onChangeHandler={ onFieldChangeHandler }
                         onBlurHandler={ onFieldBlurHandler }
-                        inputValue={ data.phone.value }
+                        inputValue={ data.phone.value || '' }
                         isError={ data.phone.isError }
                         inputType="number"
                     />
                 </Grid>
+                { additionalActions && additionalActions }
             </Grid>
         </form>
     );
 };
 
 AddressFormComponent.defaultProps = {
-    shouldShowEmail: false
+    shouldShowEmail: false,
+    additionalActions: null
 };
-
 export const AddressForm = connect(withStyles(styles)(AddressFormComponent));

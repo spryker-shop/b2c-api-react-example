@@ -71,6 +71,7 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 classes={{ root: classes.radio }}
                 checkedIcon={ <span className={ classes.radioIcon } /> }
                 icon={ <span className={ classes.radioIcon } /> }
+                name={ item.value }
             /> }
             label={ <>{ Boolean(item.salutation) && item.salutation }{ item.label }</> }
         />

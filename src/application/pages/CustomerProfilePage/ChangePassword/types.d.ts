@@ -17,5 +17,5 @@ export interface IChangePasswordState {
         newPassword: IConfigInputState;
         confirmPassword: IConfigInputState;
     };
-    validForm: boolean;
+    isFormValid: boolean;
 }

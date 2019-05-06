@@ -17,5 +17,5 @@ export interface IUpdateProfileState {
         lastName: IConfigInputState;
         email: IConfigInputState;
     };
-    validForm: boolean;
+    isFormValid: boolean;
 }

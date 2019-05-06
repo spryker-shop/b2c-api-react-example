@@ -9,6 +9,7 @@ import { AppPrice } from '@components/AppPrice';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
+import { Preloader } from '@components/Preloader';
 
 @connect
 class OrdersListComponent extends React.Component<Props> {
@@ -18,7 +19,11 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        this.props.getOrdersCollection();
+        const { getOrdersCollection, orders } = this.props;
+
+        if (!Boolean(orders)) {
+            getOrdersCollection();
+        }
     };
 
     protected renderOrderItems = (): JSX.Element[] => {
@@ -91,20 +96,24 @@ class OrdersListComponent extends React.Component<Props> {
     public render = (): JSX.Element => {
         const { classes, isFulfilled, isHasOrders, shouldShowEmptyList, shouldShowOrdersAmount, orders } = this.props;
 
+        if (!isFulfilled) {
+            return <Preloader isStatic />;
+        }
+
         return (
             <>
                 { isFulfilled &&
                     <>
                         { (!isHasOrders && shouldShowEmptyList)
                             ? (
-                                <Typography component="h3" variant="display2">
+                                <Typography component="h3" variant="h3">
                                     <FormattedMessage id={'no.order.message'} />
                                 </Typography>
                             )
                             : (
                                 <div className={ classes.orderList }>
                                     { shouldShowOrdersAmount &&
-                                        <Typography component="span" variant="headline" className={ classes.amount }>
+                                        <Typography component="span" variant="h5" className={ classes.amount }>
                                             {`${orders.length} `}
                                             <FormattedPlural
                                                 value={ orders.length }
