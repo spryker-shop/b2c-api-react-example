@@ -39,7 +39,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
             isSameFieldData.push(currentAddress ? stateData[fieldName] === currentAddress[fieldName] : false));
 
         if (this.state.isSubmitted && prevProps.isLoading && !this.props.isLoading) {
-            this.props.routerGoBack();
+            this.props.routerPush(pathCustomerAddressesPage);
         }
 
         if (!prevProps.isAddressExist && this.props.isAddressExist) {
@@ -135,6 +135,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
                 stateData[fieldName].value = currentAddress[fieldName];
             });
         }
+        console.log(currentAddress);
         this.setState((prevState: State) => ({ fields: { ...prevState.fields, ...stateData } }));
     };
 
@@ -173,9 +174,9 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
                             <Grid item xs={ 12 }>
                                 <div className={ classes.actions }>
                                     <NavLink to={ pathCustomerAddressesPage } className={ classes.back }>
-                                                <span className={ classes.icon }>
-                                                    <PrevIcon />
-                                                </span>
+                                        <span className={ classes.icon }>
+                                            <PrevIcon />
+                                        </span>
                                         <FormattedMessage id={ 'word.back.title' } />
                                     </NavLink>
                                     <Button

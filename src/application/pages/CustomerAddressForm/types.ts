@@ -6,7 +6,7 @@ import { styles } from './styles';
 export interface ICustomerAddressFormProps extends WithStyles<typeof styles> {
     customer: string;
     currentAddress: IAddressItem;
-    routerGoBack: Function;
+    routerPush: Function;
     isLoading: boolean;
     addressIdParam: string;
     isAddressExist: boolean;

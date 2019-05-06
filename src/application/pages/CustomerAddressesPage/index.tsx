@@ -17,20 +17,21 @@ class CustomerAddressBase extends React.Component<Props, State> {
         this.initRequestData();
     };
 
-    public handleAddAddress = () => {
+    protected handleAddAddress = (): void => {
         this.props.routerPush(pathAddressFormNew);
     };
 
-    public setUpdatedAddress = (addressId: string) => () => {
+    protected setUpdatedAddress = (addressId: string) => (): void => {
         this.props.setCurrentAddressAction(addressId);
         this.props.routerPush(`${pathAddressFormUpdateBase}/${addressId}`);
     };
 
-    private initRequestData = () => {
+    protected initRequestData = (): void => {
         const {addresses, isLoading, customer} = this.props;
         if (isLoading) { return; }
 
         if ((addresses && Array.isArray(addresses) && !addresses.length) && customer) {
+            console.log(875879585, 'inisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiays');
             this.props.getAddressesAction(customer);
         }
     };
