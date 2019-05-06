@@ -95,9 +95,7 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 </Grid>
                 <Grid item xs={ 6 }>
                     <Button
-                        component={
-                            ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } />
-                        }
+                        component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } /> }
                         variant="contained"
                         color="primary"
                         fullWidth

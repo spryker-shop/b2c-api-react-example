@@ -18,6 +18,7 @@ export const pathOrderDetailsPage = `${pathOrderDetailsPageBase}/:orderId`;
 export const pathForgotPassword = `${config.WEB_PATH}password/forgotten`;
 export const pathResetPassword = `${config.WEB_PATH}password/restore`;
 export const pathCustomerProfilePage = `${pathCustomerPage}/profile`;
+export const pathCustomerOverviewPage = `${pathCustomerPage}/overview`;
 export const pathCustomerAddressesPage = `${pathCustomerPage}/addresses`;
 export const pathAddressFormUpdateBase = `${pathCustomerAddressesPage}/update`;
 export const pathAddressFormUpdate = `${pathAddressFormUpdateBase}/:addressId`;

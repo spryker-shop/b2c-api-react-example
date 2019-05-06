@@ -15,7 +15,8 @@ import { Preloader } from '@components/Preloader';
 class OrdersListComponent extends React.Component<Props> {
     public static defaultProps = {
         shouldShowEmptyList: true,
-        shouldShowOrdersAmount: true
+        shouldShowOrdersAmount: true,
+        ordersLimit: Infinity
     };
 
     public componentDidMount = (): void => {
@@ -27,69 +28,71 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     protected renderOrderItems = (): JSX.Element[] => {
-        const { classes, orders } = this.props;
+        const { classes, orders, ordersLimit } = this.props;
 
         if (!Boolean(orders.length)) {
             return null;
         }
 
-        return orders.map(order => {
+        return orders.map((order, index) => {
             const date = formattedDate(order.dateCreated);
             const renderDate = formatDateToString(new Date(date));
 
-            return (
-                <div className={ classes.orderItem } key={`id-${ order.id }`}>
-                    <Grid container spacing={ 8 }>
-                        <Grid item xs={ 3 }>
-                            <span className={`${classes.orderText} ${classes.orderTitle}`}>
-                                <FormattedMessage id={ 'order.id.title' } />
-                            </span>
-                            <span className={ classes.orderText }>{ order.id }</span>
-                        </Grid>
-                        <Grid item xs={ 3 }>
-                            <span className={`${classes.orderText} ${classes.orderTitle}`}>
-                                <FormattedMessage id={ 'orders.date.title' } />
-                            </span>
-                            <span className={ classes.orderText }>{ renderDate }</span>
-                        </Grid>
-                        <Grid item xs={ 3 }>
-                            <span className={`${classes.orderText} ${classes.orderTitle}`}>
-                                <FormattedMessage id={ 'orders.total.title' } />
-                            </span>
-                            <span className={ classes.orderText }>
-                                <AppPrice
-                                    value={ order.totals.grandTotal }
-                                    specificCurrency={ order.currency }
-                                    isStylesInherited
-                                />
-                            </span>
-                        </Grid>
-                        <Grid item xs={ 3 }>
-                            <div className={ classes.actions }>
-                                <Tooltip
-                                    title={
-                                        <>
-                                            <FormattedMessage id={ 'orders.view.order.title' } />
-                                            <span className={ classes.tooltipArrow } />
-                                        </>
-                                    }
-                                    placement="top"
-                                    classes={{ tooltip: classes.tooltipWrapper }}
-                                >
-                                    <NavLink
-                                        to={`${pathOrderDetailsPageBase}/${order.id}`}
-                                        className={ classes.viewLink }
+            if (index + 1 <= ordersLimit) {
+                return (
+                    <div className={ classes.orderItem } key={ `id-${ order.id }` }>
+                        <Grid container spacing={ 8 }>
+                            <Grid item xs={ 3 }>
+                                <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
+                                    <FormattedMessage id={ 'order.id.title' } />
+                                </span>
+                                <span className={ classes.orderText }>{ order.id }</span>
+                            </Grid>
+                            <Grid item xs={ 3 }>
+                                <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
+                                    <FormattedMessage id={ 'orders.date.title' } />
+                                </span>
+                                <span className={ classes.orderText }>{ renderDate }</span>
+                            </Grid>
+                            <Grid item xs={ 3 }>
+                                <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
+                                    <FormattedMessage id={ 'orders.total.title' } />
+                                </span>
+                                <span className={ classes.orderText }>
+                                    <AppPrice
+                                        value={ order.totals.grandTotal }
+                                        specificCurrency={ order.currency }
+                                        isStylesInherited
+                                    />
+                                </span>
+                            </Grid>
+                            <Grid item xs={ 3 }>
+                                <div className={ classes.actions }>
+                                    <Tooltip
+                                        title={
+                                            <>
+                                                <FormattedMessage id={ 'orders.view.order.title' } />
+                                                <span className={ classes.tooltipArrow } />
+                                            </>
+                                        }
+                                        placement="top"
+                                        classes={ { tooltip: classes.tooltipWrapper } }
                                     >
-                                        <span className={ classes.viewIcon }>
-                                            <ViewIcon />
-                                        </span>
-                                    </NavLink>
-                                </Tooltip>
-                            </div>
+                                        <NavLink
+                                            to={ `${ pathOrderDetailsPageBase }/${ order.id }` }
+                                            className={ classes.viewLink }
+                                        >
+                                            <span className={ classes.viewIcon }>
+                                                <ViewIcon />
+                                            </span>
+                                        </NavLink>
+                                    </Tooltip>
+                                </div>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </div>
-            );
+                    </div>
+                );
+            }
         });
     };
 

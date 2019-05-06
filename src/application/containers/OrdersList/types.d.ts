@@ -9,4 +9,5 @@ export interface IOrdersListProps extends WithStyles<typeof styles> {
     isFulfilled?: boolean;
     shouldShowEmptyList?: boolean;
     shouldShowOrdersAmount?: boolean;
+    ordersLimit?: number | Infinity;
 }

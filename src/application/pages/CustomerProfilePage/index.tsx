@@ -11,19 +11,19 @@ import { Preloader } from '@components/Preloader';
 
 @connect
 class CustomerProfilePageComponent extends React.Component<Props> {
-    public componentDidMount = () => {
+    public componentDidMount = ():void => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
         }
     };
 
-    public componentDidUpdate = () => {
+    public componentDidUpdate = ():void => {
         if (!this.props.isRejected && !this.props.isCustomerDataExist) {
             this.initRequestData();
         }
     };
 
-    private initRequestData = () => {
+    protected initRequestData = ():void => {
         if (!this.props.isLoading && this.props.isAppDataSet && this.props.customerReference) {
             this.props.getCustomerData(this.props.customerReference);
         }

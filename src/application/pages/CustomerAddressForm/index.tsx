@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { InputChangeEvent } from '@interfaces/common';
@@ -13,13 +14,14 @@ import { IAddressItem } from '@interfaces/addresses';
 import { initialState } from './settings';
 import { pathCustomerAddressesPage } from '@constants/routes';
 import { PrevIcon } from './icons';
-import { NavLink } from 'react-router-dom';
 
+@(withRouter as Function)
 @connect
 class CustomerAddressFormComponent extends React.Component<Props, State> {
     public state: State = { ...initialState };
 
     public componentDidMount = (): void => {
+        console.log(this.props.currentAddress);
         if (this.props.currentAddress) {
             this.setInitialData();
 
@@ -39,7 +41,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
             isSameFieldData.push(currentAddress ? stateData[fieldName] === currentAddress[fieldName] : false));
 
         if (this.state.isSubmitted && prevProps.isLoading && !this.props.isLoading) {
-            this.props.routerPush(pathCustomerAddressesPage);
+            this.props.history.push(pathCustomerAddressesPage);
         }
 
         if (!prevProps.isAddressExist && this.props.isAddressExist) {
@@ -108,9 +110,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
     };
 
     protected initRequestData = (): void => {
-        if (this.props.isLoading) {
-            return;
-        }
+        if (this.props.isLoading) { return; }
 
         if (this.props.customer && this.props.addressIdParam) {
             this.props.getOneAddress(this.props.customer, this.props.addressIdParam);

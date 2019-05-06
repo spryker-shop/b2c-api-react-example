@@ -2,8 +2,9 @@ import { IAddressItem } from '@interfaces/addresses';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { IConfigInputState } from '@interfaces/forms';
 import { styles } from './styles';
+import { WithRouter } from '@interfaces/common';
 
-export interface ICustomerAddressFormProps extends WithStyles<typeof styles> {
+export interface ICustomerAddressFormProps extends WithStyles<typeof styles>, WithRouter {
     customer: string;
     currentAddress: IAddressItem;
     routerPush: Function;

@@ -8,9 +8,6 @@ export interface ICustomerAddressPageProps extends WithStyles<typeof styles> {
     currentAddress: IAddressItem;
     isLoading: boolean;
     isAddressesInit: boolean;
-    dispatch: Function;
     getAddressesAction: Function;
-    deleteAddressAction: Function;
-    setCurrentAddressAction: Function;
     routerPush: Function;
 }

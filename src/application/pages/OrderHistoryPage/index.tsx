@@ -18,4 +18,4 @@ const OrderHistoryPageComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const OrderHistory = withStyles(styles)(OrderHistoryPageComponent);
+export const OrderHistoryPage = withStyles(styles)(OrderHistoryPageComponent);

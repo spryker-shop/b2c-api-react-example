@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withRouter } from 'react-router';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
@@ -8,6 +9,7 @@ import { SprykerDialog } from '@components/UI/SprykerDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
+@(withRouter as Function)
 @connect
 export class DeleteAccountComponent extends React.Component<Props, State> {
     readonly state: State = {
@@ -15,7 +17,7 @@ export class DeleteAccountComponent extends React.Component<Props, State> {
     };
 
     protected handleDeleteProfileDialogAgree = (): void => {
-        const { customerReference, deleteCustomerEntity, routerPush } = this.props;
+        const { customerReference, deleteCustomerEntity, history } = this.props;
 
         if (!customerReference) {
             return;
@@ -24,7 +26,7 @@ export class DeleteAccountComponent extends React.Component<Props, State> {
         deleteCustomerEntity(customerReference);
         this.handleDeleteProfileDialogShowing();
 
-        routerPush(`${pathLoginPage}`);
+        history.push(`${pathLoginPage}`);
     };
 
     protected handleDeleteProfileDialogShowing = (): void =>
