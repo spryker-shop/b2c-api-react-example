@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { ICustomerAddressPageProps as Props, ICustomerAddressPageState as State } from './types';
+import { ICustomerAddressPageProps as Props } from './types';
 import { pathAddressFormNew, pathAddressFormUpdateBase } from '@constants/routes';
 import { AddressesList } from './AddressesList';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @connect
-class CustomerAddressBase extends React.Component<Props, State> {
-    public state: State = {};
-
+class CustomerAddressBase extends React.Component<Props> {
     public componentDidMount = (): void => {
         this.props.setCurrentAddressAction(null);
 
@@ -27,11 +25,9 @@ class CustomerAddressBase extends React.Component<Props, State> {
     };
 
     protected initRequestData = (): void => {
-        const {addresses, isLoading, customer} = this.props;
-        if (isLoading) { return; }
+        const {addresses, customer} = this.props;
 
         if ((addresses && Array.isArray(addresses) && !addresses.length) && customer) {
-            console.log(875879585, 'inisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiaysinisafiays');
             this.props.getAddressesAction(customer);
         }
     };

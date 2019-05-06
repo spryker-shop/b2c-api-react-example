@@ -14,5 +14,3 @@ export interface ICustomerAddressPageProps extends WithStyles<typeof styles> {
     setCurrentAddressAction: Function;
     routerPush: Function;
 }
-
-export interface ICustomerAddressPageState {}
