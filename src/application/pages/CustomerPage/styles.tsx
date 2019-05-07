@@ -5,7 +5,7 @@ export const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        paddingBottom: 150,
+        paddingBottom: 110,
         margin: '0 -25px'
     },
     colSidebar: {

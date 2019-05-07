@@ -2,11 +2,12 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
 import { AppPrice } from '@components/AppPrice';
-import { ICartTotalProps as Props } from './types';
+import { ITotalsBlockProps as Props } from './types';
+import { IOrderDetailsExpenseItem } from '@interfaces/order';
 import { styles } from './styles';
 
-export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, totals } = props;
+const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes, totals, expenses, isMinus } = props;
 
     if (!totals) {
         return null;
@@ -32,13 +33,37 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
                 </Typography>
             </div>
 
+            {(Boolean(expenses)) &&
+                expenses.map((item: IOrderDetailsExpenseItem, index: number) => (
+                    <div className={classes.row} key={`${item.name}${index}`}>
+                        <Typography component="span" variant="h5" color="textSecondary">
+                            <FormattedMessage id={ 'order.detail.shipment.title' } />
+                        </Typography>
+                        <Typography component="span" variant="h5" color="textSecondary">
+                            <AppPrice value={ item.sumPrice || 0 } />
+                        </Typography>
+                    </div>
+                ))
+            }
+
+            {(Boolean(expenses) && expenses.length > 1) &&
+                <div className={classes.row}>
+                    <Typography component="span" variant="h5" color="textSecondary">
+                        <FormattedMessage id={ 'order.detail.shipment.total.title' } />
+                    </Typography>
+                    <Typography component="span" variant="h5" color="textSecondary">
+                        <AppPrice value={ totals.expenseTotal } />
+                    </Typography>
+                </div>
+            }
+
             { Boolean(totals.discountTotal) &&
                 <div className={ classes.row }>
                     <Typography component="span" variant="h5" color="textSecondary">
                         <FormattedMessage id={ 'word.discount.title' } />
                     </Typography>
                     <Typography component="span" variant="h5" className={ classes.discountText }>
-                        <AppPrice value={ totals.discountTotal } isMinus />
+                        <AppPrice value={ totals.discountTotal } isMinus={ isMinus } />
                     </Typography>
                 </div>
             }
@@ -55,4 +80,8 @@ export const CartTotalBase: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const CartTotal = withStyles(styles)(CartTotalBase);
+TotalsBlockComponent.defaultProps = {
+    isMinus: true
+};
+
+export const TotalsBlock = withStyles(styles)(TotalsBlockComponent);

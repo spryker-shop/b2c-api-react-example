@@ -3,12 +3,11 @@ import { connect } from './connect';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
 import { OrderProductList } from './OrderProductsList';
-import { OrderDetailsTotals } from './OrderDetailsTotals';
-import { OrderAddresses } from './OrderAddresses';
-import { EmptyOrder } from './EmptyOrder';
 import { IOrderDetailsPageProps as Props, IOrderDetailsPageState as State } from './types';
 import { styles } from './styles';
 import { DateFormatter } from '@components/DateFormatter';
+import { AddressDetails } from '@components/AddressDetails';
+import { TotalsBlock } from '@components/TotalsBlock';
 
 @connect
 class OrderDetailsPageComponent extends React.Component<Props, State> {
@@ -33,6 +32,7 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
         if (this.props.isLoading) {
             return;
         }
+
         if (this.props.isAppDataSet && this.props.orderIdParam) {
             this.props.getOrderData(this.props.orderIdParam as string);
         }
@@ -85,18 +85,31 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                                     </dl>
                                     <OrderProductList items={ order.items } />
                                 </div>
-                                <OrderDetailsTotals
-                                    expenses={ order.expenses }
-                                    totals={ order.totals }
+                                <AddressDetails
+                                    address={ order.billingAddress }
+                                    title={<FormattedMessage id={ 'billing.address.title' } />}
                                 />
-                                <OrderAddresses
-                                    billingAddress={ order.billingAddress }
-                                    shippingAddress={ order.shippingAddress }
-                                    billingBlockTitle={ <FormattedMessage id={ 'billing.address.title' } /> }
-                                    shippingBlockTitle={ <FormattedMessage id={ 'shipping.address.title' } /> }
+                                <AddressDetails
+                                    address={ order.shippingAddress }
+                                    title={<FormattedMessage id={ 'shipping.address.title' } />}
                                 />
+                                <div className={ classes.block }>
+                                    <Typography component="h3" variant="h3" className={ classes.blockTitle }>
+                                        <FormattedMessage id={ 'orders.total.title' } />
+                                    </Typography>
+                                    <TotalsBlock
+                                        totals={ order.totals }
+                                        classes={{ discountText: classes.discountText, wrapper: classes.totalWrapper }}
+                                        expenses={ order.expenses }
+                                        isMinus={ false }
+                                    />
+                                </div>
                             </>
-                            : <EmptyOrder intro={ <FormattedMessage id={ 'no.order.message' } /> } />
+                            : (
+                                <Typography component="h3" variant="h3">
+                                    <FormattedMessage id={ 'no.order.message' } /> } />
+                                </Typography>
+                            )
                         }
                     </>
                 }

@@ -131,7 +131,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
                     return;
                 }
 
-                stateData[fieldName].value = currentAddress[fieldName];
+                stateData[fieldName].value = currentAddress[fieldName].toString();
             });
         }
         this.setState((prevState: State) => ({ fields: { ...prevState.fields, ...stateData } }));

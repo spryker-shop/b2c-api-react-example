@@ -20,9 +20,10 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4
     },
     block: {
-        padding: '20px 25px 25px',
+        padding: '25px 25px 25px',
         background: theme.appColors.weekWhite,
-        borderRadius: 4
+        borderRadius: 4,
+        marginBottom: 20
     },
     generalInfo: {
         display: 'flex',
@@ -44,5 +45,15 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black,
         width: generalInfoTitleWidth,
         fontWeight: 500
+    },
+    discountText: {
+        color: theme.appColors.grey
+    },
+    blockTitle: {
+        fontWeight: 700,
+        paddingBottom: 20
+    },
+    totalWrapper: {
+        paddingBottom: 0
     }
 });

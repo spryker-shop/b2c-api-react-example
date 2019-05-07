@@ -4,11 +4,12 @@ import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { IAddressesListProps as Props } from './types';
 import { IAddressItem } from '@interfaces/addresses';
-import { Grid, IconButton, Typography, withStyles } from '@material-ui/core';
+import { Grid, IconButton, withStyles } from '@material-ui/core';
 import { DeleteIcon, EditIcon } from './icons';
 import { pathAddressFormUpdateBase } from '@constants/routes';
 import { Preloader } from '@components/Preloader';
 import { styles } from './styles';
+import { AddressDetails } from '@components/AddressDetails';
 
 @(withRouter as Function)
 @connect
@@ -52,15 +53,11 @@ class AddressesListComponent extends React.Component<Props> {
 
         return (
             <Grid item key={ data.id || data.zipCode } xs={ 12 } md={ 6 }>
-                <div className={ classes.addressContainer }>
-                    <Typography component="h3" variant="h3" className={ classes.title }>
-                        <FormattedMessage id={ addressTitle } />
-                    </Typography>
-                    <div>{`${ data.salutation } ${ data.firstName } ${ data.lastName }`}</div>
-                    <div>{`${ data.company || '' }`}</div>
-                    <div>{`${ data.address1 } ${ data.address2 } ${ data.address3 }`}</div>
-                    <div>{`${ data.zipCode } ${ data.city }, ${ data.country }`}</div>
-                    <div>{`${ data.phone || '' }`}</div>
+                <AddressDetails
+                    address={ data }
+                    title={<FormattedMessage id={ addressTitle } />}
+                    classes={{ container: classes.addressContainer }}
+                >
                     <div className={ classes.actions }>
                         <IconButton
                             className={ `${ classes.actionItem } ${ classes.actionEdit }` }
@@ -71,16 +68,16 @@ class AddressesListComponent extends React.Component<Props> {
                         </IconButton>
 
                         { !isEditOnly &&
-                            <IconButton
-                                className={ `${ classes.actionItem } ${ classes.actionDelete }` }
-                                onClick={ () => deleteAddressAction(data.id, customer) }
-                                disabled={ isLoading }
-                            >
-                                <DeleteIcon />
-                            </IconButton>
+                        <IconButton
+                            className={ `${ classes.actionItem } ${ classes.actionDelete }` }
+                            onClick={ () => deleteAddressAction(data.id, customer) }
+                            disabled={ isLoading }
+                        >
+                            <DeleteIcon />
+                        </IconButton>
                         }
                     </div>
-                </div>
+                </AddressDetails>
             </Grid>
         );
     };
