@@ -1,4 +1,3 @@
-import { TAppPriceMode } from '@interfaces/product';
 import { TAppCurrency } from '@interfaces/currency';
 import { TAppStore } from '@interfaces/store';
 import { TAppLocale, TAppTimeZone } from '@interfaces/locale';
@@ -7,7 +6,7 @@ import { ICountry } from '@interfaces/country';
 
 export interface IInitData {
     ok?: boolean;
-    priceMode?: TAppPriceMode;
+    priceMode?: string | null;
     currency?: TAppCurrency;
     store?: TAppStore;
     locale?: TAppLocale;

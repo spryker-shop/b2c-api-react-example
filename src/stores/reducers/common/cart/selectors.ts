@@ -1,16 +1,14 @@
-import { TProductQuantity, TProductSKU } from '@interfaces/product';
 import { ICartItem, ICartTotals, TCartId } from '@interfaces/cart';
-import { ICartState } from '@stores/reducers/common/cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 // Number of products(including quantity per each product) in the cart
-export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): TProductQuantity {
+export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.items.reduce((acc: number, item: ICartItem) =>
     acc + item.quantity, 0);
 }
 
 // Number of items in the cart
-export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps): TProductQuantity {
+export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.totalQty;
 }
 

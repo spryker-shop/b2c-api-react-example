@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
-import { withStyles, Grid } from '@material-ui/core';
-import { OrderDetailsGeneralInfo } from './OrderDetailsGeneralInfo';
+import { FormattedMessage, FormattedPlural } from 'react-intl';
+import { withStyles, Typography } from '@material-ui/core';
 import { OrderProductList } from './OrderProductsList';
 import { OrderDetailsTotals } from './OrderDetailsTotals';
 import { OrderAddresses } from './OrderAddresses';
 import { EmptyOrder } from './EmptyOrder';
 import { IOrderDetailsPageProps as Props, IOrderDetailsPageState as State } from './types';
 import { styles } from './styles';
+import { DateFormatter } from '@components/DateFormatter';
 
 @connect
-class OrderDetailsPageBase extends React.Component<Props, State> {
+class OrderDetailsPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
         selectedItems: {},
         selectedItemsData: null
@@ -38,39 +38,71 @@ class OrderDetailsPageBase extends React.Component<Props, State> {
         }
     };
 
+    protected orderAmount = (): number => {
+        const { order } = this.props;
+
+        return order.items.reduce((accumulator, currentValue): number => accumulator + currentValue.quantity, 0);
+    };
+
     public render(): JSX.Element {
-        const {classes, isOrderExist, isFulfilled, order} = this.props;
+        const { classes, isOrderExist, isFulfilled, order } = this.props;
 
         return (
-            <div className={classes.root}>
-                {isFulfilled &&
-                    <Grid container>
-                        {isOrderExist
-                            ? <Grid item xs={12}>
-                                <OrderDetailsGeneralInfo
-                                    orderId={order.id}
-                                    dateOrder={order.dateCreated}
-                                    priceMode={order.priceMode}
-                                />
-                                <OrderProductList items={order.items} />
+            <>
+                { isFulfilled &&
+                    <>
+                        <div className={ classes.heading }>
+                            <Typography component="h2" variant="h2">
+                                <FormattedMessage id={ 'order.details.title' } />
+                            </Typography>
+                            { isOrderExist &&
+                                <span className={ classes.amount }>
+                                    {`${ this.orderAmount() } `}
+                                    <FormattedPlural
+                                        value={ this.orderAmount() }
+                                        one={ <FormattedMessage id={ 'word.item.title' } /> }
+                                        other={ <FormattedMessage id={ 'word.items.title' } /> }
+                                    />
+                                </span>
+                            }
+                        </div>
+                        { isOrderExist
+                            ? <>
+                                <div className={ classes.block }>
+                                    <dl className={ classes.generalInfo }>
+                                        <dt className={ classes.generalInfoTitle }>
+                                            <FormattedMessage id={ 'order.detail.number.title' } />
+                                        </dt>
+                                        <dd className={ classes.generalInfoDescritption }>
+                                            { order.id }
+                                        </dd>
+                                        <dt className={ classes.generalInfoTitle }>
+                                            <FormattedMessage id={ 'order.detail.date.title' } />
+                                        </dt>
+                                        <dd className={ classes.generalInfoDescritption }>
+                                            <DateFormatter date={ order.dateCreated } />
+                                        </dd>
+                                    </dl>
+                                    <OrderProductList items={ order.items } />
+                                </div>
                                 <OrderDetailsTotals
-                                    expenses={order.expenses}
-                                    totals={order.totals}
+                                    expenses={ order.expenses }
+                                    totals={ order.totals }
                                 />
                                 <OrderAddresses
-                                    billingAddress={order.billingAddress}
-                                    shippingAddress={order.shippingAddress}
-                                    billingBlockTitle={<FormattedMessage id={'billing.address.title'} />}
-                                    shippingBlockTitle={<FormattedMessage id={'shipping.address.title'} />}
+                                    billingAddress={ order.billingAddress }
+                                    shippingAddress={ order.shippingAddress }
+                                    billingBlockTitle={ <FormattedMessage id={ 'billing.address.title' } /> }
+                                    shippingBlockTitle={ <FormattedMessage id={ 'shipping.address.title' } /> }
                                 />
-                            </Grid>
-                            : <EmptyOrder intro={<FormattedMessage id={'no.order.message'} />} />
+                            </>
+                            : <EmptyOrder intro={ <FormattedMessage id={ 'no.order.message' } /> } />
                         }
-                    </Grid>
+                    </>
                 }
-            </div>
+            </>
         );
     }
 }
 
-export const OrderDetailsContainer = withStyles(styles)(OrderDetailsPageBase);
+export const OrderDetailsContainer = withStyles(styles)(OrderDetailsPageComponent);

@@ -1,6 +1,6 @@
 import { ORDERS_COLLECTION_REQUEST } from '@stores/actionTypes/pages/order';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IOrderCollectionParsed, TOrderCollection } from '@interfaces/order';
+import { IOrderCollectionParsed, IOrderItem } from '@interfaces/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IOrderHistoryState, IPageOrderHistoryAction } from '@stores/reducers/pages/orderHistory/types';
 import { IApiErrorResponse } from '@services/types';
@@ -60,7 +60,7 @@ const handlePending = (orderHistoryState: IOrderHistoryState) => (
 );
 
 // selectors
-export function getOrdersCollectionFromStore(state: IReduxStore, props: IReduxOwnProps): TOrderCollection {
+export function getOrdersCollectionFromStore(state: IReduxStore, props: IReduxOwnProps): IOrderItem[] | null {
     return isOrderHistoryItems(state, props) ? state.orderHistory.data.items : null;
 }
 

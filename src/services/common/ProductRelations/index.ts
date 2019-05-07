@@ -1,5 +1,4 @@
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { TProductSKU } from '@interfaces/product';
 import { IApiResponseData } from '@services/types';
 import { typeNotificationError } from '@constants/notifications';
 import {
@@ -13,7 +12,7 @@ import { NotificationsMessage } from '@components/Notifications/NotificationsMes
 import { TCartId } from '@interfaces/cart';
 
 export class ProductRelationsService extends ApiServiceAbstract {
-    public static async getProductRelations(dispatch: Function, sku: TProductSKU): Promise<void> {
+    public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
         try {
             dispatch(productRelationsPendingAction());
 

@@ -1,11 +1,10 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { TPriceTypeDefaultGross, TPriceTypeOriginalGross, TProductName, TProductSKU } from '@interfaces/product';
 
 export interface IProductGeneralInfoProps extends WithStyles<typeof styles> {
-    name: TProductName;
-    sku: TProductSKU;
-    price: TPriceTypeOriginalGross;
-    oldPrice: TPriceTypeDefaultGross;
+    name: string;
+    sku: string;
+    price: number | null;
+    oldPrice: number | null;
     availability: string;
 }

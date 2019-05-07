@@ -1,19 +1,13 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import {
-    IProductPropFullData,
-    TProductAvailability,
-    TProductQuantity,
-    TProductSKU,
-    TProductType
-} from '@interfaces/product';
+import { IProductPropFullData, TProductType } from '@interfaces/product';
 import { TCartId } from '@interfaces/cart';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 
 export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof styles> {
     product: IProductPropFullData | null;
     productType: TProductType | null;
-    sku: TProductSKU | null;
+    sku: string | null;
     isUserLoggedIn?: boolean;
     addItemToCart?: Function;
     addItemGuestCart?: Function;
@@ -25,11 +19,11 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
 }
 
 export interface IProductConfiguratorAddToCartState {
-    quantitySelected: TProductQuantity;
-    quantity: TProductQuantity;
+    quantitySelected: number;
+    quantity: number;
     isBuyBtnDisabled?: boolean;
     isProcessCartLoading?: boolean;
-    availability: TProductAvailability | null;
-    sku: TProductSKU | null;
+    availability: boolean | null;
+    sku: string | null;
     isUpdateValue: boolean;
 }

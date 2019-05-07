@@ -1,27 +1,14 @@
-import { TProductName, TProductPrice, TProductQuantity, TProductSKU } from '@interfaces/product';
 import { IAbstractTotals, TCanceledTotal } from '@interfaces/abstract/totals';
 import { TCartPriceMode } from '@interfaces/cart';
 import { IAddressItemOrder } from '@interfaces/addresses';
 import { TAppCurrency } from '@interfaces/currency';
-
-type TOrderCreatedAt = string;
-export type TOrderDate = string;
-export type TOrderId = string;
-export type TOrderCollection = IOrderItem[] | null;
-export type TOrderExpenseName = string;
-export type TOrderProducts = IOrderDetailsItem[] | null;
-export type TOrderExpenses = IOrderDetailsExpenseItem[] | null;
-
-/**
- *  Order History
- */
 
 export interface IOrderTotals extends IAbstractTotals {
     canceledTotal: TCanceledTotal;
 }
 
 export interface IOrderCollectionParsed {
-    items: TOrderCollection;
+    items: IOrderItem[] | null;
 }
 
 export interface IOrderCollectionResponse {
@@ -29,58 +16,60 @@ export interface IOrderCollectionResponse {
 }
 
 export interface IOrderItem {
-    id: TOrderId;
-    dateCreated: TOrderDate;
+    id: string;
+    dateCreated: string;
     currency: TAppCurrency;
     totals: IOrderTotals;
 }
 
 export interface IOrderItemResponse {
     attributes: {
-        createdAt: TOrderCreatedAt;
+        createdAt: string;
         currencyIsoCode: TAppCurrency;
         totals: IOrderTotals;
     };
-    id: TOrderId;
+    id: string;
 }
-
-/**
- *  Order Detail
- */
 
 export interface IOrderDetailsResponse {
     attributes: {
-        createdAt: TOrderCreatedAt,
+        createdAt: string,
         currencyIsoCode: TAppCurrency;
-        expenses: TOrderExpenses;
-        items: IOrderDetailsItem[];
+        expenses: IOrderDetailsExpenseItem[] | null;
+        items: IOrderDetailsItem[] | null;
         totals: IOrderTotals;
         billingAddress: IAddressItemOrder;
         shippingAddress: IAddressItemOrder;
         priceMode: TCartPriceMode;
     };
-    id: TOrderId;
+    id: string;
 }
 
 export interface IOrderDetailsParsed extends IOrderItem {
-    expenses: TOrderExpenses;
-    items: TOrderProducts;
+    expenses: IOrderDetailsExpenseItem[] | null;
+    items: IOrderDetailsItem[] | null;
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
     priceMode: TCartPriceMode;
 }
 
 export interface IOrderDetailsExpenseItem {
-    name: TOrderExpenseName;
-    sumPrice: TProductPrice;
+    name: string;
+    sumPrice: number;
 }
 
 export interface IOrderDetailsItem {
-    name: TProductName;
-    quantity: TProductQuantity;
-    sku: TProductSKU;
-    sumPrice: TProductPrice;
-    sumPriceToPayAggregation: TProductPrice;
+    name: string;
+    quantity: number;
+    sku: string;
+    sumPrice: number;
+    sumPriceToPayAggregation: number;
+    metadata: {
+        image: string;
+        superAttributes: {
+            [name: string]: string
+        }
+    };
 }
 
 export type IOrderDetailsSelectedItems = {

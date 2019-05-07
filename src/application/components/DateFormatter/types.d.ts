@@ -1,8 +1,9 @@
 import { IOrderDetailsParsed } from '@interfaces/order';
-import { TAppTimeZone } from '@interfaces/locale';
+import { TAppLocale, TAppTimeZone } from '@interfaces/locale';
 
 export interface IDateFormatterProps {
     date: IOrderDetailsParsed['dateCreated'];
     timeZone: TAppTimeZone;
-    title: string | React.ReactNode;
+    title?: string | React.ReactNode;
+    locale?: TAppLocale;
 }

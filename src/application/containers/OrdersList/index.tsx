@@ -3,13 +3,13 @@ import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography, Tooltip } from '@material-ui/core';
-import { formatDateToString, formattedDate } from '@helpers/common/dates';
 import { pathOrderDetailsPageBase } from '@constants/routes';
 import { AppPrice } from '@components/AppPrice';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
+import { DateFormatter } from '@components/DateFormatter';
 
 @connect
 class OrdersListComponent extends React.Component<Props> {
@@ -35,9 +35,6 @@ class OrdersListComponent extends React.Component<Props> {
         }
 
         return orders.map((order, index) => {
-            const date = formattedDate(order.dateCreated);
-            const renderDate = formatDateToString(new Date(date));
-
             if (index + 1 <= ordersLimit) {
                 return (
                     <div className={ classes.orderItem } key={ `id-${ order.id }` }>
@@ -48,11 +45,13 @@ class OrdersListComponent extends React.Component<Props> {
                                 </span>
                                 <span className={ classes.orderText }>{ order.id }</span>
                             </Grid>
-                            <Grid item xs={ 3 }>
+                            <Grid item xs={ 4 }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'orders.date.title' } />
                                 </span>
-                                <span className={ classes.orderText }>{ renderDate }</span>
+                                <span className={ classes.orderText }>
+                                    <DateFormatter date={ order.dateCreated } />
+                                </span>
                             </Grid>
                             <Grid item xs={ 3 }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
@@ -66,7 +65,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     />
                                 </span>
                             </Grid>
-                            <Grid item xs={ 3 }>
+                            <Grid item xs={ 2 }>
                                 <div className={ classes.actions }>
                                     <Tooltip
                                         title={

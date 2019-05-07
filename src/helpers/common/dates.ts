@@ -1,11 +1,13 @@
+import { TAppLocale } from '@interfaces/locale';
+
 export const formattedDate: Function = (date: string): string => date.split(' ')[0];
 
-export const formatDateToString = (date: Date): string => {
+export const formatDateToString = (date: Date, locale?: TAppLocale): string => {
     const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
-    const MM = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+    const MM = date.toLocaleString( locale, { month: 'short' });
     const yyyy = date.getFullYear();
 
-    return (dd + '.' + MM + '.' + yyyy);
+    return `${MM}. ${dd}, ${yyyy}`;
 };
 
 export const getDateUtcUnix = (date: Date): number => {

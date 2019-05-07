@@ -1,8 +1,7 @@
 import {
     IProductCardImages,
     IProductImageSetsRawResponse,
-    TProductImageSetsCollectionRawResponse,
-    TProductImageSRC
+    TProductImageSetsCollectionRawResponse
 } from '@interfaces/product';
 
 export const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse): IProductCardImages[] | null => {
@@ -21,7 +20,7 @@ export const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse
     return result;
 };
 
-export const getOneProductImage = (images: IProductCardImages[]): TProductImageSRC | null => {
+export const getOneProductImage = (images: IProductCardImages[]): string | null => {
     if (!Array.isArray(images)) {
         return null;
     }

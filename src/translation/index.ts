@@ -116,12 +116,13 @@ export const messages: IMessages = {
         'optional.placeholder': 'Optional',
         'order.amount': 'Amount Paid',
         'order.detail.canceled.title': 'Canceled',
-        'order.detail.date.title': 'Order date: ',
-        'order.detail.number.title': 'Order # {number}',
+        'order.detail.date.title': 'Order Date: ',
+        'order.detail.number.title': 'Order ID',
         'order.detail.price.title': 'Price mode: ',
         'order.detail.shipment.title': 'Shipping Fee',
         'order.detail.shipment.total.title': 'Shipping',
         'order.detail.view.all.title': 'View all orders',
+        'order.details.title': 'Order Details',
         'order.id.title': 'Order ID',
         'order.success.thank.message': 'Thank you for your order! You can view details of your order',
         'order.successfully.created.message': 'Order created successfully.',
@@ -259,9 +260,13 @@ export const messages: IMessages = {
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
         'your.order.title': 'Your Order',
-        'zip.code.label': 'Zipcode'
+        'zip.code.label': 'Zipcode',
+        'total.price.title': 'Total Price',
+        'buy.again.title': 'Buy it again',
     },
     'de': {
+        'buy.again.title': 'Kaufen Sie es erneut',
+        'total.price.title': 'Gesamtpreis',
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
         'account.title': 'Meine Konto',
         'account.was.deleted.message': 'Ihr Konto wurde gelöscht!',
@@ -376,11 +381,12 @@ export const messages: IMessages = {
         'order.authenticate.error.message': 'Sie sollten sich anmelden, um den Verlauf Ihrer Bestellungen zu sehen',
         'order.detail.canceled.title': 'Abgebrochen',
         'order.detail.date.title': 'Datum: ',
-        'order.detail.number.title': 'Bestellung # {number}',
+        'order.detail.number.title': 'Auftragsnummer',
         'order.detail.price.title': 'Preismodus: ',
         'order.detail.shipment.title': 'Lieferkosten',
         'order.detail.shipment.total.title': 'Versand',
         'order.detail.view.all.title': 'Alle Bestellungen sehen',
+        'order.details.title': 'Bestelldetails',
         'order.id.title': 'Bestellnummer: ',
         'order.success.thank.message': 'Sie können die Details der Bestellung hier einsehen.',
         'order.successfully.created.message': 'Bestellung erfolgreich erstellt.',
@@ -516,7 +522,7 @@ export const messages: IMessages = {
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
         'your.order.title': 'Deine Bestellung',
-        'zip.code.label': 'PLZ'
+        'zip.code.label': 'PLZ',
     }
 };
 

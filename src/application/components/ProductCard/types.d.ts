@@ -1,11 +1,11 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from '@components/ProductCard/styles';
-import { IProductCard, IProductLabel, TProductCurrency, TProductName, TProductSKU } from '@interfaces/product';
+import { IProductCard, IProductLabel } from '@interfaces/product';
 
 interface IProductCardProps extends WithStyles<typeof styles>, Partial<IProductCard> {
     onSelectProduct: Function;
-    currency: TProductCurrency;
-    name: TProductName;
-    sku: TProductSKU;
+    currency: string;
+    name: string;
+    sku: string;
     label: IProductLabel[] | null;
 }

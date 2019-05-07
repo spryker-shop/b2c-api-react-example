@@ -6,8 +6,7 @@ import {
     IProductAttributes,
     IProductDataParsed,
     IProductPropFullData,
-    ISuperAttributes,
-    TAppPriceMode,
+    ISuperAttributes
 } from '@interfaces/product';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { TRouterMatchParam } from '@helpers/router/types';
@@ -17,7 +16,7 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     product: IProductDataParsed | null;
     isAppDataSet: boolean;
     isUserLoggedIn: boolean;
-    appPriceMode: TAppPriceMode;
+    appPriceMode: string | null;
     appStore: TAppStore;
     getProductData: Function;
     payloadForCreateCart: ICartCreatePayload;

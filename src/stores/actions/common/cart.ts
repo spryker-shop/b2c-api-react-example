@@ -10,7 +10,6 @@ import { CartService } from '@services/common/Cart';
 import { GuestCartService } from '@services/common/Cart/guestCart';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
-import { TProductSKU } from '@interfaces/product';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';
 
 export const updateCartFulfilledStateAction = (): ICartAction => ({
@@ -78,7 +77,7 @@ export const cartCreateAction = function (payload: ICartCreatePayload) {
     };
 };
 
-export const cartDeleteItemAction = function (cartId: TCartId, itemId: TProductSKU) {
+export const cartDeleteItemAction = function (cartId: TCartId, itemId: string) {
     return (dispatch: Function, getState: Function) => {
         CartService.cartDeleteItem(CART_DELETE_ITEM, dispatch, cartId, itemId);
         dispatch(cartDeleteItemPendingStateAction);

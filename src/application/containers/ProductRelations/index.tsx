@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { IProductRelationsProps as Props } from './types';
-import { TProductSKU } from '@interfaces/product';
 import { ProductsSlider } from '@components/ProductsSlider';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
@@ -9,7 +8,7 @@ import { pathProductPageBase } from '@constants/routes';
 
 @connect
 class ProductRelationsComponent extends React.Component<Props> {
-    protected onSelectProductHandle = (sku: TProductSKU): void => {
+    protected onSelectProductHandle = (sku: string): void => {
         this.props.changeLocation(`${pathProductPageBase}/${sku}`);
     };
 

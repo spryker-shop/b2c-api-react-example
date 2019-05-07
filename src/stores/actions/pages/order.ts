@@ -1,6 +1,6 @@
 import { ORDER_DETAILS_REQUEST, ORDERS_COLLECTION_REQUEST } from '@stores/actionTypes/pages/order';
 import { OrderService } from '@services/pages/Order';
-import { IOrderCollectionParsed, IOrderDetailsParsed, TOrderId } from '@interfaces/order';
+import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
 import { IPageOrderHistoryAction } from '@stores/reducers/pages/orderHistory/types';
 import { IPageOrderDetailsAction } from '@stores/reducers/pages/orderDetails/types';
 
@@ -46,7 +46,7 @@ export const orderDetailsFulfilledStateAction = (payload: IOrderDetailsParsed): 
     payloadFulfilled: payload,
 });
 
-export const getOrderDetailsAction = function (orderId: TOrderId) {
+export const getOrderDetailsAction = function (orderId: string) {
     return (dispatch: Function, getState: Function) => {
         OrderService.getOrderDetails(dispatch, orderId);
     };

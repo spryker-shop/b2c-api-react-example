@@ -11,7 +11,6 @@ import {
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 import { getOrderDetailsAction } from '@stores/actions/pages/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { TOrderId } from '@interfaces/order';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading = isOrderDetailsLoading(state, ownProps);
@@ -37,7 +36,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
 const mapDispatchToProps = (dispatch: Function) => ({
     dispatch,
-    getOrderData: (orderId: TOrderId) => dispatch(getOrderDetailsAction(orderId))
+    getOrderData: (orderId: string) => dispatch(getOrderDetailsAction(orderId))
 });
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

@@ -4,6 +4,6 @@ import { styles } from './styles';
 export interface IProductsListProps extends WithStyles<typeof styles> {
     products: IProductCard[];
     selectProductHandler: Function;
-    currency: TProductCurrency;
+    currency: string;
     isLoading: boolean;
 }

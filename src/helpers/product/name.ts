@@ -1,7 +1,7 @@
-import { IProductAttributes, TProductName } from '@interfaces/product';
+import { IProductAttributes } from '@interfaces/product';
 
 export const displayProductNameWithSuperAttr = (
-    name: TProductName,
+    name: string,
     superAttrSelected: IProductAttributes,
 ): string => {
     let addName: string = '';
