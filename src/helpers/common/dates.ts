@@ -1,6 +1,6 @@
 import { TAppLocale } from '@interfaces/locale';
 
-export const formattedDate: Function = (date: string): string => date.split(' ')[0];
+export const formattedDate: Function = (date: string): string => date.replace(/ /g, 'T');
 
 export const formatDateToString = (date: Date, locale?: TAppLocale): string => {
     const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
