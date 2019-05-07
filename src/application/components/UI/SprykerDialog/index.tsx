@@ -10,7 +10,7 @@ export const SprykerDialogComponent: React.SFC<Props> = (props): JSX.Element => 
         <Dialog
             open={ isOpen }
             fullWidth
-            TransitionComponent={ props =>  <Slide direction="up" {...props} /> }
+            TransitionComponent={ props => <Slide direction="up" {...props} /> }
             onClose={ handleShow }
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"

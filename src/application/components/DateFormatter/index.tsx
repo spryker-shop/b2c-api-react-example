@@ -16,6 +16,7 @@ const DateFormatterBase: React.SFC<IDateFormatterProps> = (props): JSX.Element =
             <span>{ title && title } { `${ dateToShow } ` }</span>
             <FormattedTime
                 value={ dateUTC }
+                timeZone={ timeZone }
                 hour12={ false }
                 hour="2-digit"
                 minute="2-digit"
