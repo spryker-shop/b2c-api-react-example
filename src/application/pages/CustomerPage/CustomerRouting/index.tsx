@@ -14,23 +14,23 @@ import {
 } from '@constants/routes';
 import { OrderHistoryPage } from '@pages/OrderHistoryPage';
 import { CustomerAddressesPage } from '@pages/CustomerAddressesPage';
-import { LoadableWishlistPage } from '@pages/WishlistPage/loadable';
+import { WishlistPage } from '@pages/WishlistPage';
 import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
 import { CustomerProfilePage } from '@pages/CustomerProfilePage';
-import { LoadableWishlistDetail } from '@pages/WishlistDetail/loadable';
-import { LoadableCustomerOverviewPage } from '@pages/CustomerOverviewPage/loadable';
+import { WishlistDetailPage } from '@pages/WishlistDetailPage';
+import { CustomerOverviewPage } from '@pages/CustomerOverviewPage';
 import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
 import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 
 export const CustomerRouting: React.SFC = (): JSX.Element => (
     <Switch>
         <Route path={ pathCustomerPage } exact component={ LoadableCustomerPage } />
-        <Route path={ pathCustomerOverviewPage } exact component={ LoadableCustomerOverviewPage } />
+        <Route path={ pathCustomerOverviewPage } exact component={ CustomerOverviewPage } />
         <Route path={ pathCustomerAddressesPage } exact component={ CustomerAddressesPage }/>
         <Route path={ pathAddressFormUpdate } exact component={ CustomerAddressForm }/>
         <Route path={ pathAddressFormNew } exact component={ CustomerAddressForm }/>
-        <Route path={ pathWishlistsPage } exact component={ LoadableWishlistPage }/>
-        <Route path={ pathWishlistDetailPage } exact component={ LoadableWishlistDetail }/>
+        <Route path={ pathWishlistsPage } exact component={ WishlistPage }/>
+        <Route path={ pathWishlistDetailPage } exact component={ WishlistDetailPage }/>
         <Route path={ pathOrderHistoryPage } exact component={ OrderHistoryPage }/>
         <Route path={ pathOrderDetailsPage } exact component={ LoadableOrderDetailsPage }/>
         <Route path={ pathCustomerProfilePage } exact component={ CustomerProfilePage }/>

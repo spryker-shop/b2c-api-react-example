@@ -8,7 +8,7 @@ import { IWishlist } from '@interfaces/wishlist';
 import { ICellInfo, ITableRow } from '@components/AppTable/types';
 import { AppTable } from '@components/AppTable';
 import { NavLink } from 'react-router-dom';
-import { pathWishlistPageBase } from '@constants/routes';
+import { pathWishlistsPage } from '@constants/routes';
 import { Paper, Divider, Typography, TextField, IconButton, withStyles } from '@material-ui/core';
 import { SaveIcon } from './icons';
 import { styles } from './styles';
@@ -87,7 +87,7 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
                                 ) : (
                                     <NavLink
                                         className={ classes.link }
-                                        to={ `${pathWishlistPageBase}/${item.id}` }
+                                        to={ `${pathWishlistsPage}/${item.id}` }
                                     >
                                         { item.name }
                                     </NavLink>

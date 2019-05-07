@@ -32,7 +32,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
             <>
                 { customerData &&
                     <>
-                        <Typography component="h2" variant="h2" className={ classes.title }>
+                        <Typography component="h1" variant="h2" className={ classes.title }>
                             <FormattedMessage id={ 'word.profile.overview' } />
                         </Typography>
                         <Grid container spacing={ 32 }>

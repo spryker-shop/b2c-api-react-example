@@ -11,7 +11,7 @@ import { styles } from './styles';
 import { TCartId } from '@interfaces/cart';
 
 @connect
-export class WishlistDetailBase extends React.Component<Props, State> {
+class WishlistDetailComponent extends React.Component<Props, State> {
     readonly state: State = {
         multiProducts: []
     };
@@ -90,5 +90,4 @@ export class WishlistDetailBase extends React.Component<Props, State> {
     }
 }
 
-export const ConnectedWishlistDetailPage = withStyles(styles)(WishlistDetailBase);
-export default ConnectedWishlistDetailPage;
+export const WishlistDetailPage = withStyles(styles)(WishlistDetailComponent);

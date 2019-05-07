@@ -112,7 +112,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
 
         return (
             <>
-                <Typography component="h2" variant="h2" className={ classes.title }>
+                <Typography component="h1" variant="h2" className={ classes.title }>
                     <FormattedMessage id={ 'word.profile.title' } />
                 </Typography>
                 <form id="profileForm" name="profileForm" className={ classes.form }>

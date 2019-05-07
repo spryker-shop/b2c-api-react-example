@@ -144,7 +144,7 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
 
         return (
             <>
-                <Typography component="h2" variant="h2" className={ classes.title }>
+                <Typography component="h1" variant="h2" className={ classes.title }>
                     <FormattedMessage id={ pageTitle } />
                 </Typography>
                 <AddressForm
