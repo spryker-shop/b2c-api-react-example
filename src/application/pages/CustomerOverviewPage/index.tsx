@@ -1,10 +1,15 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { withStyles } from '@material-ui/core';
-import { ICustomerOverviewPageProps as Props } from './types';
-import { styles } from './styles';
+import { Grid, IconButton, Typography, withStyles } from '@material-ui/core';
 import { OrdersList } from '@containers/OrdersList';
-import { AddressesList } from '@components/AddressesList';
+import { AddressesList } from '@containers/AddressesList';
+import { ICustomerOverviewPageProps as Props } from './types';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
+import { EditIcon } from './icons';
+import { NavLink } from 'react-router-dom';
+import { pathCustomerProfilePage, pathOrderHistoryPage } from '@constants/routes';
+import { styles } from './styles';
 
 @connect
 class CustomerOverviewPageComponent extends React.PureComponent<Props> {
@@ -24,27 +29,68 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
         const { classes, customerData, isAddressesListInitiated } = this.props;
 
         return (
-            <div>
+            <>
                 { customerData &&
                     <>
-                        <div>
-                            <span>{ customerData.salutation }</span>
-                            {` ${customerData.firstName} ${customerData.lastName}`}
-                        </div>
+                        <Typography component="h2" variant="h2" className={ classes.title }>
+                            <FormattedMessage id={ 'word.profile.overview' } />
+                        </Typography>
+                        <Grid container spacing={ 32 }>
+                            <Grid item xs={ 12 }>
+                                <div className={`${classes.block} ${classes.blockCustomer}`}>
+                                    <Typography component="h3" variant="h3" className={ classes.subtitle }>
+                                        <FormattedMessage id={ 'word.profile.title' } />
+                                    </Typography>
+                                    <div>
+                                        { customerData.salutation }.
+                                        <span className={ classes.textAlternative }>
+                                            {` ${customerData.firstName} ${customerData.lastName}`}
+                                        </span>
+                                    </div>
+                                    <div className={ classes.textHightlight }>{ customerData.email }</div>
+                                    <IconButton
+                                        className={ classes.actionItem }
+                                        component={
+                                            ({ innerRef, ...props }) =>
+                                                <NavLink { ...props } to={ pathCustomerProfilePage } />
+                                        }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </div>
+                            </Grid>
+                            <Grid item xs={ 12 }>
+                                <ErrorBoundary>
+                                    <AddressesList isMainOnly isEditOnly />
+                                </ErrorBoundary>
+                            </Grid>
 
-                        <div>{ customerData.email }</div>
-                        <AddressesList isMainOnly isEditOnly />
-
-                        { Boolean(isAddressesListInitiated) &&
-                            <OrdersList
-                                shouldShowEmptyList={ false }
-                                shouldShowOrdersAmount={ false }
-                                ordersLimit={ 3 }
-                            />
-                        }
+                            { Boolean(isAddressesListInitiated) &&
+                                <Grid item xs={ 12 }>
+                                    <ErrorBoundary>
+                                        <div className={ classes.block }>
+                                            <div className={ classes.heading }>
+                                                <Typography component="h3" variant="h3" className={ classes.subtitle }>
+                                                    <FormattedMessage id={ 'last.orders.title' } />
+                                                </Typography>
+                                                <NavLink className={ classes.link } to={ pathOrderHistoryPage }>
+                                                    <FormattedMessage id={ 'view.all.title' } />
+                                                </NavLink>
+                                            </div>
+                                            <OrdersList
+                                                shouldShowEmptyList={ false }
+                                                shouldShowOrdersAmount={ false }
+                                                ordersLimit={ 3 }
+                                                classes={{ orderItem: classes.orderItem }}
+                                            />
+                                        </div>
+                                    </ErrorBoundary>
+                                </Grid>
+                            }
+                        </Grid>
                     </>
                 }
-            </div>
+            </>
         );
     }
 }

@@ -31,6 +31,7 @@ export const styles = (theme: Theme) => createStyles({
         padding: 10,
         color: theme.appColors.lightGrey,
         transition: 'color 0.3s ease-in-out',
+        lineHeight: 0,
         '&:hover': {
             color: theme.appColors.blue
         }

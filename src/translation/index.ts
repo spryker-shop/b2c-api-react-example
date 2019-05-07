@@ -93,6 +93,7 @@ export const messages: IMessages = {
         'language.deutsch.title': 'Deutsch',
         'language.english.title': 'English',
         'last.name.label': 'Last Name',
+        'last.orders.title': 'Last Orders',
         'link.sanded.created.message': 'Link for restore password sended to your Email.',
         'loading.page.title': 'Waiting for results',
         'log.in.button.title': 'Log In',
@@ -258,7 +259,7 @@ export const messages: IMessages = {
         'word.update.title': 'Update',
         'word.wishlist.title': 'Wishlist',
         'your.order.title': 'Your Order',
-        'zip.code.label': 'Zipcode',
+        'zip.code.label': 'Zipcode'
     },
     'de': {
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',
@@ -350,6 +351,7 @@ export const messages: IMessages = {
         'language.deutsch.title': 'Deutsch',
         'language.english.title': 'English',
         'last.name.label': 'Nachname',
+        'last.orders.title': 'Letzte Bestellungen',
         'link.sanded.created.message': 'Link zur Wiederherstellung des Passworts an Ihre E-Mail gesendet.',
         'loading.page.title': 'Warten auf Ergebnisse',
         'log.in.button.title': 'Ammelden',
@@ -514,7 +516,7 @@ export const messages: IMessages = {
         'word.update.title': 'Speichern',
         'word.wishlist.title': 'Wunschzettel',
         'your.order.title': 'Deine Bestellung',
-        'zip.code.label': 'PLZ',
+        'zip.code.label': 'PLZ'
     }
 };
 

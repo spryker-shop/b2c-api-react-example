@@ -2,10 +2,11 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ICustomerAddressPageProps as Props } from './types';
 import { pathAddressFormNew } from '@constants/routes';
-import { AddressesList } from '@components/AddressesList';
+import { AddressesList } from '@containers/AddressesList';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 
 const CustomerAddressesPageComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
@@ -25,8 +26,9 @@ const CustomerAddressesPageComponent: React.SFC<Props> = (props): JSX.Element =>
                     <FormattedMessage id={ 'add.address.title' } />
                 </Button>
             </div>
-
-            <AddressesList />
+            <ErrorBoundary>
+                <AddressesList />
+            </ErrorBoundary>
         </>
     );
 };
