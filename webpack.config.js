@@ -311,7 +311,7 @@ const config = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.ejs'),
-            title: APP_TITLE || '',
+            templateParameters: { state: "{}", title: APP_TITLE || '' },
             filename: 'index.html',
             hash: true,
             compile: true,
