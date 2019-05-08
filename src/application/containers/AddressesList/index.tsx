@@ -4,7 +4,7 @@ import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { IAddressesListProps as Props } from './types';
 import { IAddressItem } from '@interfaces/addresses';
-import { Grid, IconButton, withStyles } from '@material-ui/core';
+import { Grid, IconButton, Typography, withStyles } from '@material-ui/core';
 import { DeleteIcon, EditIcon } from './icons';
 import { pathAddressFormUpdateBase } from '@constants/routes';
 import { Preloader } from '@components/Preloader';
@@ -91,19 +91,26 @@ class AddressesListComponent extends React.Component<Props> {
 
         return (
             <>
-                { Boolean(addresses.length) &&
-                    <Grid container spacing={ 32 }>
-                        { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
-                            .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
-                        { addresses.filter((item: IAddressItem) => item.isDefaultBilling)
-                            .map((item: IAddressItem) => this.renderAddressItem(item, 'billing')) }
-                        { !isMainOnly &&
-                            <>
+                { Boolean(addresses.length)
+                    ? (
+                        <Grid container spacing={ 32 }>
+                            { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
+                                .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
+                            { addresses.filter((item: IAddressItem) => item.isDefaultBilling)
+                                .map((item: IAddressItem) => this.renderAddressItem(item, 'billing')) }
+                            { !isMainOnly &&
+                                <>
                                 { addresses.filter((item: IAddressItem) => !item.isDefaultShipping &&
                                     !item.isDefaultBilling).map((item: IAddressItem) => this.renderAddressItem(item)) }
-                            </>
-                        }
-                    </Grid>
+                                </>
+                            }
+                        </Grid>
+                    )
+                    : (
+                        <Typography component="h3" variant="h3">
+                            <FormattedMessage id={ 'empty.address.message' } />
+                        </Typography>
+                    )
                 }
             </>
         );
