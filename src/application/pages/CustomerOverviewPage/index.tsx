@@ -30,11 +30,11 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
 
         return (
             <>
+                <Typography component="h2" variant="h2" className={ classes.title }>
+                    <FormattedMessage id={ 'word.profile.overview' } />
+                </Typography>
                 { customerData &&
                     <>
-                        <Typography component="h2" variant="h2" className={ classes.title }>
-                            <FormattedMessage id={ 'word.profile.overview' } />
-                        </Typography>
                         <Grid container spacing={ 32 }>
                             <Grid item xs={ 12 }>
                                 <div className={`${classes.block} ${classes.blockCustomer}`}>
