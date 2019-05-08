@@ -16,7 +16,6 @@ import {
     resetPasswordRejectedState,
     resetPasswordFulfilledState
 } from '@stores/actions/pages/login';
-import { clearAddressAction } from '@stores/actions/pages/addresses';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
@@ -229,7 +228,6 @@ export class PagesLoginService extends ApiServiceAbstract {
 
         dispatch(anonymIdFilFilled(anonymId));
         dispatch(logoutAction());
-        dispatch(clearAddressAction());
         dispatch(deleteCustomerFulfilledStateAction());
     }
 }

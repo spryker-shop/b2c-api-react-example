@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
 import { connect } from './connect';
+import { withRouter } from 'react-router';
 import { ICustomerPageProps as Props } from './types';
 import { AppMain } from '@components/AppMain';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
@@ -10,14 +10,19 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 @connect
-class CustomerPageComponent extends React.Component<Props> {
+class CustomerPageComponent extends React.PureComponent<Props> {
     public componentDidMount = (): void => {
         if (!this.props.isWishlistsInitial) {
             this.props.getWishlistsAction();
         }
     };
 
-    public render() {
+    public componentWillUnmount = (): void => {
+        this.props.clearOrdersCollectionAction();
+        this.props.clearAddressAction();
+    };
+
+    public render(): JSX.Element {
         const { classes, location, isWishlistsInitial } = this.props;
 
         return (

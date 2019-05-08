@@ -6,4 +6,6 @@ import { RouteComponentProps } from 'react-router';
 export interface ICustomerPageProps extends WithStyles<typeof styles>, RouteComponentProps<React.SFC> {
     isWishlistsInitial?: boolean;
     getWishlistsAction?: () => void;
+    clearOrdersCollectionAction?: () => void;
+    clearAddressAction?: () => void;
 }

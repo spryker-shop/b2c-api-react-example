@@ -13,28 +13,28 @@ import { styles } from './styles';
 
 @connect
 class CustomerOverviewPageComponent extends React.PureComponent<Props> {
-    public componentDidMount = ():void => {
+    public componentDidMount = (): void => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
         }
     };
 
-    protected initRequestData = ():void => {
+    protected initRequestData = (): void => {
         if (!this.props.isLoading && this.props.isAppDataSet && this.props.customerReference) {
             this.props.getCustomerData(this.props.customerReference);
         }
     };
 
     public render(): JSX.Element {
-        const { classes, customerData, isAddressesListInitiated } = this.props;
+        const { classes, customerData, isAddressesListInitiated, isHasOrders, addresses } = this.props;
 
         return (
             <>
+                <Typography component="h1" variant="h2" className={ classes.title }>
+                    <FormattedMessage id={ 'word.profile.overview' } />
+                </Typography>
                 { customerData &&
                     <>
-                        <Typography component="h1" variant="h2" className={ classes.title }>
-                            <FormattedMessage id={ 'word.profile.overview' } />
-                        </Typography>
                         <Grid container spacing={ 32 }>
                             <Grid item xs={ 12 }>
                                 <div className={`${classes.block} ${classes.blockCustomer}`}>
@@ -59,13 +59,21 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                                     </IconButton>
                                 </div>
                             </Grid>
+
                             <Grid item xs={ 12 }>
                                 <ErrorBoundary>
-                                    <AddressesList isMainOnly isEditOnly />
+                                    <div className={`${!Boolean(addresses.length) ? classes.block : ''}`}>
+                                        { !Boolean(addresses.length) &&
+                                            <Typography component="h3" variant="h3" className={ classes.subtitle }>
+                                                <FormattedMessage id={'word.addresses.title'} />
+                                            </Typography>
+                                        }
+                                        <AddressesList isMainOnly isEditOnly />
+                                    </div>
                                 </ErrorBoundary>
                             </Grid>
 
-                            { Boolean(isAddressesListInitiated) &&
+                            { isAddressesListInitiated &&
                                 <Grid item xs={ 12 }>
                                     <ErrorBoundary>
                                         <div className={ classes.block }>
@@ -73,12 +81,13 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                                                 <Typography component="h3" variant="h3" className={ classes.subtitle }>
                                                     <FormattedMessage id={ 'last.orders.title' } />
                                                 </Typography>
-                                                <NavLink className={ classes.link } to={ pathOrderHistoryPage }>
-                                                    <FormattedMessage id={ 'view.all.title' } />
-                                                </NavLink>
+                                                { isHasOrders &&
+                                                    <NavLink className={ classes.link } to={ pathOrderHistoryPage }>
+                                                        <FormattedMessage id={ 'view.all.title' } />
+                                                    </NavLink>
+                                                }
                                             </div>
                                             <OrdersList
-                                                shouldShowEmptyList={ false }
                                                 shouldShowOrdersAmount={ false }
                                                 ordersLimit={ 3 }
                                                 classes={{ orderItem: classes.orderItem }}

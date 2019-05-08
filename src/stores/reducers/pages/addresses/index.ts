@@ -112,6 +112,11 @@ export const pageAddresses = produce<IAddressesState>(
             case `${CLEAR_ADDRESS}`: {
                 draft.data.addresses = initialState.data.addresses;
                 draft.data.currentAddress = initialState.data.currentAddress;
+                draft.error = null;
+                draft.pending = null;
+                draft.fulfilled = null;
+                draft.rejected = null;
+                draft.initiated = null;
                 break;
             }
             default:

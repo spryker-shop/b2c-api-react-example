@@ -1,4 +1,8 @@
-import { ORDER_DETAILS_REQUEST, ORDERS_COLLECTION_REQUEST } from '@stores/actionTypes/pages/order';
+import {
+    ORDER_DETAILS_REQUEST,
+    ORDERS_COLLECTION_REQUEST,
+    CLEAR_ORDERS_COLLECTION
+} from '@stores/actionTypes/pages/order';
 import { OrderService } from '@services/pages/Order';
 import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
 import { IPageOrderHistoryAction } from '@stores/reducers/pages/orderHistory/types';
@@ -27,6 +31,10 @@ export const getOrdersCollectionAction = function () {
         OrderService.getOrdersCollection(dispatch);
     };
 };
+
+export const clearOrdersCollectionAction = () => ({
+    type: CLEAR_ORDERS_COLLECTION
+});
 
 /**
  *  Order Detail
