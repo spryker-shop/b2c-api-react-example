@@ -26,7 +26,7 @@ class AddressesListComponent extends React.Component<Props> {
     };
 
     protected initRequestData = (): void => {
-        const {addresses, customer} = this.props;
+        const { addresses, customer } = this.props;
 
         if (!Boolean(addresses.length) && customer) {
             this.props.getAddressesAction(customer);
@@ -55,8 +55,8 @@ class AddressesListComponent extends React.Component<Props> {
             <Grid item key={ data.id || data.zipCode } xs={ 12 } md={ 6 }>
                 <AddressDetails
                     address={ data }
-                    title={<FormattedMessage id={ addressTitle } />}
-                    classes={{ container: classes.addressContainer }}
+                    title={ <FormattedMessage id={ addressTitle } /> }
+                    classes={ { container: classes.addressContainer } }
                 >
                     <div className={ classes.actions }>
                         <IconButton
@@ -83,25 +83,29 @@ class AddressesListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { addresses, isMainOnly } = this.props;
+        const { addresses, isMainOnly, isLoading } = this.props;
 
-        if (!Boolean(addresses.length)) {
+        if (isLoading) {
             return <Preloader isStatic />;
         }
 
         return (
-            <Grid container spacing={ 32 }>
-                { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
-                    .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
-                { addresses.filter((item: IAddressItem) => item.isDefaultBilling)
-                    .map((item: IAddressItem) => this.renderAddressItem(item, 'billing')) }
-                { !isMainOnly &&
-                    <>
-                        { addresses.filter((item: IAddressItem) => !item.isDefaultShipping && !item.isDefaultBilling)
-                            .map((item: IAddressItem) => this.renderAddressItem(item)) }
-                    </>
+            <>
+                { Boolean(addresses.length) &&
+                    <Grid container spacing={ 32 }>
+                        { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
+                            .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
+                        { addresses.filter((item: IAddressItem) => item.isDefaultBilling)
+                            .map((item: IAddressItem) => this.renderAddressItem(item, 'billing')) }
+                        { !isMainOnly &&
+                            <>
+                                { addresses.filter((item: IAddressItem) => !item.isDefaultShipping &&
+                                    !item.isDefaultBilling).map((item: IAddressItem) => this.renderAddressItem(item)) }
+                            </>
+                        }
+                    </Grid>
                 }
-            </Grid>
+            </>
         );
     };
 }

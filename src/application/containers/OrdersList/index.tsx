@@ -106,8 +106,8 @@ class OrdersListComponent extends React.Component<Props> {
             <>
                 { isFulfilled &&
                     <>
-                        { (!isHasOrders && shouldShowEmptyList)
-                            ? (
+                        { !isHasOrders
+                            ? shouldShowEmptyList && (
                                 <Typography component="h3" variant="h3">
                                     <FormattedMessage id={'no.order.message'} />
                                 </Typography>

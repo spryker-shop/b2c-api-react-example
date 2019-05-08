@@ -26,7 +26,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
     };
 
     public render(): JSX.Element {
-        const { classes, customerData, isAddressesListInitiated } = this.props;
+        const { classes, customerData, isAddressesListInitiated, isHasOrders, addresses } = this.props;
 
         return (
             <>
@@ -59,13 +59,15 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                                     </IconButton>
                                 </div>
                             </Grid>
-                            <Grid item xs={ 12 }>
-                                <ErrorBoundary>
-                                    <AddressesList isMainOnly isEditOnly />
-                                </ErrorBoundary>
-                            </Grid>
+                            { Boolean(addresses.length) &&
+                                <Grid item xs={ 12 }>
+                                    <ErrorBoundary>
+                                        <AddressesList isMainOnly isEditOnly />
+                                    </ErrorBoundary>
+                                </Grid>
+                            }
 
-                            { Boolean(isAddressesListInitiated) &&
+                            { (Boolean(isAddressesListInitiated) && isHasOrders) &&
                                 <Grid item xs={ 12 }>
                                     <ErrorBoundary>
                                         <div className={ classes.block }>
