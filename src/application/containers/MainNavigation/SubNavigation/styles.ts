@@ -174,8 +174,8 @@ export const styles = (theme: Theme) => createStyles({
         minHeight: 60,
         padding: '10px 15px',
         [theme.breakpoints.up('xl')]: {
-            paddingLeft: 60,
-            paddingRight: 60
+            paddingLeft: 25,
+            paddingRight: 25
         }
     },
     hideOntablet: {
