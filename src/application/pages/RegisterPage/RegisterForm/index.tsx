@@ -23,14 +23,19 @@ export class RegisterForm extends React.Component<Props, State> {
         email: '',
         password: '',
         confirmPassword: '',
-        acceptedTerms: false
+        acceptedTerms: false,
+        isCartLoading: false
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isAuth, getCustomerCart, history } = this.props;
+        const { isAuth, getCustomerCart, history, isCartLoading } = this.props;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
+            this.setState({ isCartLoading: true });
+        }
+
+        if (prevProps.isCartLoading && !isCartLoading) {
             history.push(pathCustomerOverviewPage);
         }
     };
@@ -74,6 +79,7 @@ export class RegisterForm extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { isLoading } = this.props;
+        const { isCartLoading } = this.state;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmitForm } id="RegisterForm">
@@ -152,7 +158,7 @@ export class RegisterForm extends React.Component<Props, State> {
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <Button disabled={ isLoading } type="submit" variant="contained" fullWidth>
+                        <Button disabled={ isLoading || isCartLoading } type="submit" variant="contained" fullWidth>
                             <FormattedMessage id={ 'sign.up.title' } />
                         </Button>
                     </Grid>
