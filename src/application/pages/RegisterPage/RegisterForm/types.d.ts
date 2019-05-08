@@ -6,6 +6,7 @@ export interface IRegisterFormProps extends RouteProps, WithRouter {
     handleSubmitRegisterForm?: Function;
     getCustomerCart?: Function;
     isLoading?: boolean;
+    isCartLoading?: boolean;
 }
 
 export interface IRegisterFormState {
@@ -16,4 +17,5 @@ export interface IRegisterFormState {
     password: string;
     confirmPassword: string;
     acceptedTerms: boolean;
+    isCartLoading: boolean;
 }
