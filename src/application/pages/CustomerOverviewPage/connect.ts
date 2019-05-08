@@ -2,7 +2,6 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getRouterHistoryPush } from '@helpers/router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-
 import {
     getCustomerProfile,
     isCustomerProfilePresent,

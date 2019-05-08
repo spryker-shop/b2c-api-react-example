@@ -13,4 +13,5 @@ export interface IAddressesListProps extends WithStyles <typeof styles>, WithRou
     getAddressesAction?: Function;
     isMainOnly?: boolean;
     isEditOnly?: boolean;
+    isInitiated?: boolean;
 }

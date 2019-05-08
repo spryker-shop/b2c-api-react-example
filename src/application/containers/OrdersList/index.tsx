@@ -20,9 +20,9 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        const { getOrdersCollection, orders } = this.props;
+        const { getOrdersCollection, isInitiated } = this.props;
 
-        if (!Boolean(orders)) {
+        if (!isInitiated) {
             getOrdersCollection();
         }
     };
@@ -96,7 +96,7 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, isFulfilled, isHasOrders, shouldShowEmptyList, shouldShowOrdersAmount, orders } = this.props;
+        const { classes, isFulfilled, isHasOrders, shouldShowOrdersAmount, orders } = this.props;
 
         if (!isFulfilled) {
             return <Preloader isStatic />;
@@ -107,7 +107,7 @@ class OrdersListComponent extends React.Component<Props> {
                 { isFulfilled &&
                     <>
                         { !isHasOrders
-                            ? shouldShowEmptyList && (
+                            ? (
                                 <Typography component="h3" variant="h3">
                                     <FormattedMessage id={'no.order.message'} />
                                 </Typography>

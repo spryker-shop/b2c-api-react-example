@@ -26,9 +26,9 @@ class AddressesListComponent extends React.Component<Props> {
     };
 
     protected initRequestData = (): void => {
-        const { addresses, customer } = this.props;
+        const { isInitiated, customer } = this.props;
 
-        if (!Boolean(addresses.length) && customer) {
+        if (!isInitiated && customer) {
             this.props.getAddressesAction(customer);
         }
     };

@@ -7,7 +7,7 @@ export interface IOrdersListProps extends WithStyles<typeof styles> {
     getOrdersCollection?: Function;
     isHasOrders?: boolean;
     isFulfilled?: boolean;
-    shouldShowEmptyList?: boolean;
     shouldShowOrdersAmount?: boolean;
     ordersLimit?: number | Infinity;
+    isInitiated?: boolean;
 }
