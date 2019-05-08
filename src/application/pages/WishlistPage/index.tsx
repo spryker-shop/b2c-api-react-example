@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { IWishlistPageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { AddNewWishlistForm } from './AddNewWishlistForm';
-import { WishlistsTable } from './WishlistsTable';
+import { WishlistsList } from './WishlistsList';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
@@ -16,16 +16,18 @@ class WishlistPageComponent extends React.Component<Props> {
         return (
             <>
                 <Typography component="h1" variant="h2" className={ classes.title }>
-                    <FormattedMessage id={ 'word.profile.overview' } />
+                    <FormattedMessage id={ 'word.wishlist.title' } />
                 </Typography>
 
-                <ErrorBoundary>
-                    <AddNewWishlistForm />
-                </ErrorBoundary>
+                <div className={ classes.block }>
+                    <ErrorBoundary>
+                        <AddNewWishlistForm />
+                    </ErrorBoundary>
 
-                <ErrorBoundary>
-                    <WishlistsTable />
-                </ErrorBoundary>
+                    <ErrorBoundary>
+                        <WishlistsList />
+                    </ErrorBoundary>
+                </div>
             </>
         );
     }

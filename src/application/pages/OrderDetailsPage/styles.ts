@@ -20,7 +20,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4
     },
     block: {
-        padding: '25px 25px 25px',
+        padding: 25,
         background: theme.appColors.weekWhite,
         borderRadius: 4,
         marginBottom: 20

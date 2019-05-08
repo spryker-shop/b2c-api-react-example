@@ -40,7 +40,7 @@ const CustomerSideBarComponent: React.SFC<Props> = (props): JSX.Element => {
                         </span>
                         <span className={ classes.text }><FormattedMessage id={ item.title } /></span>
                     </NavLink>
-                    { (item.isWishlist && Boolean(wishlists)) &&
+                    { (item.isWishlist && Boolean(wishlists.length)) &&
                         <ul className={ classes.submenu }>
                             { renderWishlistMenu() }
                         </ul>

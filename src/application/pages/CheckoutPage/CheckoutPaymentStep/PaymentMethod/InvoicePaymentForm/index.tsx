@@ -58,7 +58,7 @@ export class InvoicePaymentForm extends React.Component<Props> {
                                 format: dateBirthFormat,
                                 placeholder: 'DD/MM/YYYY'
                             }}
-                            helperText={ <FormattedMessage id={ 'date.of.birth.error.message' } /> }
+                            errorText={ <FormattedMessage id={ 'date.of.birth.error.message' } /> }
                         />
                     </Grid>
                 </Grid>

@@ -3,21 +3,17 @@ import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { InputChangeEvent } from '@interfaces/common';
 import { IAddNewWishlistFormProps as Props, IAddNewWishlistFormState as State } from './types';
-import { Typography, Paper, TextField, Button, withStyles } from '@material-ui/core';
+import { Grid, Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
-export class AddNewWishlistFormComponent extends React.Component<Props, State> {
+class AddNewWishlistFormComponent extends React.Component<Props, State> {
     readonly state: State = {
-        name: '',
+        name: ''
     };
 
-    protected handleChangeName = (event: InputChangeEvent): void => {
-        event.persist();
-        this.setState({
-            name: event.target.value
-        });
-    };
+    protected handleChangeName = (event: InputChangeEvent): void => this.setState({ name: event.target.value });
 
     protected addWishlist = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -27,9 +23,7 @@ export class AddNewWishlistFormComponent extends React.Component<Props, State> {
         }
 
         this.props.addWishlistAction(this.state.name);
-        this.setState({
-            name: ''
-        });
+        this.setState({ name: '' });
     };
 
     public render = (): JSX.Element => {
@@ -37,32 +31,28 @@ export class AddNewWishlistFormComponent extends React.Component<Props, State> {
         const { name } = this.state;
 
         return (
-            <form noValidate autoComplete="off" onSubmit={this.addWishlist} className={classes.form}>
-                <Typography paragraph className={ classes.titleForm }>
-                    <FormattedMessage id={ 'add.new.wishlist.title' } />
-                </Typography>
-                <Paper elevation={0} className={classes.formItem}>
-                    <TextField
-                        className={ classes.textFieldForm }
-                        value={ name }
-                        helperText={ <FormattedMessage id={ 'wishlist.name.title' } /> }
-                        FormHelperTextProps={ {
-                            classes: {
-                                root: classes.placeholder,
-                                filled: name.length > 0 ? classes.filled : null
-                            }
-                        } }
-                        onChange={ this.handleChangeName }
-                        inputProps={ { className: classes.input } }
-                    />
-                    <Button type="submit" variant="contained" color="primary"
-                            className={ classes.formSubmit }>
-                        <FormattedMessage id={ 'add.new.wishlist.title' } />
-                    </Button>
-                </Paper>
+            <form noValidate autoComplete="off" onSubmit={ this.addWishlist } className={ classes.form }>
+                <Grid container spacing={ 8 }>
+                    <Grid item xs>
+                        <SprykerInput
+                            inputName="wishlistName"
+                            onChangeHandler={ this.handleChangeName }
+                            inputValue={ name }
+                            classes={{
+                                input: classes.input
+                            }}
+                            placeholder={ <FormattedMessage id={ 'wishlist.name.title' } /> }
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button type="submit" variant="outlined" className={ classes.button }>
+                            <FormattedMessage id={ 'add.new.wishlist.title' } />
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
         );
-    }
+    };
 }
 
 export const AddNewWishlistForm = withStyles(styles)(AddNewWishlistFormComponent);

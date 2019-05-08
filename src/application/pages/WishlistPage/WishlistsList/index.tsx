@@ -14,7 +14,7 @@ import { SaveIcon } from './icons';
 import { styles } from './styles';
 
 @connect
-export class WishlistsTableComponent extends React.Component<Props, State> {
+class WishlistsListComponent extends React.Component<Props, State> {
     readonly headerCellPart = 'header-';
     readonly bodyCellPart = 'body-';
     readonly headerCells: ICellInfo[] = [
@@ -158,4 +158,4 @@ export class WishlistsTableComponent extends React.Component<Props, State> {
     };
 }
 
-export const WishlistsTable = withStyles(styles)(WishlistsTableComponent);
+export const WishlistsList = withStyles(styles)(WishlistsListComponent);
