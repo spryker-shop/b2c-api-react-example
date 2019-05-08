@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
-import { pathCustomerPage } from '@constants/routes';
+import { pathCustomerOverviewPage } from '@constants/routes';
 import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
@@ -31,7 +31,7 @@ export class RegisterForm extends React.Component<Props, State> {
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
-            history.push(pathCustomerPage);
+            history.push(pathCustomerOverviewPage);
         }
     };
 
