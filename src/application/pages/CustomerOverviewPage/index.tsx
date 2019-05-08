@@ -28,6 +28,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
     public render(): JSX.Element {
         const { classes, customerData, isAddressesListInitiated, isHasOrders, addresses } = this.props;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
+        const parallelRequesInspection = isDevServer ? isAddressesListInitiated : true;
 
         return (
             <>
@@ -74,7 +75,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                                 </ErrorBoundary>
                             </Grid>
 
-                            { (isAddressesListInitiated || !isDevServer) &&
+                            { parallelRequesInspection &&
                                 <Grid item xs={ 12 }>
                                     <ErrorBoundary>
                                         <div className={ classes.block }>

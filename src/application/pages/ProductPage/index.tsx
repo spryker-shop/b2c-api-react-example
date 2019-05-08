@@ -202,6 +202,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
             this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
+        const parallelRequesInspection = isDevServer ? shouldLoadRelationsImmediately : true;
 
         if (isComponentLoading) {
             return <Preloader />;
@@ -258,14 +259,14 @@ export class ProductPageComponent extends React.Component<Props, State> {
                         description={ description }
                         sku={ sku ? sku : this.props.product.abstractProduct.sku }
                     />
-                    {(shouldLoadRelationsImmediately || !isDevServer) &&
-                    <ErrorBoundary>
-                        <ProductRelations
-                            classes={{ root: classes.sliderWrapper, slider: classes.slider }}
-                            sku={ this.props.product.abstractProduct.sku }
-                            title={ <FormattedMessage id={ 'product.relations.title' } /> }
-                        />
-                    </ErrorBoundary>
+                    { parallelRequesInspection &&
+                        <ErrorBoundary>
+                            <ProductRelations
+                                classes={{ root: classes.sliderWrapper, slider: classes.slider }}
+                                sku={ this.props.product.abstractProduct.sku }
+                                title={ <FormattedMessage id={ 'product.relations.title' } /> }
+                            />
+                        </ErrorBoundary>
                     }
                 </AppMain>
             </div>

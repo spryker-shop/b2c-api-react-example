@@ -30,13 +30,14 @@ export class RegisterForm extends React.Component<Props, State> {
     public componentDidUpdate = (prevProps: Props): void => {
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const { isAuth, getCustomerCart, history, isCartLoading } = this.props;
+        const parallelRequesInspection = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
             this.setState({ isCartLoading: true });
         }
 
-        if (prevProps.isCartLoading && !isCartLoading || !isDevServer) {
+        if (parallelRequesInspection {
             history.push(pathCustomerOverviewPage);
         }
     };
