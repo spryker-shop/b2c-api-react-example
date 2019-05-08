@@ -21,13 +21,14 @@ export class LoginFormComponent extends React.Component<Props, State> {
 
     public componentDidUpdate = (prevProps: Props): void => {
         const { isAuth, getCustomerCart, history, redirectAfterLoginPath, isCartLoading } = this.props;
+        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
             this.setState({ isCartLoading: true });
         }
 
-        if (prevProps.isCartLoading && !isCartLoading) {
+        if (prevProps.isCartLoading && !isCartLoading || !isDevServer) {
             history.push(redirectAfterLoginPath);
         }
     };

@@ -201,6 +201,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
             this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
+        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
 
         if (isComponentLoading) {
             return <Preloader />;
@@ -257,7 +258,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                         description={ description }
                         sku={ sku ? sku : this.props.product.abstractProduct.sku }
                     />
-                    {shouldLoadRelationsImmediately &&
+                    {(shouldLoadRelationsImmediately || !isDevServer) &&
                     <ErrorBoundary>
                         <ProductRelations
                             classes={{ root: classes.sliderWrapper, slider: classes.slider }}
