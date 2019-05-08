@@ -19,9 +19,9 @@ class CustomerPageComponent extends React.PureComponent<Props> {
 
     public render(): JSX.Element {
         const { classes, location } = this.props;
-        const isTempkatePage = location.pathname === pathCustomerPage;
+        const isTemplatePage = location.pathname === pathCustomerPage;
 
-        if (isTempkatePage) {
+        if (isTemplatePage) {
             return <Redirect to={ pathCustomerOverviewPage } />;
         }
 
