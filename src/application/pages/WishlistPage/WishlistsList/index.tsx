@@ -10,8 +10,10 @@ import { AppTable } from '@components/AppTable';
 import { NavLink } from 'react-router-dom';
 import { pathWishlistsPage } from '@constants/routes';
 import { Paper, Divider, Typography, TextField, IconButton, withStyles } from '@material-ui/core';
-import { SaveIcon } from './icons';
+import { SaveIcon, DeleteIcon, EditIcon } from './icons';
 import { styles } from './styles';
+import { SprykerInput } from '@components/UI/SprykerInput';
+import { DateFormatter } from '@components/DateFormatter';
 
 @connect
 class WishlistsListComponent extends React.Component<Props, State> {
@@ -55,6 +57,7 @@ class WishlistsListComponent extends React.Component<Props, State> {
         if (!this.props.wishlists) {
             return [];
         }
+        console.log(this.props.wishlists);
 
         const { classes, isLoading } = this.props;
         const tableAction = isLoading ? classes.tableActionDisabled : classes.tableAction;
@@ -138,23 +141,95 @@ class WishlistsListComponent extends React.Component<Props, State> {
         });
     };
 
+    protected generateTableRows2 = (): JSX.Element[] => {
+        if (!this.props.wishlists) {
+            return [];
+        }
+
+        const { classes, isLoading } = this.props;
+
+        return this.props.wishlists.map((wishlist: IWishlist) => (
+            <div key={ wishlist.id } className={ classes.item }>
+                {
+                    this.state.updatedList && this.state.updatedList === wishlist.id
+                        ? (
+                            <form noValidate autoComplete="off" className={ classes.updateName }>
+                                <SprykerInput
+                                    inputName="wishlistName"
+                                    onChangeHandler={ this.handleChangeUpdatedName }
+                                    inputValue={ this.state.updatedName }
+                                    classes={{
+                                        input: classes.input
+                                    }}
+                                    placeholder={ <FormattedMessage id={ 'wishlist.name.title' } /> }
+                                />
+
+                                <IconButton
+                                    color="primary"
+                                    onClick={ this.handleUpdateWishlist }
+                                    disabled={ isLoading }
+                                >
+                                    <span className={ classes.icon }>
+                                        <SaveIcon />
+                                    </span>
+                                </IconButton>
+                            </form>
+                        ) : (
+                            <NavLink className={ classes.link } to={ `${pathWishlistsPage}/${wishlist.id}` }>
+                                { wishlist.name }
+                            </NavLink>
+                        )
+                }
+                <span className={ classes.generalInfo }>
+                    <span className={ classes.generalInfoTitle }>
+                        # of Items:
+                        {/*<FormattedMessage id={ 'order.detail.number.title' } />*/}
+                    </span>
+                    <span className={ classes.generalInfoDescritption }>
+                        { wishlist.numberOfItems }
+                    </span>
+                    <span className={ classes.generalInfoTitle }>
+                        Date of Creation:
+                        {/*<FormattedMessage id={ 'order.detail.date.title' } />*/}
+                    </span>
+                    <span className={ classes.generalInfoDescritption }>
+                        <DateFormatter date={ wishlist.createdAt } />
+                    </span>
+                </span>
+                <div className={ classes.actions }>
+                    <IconButton
+                        className={ `${ classes.actionItem } ${ classes.actionEdit }` }
+                        onClick={  this.setUpdatedWishlist(wishlist.id, wishlist.name) }
+                        disabled={ isLoading }
+                    >
+                        <EditIcon />
+                    </IconButton>
+
+                    <IconButton
+                        className={ `${ classes.actionItem } ${ classes.actionDelete }` }
+                        onClick={  this.handleDeleteWishlist(wishlist.id) }
+                        disabled={ isLoading }
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            </div>
+        ));
+    };
+
     public render = (): JSX.Element => {
-        const { classes } = this.props;
+        const { classes, wishlists } = this.props;
         const bodyRows = this.generateTableRows();
 
-        if (!bodyRows.length) {
+        if (!Boolean(wishlists.length)) {
             return (
-                <Paper elevation={ 0 }>
-                    <Divider />
-
-                    <Typography paragraph className={ classes.noItems }>
-                        <FormattedMessage id={ 'create.list.message' } />
-                    </Typography>
-                </Paper>
+                <Typography component="h3" variant="h3">
+                    <FormattedMessage id={'create.list.message'} />
+                </Typography>
             );
         }
 
-        return <AppTable headerCells={ this.headerCells } bodyRows={ bodyRows } />;
+        return <>{ this.generateTableRows2() }</>;
     };
 }
 
