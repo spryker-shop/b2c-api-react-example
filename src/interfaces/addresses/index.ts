@@ -28,7 +28,7 @@ interface IAbstractAddressItem {
 export interface IAddressItem extends IAbstractAddressItem {
     country?: string | null;
     email?: string | null;
-    [index: string]: string | number | boolean | JSX.Element;
+    [index: string]: string | number | boolean;
 }
 
 export interface IAddressItemCollection extends IAbstractAddressItem {
