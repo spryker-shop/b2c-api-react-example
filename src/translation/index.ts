@@ -263,8 +263,12 @@ export const messages: IMessages = {
         'zip.code.label': 'Zipcode',
         'total.price.title': 'Total Price',
         'buy.again.title': 'Buy it again',
+        'number.of.items.title': '# of Items:',
+        'date.of.creation.title': 'Date of Creation:',
     },
     'de': {
+        'number.of.items.title': '# der Artikel:',
+        'date.of.creation.title': 'Erstelldatum:',
         'buy.again.title': 'Kaufen Sie es erneut',
         'total.price.title': 'Gesamtpreis',
         'accept.terms.title': 'Ich stimme AGB und Datenschutz zu.',

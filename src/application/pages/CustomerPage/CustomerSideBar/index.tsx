@@ -26,7 +26,7 @@ const CustomerSideBarComponent: React.SFC<Props> = (props): JSX.Element => {
                 </NavLink>
             </li>
         );
-    });
+    }).reverse();
 
     const renderNavigationlinks = (): JSX.Element[] => navLinks.map((item: INavLinkData) => {
         const isSelected = location.pathname.includes(item.path);

@@ -63,6 +63,7 @@ class AddressesListComponent extends React.Component<Props> {
                             className={ `${ classes.actionItem } ${ classes.actionEdit }` }
                             onClick={ this.updatedAddressHandler(data.id) }
                             disabled={ isLoading }
+                            classes={{ disabled: classes.actionItemDisabled }}
                         >
                             <EditIcon />
                         </IconButton>
@@ -72,6 +73,7 @@ class AddressesListComponent extends React.Component<Props> {
                             className={ `${ classes.actionItem } ${ classes.actionDelete }` }
                             onClick={ () => deleteAddressAction(data.id, customer) }
                             disabled={ isLoading }
+                            classes={{ disabled: classes.actionItemDisabled }}
                         >
                             <DeleteIcon />
                         </IconButton>

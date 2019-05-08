@@ -1,4 +1,4 @@
-import { IWishlist, TWishlistId } from '@interfaces/wishlist';
+import { IWishlist } from '@interfaces/wishlist';
 import { TCartId } from '@interfaces/cart';
 
 import { WithStyles } from '@material-ui/core';
@@ -10,13 +10,13 @@ export interface WishlistPageProps extends WithStyles<typeof styles> {
     isRejected: boolean;
     isAppDataSet: boolean;
     wishlist: IWishlist | null;
-    wishlistIdParam: TWishlistId;
+    wishlistIdParam: string;
 
     multiItemsCartAction(cartId: TCartId, listItems: string[]): void;
 
-    deleteMultiItemsAction(wishlistId: TWishlistId, items: string[]): void;
+    deleteMultiItemsAction(wishlistId: string, items: string[]): void;
 
-    getDetailWishlistAction(wishlistId: TWishlistId): void;
+    getDetailWishlistAction(wishlistId: string): void;
 }
 
 export interface WishlistPageState {

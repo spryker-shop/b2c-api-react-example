@@ -9,7 +9,6 @@ import {
 } from './types';
 import { concreteProductType, defaultItemValueDropdown } from '@interfaces/product';
 import { ClickEvent } from '@interfaces/common';
-import { TWishlistName } from '@interfaces/wishlist';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 
@@ -60,7 +59,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         }
     };
 
-    protected getFirstWishlist = (): TWishlistName | null => {
+    protected getFirstWishlist = (): string | null => {
         if (!this.props.isWishlistsFetched) {
             return null;
         }

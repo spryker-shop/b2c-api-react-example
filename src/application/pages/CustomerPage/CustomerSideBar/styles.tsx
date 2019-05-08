@@ -59,12 +59,16 @@ export const styles = (theme: Theme) => createStyles({
         color: 'inherit'
     },
     linkSubMenu: {
+        display: 'block',
         minHeight: 0,
         fontSize: 16,
-        padding: '3px 0 3px 75px',
+        padding: '3px 15px 3px 75px',
         color: theme.appColors.grey,
         lineHeight: 1.4,
         transition: 'color 0.3s ease-in-out',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
         '&:hover': {
             color: theme.appColors.black
         }

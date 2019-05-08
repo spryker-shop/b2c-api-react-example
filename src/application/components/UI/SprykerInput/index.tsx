@@ -20,6 +20,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
         placeholder,
         maskProps,
         errorText,
+        autoFocus,
         iconProps: {
             iconStartComponent,
             iconEndComponent
@@ -79,6 +80,7 @@ const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
                 className={ classes.textField }
                 onChange={ onChangeHandler }
                 onBlur={ onBlurHandler }
+                autoFocus={ autoFocus }
                 fullWidth
             />
             <span className={`${classes.errorText} ${isError ? classes.errorTextActive : ''}`}>
@@ -93,7 +95,8 @@ SprykerInputComponent.defaultProps = {
         iconStartComponent: null,
         iconEndComponent: null,
     },
-    maskProps: null
+    maskProps: null,
+    autoFocus: false
 };
 
 export const SprykerInput = withStyles(styles)(SprykerInputComponent);

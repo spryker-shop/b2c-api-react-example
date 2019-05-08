@@ -30,4 +30,5 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
         format?: string | FormatInputValueFunction,
         placeholder?: string
     } | null;
+    autoFocus?: boolean;
 }
