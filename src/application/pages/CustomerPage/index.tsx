@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import { ICustomerPageProps as Props } from './types';
 import { AppMain } from '@components/AppMain';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { CustomerSideBar } from './CustomerSideBar';
 import { CustomerRouting } from './CustomerRouting';
 import { withStyles } from '@material-ui/core';
+import { pathCustomerPage, pathCustomerOverviewPage } from '@constants/routes';
 import { styles } from './styles';
 
 @connect
@@ -24,6 +25,11 @@ class CustomerPageComponent extends React.PureComponent<Props> {
 
     public render(): JSX.Element {
         const { classes, location, isWishlistsInitial } = this.props;
+        const isTemplatePage = location.pathname === pathCustomerPage;
+
+        if (isTemplatePage) {
+            return <Redirect to={ pathCustomerOverviewPage } />;
+        }
 
         return (
             <AppMain>

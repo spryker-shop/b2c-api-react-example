@@ -4,7 +4,6 @@ import {
     pathAddressFormNew,
     pathAddressFormUpdate,
     pathCustomerAddressesPage,
-    pathCustomerPage,
     pathCustomerProfilePage,
     pathOrderDetailsPage,
     pathOrderHistoryPage,
@@ -19,12 +18,10 @@ import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
 import { CustomerProfilePage } from '@pages/CustomerProfilePage';
 import { WishlistDetailPage } from '@pages/WishlistDetailPage';
 import { CustomerOverviewPage } from '@pages/CustomerOverviewPage';
-import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
 import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 
 export const CustomerRouting: React.SFC = (): JSX.Element => (
     <Switch>
-        <Route path={ pathCustomerPage } exact component={ LoadableCustomerPage } />
         <Route path={ pathCustomerOverviewPage } exact component={ CustomerOverviewPage } />
         <Route path={ pathCustomerAddressesPage } exact component={ CustomerAddressesPage }/>
         <Route path={ pathAddressFormUpdate } exact component={ CustomerAddressForm }/>
