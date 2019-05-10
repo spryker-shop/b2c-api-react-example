@@ -1,4 +1,4 @@
-import { ICartItem, ICartTotals, TCartId } from '@interfaces/cart';
+import { ICartItem, ICartTotals } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 // Number of products(including quantity per each product) in the cart
@@ -28,7 +28,7 @@ export function isCartStateRejected(state: IReduxStore, props: IReduxOwnProps): 
   return Boolean(isStateExist(state, props) && state.cart.rejected && state.cart.rejected === true);
 }
 
-export function getCartId(state: IReduxStore, props: IReduxOwnProps): TCartId {
+export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
   return (isCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
 }
 

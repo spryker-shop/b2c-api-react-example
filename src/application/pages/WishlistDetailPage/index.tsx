@@ -1,91 +1,70 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { FormattedMessage } from 'react-intl';
-import { WishlistPageProps as Props, WishlistPageState as State } from './types';
-import { ErrorBoundary } from '@hoc/ErrorBoundary';
-import { AppPageTitle } from '@components/AppPageTitle';
-import { WishlistMenu } from './WishlistMenu';
-import { WishlistItemsTable } from './WishlistItemsTable';
-import { Grid, withStyles } from '@material-ui/core';
+import { FormattedMessage, FormattedPlural } from 'react-intl';
+import { IWishlistPageProps as Props } from './types';
+import { WishlistProductsList } from './WishlistProductsList';
+import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { TCartId } from '@interfaces/cart';
+import { withRouter } from 'react-router';
 
+@(withRouter as Function)
 @connect
-class WishlistDetailComponent extends React.Component<Props, State> {
-    readonly state: State = {
-        multiProducts: []
-    };
-
+class WishlistDetailComponent extends React.Component<Props> {
     public componentDidMount = (): void => {
-        if (!this.props.isWishlistExist || (this.props.wishlistIdParam !== this.props.wishlist.id)) {
+        this.initRequestData();
+    };
+
+    public componentDidUpdate = (prevProps: Props): void => {
+        const shouldUpdateWishlist = this.props.location !== prevProps.location ||
+            !this.props.isRejected && !this.props.isWishlistExist;
+
+        if (shouldUpdateWishlist) {
             this.initRequestData();
         }
     };
 
-    public componentDidUpdate = (): void => {
-        if (!this.props.isRejected && !this.props.isWishlistExist) {
-            this.initRequestData();
-        }
-    };
+    protected initRequestData = (): void => {
+        const { isLoading, isAppDataSet, wishlistIdParam, getDetailWishlistAction } = this.props;
+        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
+        const isParallelRequest = isDevServer ? isLoading : false;
 
-    protected initRequestData = (): boolean => {
-        if (this.props.isLoading) {
+        if (isParallelRequest) {
             return;
         }
 
-        if (this.props.isAppDataSet && this.props.wishlistIdParam) {
-            this.props.getDetailWishlistAction(this.props.wishlistIdParam);
+        if (isAppDataSet && wishlistIdParam) {
+            getDetailWishlistAction(wishlistIdParam);
 
-            return true;
-        }
-
-        return false;
-    };
-
-    protected moveToCartHandler = (cartId: TCartId, availableProducts: string[]): void => {
-        this.props.multiItemsCartAction(cartId, availableProducts);
-
-        this.setState({
-            multiProducts: availableProducts
-        });
-    };
-
-    protected deleteMultiItemsHandler = (cartItemsLength: number, prevCartItemsLength: number): void => {
-        if (this.state.multiProducts.length && cartItemsLength > prevCartItemsLength) {
-            this.props.deleteMultiItemsAction(this.props.wishlist.id, this.state.multiProducts);
-            this.setState({
-                multiProducts: []
-            });
+            return;
         }
     };
 
     public render = (): JSX.Element => {
-        const { classes } = this.props;
+        const { classes, wishlist } = this.props;
 
         return (
-            <Grid container>
-                <Grid item xs={12}>
-                    <AppPageTitle
-                        classes={{
-                            root: classes.appPageTitleRoot,
-                        }}
+            <>
+                { wishlist &&
+                    <>
+                        <div className={ classes.heading }>
+                            <Typography component="h1" variant="h2">
+                                { wishlist.name }
+                            </Typography>
 
-                        title={<FormattedMessage id={'word.wishlist.title'} />}
-                    />
-                </Grid>
+                            <span className={ classes.amount }>
+                                {`${ wishlist.numberOfItems } `}
+                                <FormattedPlural
+                                    value={ wishlist.numberOfItems }
+                                    one={ <FormattedMessage id={ 'word.item.title' } /> }
+                                    other={ <FormattedMessage id={ 'word.items.title' } /> }
+                                />
+                            </span>
+                        </div>
 
-                <Grid item xs={12}>
-                    <WishlistMenu wishlist={this.props.wishlist} />
-
-                    <ErrorBoundary>
-                        <WishlistItemsTable
-                            wishlist={this.props.wishlist}
-                            moveToCartHandler={this.moveToCartHandler}
-                            deleteMultiItemsHandler={this.deleteMultiItemsHandler}
-                        />
-                    </ErrorBoundary>
-                </Grid>
-            </Grid>
+                        <WishlistProductsList />
+                    </>
+                }
+            </>
         );
     }
 }

@@ -9,14 +9,14 @@ import {
 import { CartService } from '@services/common/Cart';
 import { GuestCartService } from '@services/common/Cart/guestCart';
 import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
+import { ICartAddItem, ICartDataResponse, TCartAddItemCollection } from '@interfaces/cart';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';
 
 export const updateCartFulfilledStateAction = (): ICartAction => ({
     type: UPDATE_FULLFILLED_STATE
 });
 
-export const addItemToCartAction = function (payload: ICartAddItem, cartId: TCartId) {
+export const addItemToCartAction = function (payload: ICartAddItem, cartId: string) {
     return (dispatch: Function, getState: Function) =>
         CartService.cartAddItem(dispatch, payload, cartId);
 };
@@ -77,7 +77,7 @@ export const cartCreateAction = function (payload: ICartCreatePayload) {
     };
 };
 
-export const cartDeleteItemAction = function (cartId: TCartId, itemId: string) {
+export const cartDeleteItemAction = function (cartId: string, itemId: string) {
     return (dispatch: Function, getState: Function) => {
         CartService.cartDeleteItem(CART_DELETE_ITEM, dispatch, cartId, itemId);
         dispatch(cartDeleteItemPendingStateAction);
@@ -98,13 +98,13 @@ export const cartUpdateItemFulfilledStateAction = (payload: ICartDataResponse): 
     payloadCartItemFulfilled: payload,
 });
 
-export const updateItemInCartAction = function (payload: ICartAddItem, cartId: TCartId) {
+export const updateItemInCartAction = function (payload: ICartAddItem, cartId: string) {
     return (dispatch: Function, getState: Function) => {
         CartService.cartUpdateItem(dispatch, payload, cartId);
     };
 };
 
-export const multiItemsCartAction = function (cartId: TCartId, listItems: string[]) {
+export const multiItemsCartAction = function (cartId: string, listItems: string[]) {
     return (dispatch: Function, getState: Function) => {
         CartService.moveItemsToCart(dispatch, cartId, listItems);
     };
@@ -112,7 +112,7 @@ export const multiItemsCartAction = function (cartId: TCartId, listItems: string
 
 export const addMultipleItemsToCartAction = function (
     payload: TCartAddItemCollection,
-    cartId: TCartId,
+    cartId: string,
     payloadCartCreate: ICartCreatePayload,
 ) {
     return (dispatch: Function, getState: Function) => {
@@ -151,7 +151,7 @@ export const removeItemGuestCartAction = function (cartUid: string, sku: string,
     };
 };
 
-export const updateGuestCartAction = function (payload: ICartAddItem, cartId: TCartId, anonymId: string) {
+export const updateGuestCartAction = function (payload: ICartAddItem, cartId: string, anonymId: string) {
     return (dispatch: Function, getState: Function) => {
         GuestCartService.guestCartUpdate(dispatch, payload, cartId, anonymId);
     };

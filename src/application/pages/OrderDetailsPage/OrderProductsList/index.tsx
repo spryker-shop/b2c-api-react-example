@@ -10,7 +10,7 @@ import { styles } from './styles';
 import { ICartAddItem } from '@interfaces/cart';
 import { createCartItemAddToCart } from '@helpers/cart';
 
-export const OrderProductListBase: React.SFC<Props> = (props): JSX.Element => {
+const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {classes, items, isCartLoading} = props;
 
     const addItemToCart = (sku: string, quantity: number): void => {
@@ -111,4 +111,4 @@ export const OrderProductListBase: React.SFC<Props> = (props): JSX.Element => {
     return (<>{ renderProductItems() }</>);
 };
 
-export const OrderProductList = connect(withStyles(styles)(OrderProductListBase));
+export const OrderProductList = connect(withStyles(styles)(OrderProductListComponent));

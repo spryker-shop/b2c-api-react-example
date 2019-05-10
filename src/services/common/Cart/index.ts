@@ -1,5 +1,5 @@
 import api, { setAuthToken } from '@services/api';
-import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
+import { ICartAddItem, ICartDataResponse, TCartAddItemCollection } from '@interfaces/cart';
 import {
     parseUserCartResponseMultiValue,
     parseCartCreateResponse,
@@ -112,7 +112,7 @@ export class CartService extends ApiServiceAbstract {
     }
 
     // Adds an item to the cart.
-    public static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: TCartId): Promise<void> {
+    public static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: string): Promise<void> {
         try {
             dispatch(cartActions.cartAddItemPendingStateAction());
 
@@ -165,7 +165,7 @@ export class CartService extends ApiServiceAbstract {
     public static async cartDeleteItem(
         ACTION_TYPE: string,
         dispatch: Function,
-        cartId: TCartId,
+        cartId: string,
         itemId: string
     ): Promise<void> {
         try {
@@ -216,7 +216,7 @@ export class CartService extends ApiServiceAbstract {
     public static async cartUpdateItem(
         dispatch: Function,
         payload: ICartAddItem,
-        cartId: TCartId | null
+        cartId: string | null
     ): Promise<void> {
         try {
             dispatch(cartActions.cartUpdateItemPendingStateAction());
@@ -261,7 +261,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async moveItemsToCart(dispatch: Function, cartId: TCartId, productsList: string[]): Promise<void> {
+    public static async moveItemsToCart(dispatch: Function, cartId: string, productsList: string[]): Promise<void> {
         try {
             for (const sku of productsList) {
                 const payload = { sku, quantity: 1 };
@@ -282,7 +282,7 @@ export class CartService extends ApiServiceAbstract {
     public static async cartMultipleItems(
         dispatch: Function,
         payload: TCartAddItemCollection,
-        cartId: TCartId | null,
+        cartId: string | null,
         payloadCartCreate: ICartCreatePayload
     ): Promise<void> {
         if (!payload) {
@@ -336,7 +336,7 @@ export class CartService extends ApiServiceAbstract {
     public static async addingItemProcess(
         dispatch: Function,
         payload: ICartAddItem,
-        cartId: TCartId
+        cartId: string
     ): Promise<IApiResponseData> {
         const body = {
             data: {

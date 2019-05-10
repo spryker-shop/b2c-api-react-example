@@ -7,7 +7,6 @@ export const styles = (theme: Theme) => createStyles({
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
         paddingBottom: 20
     },
     amount: {
@@ -17,7 +16,9 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: 0.2,
         color: theme.appColors.weakGrey,
         background: theme.appColors.weekWhite,
-        borderRadius: 4
+        borderRadius: 4,
+        flexShrink: 0,
+        marginTop: 13
     },
     block: {
         padding: 25,

@@ -1,6 +1,5 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
 import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
-import { TCartId } from '@interfaces/cart';
 import { IConfigInputState } from '@interfaces/forms';
 
 export type TShipmentCarrierName = string;
@@ -33,7 +32,7 @@ export interface IShipmentMethod {
 
 export interface ICheckoutRequest {
     customer?: ICustomerProfileIdentity;
-    idCart?: TCartId;
+    idCart?: string;
     billingAddress?: IAddressItem;
     shippingAddress?: IAddressItem;
     payments?: IPaymentMethod[];
