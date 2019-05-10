@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { InputChangeEvent } from '@interfaces/common';
-import { ICustomerAddressFormProps as Props, ICustomerAddressFormState as State } from './types';
+import { ICustomerAddressPageProps as Props, ICustomerAddressPageState as State } from './types';
 import { Grid, Button, withStyles, Typography } from '@material-ui/core';
 import { styles } from './styles';
 import { AddressForm } from '@components/AddressForm';
@@ -17,7 +17,7 @@ import { PrevIcon } from './icons';
 
 @(withRouter as Function)
 @connect
-class CustomerAddressFormComponent extends React.Component<Props, State> {
+class CustomerAddressPageComponent extends React.Component<Props, State> {
     public state: State = { ...initialState };
 
     public componentDidMount = (): void => {
@@ -195,4 +195,4 @@ class CustomerAddressFormComponent extends React.Component<Props, State> {
     }
 }
 
-export const CustomerAddressForm = withStyles(styles)(CustomerAddressFormComponent);
+export const CustomerAddressPage = withStyles(styles)(CustomerAddressPageComponent);

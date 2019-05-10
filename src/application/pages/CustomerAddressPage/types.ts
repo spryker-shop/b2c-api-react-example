@@ -4,7 +4,7 @@ import { IConfigInputState } from '@interfaces/forms';
 import { styles } from './styles';
 import { WithRouter } from '@interfaces/common';
 
-export interface ICustomerAddressFormProps extends WithStyles<typeof styles>, WithRouter {
+export interface ICustomerAddressPageProps extends WithStyles<typeof styles>, WithRouter {
     customer: string;
     currentAddress: IAddressItem;
     routerPush: Function;
@@ -16,7 +16,7 @@ export interface ICustomerAddressFormProps extends WithStyles<typeof styles>, Wi
     getOneAddress: (customerId: string, addressId: string) => void;
 }
 
-export interface ICustomerAddressFormState {
+export interface ICustomerAddressPageState {
     fields: {
         [index: string]: IConfigInputState;
         firstName?: IConfigInputState;
