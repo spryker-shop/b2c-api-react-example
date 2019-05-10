@@ -9,7 +9,7 @@ import {
     getProductDataRejectedStateAction,
 } from '@stores/actions/pages/product';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IConcreteProductAvailability, IProductDataParsed, TProductSKU } from '@interfaces/product';
+import { IConcreteProductAvailability, IProductDataParsed } from '@interfaces/product';
 import { parseProductAvailabilityResponse } from '@helpers/product/productResponse';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -54,7 +54,7 @@ export class ProductService extends ApiServiceAbstract {
     }
 
     public static async getConcreteProductAvailability(dispatch: Function,
-                                                       sku: TProductSKU): Promise<IConcreteProductAvailability | null> {
+                                                       sku: string): Promise<IConcreteProductAvailability | null> {
         try {
             dispatch(getProductAvailabilityPendingStateAction());
             const response: IApiResponseData = await api.get(

@@ -13,7 +13,6 @@ import {
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { TCustomerReference } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartItem, TCartId } from '@interfaces/cart';
 import {
@@ -80,7 +79,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     sendCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
         dispatch(sendCheckoutDataAction(payload, anonymId));
     },
-    getCustomerData: (customerReference: TCustomerReference): void => {
+    getCustomerData: (customerReference: string): void => {
         dispatch(getCustomerProfileAction(customerReference));
     }
 });

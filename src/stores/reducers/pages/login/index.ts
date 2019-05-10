@@ -9,7 +9,6 @@ import {
 import { SET_AUTH_FROM_STORAGE } from '@stores/actionTypes/common/init';
 import { TAccessToken } from '@interfaces/login';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { TCustomerEmail, TCustomerUsername } from '@interfaces/customer';
 import { LOGIN_DATA_SET_TO_STORE } from '@stores/actionTypes/pages/customerProfile';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ILoginState, IPageLoginAction } from '@stores/reducers/pages/login/types';
@@ -125,8 +124,7 @@ export function getCustomerReference(state: IReduxStore, props: IReduxOwnProps):
     );
 }
 
-export function getCustomerUsername(state: IReduxStore, props: IReduxOwnProps):
-    TCustomerUsername | TCustomerEmail | null {
+export function getCustomerUsername(state: IReduxStore, props: IReduxOwnProps): string | null {
 
     if (!isStateExist(state, props) || !isUserAuthenticated(state, props)) {
         return null;

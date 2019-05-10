@@ -7,7 +7,7 @@ import { IBillingFormProps as Props } from './types';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
-import { AddressForm } from '@pages/CheckoutPage/CheckoutAddressStep/AddressForm';
+import { AddressForm } from '@components/AddressForm';
 import { FormattedMessage } from 'react-intl';
 import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
 import { SavedAddressForm } from '@pages/CheckoutPage/CheckoutAddressStep/SavedAddressForm';

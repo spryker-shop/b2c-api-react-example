@@ -12,5 +12,5 @@ export interface ICategoriesTeasersData {
 }
 
 export interface ICategoriesTeasersProps extends WithStyles<typeof styles> {
-    teasers: ICategoriesTeasersData[];
+    teasers?: ICategoriesTeasersData[];
 }

@@ -1,6 +1,6 @@
-import { ORDERS_COLLECTION_REQUEST } from '@stores/actionTypes/pages/order';
+import { ORDERS_COLLECTION_REQUEST, CLEAR_ORDERS_COLLECTION } from '@stores/actionTypes/pages/order';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IOrderCollectionParsed, TOrderCollection } from '@interfaces/order';
+import { IOrderCollectionParsed, IOrderItem } from '@interfaces/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IOrderHistoryState, IPageOrderHistoryAction } from '@stores/reducers/pages/orderHistory/types';
 import { IApiErrorResponse } from '@services/types';
@@ -22,6 +22,9 @@ export const orderHistory = function(
             return handleFulfilled(state, action.payloadFulfilled);
         case `${ORDERS_COLLECTION_REQUEST}_REJECTED`:
             return handleRejected(state, action.payloadRejected || {error: action.error});
+        case CLEAR_ORDERS_COLLECTION : {
+            return initialState;
+        }
         default:
             return state;
     }
@@ -60,7 +63,7 @@ const handlePending = (orderHistoryState: IOrderHistoryState) => (
 );
 
 // selectors
-export function getOrdersCollectionFromStore(state: IReduxStore, props: IReduxOwnProps): TOrderCollection {
+export function getOrdersCollectionFromStore(state: IReduxStore, props: IReduxOwnProps): IOrderItem[] | null {
     return isOrderHistoryItems(state, props) ? state.orderHistory.data.items : null;
 }
 

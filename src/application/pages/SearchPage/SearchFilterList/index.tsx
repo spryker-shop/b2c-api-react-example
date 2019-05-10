@@ -56,17 +56,14 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         };
     };
 
-    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> => {
-        await this.setState((prevState: State) => (
-            {
-                activeRangeFilters: {
-                    ...prevState.activeRangeFilters,
-                    [name]: { min, max }
-                },
-                isFilterUpdated: true
-            }
-        ));
-    };
+    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> =>
+        await this.setState((prevState: State) => ({
+            activeRangeFilters: {
+                ...prevState.activeRangeFilters,
+                [name]: { min, max }
+            },
+            isFilterUpdated: true
+        }));
 
     protected updateActiveFilters = async (name: string, values: string[]): Promise<boolean> => {
         await this.setState((prevState: State) => ({
@@ -81,19 +78,14 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected resetRangeFilter = ({ name }: IFilterItemToDelete): void => {
-        if (!name) {
-            return;
-        }
-
+        if (!name) { return; }
         const updatedState: Promise<boolean> = this.deleteRangeFilter(name);
-
         updatedState.then(this.updateStoreWithNewFilters);
     };
 
     protected deleteRangeFilter = async (name: TFilterItemName): Promise<boolean> => {
         const { ...activeRanges } = this.state.activeRangeFilters;
         delete activeRanges[name];
-
         await this.setState({
             activeRangeFilters: {
                 ...activeRanges
@@ -106,26 +98,22 @@ class SearchFilterListComponent extends React.Component<Props, State> {
 
     protected runResetActiveFilters = async (): Promise<void> => {
         this.props.clearActiveFilters();
-        await this.setState((prevState: State) => (
-            {
-                ...prevState,
-                activeFilters: {},
-                activeRangeFilters: {}
-            }
-        ));
+        await this.setState((prevState: State) => ({
+            ...prevState,
+            activeFilters: {},
+            activeRangeFilters: {}
+        }));
     };
 
     protected resetFilterOneValue = ({ name, value }: IFilterItemToDelete): void => {
         const values = [...this.state.activeFilters[name]].filter((val: TFilterItemValue) => val !== value);
         const stateUpdated: Promise<boolean> = this.updateActiveFilters(name, values);
-
         stateUpdated.then(this.updateStoreWithNewFilters);
     };
 
     protected updateStoreWithNewFilters = (): void => {
         const isActiveFiltersChanged = this.state.activeFilters !== this.props.activeFilters;
         const isActiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
-
         if (isActiveFiltersChanged || isActiveRangeFiltersChanged) {
             this.props.setActiveFilters({
                 activeFilters: this.state.activeFilters,
@@ -145,9 +133,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
         const { isPageLocked } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
-
         this.setState(({isFilterListOpened}));
-
         if (isMobile) {
             isPageLocked(isFilterListOpened);
         }
@@ -168,18 +154,14 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                                 onClick={ () => this.onFiltersChangeStateHandle(!isFilterListOpened) }
                                 className={`${classes.button} ${isFilterListOpened ? classes.buttonActive : ''}`}
                             >
-                                <span className={ classes.buttonIcon }>
-                                    <FiltersIcon />
-                                </span>
+                                <span className={ classes.buttonIcon }><FiltersIcon /></span>
                                 <FormattedMessage
                                     id={`${isFilterListOpened ? 'hide.filters.title' : 'word.filters.title'}`}
                                 />
                             </Button>
                         </Hidden>
 
-                        <div
-                            className={`${classes.filtersHolder} ${isFilterListOpened ? classes.filtersOpen : ''}`}
-                        >
+                        <div className={`${classes.filtersHolder} ${isFilterListOpened ? classes.filtersOpen : ''}`}>
                             <FiltersList
                                 filters={ filters }
                                 activeFilters={ activeFilters }

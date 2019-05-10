@@ -1,21 +1,3 @@
-import {
-    TCustomerCellPhone,
-    TCustomerEmail,
-    TCustomerFirstName,
-    TCustomerLastName,
-    TCustomerMiddleName,
-    TCustomerPoBox,
-    TCustomerSalutation,
-} from '@interfaces/customer';
-
-export type TAddress = string;
-export type TAddressZipCode = string;
-export type TAddressCity = string;
-export type TAddressCountry = string;
-export type TAddressCompany = string;
-export type TAddressPhone = string;
-export type TIso2Code = string;
-
 export interface IAddressCountryComposed {
     id_country: number;
     iso2_code: string;
@@ -26,42 +8,40 @@ export interface IAddressCountryComposed {
     regions: object;
 }
 
-export type TAddressComment = string;
-export type TAddressDescription = string;
-
 interface IAbstractAddressItem {
     id?: string | null;
-    salutation: TCustomerSalutation | null;
-    firstName: TCustomerFirstName | null;
-    lastName: TCustomerLastName | null;
-    address1: TAddress | null;
-    address2: TAddress | null;
-    address3: TAddress | null;
-    zipCode: TAddressZipCode | null;
-    city: TAddressCity | null;
-    company?: TAddressCompany | null;
-    phone?: TAddressPhone | null;
+    salutation?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    address1?: string | null;
+    address2?: string | null;
+    address3?: string | null;
+    zipCode?: string | null;
+    city?: string | null;
+    company?: string | null;
+    phone?: string | null;
     isDefaultShipping?: boolean;
     isDefaultBilling?: boolean;
-    iso2Code?: TIso2Code | null;
+    iso2Code?: string | number | boolean | null;
 }
 
 export interface IAddressItem extends IAbstractAddressItem {
-    country?: TAddressCountry | null;
-    email?: TCustomerEmail | null;
+    country?: string | null;
+    email?: string | null;
+    [index: string]: string | number | boolean;
 }
 
 export interface IAddressItemCollection extends IAbstractAddressItem {
     country: IAddressCountryComposed;
-    email?: TCustomerEmail;
+    email?: string;
 }
 
 export interface IAddressItemOrder extends IAbstractAddressItem {
-    email: TCustomerEmail | null;
-    country: TAddressCountry;
-    cellPhone: TCustomerCellPhone | null;
-    comment: TAddressComment | null;
-    description: TAddressDescription | null;
-    middleName: TCustomerMiddleName | null;
-    poBox: TCustomerPoBox | null;
+    email: string | null;
+    country: string;
+    cellPhone: string | null;
+    comment: string | null;
+    description: string | null;
+    middleName: string | null;
+    poBox: string | null;
 }

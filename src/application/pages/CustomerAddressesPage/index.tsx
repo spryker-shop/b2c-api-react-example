@@ -1,76 +1,36 @@
 import * as React from 'react';
-import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { ICustomerAddressPageProps as Props, ICustomerAddressPageState as State } from './types';
-import { ClickEvent } from '@interfaces/common';
-import { pathAddressFormNew, pathAddressFormUpdateBase } from '@constants/routes';
-import { CustomerPageTitle } from '@components/CustomerPageTitle';
-import { SprykerButton } from '@components/UI/SprykerButton';
-import { AddressesList } from './AddressesList';
-import { Grid, withStyles } from '@material-ui/core';
+import { ICustomerAddressPageProps as Props } from './types';
+import { pathAddressFormNew } from '@constants/routes';
+import { AddressesList } from '@containers/AddressesList';
+import { Button, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { NavLink } from 'react-router-dom';
+import { ErrorBoundary } from '@hoc/ErrorBoundary';
 
-@connect
-class CustomerAddressBase extends React.Component<Props, State> {
-    public state: State = {};
+const CustomerAddressesPageComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { classes } = props;
 
-    public componentDidMount = (): void => {
-        this.props.setCurrentAddressAction(null);
+    return (
+        <>
+            <div className={classes.heading}>
+                <Typography component="h2" variant="h2">
+                    <FormattedMessage id={'word.addresses.title'} />
+                </Typography>
 
-        this.initRequestData();
-    }
+                <Button
+                    component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathAddressFormNew } /> }
+                    variant="outlined"
+                    className={ classes.addButton }
+                >
+                    <FormattedMessage id={ 'add.address.title' } />
+                </Button>
+            </div>
+            <ErrorBoundary>
+                <AddressesList />
+            </ErrorBoundary>
+        </>
+    );
+};
 
-    public handleAddAddress = () => {
-        this.props.routerPush(pathAddressFormNew);
-    };
-
-    public setUpdatedAddress = (addressId: string) => (e: ClickEvent) => {
-        this.props.setCurrentAddressAction(addressId);
-        this.props.routerPush(`${pathAddressFormUpdateBase}/${addressId}`);
-    };
-
-    private initRequestData = () => {
-        const {addresses, isLoading, customer} = this.props;
-        if (isLoading) { return; }
-
-        if ((addresses && Array.isArray(addresses) && !addresses.length) && customer) {
-            this.props.getAddressesAction(customer);
-        }
-    };
-
-    public render(): JSX.Element {
-        const { classes, customer, addresses, isLoading, deleteAddressAction } = this.props;
-
-        return (
-            <Grid container>
-                <Grid item xs={ 12 }>
-                    <CustomerPageTitle title={ <FormattedMessage id={ 'manage.addresses' } /> } />
-
-                    { addresses.length ? null : <div className={ classes.emptyMsg }>
-                        <FormattedMessage id={ 'empty.address.message' } />
-                    </div> }
-                </Grid>
-
-                <Grid item xs={12}>
-                    <AddressesList
-                        isLoading={ isLoading }
-                        customer={ customer }
-                        customerAddresses={ addresses }
-                        updatedAddressHandler={ this.setUpdatedAddress }
-                        deleteAddressHandler={ deleteAddressAction }
-                    />
-                </Grid>
-
-                <Grid item xs={ 12 } sm={ 3 } className={ classes.addButton }>
-                    <SprykerButton
-                        title={ <FormattedMessage id={ 'add.address.title' } /> }
-                        onClick={ this.handleAddAddress }
-                        disabled={ isLoading }
-                    />
-                </Grid>
-            </Grid>
-        );
-    }
-}
-
-export const CustomerAddressPage = withStyles(styles)(CustomerAddressBase);
+export const CustomerAddressesPage = withStyles(styles)(CustomerAddressesPageComponent);

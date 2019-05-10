@@ -10,7 +10,11 @@ import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/
 import { InputChangeEvent } from '@interfaces/common';
 import { IPaymentMethodProps as Props } from './types';
 import { IPaymentProviderToIcon } from '@helpers/formCreations/checkout/types';
-import { invoiceConfigInputStable, checkoutPaymentMethodsNames, creditCardConfigInputStable } from '@constants/checkout';
+import {
+    invoiceConfigInputStable,
+    checkoutPaymentMethodsNames,
+    creditCardConfigInputStable
+} from '@constants/checkout';
 import { styles } from './styles';
 
 const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {

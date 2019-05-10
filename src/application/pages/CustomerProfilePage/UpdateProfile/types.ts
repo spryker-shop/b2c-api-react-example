@@ -1,26 +1,21 @@
-import {
-    ICustomerDataParsed,
-    ICustomerProfileIdentity,
-    TCustomerInputValue,
-    ICustomerProfile,
-    TCustomerReference
-} from '@interfaces/customer';
-
+import { ICustomerDataParsed, ICustomerProfileIdentity } from '@interfaces/customer';
+import { IConfigInputState } from '@interfaces/forms';
 import { WithStyles } from '@material-ui/core';
-import { styles } from '../styles';
+import { styles } from './styles';
 
 export interface IUpdateProfileProps extends WithStyles<typeof styles> {
-    customerData: ICustomerDataParsed;
-    customerReference: TCustomerReference;
-
-    updateCustomerData(customerReference: TCustomerReference, payload: ICustomerProfileIdentity): void;
+    customerData?: ICustomerDataParsed;
+    customerReference: string;
+    updateCustomerData?: (customerReference: string, payload: ICustomerProfileIdentity) => void;
 }
 
-export interface IUpdateProfileState extends ICustomerProfileIdentity {
-    [index:string]: string | number | object | boolean;
-}
-
-export interface IProfileFieldInput {
-    name: (keyof ICustomerProfile);
-    value: TCustomerInputValue;
+export interface IUpdateProfileState {
+    fields: {
+        [index: string]: IConfigInputState;
+        salutation: IConfigInputState;
+        firstName: IConfigInputState;
+        lastName: IConfigInputState;
+        email: IConfigInputState;
+    };
+    isFormValid: boolean;
 }

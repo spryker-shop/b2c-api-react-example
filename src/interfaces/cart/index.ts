@@ -1,17 +1,5 @@
 import { IAbstractTotals } from '@interfaces/abstract/totals';
-import {
-    TProductQuantity,
-    TProductSKU,
-    TProductImageSRC,
-    TProductAvailability,
-    IProductPricesItem,
-    TPriceTypeOriginalGross,
-    TPriceTypeOriginalNet,
-    TPriceTypeDefaultGross,
-    TPriceTypeDefaultNet,
-    TProductName,
-    TProductPrice
-} from '@interfaces/product';
+import { IProductPricesItem } from '@interfaces/product';
 import { TAppCurrency } from '@interfaces/currency';
 
 export type TCartId = string;
@@ -29,8 +17,8 @@ export interface ICartDiscounts {
 }
 
 export interface ICartAddItem {
-    sku: TProductSKU;
-    quantity: TProductQuantity;
+    sku: string;
+    quantity: number;
 }
 
 export interface ICartTotals extends IAbstractTotals {
@@ -38,22 +26,22 @@ export interface ICartTotals extends IAbstractTotals {
 }
 
 export interface ICartItem {
-    sku: TProductSKU | null;
+    sku: string | null;
     abstractSku: string;
-    name?: TProductName | null;
-    image?: TProductImageSRC | null;
-    quantity?: TProductQuantity | null;
-    amount?: TProductPrice | null;
+    name?: string | null;
+    image?: string | null;
+    quantity?: number | null;
+    amount?: number | null;
     prices?: IProductPricesItem[];
     calculations?: ICartItemCalculation | null;
     groupKey?: string | null;
-    availability?: TProductAvailability | null;
-    availableQuantity?: TProductQuantity | null;
+    availability?: boolean | null;
+    availableQuantity?: number | null;
     superAttributes?: { [key: string]: string }[] | null;
-    priceOriginalGross?: TPriceTypeOriginalGross;
-    priceOriginalNet?: TPriceTypeOriginalNet;
-    priceDefaultGross?: TPriceTypeDefaultGross;
-    priceDefaultNet?: TPriceTypeDefaultNet;
+    priceOriginalGross?: number | null;
+    priceOriginalNet?: number | null;
+    priceDefaultGross?: number | null;
+    priceDefaultNet?: number | null;
 }
 
 export interface ICartDataResponse extends ICommonDataInCart {

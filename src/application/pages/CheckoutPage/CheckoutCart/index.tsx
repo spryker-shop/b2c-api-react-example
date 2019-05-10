@@ -4,7 +4,7 @@ import { pathCartPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Button, Typography } from '@material-ui/core';
-import { CartTotal } from '@components/CartTotal';
+import { TotalsBlock } from '@components/TotalsBlock';
 import { CheckoutCartProductList } from './CheckoutCartProductList';
 import { ICartDataProps as Props } from './types';
 import { LockIcon, EditIcon } from './icons';
@@ -32,7 +32,7 @@ class CheckoutCartComponent extends React.Component<Props> {
                     </Typography>
 
                     <div className={ classes.totals }>
-                        <CartTotal totals={ totals } classes={{ wrapper: classes.totalsInner }}/>
+                        <TotalsBlock totals={ totals } classes={{ wrapper: classes.totalsInner }}/>
                         { isSummaryPage &&
                             <Button variant="contained" disabled={ isSendBtnDisabled } fullWidth onClick={ sendData }>
                                 { <FormattedMessage id={ 'place.order.title' } /> }

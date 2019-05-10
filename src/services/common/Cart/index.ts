@@ -1,5 +1,4 @@
 import api, { setAuthToken } from '@services/api';
-import { TProductSKU } from '@interfaces/product';
 import { ICartAddItem, ICartDataResponse, TCartAddItemCollection, TCartId } from '@interfaces/cart';
 import {
     parseUserCartResponseMultiValue,
@@ -167,7 +166,7 @@ export class CartService extends ApiServiceAbstract {
         ACTION_TYPE: string,
         dispatch: Function,
         cartId: TCartId,
-        itemId: TProductSKU
+        itemId: string
     ): Promise<void> {
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);

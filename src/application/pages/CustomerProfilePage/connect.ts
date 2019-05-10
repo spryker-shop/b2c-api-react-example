@@ -1,8 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getRouterHistoryPush } from '@helpers/router';
-
-import { TCustomerReference } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 import {
@@ -38,7 +36,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
-            getCustomerData: (customerReference: TCustomerReference) => getCustomerProfileAction(customerReference)
+            getCustomerData: (customerReference: string) => getCustomerProfileAction(customerReference)
         },
         dispatch,
     );

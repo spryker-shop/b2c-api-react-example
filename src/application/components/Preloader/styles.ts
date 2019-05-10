@@ -7,6 +7,7 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1,
         height: '100%',
         width: '100%',
+        minHeight: 100,
         '&:after': {
             content: '""',
             position: 'fixed',

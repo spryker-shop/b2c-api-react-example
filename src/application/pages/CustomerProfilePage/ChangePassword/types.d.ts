@@ -1,26 +1,21 @@
-import {
-    ICustomerDataParsed,
-    ICustomerProfile,
-    ICustomerProfilePassword, TCustomerInputValue,
-    TCustomerReference
-} from '@interfaces/customer';
-
+import { ICustomerDataParsed, ICustomerProfilePassword } from '@interfaces/customer';
 import { WithStyles } from '@material-ui/core';
-import { styles } from '../styles';
+import { styles } from './styles';
+import { IConfigInputState } from '@interfaces/forms';
 
-export interface IChangePasswordProps extends ICustomerProfilePassword, WithStyles<typeof styles> {
-    customerData: ICustomerDataParsed;
-    customerReference: TCustomerReference;
-    passwordUpdated: boolean;
-
-    updateCustomerPassword(customerReference: TCustomerReference, payload: ICustomerProfilePassword): void;
+export interface IChangePasswordProps extends Partial<ICustomerProfilePassword>, WithStyles<typeof styles> {
+    customerData?: ICustomerDataParsed;
+    customerReference: string;
+    passwordUpdated?: boolean;
+    updateCustomerPassword?: (customerReference: string, payload: ICustomerProfilePassword) => void;
 }
 
-export interface IChangePasswordState extends ICustomerProfilePassword {
-    [index:string]: string | number | object | boolean;
-}
-
-export interface IProfileFieldInput {
-    name: (keyof ICustomerProfile);
-    value: TCustomerInputValue;
+export interface IChangePasswordState {
+    fields: {
+        [index: string]: IConfigInputState;
+        password: IConfigInputState;
+        newPassword: IConfigInputState;
+        confirmPassword: IConfigInputState;
+    };
+    isFormValid: boolean;
 }

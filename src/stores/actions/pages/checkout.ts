@@ -23,7 +23,6 @@ import {
     IFormFieldMutate,
     IFormUpdatePaymentStatus
 } from '@interfaces/checkout';
-import { TOrderId } from '@interfaces/order';
 import { ICheckoutResponseData, IPageCheckoutAction,
 } from '@stores/reducers/pages/checkout/types';
 
@@ -56,7 +55,7 @@ export const sendCheckoutDataRejectedStateAction = (message: string): IPageCheck
     payloadRejected: {error: message},
 });
 
-export const sendCheckoutDataFulfilledStateAction = (orderId: TOrderId): IPageCheckoutAction => ({
+export const sendCheckoutDataFulfilledStateAction = (orderId: string): IPageCheckoutAction => ({
     type: SEND_CHECKOUT_DATA + '_FULFILLED',
     payloadSendFulfilled: {orderId},
 });

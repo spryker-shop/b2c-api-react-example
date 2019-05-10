@@ -1,4 +1,4 @@
-import { TProductSKU } from '@interfaces/product';
+
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import { TAppCurrency } from '@interfaces/currency';
 import { WithStyles } from '@material-ui/core';
@@ -7,11 +7,11 @@ import { TCartId } from '@interfaces/cart';
 
 export interface IProductRelationsProps extends WithStyles<styles> {
     isLoading?: boolean;
-    sku?: TProductSKU;
+    sku?: string;
     products?: IProductRelationsItem[];
     currency?: TAppCurrency;
     title?: string | JSX.Element;
-    getProductRelations?: (sku: TProductSKU) => void;
+    getProductRelations?: (sku: string) => void;
     getProductRelationsCart?: (cartId: TCartId) => void;
     changeLocation?: Function;
     cartId?: TCartId;

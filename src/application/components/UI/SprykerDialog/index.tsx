@@ -1,63 +1,24 @@
 import * as React from 'react';
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Slide
-} from '@material-ui/core';
-import { FormattedMessage } from 'react-intl';
+import { Dialog, Slide, withStyles } from '@material-ui/core';
 import { ISprykerDialogProps as Props } from './types';
+import { styles } from './styles';
 
-export const SprykerDialog: React.SFC<Props> = (props): JSX.Element => {
-    const {
-        handleShow,
-        handleAgree,
-        handleDisagree,
-        title,
-        content,
-        isOpen,
-        titleAgree = <FormattedMessage id={ 'word.agree.title' } />,
-        titleDisagree = <FormattedMessage id={ 'word.disagree.title' } />,
-    } = props;
-
-    const Transition = (props: Props) => (
-        <Slide direction="up" {...props} />
-    );
+export const SprykerDialogComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { handleShow, isOpen, classes } = props;
 
     return (
         <Dialog
-            open={isOpen}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleShow}
+            open={ isOpen }
+            fullWidth
+            TransitionComponent={ props => <Slide direction="up" {...props} /> }
+            onClose={ handleShow }
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
+            classes={{ paper: classes.paper }}
         >
-            {title
-                ? (
-                    <DialogTitle id="alert-dialog-slide-title">
-                        {title}
-                    </DialogTitle>
-                )
-                : null
-            }
-
-            <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    {content}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleDisagree} color="primary">
-                    {titleDisagree}
-                </Button>
-                <Button onClick={handleAgree} color="primary">
-                    {titleAgree}
-                </Button>
-            </DialogActions>
+            { props.children }
         </Dialog>
     );
 };
+
+export const SprykerDialog = withStyles(styles)(SprykerDialogComponent);

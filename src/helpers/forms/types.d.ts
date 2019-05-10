@@ -5,20 +5,15 @@ import {
     IDeliveryObjectConfigInputStable,
     IInvoiceObjectConfigInputStable
 } from '@constants/checkout/types';
-import { TFormInputValue } from '@components/UI/SprykerForm/types';
-import {
-    ICheckoutCreditCardState,
-    ICheckoutInvoiceState,
-    ICheckoutAddressState
-} from '@interfaces/checkout';
+import { IConfigInputState, IConfigInputStable } from '@interfaces/forms';
 
 export interface IParamInputValidity {
-    value: TFormInputValue;
+    value: string | number | boolean;
     fieldConfig: IConfigInputStable;
 }
 
 export interface IParamFormValidity {
-    form: ICheckoutAddressState | ICheckoutInvoiceState | ICheckoutCreditCardState;
+    form: { [key: string]: IConfigInputState };
     fieldsConfig: IDeliveryObjectConfigInputStable
         | IBillingObjectConfigInputStable
         | IInvoiceObjectConfigInputStable

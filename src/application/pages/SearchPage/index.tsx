@@ -63,9 +63,7 @@ class SearchPageComponent extends React.Component<Props, State> {
         }
     };
 
-    public componentWillUnmount = (): void => {
-        this.clearAllFilters();
-    };
+    public componentWillUnmount = (): void => this.clearAllFilters();
 
     protected clearAllFilters = (): void => {
         this.props.clearActiveFilters();
@@ -124,7 +122,6 @@ class SearchPageComponent extends React.Component<Props, State> {
             query = { ...query, ...this.props.activeFilters };
         }
         if (this.props.activeRangeFilters) {
-
             query = { ...query, ...addToQueryActiveRangeFilters(this.props.activeRangeFilters) };
         }
         if (this.props.currentPaginationPage) {
@@ -136,7 +133,6 @@ class SearchPageComponent extends React.Component<Props, State> {
 
     protected categoriesTree = (): void => {
       const {categoriesTree, currentCategoryId} = this.props;
-
       const formattedCategoriesTree = getCurrentCategoriesTree(categoriesTree, Number(currentCategoryId));
 
       this.setState({formattedCategoriesTree});
@@ -144,7 +140,6 @@ class SearchPageComponent extends React.Component<Props, State> {
 
     protected onSelectProductHandler = (sku: string) => {
         const { formattedCategoriesTree } = this.state;
-
         const location = {
             pathname: `${pathProductPageBase}/${sku}`,
             state: { categoriesTree: formattedCategoriesTree }
@@ -210,11 +205,8 @@ class SearchPageComponent extends React.Component<Props, State> {
                         </Hidden>
                         <Grid item xs={ 12 } lg={ isCategoriesExist ? 9 : 12 }>
                             <SearchFilterList categoriesList={ categoriesList } />
-
                             <SortPanel />
-
                             <ProductsList selectProductHandler={ this.onSelectProductHandler } />
-
                             <SearchPagination history={ history } />
                         </Grid>
                     </Grid>

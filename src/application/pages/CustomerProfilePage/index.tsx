@@ -4,55 +4,51 @@ import { ICustomerProfilePageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { UpdateProfile } from './UpdateProfile';
 import { ChangePassword } from './ChangePassword';
-import { AccountActions } from './AccountActions';
+import { DeleteAccount } from './DeleteAccount';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
 
 @connect
-class CustomerProfilePageBase extends React.Component<Props> {
-    public componentDidMount = () => {
+class CustomerProfilePageComponent extends React.Component<Props> {
+    public componentDidMount = ():void => {
         if (!this.props.isCustomerDataExist) {
             this.initRequestData();
         }
     };
 
-    public componentDidUpdate = () => {
+    public componentDidUpdate = ():void => {
         if (!this.props.isRejected && !this.props.isCustomerDataExist) {
             this.initRequestData();
         }
     };
 
-    private initRequestData = () => {
+    protected initRequestData = ():void => {
         if (!this.props.isLoading && this.props.isAppDataSet && this.props.customerReference) {
             this.props.getCustomerData(this.props.customerReference);
         }
     };
 
     public render = (): JSX.Element => {
-        if (!this.props.isCustomerDataExist) {
+        const { customerReference, routerPush, isCustomerDataExist } = this.props;
+        if (!isCustomerDataExist) {
             return <Preloader isStatic />;
         }
 
         return (
             <>
                 <ErrorBoundary>
-                    <UpdateProfile
-                        customerReference={ this.props.customerReference }
-                    />
-
-                    <ChangePassword
-                        customerReference={ this.props.customerReference }
-                    />
-
-                    <AccountActions
-                        customerReference={ this.props.customerReference }
-                        routerPush={ this.props.routerPush }
-                    />
+                    <UpdateProfile customerReference={ customerReference } />
+                </ErrorBoundary>
+                <ErrorBoundary>
+                    <ChangePassword customerReference={ customerReference } />
+                </ErrorBoundary>
+                <ErrorBoundary>
+                    <DeleteAccount customerReference={ customerReference } routerPush={ routerPush } />
                 </ErrorBoundary>
             </>
         );
     }
 }
 
-export const CustomerProfilePage = withStyles(styles)(CustomerProfilePageBase);
+export const CustomerProfilePage = withStyles(styles)(CustomerProfilePageComponent);

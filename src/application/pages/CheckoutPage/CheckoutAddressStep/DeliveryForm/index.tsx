@@ -4,7 +4,7 @@ import { checkoutFormsNames, checkoutSelectionInputs, newAddressConfigInputStabl
 import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
 import { InputChangeEvent } from '@interfaces/common';
 import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
-import { AddressForm } from '../AddressForm';
+import { AddressForm } from '@components/AddressForm';
 import { SavedAddressForm } from '../SavedAddressForm';
 import { FormattedMessage } from 'react-intl';
 import { IAddressItemCollection } from '@interfaces/addresses';

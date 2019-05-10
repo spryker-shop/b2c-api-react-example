@@ -1,6 +1,5 @@
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { IActionData, IReduxState } from '@stores/reducers/types';
-import { TOrderId } from '@interfaces/order';
 import {
     IPaymentMethod,
     IShipmentMethod,
@@ -30,7 +29,7 @@ export interface ICheckoutState extends IReduxState {
 
 export interface IPageCheckoutAction extends IActionData {
     payloadSendFulfilled?: {
-        orderId: TOrderId;
+        orderId: string;
     };
     payloadGetFulfilled?: ICheckoutResponseData;
     payloadFormFieldMutate?: IFormFieldMutate;
@@ -47,5 +46,5 @@ export interface ICheckoutResponseData {
 }
 
 export interface ICheckoutStateData extends ICheckoutResponseData {
-    orderId: TOrderId;
+    orderId: string;
 }

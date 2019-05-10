@@ -134,7 +134,6 @@ export class AddressesService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                // TODO - when after adding address in response will be id !== null - delete getCustomerAddresses
                 await AddressesService.getCustomerAddresses('ADDRESSES_LIST', dispatch, customerId);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
@@ -242,6 +241,8 @@ export class AddressesService extends ApiServiceAbstract {
                     id: 'address.updated.message',
                     type: typeNotificationSuccess
                 });
+
+                await AddressesService.getCustomerAddresses('ADDRESSES_LIST', dispatch, customerId);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch({

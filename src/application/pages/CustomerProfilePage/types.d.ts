@@ -1,7 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { RouteProps } from 'react-router';
 import { styles } from './styles';
-import { TCustomerReference } from '@interfaces/customer';
 
 export interface ICustomerProfilePageProps extends WithStyles<typeof styles>, RouteProps {
     isLoading: boolean;
@@ -9,8 +8,8 @@ export interface ICustomerProfilePageProps extends WithStyles<typeof styles>, Ro
     isFulfilled: boolean;
     isCustomerDataExist: boolean;
     isAppDataSet: boolean;
-    customerReference: TCustomerReference;
+    customerReference: string;
     routerPush: Function;
 
-    getCustomerData: (customerReference: TCustomerReference) => void;
+    getCustomerData: (customerReference: string) => void;
 }

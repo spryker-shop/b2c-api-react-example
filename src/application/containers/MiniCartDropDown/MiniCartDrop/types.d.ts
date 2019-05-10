@@ -1,6 +1,5 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { ICartTotals, TCartId, ICartItem } from '@interfaces/cart';
-import { TProductQuantity, TProductSKU } from '@interfaces/product';
 import { styles } from './styles';
 
 export interface IMiniCartDropProps extends WithStyles<typeof styles> {
@@ -10,10 +9,10 @@ export interface IMiniCartDropProps extends WithStyles<typeof styles> {
     cartId: string;
     anonymId: string;
     isCartLoading: boolean;
-    cartItemsQuantity: TProductQuantity;
+    cartItemsQuantity: number;
     onMouseLeave: () => void;
     onMouseEnter: () => void;
-    cartDeleteItemAction?: (cartId: TCartId, itemId: TProductSKU) => void;
-    removeItemGuestCartAction?: (cartId: TCartId, itemId: TProductSKU, anonymId: string) => void;
+    cartDeleteItemAction?: (cartId: TCartId, itemId: string) => void;
+    removeItemGuestCartAction?: (cartId: TCartId, itemId: string, anonymId: string) => void;
     clearCheckoutDataForm: () => void;
 }

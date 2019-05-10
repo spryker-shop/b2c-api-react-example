@@ -1,13 +1,7 @@
-import * as React from 'react';
+import { WithStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-export interface ISprykerDialogProps {
-    title?: string;
-    content: JSX.Element;
-    extraClasses?: string;
-    handleShow: (event: React.SyntheticEvent<{}>) => void;
-    handleAgree: (event: React.MouseEvent<HTMLElement>) => void;
-    handleDisagree: (event: React.MouseEvent<HTMLElement>) => void;
-    isOpen: boolean;
-    titleAgree?: string;
-    titleDisagree?: string;
+export interface ISprykerDialogProps extends WithStyles<typeof styles> {
+    handleShow?: () => void;
+    isOpen?: boolean;
 }

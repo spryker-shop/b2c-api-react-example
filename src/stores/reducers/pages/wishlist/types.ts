@@ -1,6 +1,5 @@
 import { IWishlist, IWishlistProduct, TWishlistId } from '@interfaces/wishlist';
 import { IActionData, IReduxState } from '@stores/reducers/types';
-import { TProductSKU } from '@interfaces/product';
 
 export interface WishlistState extends IReduxState {
     data: {
@@ -21,6 +20,6 @@ export interface IPageWishlistAction extends IActionData {
     };
     payloadWishlistProductFulfilled?: {
         wishlistId: TWishlistId;
-        sku: TProductSKU
+        sku: string
     };
 }

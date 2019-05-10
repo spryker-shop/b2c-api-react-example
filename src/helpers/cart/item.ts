@@ -1,7 +1,6 @@
-import { TProductQuantity, TProductSKU } from '@interfaces/product';
 import { ICartAddItem, ICartItem } from '@interfaces/cart';
 
-export const createCartItemAddToCart = (sku: TProductSKU, quantity: TProductQuantity): ICartAddItem => ({
+export const createCartItemAddToCart = (sku: string, quantity: number): ICartAddItem => ({
     sku,
     quantity
 });

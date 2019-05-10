@@ -1,37 +1,45 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
-import { CustomerPageProps } from './types';
+import { connect } from './connect';
+import { Redirect, withRouter } from 'react-router';
+import { ICustomerPageProps as Props } from './types';
 import { AppMain } from '@components/AppMain';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
-import { SideBar } from './SideBar';
+import { CustomerSideBar } from './CustomerSideBar';
 import { CustomerRouting } from './CustomerRouting';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import { pathCustomerPage, pathCustomerOverviewPage } from '@constants/routes';
 import { styles } from './styles';
 
-@(withRouter as Function)
-class CustomerPageBase extends React.PureComponent<CustomerPageProps> {
-    public render() {
+@connect
+class CustomerPageComponent extends React.PureComponent<Props> {
+    public componentWillUnmount = (): void => {
+        this.props.clearOrdersCollectionAction();
+        this.props.clearAddressAction();
+    };
+
+    public render(): JSX.Element {
         const { classes, location } = this.props;
+        const isTemplatePage = location.pathname === pathCustomerPage;
+
+        if (isTemplatePage) {
+            return <Redirect to={ pathCustomerOverviewPage } />;
+        }
 
         return (
             <AppMain>
-                <Grid container justify="space-between" className={ classes.customerContainer }>
-                    <Grid item xs={ 12 } sm={ 4 } md={ 3 } container direction="column">
+                <div className={ classes.container }>
+                    <div className={ classes.colSidebar }>
+                        <CustomerSideBar location={ location } />
+                    </div>
+                    <div className={ classes.colContent }>
                         <ErrorBoundary>
-                            <SideBar location={ location } />
+                            <CustomerRouting />
                         </ErrorBoundary>
-                    </Grid>
-                    <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
-                        <Grid container className={`${classes.rightPart} ${classes.fullHeight}`}>
-                            <Grid item xs={ 12 } className={ classes.fullHeight }>
-                                <CustomerRouting />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
             </AppMain>
         );
     }
 }
 
-export const CustomerPage = withStyles(styles)(CustomerPageBase);
+export const CustomerPage = withStyles(styles)(withRouter(CustomerPageComponent));

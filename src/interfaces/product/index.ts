@@ -1,6 +1,5 @@
 import { ISuperAttribute } from '@helpers/product/types';
 
-// Constants
 export const concreteProductType = 'concreteProduct';
 export type TConcreteProductType = 'concreteProduct';
 
@@ -10,66 +9,45 @@ export type TAbstractProductType = 'abstractProduct';
 export const absentProductType = 'absentProduct';
 export type TAbsentProductType = 'absentProduct';
 
-export const defaultItemValueDropdown = ' ';
-
-// Types
-export type TProductType = TAbstractProductType | TConcreteProductType | TAbsentProductType;
-export type TProductDescription = string;
-export type TProductSKU = string;
-export type TProductName = string;
-export type TProductPrice = number;
-export type TProductQuantity = number;
-export type TProductCurrency = string;
-export type TProductCurrencyCode = string;
-export type TProductCurrencyName = string;
-export type TProductCurrencySymbol = string;
-export type TProductAvailability = boolean;
-export type TProductAttributes = object;
-export type TProductImageSRC = string;
-export type TProductIsNeverOutOfStock = boolean;
-
 export const priceTypeNameDefault = 'DEFAULT';
 export type TPriceTypeNameDefault = 'DEFAULT';
+
 export const priceTypeNameOriginal = 'ORIGINAL';
 export type TPriceTypeNameOriginal = 'ORIGINAL';
 
-export type TPriceTypeName = TPriceTypeNameDefault | TPriceTypeNameOriginal;
-export type TPriceTypeOriginalGross = number | null;
-export type TPriceTypeOriginalNet = number | null;
-export type TPriceTypeDefaultGross = number | null;
-export type TPriceTypeDefaultNet = number | null;
-export type TAppPriceMode = string | null;
+export const defaultItemValueDropdown = ' ';
 
-// Interfaces
+export type TProductType = TAbstractProductType | TConcreteProductType | TAbsentProductType;
+export type TPriceTypeName = TPriceTypeNameDefault | TPriceTypeNameOriginal;
 
 export interface IProductPricesItem {
-    grossAmount: TPriceTypeOriginalGross | TPriceTypeDefaultGross;
-    netAmount: TPriceTypeOriginalNet | TPriceTypeDefaultNet;
+    grossAmount: number | null;
+    netAmount: number | null;
     priceTypeName: TPriceTypeName;
     currency?: {
-        code: TProductCurrencyCode;
-        name: TProductCurrencyName;
-        symbol: TProductCurrencySymbol
+        code: string;
+        name: string;
+        symbol: string
     };
 }
 
 export interface IProductCardImages {
-    externalUrlLarge: TProductImageSRC;
-    externalUrlSmall: TProductImageSRC;
+    externalUrlLarge: string;
+    externalUrlSmall: string;
 }
 
 export interface IProductCard {
     images?: IProductCardImages[] | null;
-    price: TProductPrice;
-    abstractName: TProductName;
-    abstractSku: TProductSKU;
+    price: number;
+    abstractName: string;
+    abstractSku: string;
     prices: IProductPricesItem[];
     labels?: IProductLabel[] | null;
 }
 
 export interface IProductAttributeMap {
     attribute_variants: { [key: string]: IProductAttributes };
-    product_concrete_ids: TProductSKU[];
+    product_concrete_ids: string[];
     super_attributes: { [key: string]: string[] };
 }
 
@@ -87,28 +65,28 @@ export interface ISuperAttributes {
 }
 
 export interface IProductAvailability {
-    availability: TProductAvailability | null;
-    quantity?: TProductQuantity | null;
-    isNeverOutOfStock?: TProductIsNeverOutOfStock;
+    availability: boolean | null;
+    quantity?: number | null;
+    isNeverOutOfStock?: boolean;
 }
 
 export interface IConcreteProductAvailability extends IProductAvailability {
-    sku: TProductSKU | null;
+    sku: string | null;
 }
 
 export interface IProductPropFullData extends IProductAvailability {
-    attributes: TProductAttributes | null;
+    attributes: object | null;
     attributeNames: IProductAttributeNames | null;
-    description: TProductDescription | null;
+    description: string | null;
     images: IProductCardImages[] | null;
-    name: TProductName | null;
-    price: TProductPrice | null;
+    name: string | null;
+    price: number | null;
     prices: IProductPricesItem[] | null;
-    priceOriginalGross: TPriceTypeOriginalGross;
-    priceOriginalNet: TPriceTypeOriginalNet;
-    priceDefaultGross: TPriceTypeDefaultGross;
-    priceDefaultNet: TPriceTypeDefaultNet;
-    sku: TProductSKU | null;
+    priceOriginalGross: number | null;
+    priceOriginalNet: number | null;
+    priceDefaultGross: number | null;
+    priceDefaultNet: number | null;
+    sku: string | null;
     productType: TProductType | null;
 }
 

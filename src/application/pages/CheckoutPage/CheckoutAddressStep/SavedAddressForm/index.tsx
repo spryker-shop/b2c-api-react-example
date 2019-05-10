@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormControlLabel, Radio, RadioGroup, withStyles } from '@material-ui/core';
-import { ISavedAddressFormProps as Props } from './types';
-import { IRadioItem } from '@components/UI/SprykerForm/types';
+import { ISavedAddressFormProps as Props, IRadioItem } from './types';
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { getSalutationToShow } from '@helpers/customer/salutation';
@@ -72,6 +71,7 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 classes={{ root: classes.radio }}
                 checkedIcon={ <span className={ classes.radioIcon } /> }
                 icon={ <span className={ classes.radioIcon } /> }
+                name={ item.value }
             /> }
             label={ <>{ Boolean(item.salutation) && item.salutation }{ item.label }</> }
         />

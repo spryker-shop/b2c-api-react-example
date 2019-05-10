@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
 import { withStyles, IconButton } from '@material-ui/core';
-import { pathCustomerPage, pathCustomerProfilePage, pathLoginPage } from '@constants/routes';
+import { pathCustomerPage, pathCustomerOverviewPage, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@components/PopoverWrapper';
 import { logoutSetTimeoutTime } from '@constants/customer';
@@ -74,7 +74,7 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { isPopupOpened } = this.state;
         const { classes, isUserLoggedIn } = this.props;
-        const pathToRedirect = isUserLoggedIn ? pathCustomerProfilePage : pathLoginPage;
+        const pathToRedirect = isUserLoggedIn ? pathCustomerOverviewPage : pathLoginPage;
 
         return (
             <div className={ classes.wrapper }>

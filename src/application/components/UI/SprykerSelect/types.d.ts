@@ -19,11 +19,12 @@ export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     menuItems: IMenuItemSelect[];
     menuItemFirst?: IMenuItemFirst | null;
     title?: string;
-    label?: string;
+    label?: string | JSX.Element;
     isRequired?: boolean;
     isFullWidth?: boolean;
     placeholder?: boolean;
     isSimple?: boolean;
+    isError?: boolean;
 }
 
 export interface ISprykerSelectState {

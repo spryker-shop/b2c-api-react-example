@@ -1,9 +1,7 @@
 import {
     IProductCardImages,
     IProductLabel,
-    IProductPricesItem,
-    TProductName,
-    TProductSKU
+    IProductPricesItem
 } from '@interfaces/product';
 import {
     IRowConcreteProductsIncludedResponse,
@@ -20,8 +18,8 @@ export interface IProductRelationsRawResponse {
 
 export interface IProductRelationsItemResponse {
     attributes: {
-        name: TProductName;
-        sku: TProductSKU;
+        name: string;
+        sku: string;
     };
     id: string;
     relationships: IProductRelationsItemRelationships;

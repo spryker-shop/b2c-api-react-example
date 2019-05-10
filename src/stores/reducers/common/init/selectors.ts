@@ -2,7 +2,6 @@ import { ICartCreatePayload } from '@services/common/Cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { TAppTimeZone } from '@interfaces/locale';
 import { TAppCurrency } from '@interfaces/currency';
-import { TAppPriceMode } from '@interfaces/product';
 import { TAppStore } from '@interfaces/store';
 import { ICategory } from '@interfaces/category';
 import { ICountry } from '@interfaces/country';
@@ -32,7 +31,7 @@ export function getAppTimeZone(state: IReduxStore, props: IReduxOwnProps): TAppT
     return isAppInitiated(state, props) ? state.init.data.timeZone : null;
 }
 
-export function getAppPriceMode(state: IReduxStore, props: IReduxOwnProps): TAppPriceMode {
+export function getAppPriceMode(state: IReduxStore, props: IReduxOwnProps): string | null {
     return isAppInitiated(state, props) ? state.init.data.priceMode : null;
 }
 

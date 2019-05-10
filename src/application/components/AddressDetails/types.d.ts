@@ -1,7 +1,8 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { IAddressItemOrder } from '@interfaces/addresses';
+import { IAddressItem } from '@interfaces/addresses';
 
-export interface IAddressDetailsProps extends WithStyles<typeof styles>, IAddressItemOrder {
-    blockTitle: string;
+export interface IAddressDetailsProps extends WithStyles<typeof styles> {
+    address: IAddressItem | IAddressItemOrder;
+    title: string | JSX.Element;
 }

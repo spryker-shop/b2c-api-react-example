@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { pathLoginPage, pathRegisterPage, pathCustomerProfilePage } from '@constants/routes';
+import { pathLoginPage, pathRegisterPage, pathCustomerOverviewPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@components/AppMain';
@@ -31,7 +31,7 @@ export class LoginPageComponent extends React.Component<Props> {
                         </ul>
                         <div className={ classes.inner }>
                             <ErrorBoundary>
-                                <LoginForm redirectAfterLoginPath={ pathCustomerProfilePage } />
+                                <LoginForm redirectAfterLoginPath={ pathCustomerOverviewPage } />
                             </ErrorBoundary>
                         </div>
                     </Grid>

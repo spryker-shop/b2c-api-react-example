@@ -1,6 +1,6 @@
 import { PAGES_PRODUCT_REQUEST, PRODUCT_AVAILABILITY_REQUEST } from '@stores/actionTypes/pages/product';
 import { ProductService } from '@services/pages/Product';
-import { IConcreteProductAvailability, IProductDataParsed, TProductSKU } from '@interfaces/product';
+import { IConcreteProductAvailability, IProductDataParsed } from '@interfaces/product';
 import { IPageProductAction } from '@stores/reducers/pages/Product/types';
 
 export const getProductDataItemPendingStateAction = (): IPageProductAction => ({
@@ -40,7 +40,7 @@ export const getProductAvailabilityFulfilledStateAction = (payload: IConcretePro
     payloadAvailability: payload,
 });
 
-export const getProductAvailabilityAction = function (sku: TProductSKU) {
+export const getProductAvailabilityAction = function (sku: string) {
     return (dispatch: Function, getState: Function) => (
         ProductService.getConcreteProductAvailability(dispatch, sku)
     );

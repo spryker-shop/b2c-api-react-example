@@ -1,5 +1,9 @@
+import * as React from 'react';
 import { styles } from '@pages/CustomerPage/styles';
-import { WithRouter } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
+import { RouteComponentProps } from 'react-router';
 
-export interface CustomerPageProps extends WithStyles<typeof styles>, WithRouter {}
+export interface ICustomerPageProps extends WithStyles<typeof styles>, RouteComponentProps<React.SFC> {
+    clearOrdersCollectionAction?: () => void;
+    clearAddressAction?: () => void;
+}

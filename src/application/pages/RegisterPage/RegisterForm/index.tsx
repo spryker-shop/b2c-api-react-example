@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
-import { pathCustomerPage } from '@constants/routes';
+import { pathCustomerOverviewPage } from '@constants/routes';
 import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
@@ -23,15 +23,22 @@ export class RegisterForm extends React.Component<Props, State> {
         email: '',
         password: '',
         confirmPassword: '',
-        acceptedTerms: false
+        acceptedTerms: false,
+        isCartLoading: false
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isAuth, getCustomerCart, history } = this.props;
+        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
+        const { isAuth, getCustomerCart, history, isCartLoading } = this.props;
+        const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
-            history.push(pathCustomerPage);
+            this.setState({ isCartLoading: true });
+
+            if (isParallelRequest) {
+                history.push(pathCustomerOverviewPage);
+            }
         }
     };
 
@@ -74,6 +81,7 @@ export class RegisterForm extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { isLoading } = this.props;
+        const { isCartLoading } = this.state;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmitForm } id="RegisterForm">
@@ -152,7 +160,7 @@ export class RegisterForm extends React.Component<Props, State> {
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <Button disabled={ isLoading } type="submit" variant="contained" fullWidth>
+                        <Button disabled={ isLoading || isCartLoading } type="submit" variant="contained" fullWidth>
                             <FormattedMessage id={ 'sign.up.title' } />
                         </Button>
                     </Grid>

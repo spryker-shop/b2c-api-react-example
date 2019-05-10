@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 
-import { ICustomerProfileIdentity, TCustomerReference } from '@interfaces/customer';
+import { ICustomerProfileIdentity } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { updateCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
             updateCustomerData: (
-                customerReference: TCustomerReference, payload: ICustomerProfileIdentity
+                customerReference: string, payload: ICustomerProfileIdentity
             ) => updateCustomerProfileAction(customerReference, payload)
         },
         dispatch,

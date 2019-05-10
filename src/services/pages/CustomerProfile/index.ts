@@ -1,11 +1,6 @@
 import api, { setAuthToken } from '@services/api';
 import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
-import {
-    ICustomerDataParsed,
-    ICustomerProfileIdentity,
-    ICustomerProfilePassword,
-    TCustomerReference
-} from '@interfaces/customer';
+import { ICustomerDataParsed, ICustomerProfileIdentity, ICustomerProfilePassword } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/customer/customerDataResponse';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { CustomerProfileAuthenticateErrorMessage } from '@translation/';
@@ -13,27 +8,23 @@ import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract
 import { logout } from '@stores/actions/pages/login';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
 interface IRequestBody {
     data: {
         type: string;
-        id?: TCustomerReference;
+        id?: string;
         include?: string;
         attributes: ICustomerProfileIdentity | ICustomerProfilePassword;
     };
 }
 
 export class CustomerProfileService extends ApiServiceAbstract {
-    private static getCustomersEndpoint = (customerReference: TCustomerReference) => (
+    private static getCustomersEndpoint = (customerReference: string) => (
         `/customers/${customerReference}`
     );
 
-    // Retrieve customer data.
-    public static async getProfileData(dispatch: Function, customerReference: TCustomerReference): Promise<void> {
+    public static async getProfileData(dispatch: Function, customerReference: string): Promise<void> {
         try {
             dispatch(CustomerProfileActions.getCustomerProfilePendingStateAction());
 
@@ -71,9 +62,8 @@ export class CustomerProfileService extends ApiServiceAbstract {
         }
     }
 
-    // Update customer data
     public static async updateProfileData(dispatch: Function,
-                                          customerReference: TCustomerReference,
+                                          customerReference: string,
                                           payload: ICustomerProfileIdentity): Promise<void> {
         try {
             dispatch(CustomerProfileActions.updateCustomerProfilePendingStateAction());
@@ -125,21 +115,15 @@ export class CustomerProfileService extends ApiServiceAbstract {
         }
     }
 
-    // Update customer password.
     public static async updatePasswordData(
         dispatch: Function,
-        customerReference: TCustomerReference,
+        customerReference: string,
         payload: ICustomerProfilePassword
     ): Promise<void> {
         try {
             dispatch(CustomerProfileActions.updateCustomerPasswordPendingStateAction());
 
-            const body: IRequestBody = {
-                data: {
-                    type: 'customer-password',
-                    attributes: payload
-                }
-            };
+            const body: IRequestBody = { data: { type: 'customer-password', attributes: payload } };
 
             const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
@@ -174,8 +158,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
         }
     }
 
-    // Delete Customer Profile - Anonymize customers.
-    public static async deleteCustomerEntity(dispatch: Function, customerReference: TCustomerReference): Promise<void> {
+    public static async deleteCustomerEntity(dispatch: Function, customerReference: string): Promise<void> {
         try {
             dispatch(CustomerProfileActions.deleteCustomerPendingStateAction());
 
@@ -205,7 +188,6 @@ export class CustomerProfileService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            console.error('deleteCustomerEntity error', error);
             dispatch(CustomerProfileActions.deleteCustomerRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',

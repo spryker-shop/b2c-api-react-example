@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { OrderSummaryProps as Props } from './types';
 import { NavLink } from 'react-router-dom';
 import { pathCheckoutPage } from '@constants/routes';
-import { CartTotal } from '@components/CartTotal';
+import { TotalsBlock } from '@components/TotalsBlock';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
@@ -16,7 +16,7 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
                 <FormattedMessage id={ 'your.order.title' } />
             </Typography>
 
-            <CartTotal totals={ totals } />
+            <TotalsBlock totals={ totals } />
 
             <Button
                 component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } /> }
@@ -31,6 +31,6 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
             <span className={ classes.info }><FormattedMessage id={ 'shipping.fee.calculated.text' } /></span>
         </>
     );
-}
+};
 
 export const OrderSummary = withStyles(styles)(OrderSummaryComponent);

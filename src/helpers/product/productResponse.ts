@@ -48,6 +48,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         concreteProducts: {},
         productLabels: []
     };
+
     let attributeNamesContainer: IProductAttributeNames = {};
 
     if (data.attributes.attributeMap.product_concrete_ids) {
@@ -78,7 +79,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-
         if (row.type === 'abstract-product-prices') {
             result.abstractProduct.price = row.attributes.price;
             result.abstractProduct.prices = row.attributes.prices;
@@ -97,14 +97,12 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-
         if (row.type === 'abstract-product-availabilities') {
             result.abstractProduct.availability = row.attributes.availability;
             result.abstractProduct.quantity = row.attributes.quantity;
 
             return;
         }
-
         if (row.type === 'concrete-products' && !result.concreteProducts[row.id].name) {
             result.concreteProducts[row.id].name = row.attributes.name;
             result.concreteProducts[row.id].sku = row.attributes.sku;
@@ -115,13 +113,11 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-
         if (row.type === 'concrete-product-image-sets' && !result.concreteProducts[row.id].images) {
             result.concreteProducts[row.id].images = parseImageSets(row.attributes.imageSets);
 
             return;
         }
-
         if (row.type === 'concrete-product-prices' && !result.concreteProducts[row.id].price) {
             result.concreteProducts[row.id].price = row.attributes.price;
             result.concreteProducts[row.id].prices = row.attributes.prices;
@@ -140,7 +136,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-
         if (row.type === 'concrete-product-availabilities' && !result.concreteProducts[row.id].availability) {
             result.concreteProducts[row.id].availability = row.attributes.availability;
             result.concreteProducts[row.id].quantity = row.attributes.quantity;
@@ -154,7 +149,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             }
         }
     });
-
     const filteredIncludedLabels = included.filter(row => row.type === 'product-labels');
     const labelsRelationships = data.relationships['product-labels'];
     const isLabelsExist = labelsRelationships && filteredIncludedLabels.length;
@@ -175,7 +169,6 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             });
         });
     }
-
     result.superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
 
     return result;
@@ -191,7 +184,6 @@ export const parseProductAvailabilityResponse = (response: IProductAvailabilitie
         return null;
     }
     const attributes = data[0].attributes;
-
     if (attributes.isNeverOutOfStock) {
         attributes.availability = true;
         attributes.quantity = defaultProductQuantity;

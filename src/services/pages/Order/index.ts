@@ -10,7 +10,6 @@ import {
 } from '@stores/actions/pages/order';
 import { OrderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/order/response';
-import { TOrderId } from '@interfaces/order';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -53,7 +52,7 @@ export class OrderService extends ApiServiceAbstract {
     }
 
     // Get order by reference
-    public static async getOrderDetails(dispatch: Function, orderId: TOrderId): Promise<void> {
+    public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
         try {
             dispatch(orderDetailsPendingStateAction());
 

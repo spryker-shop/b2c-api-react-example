@@ -6,7 +6,6 @@ import {
 } from '@interfaces/product';
 import { IAbstractRowIncludedResponse } from '@interfaces/abstract/rowIncludedresponse';
 import { IProductRelationsItemRelationships } from '@helpers/productRelations/types';
-import { IProductLabelResponse } from '@interfaces/searchPageData';
 
 export interface IProductDataResponse {
     attributes: IProductAttributesRawResponse;

@@ -2,14 +2,12 @@ import {
     ICustomerLoginDataParsed,
     ILoginDataToLocalStorage,
     IResetPasswordPayload,
-    TCustomerEmail,
-    TCustomerUsername
 } from '@interfaces/customer';
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 interface ILoginStateData extends ICustomerLoginDataParsed {
     isAuth?: boolean;
-    customerUsername: TCustomerUsername | TCustomerEmail;
+    customerUsername: string;
 }
 
 export interface ILoginState extends IReduxState {

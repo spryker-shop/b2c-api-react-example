@@ -1,6 +1,5 @@
 import { PRODUCT_RELATIONS_REQUEST } from '@stores/actionTypes/common/productRelations';
 import { ProductRelationsService } from '@services/common/ProductRelations';
-import { TProductSKU } from '@interfaces/product';
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import { TCartId } from '@interfaces/cart';
 
@@ -18,7 +17,7 @@ export const productRelationsFulfilledAction = (payload: IProductRelationsItem[]
     payloadFulfilled: payload
 });
 
-export const getProductRelationsAction = function (payload: TProductSKU) {
+export const getProductRelationsAction = function (payload: string) {
     return (dispatch: Function, getState: Function) => {
         ProductRelationsService.getProductRelations(dispatch, payload);
     };

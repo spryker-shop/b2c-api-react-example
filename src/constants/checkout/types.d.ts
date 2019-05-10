@@ -1,5 +1,6 @@
 import { IMenuItemSelect } from './types';
 import { IPaymentMethod, IShipmentMethod } from '@interfaces/checkout';
+import { IConfigInputStable } from '@interfaces/forms';
 
 export interface ICheckoutFormsNames {
     billing: string;
@@ -32,13 +33,6 @@ export interface ICheckoutSelectionInputs {
     isAddNewDeliveryValue: string;
     isAddNewBillingValue: string;
     isSameAsDeliveryValue: string;
-}
-
-export interface IConfigInputStable {
-    isRequired: boolean;
-    inputName: string;
-    minLength?: number;
-    isEmail?: boolean;
 }
 
 export interface IAddressConfigInputStable {
