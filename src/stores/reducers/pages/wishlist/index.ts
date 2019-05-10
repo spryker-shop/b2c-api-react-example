@@ -36,6 +36,7 @@ export const pageWishlist = produce<WishlistState>((draft: WishlistState, action
                 draft.initiated = true;
                 break;
             case `${DETAIL_WISHLIST}_PENDING`:
+                draft.data.isInitialDetail = false;
                 draft.error = null;
                 draft.pending = true;
                 draft.fulfilled = false;
@@ -115,7 +116,7 @@ export const pageWishlist = produce<WishlistState>((draft: WishlistState, action
             case `${DETAIL_WISHLIST}_FULFILLED`: {
                 draft.data.currentWishlist = action.payloadWishlistDataFulfilled.data;
                 draft.data.currentItems = action.payloadWishlistDataFulfilled.products;
-                draft.data.isInitialList = true;
+                draft.data.isInitialDetail = true;
                 draft.error = null;
                 draft.pending = false;
                 draft.fulfilled = true;

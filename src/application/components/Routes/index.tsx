@@ -11,11 +11,8 @@ import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
 import { LoadablePasswordForgotPage } from '@pages/ForgotPasswordPage/loadable';
 import { LoadablePasswordResetPage } from '@pages/ResetPasswordPage/loadable';
 import { LoadableCheckoutPage } from '@pages/CheckoutPage/loadable';
-import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
-import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 import { LoadableNotFound } from '@pages/NotFound/loadable';
 import {
-    pathAddressFormUpdate,
     pathCartPage,
     pathCategoryPage,
     pathCheckoutPage,
@@ -24,7 +21,6 @@ import {
     pathHomePage,
     pathLoginPage,
     pathNotFoundPage,
-    pathOrderDetailsPage,
     pathProductPage,
     pathResetPassword,
     pathSearchPage,
@@ -53,8 +49,6 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
             <Route path={ pathForgotPassword } exact component={  LoadablePasswordForgotPage }/>
             <Route path={ `${pathResetPassword}/:restoreKey` } exact component={  LoadablePasswordResetPage } />
             <Route path={ pathCheckoutPage } component={  LoadableCheckoutPage }/>
-            <Route path={ pathOrderDetailsPage } exact component={  LoadableOrderDetailsPage }/>
-            <Route path={ pathAddressFormUpdate } exact component={  CustomerAddressForm }/>
             <Route path={ pathNotFoundPage } exact component={  LoadableNotFound }/>
         </Switch>
     );
