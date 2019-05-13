@@ -3,32 +3,50 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     productItem: {
-        padding: '20px 20px 20px 62px',
+        padding: 15,
         marginBottom: 10,
         position: 'relative',
-        flexWrap: 'nowrap',
         background: theme.appColors.white,
         border: `1px solid ${theme.appColors.weekWhite}`,
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
             boxShadow: ' 0 2px 10px 0 rgba(216, 216, 216, 0.5)'
+        },
+
+        [theme.breakpoints.up('md')]: {
+            padding: '20px 20px 20px 62px'
         }
     },
     imageOuter: {
         flexShrink: 0
     },
     imgWrapper: {
-        width: 132,
-        minWidth: 132,
-        height: 132
+        width: 100,
+        minWidth: 100,
+        height: 100,
+
+        [theme.breakpoints.up('md')]: {
+            width: 132,
+            minWidth: 132,
+            height: 132,
+        }
     },
     contentOuter: {
+        maxWidth: 'calc(100% - 100px)',
         flexGrow: 1,
-        paddingLeft: 20
+        paddingLeft: 10,
+
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: 20,
+        }
     },
     info: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
+        }
     },
     growedBlock: {
         flexGrow: 1
@@ -59,15 +77,23 @@ export const styles = (theme: Theme) => createStyles({
         paddingTop: 6
     },
     attributesTitle: {
-        marginRight: 15
+        display: 'none',
+
+        [theme.breakpoints.up('md')]: {
+            display: 'inline-block',
+            marginRight: 15
+        }
     },
     attributesValue: {
         color: theme.appColors.grey
     },
     price: {
         fontWeight: 500,
-        textAlign: 'right',
-        lineHeight: 1.4
+        lineHeight: 1.4,
+
+        [theme.breakpoints.up('md')]: {
+            textAlign: 'right',
+        }
     },
     newPrice: {
         color: theme.appColors.red
@@ -78,25 +104,46 @@ export const styles = (theme: Theme) => createStyles({
         fontWeight: 400
     },
     eachPrice: {
-        textAlign: 'right',
         color: theme.appColors.lightGrey,
         fontSize: 14,
-        padding: '7px 0'
+        padding: '7px 0',
+
+        [theme.breakpoints.up('md')]: {
+            textAlign: 'right',
+        }
+    },
+    removeBtnColumn: {
+        maxWidth: 'calc(100% - 110px)',
+        marginLeft: 'auto'
     },
     removeBtn: {
-        position: 'absolute',
-        left: 20,
-        top: '50%',
-        transform: 'translateY(-50%)',
+        color: theme.appColors.lightGrey,
+        transition: 'all 0.3s ease-in-out',
+        cursor: 'pointer',
+
+        [theme.breakpoints.up('md')]: {
+            position: 'absolute',
+            left: 20,
+            top: '50%',
+            transform: 'translateY(-50%)',
+        },
+
+        '&:hover': {
+            color: theme.appColors.red,
+            backgroundColor: 'transparent',
+        }
+    },
+    removeBtnIcon: {
+        position: 'relative',
+        display: 'inline-block',
         padding: 0,
         borderRadius: '50%',
         minWidth: 'auto',
         width: 20,
         height: 20,
-        color: theme.appColors.lightGrey,
         border: '1px solid currentColor',
-        transition: 'color 0.3s ease-in-out',
-        cursor: 'pointer',
+        verticalAlign: 'middle',
+
         '&:after, &:before': {
             content: '""',
             position: 'absolute',
@@ -112,11 +159,15 @@ export const styles = (theme: Theme) => createStyles({
         '&:before': {
             transform: 'translate(-50%, -50%) rotate(-45deg)'
         },
-        '&:hover': {
-            color: theme.appColors.red,
-            backgroundColor: 'transparent'
-        }
+    },
+    removeBtnText: {
+        marginLeft: '10px',
+        fontSize: '13px',
+        verticalAlign: 'middle',
 
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        }
     },
     fullHeight: {
         height: '100%'

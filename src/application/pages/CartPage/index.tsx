@@ -32,8 +32,8 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <AppMain>
-            <Grid item xs={ 12 } container spacing={ 24 } className={ classes.root }>
-                <Grid item xs={ 12 } md={ 8 }>
+            <Grid container spacing={ 24 } className={ classes.root }>
+                <Grid item xs={ 12 } lg={ 8 }>
                     <div className={ classes.layout }>
                         <div className={ classes.heading }>
                             <Typography component="h3" variant="h3" className={ classes.title }>
@@ -68,7 +68,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                     </div>
                 </Grid>
 
-                <Grid item xs={ 12 } md={ 4 }>
+                <Grid item xs={ 12 } lg={ 4 }>
                     <div className={ classes.layout }>
                         <ErrorBoundary>
                             <OrderSummary totals={ totals } clearCheckoutDataForm={ clearCheckoutDataForm } />

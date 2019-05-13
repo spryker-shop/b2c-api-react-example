@@ -58,7 +58,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
 
     const sliderSettings: Settings = {
         centerMode: true,
-        dots: true,
+        dots: false,
         infinite: true,
         slidesToShow: defaultAmountSlides,
         slidesToScroll: 1,

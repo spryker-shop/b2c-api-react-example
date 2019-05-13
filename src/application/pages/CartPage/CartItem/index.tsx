@@ -28,14 +28,13 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     } = props;
 
     return (
-
-        <Grid container className={ classes.productItem }>
+        <Grid container wrap="wrap" className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
                 <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>
-                    <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
+                    <Grid item sm={ 12 } md={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
                             <Typography component="h5" variant="h5" className={classes.name}>
                                 <NavLink
@@ -66,7 +65,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                             />
                         </div>
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 3 } className={ classes.info }>
+                    <Grid item sm={ 12 } md={ 3 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
                             <Typography
                                 component="p"
@@ -79,18 +78,25 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                     <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
                                 </Typography>
                             }
+                            { (quantity > 1) &&
+                                <div className={ classes.eachPrice }>
+                                    (
+                                    <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
+                                    <FormattedMessage id={ 'word.each.title' } />)
+                                </div>
+                            }
                         </div>
-                        { (quantity > 1) &&
-                            <div className={ classes.eachPrice }>
-                                (
-                                <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
-                                <FormattedMessage id={ 'word.each.title' } />)
-                            </div>
-                        }
                     </Grid>
                 </Grid>
             </Grid>
-            <span onClick={ () => handleDeleteItem(sku) } className={ classes.removeBtn } />
+            <Grid item xs={ 12 } className={ classes.removeBtnColumn }>
+                <div className={ classes.removeBtn }>
+                    <span onClick={ () => handleDeleteItem(sku) } className={ classes.removeBtnIcon } />
+                    <span className={ classes.removeBtnText }>
+                        <FormattedMessage id={ 'remove.button.title' } />
+                    </span>
+                </div>
+            </Grid>
         </Grid>
     );
 };

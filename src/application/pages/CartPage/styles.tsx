@@ -9,15 +9,23 @@ export const styles = (theme: Theme) => createStyles({
         paddingTop: 80
     },
     layout: {
-        padding: '32px 20px 20px',
+        padding: 15,
         background: theme.appColors.weekWhite,
-        borderRadius: 4
+        borderRadius: 4,
+
+        [theme.breakpoints.up('md')]: {
+            padding: '32px 20px 20px'
+        }
     },
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingBottom: 18
+        paddingBottom: 6,
+
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 18,
+        }
     },
     title: {
         fontWeight: 700
