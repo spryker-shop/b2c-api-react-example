@@ -84,13 +84,16 @@ export const styles = (theme: Theme) => createStyles({
         justifyContent: 'flex-end'
     },
     amount: {
-        padding: '6px 14px',
+        padding: '7px 12px',
         borderRadius: 4,
         background: theme.appColors.weekWhite,
-        fontSize: 15,
+        fontSize: 14,
         letterSpacing: 0.2,
         color: theme.appColors.weakGrey,
-        lineHeight: 1
+        lineHeight: 1,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 15
+        }
     },
     secure: {
         display: 'flex',

@@ -3,10 +3,14 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     productItem: {
-        paddingBottom: 20,
-        marginBottom: 20,
+        paddingBottom: 15,
+        marginBottom: 15,
         flexWrap: 'nowrap',
         borderBottom: `1px solid ${theme.appColors.weekWhite}`,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20,
+            marginBottom: 20,
+        },
         '&:last-child': {
             paddingBottom: 0,
             marginBottom: 0,
@@ -74,7 +78,11 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.grey
     },
     prices: {
-        display: 'flex'
+        display: 'flex',
+        alignItems: 'flex-end',
+        [theme.breakpoints.up('lg')]: {
+            display: 'block'
+        }
     },
     price: {
         fontSize: 16,
@@ -86,7 +94,11 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     newPrice: {
-        color: theme.appColors.red
+        color: theme.appColors.red,
+        paddingRight: 8,
+        [theme.breakpoints.up('lg')]: {
+            paddingRight: 0
+        }
     },
     oldPrice: {
         fontSize: 13,

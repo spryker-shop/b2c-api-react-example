@@ -3,10 +3,16 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     box: {
-        padding: '30px 30px 18px 30px',
+        padding: '26px 14px 14px',
         borderRadius: 4,
         background: theme.appColors.white,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('md')]: {
+            padding: '30px 20px 18px',
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '30px 30px 18px 30px',
+        }
     },
     title: {
         fontSize: 20,

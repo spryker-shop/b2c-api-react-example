@@ -21,6 +21,7 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         minWidth: 140,
         padding: 5,
+        height: 50,
         borderRadius: 4,
         margin: 0,
         border: `1px solid ${theme.appColors.lightGrey}`,
