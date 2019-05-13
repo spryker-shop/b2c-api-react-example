@@ -3,22 +3,40 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     box: {
-        padding: '25px 20px 20px',
+        padding: '18px 10px',
         background: theme.appColors.white,
         borderRadius: 4,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            padding: '25px 20px 20px'
+        }
     },
     title: {
-        paddingBottom: 15
+        paddingBottom: 12,
+        fontSize: 18,
+        fontWeight: 700,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20
+        }
     },
     totals: {
-        paddingBottom: 20
+        paddingBottom: 10,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20
+        }
     },
     totalsInner: {
         padding: '20px 15px 18px',
         marginBottom: 10,
         background: theme.appColors.weekWhite,
         borderRadius: 4
+    },
+    totalPrice: {
+        fontSize: 15,
+        fontWeight: 500
+    },
+    totalTextPrice: {
+        fontSize: 18
     },
     productHeading: {
         display: 'flex',
@@ -63,7 +81,7 @@ export const styles = (theme: Theme) => createStyles({
     amountHolder: {
         display: 'flex',
         flexGrow: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     amount: {
         padding: '6px 14px',

@@ -19,5 +19,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     discountText: {
         color: theme.appColors.red
-    }
+    },
+    price: {},
+    totalTextPrice: {}
 });

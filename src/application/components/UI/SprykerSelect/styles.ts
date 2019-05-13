@@ -84,7 +84,7 @@ export const styles = (theme: Theme) => createStyles({
         marginTop: -3,
         minWidth: 140,
         '&& ul': {
-            padding: '10px 10px 2px'
+            padding: '10px 10px 2px !important'
         }
     },
     menuItem: {

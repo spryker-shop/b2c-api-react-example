@@ -32,7 +32,14 @@ class CheckoutCartComponent extends React.Component<Props> {
                     </Typography>
 
                     <div className={ classes.totals }>
-                        <TotalsBlock totals={ totals } classes={{ wrapper: classes.totalsInner }}/>
+                        <TotalsBlock
+                            totals={ totals }
+                            classes={{
+                                wrapper: classes.totalsInner,
+                                price: classes.totalPrice,
+                                totalTextPrice: classes.totalTextPrice
+                            }}
+                        />
                         { isSummaryPage &&
                             <Button variant="contained" disabled={ isSendBtnDisabled } fullWidth onClick={ sendData }>
                                 { <FormattedMessage id={ 'place.order.title' } /> }
