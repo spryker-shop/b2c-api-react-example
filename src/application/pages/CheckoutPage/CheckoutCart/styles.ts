@@ -60,6 +60,11 @@ export const styles = (theme: Theme) => createStyles({
         fill: 'currentColor',
         lineHeight: 0
     },
+    amountHolder: {
+        display: 'flex',
+        flexGrow: 1,
+        justifyContent: 'flex-end',
+    },
     amount: {
         padding: '6px 14px',
         borderRadius: 4,
