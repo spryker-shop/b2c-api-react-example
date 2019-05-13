@@ -37,11 +37,11 @@ export interface IAddressItemCollection extends IAbstractAddressItem {
 }
 
 export interface IAddressItemOrder extends IAbstractAddressItem {
-    email: string | null;
+    email?: string | null;
     country: string;
-    cellPhone: string | null;
-    comment: string | null;
-    description: string | null;
-    middleName: string | null;
-    poBox: string | null;
+    cellPhone?: string | null;
+    comment?: string | null;
+    description?: string | null;
+    middleName?: string | null;
+    poBox?: string | null;
 }
