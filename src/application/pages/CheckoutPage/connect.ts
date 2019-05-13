@@ -14,7 +14,7 @@ import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile'
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICartItem, TCartId } from '@interfaces/cart';
+import { ICartItem } from '@interfaces/cart';
 import {
     IBillingAddressState, IBillingSelectionState,
     ICheckoutRequest,
@@ -33,7 +33,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCheckoutInitiated: boolean = isPageCheckoutInitiated(state, ownProps);
     const {items}: {items: ICartItem[]} = getProductsFromCart(state, ownProps);
     const isProductsExists = Boolean(items && items.length);
-    const cartId: TCartId = getCartId(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
     const profile = getCustomerProfile(state, ownProps);
     const addressesCollection: IAddressItemCollection[] | null = getAddressesCollectionFromCheckoutStore(

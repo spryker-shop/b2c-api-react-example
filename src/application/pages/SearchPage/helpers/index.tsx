@@ -13,7 +13,7 @@ import {
     TActiveRangeFilters
 } from '../SearchFilterList/types';
 import { IActiveFilterCategories } from '../CategoriesList/types';
-import { labeledCategories } from '@constants/routes';
+import { labeledCategories, pathCategoryPageBase } from '@constants/routes';
 import { ICategory, IBreadcrumbItem } from '@interfaces/category';
 
 export const isValidRangeInput = (
@@ -110,7 +110,7 @@ export const getCurrentCategoriesTree = (
         if (categoriesTree[i].nodeId.toString() === String(categoryId)) {
             return [{
                 name: categoriesTree[i].name,
-                nodeId: categoriesTree[i].nodeId,
+                path: `${pathCategoryPageBase}/${categoriesTree[i].nodeId}`,
                 current: true
             }];
         }
@@ -120,7 +120,7 @@ export const getCurrentCategoriesTree = (
         if (arrayCategoryParents != null) {
             arrayCategoryParents.unshift({
                 name: categoriesTree[i].name,
-                nodeId: categoriesTree[i].nodeId
+                path: `${pathCategoryPageBase}/${categoriesTree[i].nodeId}`
             });
 
             return arrayCategoryParents;

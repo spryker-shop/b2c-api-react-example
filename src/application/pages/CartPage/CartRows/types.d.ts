@@ -1,8 +1,8 @@
-import { ICartItem, TCartId } from '@interfaces/cart';
+import { ICartItem } from '@interfaces/cart';
 
 export interface CartRowsProps {
     items?: ICartItem[] | null;
-    cartId?: TCartId;
+    cartId?: string;
     isUserLoggedIn?: boolean;
     anonymId?: string;
     updateItemInCartAction?: Function;
