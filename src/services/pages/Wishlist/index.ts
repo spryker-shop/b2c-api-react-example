@@ -9,7 +9,8 @@ import { IApiResponseData } from '@services/types';
 import {
     IWishlistRawData,
     IWishlistRawResponse,
-    TRowWishlistIncludedResponse
+    TRowWishlistIncludedResponse,
+    ERowTypes
 } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
