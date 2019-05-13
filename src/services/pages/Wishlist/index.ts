@@ -459,7 +459,7 @@ export class WishlistService extends ApiServiceAbstract {
                 items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
             }
 
-            if (row.type === 'concrete-product-image-sets') {
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
                 if (
                     row.attributes.imageSets &&
                     row.attributes.imageSets.length &&
@@ -472,7 +472,7 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === 'concrete-products') {
+            if (row.type === ERowTypes.CONCRETE_CONCRETE_PRODUCTS) {
                 items[row.id].sku = row.attributes.sku;
                 items[row.id].name = row.attributes.name;
                 Object.keys(row.attributes.attributes).forEach((attr: string) => {
@@ -486,7 +486,7 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === 'concrete-product-prices') {
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_PRICES) {
                 items[row.id].prices = {};
                 row.attributes.prices.forEach((price: IProductPricesItem) => {
                     const priceType = price.priceTypeName;
@@ -500,7 +500,7 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === 'concrete-product-availabilities') {
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
                 items[row.id].availability = row.attributes.availability;
 
                 if (row.attributes.isNeverOutOfStock) {
