@@ -3,14 +3,28 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     block: {
-        padding: 30,
+        padding: '20px 15px',
         background: theme.appColors.white,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('md')]: {
+            padding: 20,
+            marginBottom: 12
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 30,
+            marginBottom: 20
+        }
     },
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
         paddingBottom: 20
+    },
+    title: {
+        fontSize: 20,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 30
+        }
     },
     link: {
         width: 40,

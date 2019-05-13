@@ -48,7 +48,7 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
 
     return (
         <Grid container spacing={ 16 }>
-            <Grid item xs={ 6 }>
+            <Grid item xs={ 12 } sm={ 6 }>
                 <AddressDetails
                     address={ getAddressesInformation() }
                     title={<FormattedMessage id={ 'shipping.address.title' } />}
@@ -57,12 +57,13 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
                     }}
                 />
             </Grid>
-            <Grid item xs={ 6 }>
+            <Grid item xs={ 12 } sm={ 6 }>
                 <AddressDetails
                     address={ getAddressesInformation(true) }
                     title={<FormattedMessage id={ 'billing.address.title' } />}
                     classes={{
-                        container: classes.container
+                        container: classes.container,
+                        title: classes.title
                     }}
                 />
             </Grid>

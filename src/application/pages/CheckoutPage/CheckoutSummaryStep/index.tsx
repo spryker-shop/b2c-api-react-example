@@ -33,7 +33,7 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
         <div>
             <div className={ classes.block }>
                 <div className={ classes.heading }>
-                    <Typography component="h2" variant="h2">
+                    <Typography component="h2" variant="h2" className={ classes.title }>
                         <FormattedMessage id={ 'word.addresses.title' } />
                     </Typography>
                     <NavLink to={ pathCheckoutAddressStep } className={ classes.link }>
