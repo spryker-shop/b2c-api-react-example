@@ -52,7 +52,11 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1
     },
     name: {
-        padding: '5px 0 13px'
+        padding: '5px 0',
+
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 13
+        }
     },
     nameLink: {
         textDecoration: 'none',
@@ -63,18 +67,26 @@ export const styles = (theme: Theme) => createStyles({
     },
     attributes: {
         dispay: 'block',
-        paddingBottom: 4,
-        fontSize: 13,
+        fontSize: 12,
         letterSpacing: 0.1,
         lineHeight: 1.7,
         '&:first-letter': {
             textTransform: 'uppercase'
+        },
+
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 4,
+            fontSize: 13
         }
     },
     attributesQty: {
         display: 'flex',
         alignItems: 'center',
-        paddingTop: 6
+        paddingTop: 6,
+
+        [theme.breakpoints.down('sm')]: {
+            paddingBottom: 12,
+        }
     },
     attributesTitle: {
         display: 'none',
@@ -114,7 +126,11 @@ export const styles = (theme: Theme) => createStyles({
     },
     removeBtnColumn: {
         maxWidth: 'calc(100% - 110px)',
-        marginLeft: 'auto'
+        marginLeft: 'auto',
+
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 5
+        },
     },
     removeBtn: {
         color: theme.appColors.lightGrey,
