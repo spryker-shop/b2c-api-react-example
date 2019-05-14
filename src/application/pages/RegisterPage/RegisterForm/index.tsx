@@ -35,10 +35,10 @@ export class RegisterForm extends React.Component<Props, State> {
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
             this.setState({ isCartLoading: true });
+        }
 
-            if (isParallelRequest) {
-                history.push(pathCustomerOverviewPage);
-            }
+        if (isAuth && isParallelRequest) {
+            history.push(pathCustomerOverviewPage);
         }
     };
 

@@ -1,14 +1,21 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { NavLink, Redirect } from 'react-router-dom';
-import { pathCheckoutLoginStep, pathOrderDetailsPageBase } from '@constants/routes';
+import { NavLink } from 'react-router-dom';
+import { pathHomePage, pathCheckoutLoginStep } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { ICheckoutThanksProps as Props } from './types';
+import { ICheckoutThanksProps as Props, ICheckoutThanksState as State } from './types';
 import { styles } from './styles';
+import { Button, Typography } from '@material-ui/core';
+import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 
 @connect
-class CheckoutThanksComponent extends React.Component<Props> {
+class CheckoutThanksComponent extends React.Component<Props, State> {
+    public state: State = {
+        isHideForm: true
+    };
+
     public componentDidMount = (): void => {
         const { getCustomerCart, getGuestCart, isUserLoggedIn, anonymId } = this.props;
 
@@ -19,28 +26,52 @@ class CheckoutThanksComponent extends React.Component<Props> {
         }
 
         getGuestCart(anonymId);
+        this.setState({isHideForm: false});
     };
 
     public render = (): JSX.Element => {
-        const { classes, orderId, isUserLoggedIn } = this.props;
+        const { classes, orderId, deliveryNewAddress } = this.props;
+        const { isHideForm } = this.state;
+        const email = deliveryNewAddress.email.value;
 
         if (!orderId) {
             return <Redirect to={ pathCheckoutLoginStep } />;
         }
 
         return (
-            <div className={ classes.success }>
-                <div><FormattedMessage id={ 'word.success.title' } /></div>
-                <div className={ classes.thank }>
-                    <FormattedMessage id={ 'order.success.thank.message' } />
-                    { isUserLoggedIn &&
-                    <NavLink to={ `${ pathOrderDetailsPageBase }/${ orderId }` } className={ classes.link }>
-                        <FormattedMessage id={ 'word.here.title' } />
-                    </NavLink>
+            <div className={ classes.container }>
+                <div className={ classes.inner }>
+                    <Typography component="h2" variant="h2" className={ classes.title }>
+                        <FormattedMessage id={ 'order.success.thank.title' } />
+                    </Typography>
+                    <div className={ classes.information }>
+                        <span className={ classes.subtitle }>
+                            <FormattedMessage id={ 'order.number.title' } />
+                            <span className={ classes.order }>{ orderId }</span>
+                        </span>
+
+                        <span className={ classes.text }>
+                            <FormattedMessage id={ 'order.success.thank.message' } />
+                        </span>
+                        <span className={`${classes.text} ${classes.textEmail}`}>
+                            { email }
+                        </span>
+                    </div>
+                    { !isHideForm &&
+                        <div className={ classes.register }>
+                            <span className={classes.subtitle}>
+                                <FormattedMessage id={ 'register.message' } />
+                            </span>
+                            <CheckoutRegisterForm />
+                        </div>
                     }
-                </div>
-                <div className={ `${ classes.thank } ${ classes.order }` }>
-                    <FormattedMessage id={ 'order.id.title' } />: <span>{ orderId }</span>
+                    <Button
+                        component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathHomePage } /> }
+                        variant="outlined"
+                        fullWidth
+                    >
+                        <FormattedMessage id={ 'go.to.homepage.title' } />
+                    </Button>
                 </div>
             </div>
         );

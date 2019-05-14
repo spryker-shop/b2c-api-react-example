@@ -2,39 +2,68 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    success: {
-        marginTop: '18px',
-        position: 'relative',
-    },
     container: {
-        justifyContent: 'space-between',
+        padding: '26px 15px 30px',
+        position: 'relative',
+        background: theme.appColors.white,
+        textAlign: 'center',
+        [theme.breakpoints.up('md')]: {
+            padding: '60px 15px'
+        }
     },
-    link: {
+    inner: {
+        width: '100%',
+        maxWidth: 490,
+        margin: '0 auto',
+    },
+    title: {
+        fontSize: 20,
+        paddingBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 30,
+        }
+    },
+    information: {
+        padding: '30px 18px',
+        background: theme.appColors.weekWhite,
+        marginBottom: 40,
+        [theme.breakpoints.up('md')]: {
+            padding: '35px 18px'
+        }
+    },
+    subtitle: {
+        display: 'block',
+        paddingBottom: 16,
+        fontSize: 18,
+        lineHeight: 1.6,
+        letterSpacing: 0.2,
         color: theme.appColors.black,
-        fontWeight: 'bold',
-        transition: 'color 0.5s ease-in-out',
-        '&:hover': {
-            color: theme.appColors.blue
-        },
-    },
-    thank: {
-        fontSize: theme.appFixedDimensions.fontSize.small,
-        letterSpacing: '0.2px',
-        lineHeight: '18px',
-        marginTop: theme.spacing.unit * 4,
+        fontWeight: 700,
+        textAlign: 'center',
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20
+        }
     },
     order: {
-        fontWeight: 'bold',
-        marginTop: theme.spacing.unit * 2,
+        display: 'block',
+        color: theme.appColors.grey,
+        fontWeight: 500,
+        [theme.breakpoints.up('sm')]: {
+            display: 'inline',
+        }
     },
-    doneIcon: {
-        position: 'absolute',
-        width: theme.spacing.unit * 3,
-        height: theme.spacing.unit * 3,
-        borderRadius: '50%',
-        backgroundColor: theme.appColors.green,
-        top: '8px',
-        left: '124px',
-        color: theme.appColors.white,
+    text: {
+        display: 'block',
+        fontSize: 15,
+        lineHeight: 1.9,
+        letterSpacing: 0.2,
+        color: theme.appColors.grey
+    },
+    textEmail: {
+        color: theme.appColors.black
+    },
+    register: {
+        paddingBottom: 10,
+        textAlign: 'left',
     }
 });

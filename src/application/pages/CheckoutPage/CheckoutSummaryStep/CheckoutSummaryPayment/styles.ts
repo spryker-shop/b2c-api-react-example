@@ -22,7 +22,7 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         fontSize: 14,
         [theme.breakpoints.up('sm')]: {
-            paddingRight: 10,
+            padding: '0 10px 0 0',
             width: 170
         },
         [theme.breakpoints.up('lg')]: {
