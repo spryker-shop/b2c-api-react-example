@@ -9,7 +9,10 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     sliderWrapper: {
-        paddingTop: 80
+        paddingTop: 40,
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: 80
+        }
     },
     layout: {
         padding: 15,

@@ -16,6 +16,7 @@ export const styles = (theme: Theme) => createStyles({
     root: {
         position: 'relative',
         margin: '0 -5px',
+        width: 'auto',
         [theme.breakpoints.up('md')]: {
             margin: '0 -16px'
         },
@@ -57,7 +58,10 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     rootSimpleSlider: {
-        paddingBottom: 0,
+        padding: 0,
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 150px'
+        }
     },
     slideArrow: {
         display: 'flex',
@@ -142,6 +146,34 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.softGrey,
         transition: `width ${ animationDuration }, height ${ animationDuration }, 
             background ${ animationDuration }`
+    },
+    name: {
+        fontSize: 16,
+        lineHeight: 1.5,
+        maxHeight: 48,
+        [theme.breakpoints.up('md')]: {
+            maxHeight: 42,
+            fontSize: 14
+        },
+        [theme.breakpoints.up('md')]: {
+            maxHeight: 44,
+            fontSize: 15
+        }
+    },
+    price: {
+        fontSize: 22,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 18
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20
+        }
+    },
+    oldPrice: {
+        fontSize: 16,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 14
+        }
     },
     image: {
         [theme.breakpoints.between('xs', 'sm')]: {

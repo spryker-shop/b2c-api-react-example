@@ -80,7 +80,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                     <ErrorBoundary>
                         <ProductRelations
                             cartId={ cartId }
-                            title={ <FormattedMessage id={ 'similar.products.title' } /> }
+                            title={ <FormattedMessage id={ 'product.relations.title' } /> }
                             classes={{ root: classes.sliderWrapper }}
                         />
                     </ErrorBoundary>
