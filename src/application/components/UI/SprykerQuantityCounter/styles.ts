@@ -8,8 +8,8 @@ export const styles = (theme: Theme) => createStyles({
     },
     trigger: {
         position: 'relative',
-        width: 30,
-        height: 30,
+        width: 42,
+        height: 42,
         borderRadius: 4,
         background: theme.appColors.weekWhite,
         cursor: 'pointer',
@@ -30,6 +30,10 @@ export const styles = (theme: Theme) => createStyles({
         },
         '&:hover': {
             background: theme.appColors.softGrey
+        },
+        [theme.breakpoints.up('md')]: {
+            width: 30,
+            height: 30
         }
     },
     triggerBigger: {
@@ -53,7 +57,7 @@ export const styles = (theme: Theme) => createStyles({
         border: 'none',
         backgroundColor: theme.appColors.white,
         width: 40,
-        height: 30,
+        height: 42,
         lineHeight: 1.2,
         letterSpacing: 0,
         color: theme.appColors.grey,
@@ -63,6 +67,9 @@ export const styles = (theme: Theme) => createStyles({
         '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
             appearance: 'none',
             margin: 0,
+        },
+        [theme.breakpoints.up('md')]: {
+            height: 30
         }
     },
     inputBigger: {

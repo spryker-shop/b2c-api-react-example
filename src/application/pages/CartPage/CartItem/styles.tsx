@@ -12,7 +12,9 @@ export const styles = (theme: Theme) => createStyles({
         '&:hover': {
             boxShadow: ' 0 2px 10px 0 rgba(216, 216, 216, 0.5)'
         },
-
+        [theme.breakpoints.up('sm')]: {
+            paddingLeft: 42
+        },
         [theme.breakpoints.up('md')]: {
             padding: '20px 20px 20px 62px'
         }
@@ -24,7 +26,6 @@ export const styles = (theme: Theme) => createStyles({
         width: 100,
         minWidth: 100,
         height: 100,
-
         [theme.breakpoints.up('md')]: {
             width: 132,
             minWidth: 132,
@@ -34,7 +35,6 @@ export const styles = (theme: Theme) => createStyles({
     contentOuter: {
         flexGrow: 1,
         paddingLeft: 10,
-
         [theme.breakpoints.up('md')]: {
             paddingLeft: 20,
         }
@@ -42,7 +42,6 @@ export const styles = (theme: Theme) => createStyles({
     info: {
         display: 'flex',
         flexDirection: 'column',
-
         [theme.breakpoints.down('sm')]: {
             width: '100%'
         }
@@ -51,10 +50,14 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1
     },
     name: {
-        padding: '5px 0',
-
-        [theme.breakpoints.up('md')]: {
+        paddingBottom: 5,
+        fontSize: 14,
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 15,
             paddingBottom: 13
+        },
+        [theme.breakpoints.up('md')]: {
+            paddingTop: 5
         }
     },
     nameLink: {
@@ -65,15 +68,14 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     attributes: {
-        dispay: 'block',
+        display: 'block',
         fontSize: 12,
         letterSpacing: 0.1,
         lineHeight: 1.7,
         '&:first-letter': {
             textTransform: 'uppercase'
         },
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             paddingBottom: 4,
             fontSize: 13
         }
@@ -83,15 +85,13 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         paddingTop: 6,
         paddingBottom: 12,
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             paddingBottom: 0
         }
     },
     attributesTitle: {
         display: 'none',
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'inline-block',
             marginRight: 15
         }
@@ -99,37 +99,59 @@ export const styles = (theme: Theme) => createStyles({
     attributesValue: {
         color: theme.appColors.grey
     },
+    pricesHoler: {
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        [theme.breakpoints.up('sm')]: {
+            display: 'block'
+        }
+    },
     price: {
         fontWeight: 500,
         lineHeight: 1.4,
-
-        [theme.breakpoints.up('md')]: {
+        fontSize: 16,
+        [theme.breakpoints.up('sm')]: {
             textAlign: 'right',
+            fontSize: 18
         }
     },
     newPrice: {
-        color: theme.appColors.red
+        paddingRight: 8,
+        color: theme.appColors.red,
+        [theme.breakpoints.up('sm')]: {
+            paddingRight: 0
+        }
     },
     oldPrice: {
-        fontSize: 15,
+        fontSize: 13,
         letterSpacing: 0.3,
-        fontWeight: 400
+        fontWeight: 400,
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 15
+        }
     },
     eachPrice: {
+        display: 'none',
         color: theme.appColors.lightGrey,
         fontSize: 14,
         padding: '7px 0',
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
+            display: 'block',
             textAlign: 'right',
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '7px 0',
+            display: 'inline-flex',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            flexGrow: 1
         }
     },
     removeBtnColumn: {
-        maxWidth: 'calc(100% - 110px)',
-        marginLeft: 'auto',
-        paddingTop: 5,
-
-        [theme.breakpoints.up('md')]: {
+        display: 'inline-block',
+        paddingTop: 12,
+        [theme.breakpoints.up('sm')]: {
             paddingTop: 0
         },
     },
@@ -137,14 +159,15 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.lightGrey,
         transition: 'all 0.3s ease-in-out',
         cursor: 'pointer',
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             position: 'absolute',
-            left: 20,
-            top: '50%',
-            transform: 'translateY(-50%)',
+            left: 10,
+            top: 53
         },
-
+        [theme.breakpoints.up('md')]: {
+            left: 20,
+            top: 70
+        },
         '&:hover': {
             color: theme.appColors.red,
             backgroundColor: 'transparent',
@@ -160,7 +183,6 @@ export const styles = (theme: Theme) => createStyles({
         height: 20,
         border: '1px solid currentColor',
         verticalAlign: 'middle',
-
         '&:after, &:before': {
             content: '""',
             position: 'absolute',
@@ -181,8 +203,7 @@ export const styles = (theme: Theme) => createStyles({
         marginLeft: 10,
         fontSize: 13,
         verticalAlign: 'middle',
-
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'none'
         }
     },
