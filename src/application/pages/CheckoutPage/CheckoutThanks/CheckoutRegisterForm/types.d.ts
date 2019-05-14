@@ -11,7 +11,7 @@ export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     isCartLoading?: boolean;
     deliveryNewAddress?: ICheckoutAddressState;
     billingNewAddress?: IBillingAddressState;
-    isAddressLoading?: boolean;
+    isMultipleAddressesLoading?: boolean;
     billingSelection?: IBillingSelectionState;
     addAddress?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
     customer?: string | null;
