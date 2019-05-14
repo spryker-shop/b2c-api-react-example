@@ -51,6 +51,14 @@ export const addAddressAction = function (payload: IAddressItem, customerId: str
     };
 };
 
+export const addMultipleAddressAction =
+    function (payload: IAddressItem, customerId: string, billing: IAddressItem | null) {
+        return (dispatch: Function, getState: Function) => {
+            dispatch(addAddressPendingState);
+            AddressesService.addMultipleAddressAction(ADD_ADDRESS, dispatch, payload, customerId, billing);
+        };
+    };
+
 export const deleteAddressAction = function (addressId: string, customerId: string) {
     return (dispatch: Function, getState: Function) => {
         dispatch(deleteAddressPendingState);

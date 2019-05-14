@@ -116,7 +116,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             payload.shippingAddress = { ...shippingAddress, country: shippingAddress.country.name };
         }
 
-        if (billingSelection.isAddNew) {
+        if (billingSelection.isAddNew || !billingSelection.isSameAsDelivery && !isUserLoggedIn) {
             payload.billingAddress = getAddressForm(billingNewAddress);
         } else if (billingSelection.isSameAsDelivery) {
             payload.billingAddress = payload.shippingAddress;
