@@ -185,7 +185,7 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.up('md')]: {
             fontSize: 15
         },
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('lg')]: {
             display: 'none'
         }
     },
