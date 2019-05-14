@@ -4,9 +4,9 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     root: {
         paddingBottom: 20,
-
-        [theme.breakpoints.down('sm')]: {
-            overflow: 'auto',
+        overflow: 'auto',
+        [theme.breakpoints.up('md')]: {
+            overflow: 'hidden'
         }
     },
     list: {
@@ -14,19 +14,16 @@ export const styles = (theme: Theme) => createStyles({
         padding: 0,
         listStyle: 'none',
         borderRadius: 4,
-        background: theme.appColors.weekWhite,
-
-        [theme.breakpoints.down('sm')]: {
-            whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        display: 'flex',
+        [theme.breakpoints.up('md')]: {
+            display: 'block'
         }
     },
     item: {
         verticalAlign: 'top',
-
-        [theme.breakpoints.down('sm')]: {
-            display: 'inline-block',
-            background: theme.appColors.weekWhite,
-        }
+        flex: '1 1 100%',
+        background: theme.appColors.weekWhite
     },
     linkWrapper: {
         color: theme.appColors.grey,
@@ -34,7 +31,6 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         position: 'relative',
         overflow: 'hidden',
-
         '&:after': {
             content: '""',
             position: 'absolute',
@@ -45,13 +41,11 @@ export const styles = (theme: Theme) => createStyles({
             background: theme.appColors.blue,
             transition: 'opacity 0.3s ease-in-out',
             opacity: 0,
-
             [theme.breakpoints.up('md')]: {
                 height: '100%',
                 width: 4
             }
         },
-
         [theme.breakpoints.up('md')]: {
             '&:hover': {
                 color: theme.appColors.black
@@ -62,11 +56,9 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.white,
         color: theme.appColors.black,
         boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
-
         '&:after': {
             opacity: 1
         },
-
         '& $submenu': {
             [theme.breakpoints.up('md')]: {
                 display: 'block'
@@ -84,13 +76,13 @@ export const styles = (theme: Theme) => createStyles({
         position: 'relative',
         textDecoration: 'none',
         color: 'inherit',
-
+        justifyContent: 'center',
         [theme.breakpoints.up('md')]: {
+            justifyContent: 'flex-start',
             minHeight: 60,
             padding: '10px 15px 10px 20px',
             fontSize: 15
         },
-
         [theme.breakpoints.up('lg')]: {
             paddingLeft: 34,
             fontSize: 18
@@ -107,7 +99,6 @@ export const styles = (theme: Theme) => createStyles({
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
-
         [theme.breakpoints.up('lg')]: {
             paddingLeft: 75,
             fontSize: 16,
@@ -127,7 +118,6 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         }

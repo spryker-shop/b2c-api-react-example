@@ -113,6 +113,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                     disabled={ isCartLoading || !availability || isLoading }
                                     onClick={ () => addItemToCartAction(createCartItemAddToCart(sku, 1), cartId) }
                                     fullWidth
+                                    className={ classes.button }
                                 >
                                     <span className={ classes.buttonInner }>
                                         <FormattedMessage id={ 'add.to.cart.button.title' } />

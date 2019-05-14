@@ -5,8 +5,14 @@ export const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        paddingBottom: 110,
-        margin: '0 -25px'
+        paddingBottom: 40,
+        margin: '0 -25px',
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 60
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 110
+        }
     },
     colSidebar: {
         width: '100%',

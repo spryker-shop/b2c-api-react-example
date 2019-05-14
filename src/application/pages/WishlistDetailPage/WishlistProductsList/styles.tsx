@@ -9,7 +9,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     productItem: {
         padding: 15,
-        marginBottom: 20,
+        marginBottom: 15,
         flexWrap: 'nowrap',
         background: theme.appColors.white,
         position: 'relative',
@@ -17,6 +17,7 @@ export const styles = (theme: Theme) => createStyles({
             marginBottom: 0
         },
         [theme.breakpoints.up('lg')]: {
+            marginBottom: 20,
             padding: '20px 20px 36px 60px',
         }
     },
@@ -24,7 +25,7 @@ export const styles = (theme: Theme) => createStyles({
         width: 100,
         height: 100,
         minWidth: 100,
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             width: 132,
             height: 132,
             minWidth: 132
@@ -40,7 +41,13 @@ export const styles = (theme: Theme) => createStyles({
     },
     contentOuter: {
         flexGrow: 1,
-        padding: '0 10px 0 20px'
+        paddingLeft: 10,
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: 20
+        },
+        [theme.breakpoints.up('md')]: {
+            paddingRight: 10
+        }
     },
     colButton: {
         width: '100%',
@@ -49,25 +56,31 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     name: {
-        maxHeight: 46,
+        maxHeight: 69,
         marginBottom: 10,
         overflow: 'hidden',
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 500,
         color: theme.appColors.grey,
         // Multiline truncation with ellipsis Chrome only
         display: '-webkit-box',
-        lineClamp: 2,
-        boxOrient: 'vertical'
+        lineClamp: 3,
+        boxOrient: 'vertical',
+        [theme.breakpoints.up('md')]: {
+            maxHeight: 46,
+            lineClamp: 2,
+            fontSize: 16
+        }
     },
     attributes: {
         display: 'flex',
+        flexWrap: 'wrap',
         paddingBottom: 8,
-        fontSize: 15,
+        fontSize: 14,
         letterSpacing: 0.2,
         lineHeight: 1.4,
-        '&:first-letter': {
-            textTransform: 'uppercase'
+        [theme.breakpoints.up('md')]: {
+            fontSize: 15
         }
     },
     attributesValue: {
@@ -78,7 +91,9 @@ export const styles = (theme: Theme) => createStyles({
     },
     attributesTitle: {
         textTransform: 'capitalize',
-        width: 100
+        [theme.breakpoints.up('md')]: {
+            width: 100
+        }
     },
     available: {
         color: theme.appColors.green
@@ -86,22 +101,36 @@ export const styles = (theme: Theme) => createStyles({
     noAvailable: {
         color: theme.appColors.red
     },
+    button: {
+        fontSize: 14,
+        padding: '10px 8px',
+        [theme.breakpoints.up('md')]: {
+            padding: '13px 15px',
+            fontSize: 16
+        }
+    },
     buttonInner: {
         display: 'flex',
         alignItems: 'center'
     },
     buttonIcon: {
-        paddingLeft: 10,
+        paddingLeft: 5,
         fill: 'currentColor',
-        lineHeight: 0
+        lineHeight: 0,
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: 10
+        }
     },
     removeButton: {
-        padding: '10px 0 10px 30px',
+        padding: '10px 0 10px 25px',
         justifyContent: 'flex-start',
         minWidth: 'auto',
         color: theme.appColors.lightGrey,
         transition: 'color 0.3s ease-in-out',
         cursor: 'pointer',
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: 30
+        },
         [theme.breakpoints.up('lg')]: {
             position: 'absolute',
             left: 20,
@@ -118,21 +147,28 @@ export const styles = (theme: Theme) => createStyles({
     },
     removeButtonIcon: {
         borderRadius: '50%',
-        width: 20,
-        height: 20,
+        width: 16,
+        height: 16,
         position: 'absolute',
         left: 0,
         top: '50%',
         transform: 'translateY(-50%)',
         border: '1px solid currentColor',
+        [theme.breakpoints.up('md')]: {
+            width: 20,
+            height: 20
+        },
         '&:after, &:before': {
             content: '""',
             position: 'absolute',
             left: '50%',
             top: '50%',
-            width: 12,
+            width: 9,
             height: 1,
-            backgroundColor: 'currentColor'
+            backgroundColor: 'currentColor',
+            [theme.breakpoints.up('md')]: {
+                width: 12
+            }
         },
         '&:after': {
             transform: 'translate(-50%, -50%) rotate(45deg)'
@@ -142,10 +178,16 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     removeButtonText: {
-        fontSize: 15,
+        fontSize: 13,
         lineHeight: 1.5,
         letterSpacing: 0.2,
         color: theme.appColors.lightGrey,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 15
+        },
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        }
     },
     buttonDisabled: {
         opacity: 0.6
