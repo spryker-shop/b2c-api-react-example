@@ -1,6 +1,8 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
+const mobileImageMaxWidth = '100px';
+
 export const styles = (theme: Theme) => createStyles({
     productItem: {
         padding: 15,
@@ -32,7 +34,7 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     contentOuter: {
-        maxWidth: 'calc(100% - 100px)',
+        maxWidth: `calc(100% - ${mobileImageMaxWidth})`,
         flexGrow: 1,
         paddingLeft: 10,
 
@@ -83,9 +85,10 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         paddingTop: 6,
+        paddingBottom: 12,
 
-        [theme.breakpoints.down('sm')]: {
-            paddingBottom: 12,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 0
         }
     },
     attributesTitle: {
@@ -127,9 +130,10 @@ export const styles = (theme: Theme) => createStyles({
     removeBtnColumn: {
         maxWidth: 'calc(100% - 110px)',
         marginLeft: 'auto',
+        paddingTop: 5,
 
-        [theme.breakpoints.down('sm')]: {
-            paddingTop: 5
+        [theme.breakpoints.up('md')]: {
+            paddingTop: 0
         },
     },
     removeBtn: {
@@ -177,8 +181,8 @@ export const styles = (theme: Theme) => createStyles({
         },
     },
     removeBtnText: {
-        marginLeft: '10px',
-        fontSize: '13px',
+        marginLeft: 10,
+        fontSize: 13,
         verticalAlign: 'middle',
 
         [theme.breakpoints.up('md')]: {
