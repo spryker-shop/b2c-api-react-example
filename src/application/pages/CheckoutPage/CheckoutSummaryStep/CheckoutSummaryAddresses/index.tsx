@@ -53,7 +53,8 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
                     address={ getAddressesInformation() }
                     title={<FormattedMessage id={ 'shipping.address.title' } />}
                     classes={{
-                        container: classes.container
+                        container: classes.container,
+                        title: classes.title
                     }}
                 />
             </Grid>

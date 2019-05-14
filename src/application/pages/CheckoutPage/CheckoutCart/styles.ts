@@ -3,40 +3,109 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     box: {
-        padding: '18px 10px',
-        background: theme.appColors.white,
-        borderRadius: 4,
-        marginBottom: 20,
+        [theme.breakpoints.up('md')]: {
+            marginBottom: 20,
+            padding: '18px 10px',
+            background: theme.appColors.white,
+            borderRadius: 4,
+        },
         [theme.breakpoints.up('lg')]: {
             padding: '25px 20px 20px'
         }
     },
-    title: {
-        paddingBottom: 12,
-        fontSize: 18,
-        fontWeight: 700,
-        [theme.breakpoints.up('lg')]: {
-            fontSize: 20
+    boxInner: {
+        padding: '25px 14px',
+        background: theme.appColors.white,
+        borderRadius: 4,
+        marginBottom: 10,
+        [theme.breakpoints.up('md')]: {
+            padding: 0,
+            background: 'none',
+            borderRadius: 0,
+            margin: 0
         }
     },
     totals: {
-        paddingBottom: 10,
-        [theme.breakpoints.up('lg')]: {
+        [theme.breakpoints.up('md')]: {
             paddingBottom: 20
         }
     },
     totalsInner: {
         padding: '20px 15px 18px',
-        marginBottom: 10,
         background: theme.appColors.weekWhite,
-        borderRadius: 4
+        borderRadius: 4,
+        [theme.breakpoints.up('md')]: {
+            marginBottom: 10
+        }
+    },
+    totalRow: {
+        paddingBottom: 13,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20
+        }
     },
     totalPrice: {
         fontSize: 15,
         fontWeight: 500
     },
     totalTextPrice: {
-        fontSize: 18
+        fontSize: 18,
+        fontWeight: 700
+    },
+    subheading: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        color: theme.appColors.blue,
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        }
+    },
+    subheadingOpened: {
+        color: theme.appColors.lightGrey
+    },
+    subheadingTitle: {
+        fontSize: 20,
+        lineHeight: 1.4,
+        letterSpacing: 0.2,
+        fontWeight: 700,
+        color: theme.appColors.black
+    },
+    subheadingTrigger: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '4px 0 4px 10px',
+        lineHeight: 1,
+        fontSize: 15,
+        letterSpacing: 0.2
+    },
+    subheadingIcon: {
+        height: 18,
+        width: 26,
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: 10,
+        fill: 'currentColor',
+        lineHeight: 0
+    },
+    title: {
+        paddingBottom: 12,
+        fontSize: 18,
+        fontWeight: 700,
+        color: 'inherit',
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 20
+        }
+    },
+    productsWrapper: {
+        display: 'none',
+        paddingTop: 29,
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+            paddingTop: 0
+        }
+    },
+    productsWrapperOpened: {
+        display: 'block'
     },
     productHeading: {
         display: 'flex',
@@ -96,10 +165,14 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     secure: {
+        padding: '10px 0 30px',
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        color: theme.appColors.lightGrey
+        color: theme.appColors.lightGrey,
+        [theme.breakpoints.up('md')]: {
+            padding: 0
+        }
     },
     secureIcon: {
         fill: 'currentColor',
@@ -110,5 +183,11 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 14,
         fontWeight: 500,
         paddingLeft: 9
+    },
+    submitButton: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'inline-flex'
+        }
     }
 });

@@ -35,7 +35,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
 
             {(Boolean(expenses)) &&
                 expenses.map((item: IOrderDetailsExpenseItem, index: number) => (
-                    <div className={classes.row} key={`${item.name}${index}`}>
+                    <div className={ classes.row } key={`${item.name}${index}`}>
                         <Typography component="span" variant="h5" color="textSecondary">
                             <FormattedMessage id={ 'order.detail.shipment.title' } />
                         </Typography>

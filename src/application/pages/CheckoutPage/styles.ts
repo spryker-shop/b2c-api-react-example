@@ -8,7 +8,11 @@ export const styles = (theme: Theme) => createStyles({
     },
     container: {
         display: 'flex',
+        flexDirection: 'column-reverse',
         margin: -5,
+        [theme.breakpoints.up('md')]: {
+            flexDirection: 'row'
+        },
         [theme.breakpoints.up('lg')]: {
             margin: -10
         }
@@ -23,6 +27,7 @@ export const styles = (theme: Theme) => createStyles({
     summaryColumn: {
         display: 'none',
         padding: 5,
+        flexShrink: 0,
         [theme.breakpoints.up('md')]: {
             display: 'block',
             width: '40%'
@@ -31,6 +36,9 @@ export const styles = (theme: Theme) => createStyles({
             padding: 10,
             width: '38%'
         }
+    },
+    summaryColumnSummary: {
+        display: 'block'
     },
     fullWidth: {
         width: '100%'

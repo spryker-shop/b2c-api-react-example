@@ -17,8 +17,7 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 15,
         paddingBottom: 6,
         [theme.breakpoints.up('lg')]: {
-            fontSize: 20,
-            letterSpacing: 14
+            fontSize: 20
         }
     }
 });

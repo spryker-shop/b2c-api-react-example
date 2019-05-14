@@ -113,7 +113,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         } else {
             const shippingAddress = addressesCollection.find((address: IAddressItemCollection) =>
                 address.id === deliverySelection.selectedAddressId);
-            payload.shippingAddress = { ...shippingAddress, country: '' };
+            payload.shippingAddress = { ...shippingAddress, country: shippingAddress.country.name };
         }
 
         if (billingSelection.isAddNew) {
@@ -123,7 +123,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         } else {
             const billingAddress = addressesCollection.find((address: IAddressItemCollection) =>
                 address.id === deliverySelection.selectedAddressId);
-            payload.billingAddress = { ...billingAddress, country: '' };
+            payload.billingAddress = { ...billingAddress, country: billingAddress.country.name };
         }
 
         payload.idCart = cartId;
@@ -204,7 +204,11 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                                 </ErrorBoundary>
                             </div>
                             {!this.shouldHideOrderInfo() &&
-                                <div className={ classes.summaryColumn }>
+                                <div
+                                    className={`
+                                        ${classes.summaryColumn} ${isSummaryPage ? classes.summaryColumnSummary : ''}
+                                    `}
+                                >
                                     <CheckoutCart
                                         isSendBtnDisabled={ isButtonDisabled }
                                         sendData={ this.handleSubmit }

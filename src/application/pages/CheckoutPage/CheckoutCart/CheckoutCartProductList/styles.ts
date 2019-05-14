@@ -24,9 +24,14 @@ export const styles = (theme: Theme) => createStyles({
         flexShrink: 0
     },
     imageWrapper: {
-        width: 56,
-        minWidth: 56,
-        height: 56,
+        width: 100,
+        minWidth: 100,
+        height: 100,
+        [theme.breakpoints.up('md')]: {
+            width: 56,
+            minWidth: 56,
+            height: 56
+        },
         [theme.breakpoints.up('lg')]: {
             width: 80,
             minWidth: 80,
@@ -51,20 +56,25 @@ export const styles = (theme: Theme) => createStyles({
         flexGrow: 1
     },
     name: {
-        maxHeight: 42,
+        maxHeight: 46,
         marginBottom: 5,
         overflow: 'hidden',
+        fontSize: 14,
         color: theme.appColors.grey,
         // Multiline truncation with ellipsis Chrome only
         display: '-webkit-box',
         lineClamp: 2,
         boxOrient: 'vertical',
         [theme.breakpoints.up('lg')]: {
+            maxHeight: 42,
+            fontSize: 15
+        },
+        [theme.breakpoints.up('lg')]: {
             marginBottom: 10
         }
     },
     attributes: {
-        dispay: 'block',
+        display: 'block',
         fontSize: 12,
         letterSpacing: 0.1,
         lineHeight: 1.7,
