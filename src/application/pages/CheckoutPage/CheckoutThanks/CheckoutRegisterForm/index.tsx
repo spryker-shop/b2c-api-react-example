@@ -72,7 +72,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
             history
         } = this.props;
 
-        const addressDelivery =  {
+        const addressDelivery = {
             address: deliveryNewAddress,
             isDefaultShipping: true,
             isDefaultBilling: isSameAsDelivery
@@ -95,8 +95,8 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         this.setState(() => ({ ...this.state, [name]: value }));
     };
 
-    protected handleSubmitForm = (e: FormEvent): void => {
-        e.preventDefault();
+    protected handleSubmitForm = (event: FormEvent): void => {
+        event.preventDefault();
         const { password, confirmPassword } = this.state;
         const { deliveryNewAddress, handleSubmitRegisterForm } = this.props;
 
@@ -106,7 +106,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
                 type: typeNotificationWarning
             });
 
-            return null;
+            return;
         }
 
         const payload = {

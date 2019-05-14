@@ -13,7 +13,7 @@ import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 @connect
 class CheckoutThanksComponent extends React.Component<Props, State> {
     public state: State = {
-        isHideForm: true
+        shouldHideForm: true
     };
 
     public componentDidMount = (): void => {
@@ -26,12 +26,12 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
         }
 
         getGuestCart(anonymId);
-        this.setState({isHideForm: false});
+        this.setState({ shouldHideForm: false });
     };
 
     public render = (): JSX.Element => {
         const { classes, orderId, deliveryNewAddress } = this.props;
-        const { isHideForm } = this.state;
+        const { shouldHideForm } = this.state;
         const email = deliveryNewAddress.email.value;
 
         if (!orderId) {
@@ -57,9 +57,9 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
                             { email }
                         </span>
                     </div>
-                    { !isHideForm &&
+                    { !shouldHideForm &&
                         <div className={ classes.register }>
-                            <span className={classes.subtitle}>
+                            <span className={ classes.subtitle }>
                                 <FormattedMessage id={ 'register.message' } />
                             </span>
                             <CheckoutRegisterForm />
