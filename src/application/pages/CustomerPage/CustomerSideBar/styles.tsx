@@ -68,7 +68,9 @@ export const styles = (theme: Theme) => createStyles({
         },
 
         '& $submenu': {
-            display: 'block'
+            [theme.breakpoints.up('md')]: {
+                display: 'block'
+            }
         }
     },
     link: {
@@ -97,8 +99,8 @@ export const styles = (theme: Theme) => createStyles({
     linkSubMenu: {
         display: 'block',
         minHeight: 0,
-        fontSize: 16,
-        padding: '3px 15px 3px 75px',
+        fontSize: 14,
+        padding: '3px 15px 3px 60px',
         color: theme.appColors.grey,
         lineHeight: 1.4,
         transition: 'color 0.3s ease-in-out',
@@ -106,7 +108,9 @@ export const styles = (theme: Theme) => createStyles({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('lg')]: {
+            paddingLeft: 75,
+            fontSize: 16,
             '&:hover': {
                 color: theme.appColors.black
             }

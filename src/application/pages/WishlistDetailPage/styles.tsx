@@ -5,7 +5,13 @@ export const styles = (theme: Theme) => createStyles({
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
-        paddingBottom: 20
+        paddingBottom: 20,
+        fontSize: 20,
+        lineHeight: 1.4,
+        [theme.breakpoints.up('lg')]: {
+            lineHeight: 1.7,
+            fontSize: 30
+        }
     },
     amount: {
         height: 28,
@@ -16,6 +22,8 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite,
         borderRadius: 4,
         flexShrink: 0,
-        marginTop: 13
+        [theme.breakpoints.up('lg')]: {
+            marginTop: 13
+        }
     }
 });

@@ -54,6 +54,16 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                 <Grid container key={ sku } className={ `${ classes.productItem }` }>
                     <Grid item className={ classes.imageOuter }>
                         <SquareImage image={ image } alt={ name } classes={ { imgWrapper: classes.imgWrapper } } />
+                        <IconButton
+                            className={ classes.removeButton }
+                            onClick={ () => deleteItemAction(id, sku) }
+                            disabled={ isCartLoading || isLoading }
+                            classes={{ disabled: classes.buttonDisabled }}
+                        >
+                            <span className={ classes.removeButtonText }>
+                                <FormattedMessage id={ 'remove.button.title' } />
+                            </span>
+                        </IconButton>
                     </Grid>
                     <Grid item className={ classes.contentOuter }>
                         <Grid container spacing={ 16 }>
@@ -111,12 +121,6 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                             </Grid>
                         </Grid>
                     </Grid>
-                    <IconButton
-                        className={ classes.removeButton }
-                        onClick={ () => deleteItemAction(id, sku) }
-                        disabled={ isCartLoading || isLoading }
-                        classes={{ disabled: classes.buttonDisabled }}
-                    />
                 </Grid>
             );
         });

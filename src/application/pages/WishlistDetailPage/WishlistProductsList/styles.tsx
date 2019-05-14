@@ -18,11 +18,17 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     imgWrapper: {
-        width: 132,
-        height: 132,
-        minWidth: 132
+        width: 100,
+        height: 100,
+        minWidth: 100,
+        [theme.breakpoints.up('md')]: {
+            width: 132,
+            height: 132,
+            minWidth: 132
+        }
     },
     imageOuter: {
+        display: 'flex',
         flexShrink: 0
     },
     contentOuter: {
@@ -30,7 +36,10 @@ export const styles = (theme: Theme) => createStyles({
         padding: '0 10px 0 20px'
     },
     colButton: {
-        width: 206
+        width: '100%',
+        [theme.breakpoints.up('lg')]: {
+            width: 206
+        }
     },
     name: {
         maxHeight: 46,
