@@ -21,6 +21,9 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black,
         fontSize: 15,
         fontWeight: 500,
+        boxShadow: 'none',
+        webkitAppearance: 'none',
+        appearance: 'none',
         '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
             appearance: 'none',
             margin: 0
@@ -78,14 +81,38 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.blue
     },
     icon: {},
-    helperText: {
+    errorText: {
         display: 'none',
         marginTop: 8,
         fontSize: 13,
-        letterSpacing: 0.1
-    },
-    helperTextError: {
-        display: 'block',
+        letterSpacing: 0.1,
         color: theme.appColors.red
+    },
+    errorTextActive: {
+        display: 'block'
+    },
+    placeholder: {
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        left: 16,
+        right: 16,
+        overflow: 'hidden',
+        marginTop: 0,
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        pointerEvents: 'none',
+        fontSize: 15,
+        letterSpacing: 0.2,
+        color: theme.appColors.weakGrey
+    },
+    placeholderError: {
+        color: theme.appColors.red
+    },
+    placeholderFilled: {
+        display: 'none'
+    },
+    placeholderFocused: {
+        display: 'none'
     }
 });

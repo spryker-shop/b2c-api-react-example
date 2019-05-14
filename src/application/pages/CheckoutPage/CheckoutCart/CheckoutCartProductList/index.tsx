@@ -37,11 +37,11 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
             return (
                 <Grid container key={ sku } className={`${classes.productItem} ${hiddenClass}`}>
                     <Grid item className={ classes.imageOuter }>
-                        <SquareImage image={ image } alt={ name } />
+                        <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imageWrapper }} />
                     </Grid>
                     <Grid item className={ classes.contentOuter }>
                         <Grid container>
-                            <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
+                            <Grid item xs={ 12 } lg={ 9 } className={`${classes.info} ${classes.infoContent}`}>
                                 <Typography component="h5" variant="h5" className={classes.name}>
                                     { name }
                                 </Typography>
@@ -53,8 +53,8 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                                     </span>
                                 </div>
                             </Grid>
-                            <Grid item xs={ 12 } sm={ 3 } className={ classes.info }>
-                                <div className={ classes.growedBlock }>
+                            <Grid item xs={ 12 } lg={ 3 } className={ classes.info }>
+                                <div className={`${classes.growedBlock} ${classes.prices}`}>
                                     <Typography
                                         component="p"
                                         className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}

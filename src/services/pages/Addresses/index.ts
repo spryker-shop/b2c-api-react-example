@@ -14,6 +14,7 @@ import {
     typeNotificationSuccess,
     typeNotificationError
 } from '@constants/notifications';
+import { ADD_ADDRESS } from '@stores/actionTypes/pages/addresses';
 
 export class AddressesService extends ApiServiceAbstract {
     public static async getCustomerAddresses(
@@ -25,13 +26,13 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${customerId}/addresses`;
-            const response: IApiResponseData = await api.get(endpoint, {}, {withCredentials: true});
+            const endpoint = `customers/${ customerId }/addresses`;
+            const response: IApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
                 const addresses = response.data.data.map((
-                    address: IAddressDataRawResponse,
-                ): IAddressItem => ({id: address.id, ...address.attributes}));
+                    address: IAddressDataRawResponse
+                ): IAddressItem => ({ id: address.id, ...address.attributes }));
 
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
@@ -71,7 +72,7 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${customerId}/addresses/${addressId}`;
+            const endpoint = `customers/${ customerId }/addresses/${ addressId }`;
             const response: IApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
@@ -103,7 +104,9 @@ export class AddressesService extends ApiServiceAbstract {
                 type: typeNotificationError
             });
         }
-    }public static async addAddress(
+    }
+
+    public static async addAddress(
         ACTION_TYPE: string,
         dispatch: Function,
         payload: IAddressItem,
@@ -120,13 +123,13 @@ export class AddressesService extends ApiServiceAbstract {
                 }
             };
 
-            const endpoint = `customers/${customerId}/addresses`;
-            const response: IApiResponseData = await api.post(endpoint, body, {withCredentials: true});
+            const endpoint = `customers/${ customerId }/addresses`;
+            const response: IApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
-                    address: {id: response.data.data.id, ...response.data.data.attributes},
+                    address: { id: response.data.data.id, ...response.data.data.attributes }
 
                 });
                 NotificationsMessage({
@@ -170,7 +173,7 @@ export class AddressesService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const response: IApiResponseData = await api.delete(
-                `customers/${customerId}/addresses/${addressId}`, {}, {withCredentials: true},
+                `customers/${ customerId }/addresses/${ addressId }`, {}, { withCredentials: true }
             );
 
             if (response.ok) {
@@ -198,7 +201,7 @@ export class AddressesService extends ApiServiceAbstract {
         } catch (error) {
             dispatch({
                 type: ACTION_TYPE + '_REJECTED',
-                error,
+                error
             });
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
@@ -226,7 +229,7 @@ export class AddressesService extends ApiServiceAbstract {
             };
 
             const response: IApiResponseData = await api.patch(
-                `customers/${customerId}/addresses/${addressId}`, body, {withCredentials: true},
+                `customers/${ customerId }/addresses/${ addressId }`, body, { withCredentials: true }
             );
 
             if (response.ok) {
@@ -266,6 +269,19 @@ export class AddressesService extends ApiServiceAbstract {
                 message: error.message,
                 type: typeNotificationError
             });
+        }
+    }
+
+    public static async addMultipleAddressAction(ACTION_TYPE: string,
+                                                 dispatch: Function,
+                                                 payload: IAddressItem,
+                                                 customerId: string,
+                                                 billing: IAddressItem): Promise<void> {
+
+        await AddressesService.addAddress(ADD_ADDRESS, dispatch, payload, customerId);
+
+        if (Boolean(billing)) {
+            await AddressesService.addAddress(ADD_ADDRESS, dispatch, billing, customerId);
         }
     }
 }

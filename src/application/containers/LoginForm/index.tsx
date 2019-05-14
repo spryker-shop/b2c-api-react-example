@@ -27,10 +27,10 @@ export class LoginFormComponent extends React.Component<Props, State> {
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
             this.setState({ isCartLoading: true });
+        }
 
-            if (isParallelRequest) {
-                history.push(redirectAfterLoginPath);
-            }
+        if (isAuth && isParallelRequest) {
+            history.push(redirectAfterLoginPath);
         }
     };
 

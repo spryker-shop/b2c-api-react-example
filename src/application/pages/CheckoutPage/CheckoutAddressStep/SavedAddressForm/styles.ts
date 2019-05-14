@@ -6,6 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         marginBottom: 0,
     },
     inputRadio: {
+        minHeight: 80,
         padding: '18px 20px',
         border: `solid 1px ${theme.appColors.weekWhite}`,
         borderRadius: 4,
@@ -23,6 +24,11 @@ export const styles = (theme: Theme) => createStyles({
         borderColor: theme.appColors.blue,
         background: theme.appColors.blue,
         pointerEvents: 'none',
+        '&:hover': {
+            borderColor: theme.appColors.blue,
+            background: theme.appColors.blue,
+            boxShadow: 'none'
+        },
         '& $radioIcon': {
             borderColor: theme.appColors.white,
             '&:after': {

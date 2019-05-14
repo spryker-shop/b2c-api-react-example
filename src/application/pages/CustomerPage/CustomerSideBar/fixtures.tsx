@@ -14,5 +14,5 @@ export const navLinks: INavLinkData[] = [
     { path: pathCustomerProfilePage, title: 'word.profile.title', icon: <UserIcon /> },
     { path: pathCustomerAddressesPage, title: 'word.addresses.title', icon: <AddressesIcon /> },
     { path: pathOrderHistoryPage, title: 'word.order.history.title', icon: <HistoryIcon /> },
-    { path: pathWishlistsPage, title: 'word.wishlist.title', icon: <HeartIcon />}
+    { path: pathWishlistsPage, title: 'word.wishlist.title', icon: <HeartIcon />, isWishlist: true}
 ];

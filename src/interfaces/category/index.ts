@@ -6,7 +6,7 @@ export interface ICategory {
 }
 
 export interface IBreadcrumbItem {
-    nodeId: number;
-    name: string;
+    path: string;
+    name: string | JSX.Element;
     current?: boolean;
 }

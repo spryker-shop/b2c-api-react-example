@@ -52,7 +52,7 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                 { isFulfilled &&
                     <>
                         <div className={ classes.heading }>
-                            <Typography component="h2" variant="h2">
+                            <Typography component="h1" variant="h2">
                                 <FormattedMessage id={ 'order.details.title' } />
                             </Typography>
                             { isOrderExist &&

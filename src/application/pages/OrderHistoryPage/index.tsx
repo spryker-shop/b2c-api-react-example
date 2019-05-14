@@ -11,7 +11,7 @@ const OrderHistoryPageComponent: React.SFC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            <Typography component="h2" variant="h2" className={classes.title}>
+            <Typography component="h1" variant="h2" className={classes.title}>
                 <FormattedMessage id={'orders.history.title'} />
             </Typography>
             <ErrorBoundary>

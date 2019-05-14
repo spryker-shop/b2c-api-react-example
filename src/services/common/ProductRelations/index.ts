@@ -9,7 +9,6 @@ import {
 import { parsePorductRelationsRequest } from '@helpers/productRelations/response';
 import api from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { TCartId } from '@interfaces/cart';
 
 export class ProductRelationsService extends ApiServiceAbstract {
     public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
@@ -37,7 +36,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
         }
     }
 
-    public static async getProductRelationsCart(dispatch: Function, cartId: TCartId): Promise<void> {
+    public static async getProductRelationsCart(dispatch: Function, cartId: string): Promise<void> {
         try {
             dispatch(productRelationsPendingAction());
 
