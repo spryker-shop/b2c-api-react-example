@@ -1,7 +1,6 @@
 import { RouteProps } from 'react-router';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { TCartId } from '@interfaces/cart';
 import { ICustomerDataParsed } from '@interfaces/customer';
 import {
     ICheckoutStepsCompletionState,
@@ -24,7 +23,7 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     isCheckoutFulfilled: boolean;
     profile: ICustomerDataParsed | null;
     isProductsExists: boolean;
-    cartId: TCartId;
+    cartId: string;
     customerReference: string | null;
     addressesCollection: IAddressItemCollection[] | null;
     orderId: string;

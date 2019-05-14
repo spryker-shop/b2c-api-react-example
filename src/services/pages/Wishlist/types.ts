@@ -21,6 +21,13 @@ export interface IWishlistRawData {
     type: string;
 }
 
+export enum ERowTypes {
+    CONCRETE_PRODUCT_IMAGE_SETS = 'concrete-product-image-sets',
+    CONCRETE_CONCRETE_PRODUCTS = 'concrete-products',
+    CONCRETE_PRODUCT_PRICES = 'concrete-product-prices',
+    CONCRETE_PRODUCT_AVAILABILITIES = 'concrete-product-availabilities'
+}
+
 export type TRowWishlistIncludedResponse = IRowProductImageSetsIncludedResponse
     | IRowProductAvailabilitiesIncludedResponse
     | IRowProductPricesIncludedResponse

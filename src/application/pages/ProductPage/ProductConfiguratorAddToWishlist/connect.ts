@@ -15,12 +15,12 @@ import {
 import { getCartId, isCartCreated } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem, TCartId } from '@interfaces/cart';
+import { ICartAddItem } from '@interfaces/cart';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
     const cartCreated: boolean = isCartCreated(state, ownProps);
-    const cartId: TCartId = getCartId(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
     const payloadForCreateCart: ICartCreatePayload = getPayloadForCreateCart(state, ownProps);
     const isWishlistLoading: boolean = isPageWishlistStateLoading(state, ownProps);
     const wishlists = getWishlistsCollectionFromStore(state, ownProps);
@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
         payload: ICartCreatePayload,
         item: ICartAddItem
     ) => dispatch(createCartAndAddItemAction(payload, item)),
-    addItemToCart: (payload: ICartAddItem, cartId: TCartId) => dispatch(addItemToCartAction(payload, cartId)),
+    addItemToCart: (payload: ICartAddItem, cartId: string) => dispatch(addItemToCartAction(payload, cartId)),
     addItemGuestCart: (item: ICartAddItem, anonymId: string) => dispatch(addItemGuestCartAction(item, anonymId))
 });
 

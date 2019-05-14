@@ -1,6 +1,6 @@
 import api, { setAuthToken } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { IWishlist, IWishlistProduct, TWishlistId } from '@interfaces/wishlist';
+import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
 import { WishlistAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
@@ -9,13 +9,15 @@ import { IApiResponseData } from '@services/types';
 import {
     IWishlistRawData,
     IWishlistRawResponse,
-    TRowWishlistIncludedResponse
+    TRowWishlistIncludedResponse,
+    ERowTypes
 } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
     typeNotificationError
 } from '@constants/notifications';
+import { IProductPricesItem } from '@interfaces/product';
 
 interface IRequestBody {
     data: {
@@ -188,7 +190,7 @@ export class WishlistService extends ApiServiceAbstract {
     public static async deleteWishlist(
         ACTION_TYPE: string,
         dispatch: Function,
-        wishlistId: TWishlistId
+        wishlistId: string
     ): Promise<void> {
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
@@ -457,7 +459,7 @@ export class WishlistService extends ApiServiceAbstract {
                 items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
             }
 
-            if (row.type === 'concrete-product-image-sets') {
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
                 if (
                     row.attributes.imageSets &&
                     row.attributes.imageSets.length &&
@@ -466,29 +468,43 @@ export class WishlistService extends ApiServiceAbstract {
                 ) {
                     items[row.id].image = row.attributes.imageSets[0].images[0].externalUrlSmall;
                 }
-            } else {
-                if (row.type === 'concrete-products') {
-                    items[row.id].sku = row.attributes.sku;
-                    items[row.id].name = row.attributes.name;
-                    Object.keys(row.attributes.attributes).forEach((attr: string) => {
-                        if (row.attributes.superAttributesDefinition.includes(attr)) {
-                            const attributeKey: string = String(attr);
-                            const attributeValue: string = String(row.attributes.attributes[attr]);
-                            items[row.id].attributes.push({[attributeKey]: attributeValue});
-                        }
-                    });
-                } else {
-                    if (row.type === 'concrete-product-prices') {
-                        items[row.id].prices = row.attributes.prices;
-                    } else {
-                        if (row.type === 'concrete-product-availabilities') {
-                            items[row.id].availability = row.attributes.availability;
 
-                            if (row.attributes.isNeverOutOfStock) {
-                                items[row.id].availability = true;
-                            }
-                        }
+                return;
+            }
+
+            if (row.type === ERowTypes.CONCRETE_CONCRETE_PRODUCTS) {
+                items[row.id].sku = row.attributes.sku;
+                items[row.id].name = row.attributes.name;
+                Object.keys(row.attributes.attributes).forEach((attr: string) => {
+                    if (row.attributes.superAttributesDefinition.includes(attr)) {
+                        const attributeKey: string = String(attr);
+                        const attributeValue: string = String(row.attributes.attributes[attr]);
+                        items[row.id].attributes.push({[attributeKey]: attributeValue});
                     }
+                });
+
+                return;
+            }
+
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_PRICES) {
+                items[row.id].prices = {};
+                row.attributes.prices.forEach((price: IProductPricesItem) => {
+                    const priceType = price.priceTypeName;
+                    const priceName = priceType.charAt(0).toLocaleUpperCase() +
+                        priceType.slice(1).toLocaleLowerCase();
+
+                    items[row.id].prices[`grossAmount${priceName}`] = price.grossAmount;
+                    items[row.id].prices[`netAmount${priceName}`] = price.netAmount;
+                });
+
+                return;
+            }
+
+            if (row.type === ERowTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
+                items[row.id].availability = row.attributes.availability;
+
+                if (row.attributes.isNeverOutOfStock) {
+                    items[row.id].availability = true;
                 }
             }
         });

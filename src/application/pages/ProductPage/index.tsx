@@ -23,9 +23,10 @@ import { ProductRelations } from '@containers/ProductRelations';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem, ICategory } from '@interfaces/category';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
+import { pathCategoryPageBase } from '@constants/routes';
 
 @(withRouter as Function)
 @connect
@@ -160,22 +161,20 @@ export class ProductPageComponent extends React.Component<Props, State> {
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
-        const formattedCategoriesTree = locationState ? locationState.categoriesTree : false;
+        const formattedCategoriesTree: IBreadcrumbItem[] = locationState ? locationState.categoriesTree : false;
         let categoriesTree: IBreadcrumbItem[] = [];
 
         const productNode: IBreadcrumbItem = {
             name: this.state.name,
             current: true,
-            nodeId: null
+            path: ''
         };
 
         if (Boolean(formattedCategoriesTree)) {
-            categoriesTree = formattedCategoriesTree.map((item: IBreadcrumbItem) => {
-                const newItem = { ...item };
-                delete newItem.current;
-
-                return newItem;
-            });
+            categoriesTree = formattedCategoriesTree.map((item: IBreadcrumbItem) => ({
+                name: item.name,
+                path: item.path
+            }));
         }
 
         categoriesTree.push(productNode);

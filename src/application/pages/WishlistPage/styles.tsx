@@ -2,11 +2,12 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
-    appPageTitleRoot: {
-        margin: 0,
-        padding: 0
+    title: {
+        paddingBottom: 20
     },
-    appPageTitleRootPageHeader: {
-        fontSize: '2rem',
-    }
+    block: {
+        padding: 20,
+        background: theme.appColors.weekWhite,
+        borderRadius: 4
+    },
 });

@@ -18,7 +18,8 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
     label?: React.ReactNode | string;
     isError?: boolean;
     isRequired?: boolean;
-    helperText?: string | null | React.ReactNode;
+    placeholder?: string | null | React.ReactNode;
+    errorText?: string | null | React.ReactNode;
     inputType?: 'email' | 'password' | 'number' | 'range' | 'tel';
     iconProps?: {
         iconStartComponent?: IIconProps,
@@ -29,4 +30,5 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
         format?: string | FormatInputValueFunction,
         placeholder?: string
     } | null;
+    autoFocus?: boolean;
 }
