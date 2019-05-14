@@ -6,7 +6,6 @@ import { getProductRelationsAction, getProductRelationsCartAction } from '@store
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { TAppCurrency } from '@interfaces/currency';
-import { TCartId } from '@interfaces/cart';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const productRelationsState: IProductRelationsState = state.productRelations ? state.productRelations : null;
@@ -23,7 +22,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
 const mapDispatchToProps = (dispatch: Function) => ({
     getProductRelations: (sku: string) => dispatch(getProductRelationsAction(sku)),
-    getProductRelationsCart: (cartId: TCartId) => dispatch(getProductRelationsCartAction(cartId)),
+    getProductRelationsCart: (cartId: string) => dispatch(getProductRelationsCartAction(cartId)),
     changeLocation: (location: string) => dispatch(push(location))
 });
 

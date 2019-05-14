@@ -9,7 +9,6 @@ import {
 } from './types';
 import { concreteProductType, defaultItemValueDropdown } from '@interfaces/product';
 import { ClickEvent } from '@interfaces/common';
-import { TWishlistName } from '@interfaces/wishlist';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 
@@ -60,7 +59,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         }
     };
 
-    protected getFirstWishlist = (): TWishlistName | null => {
+    protected getFirstWishlist = (): string | null => {
         if (!this.props.isWishlistsFetched) {
             return null;
         }
@@ -84,28 +83,28 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
 
         return (
             <Grid container spacing={ 8 }>
-                { wishlistSelected &&
-                <Grid item xs={ 12 } lg={ 7 }>
-                    <SprykerSelect
-                        currentMode={ wishlistSelected }
-                        onChangeHandler={ this.handleWishlistChange }
-                        menuItems={ createWishlistMenuVariants(wishlists) }
-                        name="wishlists"
-                        menuItemFirst={ {
-                            value: defaultItemValueDropdown,
-                            name: <FormattedMessage id={ 'select.wish.list.label' } />,
-                            disabled: true
-                        } }
-                        isFullWidth
-                        isSimple
-                        classes={ {
-                            selectRoot: classes.selectRoot,
-                            input: classes.input
-                        } }
-                    />
-                </Grid>
+                { (wishlistSelected && wishlists.length > 1) &&
+                    <Grid item xs={ 12 } lg={ 7 }>
+                        <SprykerSelect
+                            currentMode={ wishlistSelected }
+                            onChangeHandler={ this.handleWishlistChange }
+                            menuItems={ createWishlistMenuVariants(wishlists) }
+                            name="wishlists"
+                            menuItemFirst={ {
+                                value: defaultItemValueDropdown,
+                                name: <FormattedMessage id={ 'select.wish.list.label' } />,
+                                disabled: true
+                            } }
+                            isFullWidth
+                            isSimple
+                            classes={ {
+                                selectRoot: classes.selectRoot,
+                                input: classes.input
+                            } }
+                        />
+                    </Grid>
                 }
-                <Grid item xs={ 12 } lg={ wishlistSelected ? 5 : 12 }>
+                <Grid item xs={ 12 } lg>
                     <Button
                         variant="outlined"
                         disabled={ this.isAddToWishlistBtnDisabled() }

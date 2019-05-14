@@ -8,7 +8,6 @@ import {
     WISHLIST_ALL_LISTS,
 } from '@stores/actionTypes/pages/wishlist';
 import { WishlistService } from '@services/pages/Wishlist';
-import { TWishlistId } from '@interfaces/wishlist';
 
 export const getAllListPendingState = {
     type: WISHLIST_ALL_LISTS + '_PENDING',
@@ -59,35 +58,35 @@ export const updateWishlistAction = function (wishlistId: string, name: string) 
     };
 };
 
-export const deleteWishlistAction = function (wishlistId: TWishlistId) {
+export const deleteWishlistAction = function (wishlistId: string) {
     return (dispatch: Function, getState: Function) => {
         dispatch(deleteWishlistPendingState);
         WishlistService.deleteWishlist(DELETE_WISHLIST, dispatch, wishlistId);
     };
 };
 
-export const getDetailWishlistAction = function (wishlistId: TWishlistId) {
+export const getDetailWishlistAction = function (wishlistId: string) {
     return (dispatch: Function, getState: Function) => {
         dispatch(detailWishlistPendingState);
         WishlistService.getWishlist(DETAIL_WISHLIST, dispatch, wishlistId);
     };
 };
 
-export const deleteItemAction = function (wishlistId: TWishlistId, sku: string) {
+export const deleteItemAction = function (wishlistId: string, sku: string) {
     return (dispatch: Function, getState: Function) => {
         dispatch(deleteItemPendingState);
         WishlistService.deleteItemWishlist(DELETE_ITEM_WISHLIST, dispatch, wishlistId, sku);
     };
 };
 
-export const addItemAction = function (wishlistId: TWishlistId, sku: string) {
+export const addItemAction = function (wishlistId: string, sku: string) {
     return (dispatch: Function, getState: Function) => {
         dispatch(addItemPendingState);
         WishlistService.addItemWishlist(ADD_ITEM_WISHLIST, dispatch, wishlistId, sku);
     };
 };
 
-export const deleteMultiItemsAction = function (wishlistId: TWishlistId, items: string[]) {
+export const deleteMultiItemsAction = function (wishlistId: string, items: string[]) {
     return (dispatch: Function, getState: Function) => {
         WishlistService.removeMultiItems(dispatch, wishlistId, items);
     };

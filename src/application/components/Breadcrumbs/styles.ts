@@ -19,7 +19,16 @@ export const styles = (theme: Theme) => createStyles({
     },
     item: {
         display: 'inline',
-        fontSize: 13
+        fontSize: 13,
+        '&:last-child': {
+            '& $separator': {
+                display: 'none'
+            },
+            '& $link': {
+                color: theme.appColors.black,
+                pointerEvents: 'none'
+            }
+        }
     },
     link: {
         color: theme.appColors.grey,

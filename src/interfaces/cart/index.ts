@@ -2,7 +2,6 @@ import { IAbstractTotals } from '@interfaces/abstract/totals';
 import { IProductPricesItem } from '@interfaces/product';
 import { TAppCurrency } from '@interfaces/currency';
 
-export type TCartId = string;
 export type TCartPriceMode = string;
 export type TCartStore = string;
 export type TCartDisplayName = string;
@@ -51,7 +50,7 @@ export interface ICartDataResponse extends ICommonDataInCart {
 }
 
 export interface ICommonDataInCart {
-    id: TCartId | null;
+    id: string | null;
     currency: TAppCurrency;
     discounts?: ICartDiscounts | {};
     priceMode: TCartPriceMode | null;

@@ -2,10 +2,10 @@ import * as React from 'react';
 import Loadable from 'react-loadable';
 import { Preloader } from '@components/Preloader';
 
-export const LoadableWishlistPage = Loadable({
+export const LoadablWishlistPage = Loadable({
     loader: () =>
         import('@pages/WishlistPage').then(
-            module => module.default,
+            module => module.WishlistPage,
         ),
-    loading: () => <Preloader />,
+    loading: () => <Preloader />
 });

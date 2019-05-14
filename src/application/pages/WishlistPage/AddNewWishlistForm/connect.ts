@@ -1,9 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-
 import { addWishlistAction } from '@stores/actions/pages/wishlist';
-
-const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
@@ -13,4 +10,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         dispatch,
     );
 
-export const connect = reduxify(mapStateToProps, mapDispatchToProps);
+export const connect = reduxify(null, mapDispatchToProps);

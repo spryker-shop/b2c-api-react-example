@@ -4,11 +4,11 @@ import { addItemToCartAction, createCartAndAddItemAction } from '@stores/actions
 import { getCartId, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem, TCartId } from '@interfaces/cart';
+import { ICartAddItem } from '@interfaces/cart';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
-    const cartId: TCartId = getCartId(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
     const payloadForCreateCart: ICartCreatePayload = getPayloadForCreateCart(state, ownProps);
 
     return ({
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
         payload: ICartCreatePayload,
         item: ICartAddItem
     ) => dispatch(createCartAndAddItemAction(payload, item)),
-    addItemToCart: (payload: ICartAddItem, cartId: TCartId) => dispatch(addItemToCartAction(payload, cartId))
+    addItemToCart: (payload: ICartAddItem, cartId: string) => dispatch(addItemToCartAction(payload, cartId))
 });
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);
