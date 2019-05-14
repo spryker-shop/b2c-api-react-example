@@ -48,5 +48,13 @@ export const styles = (theme: Theme) => createStyles({
         borderStyle: 'solid',
         borderWidth: '0 6px 8px 6px',
         borderColor: `transparent transparent ${theme.appColors.white} transparent`
+    },
+    tooltipPlacementTop: {
+       '& $tooltipArrow': {
+           transform: 'none',
+           top: '100%',
+           borderWidth: '8px 6px 0 6px',
+           borderColor: `${theme.appColors.white} transparent transparent transparent`
+       }
     }
 });

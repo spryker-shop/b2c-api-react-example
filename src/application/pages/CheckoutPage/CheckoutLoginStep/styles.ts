@@ -4,35 +4,73 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     box: {
         display: 'flex',
-        padding: 50,
+        padding: '30px 15px',
         background: theme.appColors.white,
-        minHeight: 775,
         marginBottom: 20,
         position: 'relative',
-        '&:after': {
-            content: '""',
-            position: 'absolute',
-            left: '50%',
-            top: 90,
-            bottom: 90,
-            width: 1,
-            background: theme.appColors.weekWhite
+        [theme.breakpoints.up('md')]: {
+            padding: '40px 30px',
+        },
+        [theme.breakpoints.up('lg')]: {
+            minHeight: 775,
+            padding: 50,
+            '&:after': {
+                content: '""',
+                position: 'absolute',
+                left: '50%',
+                top: 90,
+                bottom: 90,
+                width: 1,
+                background: theme.appColors.weekWhite
+            },
+        }
+    },
+    colInner: {
+        width: '100%',
+        height: '100%',
+        borderBottom: `1px solid ${theme.appColors.weekWhite}`,
+        paddingBottom: 30,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 40
         }
     },
     grid: {
         width: 'auto',
-        margin: -50
+        margin: -15,
+        [theme.breakpoints.up('md')]: {
+            margin: -20,
+        },
+        [theme.breakpoints.up('lg')]: {
+            margin: -50,
+        }
     },
     col: {
-        padding: 50
+        padding: 15,
+        [theme.breakpoints.up('md')]: {
+            padding: 20,
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 50,
+        }
     },
     title: {
-        paddingBottom: 10
+        fontSize: 20,
+        paddingBottom: 10,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 30
+        }
     },
     subheading: {
         marginBottom: 25,
         lineHeight: 1.9,
-        minHeight: 50
+        fontSize: 15,
+        [theme.breakpoints.up('md')]: {
+            maxWidth: 450,
+        },
+        [theme.breakpoints.up('lg')]: {
+            minHeight: 50,
+            maxWidth: 'none'
+        }
     },
     secure: {
         display: 'flex',

@@ -30,10 +30,10 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <div>
+        <div className={ classes.container }>
             <div className={ classes.block }>
                 <div className={ classes.heading }>
-                    <Typography component="h2" variant="h2">
+                    <Typography component="h2" variant="h2" className={ classes.title }>
                         <FormattedMessage id={ 'word.addresses.title' } />
                     </Typography>
                     <NavLink to={ pathCheckoutAddressStep } className={ classes.link }>
@@ -65,14 +65,16 @@ const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
                 </div>
                 <CheckoutSummaryPayment />
             </div>
-            <Button
-                variant="contained"
-                disabled={ isSendBtnDisabled }
-                fullWidth
-                onClick={ sendData }
-            >
-                { <FormattedMessage id={ 'place.order.title' } /> }
-            </Button>
+            <div className={ classes.submitButton }>
+                <Button
+                    variant="contained"
+                    disabled={ isSendBtnDisabled }
+                    fullWidth
+                    onClick={ sendData }
+                >
+                    { <FormattedMessage id={ 'place.order.title' } /> }
+                </Button>
+            </div>
         </div>
     );
 };

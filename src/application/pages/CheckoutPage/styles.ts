@@ -8,15 +8,37 @@ export const styles = (theme: Theme) => createStyles({
     },
     container: {
         display: 'flex',
-        margin: -10,
+        flexDirection: 'column-reverse',
+        margin: -5,
+        [theme.breakpoints.up('md')]: {
+            flexDirection: 'row'
+        },
+        [theme.breakpoints.up('lg')]: {
+            margin: -10
+        }
     },
     contentColumn: {
-        width: '62%',
-        padding: 10,
+        flexGrow: 1,
+        padding: 5,
+        [theme.breakpoints.up('lg')]: {
+            padding: 10
+        }
     },
     summaryColumn: {
-        width: '38%',
-        padding: 10,
+        display: 'none',
+        padding: 5,
+        flexShrink: 0,
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+            width: '40%'
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 10,
+            width: '38%'
+        }
+    },
+    summaryColumnSummary: {
+        display: 'block'
     },
     fullWidth: {
         width: '100%'

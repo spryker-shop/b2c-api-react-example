@@ -2,15 +2,39 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    container: {
+        paddingBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 0
+        }
+    },
     block: {
-        padding: 30,
+        padding: '20px 15px',
         background: theme.appColors.white,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('md')]: {
+            padding: 20,
+            marginBottom: 12
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 30,
+            marginBottom: 20
+        }
     },
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
-        paddingBottom: 20
+        paddingBottom: 10,
+        alignItems: 'center',
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20
+        }
+    },
+    title: {
+        fontSize: 20,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 30
+        }
     },
     link: {
         width: 40,
@@ -35,4 +59,18 @@ export const styles = (theme: Theme) => createStyles({
         fill: 'currentColor',
         lineHeight: 0
     },
+    submitButton: {
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        padding: '10px 15px',
+        zIndex: 351,
+        background: theme.appColors.white,
+        [theme.breakpoints.up('md')]: {
+            position: 'static',
+            padding: 0,
+            background: 'none'
+        }
+    }
 });

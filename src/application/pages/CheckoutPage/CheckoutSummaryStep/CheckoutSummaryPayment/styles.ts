@@ -6,7 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 15,
         letterSpacing: 0.2,
         lineHeight: 1.4,
-        color: theme.appColors.grey
+        color: theme.appColors.lightGrey
     },
     row: {
         display: 'flex',
@@ -18,8 +18,17 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     title: {
-        paddingRight: 10,
-        width: 200
+        paddingBottom: 10,
+        width: '100%',
+        fontSize: 14,
+        [theme.breakpoints.up('sm')]: {
+            paddingRight: 10,
+            width: 170
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: 200,
+            fontSize: 15
+        }
     },
     value: {
         display: 'flex',

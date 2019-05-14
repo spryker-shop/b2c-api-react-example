@@ -7,10 +7,13 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 12
     },
     formInner: {
-        margin: '10px 0 8px',
+        margin: '20px 0 8px',
         border: `1px solid ${theme.appColors.weekWhite}`,
         borderRadius: 4,
-        padding: '30px 20px'
+        padding: '30px 20px',
+        [theme.breakpoints.up('lg')]: {
+            marginTop: 10
+        }
     },
     inputRadio: {
         padding: '12px 20px',
@@ -31,7 +34,12 @@ export const styles = (theme: Theme) => createStyles({
     checkedInputRadio: {
         borderColor: theme.appColors.blue,
         background: theme.appColors.blue,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        '&:hover': {
+            borderColor: theme.appColors.blue,
+            background: theme.appColors.blue,
+            boxShadow: 'none'
+        }
     },
     radioLabel: {
         color: theme.appColors.grey,
