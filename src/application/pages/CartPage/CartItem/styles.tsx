@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
-const mobileImageMaxWidth = '100px';
-
 export const styles = (theme: Theme) => createStyles({
     productItem: {
         padding: 15,
@@ -34,7 +32,6 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     contentOuter: {
-        maxWidth: `calc(100% - ${mobileImageMaxWidth})`,
         flexGrow: 1,
         paddingLeft: 10,
 
