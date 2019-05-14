@@ -1,7 +1,6 @@
 import { styles } from './styles';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { IPaymentMethod } from '@interfaces/checkout';
-import { ICheckoutCreditCardState, ICheckoutInvoiceState } from './types';
+import { IPaymentMethod, ICheckoutCreditCardState, ICheckoutInvoiceState } from '@interfaces/checkout';
 import { IFormUpdatePaymentStatus } from '@stores/reducers/pages/checkout/types';
 
 export interface IPaymentMethodProps extends WithStyles<typeof styles> {

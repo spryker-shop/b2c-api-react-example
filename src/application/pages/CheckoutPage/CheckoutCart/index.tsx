@@ -41,21 +41,25 @@ class CheckoutCartComponent extends React.Component<Props> {
                     </div>
 
                     <div className={ classes.productHeading }>
-                        <NavLink to={ pathCartPage } className={ classes.editLink }>
-                            <FormattedMessage id={ 'word.edit.title' } />
-                            <span className={ classes.editDecor }>
-                                <span className={ classes.editIcon }>
-                                    <EditIcon />
+                        { !isSummaryPage &&
+                            <NavLink to={ pathCartPage } className={ classes.editLink }>
+                                <FormattedMessage id={ 'word.edit.title' } />
+                                <span className={ classes.editDecor }>
+                                    <span className={ classes.editIcon }>
+                                        <EditIcon />
+                                    </span>
                                 </span>
-                            </span>
-                        </NavLink>
-                        <div className={ classes.amount }>
-                            {`${cartItemsQuantity} `}
-                            <FormattedPlural
-                                value={ cartItemsQuantity }
-                                one={ <FormattedMessage id={ 'word.item.title' } /> }
-                                other={ <FormattedMessage id={ 'word.items.title' } /> }
-                            />
+                            </NavLink>
+                        }
+                        <div className={ classes.amountHolder }>
+                            <div className={ classes.amount }>
+                                {`${cartItemsQuantity} `}
+                                <FormattedPlural
+                                    value={ cartItemsQuantity }
+                                    one={ <FormattedMessage id={ 'word.item.title' } /> }
+                                    other={ <FormattedMessage id={ 'word.items.title' } /> }
+                                />
+                            </div>
                         </div>
                     </div>
                     <CheckoutCartProductList
