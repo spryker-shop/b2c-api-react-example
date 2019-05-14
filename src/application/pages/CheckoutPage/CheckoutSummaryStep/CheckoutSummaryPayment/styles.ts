@@ -45,7 +45,7 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         minWidth: 100,
         height: 36,
-        padding: 5,
+        padding: 5,heckoutSummaryStep/CheckoutSummaryAddresses/index.tsx
         borderRadius: 4,
         margin: 0,
         background: theme.appColors.blue,

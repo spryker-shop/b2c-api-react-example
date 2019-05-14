@@ -20,24 +20,24 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
         } = props;
 
         if (Boolean(selectedAddressId) && !isBilling || isSameAsDelivery && isBilling && Boolean(selectedAddressId)) {
-            const delveryAddress = {...addressesCollection.filter(address => address.id === selectedAddressId)[0]};
-            const contryName = delveryAddress.country.name;
+            const deliveryAddress = {...addressesCollection.filter(address => address.id === selectedAddressId)[0]};
+            const countryName = deliveryAddress.country.name;
 
-            return { ...delveryAddress, country: contryName };
+            return { ...deliveryAddress, country: countryName };
         }
 
         if (Boolean(billingId) && isBilling) {
             const billingAddress = {...addressesCollection.filter(address => address.id === billingId)[0]};
-            const contryName = billingAddress.country.name;
+            const countryName = billingAddress.country.name;
 
-            return { ...billingAddress, country: contryName };
+            return { ...billingAddress, country: countryName };
         }
 
         if (isAddNewDelivery && !isBilling || isSameAsDelivery && isBilling && isAddNewDelivery) {
-            const delveryAddress: {[index: string]: string | number | boolean;} = {};
-            Object.keys(deliveryNewAddress).forEach(key => { delveryAddress[key] = deliveryNewAddress[key].value; });
+            const deliveryAddress: {[index: string]: string | number | boolean;} = {};
+            Object.keys(deliveryNewAddress).forEach(key => { deliveryAddress[key] = deliveryNewAddress[key].value; });
 
-            return delveryAddress;
+            return deliveryAddress;
         }
 
         const billingAddress: {[index: string]: string | number | boolean;} = {};
