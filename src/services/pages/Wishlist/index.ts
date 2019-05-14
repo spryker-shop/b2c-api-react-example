@@ -92,7 +92,6 @@ export class WishlistService extends ApiServiceAbstract {
 
             if (response.ok) {
                 let products: IWishlistProduct[] = [];
-                console.log(response);
                 const wishlist: IWishlist = WishlistService.parseWishlistResponse(response.data.data);
 
                 if (response.data.included) {
