@@ -45,7 +45,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const { isAuth, getCustomerCart, isCartLoading, isAddressLoading, history } = this.props;
         const isParallelCartRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
-        const isParallelAddressRequest = isDevServer ? prevProps.isAddressLoading && !isAddressLoading : true;
+        const isParallelAddressRequest = isDevServer ? prevProps.isAddressLoading && !isAddressLoading : false;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
@@ -62,12 +62,14 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     };
 
     protected addingAddress = () => {
+        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const {
             customer,
             addAddress,
             billingSelection: { isSameAsDelivery },
             deliveryNewAddress,
-            billingNewAddress
+            billingNewAddress,
+            history
         } = this.props;
 
         const addressDelivery =  {
@@ -83,6 +85,10 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         const deliveryPayload = this.transformAddressData(addressDelivery);
         const billingPayload = !isSameAsDelivery ? this.transformAddressData(addressBilling) : null;
         addAddress(deliveryPayload, customer, billingPayload);
+
+        if (!isDevServer) {
+            history.push(pathCustomerOverviewPage);
+        }
     };
 
     protected handleChange = ({ target: { name, value } }: InputChangeEvent): void => {
