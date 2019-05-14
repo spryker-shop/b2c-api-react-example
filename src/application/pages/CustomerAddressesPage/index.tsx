@@ -13,8 +13,8 @@ const CustomerAddressesPageComponent: React.SFC<Props> = (props): JSX.Element =>
 
     return (
         <>
-            <div className={classes.heading}>
-                <Typography component="h1" variant="h2">
+            <div className={ classes.heading }>
+                <Typography component="h1" variant="h2" className={ classes.title }>
                     <FormattedMessage id={'word.addresses.title'} />
                 </Typography>
 

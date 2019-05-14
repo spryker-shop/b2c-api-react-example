@@ -10,11 +10,17 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite
     },
     orderText: {
-        display: 'block',
+        display: 'inline-block',
+        width: '50%',
         fonSize: 16,
         lineHeight: 1.7,
         letterSpacing: 0.2,
-        color: theme.appColors.grey
+        color: theme.appColors.grey,
+
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+            width: '100%'
+        }
     },
     orderTitle: {
         fontWeight: 500,
@@ -22,16 +28,31 @@ export const styles = (theme: Theme) => createStyles({
     },
     actions: {
         display: 'flex',
-        justifyContent: 'flex-end',
         alignItems: 'center',
-        margin: '0 -10px',
-        height: '100%'
+        height: '100%',
+
+        [theme.breakpoints.up('md')]: {
+            margin: '0 -10px',
+            justifyContent: 'flex-end'
+        },
     },
     viewLink: {
-        padding: 10,
-        color: theme.appColors.lightGrey,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '15px 30px',
+        color: theme.appColors.blue,
         transition: 'color 0.3s ease-in-out',
         lineHeight: 0,
+        textDecoration: 'none',
+        border: `1px solid ${theme.appColors.lightGrey}`,
+        borderRadius: 4,
+
+        [theme.breakpoints.up('md')]: {
+            padding: 10,
+            color: theme.appColors.lightGrey,
+            border: 'none'
+        },
+
         '&:hover': {
             color: theme.appColors.blue
         }
@@ -41,6 +62,14 @@ export const styles = (theme: Theme) => createStyles({
         fill: 'currentColor',
         width: 26,
         height: 14
+    },
+    viewText: {
+        display: 'inline-block',
+        marginLeft: 6,
+
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        },
     },
     amount: {
         display: 'block',

@@ -39,13 +39,13 @@ class OrdersListComponent extends React.Component<Props> {
                 return (
                     <div className={ classes.orderItem } key={ `id-${ order.id }` }>
                         <Grid container spacing={ 8 }>
-                            <Grid item xs={ 3 }>
+                            <Grid item xs={ 12 } md={ 3 }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'order.id.title' } />
                                 </span>
                                 <span className={ classes.orderText }>{ order.id }</span>
                             </Grid>
-                            <Grid item xs={ 4 }>
+                            <Grid item xs={ 12 } md={ 4 }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'orders.date.title' } />
                                 </span>
@@ -53,7 +53,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     <DateFormatter date={ order.dateCreated } />
                                 </span>
                             </Grid>
-                            <Grid item xs={ 3 }>
+                            <Grid item xs={ 12 } md={ 3 }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'orders.total.title' } />
                                 </span>
@@ -65,7 +65,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     />
                                 </span>
                             </Grid>
-                            <Grid item xs={ 2 }>
+                            <Grid item xs={ 12 } md={ 2 }>
                                 <div className={ classes.actions }>
                                     <Tooltip
                                         title={
@@ -83,6 +83,9 @@ class OrdersListComponent extends React.Component<Props> {
                                         >
                                             <span className={ classes.viewIcon }>
                                                 <ViewIcon />
+                                            </span>
+                                            <span className={ classes.viewText }>
+                                                <FormattedMessage id={ 'view.title' } />
                                             </span>
                                         </NavLink>
                                     </Tooltip>

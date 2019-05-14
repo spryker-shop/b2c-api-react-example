@@ -9,11 +9,29 @@ export const styles = (theme: Theme) => createStyles({
         margin: '0 -25px'
     },
     colSidebar: {
-        width: '29%',
-        padding: '0 25px'
+        width: '100%',
+        padding: '0 9px',
+
+        [theme.breakpoints.up('md')]: {
+            width: '29%',
+            padding: '0 10px 0 25px',
+        },
+
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 25px',
+        }
     },
     colContent: {
-        width: '71%',
-        padding: '0 25px'
+        width: '100%',
+        padding: '0 25px',
+
+        [theme.breakpoints.up('md')]: {
+            width: '71%',
+            padding: '0 25px 0 10px',
+        },
+
+        [theme.breakpoints.up('lg')]: {
+            padding: '0 25px',
+        }
     }
 });

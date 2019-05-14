@@ -210,6 +210,7 @@ export const messages: IMessages = {
         'view.all.title': 'View All',
         'view.cart.title': 'View Cart',
         'view.more.title': 'View More',
+        'view.title': 'View',
         'wishlist.add.product.message': 'This item have added in wishlist {messageText}',
         'wishlist.created.message': 'New wishlist created.',
         'wishlist.deleted.message': 'Wishlist deleted successfully.',

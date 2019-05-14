@@ -8,6 +8,9 @@ export const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         paddingBottom: 30
     },
+    title: {
+        fontSize: 20
+    },
     addButton: {
         minWidth: 160
     },

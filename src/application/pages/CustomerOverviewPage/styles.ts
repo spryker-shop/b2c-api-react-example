@@ -25,7 +25,11 @@ export const styles = (theme: Theme) => createStyles({
     },
     subtitle: {
         fontWeight: 700,
-        paddingBottom: 20
+        paddingBottom: 20,
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 20
+        }
     },
     actionItem: {
         position: 'absolute',

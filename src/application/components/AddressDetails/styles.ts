@@ -14,6 +14,7 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: 0.2
     },
     title: {
+        fontSize: 20,
         fontWeight: 700,
         paddingBottom: 14
     }
