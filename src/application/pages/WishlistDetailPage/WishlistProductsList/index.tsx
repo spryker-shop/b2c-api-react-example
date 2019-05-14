@@ -53,13 +53,16 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
             return (
                 <Grid container key={ sku } className={ `${ classes.productItem }` }>
                     <Grid item className={ classes.imageOuter }>
-                        <SquareImage image={ image } alt={ name } classes={ { imgWrapper: classes.imgWrapper } } />
+                        <div className={ classes.imageHolder }>
+                            <SquareImage image={ image } alt={ name } classes={ { imgWrapper: classes.imgWrapper } } />
+                        </div>
                         <IconButton
                             className={ classes.removeButton }
                             onClick={ () => deleteItemAction(id, sku) }
                             disabled={ isCartLoading || isLoading }
                             classes={{ disabled: classes.buttonDisabled }}
                         >
+                            <span className={ classes.removeButtonIcon } />
                             <span className={ classes.removeButtonText }>
                                 <FormattedMessage id={ 'remove.button.title' } />
                             </span>

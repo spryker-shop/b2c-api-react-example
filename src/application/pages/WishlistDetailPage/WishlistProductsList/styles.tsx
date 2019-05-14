@@ -8,13 +8,16 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4
     },
     productItem: {
-        padding: '20px 20px 36px 60px',
+        padding: 15,
         marginBottom: 20,
         flexWrap: 'nowrap',
         background: theme.appColors.white,
         position: 'relative',
         '&:last-child': {
             marginBottom: 0
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '20px 20px 36px 60px',
         }
     },
     imgWrapper: {
@@ -29,7 +32,11 @@ export const styles = (theme: Theme) => createStyles({
     },
     imageOuter: {
         display: 'flex',
+        flexDirection: 'column',
         flexShrink: 0
+    },
+    imageHolder: {
+        flexGrow: 1,
     },
     contentOuter: {
         flexGrow: 1,
@@ -89,18 +96,35 @@ export const styles = (theme: Theme) => createStyles({
         lineHeight: 0
     },
     removeButton: {
-        position: 'absolute',
-        left: 20,
-        top: 76,
-        padding: 0,
-        borderRadius: '50%',
+        padding: '10px 0 10px 30px',
+        justifyContent: 'flex-start',
         minWidth: 'auto',
-        width: 20,
-        height: 20,
         color: theme.appColors.lightGrey,
-        border: '1px solid currentColor',
         transition: 'color 0.3s ease-in-out',
         cursor: 'pointer',
+        [theme.breakpoints.up('lg')]: {
+            position: 'absolute',
+            left: 20,
+            top: 76,
+            padding: 0,
+            width: 20,
+            height: 20
+        },
+        '&:hover': {
+            color: theme.appColors.red,
+            backgroundColor: 'transparent'
+        }
+
+    },
+    removeButtonIcon: {
+        borderRadius: '50%',
+        width: 20,
+        height: 20,
+        position: 'absolute',
+        left: 0,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        border: '1px solid currentColor',
         '&:after, &:before': {
             content: '""',
             position: 'absolute',
@@ -115,12 +139,13 @@ export const styles = (theme: Theme) => createStyles({
         },
         '&:before': {
             transform: 'translate(-50%, -50%) rotate(-45deg)'
-        },
-        '&:hover': {
-            color: theme.appColors.red,
-            backgroundColor: 'transparent'
         }
-
+    },
+    removeButtonText: {
+        fontSize: 15,
+        lineHeight: 1.5,
+        letterSpacing: 0.2,
+        color: theme.appColors.lightGrey,
     },
     buttonDisabled: {
         opacity: 0.6
