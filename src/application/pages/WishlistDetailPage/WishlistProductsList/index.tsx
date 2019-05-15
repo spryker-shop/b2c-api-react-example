@@ -88,7 +88,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                         <FormattedMessage id={ 'word.price.title' } />:
                                     </span>
                                     <span className={ classes.attributesValue }>
-                                        <AppPrice value={ prices.grossAmountDefault } />
+                                        <AppPrice value={ prices ? prices.grossAmountDefault : 0 } />
                                     </span>
                                 </div>
                                 <div className={ classes.attributes }>
