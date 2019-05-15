@@ -70,7 +70,6 @@ export class GuestCartService extends ApiServiceAbstract {
             removeAuthToken();
 
             dispatch(cartActions.getCartsPendingStateAction());
-
             const endpoint = this.endpoint('guest-carts');
             const response: IApiResponseData = await api.get(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }

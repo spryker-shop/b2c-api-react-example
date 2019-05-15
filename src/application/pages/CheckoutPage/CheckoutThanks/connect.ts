@@ -7,6 +7,7 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { ICheckoutAddressState } from '@interfaces/checkout';
 import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
+import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const orderId: string = getCreatedOrder(state, ownProps);
@@ -14,13 +15,15 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
     const isCartLoading = isCartStateLoading(state, ownProps);
+    const profile = getCustomerProfile(state, ownProps);
 
     return ({
         orderId,
         isUserLoggedIn,
         anonymId,
         deliveryNewAddress,
-        isCartLoading
+        isCartLoading,
+        profile
     });
 };
 
