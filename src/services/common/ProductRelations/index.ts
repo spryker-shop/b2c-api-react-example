@@ -11,16 +11,21 @@ import api from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 
 export class ProductRelationsService extends ApiServiceAbstract {
+    public static endpoint(path: string): string {
+        const includeParams =
+            '?include=abstract-product-image-sets,' +
+            'abstract-product-availabilities,' +
+            'abstract-product-prices,' +
+            'product-labels';
+
+        return `${path}${includeParams}`;
+    }
+
     public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
         try {
             dispatch(productRelationsPendingAction());
-
-            const response: IApiResponseData = await api.get(`abstract-products/${sku}/related-products`, {
-                include: 'abstract-product-image-sets,' +
-                'abstract-product-availabilities,' +
-                'abstract-product-prices,' +
-                'product-labels'
-            });
+            const endpoint = this.endpoint(`abstract-products/${sku}/related-products`);
+            const response: IApiResponseData = await api.get(endpoint);
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsRequest(response.data);
@@ -36,16 +41,20 @@ export class ProductRelationsService extends ApiServiceAbstract {
         }
     }
 
-    public static async getProductRelationsCart(dispatch: Function, cartId: string): Promise<void> {
+    public static async getProductRelationsCart(
+        dispatch: Function,
+        cartId: string,
+        isUserLoggedIn?: boolean,
+        anonymId?: string
+    ): Promise<void> {
         try {
             dispatch(productRelationsPendingAction());
-
-            const response: IApiResponseData = await api.get(`carts/${cartId}/up-selling-products`, {
-                include: 'abstract-product-image-sets,' +
-                    'abstract-product-availabilities,' +
-                    'abstract-product-prices,' +
-                    'product-labels'
-            });
+            const requestHeader = !isUserLoggedIn
+                ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
+                : {};
+            const cartType = isUserLoggedIn ? 'carts' : 'guest-carts';
+            const endpoint = this.endpoint(`${cartType}/${cartId}/up-selling-products`);
+            const response: IApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsRequest(response.data);

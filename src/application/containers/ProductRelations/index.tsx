@@ -13,26 +13,41 @@ class ProductRelationsComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        const { sku, getProductRelations, cartId, getProductRelationsCart } = this.props;
+        const {
+            sku,
+            getProductRelations,
+            cartId,
+            getProductRelationsCart,
+            isUserLoggedIn,
+            anonymId
+        } = this.props;
 
         if (sku) {
             getProductRelations(sku);
         }
 
         if (cartId) {
-            getProductRelationsCart(cartId);
+            getProductRelationsCart(cartId, isUserLoggedIn, anonymId);
         }
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isLoading, getProductRelations, cartId, sku, getProductRelationsCart } = this.props;
+        const {
+            isLoading,
+            anonymId,
+            getProductRelations,
+            cartId,
+            sku,
+            getProductRelationsCart,
+            isUserLoggedIn
+        } = this.props;
 
         if (!isLoading && prevProps.sku !== this.props.sku) {
             getProductRelations(sku);
         }
 
         if (!isLoading && prevProps.cartId !== cartId) {
-            getProductRelationsCart(cartId);
+            getProductRelationsCart(cartId, isUserLoggedIn, anonymId);
         }
     };
 

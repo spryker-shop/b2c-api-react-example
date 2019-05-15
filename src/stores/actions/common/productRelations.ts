@@ -22,8 +22,8 @@ export const getProductRelationsAction = function (payload: string) {
     };
 };
 
-export const getProductRelationsCartAction = function (payload: string) {
+export const getProductRelationsCartAction = function (cartId: string, isUserLoggedIn: boolean, anonymId: string) {
     return (dispatch: Function, getState: Function) => {
-        ProductRelationsService.getProductRelationsCart(dispatch, payload);
+        ProductRelationsService.getProductRelationsCart(dispatch, cartId, isUserLoggedIn, anonymId);
     };
 };

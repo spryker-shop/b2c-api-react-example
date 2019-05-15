@@ -11,7 +11,9 @@ export interface IProductRelationsProps extends WithStyles<styles> {
     currency?: TAppCurrency;
     title?: string | JSX.Element;
     getProductRelations?: (sku: string) => void;
-    getProductRelationsCart?: (cartId: string) => void;
+    getProductRelationsCart?: (cartId: string, isUserLoggedIn: boolean, anonymId: string) => void;
     changeLocation?: Function;
     cartId?: string;
+    isUserLoggedIn?: boolean;
+    anonymId?: string;
 }
