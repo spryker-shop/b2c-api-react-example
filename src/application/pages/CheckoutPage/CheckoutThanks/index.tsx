@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { pathHomePage, pathCheckoutLoginStep } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { ICheckoutThanksProps as Props, ICheckoutThanksState as State } from './types';
