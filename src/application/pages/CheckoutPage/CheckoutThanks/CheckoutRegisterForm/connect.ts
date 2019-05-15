@@ -8,7 +8,6 @@ import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IAddressItem } from '@interfaces/addresses';
 import { addMultipleAddressAction } from '@stores/actions/pages/addresses';
 import { IBillingAddressState, IBillingSelectionState, ICheckoutAddressState } from '@interfaces/checkout';
-import { isPageAddressesStateLoading } from '@stores/reducers/pages/addresses/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAuth = isUserAuthenticated(state, ownProps);
@@ -16,10 +15,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading = isCartStateLoading(state, ownProps);
     const customer: string | null = getCustomerReference(state, ownProps);
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
-    const isAddressLoading: boolean = isPageAddressesStateLoading(state, ownProps) ?
-        isPageAddressesStateLoading(state, ownProps) : false;
     const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
     const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
+    const isMultipleAddressesLoading = state.pageAddresses.data.isMultipleAddressesLoading;
 
     return ({
         isAuth,
@@ -27,9 +25,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isCartLoading,
         customer,
         billingSelection,
-        isAddressLoading,
         billingNewAddress,
-        deliveryNewAddress
+        deliveryNewAddress,
+        isMultipleAddressesLoading
     });
 };
 

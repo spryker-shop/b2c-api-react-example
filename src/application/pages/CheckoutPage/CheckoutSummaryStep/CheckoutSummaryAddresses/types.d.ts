@@ -7,6 +7,7 @@ import {
     IDeliverySelectionState
 } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
+import { ICountry } from '@interfaces/country';
 
 export interface ICheckoutSummaryAddressesProps extends WithStyles<typeof styles> {
     addressesCollection: IAddressItemCollection[] | null;
@@ -14,4 +15,5 @@ export interface ICheckoutSummaryAddressesProps extends WithStyles<typeof styles
     deliverySelection: IDeliverySelectionState;
     billingNewAddress: IBillingAddressState;
     billingSelection: IBillingSelectionState;
+    countriesCollection: ICountry[];
 }

@@ -8,6 +8,8 @@ import {
     ICheckoutAddressState,
     IDeliverySelectionState
 } from '@interfaces/checkout';
+import { ICountry } from '@interfaces/country';
+import { getCounties } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const addressesCollection: IAddressItemCollection[] | null =
@@ -16,13 +18,15 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
     const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
+    const countriesCollection: ICountry[] = getCounties(state, ownProps);
 
     return {
         addressesCollection,
         deliveryNewAddress,
         deliverySelection,
         billingNewAddress,
-        billingSelection
+        billingSelection,
+        countriesCollection
     };
 };
 

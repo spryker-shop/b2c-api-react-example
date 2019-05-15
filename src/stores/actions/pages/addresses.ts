@@ -5,7 +5,8 @@ import {
     UPDATE_ADDRESS,
     SET_CURRENT_ADDRESS,
     GET_ONE_ADDRESS,
-    CLEAR_ADDRESS
+    CLEAR_ADDRESS,
+    MULTIPLE_ADDRESSES
 } from '@stores/actionTypes/pages/addresses';
 import { IAddressItem } from '@interfaces/addresses';
 import { AddressesService } from '@services/pages/Addresses';
@@ -28,6 +29,10 @@ export const deleteAddressPendingState = {
 
 export const getOneAddressPendingState = {
     type: GET_ONE_ADDRESS + '_PENDING',
+};
+
+export const multipleAddressesPengingState = {
+    type: MULTIPLE_ADDRESSES + '_PENDING'
 };
 
 export const getAddressesAction = function (customerId: string) {
@@ -54,8 +59,8 @@ export const addAddressAction = function (payload: IAddressItem, customerId: str
 export const addMultipleAddressAction =
     function (payload: IAddressItem, customerId: string, billing: IAddressItem | null) {
         return (dispatch: Function, getState: Function) => {
-            dispatch(addAddressPendingState);
-            AddressesService.addMultipleAddressAction(ADD_ADDRESS, dispatch, payload, customerId, billing);
+            dispatch(multipleAddressesPengingState);
+            AddressesService.addMultipleAddressAction(MULTIPLE_ADDRESSES, dispatch, payload, customerId, billing);
         };
     };
 

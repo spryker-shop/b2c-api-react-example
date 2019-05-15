@@ -16,7 +16,8 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
             deliverySelection: { isAddNew: isAddNewDelivery, selectedAddressId },
             billingSelection: { selectedAddressId: billingId, isSameAsDelivery },
             deliveryNewAddress,
-            billingNewAddress
+            billingNewAddress,
+            countriesCollection
         } = props;
 
         if (Boolean(selectedAddressId) && !isBilling || isSameAsDelivery && isBilling && Boolean(selectedAddressId)) {
@@ -36,14 +37,18 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
         if (isAddNewDelivery && !isBilling || isSameAsDelivery && isBilling && isAddNewDelivery) {
             const deliveryAddress: {[index: string]: string | number | boolean;} = {};
             Object.keys(deliveryNewAddress).forEach(key => { deliveryAddress[key] = deliveryNewAddress[key].value; });
+            const countryName = countriesCollection
+                .filter(country => country.iso2Code === deliveryNewAddress.country.value)[0].name;
 
-            return deliveryAddress;
+            return { ...deliveryAddress, country: countryName };;
         }
 
         const billingAddress: {[index: string]: string | number | boolean;} = {};
         Object.keys(billingNewAddress).forEach(key => { billingAddress[key] = billingNewAddress[key].value; });
+        const countryName = countriesCollection
+            .filter(country => country.iso2Code === billingNewAddress.country.value)[0].name;
 
-        return billingAddress;
+        return { ...billingAddress, country: countryName };
     };
 
     return (

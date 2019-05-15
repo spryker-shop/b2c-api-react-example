@@ -6,13 +6,15 @@ import {
     SET_CURRENT_ADDRESS,
     UPDATE_ADDRESS,
     GET_ONE_ADDRESS,
-    CLEAR_ADDRESS
+    CLEAR_ADDRESS,
+    MULTIPLE_ADDRESSES
 } from '@stores/actionTypes/pages/addresses';
 import { IAddressItem } from '@interfaces/addresses';
 import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/Addresses/types';
 
 const initialState: IAddressesState = {
     data: {
+        isMultipleAddressesLoading: false,
         addresses: [],
         currentAddress: null,
     },
@@ -32,6 +34,9 @@ export const pageAddresses = produce<IAddressesState>(
                 draft.rejected = false;
                 draft.initiated = false;
                 break;
+            case `${MULTIPLE_ADDRESSES}_PENDING`:
+                draft.data.isMultipleAddressesLoading = true;
+                break;
             case `${ADDRESSES_LIST}_REJECTED`:
             case `${ADD_ADDRESS}_REJECTED`:
             case `${DELETE_ADDRESS}_REJECTED`:
@@ -43,6 +48,9 @@ export const pageAddresses = produce<IAddressesState>(
                 draft.rejected = true;
                 draft.initiated = false;
                 draft.data.currentAddress = null;
+                break;
+            case `${MULTIPLE_ADDRESSES}_FULFILLED`:
+                draft.data.isMultipleAddressesLoading = false;
                 break;
             case `${ADDRESSES_LIST}_FULFILLED`:
                 draft.data.addresses = action.addresses;
