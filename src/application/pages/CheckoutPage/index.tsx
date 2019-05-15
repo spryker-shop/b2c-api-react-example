@@ -186,7 +186,9 @@ class CheckoutPageComponent extends React.Component<Props, State> {
 
         return (
             <>
-                <CheckoutBreadcrumbs />
+                { !isThanksPage &&
+                    <CheckoutBreadcrumbs />
+                }
                 <AppMain classes={{ wrapper: classes.wrapper }}>
                     { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>

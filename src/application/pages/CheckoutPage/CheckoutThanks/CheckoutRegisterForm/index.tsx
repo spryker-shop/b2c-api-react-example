@@ -42,34 +42,30 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
-        const { isAuth, getCustomerCart, isCartLoading, isAddressLoading, history } = this.props;
-        const isParallelCartRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
-        const isParallelAddressRequest = isDevServer ? prevProps.isAddressLoading && !isAddressLoading : false;
+        const { isAuth, getCustomerCart, isCartLoading, history, isMultipleAddressesLoading } = this.props;
+        const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
         if (!prevProps.isAuth && isAuth) {
             getCustomerCart();
             this.setState({ isCartLoading: true });
         }
 
-        if (isAuth && isParallelCartRequest) {
+        if (isAuth && prevProps.isCartLoading && !isCartLoading) {
             this.addingAddress();
         }
 
-        if (isAuth && isParallelAddressRequest) {
+        if (isAddressRequest) {
             history.push(pathCustomerOverviewPage);
         }
     };
 
     protected addingAddress = () => {
-        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const {
             customer,
             addAddress,
             billingSelection: { isSameAsDelivery },
             deliveryNewAddress,
-            billingNewAddress,
-            history
+            billingNewAddress
         } = this.props;
 
         const addressDelivery = {
@@ -85,10 +81,6 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         const deliveryPayload = this.transformAddressData(addressDelivery);
         const billingPayload = !isSameAsDelivery ? this.transformAddressData(addressBilling) : null;
         addAddress(deliveryPayload, customer, billingPayload);
-
-        if (!isDevServer) {
-            history.push(pathCustomerOverviewPage);
-        }
     };
 
     protected handleChange = ({ target: { name, value } }: InputChangeEvent): void => {

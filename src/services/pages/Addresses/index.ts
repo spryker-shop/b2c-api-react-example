@@ -14,7 +14,7 @@ import {
     typeNotificationSuccess,
     typeNotificationError
 } from '@constants/notifications';
-import { ADD_ADDRESS } from '@stores/actionTypes/pages/addresses';
+import { ADD_ADDRESS, MULTIPLE_ADDRESSES } from '@stores/actionTypes/pages/addresses';
 
 export class AddressesService extends ApiServiceAbstract {
     public static async getCustomerAddresses(
@@ -277,11 +277,11 @@ export class AddressesService extends ApiServiceAbstract {
                                                  payload: IAddressItem,
                                                  customerId: string,
                                                  billing: IAddressItem): Promise<void> {
-
         await AddressesService.addAddress(ADD_ADDRESS, dispatch, payload, customerId);
 
         if (Boolean(billing)) {
             await AddressesService.addAddress(ADD_ADDRESS, dispatch, billing, customerId);
         }
+        dispatch({ type: MULTIPLE_ADDRESSES + '_FULFILLED' });
     }
 }
