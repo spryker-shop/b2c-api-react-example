@@ -29,9 +29,9 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, orderId, deliveryNewAddress } = this.props;
+        const { classes, orderId, deliveryNewAddress, profile, isUserLoggedIn } = this.props;
         const { shouldHideForm } = this.state;
-        const email = deliveryNewAddress.email.value;
+        const customerEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
 
         if (!orderId) {
             return <Redirect to={ pathCheckoutLoginStep } />;
@@ -53,7 +53,7 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
                             <FormattedMessage id={ 'order.success.thank.message' } />
                         </span>
                         <span className={`${classes.text} ${classes.textEmail}`}>
-                            { email }
+                            { customerEmail }
                         </span>
                     </div>
                     { !shouldHideForm &&
