@@ -80,7 +80,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         isError={ data.company.isError }
                     />
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerInput
                         isRequired
                         formName={ formName }
@@ -92,7 +92,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         isError={ data.address1.isError }
                     />
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerInput
                         isRequired
                         formName={ formName }
@@ -131,7 +131,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         />
                     </Grid>
                 }
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerInput
                         isRequired
                         formName={ formName }
@@ -143,7 +143,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         isError={ data.city.isError }
                     />
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerInput
                         isRequired
                         formName={ formName }
@@ -156,7 +156,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         inputType="number"
                     />
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerSelect
                         currentMode={ data.country.value }
                         onChangeHandler={ onFieldChangeHandler }
@@ -174,7 +174,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                         isRequired
                     />
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 12 } lg={ 6 }>
                     <SprykerInput
                         formName={ formName }
                         label={ <FormattedMessage id={ 'phone.label' } /> }

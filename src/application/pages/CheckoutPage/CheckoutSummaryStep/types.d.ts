@@ -1,6 +1,6 @@
 import { WithStyles } from '@material-ui/core';
-import { styles } from '@pages/CheckoutPage/CheckoutLoginStep/styles';
-import { ICheckoutStepsCompletionState } from '@interfaces/checkout';
+import { styles } from './styles';
+import { ICheckoutStepsCompletionState, IShipmentMethod } from '@interfaces/checkout';
 import { ClickEvent } from '@interfaces/common';
 
 export interface ICheckoutSummaryStepProps extends WithStyles<typeof styles> {

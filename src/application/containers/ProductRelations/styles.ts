@@ -11,6 +11,7 @@ export const styles = (theme: Theme) => createStyles({
             paddingBottom: 20
         },
         [theme.breakpoints.up('lg')]: {
+            fontSize: 30,
             paddingBottom: 40
         }
     },

@@ -3,26 +3,42 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     box: {
-        padding: '30px 50px 18px 30px',
+        padding: '26px 14px 14px',
         borderRadius: 4,
         background: theme.appColors.white,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            padding: '30px 20px'
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: '30px 50px 18px 30px'
+        }
     },
     title: {
         paddingBottom: 20
     },
     actions: {
         display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'row-reverse',
-        alignItems: 'center'
+        flexDirection: 'column',
+        justifyContent: 'center',
+        [theme.breakpoints.up('md')]: {
+            justifyContent: 'space-between',
+            flexDirection: 'row-reverse',
+            alignItems: 'center',
+        }
     },
     button: {
-        minWidth: 260
+        minWidth: 260,
+        marginBottom: 30,
+        [theme.breakpoints.up('md')]: {
+            marginBottom: 0
+        }
     },
     back: {
+        padding: '5px 0',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 15,
         lineHeight: 1.5,
         letterSpacing: 0.2,
@@ -31,6 +47,9 @@ export const styles = (theme: Theme) => createStyles({
         textDecoration: 'none',
         '&:hover': {
             color: theme.appColors.grey
+        },
+        [theme.breakpoints.up('md')]: {
+            justifyContent: 'flex-start'
         }
     },
     icon: {

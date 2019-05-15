@@ -9,7 +9,9 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
         paddingBottom: 20,
+        alignItems: 'center',
         '&:last-child': {
             paddingBottom: 0
         }
@@ -19,5 +21,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     discountText: {
         color: theme.appColors.red
-    }
+    },
+    price: {},
+    totalTextPrice: {}
 });

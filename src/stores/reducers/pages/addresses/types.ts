@@ -3,6 +3,7 @@ import { IAddressItem } from '@interfaces/addresses';
 
 export interface IAddressesState extends IReduxState {
   data: {
+    isMultipleAddressesLoading: boolean;
     addresses: IAddressItem[],
     currentAddress: IAddressItem | null,
   };
