@@ -8,6 +8,9 @@ import { styles } from './styles';
 import { DateFormatter } from '@components/DateFormatter';
 import { AddressDetails } from '@components/AddressDetails';
 import { TotalsBlock } from '@components/TotalsBlock';
+import { NavLink } from 'react-router-dom';
+import { pathCustomerOverviewPage } from '@constants/routes';
+import { PrevIcon } from './icons';
 
 @connect
 class OrderDetailsPageComponent extends React.Component<Props, State> {
@@ -103,6 +106,15 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                                         expenses={ order.expenses }
                                         isMinus={ false }
                                     />
+                                </div>
+
+                                <div className={ classes.back }>
+                                    <NavLink to={ pathCustomerOverviewPage } className={ classes.backLink }>
+                                        <span className={ classes.icon } >
+                                            <PrevIcon />
+                                        </span>
+                                        <FormattedMessage id={ 'word.back.title' } />
+                                    </NavLink>
                                 </div>
                             </>
                             : (
