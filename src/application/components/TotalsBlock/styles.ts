@@ -11,6 +11,7 @@ export const styles = (theme: Theme) => createStyles({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingBottom: 20,
+        alignItems: 'center',
         '&:last-child': {
             paddingBottom: 0
         }

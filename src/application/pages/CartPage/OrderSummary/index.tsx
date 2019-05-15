@@ -16,7 +16,14 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
                 <FormattedMessage id={ 'your.order.title' } />
             </Typography>
 
-            <TotalsBlock totals={ totals } />
+            <TotalsBlock
+                totals={ totals }
+                classes={{
+                    price: classes.price,
+                    totalText: classes.totalText,
+                    totalTextPrice: classes.totalTextPrice
+                }}
+            />
 
             <Button
                 component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCheckoutPage } /> }

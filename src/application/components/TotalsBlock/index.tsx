@@ -62,7 +62,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                     <Typography component="span" variant="h5" color="textSecondary">
                         <FormattedMessage id={ 'word.discount.title' } />
                     </Typography>
-                    <Typography component="span" variant="h5" className={ classes.discountText }>
+                    <Typography component="span" variant="h5" className={`${classes.discountText} ${classes.price}`}>
                         <AppPrice value={ totals.discountTotal } isMinus={ isMinus } />
                     </Typography>
                 </div>
