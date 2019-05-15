@@ -43,7 +43,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
         const selectedValue = paymentCreditCardData.paymentProvider.value;
 
         return providersCollection.map(item => (
-            <Grid item xs={ 3 } key={ item.value }>
+            <Grid item xs={ 6 }  lg={ 3 } key={ item.value }>
                 <FormControlLabel
                     value={ item.value }
                     classes={{
@@ -111,7 +111,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             isError={ paymentCreditCardData.cardName.isError }
                         />
                     </Grid>
-                    <Grid item xs={ 6 }>
+                    <Grid item xs={ 12 } lg={ 6 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'payment.expiry.date.label' } /> }
@@ -130,7 +130,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={ 6 }>
+                    <Grid item xs={ 12 } lg={ 6 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'payment.credit.card.cvc.label' } /> }

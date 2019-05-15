@@ -7,15 +7,20 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingBottom: 20
+        paddingBottom: 15,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 20
+        }
     },
     formTitle: {
-        fontWeight: 700
+        fontWeight: 700,
+        fontSize: 20
     },
     formIcon: {
         width: 90,
         height: 14,
-        fill: theme.appColors.lightGrey
+        fill: theme.appColors.lightGrey,
+        lineHeight: 0
     },
     radioGroup: {
         marginBottom: 0,
@@ -37,7 +42,12 @@ export const styles = (theme: Theme) => createStyles({
     checkedInputRadio: {
         borderColor: theme.appColors.blue,
         background: theme.appColors.blue,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        '&:hover': {
+            borderColor: theme.appColors.blue,
+            background: theme.appColors.blue,
+            boxShadow: 'none'
+        }
     },
     radioLabel: {
         color: theme.appColors.grey,

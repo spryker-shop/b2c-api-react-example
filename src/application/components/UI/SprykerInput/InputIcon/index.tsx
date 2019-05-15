@@ -40,7 +40,9 @@ export const InputIconComponent: React.SFC<Props> = (props): JSX.Element => {
                 </>
             }
             placement={ tooltipPosition }
-            classes={{ tooltip: classes.tooltipWrapper }}
+            enterTouchDelay={ 250 }
+            leaveTouchDelay={ 5000 }
+            classes={{ tooltip: classes.tooltipWrapper, tooltipPlacementTop: classes.tooltipPlacementTop }}
         >
             { renderIconComponent() }
         </Tooltip>

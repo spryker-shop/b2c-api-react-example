@@ -28,6 +28,7 @@ export interface IShipmentMethod {
     price: TShipmentPrice;
     taxRate: TShipmentTaxRate;
     shipmentDeliveryTime: TShipmentShipmentDeliveryTime;
+    [key: string]: string | number | null;
 }
 
 export interface ICheckoutRequest {
