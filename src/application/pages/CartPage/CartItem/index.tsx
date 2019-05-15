@@ -27,15 +27,28 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         calculations: { unitPriceToPayAggregation }
     } = props;
 
-    return (
+    const renderSuperAttributes = superAttributes ? (
+        superAttributes.map((attr: { [key: string]: string }, index: number) => {
+            const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
+            const attributeValue = Object.values(attr)[0];
 
-        <Grid container className={ classes.productItem }>
+            return (
+                <div key={`${sku}-attr-${index}`} className={ classes.attributes }>
+                    {`${attributeTitle}: `}
+                    <span className={ classes.attributesValue }>{ attributeValue }</span>
+                </div>
+            );
+        })
+    ) : null;
+
+    return (
+        <Grid container wrap="nowrap" className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
                 <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>
-                    <Grid item xs={ 12 } sm={ 9 } className={ classes.info }>
+                    <Grid item xs={ 12 } sm={ 8 } md={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
                             <Typography component="h5" variant="h5" className={classes.name}>
                                 <NavLink
@@ -45,14 +58,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                     { name }
                                 </NavLink>
                             </Typography>
-                            { superAttributes &&
-                                superAttributes.map((attr: { [key: string]: string }, idx: number) => (
-                                    <div key={`${sku}-attr-${idx}`} className={ classes.attributes }>
-                                        {`${Object.keys(attr)[0].split('_').join(' ')}: `}
-                                        <span className={ classes.attributesValue }>{ Object.values(attr)[0] }</span>
-                                    </div>
-                                ))
-                            }
+                            { renderSuperAttributes }
                         </div>
                         <div className={`${classes.attributes} ${classes.attributesQty}`}>
                             <span className={classes.attributesTitle}>
@@ -66,8 +72,8 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                             />
                         </div>
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 3 } className={ classes.info }>
-                        <div className={ classes.growedBlock }>
+                    <Grid item xs={ 12 } sm={ 4 } md={ 3 } className={ classes.info }>
+                        <div className={ classes.pricesHoler }>
                             <Typography
                                 component="p"
                                 className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
@@ -88,9 +94,16 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                             </div>
                         }
                     </Grid>
+                    <Grid item xs={ 12 } className={ classes.removeBtnColumn }>
+                        <div className={ classes.removeBtn } onClick={ () => handleDeleteItem(sku) }>
+                            <span className={ classes.removeBtnIcon } />
+                            <span className={ classes.removeBtnText }>
+                                <FormattedMessage id={ 'remove.button.title' } />
+                            </span>
+                        </div>
+                    </Grid>
                 </Grid>
             </Grid>
-            <span onClick={ () => handleDeleteItem(sku) } className={ classes.removeBtn } />
         </Grid>
     );
 };

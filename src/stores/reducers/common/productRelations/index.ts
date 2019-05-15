@@ -14,16 +14,17 @@ export const productRelations = function (
 ): IProductRelationsState {
     switch (action.type) {
         case `${PRODUCT_RELATIONS_REQUEST}_PENDING`:
-            return Object.assign(state, {
+            return {
                 data: {
                     products: []
                 },
                 ...getReducerPartPending()
-            });
+            };
         case `${PRODUCT_RELATIONS_REQUEST}_REJECTED`:
-            return Object.assign(state, {
+            return {
+                ...state,
                 ...getReducerPartRejected(action.error)
-            });
+            };
         case `${PRODUCT_RELATIONS_REQUEST}_FULFILLED`:
             return {
                 data: {

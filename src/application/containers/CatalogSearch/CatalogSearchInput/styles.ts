@@ -8,7 +8,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black,
         letterSpacing: 0.2,
         opacity: 0.35,
-        fontWeight: 300,
+        fontWeight: 500,
     },
     completionInput: {
         position: 'absolute',
