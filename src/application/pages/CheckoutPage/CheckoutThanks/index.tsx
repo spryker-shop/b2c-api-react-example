@@ -12,11 +12,14 @@ import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 @connect
 class CheckoutThanksComponent extends React.Component<Props, State> {
     public state: State = {
-        shouldHideForm: true
+        shouldHideForm: true,
+        email: null
     };
 
     public componentDidMount = (): void => {
-        const { getCustomerCart, getGuestCart, isUserLoggedIn, anonymId } = this.props;
+        const { getCustomerCart, getGuestCart, isUserLoggedIn, anonymId, profile, deliveryNewAddress } = this.props;
+        const userEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
+        this.setState({ email: userEmail.toString() });
 
         if (isUserLoggedIn) {
             getCustomerCart();
@@ -29,9 +32,8 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, orderId, deliveryNewAddress, profile, isUserLoggedIn } = this.props;
-        const { shouldHideForm } = this.state;
-        const customerEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
+        const { classes, orderId } = this.props;
+        const { shouldHideForm, email } = this.state;
 
         if (!orderId) {
             return <Redirect to={ pathCheckoutLoginStep } />;
@@ -53,7 +55,7 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
                             <FormattedMessage id={ 'order.success.thank.message' } />
                         </span>
                         <span className={`${classes.text} ${classes.textEmail}`}>
-                            { customerEmail }
+                            { email }
                         </span>
                     </div>
                     { !shouldHideForm &&

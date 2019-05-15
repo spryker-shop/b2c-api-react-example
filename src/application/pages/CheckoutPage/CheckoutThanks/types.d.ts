@@ -15,4 +15,5 @@ export interface ICheckoutThanksProps extends WithStyles<typeof styles> {
 
 export interface ICheckoutThanksState {
     shouldHideForm: boolean;
+    email: string | null;
 }
