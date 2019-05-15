@@ -2,10 +2,9 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
 import { withStyles, IconButton } from '@material-ui/core';
-import { pathCustomerPage, pathCustomerOverviewPage, pathLoginPage } from '@constants/routes';
+import { pathCustomerOverviewPage, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@components/PopoverWrapper';
-import { logoutSetTimeoutTime } from '@constants/customer';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
@@ -63,12 +62,8 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
 
     protected handleLogout = (event: ClickEvent): void => {
         event.preventDefault();
-        if (this.props.location.pathname.includes(pathCustomerPage)) {
-            this.props.logout();
-        } else {
-            this.props.history.push(pathCustomerPage);
-            setTimeout(this.props.logout, logoutSetTimeoutTime);
-        }
+        this.props.logout();
+        this.props.history.push(pathLoginPage);
     };
 
     public render(): JSX.Element {
