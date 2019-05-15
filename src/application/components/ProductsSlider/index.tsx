@@ -41,7 +41,12 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                         sku={ product.sku }
                         onSelectProduct={ onSelectProduct }
                         label={ product.label }
-                        classes={{ image: classes.image }}
+                        classes={{
+                            image: classes.image,
+                            price: classes.price,
+                            oldPrice: classes.oldPrice,
+                            name: classes.name
+                        }}
                     />
                 </Grid>
             </div>
@@ -49,7 +54,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
 
         if (!shouldRenderSlider) {
             return productsList.map((item, index) => (
-                <Grid item xs={ 12 } sm={ 3 } key={ index }>{ item }</Grid>
+                <Grid item xs={ 4 } key={ index }>{ item }</Grid>
             ));
         }
 

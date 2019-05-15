@@ -9,8 +9,8 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
         paddingBottom: 20,
+        alignItems: 'center',
         '&:last-child': {
             paddingBottom: 0
         }
