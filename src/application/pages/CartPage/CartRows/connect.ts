@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 
-import { ICartItem, TCartId } from '@interfaces/cart';
+import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 import {
@@ -19,7 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
     const { items }: { items: ICartItem[] } = getProductsFromCart(state, ownProps);
-    const cartId: TCartId = getCartId(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
     const cartRejected = state.cart.rejected;
 
     return ({

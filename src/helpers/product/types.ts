@@ -71,7 +71,7 @@ export interface IRowProductAvailabilitiesIncludedResponse extends IAbstractRowI
 }
 
 export interface IRowConcreteProductsIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'concrete-products';
+    type: 'concrete-products' | 'wishlist-items';
     attributes: IProductAttributesRawResponse;
 }
 

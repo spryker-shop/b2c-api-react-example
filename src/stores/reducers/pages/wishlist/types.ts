@@ -1,4 +1,4 @@
-import { IWishlist, IWishlistProduct, TWishlistId } from '@interfaces/wishlist';
+import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 export interface WishlistState extends IReduxState {
@@ -14,12 +14,12 @@ export interface WishlistState extends IReduxState {
 export interface IPageWishlistAction extends IActionData {
     payloadWishlistDataFulfilled?: {
         data?: IWishlist;
-        wishlistId?: TWishlistId;
+        wishlistId?: string;
         products?: IWishlistProduct[];
         wishlists?: IWishlist[]
     };
     payloadWishlistProductFulfilled?: {
-        wishlistId: TWishlistId;
+        wishlistId: string;
         sku: string
     };
 }

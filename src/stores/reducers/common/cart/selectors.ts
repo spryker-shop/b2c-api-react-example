@@ -1,13 +1,11 @@
-import { ICartItem, ICartTotals, TCartId } from '@interfaces/cart';
+import { ICartItem, ICartTotals } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
-// Number of products(including quantity per each product) in the cart
 export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.items.reduce((acc: number, item: ICartItem) =>
     acc + item.quantity, 0);
 }
 
-// Number of items in the cart
 export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.totalQty;
 }
@@ -28,7 +26,7 @@ export function isCartStateRejected(state: IReduxStore, props: IReduxOwnProps): 
   return Boolean(isStateExist(state, props) && state.cart.rejected && state.cart.rejected === true);
 }
 
-export function getCartId(state: IReduxStore, props: IReduxOwnProps): TCartId {
+export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
   return (isCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
 }
 
@@ -46,7 +44,6 @@ export function getProductsFromCart(state: IReduxStore, props: IReduxOwnProps): 
   });
 }
 
-// selectors INNER
 function isStateExist(state: IReduxStore, props: IReduxOwnProps): boolean {
   return Boolean(state.cart);
 }

@@ -1,20 +1,17 @@
-import { IProductAttributes, IProductPricesItem } from '@interfaces/product';
-
-export type TWishlistName = string;
-export type TWishlistId = string;
+import { IProductAttributes } from '@interfaces/product';
 
 export interface IWishlistProduct {
     sku: string;
     name: string;
     image: string;
     attributes: IProductAttributes[];
-    prices: IProductPricesItem[];
+    prices: { [key: string]: number | null; };
     availability: boolean;
 }
 
 export interface IWishlist {
-    id: TWishlistId;
-    name: TWishlistName;
+    id: string;
+    name: string;
     numberOfItems: number;
     createdAt: string;
     updatedAt: string;

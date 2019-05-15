@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { ICartTotals, TCartId, ICartItem } from '@interfaces/cart';
+import { ICartTotals, ICartItem } from '@interfaces/cart';
 import { styles } from './styles';
 
 export interface IMiniCartDropProps extends WithStyles<typeof styles> {
@@ -12,7 +12,7 @@ export interface IMiniCartDropProps extends WithStyles<typeof styles> {
     cartItemsQuantity: number;
     onMouseLeave: () => void;
     onMouseEnter: () => void;
-    cartDeleteItemAction?: (cartId: TCartId, itemId: string) => void;
-    removeItemGuestCartAction?: (cartId: TCartId, itemId: string, anonymId: string) => void;
+    cartDeleteItemAction?: (cartId: string, itemId: string) => void;
+    removeItemGuestCartAction?: (cartId: string, itemId: string, anonymId: string) => void;
     clearCheckoutDataForm: () => void;
 }

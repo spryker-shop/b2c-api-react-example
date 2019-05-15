@@ -1,7 +1,6 @@
 import { PRODUCT_RELATIONS_REQUEST } from '@stores/actionTypes/common/productRelations';
 import { ProductRelationsService } from '@services/common/ProductRelations';
 import { IProductRelationsItem } from '@interfaces/productRelations';
-import { TCartId } from '@interfaces/cart';
 
 export const productRelationsPendingAction = () => ({
     type: `${ PRODUCT_RELATIONS_REQUEST }_PENDING`
@@ -23,7 +22,7 @@ export const getProductRelationsAction = function (payload: string) {
     };
 };
 
-export const getProductRelationsCartAction = function (payload: TCartId) {
+export const getProductRelationsCartAction = function (payload: string) {
     return (dispatch: Function, getState: Function) => {
         ProductRelationsService.getProductRelationsCart(dispatch, payload);
     };

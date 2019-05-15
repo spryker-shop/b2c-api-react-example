@@ -1,6 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IWishlist, TWishlistName } from '@interfaces/wishlist';
+import { IWishlist } from '@interfaces/wishlist';
 import { TProductType } from '@interfaces/product';
 
 export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeof styles> {
@@ -14,5 +14,5 @@ export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeo
 }
 
 export interface IProductConfiguratorAddToWishlistState {
-    wishlistSelected: TWishlistName | null;
+    wishlistSelected: string | null;
 }

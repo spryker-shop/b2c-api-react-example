@@ -13,6 +13,38 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite
     },
     item: {},
+    linkWrapper: {
+        color: theme.appColors.grey,
+        transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        borderRadius: 4,
+        position: 'relative',
+        overflow: 'hidden',
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: 4,
+            background: theme.appColors.blue,
+            transition: 'opacity 0.3s ease-in-out',
+            opacity: 0
+        },
+        '&:hover': {
+            color: theme.appColors.black
+        }
+    },
+    linkWrapperSelected: {
+        background: theme.appColors.white,
+        color: theme.appColors.black,
+        boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
+        '&:after': {
+            opacity: 1
+        },
+        '& $submenu': {
+            display: 'block'
+        }
+    },
     link: {
         display: 'flex',
         alignItems: 'center',
@@ -22,34 +54,28 @@ export const styles = (theme: Theme) => createStyles({
         fontWeight: 500,
         lineHeight: 1.6,
         letterSpacing: 0.2,
-        color: theme.appColors.grey,
-        transition: 'color 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         position: 'relative',
-        borderRadius: 4,
-        overflow: 'hidden',
         textDecoration: 'none',
-        '&:after': {
-            content: '""',
-            position: 'absolute',
-            right: 0,
-            left: 0,
-            height: '100%',
-            width: 4,
-            background: theme.appColors.blue,
-            transition: 'opacity 0.3s ease-in-out',
-            opacity: 0
-        },
+        color: 'inherit'
+    },
+    linkSubMenu: {
+        display: 'block',
+        minHeight: 0,
+        fontSize: 16,
+        padding: '3px 15px 3px 75px',
+        color: theme.appColors.grey,
+        lineHeight: 1.4,
+        transition: 'color 0.3s ease-in-out',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
         '&:hover': {
-            color: theme.appColors.black,
+            color: theme.appColors.black
         }
     },
     linkSelected: {
-        background: theme.appColors.white,
-        color: theme.appColors.black,
-        boxShadow: '0 6px 10px 0 rgba(216, 216, 216, 0.5)',
-        '&:after': {
-            opacity: 1
-        }
+        color: theme.appColors.blue,
+        pointerEvents: 'none'
     },
     icon: {
         fill: theme.appColors.grey,
@@ -61,5 +87,14 @@ export const styles = (theme: Theme) => createStyles({
     },
     text: {
         paddingLeft: 19
+    },
+    submenu: {
+        display: 'none',
+        margin: 0,
+        padding: '0 0 5px 0',
+        listStyle: 'none'
+    },
+    submenuItem: {
+        paddingBottom: 12
     }
 });

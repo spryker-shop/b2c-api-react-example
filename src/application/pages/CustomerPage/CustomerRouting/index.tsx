@@ -11,25 +11,25 @@ import {
     pathWishlistsPage,
     pathCustomerOverviewPage
 } from '@constants/routes';
-import { OrderHistoryPage } from '@pages/OrderHistoryPage';
-import { CustomerAddressesPage } from '@pages/CustomerAddressesPage';
-import { LoadableWishlistPage } from '@pages/WishlistPage/loadable';
+import { LoadablOrderHistoryPage } from '@pages/OrderHistoryPage/loadable';
+import { LoadableCustomerAddressesPage } from '@pages/CustomerAddressesPage/loadable';
+import { LoadablWishlistPage } from '@pages/WishlistPage/loadable';
 import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
-import { CustomerProfilePage } from '@pages/CustomerProfilePage';
-import { LoadableWishlistDetail } from '@pages/WishlistDetail/loadable';
-import { LoadableCustomerOverviewPage } from '@pages/CustomerOverviewPage/loadable';
-import { CustomerAddressForm } from '@pages/CustomerAddressForm';
+import { LoadablCustomerProfilePage } from '@pages/CustomerProfilePage/loadable';
+import { LoadablWishlistDetailPage } from '@pages/WishlistDetailPage/loadable';
+import { LoadablCustomerOverviewPage } from '@pages/CustomerOverviewPage/loadable';
+import { LoadableCustomerAddressPage } from '@pages/CustomerAddressPage/loadable';
 
 export const CustomerRouting: React.SFC = (): JSX.Element => (
     <Switch>
-        <Route path={ pathCustomerOverviewPage } exact component={ LoadableCustomerOverviewPage } />
-        <Route path={ pathCustomerAddressesPage } exact component={ CustomerAddressesPage }/>
-        <Route path={ pathAddressFormUpdate } exact component={ CustomerAddressForm }/>
-        <Route path={ pathAddressFormNew } exact component={ CustomerAddressForm }/>
-        <Route path={ pathWishlistsPage } exact component={ LoadableWishlistPage }/>
-        <Route path={ pathWishlistDetailPage } exact component={ LoadableWishlistDetail }/>
-        <Route path={ pathOrderHistoryPage } exact component={ OrderHistoryPage }/>
+        <Route path={ pathCustomerOverviewPage } exact component={ LoadablCustomerOverviewPage } />
+        <Route path={ pathCustomerAddressesPage } exact component={ LoadableCustomerAddressesPage }/>
+        <Route path={ pathAddressFormUpdate } exact component={ LoadableCustomerAddressPage }/>
+        <Route path={ pathAddressFormNew } exact component={ LoadableCustomerAddressPage }/>
+        <Route path={ pathWishlistsPage } exact component={ LoadablWishlistPage }/>
+        <Route path={ pathWishlistDetailPage } exact component={ LoadablWishlistDetailPage }/>
+        <Route path={ pathOrderHistoryPage } exact component={ LoadablOrderHistoryPage }/>
         <Route path={ pathOrderDetailsPage } exact component={ LoadableOrderDetailsPage }/>
-        <Route path={ pathCustomerProfilePage } exact component={ CustomerProfilePage }/>
+        <Route path={ pathCustomerProfilePage } exact component={ LoadablCustomerProfilePage }/>
     </Switch>
 );

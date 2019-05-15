@@ -10,14 +10,9 @@ import { LoadableCartPage } from '@pages/CartPage/loadable';
 import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
 import { LoadablePasswordForgotPage } from '@pages/ForgotPasswordPage/loadable';
 import { LoadablePasswordResetPage } from '@pages/ResetPasswordPage/loadable';
-import { LoadableWishlistPage } from '@pages/WishlistPage/loadable';
-import { LoadableWishlistDetail } from '@pages/WishlistDetail/loadable';
 import { LoadableCheckoutPage } from '@pages/CheckoutPage/loadable';
-import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
-import { CustomerAddressForm } from '@pages/CustomerAddressForm';
 import { LoadableNotFound } from '@pages/NotFound/loadable';
 import {
-    pathAddressFormUpdate,
     pathCartPage,
     pathCategoryPage,
     pathCheckoutPage,
@@ -26,12 +21,9 @@ import {
     pathHomePage,
     pathLoginPage,
     pathNotFoundPage,
-    pathOrderDetailsPage,
     pathProductPage,
     pathResetPassword,
     pathSearchPage,
-    pathWishlistDetailPage,
-    pathWishlistsPage,
     pathRegisterPage,
 } from '@constants/routes';
 import { RoutesProps as Props } from './types';
@@ -56,11 +48,7 @@ export const Routes: React.SFC<Props> = (props): JSX.Element => {
             <ProtectedRoute path={ pathCustomerPage } component={  LoadableCustomerPage }/>
             <Route path={ pathForgotPassword } exact component={  LoadablePasswordForgotPage }/>
             <Route path={ `${pathResetPassword}/:restoreKey` } exact component={  LoadablePasswordResetPage } />
-            <ProtectedRoute path={ pathWishlistsPage } exact component={  LoadableWishlistPage } />
-            <ProtectedRoute path={ pathWishlistDetailPage } exact component={  LoadableWishlistDetail } />
             <Route path={ pathCheckoutPage } component={  LoadableCheckoutPage }/>
-            <Route path={ pathOrderDetailsPage } exact component={  LoadableOrderDetailsPage }/>
-            <Route path={ pathAddressFormUpdate } exact component={  CustomerAddressForm }/>
             <Route path={ pathNotFoundPage } exact component={  LoadableNotFound }/>
         </Switch>
     );

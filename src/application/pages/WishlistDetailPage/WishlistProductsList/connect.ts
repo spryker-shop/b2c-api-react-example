@@ -1,29 +1,31 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-
-import { TCartId } from '@interfaces/cart';
 import { TAppCurrency } from '@interfaces/currency';
 import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-
 import { push } from 'connected-react-router';
 import { addItemToCartAction, multiItemsCartAction } from '@stores/actions/common/cart';
 import { deleteItemAction } from '@stores/actions/pages/wishlist';
-
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
+import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const cartLoading: boolean = isCartStateLoading(state, ownProps);
+    const isCartLoading: boolean = isCartStateLoading(state, ownProps);
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
     const cartItemsLength: number = getTotalItemsQuantity(state, ownProps);
-    const cartId: TCartId = getCartId(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
     const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
+    const products: IWishlistProduct[] | null = wishlistProps && wishlistProps.data
+        ? wishlistProps.data.currentItems : null;
+    const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
     return ({
-        isLoading: wishlistProps ? wishlistProps.pending : false,
-        cartLoading,
-        products: wishlistProps && wishlistProps.data ? wishlistProps.data.currentItems : null,
+        isLoading,
+        isCartLoading,
+        products,
+        wishlist,
         cartItemsLength,
         cartId,
         currency

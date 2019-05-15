@@ -7,9 +7,10 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
+    const isInitial: boolean = wishlistProps && wishlistProps.data ? wishlistProps.data.isInitialList : false;
 
     return ({
-        isInitial: wishlistProps && wishlistProps.data ? wishlistProps.data.isInitialList : false
+        isInitial
     });
 };
 

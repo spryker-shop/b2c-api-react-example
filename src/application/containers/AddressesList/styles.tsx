@@ -23,6 +23,9 @@ export const styles = (theme: Theme) => createStyles({
             background: 'none'
         }
     },
+    actionItemDisabled: {
+        opacity: 0.6
+    },
     actionDelete: {
         '&:hover': {
             fill: theme.appColors.red

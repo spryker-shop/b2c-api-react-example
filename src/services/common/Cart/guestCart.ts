@@ -1,5 +1,5 @@
 import api, { removeAuthToken } from '@services/api';
-import { ICartAddItem, TCartId } from '@interfaces/cart';
+import { ICartAddItem } from '@interfaces/cart';
 import { parseGuestCartResponse } from '@helpers/cart';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import * as cartActions from '@stores/actions/common/cart';
@@ -147,7 +147,7 @@ export class GuestCartService extends ApiServiceAbstract {
     public static async guestCartUpdate(
         dispatch: Function,
         payload: ICartAddItem,
-        cartId: TCartId,
+        cartId: string,
         anonymId: string
     ): Promise<void> {
         try {
