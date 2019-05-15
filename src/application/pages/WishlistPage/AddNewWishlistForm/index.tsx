@@ -33,7 +33,7 @@ class AddNewWishlistFormComponent extends React.Component<Props, State> {
         return (
             <form noValidate autoComplete="off" onSubmit={ this.addWishlist } className={ classes.form }>
                 <Grid container spacing={ 8 }>
-                    <Grid item xs>
+                    <Grid item className={`${classes.col} ${classes.colInput}`}>
                         <SprykerInput
                             inputName="wishlistName"
                             onChangeHandler={ this.handleChangeName }
@@ -44,8 +44,8 @@ class AddNewWishlistFormComponent extends React.Component<Props, State> {
                             placeholder={ <FormattedMessage id={ 'wishlist.name.title' } /> }
                         />
                     </Grid>
-                    <Grid item>
-                        <Button type="submit" variant="outlined" className={ classes.button }>
+                    <Grid item className={ classes.col }>
+                        <Button type="submit" variant="outlined" className={ classes.button } fullWidth>
                             <FormattedMessage id={ 'add.new.wishlist.title' } />
                         </Button>
                     </Grid>

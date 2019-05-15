@@ -6,6 +6,7 @@ import {
     DETAIL_WISHLIST,
     UPDATE_WISHLIST,
     WISHLIST_ALL_LISTS,
+    CLEAR_WISHLIST_STATE
 } from '@stores/actionTypes/pages/wishlist';
 import { WishlistService } from '@services/pages/Wishlist';
 
@@ -91,3 +92,7 @@ export const deleteMultiItemsAction = function (wishlistId: string, items: strin
         WishlistService.removeMultiItems(dispatch, wishlistId, items);
     };
 };
+
+export const clearWishlistState = () => ({
+    type: CLEAR_WISHLIST_STATE
+});

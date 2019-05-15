@@ -3,7 +3,7 @@ import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { IWishlistsListItemProps as Props } from './types';
 import { NavLink } from 'react-router-dom';
 import { pathWishlistsPage } from '@constants/routes';
-import { IconButton, withStyles } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import { DeleteIcon, EditIcon } from './icons';
 import { styles } from './styles';
 import { SprykerInput } from '@components/UI/SprykerInput';
@@ -71,23 +71,36 @@ const WishlistsListItemComponent: React.SFC<Props> = (props): JSX.Element => {
                 </span>
             </span>
             <div className={ classes.actions }>
-                <IconButton
-                    className={`${ classes.actionItem } ${ classes.actionEdit }`}
-                    onClick={ () => handleUpdateWishlist(id, name) }
-                    disabled={ isLoading }
-                    classes={{ disabled: classes.actionItemDisabled }}
-                >
-                    <EditIcon />
-                </IconButton>
-
-                <IconButton
-                    className={`${ classes.actionItem } ${ classes.actionDelete }`}
-                    onClick={ () => handleDeleteWishlist(id) }
-                    disabled={ isLoading }
-                    classes={{ disabled: classes.actionItemDisabled }}
-                >
-                    <DeleteIcon />
-                </IconButton>
+                <div className={ classes.actionItem }>
+                    <Button
+                        className={`${ classes.actionButton } ${ classes.actionEdit }`}
+                        onClick={ () => handleUpdateWishlist(id, name) }
+                        disabled={ isLoading }
+                        variant="outlined"
+                        fullWidth
+                        classes={{ disabled: classes.actionItemDisabled }}
+                    >
+                        <EditIcon />
+                        <span className={ classes.actionText }>
+                            <FormattedMessage id={ 'word.edit.title' } />
+                        </span>
+                    </Button>
+                </div>
+                <div className={ classes.actionItem }>
+                    <Button
+                        className={`${ classes.actionButton } ${ classes.actionDelete }`}
+                        onClick={ () => handleDeleteWishlist(id) }
+                        variant="outlined"
+                        disabled={ isLoading }
+                        fullWidth
+                        classes={{ disabled: classes.actionItemDisabled }}
+                    >
+                        <DeleteIcon />
+                        <span className={ classes.actionText }>
+                            <FormattedMessage id={ 'word.delete.title' } />
+                        </span>
+                    </Button>
+                </div>
             </div>
         </div>
     );

@@ -22,6 +22,7 @@ export const styles = (theme: Theme) => createStyles({
         background: theme.appColors.weekWhite,
         borderRadius: 4,
         flexShrink: 0,
+        lineHeight: 1.3,
         [theme.breakpoints.up('lg')]: {
             marginTop: 13
         }

@@ -86,11 +86,11 @@ export const styles = (theme: Theme) => createStyles({
     attributesValue: {
         color: theme.appColors.grey,
         fontWeight: 500,
-        paddingLeft: 5,
         flexGrow: 1
     },
     attributesTitle: {
         textTransform: 'capitalize',
+        paddingRight: 5,
         [theme.breakpoints.up('md')]: {
             width: 100
         }

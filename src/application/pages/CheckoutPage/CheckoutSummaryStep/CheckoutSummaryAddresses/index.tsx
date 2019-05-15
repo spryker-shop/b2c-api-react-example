@@ -40,7 +40,7 @@ const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element
             const countryName = countriesCollection
                 .filter(country => country.iso2Code === deliveryNewAddress.country.value)[0].name;
 
-            return { ...deliveryAddress, country: countryName };;
+            return { ...deliveryAddress, country: countryName };
         }
 
         const billingAddress: {[index: string]: string | number | boolean;} = {};
