@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
 import {
-    createPathToIdProductConcrete,
     findIdProductConcreteByPath,
     getAvailabilityDisplay,
     getInitialSuperAttrSelected,
@@ -23,33 +22,29 @@ import { ProductRelations } from '@containers/ProductRelations';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductCardImages, IProductPropFullData } from '@interfaces/product';
-import { IBreadcrumbItem, ICategory } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/category';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
-import { pathCategoryPageBase } from '@constants/routes';
 
 @(withRouter as Function)
 @connect
 export class ProductPageComponent extends React.Component<Props, State> {
     public state: State = {
-        attributeMap: null,
         superAttrSelected: {},
-        superAttributes: null,
         productType: null,
         sku: null,
         name: null,
         images: null,
         availability: null,
         description: null,
-        price: null,
-        prices: null,
-        priceOriginalGross: null,
-        priceOriginalNet: null,
-        priceDefaultGross: null,
-        priceDefaultNet: null,
-        attributes: null,
-        attributeNames: null,
-        categoriesTree: []
+        prices: {
+            priceOriginalGross: null,
+            priceOriginalNet: null,
+            priceDefaultGross: null,
+            priceDefaultNet: null,
+        },
+        categoriesTree: [],
+        descriptionAttributes: null
     };
 
     public componentDidMount = (): void => {
@@ -88,12 +83,9 @@ export class ProductPageComponent extends React.Component<Props, State> {
     };
 
     protected handleSuperAttributesChange = ({ name, value }: { name: string, value: string }): void => {
-        const { abstractProduct, concreteProducts } = this.props.product;
         const { superAttrSelected } = this.state;
         const changedSelectedAttr = { ...superAttrSelected, [name]: value };
         const isAllAttributesSelected = !Object.values(changedSelectedAttr).some(item => item === null);
-        const idProductConcrete = this.getIdProductConcrete(changedSelectedAttr);
-        let productData: IProductPropFullData | null;
 
         this.setState((prevState: State) => ({
             ...prevState,
@@ -104,53 +96,41 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }));
 
         if (isAllAttributesSelected) {
-            if (!idProductConcrete) {
-                productData = parseCurrentProductDataObject(abstractProduct, null);
-
-                this.changeProductDataState(productData);
-
-                return;
-            }
-
-            productData = parseCurrentProductDataObject(abstractProduct, concreteProducts[idProductConcrete]);
-
+            const productData = this.findAndParseConcreteProduct(changedSelectedAttr);
             this.changeProductDataState(productData);
         }
     };
 
-    protected changeProductDataState = (productData: IProductPropFullData): void => {
-        this.setState((prevState: State) => ({ ...prevState, ...productData }));
+    protected findAndParseConcreteProduct = (changedSelectedAttr): IProductPropFullData => {
+        const { abstractProduct, concreteProducts, attributeVariants } = this.props.product;
+        const path = Object.keys(changedSelectedAttr).map(attr => `${attr}:${changedSelectedAttr[attr]}`);
+        const idProductConcrete = findIdProductConcreteByPath(path, attributeVariants);
+
+        if (!idProductConcrete) {
+            return parseCurrentProductDataObject(abstractProduct, null);
+        }
+
+        return parseCurrentProductDataObject(abstractProduct, concreteProducts[idProductConcrete]);
     };
 
-    protected setInitialData = (): void => {
-        const { concreteProducts, abstractProduct, superAttributes, attributeMap } = this.props.product;
-        const concreteProductsIds = Object.keys(concreteProducts);
-        const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
-        const productData: IProductPropFullData | null = parseCurrentProductDataObject(
-            abstractProduct,
-            isOneConcreteProduct
-                ? concreteProducts[concreteProductsIds[0]]
-                : parseCurrentProductDataObject(abstractProduct, null, true)
-        );
+    protected changeProductDataState = (productData: IProductPropFullData): void =>
+        this.setState((prevState: State) => ({ ...prevState, ...productData }));
 
+    protected setInitialData = (): void => {
+        const { concreteProducts, abstractProduct, superAttributes } = this.props.product;
+        const concreteProductsIds = Object.keys(concreteProducts);
         const selectedAttrNames = getInitialSuperAttrSelected(superAttributes);
+        const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
+
+        const productData: IProductPropFullData | null = isOneConcreteProduct
+            ? parseCurrentProductDataObject(abstractProduct, concreteProducts[concreteProductsIds[0]])
+            : this.findAndParseConcreteProduct(selectedAttrNames);
 
         this.setState((prevState: State) => ({
             ...prevState,
-            superAttributes,
-            attributeMap,
             superAttrSelected: selectedAttrNames,
             ...productData
         }));
-    };
-
-    protected getIdProductConcrete = (selected: IProductAttributes): string => {
-        const path = createPathToIdProductConcrete(selected);
-        const { attribute_variants } = this.state.attributeMap;
-
-        if (path) {
-            return findIdProductConcreteByPath(path, attribute_variants);
-        }
     };
 
     protected getImageData = (images: IProductCardImages[]): IProductImage[] | null => images
@@ -185,15 +165,12 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const {
             categoriesTree,
             sku,
-            priceDefaultGross,
-            priceOriginalGross,
+            prices,
             name,
-            superAttributes,
             productType,
-            attributes,
-            attributeNames,
             description,
-            availability
+            availability,
+            descriptionAttributes
         } = this.state;
         const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
@@ -222,18 +199,19 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 <ProductGeneralInfo
                                     name={ name }
                                     sku={ sku }
-                                    price={ priceDefaultGross }
-                                    oldPrice={ priceOriginalGross ? priceOriginalGross : null }
+                                    price={ prices ? prices.priceDefaultGross : null }
+                                    oldPrice={ prices && prices.priceOriginalGross ? prices.priceOriginalGross : null }
                                     availability={ getAvailabilityDisplay(availability) }
                                 />
 
-                                { superAttributes &&
-                                <ErrorBoundary>
-                                    <ProductSuperAttribute
-                                        productData={ superAttributes }
-                                        onChange={ this.handleSuperAttributesChange }
-                                    />
-                                </ErrorBoundary>
+                                { this.props.product.superAttributes &&
+                                    <ErrorBoundary>
+                                        <ProductSuperAttribute
+                                            superAttrSelected={ this.state.superAttrSelected }
+                                            productData={ this.props.product.superAttributes }
+                                            onChange={ this.handleSuperAttributesChange }
+                                        />
+                                    </ErrorBoundary>
                                 }
 
                                 <ErrorBoundary>
@@ -253,8 +231,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                         </Grid>
                     </Grid>
                     <ProductDetail
-                        attributes={ attributes }
-                        attributeNames={ attributeNames }
+                        attributes={ descriptionAttributes }
                         description={ description }
                         sku={ sku ? sku : this.props.product.abstractProduct.sku }
                     />

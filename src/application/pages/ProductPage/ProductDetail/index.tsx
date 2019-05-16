@@ -13,7 +13,7 @@ export class ProductDetailComponent extends React.Component<Props, State> {
     protected handleChangeTab = (event: React.MouseEvent<HTMLElement>, value: number) => this.setState({ value });
 
     public render() {
-        const { classes, attributes, attributeNames, description, sku } = this.props;
+        const { classes, attributes, description, sku } = this.props;
         const { value } = this.state;
 
         return (
@@ -43,25 +43,22 @@ export class ProductDetailComponent extends React.Component<Props, State> {
                     { value === 0 &&
                         <ContentCollapser>
                             <Grid container spacing={ 16 }>
-                                { Object.entries(attributes).map((data: [string, string]) => (
+                                { Boolean(attributes.length) ? attributes.map(attribute => (
                                     <Grid
                                         item
                                         xs={ 12 }
                                         sm={ 6 }
                                         md={ 4 }
-                                        key={`${attributeNames[data[0]] }-${ data[1]}`}
+                                        key={`${ attribute.name }-${ attribute.value }`}
                                     >
                                         <div className={ classes.attributes }>
                                             <strong className={ classes.attributesName }>
-                                                { `${ attributeNames[data[0]]
-                                                    ? attributeNames[data[0]]
-                                                    : <FormattedMessage id={ 'no.translations.title' } /> }: `
-                                                }
+                                                { attribute.name }
                                             </strong>
-                                            <span className={ classes.attributesValue }>{ data[1] }</span>
+                                            <span className={ classes.attributesValue }>{ attribute.value }</span>
                                         </div>
                                     </Grid>
-                                )) }
+                                )) : null }
                             </Grid>
                         </ContentCollapser>
                     }

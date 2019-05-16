@@ -4,32 +4,34 @@ import { IProductSuperAttributeProps as Props, IProductSuperAttributeState as St
 import { ISuperAttribute } from '@helpers/product/types';
 
 export class ProductSuperAttribute extends React.Component<Props, State> {
-    public state: State = {
-        selectedValues: null
-    };
+    // public state: State = {
+    //     selectedValues: null
+    // };
 
-    protected onChange = ({ name, value }: { name: string, value: string }): void => {
-        const { selectedValues } = this.state;
-        const updatedValues = selectedValues === null
-            ? { [name]: value }
-            : {
-                ...selectedValues,
-                [name]: value
-            };
-
-        this.props.onChange({ name, value });
-        this.setState({ selectedValues: updatedValues });
-    };
+    // protected onChange = ({ name, value }: { name: string, value: string }): void => {
+    //     const { selectedValues } = this.state;
+    //     const updatedValues = selectedValues === null
+    //         ? { [name]: value }
+    //         : {
+    //             ...selectedValues,
+    //             [name]: value
+    //         };
+    //
+    //
+    //     // this.setState({ selectedValues: updatedValues });
+    // };
 
     public render(): JSX.Element {
-        const { productData } = this.props;
+        const { productData, superAttrSelected } = this.props;
+        // console.log(this.state.selectedValues, 'selectedValues selectedValues selectedValues selectedValues');
 
         return (
             <>
-                { productData.map((attribute: ISuperAttribute, index) => (
+                { productData.map((attribute: ISuperAttribute) => (
                     <SuperAttributeBlock
+                        superAttrSelected={ superAttrSelected[attribute.name] }
                         attributeData={ attribute }
-                        onValueChanged={ this.onChange }
+                        onValueChanged={ this.props.onChange }
                         key={ attribute.name }
                     />
                 )) }

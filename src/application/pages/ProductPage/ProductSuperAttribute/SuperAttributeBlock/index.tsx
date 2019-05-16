@@ -4,25 +4,25 @@ import { ISuperAttributeBlockProps as Props, ISuperAttributeBlockState as State 
 import { styles } from './styles';
 
 export class SuperAttributeBlockComponent extends React.Component<Props, State> {
-    public state: State = {
-        selectedItemValue: ''
-    };
+    // public state: State = {
+    //     selectedItemValue: ''
+    // };
 
-    protected selectAttribute = (selectedValue: string) => {
+    protected selectAttribute = (value: string) => {
         const { onValueChanged, attributeData: { name } } = this.props;
-        const value: string = selectedValue.length > 0 ? selectedValue : name;
-
+        // const value: string = selectedValue.length > 0 ? selectedValue : name;
+// console.log(value, selectedValue, name);
         onValueChanged({ name, value });
-        this.setState(() => ({ selectedItemValue: value }));
+        // this.setState({ selectedItemValue: value });
     };
 
     protected renderProductAttributes = (): JSX.Element[] => {
-        const { classes, attributeData } = this.props;
-        const { selectedItemValue } = this.state;
+        const { classes, attributeData, superAttrSelected } = this.props;
+        // const { selectedItemValue } = this.state;
 
         return attributeData.data.map(attribute => {
-            const isSelected = attribute.value.length > 0 ? attribute.value === selectedItemValue
-                : attribute.name === selectedItemValue;
+            const isSelected = attribute.value.length > 0 ? attribute.value === superAttrSelected
+                : attribute.name === superAttrSelected;
 
             return (
                 <div

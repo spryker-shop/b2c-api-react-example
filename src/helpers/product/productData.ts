@@ -21,15 +21,10 @@ export const parseCurrentProductDataObject = (
         images,
         availability: getCurrentProduct ? getCurrentProduct.availability : false,
         description: concreteProduct ? concreteProduct.description : abstractProduct.description,
-        price: getCurrentProduct ? getCurrentProduct.price : null,
         prices: getCurrentProduct ? getCurrentProduct.prices : null,
-        priceOriginalGross: getCurrentProduct ? getCurrentProduct.priceOriginalGross : null,
-        priceOriginalNet: getCurrentProduct ? getCurrentProduct.priceOriginalNet : null,
-        priceDefaultGross: getCurrentProduct ? getCurrentProduct.priceDefaultGross : null,
-        priceDefaultNet: getCurrentProduct ? getCurrentProduct.priceDefaultNet : null,
         attributes: concreteProduct ? concreteProduct.attributes : abstractProduct.attributes,
-        attributeNames: concreteProduct ? concreteProduct.attributeNames : abstractProduct.attributeNames,
         quantity: concreteProduct ? concreteProduct.quantity : abstractProduct.quantity,
         productType: concreteProduct ? concreteProduct.productType : absentProductType,
+        descriptionAttributes: concreteProduct ? concreteProduct.descriptionAttributes : abstractProduct.descriptionAttributes
     };
 };

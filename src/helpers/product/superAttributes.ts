@@ -42,9 +42,9 @@ export const getInitialSuperAttrSelected = (superAttributes: ISuperAttribute[]):
     }
 
     const superAttrSelected: IProductAttributes = {};
-    const selectedAttrNames = attributes.map((attr: ISuperAttribute) => (attr.name)).reduce(
-        (acc: IProductAttributes, name: string) => {
-            acc[name] = null;
+    const selectedAttrNames = attributes.map((attr: ISuperAttribute) => [attr.name, attr.data[0].value]).reduce(
+        (acc: IProductAttributes, current: string[]) => {
+            acc[current[0]] = current[1];
 
             return acc;
         }, superAttrSelected

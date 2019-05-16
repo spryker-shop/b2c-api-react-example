@@ -7,7 +7,8 @@ import {
     IProductDataParsed,
     IProductPricesItem,
     priceTypeNameDefault,
-    priceTypeNameOriginal
+    priceTypeNameOriginal,
+    IProductPropFullData
 } from '@interfaces/product';
 import {
     IProductAvailabilitiesRawResponse,
@@ -24,50 +25,50 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         return null;
     }
 
+    const initialProductData: IProductPropFullData = {
+        sku: null,
+        name: null,
+        description: null,
+        descriptionAttributes: null,
+        images: null,
+        prices: {
+            priceOriginalGross: null,
+            priceOriginalNet: null,
+            priceDefaultGross: null,
+            priceDefaultNet: null,
+        },
+        availability: null,
+        quantity: null,
+        productType: null
+    };
     const { data, included } = response;
     const result: IProductDataParsed = {
-        attributeMap: data.attributes.attributeMap,
+        attributeVariants: data.attributes.attributeMap.attribute_variants,
         superAttributes: null,
         abstractProduct: {
+            ...initialProductData,
             sku: data.attributes.sku,
             name: data.attributes.name,
             description: data.attributes.description,
             attributes: data.attributes.attributes,
             attributeNames: data.attributes.attributeNames,
-            images: [],
-            price: null,
-            prices: null,
-            priceOriginalGross: null,
-            priceOriginalNet: null,
-            priceDefaultGross: null,
-            priceDefaultNet: null,
-            availability: null,
-            quantity: null,
             productType: abstractProductType
         },
         concreteProducts: {},
         productLabels: []
     };
 
+    result.abstractProduct.descriptionAttributes =
+        parseDescriptionAttributes(data.attributes.attributeNames, data.attributes.attributes);
+
+    // console.log(data, included);
+
     let attributeNamesContainer: IProductAttributeNames = {};
 
     if (data.attributes.attributeMap.product_concrete_ids) {
         data.attributes.attributeMap.product_concrete_ids.forEach((id: string) => {
             result.concreteProducts[id] = {
-                sku: null,
-                name: null,
-                description: null,
-                attributes: null,
-                attributeNames: null,
-                images: null,
-                price: null,
-                prices: null,
-                priceOriginalGross: null,
-                priceOriginalNet: null,
-                priceDefaultGross: null,
-                priceDefaultNet: null,
-                availability: null,
-                quantity: null,
+                ...initialProductData,
                 productType: concreteProductType
             };
         });
@@ -80,19 +81,8 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             return;
         }
         if (row.type === 'abstract-product-prices') {
-            result.abstractProduct.price = row.attributes.price;
-            result.abstractProduct.prices = row.attributes.prices;
             if (row.attributes.prices && row.attributes.prices.length) {
-                row.attributes.prices.forEach((priceData: IProductPricesItem) => {
-                    if (priceData.priceTypeName === priceTypeNameDefault) {
-                        result.abstractProduct.priceDefaultGross = priceData.grossAmount;
-                        result.abstractProduct.priceDefaultNet = priceData.netAmount;
-                    }
-                    if (priceData.priceTypeName === priceTypeNameOriginal) {
-                        result.abstractProduct.priceOriginalGross = priceData.grossAmount;
-                        result.abstractProduct.priceOriginalNet = priceData.netAmount;
-                    }
-                });
+                result.abstractProduct.prices = parsePrices(row.attributes.prices);
             }
 
             return;
@@ -107,8 +97,8 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             result.concreteProducts[row.id].name = row.attributes.name;
             result.concreteProducts[row.id].sku = row.attributes.sku;
             result.concreteProducts[row.id].description = row.attributes.description;
-            result.concreteProducts[row.id].attributes = row.attributes.attributes;
-            result.concreteProducts[row.id].attributeNames = row.attributes.attributeNames;
+            result.concreteProducts[row.id].descriptionAttributes =
+                parseDescriptionAttributes(row.attributes.attributeNames, row.attributes.attributes);
             attributeNamesContainer = { ...attributeNamesContainer, ...row.attributes.attributeNames };
 
             return;
@@ -119,19 +109,8 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             return;
         }
         if (row.type === 'concrete-product-prices' && !result.concreteProducts[row.id].price) {
-            result.concreteProducts[row.id].price = row.attributes.price;
-            result.concreteProducts[row.id].prices = row.attributes.prices;
             if (row.attributes.prices && row.attributes.prices.length) {
-                row.attributes.prices.forEach((priceData: IProductPricesItem) => {
-                    if (priceData.priceTypeName === priceTypeNameDefault) {
-                        result.concreteProducts[row.id].priceDefaultGross = priceData.grossAmount;
-                        result.concreteProducts[row.id].priceDefaultNet = priceData.netAmount;
-                    }
-                    if (priceData.priceTypeName === priceTypeNameOriginal) {
-                        result.concreteProducts[row.id].priceOriginalGross = priceData.grossAmount;
-                        result.concreteProducts[row.id].priceOriginalNet = priceData.netAmount;
-                    }
-                });
+                result.concreteProducts[row.id].prices = parsePrices(row.attributes.prices);
             }
 
             return;
@@ -172,6 +151,35 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     result.superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
 
     return result;
+};
+
+const parseDescriptionAttributes = (attributeNames, attributeValues) => Object.keys(attributeNames)
+    .filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
+        name: attributeNames[attributeKey],
+        value: attributeValues[attributeKey]
+    }));
+
+const parsePrices = (prices) => {
+    let pricesObject = {};
+
+    prices.forEach((priceData: IProductPricesItem) => {
+        if (priceData.priceTypeName === priceTypeNameDefault) {
+            pricesObject = {
+                ...pricesObject,
+                priceDefaultGross: priceData.grossAmount,
+                priceDefaultNet: priceData.netAmount
+            };
+        }
+        if (priceData.priceTypeName === priceTypeNameOriginal) {
+            pricesObject = {
+                ...pricesObject,
+                priceOriginalGross: priceData.grossAmount,
+                priceOriginalNet: priceData.netAmount
+            };
+        }
+    });
+
+    return pricesObject;
 };
 
 export const parseProductAvailabilityResponse = (response: IProductAvailabilitiesRawResponse):
