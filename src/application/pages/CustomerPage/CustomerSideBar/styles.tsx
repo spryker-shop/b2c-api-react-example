@@ -6,7 +6,7 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 20,
         overflow: 'auto',
         [theme.breakpoints.up('md')]: {
-            overflow: 'hidden'
+            overflow: 'visible'
         }
     },
     list: {
