@@ -23,9 +23,6 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.weakGrey,
         textAlign: 'center'
     },
-    price: {
-        fontSize: 15
-    },
     totalText: {
         fontSize: 18
     },

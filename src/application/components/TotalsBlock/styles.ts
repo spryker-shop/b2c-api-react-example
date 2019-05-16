@@ -21,7 +21,10 @@ export const styles = (theme: Theme) => createStyles({
     discountText: {
         color: theme.appColors.red
     },
-    price: {},
+    price: {
+        fontSize: 15,
+        fontWeight: 500
+    },
     totalTextPrice: {
         fontSize: 18,
         fontWeight: 700

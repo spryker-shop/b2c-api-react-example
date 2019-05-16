@@ -44,10 +44,6 @@ export const styles = (theme: Theme) => createStyles({
             paddingBottom: 20
         }
     },
-    totalPrice: {
-        fontSize: 15,
-        fontWeight: 500
-    },
     subheading: {
         display: 'flex',
         justifyContent: 'space-between',

@@ -51,8 +51,7 @@ class CheckoutCartComponent extends React.Component<Props, State> {
                                 totals={ totals }
                                 classes={{
                                     row: classes.totalRow,
-                                    wrapper: classes.totalsInner,
-                                    price: classes.totalPrice
+                                    wrapper: classes.totalsInner
                                 }}
                             />
                             { isSummaryPage &&

@@ -62,11 +62,32 @@ export const styles = (theme: Theme) => createStyles({
     },
     blockTitle: {
         fontWeight: 700,
-        paddingBottom: 20,
-        fontSize: 20
+        paddingBottom: 10,
+        fontSize: 20,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 20
+        }
     },
     totalWrapper: {
         paddingBottom: 0
+    },
+    totalRow: {
+        paddingBottom: 8,
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 15,
+        }
+    },
+    totalText: {
+        fontSize: 14,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 18
+        }
+    },
+    totalTextPrice: {
+        fontSize: 18,
+        [theme.breakpoints.up('md')]: {
+            fontSize: 20
+        }
     },
     back: {
         display: 'flex',

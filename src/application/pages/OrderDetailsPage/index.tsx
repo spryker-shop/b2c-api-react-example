@@ -104,13 +104,13 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                                     </Typography>
                                     <TotalsBlock
                                         totals={ order.totals }
-                                        classes={{ discountText: classes.discountText, wrapper: classes.totalWrapper }}
                                         expenses={ order.expenses }
                                         isMinus={ false }
                                         classes={{
+                                            discountText: classes.discountText,
+                                            wrapper: classes.totalWrapper,
                                             row: classes.totalRow,
-                                            wrapper: classes.totalsInner,
-                                            price: classes.totalPrice,
+                                            totalText: classes.totalText,
                                             totalTextPrice: classes.totalTextPrice
                                         }}
                                     />
