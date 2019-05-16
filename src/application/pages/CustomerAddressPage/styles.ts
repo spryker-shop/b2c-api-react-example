@@ -6,13 +6,22 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 20,
     },
     submit: {
-        minWidth: 160
+        width: '100%',
+        marginBottom: 15,
+        [theme.breakpoints.up('lg')]: {
+            minWidth: 160,
+            width: 'auto'
+        }
     },
     actions: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 10
+        flexDirection: 'column-reverse',
+        paddingTop: 10,
+        [theme.breakpoints.up('lg')]: {
+            flexDirection: 'row'
+        }
     },
     back: {
         display: 'flex',
@@ -23,6 +32,7 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.lightGrey,
         transition: 'color 0.3s ease-in-out',
         textDecoration: 'none',
+        padding: '15px 0',
         '&:hover': {
             color: theme.appColors.grey
         }

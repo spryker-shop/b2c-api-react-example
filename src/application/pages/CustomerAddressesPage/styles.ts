@@ -6,12 +6,18 @@ export const styles = (theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingBottom: 30
+        paddingBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            paddingBottom: 30
+        }
     },
     title: {
         fontSize: 20
     },
     addButton: {
-        minWidth: 160
+        minWidth: 110,
+        [theme.breakpoints.up('sm')]: {
+            minWidth: 160
+        }
     },
 });
