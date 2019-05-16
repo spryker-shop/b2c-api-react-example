@@ -17,7 +17,6 @@ export const styles = (theme: Theme) => createStyles({
     colSidebar: {
         width: '100%',
         padding: '0 9px',
-
         [theme.breakpoints.up('md')]: {
             width: '29%',
             padding: '0 10px 0 25px',
@@ -30,7 +29,6 @@ export const styles = (theme: Theme) => createStyles({
     colContent: {
         width: '100%',
         padding: '0 25px',
-
         [theme.breakpoints.up('md')]: {
             width: '71%',
             padding: '0 25px 0 10px',
