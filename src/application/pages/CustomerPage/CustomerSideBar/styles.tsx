@@ -68,7 +68,7 @@ export const styles = (theme: Theme) => createStyles({
     link: {
         display: 'flex',
         alignItems: 'center',
-        padding: '16px',
+        padding: '14px 16px',
         fontSize: 14,
         fontWeight: 500,
         lineHeight: 1.6,

@@ -9,7 +9,7 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 15
     },
     orderItem: {
-        padding: '16px 20px',
+        padding: '16px 15px',
         marginBottom: 14,
         borderRadius: 4,
         background: theme.appColors.weekWhite,
@@ -104,7 +104,7 @@ export const styles = (theme: Theme) => createStyles({
         height: 14
     },
     actionText: {
-        paddingLeft: 6,
+        paddingLeft: 11,
         [theme.breakpoints.up('sm')]: {
             display: 'none'
         },
