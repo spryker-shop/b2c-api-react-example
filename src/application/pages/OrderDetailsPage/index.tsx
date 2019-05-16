@@ -72,20 +72,22 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                         { isOrderExist
                             ? <>
                                 <div className={ classes.block }>
-                                    <dl className={ classes.generalInfo }>
-                                        <dt className={ classes.generalInfoTitle }>
+                                    <span className={ classes.generalInfoRow }>
+                                        <span className={ classes.generalInfoTitle }>
                                             <FormattedMessage id={ 'order.detail.number.title' } />
-                                        </dt>
-                                        <dd className={ classes.generalInfoDescritption }>
+                                        </span>
+                                        <span className={ classes.generalInfoDescritption }>
                                             { order.id }
-                                        </dd>
-                                        <dt className={ classes.generalInfoTitle }>
+                                        </span>
+                                    </span>
+                                    <span className={ classes.generalInfoRow }>
+                                        <span className={ classes.generalInfoTitle }>
                                             <FormattedMessage id={ 'order.detail.date.title' } />
-                                        </dt>
-                                        <dd className={ classes.generalInfoDescritption }>
+                                        </span>
+                                        <span className={ classes.generalInfoDescritption }>
                                             <DateFormatter date={ order.dateCreated } />
-                                        </dd>
-                                    </dl>
+                                        </span>
+                                    </span>
                                     <OrderProductList items={ order.items } />
                                 </div>
                                 <AddressDetails
@@ -105,6 +107,12 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                                         classes={{ discountText: classes.discountText, wrapper: classes.totalWrapper }}
                                         expenses={ order.expenses }
                                         isMinus={ false }
+                                        classes={{
+                                            row: classes.totalRow,
+                                            wrapper: classes.totalsInner,
+                                            price: classes.totalPrice,
+                                            totalTextPrice: classes.totalTextPrice
+                                        }}
                                     />
                                 </div>
 

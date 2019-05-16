@@ -13,12 +13,12 @@ export const styles = (theme: Theme) => createStyles({
         flexWrap: 'nowrap',
         background: theme.appColors.white,
         position: 'relative',
-        '&:last-child': {
-            marginBottom: 0
-        },
         [theme.breakpoints.up('lg')]: {
             marginBottom: 20,
             padding: '20px 20px 36px 60px',
+        },
+        '&:last-child': {
+            marginBottom: 0
         }
     },
     imgWrapper: {

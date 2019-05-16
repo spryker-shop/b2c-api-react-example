@@ -48,10 +48,6 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 15,
         fontWeight: 500
     },
-    totalTextPrice: {
-        fontSize: 18,
-        fontWeight: 700
-    },
     subheading: {
         display: 'flex',
         justifyContent: 'space-between',

@@ -61,6 +61,9 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.black
     },
     textHightlight: {
-        color: theme.appColors.blue
+        color: theme.appColors.blue,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverFlow: 'ellipsis'
     }
 });

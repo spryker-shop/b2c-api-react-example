@@ -23,6 +23,7 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         flexShrink: 0,
         lineHeight: 1.3,
+        marginTop: 5,
         [theme.breakpoints.up('lg')]: {
             marginTop: 13
         }

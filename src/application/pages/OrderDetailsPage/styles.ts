@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
-const generalInfoTitleWidth = 113;
-
 export const styles = (theme: Theme) => createStyles({
     heading: {
         display: 'flex',
@@ -25,43 +23,47 @@ export const styles = (theme: Theme) => createStyles({
         borderRadius: 4,
         flexShrink: 0,
         lineHeight: 1.3,
+        marginTop: 5,
         [theme.breakpoints.up('lg')]: {
             marginTop: 13
         }
     },
     block: {
-        padding: 25,
+        padding: 15,
         background: theme.appColors.weekWhite,
         borderRadius: 4,
-        marginBottom: 20
+        marginBottom: 20,
+        [theme.breakpoints.up('lg')]: {
+            padding: 20
+        }
     },
-    generalInfo: {
+    generalInfoRow: {
         display: 'flex',
         flexWrap: 'wrap',
-        fontSize: 16,
+        fontSize: 14,
         letterSpacing: 0.2,
         lineHeight: 1.7,
         color: theme.appColors.grey,
-        margin: 0,
-        paddingBottom: 10
+        paddingBottom: 10,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 16
+        }
     },
     generalInfoDescritption: {
-        paddingBottom: 7,
-        margin: 0,
-        width: `calc(100% - ${generalInfoTitleWidth}px)`
+        flexGrow: 1
     },
     generalInfoTitle: {
-        paddingBottom: 7,
         color: theme.appColors.black,
-        width: generalInfoTitleWidth,
-        fontWeight: 500
+        fontWeight: 500,
+        width: 110
     },
     discountText: {
         color: theme.appColors.grey
     },
     blockTitle: {
         fontWeight: 700,
-        paddingBottom: 20
+        paddingBottom: 20,
+        fontSize: 20
     },
     totalWrapper: {
         paddingBottom: 0
