@@ -3,77 +3,111 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     orderList: {},
+    amount: {
+        display: 'block',
+        paddingBottom: 12,
+        fontSize: 15
+    },
     orderItem: {
         padding: '16px 20px',
-        marginBottom: 20,
+        marginBottom: 14,
         borderRadius: 4,
-        background: theme.appColors.weekWhite
+        background: theme.appColors.weekWhite,
+        position: 'relative',
+        [theme.breakpoints.up('sm')]: {
+            paddingRight: 110
+        },
+        [theme.breakpoints.up('lg')]: {
+            marginBottom: 20
+        }
+    },
+    col: {
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        [theme.breakpoints.up('lg')]: {
+            alignItems: 'flex-start',
+            flexDirection: 'column'
+        }
     },
     orderText: {
-        display: 'inline-block',
-        width: '50%',
-        fonSize: 16,
+        fontSize: 15,
         lineHeight: 1.7,
         letterSpacing: 0.2,
         color: theme.appColors.grey,
-
         [theme.breakpoints.up('md')]: {
-            display: 'block',
-            width: '100%'
+            fontSize: 14
+        },
+        [theme.breakpoints.up('lg')]: {
+            flexGrow: 0,
+            fontSize: 16
         }
     },
     orderTitle: {
         fontWeight: 500,
-        color: theme.appColors.black
+        color: theme.appColors.black,
+        width: 110,
+        [theme.breakpoints.up('lg')]: {
+            width: 'auto'
+        }
     },
+
     actions: {
         display: 'flex',
         alignItems: 'center',
-        height: '100%',
-
-        [theme.breakpoints.up('md')]: {
-            margin: '0 -10px',
-            justifyContent: 'flex-end'
+        margin: -7,
+        paddingTop: 10,
+        [theme.breakpoints.up('sm')]: {
+            paddingTop: 0,
+            margin: 0,
+            position: 'absolute',
+            right: 15,
+            top: 11
         },
-    },
-    viewLink: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '15px 30px',
-        color: theme.appColors.blue,
-        transition: 'color 0.3s ease-in-out',
-        lineHeight: 0,
-        textDecoration: 'none',
-        border: `1px solid ${theme.appColors.lightGrey}`,
-        borderRadius: 4,
-
-        [theme.breakpoints.up('md')]: {
-            padding: 10,
-            color: theme.appColors.lightGrey,
-            border: 'none'
-        },
-
-        '&:hover': {
-            color: theme.appColors.blue
+        [theme.breakpoints.up('lg')]: {
+            top: '50%',
+            transform: 'translateY(-50%)'
         }
     },
-    viewIcon: {
-        display: 'block',
+    actionItem: {
+        padding: 7,
+        flex: '1 1 100%',
+        [theme.breakpoints.up('sm')]: {
+            flex: '0 1 auto',
+            padding: 0
+        }
+    },
+    actionButton: {
         fill: 'currentColor',
+        lineHeight: 1,
+        fontSize: 14,
+        padding: 10,
+        height: 50,
+        minWidth: 0,
+        color: theme.appColors.blue,
+        [theme.breakpoints.up('sm')]: {
+            color: theme.appColors.lightGrey,
+            border: 'none',
+            height: 'auto',
+            background: 'none',
+            transition: 'color 0.3s ease-in-out',
+            '&:hover': {
+                background: 'none',
+                border: 'none',
+                color: theme.appColors.blue
+            },
+        }
+    },
+    actionIcon: {
+        display: 'block',
         width: 26,
         height: 14
     },
-    viewText: {
-        display: 'inline-block',
-        marginLeft: 6,
-
-        [theme.breakpoints.up('md')]: {
+    actionText: {
+        paddingLeft: 6,
+        [theme.breakpoints.up('sm')]: {
             display: 'none'
         },
-    },
-    amount: {
-        display: 'block',
-        paddingBottom: 12
     },
     tooltipWrapper: {
         position: 'relative',

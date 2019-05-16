@@ -2,14 +2,15 @@ import * as React from 'react';
 import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
-import { withStyles, Grid, Typography, Tooltip } from '@material-ui/core';
-import { pathOrderDetailsPageBase } from '@constants/routes';
+import { withStyles, Grid, Typography, Tooltip, Button } from '@material-ui/core';
+import { pathCheckoutPage, pathOrderDetailsPageBase } from '@constants/routes';
 import { AppPrice } from '@components/AppPrice';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
 import { DateFormatter } from '@components/DateFormatter';
+import { DeleteIcon } from '@pages/WishlistPage/WishlistsList/WishlistsListItem/icons';
 
 @connect
 class OrdersListComponent extends React.Component<Props> {
@@ -39,13 +40,13 @@ class OrdersListComponent extends React.Component<Props> {
                 return (
                     <div className={ classes.orderItem } key={ `id-${ order.id }` }>
                         <Grid container spacing={ 8 }>
-                            <Grid item xs={ 12 } md={ 3 }>
+                            <Grid item xs={ 12 } lg={ 3 } className={ classes.col }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'order.id.title' } />
                                 </span>
                                 <span className={ classes.orderText }>{ order.id }</span>
                             </Grid>
-                            <Grid item xs={ 12 } md={ 4 }>
+                            <Grid item xs={ 12 } lg={ 5 } className={ classes.col }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'orders.date.title' } />
                                 </span>
@@ -53,7 +54,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     <DateFormatter date={ order.dateCreated } />
                                 </span>
                             </Grid>
-                            <Grid item xs={ 12 } md={ 3 }>
+                            <Grid item xs={ 12 } lg={ 4 } className={ classes.col }>
                                 <span className={ `${ classes.orderText } ${ classes.orderTitle }` }>
                                     <FormattedMessage id={ 'orders.total.title' } />
                                 </span>
@@ -65,33 +66,40 @@ class OrdersListComponent extends React.Component<Props> {
                                     />
                                 </span>
                             </Grid>
-                            <Grid item xs={ 12 } md={ 2 }>
-                                <div className={ classes.actions }>
-                                    <Tooltip
-                                        title={
-                                            <>
-                                                <FormattedMessage id={ 'orders.view.order.title' } />
-                                                <span className={ classes.tooltipArrow } />
-                                            </>
+                        </Grid>
+                        <div className={ classes.actions }>
+                            <div className={ classes.actionItem }>
+                                <Tooltip
+                                    title={
+                                        <>
+                                            <FormattedMessage id={ 'orders.view.order.title' } />
+                                            <span className={ classes.tooltipArrow } />
+                                        </>
+                                    }
+                                    placement="top"
+                                    classes={ { tooltip: classes.tooltipWrapper } }
+                                >
+                                    <Button
+                                        className={ classes.actionButton }
+                                        variant="outlined"
+                                        fullWidth
+                                        component={ ({ innerRef, ...props }) =>
+                                            <NavLink
+                                                { ...props }
+                                                to={`${ pathOrderDetailsPageBase }/${ order.id }`}
+                                            />
                                         }
-                                        placement="top"
-                                        classes={ { tooltip: classes.tooltipWrapper } }
                                     >
-                                        <NavLink
-                                            to={ `${ pathOrderDetailsPageBase }/${ order.id }` }
-                                            className={ classes.viewLink }
-                                        >
-                                            <span className={ classes.viewIcon }>
+                                            <span className={ classes.actionIcon }>
                                                 <ViewIcon />
                                             </span>
-                                            <span className={ classes.viewText }>
+                                        <span className={ classes.actionText }>
                                                 <FormattedMessage id={ 'view.title' } />
                                             </span>
-                                        </NavLink>
-                                    </Tooltip>
-                                </div>
-                            </Grid>
-                        </Grid>
+                                    </Button>
+                                </Tooltip>
+                            </div>
+                        </div>
                     </div>
                 );
             }
