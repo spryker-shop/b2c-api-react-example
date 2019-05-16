@@ -52,7 +52,7 @@ class AddressesListComponent extends React.Component<Props> {
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
 
         return (
-            <Grid item key={ data.id || data.zipCode } xs={ 12 } lg={ 6 } className={ classes.col }>
+            <Grid item key={ data.id } xs={ 12 } lg={ 6 } className={ classes.col }>
                 <AddressDetails
                     address={ data }
                     title={ <FormattedMessage id={ addressTitle } /> }

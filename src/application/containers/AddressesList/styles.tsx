@@ -3,16 +3,16 @@ import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
     container: {
-        margin: '-7px',
+        margin: -7,
         width: 'auto',
         [theme.breakpoints.up('lg')]: {
-            margin: '-15px'
+            margin: -15
         }
     },
     col: {
-        padding: '7px',
+        padding: 7,
         [theme.breakpoints.up('lg')]: {
-            padding: '15px'
+            padding: 15
         }
     },
     addressContainer: {
