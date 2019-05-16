@@ -21,8 +21,7 @@ export class SuperAttributeBlockComponent extends React.Component<Props, State> 
         // const { selectedItemValue } = this.state;
 
         return attributeData.data.map(attribute => {
-            const isSelected = attribute.value.length > 0 ? attribute.value === superAttrSelected
-                : attribute.name === superAttrSelected;
+            const isSelected = attribute.value === superAttrSelected;
 
             return (
                 <div

@@ -14,7 +14,6 @@ import { TAppStore } from '@interfaces/store';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
     product: IProductDataParsed | null;
-    isAppDataSet: boolean;
     isUserLoggedIn: boolean;
     appPriceMode: string | null;
     appStore: TAppStore;

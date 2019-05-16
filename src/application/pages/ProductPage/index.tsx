@@ -52,7 +52,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        if (this.props.isRejected || this.props.isLoading || !this.props.isAppDataSet) {
+        if (this.props.isRejected || this.props.isLoading) {
             return;
         }
 
@@ -174,8 +174,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         } = this.state;
         const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
         const images = this.getImageData(this.state.images);
-        const isComponentLoading = !this.props.product || !this.state.productType || !this.props.isAppDataSet ||
-            this.props.isRejected;
+        const isComponentLoading = !this.props.product || !this.state.productType || this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const isParallelRequest = isDevServer ? shouldLoadRelationsImmediately : true;
