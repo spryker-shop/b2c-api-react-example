@@ -7,7 +7,7 @@ export const styles = (theme: Theme) => createStyles({
         flexWrap: 'wrap',
         paddingBottom: 40,
         margin: '0 -25px',
-        [theme.breakpoints.up('lg')]: {
+        [theme.breakpoints.up('md')]: {
             paddingBottom: 60
         },
         [theme.breakpoints.up('lg')]: {
