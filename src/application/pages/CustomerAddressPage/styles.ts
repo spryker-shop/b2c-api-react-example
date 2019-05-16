@@ -9,6 +9,7 @@ export const styles = (theme: Theme) => createStyles({
         width: '100%',
         marginBottom: 15,
         [theme.breakpoints.up('lg')]: {
+            margin: 0,
             minWidth: 160,
             width: 'auto'
         }
