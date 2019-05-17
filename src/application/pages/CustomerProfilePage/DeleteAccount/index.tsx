@@ -56,7 +56,7 @@ export class DeleteAccountComponent extends React.Component<Props, State> {
                         handleShow={ this.handleDeleteProfileDialogShowing }
                         isOpen={ this.state.isDeleteProfileDialogOpen }
                     >
-                        <Typography component="h3" variant="h3" className={ classes.text } >
+                        <Typography component="h3" variant="h3" className={`${classes.text} ${classes.textMessage}`} >
                             <FormattedMessage id={ 'confirm.delete.account.message' } />
                         </Typography>
                         <Grid container spacing={ 16 }>

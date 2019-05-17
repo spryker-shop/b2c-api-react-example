@@ -8,6 +8,9 @@ import { styles } from './styles';
 import { DateFormatter } from '@components/DateFormatter';
 import { AddressDetails } from '@components/AddressDetails';
 import { TotalsBlock } from '@components/TotalsBlock';
+import { NavLink } from 'react-router-dom';
+import { pathCustomerOverviewPage } from '@constants/routes';
+import { PrevIcon } from './icons';
 
 @connect
 class OrderDetailsPageComponent extends React.Component<Props, State> {
@@ -69,20 +72,22 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                         { isOrderExist
                             ? <>
                                 <div className={ classes.block }>
-                                    <dl className={ classes.generalInfo }>
-                                        <dt className={ classes.generalInfoTitle }>
+                                    <span className={ classes.generalInfoRow }>
+                                        <span className={ classes.generalInfoTitle }>
                                             <FormattedMessage id={ 'order.detail.number.title' } />
-                                        </dt>
-                                        <dd className={ classes.generalInfoDescritption }>
+                                        </span>
+                                        <span className={ classes.generalInfoDescritption }>
                                             { order.id }
-                                        </dd>
-                                        <dt className={ classes.generalInfoTitle }>
+                                        </span>
+                                    </span>
+                                    <span className={ classes.generalInfoRow }>
+                                        <span className={ classes.generalInfoTitle }>
                                             <FormattedMessage id={ 'order.detail.date.title' } />
-                                        </dt>
-                                        <dd className={ classes.generalInfoDescritption }>
+                                        </span>
+                                        <span className={ classes.generalInfoDescritption }>
                                             <DateFormatter date={ order.dateCreated } />
-                                        </dd>
-                                    </dl>
+                                        </span>
+                                    </span>
                                     <OrderProductList items={ order.items } />
                                 </div>
                                 <AddressDetails
@@ -99,10 +104,25 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
                                     </Typography>
                                     <TotalsBlock
                                         totals={ order.totals }
-                                        classes={{ discountText: classes.discountText, wrapper: classes.totalWrapper }}
                                         expenses={ order.expenses }
                                         isMinus={ false }
+                                        classes={{
+                                            discountText: classes.discountText,
+                                            wrapper: classes.totalWrapper,
+                                            row: classes.totalRow,
+                                            totalText: classes.totalText,
+                                            totalTextPrice: classes.totalTextPrice
+                                        }}
                                     />
+                                </div>
+
+                                <div className={ classes.back }>
+                                    <NavLink to={ pathCustomerOverviewPage } className={ classes.backLink }>
+                                        <span className={ classes.icon } >
+                                            <PrevIcon />
+                                        </span>
+                                        <FormattedMessage id={ 'word.back.title' } />
+                                    </NavLink>
                                 </div>
                             </>
                             : (

@@ -52,11 +52,11 @@ class AddressesListComponent extends React.Component<Props> {
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
 
         return (
-            <Grid item key={ data.id || data.zipCode } xs={ 12 } md={ 6 }>
+            <Grid item key={ data.id } xs={ 12 } lg={ 6 } className={ classes.col }>
                 <AddressDetails
                     address={ data }
                     title={ <FormattedMessage id={ addressTitle } /> }
-                    classes={ { container: classes.addressContainer } }
+                    classes={{ container: classes.addressContainer }}
                 >
                     <div className={ classes.actions }>
                         <IconButton
@@ -69,14 +69,14 @@ class AddressesListComponent extends React.Component<Props> {
                         </IconButton>
 
                         { !isEditOnly &&
-                        <IconButton
-                            className={ `${ classes.actionItem } ${ classes.actionDelete }` }
-                            onClick={ () => deleteAddressAction(data.id, customer) }
-                            disabled={ isLoading }
-                            classes={{ disabled: classes.actionItemDisabled }}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
+                            <IconButton
+                                className={ `${ classes.actionItem } ${ classes.actionDelete }` }
+                                onClick={ () => deleteAddressAction(data.id, customer) }
+                                disabled={ isLoading }
+                                classes={{ disabled: classes.actionItemDisabled }}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
                         }
                     </div>
                 </AddressDetails>
@@ -85,7 +85,7 @@ class AddressesListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { addresses, isMainOnly, isLoading } = this.props;
+        const { addresses, isMainOnly, isLoading, classes } = this.props;
 
         if (isLoading) {
             return <Preloader isStatic />;
@@ -95,7 +95,7 @@ class AddressesListComponent extends React.Component<Props> {
             <>
                 { Boolean(addresses.length)
                     ? (
-                        <Grid container spacing={ 32 }>
+                        <Grid container className={ classes.container }>
                             { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
                                 .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
                             { addresses.filter((item: IAddressItem) => item.isDefaultBilling)

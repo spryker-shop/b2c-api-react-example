@@ -7,6 +7,7 @@ import {
     DETAIL_WISHLIST,
     UPDATE_WISHLIST,
     WISHLIST_ALL_LISTS,
+    CLEAR_WISHLIST_STATE
 } from '@stores/actionTypes/pages/wishlist';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { IPageWishlistAction, WishlistState } from '@stores/reducers/pages/wishlist/types';
@@ -157,6 +158,9 @@ export const pageWishlist = produce<WishlistState>((draft: WishlistState, action
                 draft.rejected = false;
                 draft.initiated = true;
                 break;
+            }
+            case CLEAR_WISHLIST_STATE: {
+                return initialState;
             }
             default:
                 break;

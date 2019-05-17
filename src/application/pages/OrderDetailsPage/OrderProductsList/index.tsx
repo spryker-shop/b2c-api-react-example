@@ -51,7 +51,7 @@ const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
                     </Grid>
                     <Grid item className={ classes.contentOuter }>
                         <Grid container spacing={ 16 }>
-                            <Grid item xs={ 12 } sm={ 8 }>
+                            <Grid item xs={ 12 } sm={ 7 } md={ 12 } lg={ 8 }>
                                 <Typography component="h5" variant="h5" className={classes.name}>
                                     { name }
                                 </Typography>
@@ -91,12 +91,13 @@ const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
                                     </div>
                                 }
                             </Grid>
-                            <Grid item xs={ 12 } sm={ 4 }>
+                            <Grid item xs={ 12 } sm={ 5 } md={ 12 } lg={ 4 }>
                                 <Button
                                     variant="outlined"
                                     disabled={ isCartLoading }
                                     onClick={ () => addItemToCart(sku, quantity) }
                                     fullWidth
+                                    className={ classes.button }
                                 >
                                     <FormattedMessage id={ 'buy.again.title' } />
                                 </Button>

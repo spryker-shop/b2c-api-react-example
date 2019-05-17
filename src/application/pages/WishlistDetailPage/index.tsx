@@ -6,6 +6,9 @@ import { WishlistProductsList } from './WishlistProductsList';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { withRouter } from 'react-router';
+import { pathWishlistsPage } from '@constants/routes';
+import { PrevIcon } from '@pages/CheckoutPage/CheckoutPaymentStep/icons';
+import { NavLink } from 'react-router-dom';
 
 @(withRouter as Function)
 @connect
@@ -62,6 +65,15 @@ class WishlistDetailComponent extends React.Component<Props> {
                         </div>
 
                         <WishlistProductsList />
+
+                        <div className={ classes.back }>
+                            <NavLink to={ pathWishlistsPage } className={ classes.backLink }>
+                                <span className={ classes.icon } >
+                                    <PrevIcon />
+                                </span>
+                                <FormattedMessage id={ 'word.back.title' } />
+                            </NavLink>
+                        </div>
                     </>
                 }
             </>
