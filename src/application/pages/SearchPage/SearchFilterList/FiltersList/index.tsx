@@ -85,13 +85,16 @@ class FiltersListComponent extends React.Component<Props, State> {
     };
 
     protected applyFilters = (): void => {
-        const { updateStore, setCurrentCategory, changeLocation } = this.props;
+        const { updateStore, setCurrentCategory, changeLocation, locationCategoryId } = this.props;
         const { selectedMobileCategoryId } = this.state;
 
         this.onCloseFiltersHandler();
-        setCurrentCategory(selectedMobileCategoryId);
-        changeLocation(`${pathCategoryPageBase}/${selectedMobileCategoryId}`);
         updateStore();
+
+        if (Number(locationCategoryId) !== selectedMobileCategoryId) {
+            setCurrentCategory(selectedMobileCategoryId);
+            changeLocation(`${pathCategoryPageBase}/${selectedMobileCategoryId}`);
+        }
     };
 
     public render = (): JSX.Element => {
