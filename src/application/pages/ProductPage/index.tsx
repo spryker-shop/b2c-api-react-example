@@ -107,11 +107,20 @@ export class ProductPageComponent extends React.Component<Props, State> {
         this.setState((prevState: State) => ({ ...prevState, ...productData }));
 
     protected setInitialData = (): void => {
+        const { state: locationState } = this.props.location;
+        const activeSupperAttributes = locationState && locationState.superAttributes
+            ? locationState.superAttributes : false;
         const { concreteProducts, abstractProduct, superAttributes, selectedAttrNames } = this.props.product;
         const concreteProductsIds = Object.keys(concreteProducts);
         const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
         const superAttrSelected = Object.keys(selectedAttrNames).reduce((acc: {[key: string]: string}, name) => {
-            acc[name] = superAttributes.filter(item => item.name === name)[0].data[0].value;
+            const redirectedAttributes = activeSupperAttributes
+                ? activeSupperAttributes.filter((item: {[key: string]: string}) => Boolean(item[name]))
+                : false;
+
+            acc[name] = Boolean(redirectedAttributes.length)
+                ? redirectedAttributes[0][name]
+                : superAttributes.filter(item => item.name === name)[0].data[0].value;
 
             return acc;
         }, {});
@@ -125,7 +134,8 @@ export class ProductPageComponent extends React.Component<Props, State> {
 
     protected getCategoiriesTree = (): void => {
         const { state: locationState } = this.props.location;
-        const formattedCategoriesTree: IBreadcrumbItem[] = locationState ? locationState.categoriesTree : false;
+        const formattedCategoriesTree: IBreadcrumbItem[] = locationState && locationState.categoriesTree
+            ? locationState.categoriesTree : false;
         let categoriesTree: IBreadcrumbItem[] = [];
 
         const productNode: IBreadcrumbItem = {
