@@ -4,16 +4,17 @@ import { withStyles, Typography, Grid, Tabs, Tab } from '@material-ui/core';
 import { ContentCollapser } from '@containers/ContentCollapser';
 import { IProductDetailProps as Props, IProductDetailState as State } from './types';
 import { styles } from './styles';
+import { ClickEvent } from '@interfaces/common';
 
 export class ProductDetailComponent extends React.Component<Props, State> {
     public readonly state: State = {
         value: 0
     };
 
-    protected handleChangeTab = (event: React.MouseEvent<HTMLElement>, value: number) => this.setState({ value });
+    protected handleChangeTab = (event: ClickEvent, value: number) => this.setState({ value });
 
     public render() {
-        const { classes, attributes, description, sku } = this.props;
+        const { classes, descriptionAttributes, description, sku } = this.props;
         const { value } = this.state;
 
         return (
@@ -43,14 +44,8 @@ export class ProductDetailComponent extends React.Component<Props, State> {
                     { value === 0 &&
                         <ContentCollapser>
                             <Grid container spacing={ 16 }>
-                                { Boolean(attributes.length) ? attributes.map(attribute => (
-                                    <Grid
-                                        item
-                                        xs={ 12 }
-                                        sm={ 6 }
-                                        md={ 4 }
-                                        key={`${ attribute.name }-${ attribute.value }`}
-                                    >
+                                { Boolean(descriptionAttributes.length) ? descriptionAttributes.map(attribute => (
+                                    <Grid item xs={ 12 } sm={ 6 } md={ 4 } key={`${attribute.name}-${attribute.value}`}>
                                         <div className={ classes.attributes }>
                                             <strong className={ classes.attributesName }>
                                                 { attribute.name }

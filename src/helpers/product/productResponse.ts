@@ -1,4 +1,3 @@
-import { parseImageSets, parseSuperAttributes } from '.';
 import {
     abstractProductType,
     concreteProductType,
@@ -8,15 +7,21 @@ import {
     IProductPricesItem,
     priceTypeNameDefault,
     priceTypeNameOriginal,
-    IProductPropFullData
+    IProductPropFullData,
+    IProductAttributeMap,
+    IProductAttributes,
+    TProductImageSetsCollectionRawResponse,
+    IProductImageSetsRawResponse, IProductCardImages
 } from '@interfaces/product';
 import {
     IProductAvailabilitiesRawResponse,
     IProductRawResponse,
     IRowProductLabelsResponse,
+    ISuperAttribute,
     TRowProductResponseIncluded
 } from '@helpers/product/types';
 import { IProductLabelResponse } from '@interfaces/searchPageData';
+import { IProductImage } from '@components/ProductImageSlider/types';
 
 const defaultProductQuantity = 10;
 
@@ -50,18 +55,15 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             sku: data.attributes.sku,
             name: data.attributes.name,
             description: data.attributes.description,
-            attributes: data.attributes.attributes,
-            attributeNames: data.attributes.attributeNames,
             productType: abstractProductType
         },
         concreteProducts: {},
-        productLabels: []
+        productLabels: [],
+        selectedAttrNames: {}
     };
 
     result.abstractProduct.descriptionAttributes =
         parseDescriptionAttributes(data.attributes.attributeNames, data.attributes.attributes);
-
-    // console.log(data, included);
 
     let attributeNamesContainer: IProductAttributeNames = {};
 
@@ -108,10 +110,8 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-        if (row.type === 'concrete-product-prices' && !result.concreteProducts[row.id].price) {
-            if (row.attributes.prices && row.attributes.prices.length) {
-                result.concreteProducts[row.id].prices = parsePrices(row.attributes.prices);
-            }
+        if (row.type === 'concrete-product-prices' && row.attributes.prices && row.attributes.prices.length) {
+            result.concreteProducts[row.id].prices = parsePrices(row.attributes.prices);
 
             return;
         }
@@ -148,39 +148,73 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             });
         });
     }
-    result.superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
+    const superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
+    result.superAttributes = superAttributes;
+    result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: {[key: string]: string}, name) => {
+        acc[name] = null;
+
+        return acc;
+    }, {});
 
     return result;
 };
 
-const parseDescriptionAttributes = (attributeNames, attributeValues) => Object.keys(attributeNames)
-    .filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
-        name: attributeNames[attributeKey],
-        value: attributeValues[attributeKey]
-    }));
+const parseSuperAttributes = (
+    superAttributes: IProductAttributeMap,
+    attributeNamesContainer: IProductAttributeNames
+): ISuperAttribute[] | null => {
+    if (!superAttributes.super_attributes || typeof superAttributes.super_attributes !== 'object') {
+        return null;
+    }
 
-const parsePrices = (prices) => {
-    let pricesObject = {};
+    const names = Object.keys(superAttributes.super_attributes);
 
-    prices.forEach((priceData: IProductPricesItem) => {
-        if (priceData.priceTypeName === priceTypeNameDefault) {
-            pricesObject = {
-                ...pricesObject,
-                priceDefaultGross: priceData.grossAmount,
-                priceDefaultNet: priceData.netAmount
-            };
+    return names.reduce((acc, name) => [
+        ...acc,
+        {
+            name,
+            nameToShow: attributeNamesContainer[name],
+            data: superAttributes.super_attributes[name]
+                .reduce((acc, value) => [ ...acc, { value, name: value, }], [])
         }
-        if (priceData.priceTypeName === priceTypeNameOriginal) {
-            pricesObject = {
-                ...pricesObject,
-                priceOriginalGross: priceData.grossAmount,
-                priceOriginalNet: priceData.netAmount
-            };
-        }
-    });
-
-    return pricesObject;
+    ], []);
 };
+
+const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse): IProductImage[] | null => {
+    if (!Array.isArray(imageSets) || !imageSets.length) {
+        return null;
+    }
+
+    const images = imageSets.reduce((acc, set: IProductImageSetsRawResponse) =>
+            acc.concat(set.images.map((imgs: IProductCardImages) => imgs)), []);
+
+    return images.map((element: IProductCardImages, index: number) => ({
+        id: index,
+        src: element.externalUrlLarge
+    }));
+};
+
+const parseDescriptionAttributes = (
+    attributeNames: IProductAttributeNames,
+    attributeValues: IProductAttributes
+) => Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
+    name: attributeNames[attributeKey],
+    value: attributeValues[attributeKey]
+}));
+
+const parsePrices = (prices: IProductPricesItem[]) => prices.reduce((acc: {[key: string]: number}, priceData) => {
+    if (priceData.priceTypeName === priceTypeNameDefault) {
+        acc['priceDefaultGross'] = priceData.grossAmount;
+        acc['priceDefaultNet'] = priceData.netAmount;
+    }
+
+    if (priceData.priceTypeName === priceTypeNameOriginal) {
+        acc['priceOriginalGross'] = priceData.grossAmount;
+        acc['priceOriginalNet'] = priceData.netAmount;
+    }
+
+    return acc;
+}, {});
 
 export const parseProductAvailabilityResponse = (response: IProductAvailabilitiesRawResponse):
     IConcreteProductAvailability | null => {

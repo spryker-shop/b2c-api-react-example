@@ -1,4 +1,5 @@
 import { ISuperAttribute } from '@helpers/product/types';
+import { IProductImage } from '@components/ProductImageSlider/types';
 
 export const concreteProductType = 'concreteProduct';
 export type TConcreteProductType = 'concreteProduct';
@@ -55,13 +56,8 @@ export interface IProductAttributes {
     [key: string]: string | number;
 }
 
-// Translated version of the product's attributes
 export interface IProductAttributeNames {
     [key: string]: string;
-}
-
-export interface ISuperAttributes {
-    superAttributes: ISuperAttribute[] | null;
 }
 
 export interface IProductAvailability {
@@ -75,29 +71,29 @@ export interface IConcreteProductAvailability extends IProductAvailability {
 }
 
 export interface IProductPropFullData extends IProductAvailability {
-    attributes: object | null;
-    attributeNames: IProductAttributeNames | null;
     description: string | null;
-    images: IProductCardImages[] | null;
+    descriptionAttributes: IDescriptionAttributes[] | null;
+    images: IProductImage[] | null;
     name: string | null;
-    price: number | null;
-    prices: IProductPricesItem[] | null;
-    priceOriginalGross: number | null;
-    priceOriginalNet: number | null;
-    priceDefaultGross: number | null;
-    priceDefaultNet: number | null;
+    prices: {
+        priceOriginalGross?: null,
+        priceOriginalNet?: null,
+        priceDefaultGross?: null,
+        priceDefaultNet?: null,
+    };
     sku: string | null;
     productType: TProductType | null;
 }
 
 export interface IProductDataParsed {
-    attributeMap: IProductAttributeMap | null;
+    attributeVariants: { [key: string]: IProductAttributes };
     superAttributes: ISuperAttribute[] | null;
     abstractProduct: IProductPropFullData | null;
     concreteProducts: {
         [key: string]: IProductPropFullData
     };
     productLabels: IProductLabel[] | null;
+    selectedAttrNames: IProductAttributes;
 }
 
 export interface IProductLabel {
@@ -126,3 +122,8 @@ export interface IProductImageSetsRawResponse {
 }
 
 export type TProductImageSetsCollectionRawResponse = IProductImageSetsRawResponse[];
+
+export interface IDescriptionAttributes {
+    name: string;
+    value: string | number;
+}

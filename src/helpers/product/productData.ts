@@ -1,30 +1,28 @@
-import { absentProductType, IProductCardImages, IProductPropFullData } from '@interfaces/product';
+import { absentProductType, IProductPropFullData } from '@interfaces/product';
+import { IProductImage } from '@components/ProductImageSlider/types';
 
 export const parseCurrentProductDataObject = (
     abstractProduct: IProductPropFullData,
-    concreteProduct: IProductPropFullData | null,
-    initialFlag?: boolean
+    concreteProduct: IProductPropFullData | null
 ): IProductPropFullData => {
 
-    let images: IProductCardImages[] = null;
+    let images: IProductImage[] = null;
     if (concreteProduct && concreteProduct.images && concreteProduct.images.length) {
         images = concreteProduct.images;
     } else if (abstractProduct.images && abstractProduct.images.length) {
         images = abstractProduct.images;
     }
 
-    const getCurrentProduct = initialFlag ? abstractProduct : concreteProduct;
-
     return {
-        sku: getCurrentProduct ? getCurrentProduct.sku : null,
+        sku: concreteProduct ? concreteProduct.sku : null,
         name: concreteProduct ? concreteProduct.name : abstractProduct.name,
         images,
-        availability: getCurrentProduct ? getCurrentProduct.availability : false,
+        availability: concreteProduct ? concreteProduct.availability : false,
         description: concreteProduct ? concreteProduct.description : abstractProduct.description,
-        prices: getCurrentProduct ? getCurrentProduct.prices : null,
-        attributes: concreteProduct ? concreteProduct.attributes : abstractProduct.attributes,
+        prices: concreteProduct ? concreteProduct.prices : null,
         quantity: concreteProduct ? concreteProduct.quantity : abstractProduct.quantity,
         productType: concreteProduct ? concreteProduct.productType : absentProductType,
-        descriptionAttributes: concreteProduct ? concreteProduct.descriptionAttributes : abstractProduct.descriptionAttributes
+        descriptionAttributes: concreteProduct ? concreteProduct.descriptionAttributes :
+            abstractProduct.descriptionAttributes
     };
 };

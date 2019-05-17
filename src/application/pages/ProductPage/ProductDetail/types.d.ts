@@ -1,9 +1,9 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { IProductPropFullData } from '@interfaces/product';
+import { IDescriptionAttributes, IProductPropFullData } from '@interfaces/product';
 
 export interface IProductDetailProps extends WithStyles<typeof styles> {
-    attributes: any;
+    descriptionAttributes: IDescriptionAttributes[] | null;
     description: IProductPropFullData['description'];
     sku: IProductPropFullData['sku'];
 }
