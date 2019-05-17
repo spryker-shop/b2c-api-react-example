@@ -22,7 +22,6 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 15,
         fontWeight: 500,
         boxShadow: 'none',
-        webkitAppearance: 'none',
         appearance: 'none',
         '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
             appearance: 'none',

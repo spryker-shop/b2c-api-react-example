@@ -19,7 +19,6 @@ const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
             <TotalsBlock
                 totals={ totals }
                 classes={{
-                    price: classes.price,
                     totalText: classes.totalText,
                     totalTextPrice: classes.totalTextPrice
                 }}

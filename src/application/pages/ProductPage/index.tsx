@@ -228,12 +228,12 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 />
 
                                 { superAttributes &&
-                                <ErrorBoundary>
-                                    <ProductSuperAttribute
-                                        productData={ superAttributes }
-                                        onChange={ this.handleSuperAttributesChange }
-                                    />
-                                </ErrorBoundary>
+                                    <ErrorBoundary>
+                                        <ProductSuperAttribute
+                                            productData={ superAttributes }
+                                            onChange={ this.handleSuperAttributesChange }
+                                        />
+                                    </ErrorBoundary>
                                 }
 
                                 <ErrorBoundary>
@@ -245,9 +245,9 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 </ErrorBoundary>
 
                                 { isUserLoggedIn &&
-                                <ErrorBoundary>
-                                    <ProductConfiguratorAddToWishlist productType={ productType } sku={ sku } />
-                                </ErrorBoundary>
+                                    <ErrorBoundary>
+                                        <ProductConfiguratorAddToWishlist productType={ productType } sku={ sku } />
+                                    </ErrorBoundary>
                                 }
                             </div>
                         </Grid>

@@ -37,8 +37,8 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                 </Typography>
                 { customerData &&
                     <>
-                        <Grid container spacing={ 32 }>
-                            <Grid item xs={ 12 }>
+                        <Grid container className={ classes.container }>
+                            <Grid item xs={ 12 } className={ classes.col }>
                                 <div className={`${classes.block} ${classes.blockCustomer}`}>
                                     <Typography component="h3" variant="h3" className={ classes.subtitle }>
                                         <FormattedMessage id={ 'word.profile.title' } />
@@ -62,7 +62,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                                 </div>
                             </Grid>
 
-                            <Grid item xs={ 12 }>
+                            <Grid item xs={ 12 } className={ classes.col }>
                                 <ErrorBoundary>
                                     <div className={`${!Boolean(addresses.length) ? classes.block : ''}`}>
                                         { !Boolean(addresses.length) &&
@@ -76,9 +76,9 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                             </Grid>
 
                             { isParallelRequest &&
-                                <Grid item xs={ 12 }>
+                                <Grid item xs={ 12 } className={ classes.col }>
                                     <ErrorBoundary>
-                                        <div className={ classes.block }>
+                                        <div className={`${classes.block} ${classes.blockBottomIndent}`}>
                                             <div className={ classes.heading }>
                                                 <Typography component="h3" variant="h3" className={ classes.subtitle }>
                                                     <FormattedMessage id={ 'last.orders.title' } />

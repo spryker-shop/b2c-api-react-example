@@ -6,7 +6,11 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 20
     },
     submit: {
-        minWidth: 160
+        width: '100%',
+        [theme.breakpoints.up('lg')]: {
+            minWidth: 160,
+            width: 'auto'
+        }
     },
     form: {
         paddingBottom: 50

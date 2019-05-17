@@ -60,7 +60,10 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.grey
     },
     textEmail: {
-        color: theme.appColors.black
+        color: theme.appColors.black,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverFlow: 'ellipsis'
     },
     register: {
         paddingBottom: 10,
