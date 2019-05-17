@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from './connect';
 import { IFiltersListProps as Props, IFiltersListState as State } from './types';
 import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
 import { Grid, withStyles, Hidden, Button, withWidth } from '@material-ui/core';
@@ -9,14 +10,19 @@ import { ClickEvent } from '@interfaces/common';
 import { AttributeFilters } from './AttributeFilters';
 import { RangeFilters } from './RangeFilters';
 import { withRouter } from 'react-router';
+import { pathCategoryPageBase } from '@constants/routes';
 
 @(withRouter as Function)
+@connect
 class FiltersListComponent extends React.Component<Props, State> {
     public readonly state: State = {
         openedFilters: [],
         openedRanges: [],
-        openedCategories: false
+        openedCategories: false,
+        selectedMobileCategoryId: null
     };
+
+    public componentDidMount = (): void => this.setState({ selectedMobileCategoryId: this.props.currentCategoryId });
 
     public componentDidUpdate = (prevProps: Props): void => {
         const { location } = this.props;
@@ -25,6 +31,9 @@ class FiltersListComponent extends React.Component<Props, State> {
             this.onCloseFiltersHandler();
         }
     };
+
+    protected onCategoryItemClickHandler = (cattegoryId: number): void =>
+        this.setState({ selectedMobileCategoryId: cattegoryId });
 
     protected handleOpenFilters = (filter: ValueFacets | RangeFacets, filtersName: string) =>
         (event: ClickEvent): void => {
@@ -55,7 +64,7 @@ class FiltersListComponent extends React.Component<Props, State> {
         }
 
         return ranges.filter(item => (
-            item.min !== 0 && item.max !== 0 && item.name !== 'rating' // rating filter temporary hidden
+            item.min !== 0 && item.max !== 0 && item.name !== 'rating'
         ));
     };
 
@@ -63,16 +72,25 @@ class FiltersListComponent extends React.Component<Props, State> {
         this.setState(({openedCategories}) => ({ openedCategories: !openedCategories }));
 
     protected onCloseFiltersHandler = (): void => {
-        const { changeWrapperState } = this.props;
+        const { changeWrapperState, currentCategoryId } = this.props;
 
         changeWrapperState(false);
-        this.setState({ openedFilters: [], openedCategories: false, openedRanges: [] });
+        this.setState({
+            openedFilters: [],
+            openedCategories: false,
+            openedRanges: [],
+            selectedMobileCategoryId:
+            currentCategoryId
+        });
     };
 
     protected applyFilters = (): void => {
-        const {updateStore} = this.props;
+        const { updateStore, setCurrentCategory, changeLocation } = this.props;
+        const { selectedMobileCategoryId } = this.state;
 
         this.onCloseFiltersHandler();
+        setCurrentCategory(selectedMobileCategoryId);
+        changeLocation(`${pathCategoryPageBase}/${selectedMobileCategoryId}`);
         updateStore();
     };
 
@@ -88,7 +106,7 @@ class FiltersListComponent extends React.Component<Props, State> {
             activeRangeFilters,
             updateRangeFilters
         } = this.props;
-        const { openedFilters, openedCategories, openedRanges } = this.state;
+        const { openedFilters, openedCategories, openedRanges, selectedMobileCategoryId } = this.state;
 
         const isFiltersExist = Array.isArray(filters) && filters.length;
         const isRangeExist = Boolean(this.filterRangeFilters()) && this.filterRangeFilters().length;
@@ -114,7 +132,13 @@ class FiltersListComponent extends React.Component<Props, State> {
                     <Grid container className={ classes.gridList }>
                         <Hidden lgUp>
                             <Grid item xs={ 12 } md={ 4 } className={`${classes.categoriesList} ${classes.gridItem}`}>
-                                { categoriesList(openedCategories, this.onCategoriesTitleClickHandler) }
+                                { categoriesList(
+                                        openedCategories,
+                                        this.onCategoriesTitleClickHandler,
+                                        selectedMobileCategoryId,
+                                        this.onCategoryItemClickHandler
+                                    )
+                                }
                             </Grid>
                         </Hidden>
                         { isFiltersExist &&

@@ -14,9 +14,17 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     updateStore: Function;
     updateActiveFilters: Function;
     updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: RangeType) => void;
-    categoriesList: (isOpened: boolean, Function) => JSX.Element;
+    categoriesList: (
+        isOpened: boolean,
+        onTitleClick: () => void,
+        categoryId: number,
+        onItemClickHandler: (categoryId: number) => void
+    ) => JSX.Element;
     changeWrapperState?: (isOpen: boolean) => void;
     width: Breakpoint;
+    currentCategoryId?: number | null;
+    changeLocation?: (location: string) => void;
+    setCurrentCategory?: (categoryId: TCategoryId) => void;
 }
 
 export interface IFiltersListState {
@@ -24,4 +32,5 @@ export interface IFiltersListState {
     openedFilters: ValueFacets[];
     openedCategories: boolean;
     openedRanges: RangeFacets[];
+    selectedMobileCategoryId: number | null;
 }

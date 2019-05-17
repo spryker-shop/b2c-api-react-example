@@ -12,6 +12,7 @@ import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { PopoverWrapper } from '@components/PopoverWrapper';
 import { ClickEvent } from '@interfaces/common';
+import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @connect
 class CategoriesListComponent extends React.Component<Props, State> {
@@ -22,13 +23,18 @@ class CategoriesListComponent extends React.Component<Props, State> {
     };
 
     protected selectCategory = (categoryId: number) => (event: ClickEvent): void => {
-        const { locationCategoryId, changeLocation, setCurrentCategory } = this.props;
+        const { locationCategoryId, changeLocation, setCurrentCategory, onItemClickHandler } = this.props;
+        const isMobile = resolutionChecker(window.innerWidth, 'md');
 
-        if (locationCategoryId !== categoryId) {
+        if (locationCategoryId !== categoryId && !isMobile) {
             this.closePopover();
             setCurrentCategory(categoryId);
             changeLocation(`${pathCategoryPageBase}/${categoryId}`);
+
+            return;
         }
+
+        onItemClickHandler(categoryId);
     };
 
     protected openPopover = ({ currentTarget }: ClickEvent): void =>
@@ -40,10 +46,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
 
     protected getCategoriesList = (
         data: ICategory[],
-        activeData: IActiveFilterCategories,
-        selectedId: Props['selectedCategory']
+        activeData: IActiveFilterCategories
     ): JSX.Element[] | null => {
-        const { selectedCategory } = this.props;
+        const { selectedCategory, selectedMobileCategory, width } = this.props;
+        const isMobile = !isWidthUp('md', width);
 
         if (!Array.isArray(data) || !data.length) {
             return null;
@@ -53,19 +59,20 @@ class CategoriesListComponent extends React.Component<Props, State> {
             const quantity = (activeData[category.nodeId] ? activeData[category.nodeId] : 0);
             const isSubcategoryExist = Array.isArray(category.children) && category.children.length &&
                 category.children.length > 0;
+            const appropriateSelectedId = isMobile ? Number(selectedMobileCategory) : Number(selectedCategory);
 
             return (
                 <CategoryItem
                     key={ `category-${ category.nodeId }` }
                     categoryValue={ category.nodeId }
-                    isSelected={ (+selectedId) === category.nodeId }
+                    isSelected={ appropriateSelectedId === category.nodeId }
                     isActive={ Boolean(quantity) }
                     selectCategoryHandler={ this.selectCategory }
                     quantity={ quantity }
                     categoryName={ `${ category.name ? category.name : <FormattedMessage id={ 'no.name.title' } /> }` }
                 >
                     { Boolean(isSubcategoryExist) &&
-                    this.getCategoriesList(category.children as ICategory[], activeData, selectedCategory)
+                        this.getCategoriesList(category.children as ICategory[], activeData)
                     }
 
                 </CategoryItem>
@@ -78,7 +85,6 @@ class CategoriesListComponent extends React.Component<Props, State> {
             classes,
             categories,
             categoriesTree,
-            selectedCategory,
             localizedName,
             width,
             isOpened,
@@ -120,7 +126,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
                         }}
                     >
                         <List component="nav" className={classes.list}>
-                            { this.getCategoriesList(categoriesTree, activeCategories, selectedCategory) }
+                            { this.getCategoriesList(categoriesTree, activeCategories) }
                         </List>
                     </PopoverWrapper>
                 </div>
@@ -136,7 +142,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
                     </span>
                 </span>
                 <List component="nav" className={`${classes.list} ${isOpened ? classes.listOpened : ''}`}>
-                    { this.getCategoriesList(categoriesTree, activeCategories, selectedCategory) }
+                    { this.getCategoriesList(categoriesTree, activeCategories) }
                 </List>
             </div>
         );
