@@ -94,7 +94,7 @@ class OrdersListComponent extends React.Component<Props> {
                                                 <ViewIcon />
                                             </span>
                                         <span className={ classes.actionText }>
-                                                <FormattedMessage id={ 'view.title' } />
+                                                <FormattedMessage id={ 'word.view.title' } />
                                             </span>
                                     </Button>
                                 </Tooltip>
