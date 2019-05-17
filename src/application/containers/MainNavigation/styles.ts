@@ -8,7 +8,7 @@ export const styles = (theme: Theme) => createStyles({
         top: 0,
         left: 0,
         marginLeft: '-100%',
-        height: '100vh',
+        height: '100%',
         width: '100%',
         zIndex: 2,
         transition: 'margin 0.3s ease-in-out',

@@ -2,25 +2,46 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 
 export const styles = (theme: Theme) => createStyles({
+    container: {
+        margin: -7,
+        width: 'auto',
+        [theme.breakpoints.up('lg')]: {
+            margin: -15
+        }
+    },
+    col: {
+        padding: 7,
+        [theme.breakpoints.up('lg')]: {
+            padding: 15
+        }
+    },
     addressContainer: {
-        padding: '21px 100px 33px 25px',
+        padding: '20px 100px 20px 15px',
         height: '100%',
-        margin: 0
+        margin: 0,
+        [theme.breakpoints.up('md')]: {
+            padding: '21px 100px 33px 25px'
+        }
     },
     actions: {
         display: 'flex',
         alignItems: 'center',
         position: 'absolute',
-        right: 25,
-        top: 10
+        right: 5,
+        top: 15,
+        [theme.breakpoints.up('lg')]: {
+            right: 25
+        }
     },
     actionItem: {
-        padding: 10,
         fill: theme.appColors.lightGrey,
         background: 'none',
         transition: 'fill 0.3s ease-in-out',
         '&:hover': {
             background: 'none'
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: 10
         }
     },
     actionItemDisabled: {

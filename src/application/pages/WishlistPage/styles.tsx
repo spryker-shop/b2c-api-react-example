@@ -6,8 +6,10 @@ export const styles = (theme: Theme) => createStyles({
         paddingBottom: 20
     },
     block: {
-        padding: 20,
-        background: theme.appColors.weekWhite,
-        borderRadius: 4
+        [theme.breakpoints.up('md')]: {
+            padding: 20,
+            background: theme.appColors.weekWhite,
+            borderRadius: 4
+        }
     },
 });

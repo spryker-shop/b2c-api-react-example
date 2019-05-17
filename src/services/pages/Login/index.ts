@@ -24,6 +24,7 @@ import { NotificationsMessage } from '@components/Notifications/NotificationsMes
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
 import { getAnonymId, clearAnonymId } from '@helpers/common/anonymId';
 import { anonymIdFilFilled } from '@stores/actions/common/init';
+import { clearWishlistState } from '@stores/actions/pages/wishlist';
 
 export class PagesLoginService extends ApiServiceAbstract {
     public static async register(dispatch: Function, payload: ICustomerProfile, getState: Function): Promise<void> {
@@ -229,5 +230,6 @@ export class PagesLoginService extends ApiServiceAbstract {
         dispatch(anonymIdFilFilled(anonymId));
         dispatch(logoutAction());
         dispatch(deleteCustomerFulfilledStateAction());
+        dispatch(clearWishlistState());
     }
 }

@@ -5,7 +5,17 @@ export const styles = (theme: Theme) => createStyles({
     text: {
         paddingBottom: 20
     },
+    textMessage: {
+        fontSize: 15,
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 18
+        }
+    },
     submit: {
-        minWidth: 160
+        width: '100%',
+        [theme.breakpoints.up('lg')]: {
+            minWidth: 160,
+            width: 'auto'
+        }
     }
 });
