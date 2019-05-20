@@ -12,7 +12,12 @@ export interface ISearchFilterListProps extends WithStyles<typeof styles> {
     setActiveFilters?: (activeFilters: IActiveFilters) => void;
     clearActiveFilters?: () => void;
     updateStore?: Function;
-    categoriesList: (isOpened: boolean, onTitleClickHandler?: () => void) => JSX.Element;
+    categoriesList: (
+        isOpened: boolean,
+        onTitleClick: () => void,
+        categoryId: number,
+        onItemClickHandler: (categoryId: number) => void
+    ) => JSX.Element;
     isPageLocked?: (value: boolean) => void;
 }
 

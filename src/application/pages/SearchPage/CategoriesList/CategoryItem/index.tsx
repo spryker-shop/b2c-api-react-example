@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ICategoryItemProps } from './types';
 import { ListItem, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { ClickEvent } from '@interfaces/common';
 
 const CategoryItemComponent: React.SFC<ICategoryItemProps> = props => {
     const {
@@ -19,7 +20,7 @@ const CategoryItemComponent: React.SFC<ICategoryItemProps> = props => {
         <>
             <ListItem
                 button
-                onClick={ (event: React.MouseEvent<HTMLElement>) => selectCategoryHandler(categoryValue)(event) }
+                onClick={ (event: ClickEvent) => selectCategoryHandler(categoryValue)(event) }
                 selected={ isSelected }
                 disabled={ !isActive }
                 className={ classes.categoryItem }

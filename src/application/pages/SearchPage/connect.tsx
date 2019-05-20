@@ -32,9 +32,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         spellingSuggestion,
         currentSort: pageSearchProps.data.currentSort,
         currentItemsPerPage: pageSearchProps.data.currentItemsPerPage,
-        currentCategoryId: pageSearchProps && pageSearchProps.data
-            ? pageSearchProps.data.currentCategoryId
-            : null,
+        currentCategoryId: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentCategoryId : null,
         currentPaginationPage: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentPaginationPage : 1,
         searchTerm: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '',
         activeRangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeRangeFilters : {},

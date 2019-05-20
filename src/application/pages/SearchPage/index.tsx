@@ -164,7 +164,12 @@ class SearchPageComponent extends React.Component<Props, State> {
         const isCategoriesExist = (category.length > 0);
         const categoryDisplayName = getCategoryNameById(currentCategoryId, categoriesTree);
         const { formattedCategoriesTree } = this.state;
-        const categoriesList = (isOpened = false, onTitleClickHandler?: () => void): JSX.Element => (
+        const categoriesList = (
+            isOpened = false,
+            onTitleClickHandler?: () => void,
+            selectedMobileCategory?: null,
+            onItemClickHandler?: (cattegoryId: number) => void,
+        ): JSX.Element => (
             <CategoriesList
                 categories={ category }
                 categoriesTree={ categoriesTree }
@@ -172,6 +177,8 @@ class SearchPageComponent extends React.Component<Props, State> {
                 locationCategoryId={ locationCategoryId }
                 isOpened={ isOpened }
                 onTitleClick={ onTitleClickHandler }
+                selectedMobileCategory={ selectedMobileCategory }
+                onItemClickHandler={ onItemClickHandler }
             />
         );
 

@@ -14,7 +14,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         filters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.filters : null,
         activeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeFilters : {},
         rangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.rangeFilters : null,
-        activeRangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeRangeFilters : {},
+        activeRangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeRangeFilters : {}
     };
 };
 
