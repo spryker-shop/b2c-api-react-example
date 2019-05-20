@@ -25,7 +25,7 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     currentCategoryId?: number | null;
     changeLocation?: (location: string) => void;
     setCurrentCategory?: (categoryId: TCategoryId) => void;
-    locationCategoryId: TCategoryId;
+    locationCategoryId?: TCategoryId;
 }
 
 export interface IFiltersListState {
