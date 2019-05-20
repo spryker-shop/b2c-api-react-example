@@ -15,10 +15,10 @@ import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { ProductRelations } from '@containers/ProductRelations';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
-import { IProductAttributes, IProductPropFullData } from '@interfaces/product';
+import { IProductAttributes, IProductPropFullData, IIndexSignature } from '@interfaces/product';
 import { IBreadcrumbItem } from '@interfaces/category';
-import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
+import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
@@ -91,10 +91,12 @@ export class ProductPageComponent extends React.Component<Props, State> {
 
     protected findAndParseConcreteProduct = (changedSelectedAttr: IProductAttributes): IProductPropFullData => {
         const { abstractProduct, concreteProducts, attributeVariants } = this.props.product;
-        const path = Object.keys(changedSelectedAttr).map(attr => `${attr}:${changedSelectedAttr[attr]}`);
-        const idProductConcrete = path.reduce((acc: any, key) =>
-                acc[key] && acc[key].id_product_concrete ? acc[key].id_product_concrete : acc[key]
-            , {...attributeVariants});
+        const path: string[] = Object.keys(changedSelectedAttr).map(attr => `${attr}:${changedSelectedAttr[attr]}`);
+        const idProductConcrete: string = path.reduce((acc: IIndexSignature, key): IIndexSignature | string => {
+            const convertedAcc  = acc[key] as unknown as { [key: string]: { id_product_concrete: string }; };
+
+            return acc[key] && convertedAcc.id_product_concrete ? convertedAcc.id_product_concrete : acc[key];
+        }, {...(attributeVariants as unknown as IIndexSignature)}) as string;
 
         if (!idProductConcrete) {
             return parseCurrentProductDataObject(abstractProduct, null);
@@ -113,9 +115,9 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const { concreteProducts, abstractProduct, superAttributes, selectedAttrNames } = this.props.product;
         const concreteProductsIds = Object.keys(concreteProducts);
         const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
-        const superAttrSelected = Object.keys(selectedAttrNames).reduce((acc: {[key: string]: string}, name) => {
+        const superAttrSelected = Object.keys(selectedAttrNames).reduce((acc: IIndexSignature, name) => {
             const redirectedAttributes = activeSupperAttributes
-                ? activeSupperAttributes.filter((item: {[key: string]: string}) => Boolean(item[name]))
+                ? activeSupperAttributes.filter((item: IIndexSignature) => Boolean(item[name]))
                 : false;
 
             acc[name] = Boolean(redirectedAttributes.length)
@@ -168,7 +170,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
             images,
             superAttrSelected
         } = this.state;
-        const { classes, isUserLoggedIn, isWishlistsFetched } = this.props;
+        const { classes, isUserLoggedIn, isWishlistsFetched, product } = this.props;
         const isComponentLoading = !this.props.product || !this.state.productType || this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
@@ -198,11 +200,11 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                     availability={ getAvailabilityDisplay(availability) }
                                 />
 
-                                { this.props.product.superAttributes &&
+                                { product.superAttributes &&
                                     <ErrorBoundary>
                                         <ProductSuperAttribute
                                             superAttrSelected={ superAttrSelected }
-                                            superAttributes={ this.props.product.superAttributes }
+                                            superAttributes={ product.superAttributes }
                                             onChange={ this.handleSuperAttributesChange }
                                         />
                                     </ErrorBoundary>
@@ -211,7 +213,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                 <ErrorBoundary>
                                     <ProductConfiguratorAddToCart
                                         productType={ productType }
-                                        product={ this.props.product.concreteProducts[sku] }
+                                        product={ product.concreteProducts[sku] }
                                         sku={ sku }
                                     />
                                 </ErrorBoundary>
@@ -227,13 +229,13 @@ export class ProductPageComponent extends React.Component<Props, State> {
                     <ProductDetail
                         descriptionAttributes={ descriptionAttributes }
                         description={ description }
-                        sku={ sku ? sku : this.props.product.abstractProduct.sku }
+                        sku={ sku ? sku : product.abstractProduct.sku }
                     />
                     { isParallelRequest &&
                         <ErrorBoundary>
                             <ProductRelations
                                 classes={{ root: classes.sliderWrapper, slider: classes.slider }}
-                                sku={ this.props.product.abstractProduct.sku }
+                                sku={ product.abstractProduct.sku }
                                 title={ <FormattedMessage id={ 'product.relations.title' } /> }
                             />
                         </ErrorBoundary>

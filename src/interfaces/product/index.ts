@@ -127,3 +127,7 @@ export interface IDescriptionAttributes {
     name: string;
     value: string | number;
 }
+
+export interface IIndexSignature {
+    [key: string]: string;
+}

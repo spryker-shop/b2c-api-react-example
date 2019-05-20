@@ -28,7 +28,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         history
     } = props;
 
-    const onSelectProductHandler = () => {
+    const onSelectProductHandler = (): void => {
         const location = {
             pathname: `${ pathProductPageBase }/${ abstractSku }`,
             state: { superAttributes }
