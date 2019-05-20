@@ -11,9 +11,9 @@ export class ProductDetailComponent extends React.Component<Props, State> {
         value: 0
     };
 
-    protected handleChangeTab = (event: ClickEvent, value: number) => this.setState({ value });
+    protected handleChangeTab = (event: ClickEvent, value: number): void => this.setState({ value });
 
-    public render() {
+    public render(): JSX.Element {
         const { classes, descriptionAttributes, description, sku } = this.props;
         const { value } = this.state;
 
