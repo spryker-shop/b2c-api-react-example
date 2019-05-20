@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { CartItemProps as Props } from './types';
 import { SquareImage } from '@components/SquareImage';
 import { AppPrice } from '@components/AppPrice';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { priceTypeNameOriginal } from '@interfaces/product';
 import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
@@ -24,8 +24,18 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         priceOriginalGross,
         isUpdateToDefault,
         abstractSku,
-        calculations: { unitPriceToPayAggregation }
+        calculations: { unitPriceToPayAggregation },
+        history
     } = props;
+
+    const onSelectProductHandler = (): void => {
+        const location = {
+            pathname: `${ pathProductPageBase }/${ abstractSku }`,
+            state: { superAttributes }
+        };
+
+        history.push(location);
+    };
 
     const renderSuperAttributes = superAttributes ? (
         superAttributes.map((attr: { [key: string]: string }, index: number) => {
@@ -33,8 +43,8 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
             const attributeValue = Object.values(attr)[0];
 
             return (
-                <div key={`${sku}-attr-${index}`} className={ classes.attributes }>
-                    {`${attributeTitle}: `}
+                <div key={`${ sku }-attr-${ index }`} className={ classes.attributes }>
+                    {`${ attributeTitle }: `}
                     <span className={ classes.attributesValue }>{ attributeValue }</span>
                 </div>
             );
@@ -44,24 +54,21 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     return (
         <Grid container wrap="nowrap" className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
-                <SquareImage image={ image } alt={ name } classes={{ imgWrapper: classes.imgWrapper }} />
+                <SquareImage image={ image } alt={ name } classes={ { imgWrapper: classes.imgWrapper } } />
             </Grid>
             <Grid item className={ classes.contentOuter }>
                 <Grid container className={ classes.fullHeight }>
                     <Grid item xs={ 12 } sm={ 8 } md={ 9 } className={ classes.info }>
                         <div className={ classes.growedBlock }>
-                            <Typography component="h5" variant="h5" className={classes.name}>
-                                <NavLink
-                                    to={`${pathProductPageBase}/${abstractSku}`}
-                                    className={classes.nameLink}
-                                >
+                            <Typography component="h5" variant="h5" className={ classes.name }>
+                                <Button onClick={ onSelectProductHandler } className={ classes.nameLink }>
                                     { name }
-                                </NavLink>
+                                </Button>
                             </Typography>
                             { renderSuperAttributes }
                         </div>
-                        <div className={`${classes.attributes} ${classes.attributesQty}`}>
-                            <span className={classes.attributesTitle}>
+                        <div className={`${ classes.attributes } ${ classes.attributesQty }`}>
+                            <span className={ classes.attributesTitle }>
                                 <FormattedMessage id={ 'word.quantity.title' } />:
                             </span>
                             <SprykerQuantityCounter
@@ -76,22 +83,22 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                         <div className={ classes.pricesHoler }>
                             <Typography
                                 component="p"
-                                className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
+                                className={`${ classes.price } ${ priceOriginalGross ? classes.newPrice : '' }`}
                             >
                                 <AppPrice value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
-                                <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                    <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
-                                </Typography>
+                            <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
+                                <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                            </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
-                            <div className={ classes.eachPrice }>
-                                (
-                                <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
-                                <FormattedMessage id={ 'word.each.title' } />)
-                            </div>
+                        <div className={ classes.eachPrice }>
+                            (
+                            <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
+                            <FormattedMessage id={ 'word.each.title' } />)
+                        </div>
                         }
                     </Grid>
                     <Grid item xs={ 12 } className={ classes.removeBtnColumn }>
@@ -108,4 +115,4 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const CartItem = withStyles(styles)(CartItemComponent);
+export const CartItem = withStyles(styles)(withRouter(CartItemComponent));

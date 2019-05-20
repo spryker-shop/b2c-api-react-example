@@ -138,7 +138,7 @@ class SearchPageComponent extends React.Component<Props, State> {
       this.setState({formattedCategoriesTree});
     };
 
-    protected onSelectProductHandler = (sku: string) => {
+    protected onSelectProductHandler = (sku: string): void => {
         const { formattedCategoriesTree } = this.state;
         const location = {
             pathname: `${pathProductPageBase}/${sku}`,

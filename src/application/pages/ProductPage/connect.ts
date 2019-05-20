@@ -1,5 +1,5 @@
 import { reduxify } from '@hoc/Reduxify';
-import { getAnonymId, isAppInitiated } from '@stores/reducers/common/init/selectors';
+import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import {
     getProduct,
     isPageProductStateFulfilled,
@@ -17,7 +17,6 @@ import { isWishlistsCollectionInitiated } from '@stores/reducers/pages/wishlist/
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const product = getProduct(state, ownProps);
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
-    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
     const isLoading: boolean = isPageProductStateLoading(state, ownProps);
     const isRejected: boolean = isPageProductStateRejected(state, ownProps);
     const isFulfilled: boolean = isPageProductStateFulfilled(state, ownProps);
@@ -29,7 +28,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
     return ({
         product,
-        isAppDataSet,
         isUserLoggedIn,
         isInitiated,
         isLoading,
