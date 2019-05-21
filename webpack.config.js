@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const envConfig = require('./configs/env_config');
+const envConfig = require('./env_config');
 const webpackSettings = require('./webpack-settings');
 
 const config = {
@@ -16,7 +16,7 @@ const config = {
     entry: webpackSettings.entry,
     watchOptions: webpackSettings.watchOptions,
     devServer: webpackSettings.devServer,
-    watch: envConfig.IS_DEV_SERVER,
+    watch: !envConfig.IS_PRODUCTION,
     devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
     node: {
         __dirname: true,
@@ -26,7 +26,7 @@ const config = {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : envConfig.WEB_PATH
+        publicPath: !envConfig.IS_PRODUCTION ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : envConfig.WEB_PATH
     },
     optimization: {
         minimizer: [
@@ -101,8 +101,8 @@ const config = {
             ...webpackSettings.definableConstants
         }),
         new MiniCssExtractPlugin({
-            filename: envConfig.IS_DEV_SERVER ? '[name].css' : '[name].[hash].css',
-            chunkFilename: envConfig.IS_DEV_SERVER ? '[id].css' : '[id].[hash].css'
+            filename: !envConfig.IS_PRODUCTION ? '[name].css' : '[name].[hash].css',
+            chunkFilename: !envConfig.IS_PRODUCTION ? '[id].css' : '[id].[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.ejs'),
@@ -112,11 +112,11 @@ const config = {
             compile: true,
             favicon: path.resolve(__dirname, `favicon.png`),
             minify: false,
-            devServer: envConfig.IS_DEV_SERVER ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
+            devServer: !envConfig.IS_PRODUCTION ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
             chunksSortMode: 'none'
         }),
         ...(
-            envConfig.IS_DEV_SERVER ? [
+            !envConfig.IS_PRODUCTION ? [
                 new webpack.HotModuleReplacementPlugin(),
                 new ForkTsCheckerWebpackPlugin({
                     tslint: true

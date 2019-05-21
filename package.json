@@ -102,7 +102,6 @@
 		"@types/yargs": "11.0.0",
 		"autoprefixer": "8.6.3",
 		"clean-webpack-plugin": "0.1.19",
-		"cpy-cli": "2.0.0",
 		"cross-env": "5.2.0",
 		"css-loader": "0.28.11",
 		"dotenv": "6.0.0",
@@ -149,19 +148,7 @@
 		"webpack-hot-middleware": "2.24.2"
 	},
 	"scripts": {
-		"cpy:local:inside": "cpy configs/local_inside_vm.env ./ --rename=.env",
-		"cpy:local:outside": "cpy configs/local_outside_vm.env ./ --rename=.env",
-		"cpy:local:docker": "cpy configs/local_docker.env ./ --rename=.env",
-		"cpy:prod": "cpy configs/prod.env ./ --rename=.env",
-		"build:web": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"build:web:prod": "cross-env NODE_ENV=production npm run build:web",
-		"dist": "npm run build:web:prod",
-		"dist:dev": "npm run cpy:local:outside && npm run build:web",
-		"start:docker": "npm run cpy:local:docker && docker-compose up --build",
-		"dist:prod": "npm run cpy:prod && npm run build:web:prod",
-		"dev": "cross-env NODE_ENV=webpack-dev-server node --max_old_space_size=4096 server.js",
-		"serve:vm": "npm run cpy:local:inside && npm run dev",
-		"serve:local": "npm run cpy:local:outside && npm run dev",
-		"start": "node ./server.js"
+		"prod": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
+		"dev": "node --max_old_space_size=4096 server.js"
 	}
 }

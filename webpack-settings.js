@@ -1,4 +1,4 @@
-const envConfig = require('./configs/env_config');
+const envConfig = require('./env_config');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const lintIndex = process.argv.join('').indexOf('lint');
@@ -52,7 +52,7 @@ const loaders = [
 ];
 
 const aliases = {
-    src: path.resolve(__dirname, 'src'),
+    main: path.resolve(__dirname),
     '@constants': path.resolve(__dirname, 'src/constants'),
     '@components': path.resolve(__dirname, 'src/application/components'),
     '@containers': path.resolve(__dirname, 'src/application/containers'),
@@ -80,7 +80,7 @@ const definableConstants = {
 let devServer = {};
 let watchOptions = {};
 
-if (envConfig.IS_DEV_SERVER) {
+if (!envConfig.IS_PRODUCTION) {
     watchOptions = {
         aggregateTimeout: 1000,
         poll: 1000
@@ -106,7 +106,7 @@ const entry = {
     ]
 };
 
-if(envConfig.IS_DEV_SERVER) {
+if(!envConfig.IS_PRODUCTION) {
     entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
     entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
 }

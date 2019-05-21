@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 
-const config = require('./configs/env_config');
+const config = require('./env_config');
 
 let webPath = config.WEB_PATH;
 

@@ -1,6 +1,6 @@
 import { create } from 'apisauce';
 import { TAccessToken } from '@interfaces/login';
-const config = require('@configs/env_config');
+const config = require('main/env_config');
 
 const api = create({
     baseURL: config.API_URL,
