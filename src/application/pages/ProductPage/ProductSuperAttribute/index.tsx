@@ -1,39 +1,57 @@
 import * as React from 'react';
-import { SuperAttributeBlock } from './SuperAttributeBlock';
-import { IProductSuperAttributeProps as Props, IProductSuperAttributeState as State } from './types';
+import { IProductSuperAttributeProps as Props } from './types';
 import { ISuperAttribute } from '@helpers/product/types';
+import { Button, Typography, withStyles } from '@material-ui/core';
+import { styles } from './styles';
 
-export class ProductSuperAttribute extends React.Component<Props, State> {
-    public state: State = {
-        selectedValues: null
+const ProductSuperAttributeComponent: React.SFC<Props> = (props): JSX.Element => {
+    const { superAttributes, classes } = props;
+
+    const renderProductAttributes = (attributeData: ISuperAttribute): JSX.Element[] => {
+        const { superAttrSelected, onChange } = props;
+
+        return attributeData.data.map(attribute => {
+            const isSelected = attribute.value === superAttrSelected[attributeData.name];
+
+            return (
+                <div
+                    className={ classes.attributesItem }
+                    key={ attribute.value.length > 0 ? attribute.value : attribute.name }
+                >
+                    <Button
+                        variant="outlined"
+                        className={`${ classes.button } ${ isSelected ? classes.buttonSelected : '' }`}
+                        onClick={ () => onChange(attributeData.name, attribute.value) }
+                        fullWidth
+                    >
+                        { attribute.name }
+                    </Button>
+                </div>
+            );
+        });
     };
 
-    protected onChange = ({ name, value }: { name: string, value: string }): void => {
-        const { selectedValues } = this.state;
-        const updatedValues = selectedValues === null
-            ? { [name]: value }
-            : {
-                ...selectedValues,
-                [name]: value
-            };
+    return (
+        <>
+            { superAttributes.map((attribute: ISuperAttribute) => (
+                <div className={ classes.attributeBlock } key={ attribute.name }>
+                    <Typography
+                        variant="h6"
+                        component="span"
+                        color="textSecondary"
+                        className={ classes.attributeTitle }
+                    >
+                        { attribute.nameToShow }
+                    </Typography>
 
-        this.props.onChange({ name, value });
-        this.setState({ selectedValues: updatedValues });
-    };
+                    <div className={ classes.attributesList }>
+                        { renderProductAttributes(attribute) }
+                    </div>
+                </div>
 
-    public render(): JSX.Element {
-        const { productData } = this.props;
+            )) }
+        </>
+    );
+};
 
-        return (
-            <>
-                { productData.map((attribute: ISuperAttribute, index) => (
-                    <SuperAttributeBlock
-                        attributeData={ attribute }
-                        onValueChanged={ this.onChange }
-                        key={ attribute.name }
-                    />
-                )) }
-            </>
-        );
-    }
-}
+export const ProductSuperAttribute = withStyles(styles)(ProductSuperAttributeComponent);

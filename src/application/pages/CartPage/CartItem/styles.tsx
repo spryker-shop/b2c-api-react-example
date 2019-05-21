@@ -62,9 +62,18 @@ export const styles = (theme: Theme) => createStyles({
         }
     },
     nameLink: {
+        fontSize: 'inherit',
+        lineHeight: 'inherit',
+        fontWeight: 'inherit',
+        padding: 0,
+        minWidth: 0,
+        border: 'none',
+        background: 'none',
         textDecoration: 'none',
         color: theme.appColors.grey,
         '&:hover': {
+            border: 'none',
+            background: 'none',
             color: theme.appColors.blue
         }
     },

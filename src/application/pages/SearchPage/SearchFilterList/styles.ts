@@ -35,7 +35,7 @@ export const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.only('md')]: {
             display: 'none',
             padding: '21px 21px 11px',
-            marginBottom: 40,
+            marginBottom: 20,
             background: theme.appColors.weekWhite,
             borderRadius: 4
         }
@@ -48,42 +48,34 @@ export const styles = (theme: Theme) => createStyles({
             display: 'block'
         }
     },
-    activeFiltersHolder: {
-        display: 'none',
-        [theme.breakpoints.up('lg')]: {
-            display: 'block'
-        }
-    },
-    activeOpen: {
-        display: 'block'
-    },
     button: {
-        color: theme.appColors.grey,
         marginBottom: 20,
+        color: theme.appColors.blue,
+        borderColor: theme.appColors.blue,
         '&:hover': {
             backgroundColor: theme.appColors.white,
-            color: theme.appColors.grey,
-            borderColor: theme.appColors.lightGrey
+            color: theme.appColors.blue,
+            borderColor: theme.appColors.blue
         },
         '&:active': {
             backgroundColor: theme.appColors.white,
-            color: theme.appColors.grey,
-            borderColor: theme.appColors.lightGrey
+            color: theme.appColors.blue,
+            borderColor: theme.appColors.blue
         },
         [theme.breakpoints.up('lg')]: {
             display: 'none'
         }
     },
     buttonActive: {
-        color: theme.appColors.blue,
-        borderColor: theme.appColors.blue,
+        color: theme.appColors.grey,
+        borderColor: theme.appColors.lightGrey,
         '&:hover': {
-            color: theme.appColors.blue,
-            borderColor: theme.appColors.blue
+            color: theme.appColors.grey,
+            borderColor: theme.appColors.lightGrey
         },
         '&:active': {
-            color: theme.appColors.blue,
-            borderColor: theme.appColors.blue
+            color: theme.appColors.grey,
+            borderColor: theme.appColors.lightGrey
         }
     },
     buttonIcon: {

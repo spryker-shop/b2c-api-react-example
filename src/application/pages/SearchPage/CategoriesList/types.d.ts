@@ -9,6 +9,7 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     categories: FilterValue[];
     categoriesTree: ICategory[];
     selectedCategory: TCategoryId;
+    selectedMobileCategory: TCategoryId;
     localizedName?: TLocalizedName | null;
     locationCategoryId: TCategoryId;
     changeLocation?: (location: string) => void;
@@ -16,6 +17,7 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     width?: Breakpoint;
     isOpened: boolean;
     onTitleClick: () => void;
+    onItemClickHandler: (categoryId: number) => void;
 }
 
 export interface ICategoriesListState {

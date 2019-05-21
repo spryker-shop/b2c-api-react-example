@@ -78,7 +78,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
                             { isParallelRequest &&
                                 <Grid item xs={ 12 } className={ classes.col }>
                                     <ErrorBoundary>
-                                        <div className={`${classes.block} ${classes.blockBottomIndent}`}>
+                                        <div className={ classes.block }>
                                             <div className={ classes.heading }>
                                                 <Typography component="h3" variant="h3" className={ classes.subtitle }>
                                                     <FormattedMessage id={ 'last.orders.title' } />
