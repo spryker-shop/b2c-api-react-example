@@ -26,7 +26,7 @@ const config = {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: !envConfig.IS_PRODUCTION ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT + '/' : envConfig.WEB_PATH
+        publicPath: !envConfig.IS_PRODUCTION ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}/` : envConfig.WEB_PATH
     },
     optimization: {
         minimizer: [
@@ -112,7 +112,7 @@ const config = {
             compile: true,
             favicon: path.resolve(__dirname, `favicon.png`),
             minify: false,
-            devServer: !envConfig.IS_PRODUCTION ? 'http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT : '',
+            devServer: !envConfig.IS_PRODUCTION ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}` : '',
             chunksSortMode: 'none'
         }),
         ...(
