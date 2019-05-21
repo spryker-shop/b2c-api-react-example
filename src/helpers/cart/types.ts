@@ -1,10 +1,5 @@
-import {
-    ICartDiscounts,
-    ICartItem,
-    ICartItemCalculation,
-    ICartTotals
-} from '@interfaces/cart';
-import { IAbstractRowIncludedResponse } from '@interfaces/abstract/rowIncludedresponse';
+import { ICartDiscounts, ICartItem, ICartItemCalculation } from '@interfaces/cart';
+import { IAbstractRowIncludedResponse, IAbstractTotals } from '@interfaces/abstract';
 import {
     IRowConcreteProductsIncludedResponse,
     IRowProductAvailabilitiesIncludedResponse,
@@ -31,7 +26,7 @@ export interface ICustomerCartDataRawResponse {
         discounts: {} | ICartDiscounts[];
         priceMode: string;
         store: string;
-        totals: ICartTotals;
+        totals: IAbstractTotals;
     };
     id: string;
     links: {

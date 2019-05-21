@@ -1,5 +1,4 @@
 import { create } from 'apisauce';
-import { TAccessToken } from '@interfaces/login';
 const config = require('@configs/env_config');
 
 const api = create({
@@ -11,7 +10,7 @@ const api = create({
     },
 });
 
-export const setAuthToken = (userAuth: TAccessToken) => api.setHeader('Authorization', 'Bearer ' + userAuth);
+export const setAuthToken = (userAuth: string) => api.setHeader('Authorization', 'Bearer ' + userAuth);
 export const removeAuthToken = () => api.deleteHeader('Authorization');
 
 export default api;

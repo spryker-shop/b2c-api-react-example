@@ -1,13 +1,12 @@
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
-import { TAccessToken } from '@interfaces/login';
 import jwtDecoder from 'jwt-decode';
 
 interface ICustomerLoginDataResponse {
     data: {
         attributes: {
-            accessToken: TAccessToken;
+            accessToken: string;
             expiresIn: number;
-            refreshToken: TAccessToken;
+            refreshToken: string;
             tokenType: string;
         },
         id: string | null;

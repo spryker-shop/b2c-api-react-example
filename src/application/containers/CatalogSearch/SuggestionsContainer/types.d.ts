@@ -1,4 +1,3 @@
-import { TAppCurrency } from '@interfaces/currency';
 import { ISearchQuery } from '@interfaces/searchPageData';
 import { RenderSuggestionsContainerParamsutProps } from 'react-autosuggest';
 import { ICategory } from '@interfaces/category';
@@ -11,7 +10,7 @@ export interface ISuggestionsContainerProps extends WithStyles<typeof styles> {
     suggestions?: IProductCard[] | null;
     categories?: {[name: string]: string}[] | null;
     completion?: string[] | null;
-    currency?: TAppCurrency;
+    currency?: string | null;
     categoriesTree?: ICategory[] | null;
     clearSuggestion: (query: string) => void;
     sendSearchAction?: (params: ISearchQuery) => void;

@@ -5,13 +5,12 @@ import { sendSearchAction } from '@stores/actions/pages/search';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { FlyoutSearch } from '@interfaces/searchPageData';
-import { TAppCurrency } from '@interfaces/currency';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const searchProps: FlyoutSearch = state.pageSearch && state.pageSearch.data
         ? state.pageSearch.data.flyoutSearch
         : null;
-    const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const currency: string | null = getAppCurrency(state, ownProps);
 
     return (
         {

@@ -1,9 +1,8 @@
-import { IAbstractTotals, TCanceledTotal } from '@interfaces/abstract/totals';
+import { IAbstractTotals } from '@interfaces/abstract';
 import { IAddressItemOrder } from '@interfaces/addresses';
-import { TAppCurrency } from '@interfaces/currency';
 
 export interface IOrderTotals extends IAbstractTotals {
-    canceledTotal: TCanceledTotal;
+    canceledTotal: number;
 }
 
 export interface IOrderCollectionParsed {
@@ -17,14 +16,14 @@ export interface IOrderCollectionResponse {
 export interface IOrderItem {
     id: string;
     dateCreated: string;
-    currency: TAppCurrency;
+    currency: string | null;
     totals: IOrderTotals;
 }
 
 export interface IOrderItemResponse {
     attributes: {
         createdAt: string;
-        currencyIsoCode: TAppCurrency;
+        currencyIsoCode: string | null;
         totals: IOrderTotals;
     };
     id: string;
@@ -33,7 +32,7 @@ export interface IOrderItemResponse {
 export interface IOrderDetailsResponse {
     attributes: {
         createdAt: string,
-        currencyIsoCode: TAppCurrency;
+        currencyIsoCode: string | null;
         expenses: IOrderDetailsExpenseItem[] | null;
         items: IOrderDetailsItem[] | null;
         totals: IOrderTotals;

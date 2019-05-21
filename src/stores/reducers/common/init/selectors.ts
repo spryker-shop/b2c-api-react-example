@@ -1,8 +1,5 @@
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { TAppTimeZone } from '@interfaces/locale';
-import { TAppCurrency } from '@interfaces/currency';
-import { TAppStore } from '@interfaces/store';
 import { ICategory } from '@interfaces/category';
 import { ICountry } from '@interfaces/country';
 import { APP_LOCALE_DEFAULT } from '@constants/common';
@@ -19,15 +16,15 @@ export function isAppStateFulfilled(state: IReduxStore, props: IReduxOwnProps): 
     return Boolean(state.init && state.init.fulfilled && state.init.fulfilled === true);
 }
 
-export function getAppCurrency(state: IReduxStore, props: IReduxOwnProps): TAppCurrency {
+export function getAppCurrency(state: IReduxStore, props: IReduxOwnProps): string | null {
     return isAppInitiated(state, props) ? state.init.data.currency : null;
 }
 
-export function getAppLocale(state: IReduxStore, props: IReduxOwnProps): TAppStore {
+export function getAppLocale(state: IReduxStore, props: IReduxOwnProps): string | null {
     return isAppInitiated(state, props) ? state.init.data.locale : APP_LOCALE_DEFAULT;
 }
 
-export function getAppTimeZone(state: IReduxStore, props: IReduxOwnProps): TAppTimeZone {
+export function getAppTimeZone(state: IReduxStore, props: IReduxOwnProps): string | null {
     return isAppInitiated(state, props) ? state.init.data.timeZone : null;
 }
 
@@ -35,7 +32,7 @@ export function getAppPriceMode(state: IReduxStore, props: IReduxOwnProps): stri
     return isAppInitiated(state, props) ? state.init.data.priceMode : null;
 }
 
-export function getAppStore(state: IReduxStore, props: IReduxOwnProps): TAppStore {
+export function getAppStore(state: IReduxStore, props: IReduxOwnProps): string | null {
     return isAppInitiated(state, props) ? state.init.data.store : null;
 }
 

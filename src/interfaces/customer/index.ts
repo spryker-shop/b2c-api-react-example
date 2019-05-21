@@ -1,9 +1,8 @@
-import { TAccessToken, TExpiresInAccessToken, TRefreshToken, TTokenType } from '@interfaces/login';
 import { TRouterMatchParam } from '@helpers/router/types';
 
 export type TSalutationVariant = {
   value: string,
-  name: React.ReactNode,
+  name: JSX.Element
 };
 
 export interface ICustomerProfileIdentity {
@@ -43,10 +42,10 @@ export interface ILoginDataToLocalStorage {
 }
 
 export interface ICustomerLoginDataParsed {
-    accessToken: TAccessToken;
-    expiresIn: TExpiresInAccessToken;
-    refreshToken: TRefreshToken;
-    tokenType: TTokenType;
+    accessToken: string;
+    expiresIn: number;
+    refreshToken: string;
+    tokenType: string;
     customerRef: string;
 }
 

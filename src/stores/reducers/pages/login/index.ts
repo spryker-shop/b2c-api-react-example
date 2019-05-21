@@ -7,7 +7,6 @@ import {
     RESET_PASSWORD,
 } from '@stores/actionTypes/pages/login';
 import { SET_AUTH_FROM_STORAGE } from '@stores/actionTypes/common/init';
-import { TAccessToken } from '@interfaces/login';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { LOGIN_DATA_SET_TO_STORE } from '@stores/actionTypes/pages/customerProfile';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
@@ -108,7 +107,7 @@ export function isUserAuthenticated(state: IReduxStore, props: IReduxOwnProps): 
     return (state.pagesLogin && state.pagesLogin.data && state.pagesLogin.data.isAuth);
 }
 
-export function getAccessToken(state: IReduxStore, props: IReduxOwnProps): TAccessToken | null {
+export function getAccessToken(state: IReduxStore, props: IReduxOwnProps): string | null {
     return (
         isUserAuthenticated(state, props) && state.pagesLogin.data.accessToken
             ? state.pagesLogin.data.accessToken

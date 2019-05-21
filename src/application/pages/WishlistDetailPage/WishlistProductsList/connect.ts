@@ -1,6 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { TAppCurrency } from '@interfaces/currency';
 import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { push } from 'connected-react-router';
@@ -15,7 +14,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
     const cartItemsLength: number = getTotalItemsQuantity(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
-    const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const currency: string | null = getAppCurrency(state, ownProps);
     const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
     const products: IWishlistProduct[] | null = wishlistProps && wishlistProps.data
         ? wishlistProps.data.currentItems : null;

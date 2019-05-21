@@ -4,6 +4,7 @@ import { styles } from './styles';
 import { IFoundItemsProps } from './FoundItems/types';
 import { IPagination } from '@containers/AppPagination/types';
 import { IActiveSort } from '@interfaces/searchPageData';
+import { IIndexSignature } from '@interfaces/common';
 
 export interface ISortPanelProps extends WithStyles<typeof styles> {
     foundItems?: React.SFC<IFoundItemsProps>;
@@ -12,7 +13,7 @@ export interface ISortPanelProps extends WithStyles<typeof styles> {
     sortParams?: string[];
     currentItemsPerPage?: number;
     pagination?: IPagination;
-    sortParamLocalizedNames?: {[key: string]: string};
+    sortParamLocalizedNames?: IIndexSignature;
     setSortAction?: (activeSortOptions: IActiveSort) => void;
 }
 

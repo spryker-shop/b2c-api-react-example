@@ -56,10 +56,6 @@ export interface IProductAttributes {
     [key: string]: string | number;
 }
 
-export interface IProductAttributeNames {
-    [key: string]: string;
-}
-
 export interface IProductAvailability {
     availability: boolean | null;
     quantity?: number | null;
@@ -107,7 +103,7 @@ export interface IProductAttributesRawResponse {
     name: string;
     description: string;
     attributes: IProductAttributes;
-    attributeNames: IProductAttributeNames;
+    attributeNames: IIndexSignature;
     attributeMap: IProductAttributeMap;
     id: string;
     superAttributesDefinition?: string[];

@@ -3,22 +3,21 @@ import { IActionData, IReduxState } from '@stores/reducers/types';
 import {
     IPaymentMethod,
     IShipmentMethod,
-    IBillingAddressState,
     IBillingSelectionState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState,
     ICheckoutStepsCompletionState,
-    ICheckoutAddressState,
     IDeliverySelectionState,
     IFormUpdatePaymentStatus,
     IFormFieldMutate
 } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutState extends IReduxState {
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;
-    deliveryNewAddress: ICheckoutAddressState;
-    billingNewAddress: IBillingAddressState;
+    deliveryNewAddress: IAddressFormState;
+    billingNewAddress: IAddressFormState;
     stepsCompletion: ICheckoutStepsCompletionState;
     shipmentMethod: IShipmentMethod['id'] | null;
     paymentMethod: IPaymentMethod['paymentMethodName'] | null;

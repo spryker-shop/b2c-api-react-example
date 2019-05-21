@@ -1,5 +1,5 @@
 import api, { setAuthToken } from '@services/api';
-import { ICartAddItem, ICartDataResponse, TCartAddItemCollection } from '@interfaces/cart';
+import { ICartAddItem, ICartDataResponse } from '@interfaces/cart';
 import {
     parseUserCartResponseMultiValue,
     parseCartCreateResponse,
@@ -278,7 +278,7 @@ export class CartService extends ApiServiceAbstract {
 
     public static async cartMultipleItems(
         dispatch: Function,
-        payload: TCartAddItemCollection,
+        payload: ICartAddItem[] | null,
         cartId: string | null,
         payloadCartCreate: ICartCreatePayload
     ): Promise<void> {

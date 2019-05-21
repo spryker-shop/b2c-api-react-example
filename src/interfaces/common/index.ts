@@ -1,15 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps, RouteProps } from 'react-router';
 
-export interface Styles {
-    className?: string;
-    style?: React.CSSProperties;
-}
-
-export interface Component extends Styles {
-    children?: React.ReactNode[] | React.Element | string;
-}
-
 export type ClickEvent = React.MouseEvent<HTMLElement>;
 export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement |
     HTMLSelectElement> ;
@@ -25,5 +16,9 @@ export interface IStyles {
 }
 
 export interface IComponent extends IStyles {
-    children?: React.ReactNode[] | React.Element | string;
+    children?: React.ReactNode[] | JSX.Element | string;
+}
+
+export interface IIndexSignature {
+    [key: string]: string;
 }

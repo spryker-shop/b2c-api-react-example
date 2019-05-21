@@ -1,3 +1,5 @@
+import { IIndexSignature } from '@interfaces/common';
+
 const config = require('@configs/env_config');
 export const pathHomePage = `${config.WEB_PATH}`;
 export const pathSearchPage = `${config.WEB_PATH}search`;
@@ -32,7 +34,7 @@ export const pathCheckoutThanks = `${pathCheckoutPage}/thanks`;
 export const pathNotFoundPage = `${config.WEB_PATH}*`;
 export const pathURLToCategorySale = 'outlet';
 export const pathURLToCategoryNew = 'new';
-export const labeledCategories: { [key: string]: string } = {
+export const labeledCategories: IIndexSignature = {
     [pathURLToCategorySale]: 'SALE %',
     [pathURLToCategoryNew]: 'NEW',
 };

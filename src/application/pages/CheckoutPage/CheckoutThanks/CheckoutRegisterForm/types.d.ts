@@ -1,7 +1,8 @@
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
-import { IBillingAddressState, IBillingSelectionState, ICheckoutAddressState } from '@interfaces/checkout';
+import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     isAuth?: boolean;
@@ -9,8 +10,8 @@ export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     getCustomerCart?: Function;
     isLoading?: boolean;
     isCartLoading?: boolean;
-    deliveryNewAddress?: ICheckoutAddressState;
-    billingNewAddress?: IBillingAddressState;
+    deliveryNewAddress?: IAddressFormState;
+    billingNewAddress?: IAddressFormState;
     isMultipleAddressesLoading?: boolean;
     billingSelection?: IBillingSelectionState;
     addAddress?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
@@ -24,7 +25,7 @@ export interface ICheckoutRegisterFormState {
 }
 
 export interface IAddressPayload {
-    address: ICheckoutAddressState;
+    address: IAddressFormState;
     isDefaultShipping: boolean;
     isDefaultBilling: boolean;
 }

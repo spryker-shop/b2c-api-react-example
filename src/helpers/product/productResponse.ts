@@ -2,7 +2,6 @@ import {
     abstractProductType,
     concreteProductType,
     IConcreteProductAvailability,
-    IProductAttributeNames,
     IProductDataParsed,
     IProductPricesItem,
     priceTypeNameDefault,
@@ -22,6 +21,7 @@ import {
 } from '@helpers/product/types';
 import { IProductLabelResponse } from '@interfaces/searchPageData';
 import { IProductImage } from '@components/ProductImageSlider/types';
+import { IIndexSignature } from '@interfaces/common';
 
 const defaultProductQuantity = 10;
 
@@ -65,7 +65,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     result.abstractProduct.descriptionAttributes =
         parseDescriptionAttributes(data.attributes.attributeNames, data.attributes.attributes);
 
-    let attributeNamesContainer: IProductAttributeNames = {};
+    let attributeNamesContainer: IIndexSignature = {};
 
     if (data.attributes.attributeMap.product_concrete_ids) {
         data.attributes.attributeMap.product_concrete_ids.forEach((id: string) => {
@@ -161,7 +161,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
 const parseSuperAttributes = (
     superAttributes: IProductAttributeMap,
-    attributeNamesContainer: IProductAttributeNames
+    attributeNamesContainer: IIndexSignature
 ): ISuperAttribute[] | null => {
     if (!superAttributes.super_attributes || typeof superAttributes.super_attributes !== 'object') {
         return null;
@@ -195,7 +195,7 @@ const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse): IPro
 };
 
 const parseDescriptionAttributes = (
-    attributeNames: IProductAttributeNames,
+    attributeNames: IIndexSignature,
     attributeValues: IProductAttributes
 ) => Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
     name: attributeNames[attributeKey],

@@ -1,16 +1,14 @@
-import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
-import { TAppLocale } from '@interfaces/locale';
 
 export type TLanguage = {
-    name: React.ReactNode,
-    code: TAppLocale,
+    name: JSX.Element,
+    code: string | null
 };
 
 export interface ILangProps extends WithStyles<typeof styles> {
-    appLocale?: TAppLocale;
+    appLocale?: string | null;
     switchLocaleAction?: (payload: ILocaleActionPayload) => void;
 }
 

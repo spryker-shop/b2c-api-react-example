@@ -16,8 +16,7 @@ import {
     IActiveFilters,
     IActiveSort,
     ICatalogSearchDataParsed,
-    ISearchQuery,
-    TSearchTerm
+    ISearchQuery
 } from '@interfaces/searchPageData';
 
 export const suggestPendingState = () => ({
@@ -83,7 +82,7 @@ export const clearPaginationPageAction = () => ({
     type: PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 });
 
-export const clearSuggestions = (searchTerm: TSearchTerm) => ({
+export const clearSuggestions = (searchTerm: string) => ({
     type: PAGES_SEARCH_REQUEST_CLEAR,
     payloadSearchTermFulfilled: {searchTerm}
 });

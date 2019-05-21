@@ -1,6 +1,10 @@
-import { ICurrencyItem } from '@interfaces/currency';
 import { ILocaleItem } from '@interfaces/locale';
 import { ICountry } from '@interfaces/country';
+
+interface ICurrencyItem {
+    code: string;
+    name: string;
+}
 
 export interface IStoreRawResponse {
     data: [{

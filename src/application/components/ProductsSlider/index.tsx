@@ -22,7 +22,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         </div>
     );
 
-    const renderDots = (dots: React.ReactNode): JSX.Element => (
+    const renderDots = (dots: JSX.Element): JSX.Element => (
         <div>
             <ul className={ classes.dotsContainer }>{ dots }</ul>
         </div>

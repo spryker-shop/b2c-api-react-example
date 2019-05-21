@@ -15,6 +15,6 @@ export interface INavLinkData {
     path: string;
     title: string;
     extraClassName?: string;
-    icon?: React.ReactNode;
+    icon?: JSX.Element;
     isWishlist?: boolean;
 }

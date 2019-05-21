@@ -14,17 +14,15 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
         return null;
     }
 
-    const getSalutation = (address: IAddressItemCollection): React.ReactNode => {
-        let salutation: React.ReactNode = null;
-
-        if (address.salutation) {
-            salutation = getSalutationToShow(address.salutation);
+    const getSalutation = (address: IAddressItemCollection): JSX.Element | string => {
+        if (!address.salutation) {
+            return null;
         }
 
-        return salutation;
+        return getSalutationToShow(address.salutation);
     };
 
-    const getFullInforamtion = (address: IAddressItemCollection): string | React.ReactNode => {
+    const getFullInforamtion = (address: IAddressItemCollection): string | JSX.Element => {
         let response: string = '';
 
         if (address.firstName) {

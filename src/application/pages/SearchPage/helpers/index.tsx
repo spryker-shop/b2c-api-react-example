@@ -1,6 +1,5 @@
 import {
     FilterValue,
-    ILocalizedNamesMap,
     ISearchPageData,
     RangeFacets,
     ValueFacets
@@ -15,6 +14,7 @@ import {
 import { IActiveFilterCategories } from '../CategoriesList/types';
 import { labeledCategories, pathCategoryPageBase } from '@constants/routes';
 import { ICategory, IBreadcrumbItem } from '@interfaces/category';
+import { IIndexSignature } from '@interfaces/common';
 
 export const isValidRangeInput = (
     activeRanges: TActiveRangeFilters,
@@ -56,12 +56,12 @@ export const getFormattedActiveCategories = (data: FilterValue[]): IActiveFilter
     return response;
 };
 
-export const getRangeFiltersLocalizedNames = (data: RangeFacets[] | null): ILocalizedNamesMap | null => {
+export const getRangeFiltersLocalizedNames = (data: RangeFacets[] | null): IIndexSignature | null => {
     if (!Array.isArray(data) || !data.length) {
         return null;
     }
 
-    const response: ILocalizedNamesMap = {};
+    const response: IIndexSignature = {};
 
     data.forEach((item: RangeFacets) => {
         response[item.name] = item.localizedName;
@@ -70,12 +70,12 @@ export const getRangeFiltersLocalizedNames = (data: RangeFacets[] | null): ILoca
     return response;
 };
 
-export const getFiltersLocalizedNames = (data: ValueFacets[] | null): ILocalizedNamesMap | null => {
+export const getFiltersLocalizedNames = (data: ValueFacets[] | null): IIndexSignature | null => {
     if (!Array.isArray(data) || !data.length) {
         return null;
     }
 
-    const response: ILocalizedNamesMap = {};
+    const response: IIndexSignature = {};
 
     data.forEach((item: ValueFacets) => {
         response[item.name] = item.localizedName;

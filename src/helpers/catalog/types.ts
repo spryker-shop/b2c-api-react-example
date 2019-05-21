@@ -1,5 +1,6 @@
 import { IProductCard } from '@interfaces/product';
 import { IProductLabelResponse, RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { IIndexSignature } from '@interfaces/common';
 
 export interface ICatalogSearchRawResponse {
     data: [{
@@ -21,7 +22,7 @@ export interface ICatalogSearchRawResponse {
             sort: {
                 currentSortOrder: string | null,
                 currentSortParam: string | null,
-                sortParamLocalizedNames: { [key: string]: string },
+                sortParamLocalizedNames: IIndexSignature,
                 sortParamNames: string[] | null,
             },
             spellingSuggestion: string | null,

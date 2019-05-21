@@ -1,6 +1,5 @@
 import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
-import { RangeType, TCategoryId } from '@pages/SearchPage/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
@@ -24,8 +23,8 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     width: Breakpoint;
     currentCategoryId?: number | null;
     changeLocation?: (location: string) => void;
-    setCurrentCategory?: (categoryId: TCategoryId) => void;
-    locationCategoryId?: TCategoryId;
+    setCurrentCategory?: (categoryId: number | string) => void;
+    locationCategoryId?: number | string;
 }
 
 export interface IFiltersListState {

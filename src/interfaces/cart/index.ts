@@ -1,8 +1,6 @@
-import { IAbstractTotals } from '@interfaces/abstract/totals';
+import { IAbstractTotals } from '@interfaces/abstract';
 import { IProductPricesItem } from '@interfaces/product';
-import { TAppCurrency } from '@interfaces/currency';
-
-export type TCartAddItemCollection = ICartAddItem[] | null;
+import { IIndexSignature } from '@interfaces/common';
 
 export interface ICartDiscounts {
     displayName: string;
@@ -13,10 +11,6 @@ export interface ICartDiscounts {
 export interface ICartAddItem {
     sku: string;
     quantity: number;
-}
-
-export interface ICartTotals extends IAbstractTotals {
-
 }
 
 export interface ICartItem {
@@ -31,7 +25,7 @@ export interface ICartItem {
     groupKey?: string | null;
     availability?: boolean | null;
     availableQuantity?: number | null;
-    superAttributes?: { [key: string]: string }[] | null;
+    superAttributes?: IIndexSignature[] | null;
     priceOriginalGross?: number | null;
     priceOriginalNet?: number | null;
     priceDefaultGross?: number | null;
@@ -46,11 +40,11 @@ export interface ICartDataResponse extends ICommonDataInCart {
 
 export interface ICommonDataInCart {
     id: string | null;
-    currency: TAppCurrency;
+    currency: string | null;
     discounts?: ICartDiscounts | {};
     priceMode: string | null;
     store: string | null;
-    totals: ICartTotals;
+    totals: IAbstractTotals;
     cartCreated?: boolean;
 }
 

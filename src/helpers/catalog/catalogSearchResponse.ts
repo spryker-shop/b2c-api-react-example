@@ -1,11 +1,8 @@
 import {
     FilterValue,
     ICatalogSearchDataParsed,
-    IProductLabelResponse,
-    TLocalizedName,
     ValueFacets,
-    IAvailableLabelsCollection,
-    TLabelId
+    IAvailableLabelsCollection
 } from '@interfaces/searchPageData';
 import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
@@ -37,7 +34,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const currentPaginationPage: number = pagination.currentPage;
     let category: FilterValue[] = [];
     let currentCategoryId: number = null;
-    let categoriesLocalizedName: TLocalizedName | null = null;
+    let categoriesLocalizedName: string | null = null;
 
     attributes.valueFacets.forEach((filter: ValueFacets) => {
         if (filter.name === 'category') {
@@ -98,7 +95,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
             row.relationships['product-labels'] && availableLabels;
 
         if (isProductHasLabels) {
-            const labelsIdArr: TLabelId[] = row.relationships['product-labels'].data.map(item => item.id);
+            const labelsIdArr: string[] = row.relationships['product-labels'].data.map(item => item.id);
             const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
             appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);

@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
-import { ISearchQuery, TSpellingSuggestion } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/searchPageData';
 import { getRouterMatchParam } from '@helpers/router';
 import {
     sendSearchAction,
@@ -14,14 +14,13 @@ import {
 } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/category';
-import { TAppCurrency } from '@interfaces/currency';
 import { ISearchState } from '@stores/reducers/pages/search/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchProps: ISearchState = state.pageSearch ? state.pageSearch : null;
-    const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const currency: string | null = getAppCurrency(state, ownProps);
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
-    const spellingSuggestion: TSpellingSuggestion = getSpellingSuggestion(state, ownProps);
+    const spellingSuggestion: string = getSpellingSuggestion(state, ownProps);
     const locationCategoryId = getRouterMatchParam(state, ownProps, 'categoryId');
 
     return ({

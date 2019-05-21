@@ -1,19 +1,15 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import {
-    IBillingAddressState,
-    ICheckoutAddressState,
-    IBillingSelectionState,
-    IDeliverySelectionState
-} from '@interfaces/checkout';
+import { IBillingSelectionState, IDeliverySelectionState } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { ICountry } from '@interfaces/country';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutSummaryAddressesProps extends WithStyles<typeof styles> {
     addressesCollection: IAddressItemCollection[] | null;
-    deliveryNewAddress: ICheckoutAddressState;
+    deliveryNewAddress: IAddressFormState;
     deliverySelection: IDeliverySelectionState;
-    billingNewAddress: IBillingAddressState;
+    billingNewAddress: IAddressFormState;
     billingSelection: IBillingSelectionState;
     countriesCollection: ICountry[];
 }

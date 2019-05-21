@@ -1,26 +1,19 @@
 import { IProductCard } from '@interfaces/product';
 import { IPagination } from '@containers/AppPagination/types';
-import { TCategoryId } from '@pages/SearchPage/types';
-import { TAppCurrency } from '@interfaces/currency';
 import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
-
-export type TSpellingSuggestion = string;
-export type TLocalizedName = string;
-export type TDocCount = number;
-export type TLabelId = string;
-export type TSearchTerm = string;
+import { IIndexSignature } from '@interfaces/common';
 
 export interface FilterValue {
     value: string | number;
-    doc_count: TDocCount | null;
+    doc_count: number | null;
 }
 
 export interface ValueFacets {
     name: string;
-    docCount: TDocCount | null;
+    docCount: number | null;
     values: FilterValue[];
     activeValue: string | null;
-    localizedName: TLocalizedName;
+    localizedName: string;
 }
 
 export interface RangeFacets {
@@ -29,8 +22,8 @@ export interface RangeFacets {
     max: number;
     activeMin: number;
     activeMax: number;
-    docCount: TDocCount | null;
-    localizedName: TLocalizedName;
+    docCount: number | null;
+    localizedName: string;
 }
 
 export interface FlyoutSearch {
@@ -68,10 +61,6 @@ export interface IAvailableLabelsCollection {
     [id: string]: IAvailableLabel;
 }
 
-export interface ILocalizedNamesMap {
-    [key: string]: TLocalizedName;
-}
-
 export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
     filters: ValueFacets[] | null;
@@ -82,26 +71,26 @@ export interface ICatalogSearchDataParsed extends IActiveFilters {
     currentPaginationPage: number;
     rangeFilters: RangeFacets[] | null;
     sortParams: string[] | null;
-    sortParamLocalizedNames: ILocalizedNamesMap | null;
-    categoriesLocalizedName: TLocalizedName | null;
+    sortParamLocalizedNames: IIndexSignature | null;
+    categoriesLocalizedName: string | null;
     pagination: IPagination;
-    spellingSuggestion: TSpellingSuggestion | null;
-    searchTerm?: TSearchTerm;
+    spellingSuggestion: string | null;
+    searchTerm?: string;
 }
 
 export interface ISearchPageData extends ICatalogSearchDataParsed {
     dispatch?: Function;
     flyoutSearch?: FlyoutSearch;
-    currency?: TAppCurrency;
+    currency?: string | null;
     isFiltersUpdated: boolean;
     isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {
     q?: string;
-    currency?: TAppCurrency;
+    currency?: string | null;
     sort?: string;
-    category?: TCategoryId;
+    category?: number | string;
     ipp?: number;
     label?: string;
     page?: string | number;

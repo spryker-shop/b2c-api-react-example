@@ -9,13 +9,12 @@ import {
     ICheckoutRequest,
     IShipmentMethod,
     IPaymentMethod,
-    ICheckoutAddressState,
-    IBillingAddressState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState
 } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { WithRouter } from '@interfaces/common';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     isUserLoggedIn: boolean;
@@ -34,8 +33,8 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     stepsCompletion: ICheckoutStepsCompletionState;
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;
-    deliveryNewAddress: ICheckoutAddressState;
-    billingNewAddress: IBillingAddressState;
+    deliveryNewAddress: IAddressFormState;
+    billingNewAddress: IAddressFormState;
     shipmentMethod: IShipmentMethod['id'] | null;
     paymentMethod: IPaymentMethod['paymentMethodName'] | null;
     paymentCreditCardData: ICheckoutCreditCardState;

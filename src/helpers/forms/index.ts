@@ -1,5 +1,5 @@
-import { ICheckoutAddressState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';
+import { IAddressFormState } from '@interfaces/forms';
 
 export const addressDefault: IAddressItem = {
     firstName: '',
@@ -15,7 +15,7 @@ export const addressDefault: IAddressItem = {
     phone: ''
 };
 
-export const getAddressForm = (address: ICheckoutAddressState): IAddressItem => {
+export const getAddressForm = (address: IAddressFormState): IAddressItem => {
     let payloadAddress: IAddressItem = addressDefault;
 
     Object.keys(address).map((field: string) => {

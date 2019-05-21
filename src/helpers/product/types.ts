@@ -4,7 +4,7 @@ import {
     IProductPricesItem,
     TProductImageSetsCollectionRawResponse,
 } from '@interfaces/product';
-import { IAbstractRowIncludedResponse } from '@interfaces/abstract/rowIncludedresponse';
+import { IAbstractRowIncludedResponse } from '@interfaces/abstract';
 import { IProductRelationsItemRelationships } from '@helpers/productRelations/types';
 
 export interface IProductDataResponse {

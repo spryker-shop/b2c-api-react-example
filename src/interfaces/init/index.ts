@@ -1,16 +1,13 @@
-import { TAppCurrency } from '@interfaces/currency';
-import { TAppStore } from '@interfaces/store';
-import { TAppLocale, TAppTimeZone } from '@interfaces/locale';
 import { ICategory } from '@interfaces/category';
 import { ICountry } from '@interfaces/country';
 
 export interface IInitData {
     ok?: boolean;
     priceMode?: string | null;
-    currency?: TAppCurrency;
-    store?: TAppStore;
-    locale?: TAppLocale;
-    timeZone?: TAppTimeZone;
+    currency?: string | null;
+    store?: string | null;
+    locale?: string | null;
+    timeZone?: string | null;
     categoriesTree?: ICategory[];
     countries?: ICountry[];
     anonymId?: string;

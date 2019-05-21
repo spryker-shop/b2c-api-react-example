@@ -1,15 +1,12 @@
-import { WithRouter, IComponent } from '@interfaces/common';
-import { TAppLocale } from '@interfaces/locale';
+import { WithRouter, IComponent, IIndexSignature } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
-    classes: {
-        [key: string]: string
-    };
+    classes: IIndexSignature;
     dispatch?: Function;
     isLoading?: boolean;
-    locale?: TAppLocale;
+    locale?: string | null;
     initApplicationData?: Function;
     setAuth?: Function;
     getCustomerCart?: Function;

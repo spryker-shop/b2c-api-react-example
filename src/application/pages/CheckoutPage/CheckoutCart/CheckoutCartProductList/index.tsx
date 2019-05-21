@@ -7,6 +7,7 @@ import { priceTypeNameOriginal } from '@interfaces/product';
 import { ICartItem } from '@interfaces/cart';
 import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
+import { IIndexSignature } from '@interfaces/common';
 
 const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element => {
     const { products, classes, productsAmountThreshold, isProductsExpanded } = props;
@@ -19,7 +20,7 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
         products.map((item: ICartItem, index: number) => {
             const { sku, image, name, quantity, priceDefaultGross, priceOriginalGross, superAttributes } = item;
             const renderSuperAttributes = superAttributes ? (
-                superAttributes.map((attr: { [key: string]: string }, index: number) => {
+                superAttributes.map((attr: IIndexSignature, index: number) => {
                     const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
                     const attributeValue = Object.values(attr)[0];
 

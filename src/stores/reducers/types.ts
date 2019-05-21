@@ -10,7 +10,7 @@ import { IOrderHistoryState } from '@stores/reducers/pages/orderHistory/types';
 import { IOrderDetailsState } from '@stores/reducers/pages/orderDetails/types';
 import { ICustomerDataState } from '@stores/reducers/pages/customerProfile/types';
 import { RouteProps } from 'react-router';
-import { WithRouter } from '@interfaces/common';
+import { IIndexSignature, WithRouter } from '@interfaces/common';
 import { IInitState } from '@stores/reducers/common/init/types';
 import { IApiErrorResponse } from '@services/types';
 import { IProductRelationsState } from '@stores/reducers/common/productRelations/types';
@@ -41,11 +41,11 @@ export interface IReduxStore {
 }
 
 export interface IReduxOwnProps extends RouteProps, WithRouter {
-    classes?: { [key: string]: string };
+    classes?: IIndexSignature;
     match?: {
         path: string;
         url: string;
-        params: { [key: string]: string; };
+        params: IIndexSignature;
         isExact: boolean;
     };
 }
