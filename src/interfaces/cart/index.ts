@@ -2,17 +2,12 @@ import { IAbstractTotals } from '@interfaces/abstract/totals';
 import { IProductPricesItem } from '@interfaces/product';
 import { TAppCurrency } from '@interfaces/currency';
 
-export type TCartPriceMode = string;
-export type TCartStore = string;
-export type TCartDisplayName = string;
-export type TCartAmount = number;
-export type TCartCode = string;
 export type TCartAddItemCollection = ICartAddItem[] | null;
 
 export interface ICartDiscounts {
-    displayName: TCartDisplayName;
-    amount: TCartAmount;
-    code: TCartCode;
+    displayName: string;
+    amount: number;
+    code: string;
 }
 
 export interface ICartAddItem {
@@ -53,8 +48,8 @@ export interface ICommonDataInCart {
     id: string | null;
     currency: TAppCurrency;
     discounts?: ICartDiscounts | {};
-    priceMode: TCartPriceMode | null;
-    store: TCartStore | null;
+    priceMode: string | null;
+    store: string | null;
     totals: ICartTotals;
     cartCreated?: boolean;
 }
@@ -79,20 +74,4 @@ export interface ICartItemCalculation {
     unitProductOptionPriceAggregation: number;
     unitSubtotalAggregation: number;
     unitTaxAmountFullAggregation: number;
-}
-
-interface ICartResponseItemAttributes {
-    amount: number | null;
-    calculations: ICartItemCalculation;
-    groupKey: string;
-    quantity: number;
-    sku: string;
-}
-
-export interface ICartResponseItem {
-    attributes: ICartResponseItemAttributes;
-    id?: string;
-    links?: object;
-    relationships?: object;
-    type?: string;
 }

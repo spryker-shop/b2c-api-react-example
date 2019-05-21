@@ -1,5 +1,4 @@
 import { IAbstractTotals, TCanceledTotal } from '@interfaces/abstract/totals';
-import { TCartPriceMode } from '@interfaces/cart';
 import { IAddressItemOrder } from '@interfaces/addresses';
 import { TAppCurrency } from '@interfaces/currency';
 
@@ -40,7 +39,7 @@ export interface IOrderDetailsResponse {
         totals: IOrderTotals;
         billingAddress: IAddressItemOrder;
         shippingAddress: IAddressItemOrder;
-        priceMode: TCartPriceMode;
+        priceMode: string;
     };
     id: string;
 }
@@ -50,7 +49,7 @@ export interface IOrderDetailsParsed extends IOrderItem {
     items: IOrderDetailsItem[] | null;
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
-    priceMode: TCartPriceMode;
+    priceMode: string;
 }
 
 export interface IOrderDetailsExpenseItem {
