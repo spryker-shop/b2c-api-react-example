@@ -40,11 +40,7 @@ const tsLoader = {
 };
 
 const loaders = [
-    {test: /\.node$/, loader: 'node-loader'},
-    {test: /\.json$/, loader: 'json-loader'},
     tsLoader,
-    {test: /\.html$/, loader: 'htmllint-loader!html-loader'},
-    {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
     {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'},
     cssLoader,
     {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
