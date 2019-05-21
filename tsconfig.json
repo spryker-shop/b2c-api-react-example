@@ -32,7 +32,7 @@
 		],
 		"baseUrl": ".",
 		"paths": {
-			"main": ["main"],
+			"src": ["src"],
 			"@constants*": ["src/constants*"],
 			"@components*": ["src/application/components*"],
 			"@containers*": ["src/application/containers*"],

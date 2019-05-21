@@ -148,7 +148,8 @@
 		"webpack-hot-middleware": "2.24.2"
 	},
 	"scripts": {
+		"cp:local": "cp configs/local_vm.env .env",
 		"prod": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"dev": "node --max_old_space_size=4096 dev-server.js"
+		"dev": "npm run cp:local && node --max_old_space_size=4096 dev-server.js"
 	}
 }

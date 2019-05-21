@@ -8,12 +8,6 @@ This application is released for the sole purpose of illustrating API usage. It 
 
 - [Node](https://nodejs.org) 8.9.3 or newer
 
-- (optional) [PM2](https://www.npmjs.com/package/pm2) 2.9.1 or newer (for web server)
-
-- (optional) [Docker](https://www.docker.com/) 18.03.0-ce or newer (for containers)
-
-- (optional) [docker-compose](https://github.com/docker/compose) 1.20.1 or newer (for containers)
-
 ## Setting environment
 0. Make sure you have installed spryker virtual machine(https://documentation.spryker.com/dev-getting-started.htm) and installed API modules you needed.
 1. Nginx configuration. 
@@ -79,7 +73,7 @@ This application is released for the sole purpose of illustrating API usage. It 
 2. Please add settings in your local machine "hosts" file.
     - `<ip of vagrant installation> glue.de.project-name.local`
     - `127.0.0.1 react.local`
-3. Please edit `local_outside_vm.env` file inside your project for local environment. You have to edit `DEV_SERVER_HOST` variable value. For example `react.local`
+3. Please edit `configs/local_vm.env` file inside your project for local environment. You have to edit `DEV_SERVER_HOST` variable value. For example `react.local`
 
 4. Install cpy globally `npm install --global cpy-cli`
 ## Installation
@@ -91,10 +85,6 @@ npm i
 ```
 
 ```sh
-npm run dist
-```
-
-```sh
-npm run serve:local
+npm run dev
 ```
 

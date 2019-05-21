@@ -1,4 +1,4 @@
-const envConfig = require('./env_config');
+const envConfig = require('./configs/env_config');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const lintIndex = process.argv.join('').indexOf('lint');
@@ -52,7 +52,7 @@ const loaders = [
 ];
 
 const aliases = {
-    main: path.resolve(__dirname),
+    src: path.resolve(__dirname, 'src'),
     '@constants': path.resolve(__dirname, 'src/constants'),
     '@components': path.resolve(__dirname, 'src/application/components'),
     '@containers': path.resolve(__dirname, 'src/application/containers'),
