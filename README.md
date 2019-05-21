@@ -8,6 +8,8 @@ This application is released for the sole purpose of illustrating API usage. It 
 
 - [Node](https://nodejs.org) 8.9.3 or newer
 
+- [npm](https://www.npmjs.com/get-npm) 6.4.1 or newer
+
 ## Setting environment
 0. Make sure you have installed spryker virtual machine(https://documentation.spryker.com/dev-getting-started.htm) and installed API modules you needed.
 1. Nginx configuration. 
@@ -75,9 +77,7 @@ This application is released for the sole purpose of illustrating API usage. It 
     - `127.0.0.1 react.local`
 3. Please edit `configs/local_vm.env` file inside your project for local environment. You have to edit `DEV_SERVER_HOST` variable value. For example `react.local`
 
-4. Install cpy globally `npm install --global cpy-cli`
 ## Installation
-
 Once you installed nodejs, cloned git repository and switched to the project directory
 
 ```sh
