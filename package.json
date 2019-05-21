@@ -149,6 +149,6 @@
 	},
 	"scripts": {
 		"prod": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"dev": "node --max_old_space_size=4096 server.js"
+		"dev": "node --max_old_space_size=4096 dev-server.js"
 	}
 }
