@@ -6,7 +6,7 @@ import { SuccessIcon, RejectIcon } from './icons';
 import { typeNotificationWarning, typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
 export const NotificationsMessage: Function = (props: Props) => {
-    const {type} = props;
+    const { type } = props;
     let toastType;
     let iconComponent;
 
@@ -33,7 +33,7 @@ export const NotificationsMessage: Function = (props: Props) => {
     };
 
     return (
-        toast(<NotificationsMessageTemplate {...propsForMessage} />, {
+        toast(<NotificationsMessageTemplate { ...propsForMessage } />, {
             type: toastType
         })
     );
