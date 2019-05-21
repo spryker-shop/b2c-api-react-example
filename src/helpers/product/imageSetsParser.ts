@@ -10,7 +10,6 @@ export const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse
     }
 
     const result: IProductCardImages[] = [];
-
     imageSets.map((set: IProductImageSetsRawResponse) => {
         set.images.forEach((imgs: IProductCardImages) => {
             result.push(imgs);

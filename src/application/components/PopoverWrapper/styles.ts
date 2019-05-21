@@ -16,7 +16,7 @@ export const styles = (theme: Theme) => createStyles({
     },
     content: {
         borderRadius: 0,
-        overflow: 'visible'
+        overflowY: 'auto'
     },
     contentCustomCoordinates: {
         right: 0,

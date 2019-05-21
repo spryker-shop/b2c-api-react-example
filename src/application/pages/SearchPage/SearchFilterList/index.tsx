@@ -175,19 +175,15 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                             />
                         </div>
 
-                        <div
-                            className={`${classes.activeFiltersHolder} ${isFilterListOpened ? '' : classes.activeOpen}`}
-                        >
-                            <ActiveFiltersList
-                                rangeFilters={ rangeFilters }
-                                activeValuesFilters={ activeFilters }
-                                activeValuesRanges={ activeRangeFilters }
-                                deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
-                                filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
-                                rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
-                                resetHandler={ this.runResetActiveFilters }
-                            />
-                        </div>
+                        <ActiveFiltersList
+                            rangeFilters={ rangeFilters }
+                            activeValuesFilters={ activeFilters }
+                            activeValuesRanges={ activeRangeFilters }
+                            deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
+                            filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
+                            rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
+                            resetHandler={ this.runResetActiveFilters }
+                        />
                     </div>
                 }
             </>

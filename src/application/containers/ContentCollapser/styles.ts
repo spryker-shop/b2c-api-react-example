@@ -20,9 +20,6 @@ export const styles = (theme: Theme) => createStyles({
     },
     triggerHolder: {
         paddingTop: 20,
-        display: 'none'
-    },
-    triggerHolderLimited: {
         display: 'flex',
         justifyContent: 'center',
         [theme.breakpoints.up('sm')]: {

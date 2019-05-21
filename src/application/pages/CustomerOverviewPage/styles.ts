@@ -32,9 +32,6 @@ export const styles = (theme: Theme) => createStyles({
             padding: '21px 25px 25px',
         }
     },
-    blockBottomIndent: {
-        paddingBottom: 5
-    },
     blockCustomer: {
         paddingRight: 50
     },

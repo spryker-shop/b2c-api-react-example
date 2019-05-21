@@ -36,14 +36,9 @@ class ContentCollapserComponent extends React.Component<Props, State> {
 
     protected limitBlock = (): void => {
         const { maxHeight } = this.props;
-        const { isOpen } = this.state;
         const contentHeight = Boolean(this.contentRef) ? this.contentRef.current.clientHeight : 0;
         const isMobile = resolutionChecker(window.innerWidth, 'sm');
         const shouldLimit = contentHeight > maxHeight;
-
-        if (isOpen) {
-            return;
-        }
 
         if (!isMobile) {
             this.setState({ shouldLimit: false });
@@ -54,13 +49,14 @@ class ContentCollapserComponent extends React.Component<Props, State> {
         this.setState({ shouldLimit });
     };
 
-    protected onClickButtonHandler = (): void => this.setState({ isOpen: true });
+    protected onClickButtonHandler = (): void =>  this.setState((prevState: State) => ({ isOpen: !prevState.isOpen }));
 
     public render(): JSX.Element {
         const { isOpen, shouldLimit } = this.state;
         const { children, classes, maxHeight } = this.props;
         const isLimited = shouldLimit && !isOpen;
         const limitedValue = isLimited ? maxHeight : '';
+        const buttonTitle = isLimited ? 'view.more.title' : 'view.less.title';
 
         return (
             <>
@@ -71,15 +67,17 @@ class ContentCollapserComponent extends React.Component<Props, State> {
                 >
                     { children }
                 </div>
-                <div className={`${classes.triggerHolder} ${isLimited ? classes.triggerHolderLimited : ''}`}>
-                    <Button
-                        onClick={ this.onClickButtonHandler }
-                        className={ classes.button }
-                        variant="outlined"
-                    >
-                        <FormattedMessage id={ 'view.more.title' } />
-                    </Button>
-                </div>
+                { shouldLimit &&
+                    <div className={ classes.triggerHolder }>
+                        <Button
+                            onClick={ this.onClickButtonHandler }
+                            className={ classes.button }
+                            variant="outlined"
+                        >
+                            <FormattedMessage id={ buttonTitle } />
+                        </Button>
+                    </div>
+                }
             </>
         );
     }
