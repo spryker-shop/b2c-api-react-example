@@ -45,3 +45,11 @@ export interface IAddressItemOrder extends IAbstractAddressItem {
     middleName?: string | null;
     poBox?: string | null;
 }
+
+export interface ICountry {
+    iso2Code: string;
+    iso3Code: string;
+    name: string;
+    postalCodeMandatory: boolean;
+    postalCodeRegex: string;
+}

@@ -1,7 +1,6 @@
-import { ILocaleItem } from '@interfaces/locale';
-import { ICountry } from '@interfaces/country';
+import { ICountry } from '@interfaces/addresses';
 
-interface ICurrencyItem {
+interface IStoreAttributeItem {
     code: string;
     name: string;
 }
@@ -22,8 +21,8 @@ export interface IStoreRawResponse {
 
 export interface IStoreAttributesRawResponse {
     countries: ICountry[];
-    currencies: ICurrencyItem[];
+    currencies: IStoreAttributeItem[];
     defaultCurrency: string;
-    locales: ILocaleItem[];
+    locales: IStoreAttributeItem[];
     timeZone: string;
 }

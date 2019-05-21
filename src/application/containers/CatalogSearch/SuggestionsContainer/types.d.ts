@@ -1,6 +1,6 @@
 import { ISearchQuery } from '@interfaces/searchPageData';
 import { RenderSuggestionsContainerParamsutProps } from 'react-autosuggest';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { IProductCard } from '@interfaces/product';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';

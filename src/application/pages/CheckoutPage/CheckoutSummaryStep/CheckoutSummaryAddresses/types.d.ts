@@ -2,7 +2,7 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IBillingSelectionState, IDeliverySelectionState } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { ICountry } from '@interfaces/country';
+import { ICountry } from '@interfaces/addresses';
 import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutSummaryAddressesProps extends WithStyles<typeof styles> {

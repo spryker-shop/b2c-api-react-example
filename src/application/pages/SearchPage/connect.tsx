@@ -13,7 +13,7 @@ import {
     clearPaginationPageAction
 } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { ISearchState } from '@stores/reducers/pages/search/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

@@ -3,7 +3,6 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductAttributes, IProductDataParsed, IProductPropFullData } from '@interfaces/product';
 import { ICartCreatePayload } from '@services/common/Cart/types';
-import { TRouterMatchParam } from '@helpers/router/types';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
     product: IProductDataParsed | null;
@@ -16,7 +15,7 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     isRejected: boolean;
     isFulfilled: boolean;
     isInitiated: boolean;
-    locationProductSKU?: TRouterMatchParam;
+    locationProductSKU?: string | null;
     isProductExist: boolean;
     anonymId: string;
     getProductAvailability: Function;

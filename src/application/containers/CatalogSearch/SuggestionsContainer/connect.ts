@@ -5,7 +5,7 @@ import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/
 
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { FlyoutSearch } from '@interfaces/searchPageData';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const searchProps: FlyoutSearch = state.pageSearch && state.pageSearch.data

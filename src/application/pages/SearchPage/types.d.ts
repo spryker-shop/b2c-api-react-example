@@ -6,7 +6,7 @@ import { ICategory } from 'src/shared/interfaces/category';
 import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/common';
 
 export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;

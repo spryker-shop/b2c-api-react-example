@@ -1,7 +1,7 @@
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICategory } from '@interfaces/category';
-import { ICountry } from '@interfaces/country';
+import { ICategory } from '@interfaces/common';
+import { ICountry } from '@interfaces/addresses';
 import { APP_LOCALE_DEFAULT } from '@constants/common';
 
 export function isAppInitiated(state: IReduxStore, props: IReduxOwnProps): boolean {

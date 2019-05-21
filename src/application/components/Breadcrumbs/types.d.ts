@@ -1,4 +1,4 @@
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 

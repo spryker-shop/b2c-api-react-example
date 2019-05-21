@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/common';
 import { IBreadcrumbsProps as Props } from './types';
 import { pathHomePage } from '@constants/routes';
 import { withStyles } from '@material-ui/core';

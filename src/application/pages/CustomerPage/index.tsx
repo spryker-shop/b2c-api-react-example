@@ -12,7 +12,7 @@ import { Breadcrumbs } from '@components/Breadcrumbs';
 import { FormattedMessage } from 'react-intl';
 import { breadcrumbsListFixtures } from './fixtures';
 import { styles } from './styles';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/common';
 
 @(withRouter as Function)
 @connect

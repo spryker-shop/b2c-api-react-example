@@ -1,5 +1,5 @@
-import { ICategory } from '@interfaces/category';
-import { ICountry } from '@interfaces/country';
+import { ICategory } from '@interfaces/common';
+import { ICountry } from '@interfaces/addresses';
 
 export interface IInitData {
     ok?: boolean;

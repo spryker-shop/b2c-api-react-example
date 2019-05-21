@@ -1,9 +1,8 @@
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { IAddressItemCollection } from '@interfaces/addresses';
+import { IAddressItemCollection, ICountry } from '@interfaces/addresses';
 import { getAddressesCollectionFromCheckoutStore } from '@stores/reducers/pages/checkout/selectors';
 import { IBillingSelectionState, IDeliverySelectionState } from '@interfaces/checkout';
-import { ICountry } from '@interfaces/country';
 import { getCounties } from '@stores/reducers/common/init/selectors';
 import { IAddressFormState } from '@interfaces/forms';
 

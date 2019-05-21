@@ -7,7 +7,7 @@ import {
     ANONYM_ID
 } from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { IInitData } from '@interfaces/init';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { ILocaleActionPayload, IInitAction } from '@stores/reducers/common/Init/types';

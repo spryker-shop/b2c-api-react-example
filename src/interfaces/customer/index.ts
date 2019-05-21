@@ -1,5 +1,3 @@
-import { TRouterMatchParam } from '@helpers/router/types';
-
 export type TSalutationVariant = {
   value: string,
   name: JSX.Element
@@ -46,11 +44,11 @@ export interface ICustomerLoginDataParsed {
     expiresIn: number;
     refreshToken: string;
     tokenType: string;
-    customerRef: string;
+    customerRef?: string;
 }
 
 export interface IResetPasswordPayload {
-    restorePasswordKey: TRouterMatchParam;
+    restorePasswordKey: string | null;
     password: string;
     confirmPassword: string;
 }

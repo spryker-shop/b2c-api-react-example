@@ -16,8 +16,7 @@ import { ProductRelations } from '@containers/ProductRelations';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductPageProps as Props, ProductPageState as State } from './types';
 import { IProductAttributes, IProductPropFullData } from '@interfaces/product';
-import { IIndexSignature } from '@interfaces/common';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IIndexSignature, IBreadcrumbItem } from '@interfaces/common';
 import { Preloader } from '@components/Preloader';
 import { styles } from './styles';
 

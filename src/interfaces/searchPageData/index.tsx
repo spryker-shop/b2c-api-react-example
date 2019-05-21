@@ -28,7 +28,7 @@ export interface RangeFacets {
 
 export interface FlyoutSearch {
     suggestions: IProductCard[] | null;
-    categories: { [name: string]: string }[] | null;
+    categories: IIndexSignature[] | null;
     completion: string[] | null;
     pending: boolean;
     fulfilled: boolean;

@@ -16,8 +16,6 @@ export type TPriceTypeNameDefault = 'DEFAULT';
 export const priceTypeNameOriginal = 'ORIGINAL';
 export type TPriceTypeNameOriginal = 'ORIGINAL';
 
-export const defaultItemValueDropdown = ' ';
-
 export type TProductType = TAbstractProductType | TConcreteProductType | TAbsentProductType;
 export type TPriceTypeName = TPriceTypeNameDefault | TPriceTypeNameOriginal;
 

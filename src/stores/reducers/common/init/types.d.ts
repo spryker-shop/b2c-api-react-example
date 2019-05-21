@@ -1,5 +1,5 @@
 import { IInitData } from '@interfaces/init';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 export interface IInitState extends IReduxState {

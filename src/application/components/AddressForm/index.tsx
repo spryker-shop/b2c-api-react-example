@@ -5,7 +5,7 @@ import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { SalutationVariants } from '@constants/customer';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
-import { ICountry } from '@interfaces/country';
+import { ICountry } from '@interfaces/addresses';
 import { IAddressFormProps as Props } from './types';
 import { styles } from './styles';
 

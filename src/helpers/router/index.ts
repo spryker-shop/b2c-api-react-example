@@ -1,7 +1,6 @@
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { TRouterMatchParam } from './types';
 
-export function getRouterMatchParam(state: IReduxStore, props: IReduxOwnProps, paramName: string ): TRouterMatchParam {
+export function getRouterMatchParam(state: IReduxStore, props: IReduxOwnProps, paramName: string ): string | null {
     if (!paramName || !props.match || !props.match.params) {
         return null;
     }

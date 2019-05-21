@@ -1,6 +1,5 @@
 import { PRICE_MODE_DEFAULT } from '@constants/common';
 import api from '@services/api';
-import { ILocaleItem } from '@interfaces/locale';
 import { IStoreRawResponse } from '@helpers/init/types';
 import { IInitData } from '@interfaces/init';
 
@@ -25,7 +24,7 @@ export const parseStoreResponse = (data: IStoreRawResponse): IInitData => {
     result.timeZone = attributes.timeZone;
     result.countries = attributes.countries;
 
-    attributes.locales.forEach((row: ILocaleItem) => {
+    attributes.locales.forEach(row => {
         row.code === result.store.toLowerCase() ? result.locale = row.code : 'de';
     });
 

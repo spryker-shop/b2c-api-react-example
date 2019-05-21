@@ -9,7 +9,7 @@ import {
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IInitData } from '@interfaces/init';
 import { IApiErrorResponse } from '@services/types';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 
 export const initialState: IInitState = {
     data: {

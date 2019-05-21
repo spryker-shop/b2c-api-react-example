@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { ICategory } from '@interfaces/category';
+import { ICategory, ClickEvent } from '@interfaces/common';
 import { IActiveFilterCategories, ICategoriesListProps as Props, ICategoriesListState as State } from './types';
 import { getFormattedActiveCategories } from '../helpers';
 import { pathCategoryPageBase } from '@constants/routes';
@@ -11,7 +11,6 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { PopoverWrapper } from '@components/PopoverWrapper';
-import { ClickEvent } from '@interfaces/common';
 import { resolutionChecker } from '@helpers/common/resolutionChecker';
 
 @connect

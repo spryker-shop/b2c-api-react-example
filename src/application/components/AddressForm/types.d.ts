@@ -1,5 +1,5 @@
 import { styles } from './styles';
-import { ICountry } from '@interfaces/country';
+import { ICountry } from '@interfaces/addresses';
 import { InputChangeEvent } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { IAddressFormState } from '@interfaces/forms';

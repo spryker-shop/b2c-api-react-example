@@ -7,7 +7,7 @@ import {
     IProductConfiguratorAddToWishlistProps as Props,
     IProductConfiguratorAddToWishlistState as State
 } from './types';
-import { concreteProductType, defaultItemValueDropdown } from '@interfaces/product';
+import { concreteProductType } from '@interfaces/product';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
@@ -90,11 +90,11 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                             onChangeHandler={ this.handleWishlistChange }
                             menuItems={ createWishlistMenuVariants(wishlists) }
                             name="wishlists"
-                            menuItemFirst={ {
-                                value: defaultItemValueDropdown,
+                            menuItemFirst={{
+                                value: '',
                                 name: <FormattedMessage id={ 'select.wish.list.label' } />,
                                 disabled: true
-                            } }
+                            }}
                             isFullWidth
                             isSimple
                             classes={ {
