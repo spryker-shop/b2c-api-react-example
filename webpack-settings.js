@@ -40,11 +40,7 @@ const tsLoader = {
 };
 
 const loaders = [
-    {test: /\.node$/, loader: 'node-loader'},
-    {test: /\.json$/, loader: 'json-loader'},
     tsLoader,
-    {test: /\.html$/, loader: 'htmllint-loader!html-loader'},
-    {test: /\.md$/, loader: 'html-loader!markdown-loader?gfm=false'},
     {test: /LICENSE$/, loader: 'html-loader!markdown-loader?gfm=false'},
     cssLoader,
     {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
@@ -80,7 +76,7 @@ const definableConstants = {
 let devServer = {};
 let watchOptions = {};
 
-if (envConfig.IS_DEV_SERVER) {
+if (!envConfig.IS_PRODUCTION) {
     watchOptions = {
         aggregateTimeout: 1000,
         poll: 1000
@@ -106,7 +102,7 @@ const entry = {
     ]
 };
 
-if(envConfig.IS_DEV_SERVER) {
+if(!envConfig.IS_PRODUCTION) {
     entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
     entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
 }
