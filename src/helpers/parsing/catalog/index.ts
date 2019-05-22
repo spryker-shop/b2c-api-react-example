@@ -7,9 +7,9 @@ import {
     TActiveRangeFilters
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
-import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
+import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from './types';
 import { rangeFilterValueToFront } from '@helpers/common';
-import { getProductLabel } from '@helpers/parsing/common';
+import { getProductLabel, getAvailableLables } from '@helpers/parsing/common';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -106,25 +106,4 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     });
 
     return result;
-};
-
-const getAvailableLables = (included: IRowCatalogSearchIncludedResponse[]): IAvailableLabelsCollection | null => {
-    const availableLabels: IAvailableLabelsCollection | null = {};
-    const productLabelsType = 'product-labels';
-
-    const includedLabels: IRowCatalogSearchIncludedResponse[] = included.filter(item => (
-        item.type === productLabelsType
-    ));
-
-    includedLabels.forEach((label: IRowCatalogSearchIncludedResponse) => {
-        availableLabels[label.id] = {
-            id: label.id,
-            frontEndReference: label.attributes.frontEndReference,
-            isExclusive: label.attributes.isExclusive,
-            name: label.attributes.name,
-            position: label.attributes.position
-        };
-    });
-
-    return availableLabels;
 };

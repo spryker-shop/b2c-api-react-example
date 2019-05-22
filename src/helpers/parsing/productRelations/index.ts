@@ -2,11 +2,10 @@ import {
     IProductRelationsRawResponse,
     IProductRelationsIncluded,
     IProductRelationsItemResponse,
-    IProductOptions,
-    IProductRelationsLabel
+    IProductOptions
 } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
-import { parseImageSets, getProductLabel } from '@helpers/parsing/common';
+import { parseImageSets, getProductLabel, getAvailableLables } from '@helpers/parsing/common';
 import { IAvailableLabelsCollection } from '@interfaces/search';
 
 export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
@@ -50,27 +49,6 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
     }
 
     return productOptions;
-};
-
-const getAvailableLables = (included: IProductRelationsIncluded[]): IAvailableLabelsCollection | null => {
-    const availableLabels: IAvailableLabelsCollection | null = {};
-    const productLabelsType = 'product-labels';
-
-    const includedLabels: IProductRelationsLabel[] = included.filter(item => (
-        item.type === productLabelsType
-    ));
-
-    includedLabels.forEach((label: IProductRelationsLabel) => {
-        availableLabels[label.id] = {
-            id: label.id,
-            frontEndReference: label.attributes.frontEndReference,
-            isExclusive: label.attributes.isExclusive,
-            name: label.attributes.name,
-            position: label.attributes.position,
-        };
-    });
-
-    return availableLabels;
 };
 
 const parseIncludedOptions = (

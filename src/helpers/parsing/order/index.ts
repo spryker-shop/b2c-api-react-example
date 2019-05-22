@@ -5,7 +5,7 @@ import {
     IOrderDetailsParsed,
     IOrderDetailsResponse,
     IOrderItem,
-    IOrderItemResponse,
+    IOrderItemResponse
 } from '@interfaces/order';
 
 export const parseGetOrdersCollectionResponse = (data: IOrderCollectionResponse): IOrderCollectionParsed | null => {
@@ -18,12 +18,12 @@ export const parseGetOrdersCollectionResponse = (data: IOrderCollectionResponse)
             id: item.id,
             dateCreated: item.attributes.createdAt,
             currency: item.attributes.currencyIsoCode,
-            totals: item.attributes.totals,
+            totals: item.attributes.totals
         }
     ));
 
     const response = {
-        items,
+        items
     };
 
     return response;
@@ -38,7 +38,6 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
     type TAccumulator = { [key: string]: IOrderDetailsItem };
     const accumulator: TAccumulator = {};
 
-    // Group items with the same key(sku)
     const itemsParsed = attributes.items.reduce((acc: TAccumulator, item: IOrderDetailsItem) => {
 
         if (acc[item.sku]) {
@@ -65,7 +64,7 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
         items: Object.values(itemsParsed),
         billingAddress: attributes.billingAddress,
         shippingAddress: attributes.shippingAddress,
-        priceMode: attributes.priceMode,
+        priceMode: attributes.priceMode
     };
 
     return response;

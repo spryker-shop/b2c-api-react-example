@@ -12,7 +12,7 @@ import {
     getCategoriesAction,
     anonymIdFilFilled
 } from '@stores/actions/common/init';
-import { parseStoreResponse } from '@helpers/init/store';
+import { parseStoreResponse } from '@helpers/parsing';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';

@@ -4,12 +4,12 @@ import {
     IProductDataParsed,
     IProductPropFullData,
     IProductAttributeMap,
-    IProductAttributes
+    IProductAttributes,
+    ISuperAttribute
 } from '@interfaces/product';
 import {
     IProductRawResponse,
     IRowProductLabelsResponse,
-    ISuperAttribute,
     TRowProductResponseIncluded
 } from '@helpers/parsing/product/types';
 import { IProductLabelResponse } from '@interfaces/search';
@@ -33,7 +33,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             priceOriginalGross: null,
             priceOriginalNet: null,
             priceDefaultGross: null,
-            priceDefaultNet: null,
+            priceDefaultNet: null
         },
         availability: null,
         quantity: null,
@@ -134,7 +134,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
                     const labelData = {
                         type: includedLabel.id,
                         text: includedLabel.attributes.name,
-                        position: includedLabel.attributes.position,
+                        position: includedLabel.attributes.position
                     };
                     result.productLabels.push(labelData);
                 }
@@ -143,7 +143,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     }
     const superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
     result.superAttributes = superAttributes;
-    result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: {[key: string]: string}, name) => {
+    result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: { [key: string]: string }, name) => {
         acc[name] = null;
 
         return acc;
@@ -168,7 +168,7 @@ const parseSuperAttributes = (
             name,
             nameToShow: attributeNamesContainer[name],
             data: superAttributes.super_attributes[name]
-                .reduce((acc, value) => [ ...acc, { value, name: value, }], [])
+                .reduce((acc, value) => [...acc, { value, name: value }], [])
         }
     ], []);
 };

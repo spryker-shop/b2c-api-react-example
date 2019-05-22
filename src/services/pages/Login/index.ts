@@ -1,6 +1,6 @@
 import api from '@services/api';
 import { saveLoginDataToStoreAction, deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
-import { parseLoginDataResponse } from '@helpers/customer';
+import { parseLoginDataResponse } from '@helpers/parsing';
 import {
     loginCustomerFulfilledStateAction,
     loginCustomerPendingStateAction,

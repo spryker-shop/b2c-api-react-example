@@ -1,6 +1,6 @@
 import { PRICE_MODE_DEFAULT } from '@constants/common';
 import api from '@services/api';
-import { IStoreRawResponse } from '@helpers/init/types';
+import { IStoreRawResponse } from './types';
 import { IInitData } from '@interfaces/init';
 
 export const parseStoreResponse = (data: IStoreRawResponse): IInitData => {
@@ -9,7 +9,7 @@ export const parseStoreResponse = (data: IStoreRawResponse): IInitData => {
         currency: null,
         store: null,
         locale: null,
-        timeZone: null,
+        timeZone: null
     };
 
     if (!data.data[0].attributes) {
@@ -24,9 +24,7 @@ export const parseStoreResponse = (data: IStoreRawResponse): IInitData => {
     result.timeZone = attributes.timeZone;
     result.countries = attributes.countries;
 
-    attributes.locales.forEach(row => {
-        row.code === result.store.toLowerCase() ? result.locale = row.code : 'de';
-    });
+    attributes.locales.forEach(row => row.code === result.store.toLowerCase() ? result.locale = row.code : 'de');
 
     const savedLocale = localStorage.getItem('locale');
     const currentLocale = !!savedLocale ? savedLocale : attributes.locales[0].code;

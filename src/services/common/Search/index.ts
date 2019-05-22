@@ -1,5 +1,5 @@
 import api from '@services/api';
-import { parseCatalogSearchResponse } from '@helpers/catalog/catalogSearchResponse';
+import { parseCatalogSearchResponse } from '@helpers/parsing';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IProductCard } from '@interfaces/product';
 import { ISearchQuery } from '@interfaces/search';

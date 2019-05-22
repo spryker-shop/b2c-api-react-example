@@ -1,5 +1,5 @@
-import { ISuperAttribute } from '@helpers/parsing/product/types';
 import { IProductImage } from '@components/ProductImageSlider/types';
+import { IAvailableLabel } from '@interfaces/search';
 
 export const concreteProductType = 'concreteProduct';
 export type TConcreteProductType = 'concreteProduct';
@@ -7,7 +7,6 @@ export type TConcreteProductType = 'concreteProduct';
 export const abstractProductType = 'abstractProduct';
 export type TAbstractProductType = 'abstractProduct';
 
-export const absentProductType = 'absentProduct';
 export type TAbsentProductType = 'absentProduct';
 
 export const priceTypeNameDefault = 'DEFAULT';
@@ -125,4 +124,22 @@ export interface IDescriptionAttributes {
 
 export interface IIndexSignature {
     [key: string]: string;
+}
+
+export interface ISuperAttribute {
+    name: string;
+    nameToShow: string;
+    data: ISuperAttributeData[];
+}
+
+export interface ISuperAttributeData {
+    value: string;
+    name: string;
+    idProductConcrete?: string | number;
+}
+
+export interface IProductResponseLabel {
+    id: string;
+    type: string;
+    attributes: IAvailableLabel;
 }

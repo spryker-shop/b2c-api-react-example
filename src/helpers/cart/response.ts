@@ -46,7 +46,6 @@ const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataRespons
     const result: ICartResultData = {};
     let totalQty: number = 0;
 
-    // Fill data with concrete products ids
     if (data.relationships && data.relationships.items) {
         data.relationships.items.data.forEach((data: ICartItemDataShort) => {
             result[data.id] = {...getCartItemBlueprint()};

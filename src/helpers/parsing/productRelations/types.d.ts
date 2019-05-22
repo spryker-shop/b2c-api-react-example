@@ -6,7 +6,6 @@ import {
     IRowProductPricesIncludedResponse
 } from '@helpers/parsing/product/types';
 import { IRowCustomerCartItemsIncludedResponse } from '@helpers/cart/types';
-import { IAvailableLabel } from '@interfaces/search';
 
 export interface IProductRelationsRawResponse {
     data: IProductRelationsItemResponse[];
@@ -31,12 +30,6 @@ export interface IProductRelationsItemRelationships {
             }
         ]
     };
-}
-
-export interface IProductRelationsLabel {
-    id: string;
-    type: string;
-    attributes: IAvailableLabel;
 }
 
 export interface IProductOptions {

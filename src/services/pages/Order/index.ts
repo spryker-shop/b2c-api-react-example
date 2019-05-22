@@ -9,7 +9,7 @@ import {
     ordersCollectionRejectedStateAction,
 } from '@stores/actions/pages/order';
 import { OrderAuthenticateErrorMessage } from '@translation/';
-import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/order/response';
+import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
