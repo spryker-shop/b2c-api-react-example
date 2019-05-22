@@ -4,7 +4,7 @@ import { withStyles, FormControlLabel, Radio, Grid } from '@material-ui/core';
 import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
 import { PartnerIconVisa } from './icons';
-import { checkFormValidity } from '@helpers/forms/validation';
+import { checkFormValidity } from '@helpers/forms';
 import { IPaymentMethod } from '@interfaces/checkout';
 import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
 import { InputChangeEvent } from '@interfaces/common';

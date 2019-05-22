@@ -7,9 +7,11 @@ import {
     TActiveRangeFilters
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
-import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from './types';
+import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse, ISuggestionSearchResponse } from './types';
 import { rangeFilterValueToFront } from '@helpers/common';
-import { getProductLabel, getAvailableLables } from '@helpers/parsing/common';
+import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
+import { IProductCard } from '@interfaces/product';
+import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -60,7 +62,8 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const parseProductItems = attributes.abstractProducts.map(item => ({
         ...item,
         labels: null,
-        image: item.images[0].externalUrlSmall
+        image: item.images[0].externalUrlSmall,
+        prices: parsePrices(item.prices)
     }));
 
     const result: ICatalogSearchDataParsed = {
@@ -106,4 +109,20 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     });
 
     return result;
+};
+
+export const parseSuggestionSearchResponse = (response: ISuggestionSearchResponse, productsLimit: number) => {
+    const products: IProductCard[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit);
+
+    response.included && response.included.forEach((row: TRowProductResponseIncluded) => {
+        if (row.type === 'abstract-product-prices') {
+            const product: IProductCard = products.find((prod: IProductCard) => prod.abstractSku === row.id);
+
+            if (product && row.attributes.prices && row.attributes.prices.length) {
+                product.prices = parsePrices(row.attributes.prices);
+            }
+        }
+    });
+
+    return products;
 };

@@ -5,7 +5,7 @@ import {
     IRowProductImageSetsIncludedResponse,
     IRowProductPricesIncludedResponse
 } from '@helpers/parsing/product/types';
-import { IRowCustomerCartItemsIncludedResponse } from '@helpers/cart/types';
+import { IRowCustomerCartItemsIncludedResponse } from '@helpers/parsing/cart/types';
 
 export interface IProductRelationsRawResponse {
     data: IProductRelationsItemResponse[];

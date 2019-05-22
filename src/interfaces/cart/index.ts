@@ -1,5 +1,5 @@
 import { IAbstractTotals } from '@interfaces/abstract';
-import { IProductPricesItem } from '@interfaces/product';
+import { IProductParsedPrices } from '@interfaces/product';
 import { IIndexSignature } from '@interfaces/common';
 
 export interface ICartDiscounts {
@@ -20,7 +20,7 @@ export interface ICartItem {
     image?: string | null;
     quantity?: number | null;
     amount?: number | null;
-    prices?: IProductPricesItem[];
+    prices?: IProductParsedPrices;
     calculations?: ICartItemCalculation | null;
     groupKey?: string | null;
     availability?: boolean | null;

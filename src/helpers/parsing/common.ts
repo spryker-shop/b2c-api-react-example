@@ -6,7 +6,8 @@ import {
     IProductResponseLabel,
     priceTypeNameDefault,
     priceTypeNameOriginal,
-    TProductImageSetsCollectionRawResponse
+    TProductImageSetsCollectionRawResponse,
+    IProductParsedPrices
 } from '@interfaces/product';
 import { IProductImage } from '@components/ProductImageSlider/types';
 import { IAvailableLabelsCollection } from '@interfaces/search';
@@ -46,7 +47,7 @@ export const getProductLabel = (
         : null;
 };
 
-export const parsePrices = (prices: IProductPricesItem[]) =>
+export const parsePrices = (prices: IProductPricesItem[]): IProductParsedPrices =>
     prices.reduce((acc: { [key: string]: number }, priceData) => {
         if (priceData.priceTypeName === priceTypeNameDefault) {
             acc['priceDefaultGross'] = priceData.grossAmount;

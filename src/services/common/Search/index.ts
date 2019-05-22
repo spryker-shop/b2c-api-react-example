@@ -1,10 +1,8 @@
 import api from '@services/api';
-import { parseCatalogSearchResponse } from '@helpers/parsing';
+import { parseCatalogSearchResponse, parseSuggestionSearchResponse } from '@helpers/parsing';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IProductCard } from '@interfaces/product';
 import { ISearchQuery } from '@interfaces/search';
 import { IApiResponseData } from '@services/types';
-import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import {
@@ -21,7 +19,7 @@ export class SearchService extends ApiServiceAbstract {
         dispatch(sendSearchPendingState());
         try {
             params.include = 'abstract-products,product-labels,';
-            const response: IApiResponseData = await api.get('catalog-search', params, {withCredentials: true});
+            const response: IApiResponseData = await api.get('catalog-search', params, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed = parseCatalogSearchResponse(response.data);
@@ -52,37 +50,19 @@ export class SearchService extends ApiServiceAbstract {
 
             const response: IApiResponseData = await api.get(
                 'catalog-search-suggestions',
-                {q: query, include: 'abstract-products,abstract-product-prices'},
-                {withCredentials: true}
+                { q: query, include: 'abstract-products,abstract-product-prices' },
+                { withCredentials: true }
             );
 
             if (response.ok) {
-                const {data} = response;
-
-                const products: IProductCard[] = data.data[0].attributes.abstractProducts.slice(0, 5);
-                let counter = 0;
-
-                data.included && data.included.some((row: TRowProductResponseIncluded) => {
-                    if (row.type === 'abstract-product-prices') {
-                        const product: IProductCard = products.find(
-                            (prod: IProductCard) => prod.abstractSku === row.id
-                        );
-
-                        if (product && row.attributes.prices && row.attributes.prices.length) {
-                            counter++;
-                            product.prices = row.attributes.prices;
-                        }
-                    }
-
-                    return counter >= 4;
-                });
-
+                const productsLimit = 5;
+                const { data } = response;
+                const products = parseSuggestionSearchResponse(data, productsLimit);
                 const payloadSuggestionFulfilled = {
                     suggestions: products,
                     categories: data.data[0].attributes.categories,
                     completion: data.data[0].attributes.completion
                 };
-
                 dispatch(suggestFullfiledState(payloadSuggestionFulfilled));
             } else {
                 const errorMessage = this.getParsedAPIError(response);

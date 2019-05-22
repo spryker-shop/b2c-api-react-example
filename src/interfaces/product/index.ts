@@ -40,7 +40,7 @@ export interface IProductCard {
     price: number;
     abstractName: string;
     abstractSku: string;
-    prices: IProductPricesItem[];
+    prices: IProductParsedPrices;
     labels?: IProductLabel[] | null;
 }
 
@@ -69,12 +69,7 @@ export interface IProductPropFullData extends IProductAvailability {
     descriptionAttributes: IDescriptionAttributes[] | null;
     images: IProductImage[] | null;
     name: string | null;
-    prices: {
-        priceOriginalGross?: null,
-        priceOriginalNet?: null,
-        priceDefaultGross?: null,
-        priceDefaultNet?: null,
-    };
+    prices: IProductParsedPrices;
     sku: string | null;
     productType: TProductType | null;
 }
@@ -142,4 +137,11 @@ export interface IProductResponseLabel {
     id: string;
     type: string;
     attributes: IAvailableLabel;
+}
+
+export interface IProductParsedPrices {
+    priceOriginalGross?: null;
+    priceOriginalNet?: null;
+    priceDefaultGross?: null;
+    priceDefaultNet?: null;
 }

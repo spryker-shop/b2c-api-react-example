@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { CartRowsProps as Props } from './types';
 import { ICartItem } from '@interfaces/cart';
-import { createCartItemAddToCart } from '@helpers/cart/item';
+import { createCartItemAddToCart } from '@helpers/cart';
 import { CartItem } from '../CartItem';
 import { List } from '@material-ui/core';
 

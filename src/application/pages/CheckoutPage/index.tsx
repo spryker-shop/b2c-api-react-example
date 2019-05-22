@@ -105,8 +105,15 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             paymentMethod,
             shipmentMethod
         } = this.props;
-
-        const payload: ICheckoutRequest = {};
+        const customerId = isUserLoggedIn ? '' : anonymId;
+        const payload: ICheckoutRequest = {
+            idCart: cartId,
+            shipment: { idShipmentMethod: parseInt(shipmentMethod, 10) },
+            payments: [{
+                paymentProviderName: 'DummyPayment',
+                paymentMethodName: paymentMethod
+            }]
+        };
 
         if (deliverySelection.isAddNew) {
             payload.shippingAddress = getAddressForm(deliveryNewAddress);
@@ -122,32 +129,18 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             payload.billingAddress = payload.shippingAddress;
         } else {
             const billingAddress = addressesCollection.find((address: IAddressItemCollection) =>
-                address.id === deliverySelection.selectedAddressId);
+                address.id === billingSelection.selectedAddressId);
             payload.billingAddress = { ...billingAddress, country: billingAddress.country.name };
         }
 
-        payload.idCart = cartId;
-
-        payload.payments = [ {
-            paymentProviderName: 'DummyPayment',
-            paymentMethodName: paymentMethod
-        } ];
-
-        payload.shipment = { idShipmentMethod: parseInt(shipmentMethod, 10) };
-        const customerEmail = isUserLoggedIn ? profile.email : payload.shippingAddress.email;
-        const customerSalutation = isUserLoggedIn ? profile.salutation : payload.shippingAddress.salutation;
-        const customerFirstName = isUserLoggedIn ? profile.firstName : payload.shippingAddress.firstName;
-        const customerLastName = isUserLoggedIn ? profile.lastName : payload.shippingAddress.lastName;
-        const customerIdInspection = isUserLoggedIn ? '' : anonymId;
-
         payload.customer = {
-            email: customerEmail,
-            salutation: customerSalutation,
-            firstName: customerFirstName,
-            lastName: customerLastName
+            email: isUserLoggedIn ? profile.email : payload.shippingAddress.email,
+            salutation: isUserLoggedIn ? profile.salutation : payload.shippingAddress.salutation,
+            firstName: isUserLoggedIn ? profile.firstName : payload.shippingAddress.firstName,
+            lastName: isUserLoggedIn ? profile.lastName : payload.shippingAddress.lastName
         };
 
-        sendCheckoutData(payload, customerIdInspection);
+        sendCheckoutData(payload, customerId);
     };
 
     protected shouldHideOrderInfo = (): boolean => {
@@ -158,27 +151,20 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const {
-            classes,
-            isProductsExists,
-            isUserLoggedIn,
-            stepsCompletion,
-            isCheckoutLoading,
-            location: { pathname }
-        } = this.props;
+        const { classes, isProductsExists, isUserLoggedIn, stepsCompletion, isCheckoutLoading, location } = this.props;
         const { isButtonDisabled } = this.state;
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
-        const isSummaryPage = pathname === pathCheckoutSummaryStep;
-        const isThanksPage = pathname === pathCheckoutThanks;
-        const isLoginPage = pathname === pathCheckoutLoginStep;
+        const isSummaryPage = location.pathname === pathCheckoutSummaryStep;
+        const isThanksPage = location.pathname === pathCheckoutThanks;
+        const isLoginPage = location.pathname === pathCheckoutLoginStep;
 
-        if (pathCheckoutPage === pathname) {
+        if (pathCheckoutPage === location.pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
         if (!isProductsExists && !isThanksPage && !isLoginPage) {
             return (
-                <AppMain classes={{ wrapper: classes.wrapper }}>
+                <AppMain classes={ { wrapper: classes.wrapper } }>
                     <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
                 </AppMain>
             );
@@ -187,9 +173,9 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         return (
             <>
                 { !isThanksPage &&
-                    <CheckoutBreadcrumbs />
+                <CheckoutBreadcrumbs />
                 }
-                <AppMain classes={{ wrapper: classes.wrapper }}>
+                <AppMain classes={ { wrapper: classes.wrapper } }>
                     { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>
                             <div
@@ -205,7 +191,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                                     />
                                 </ErrorBoundary>
                             </div>
-                            {!this.shouldHideOrderInfo() &&
+                            { !this.shouldHideOrderInfo() &&
                                 <div
                                     className={`
                                         ${classes.summaryColumn} ${isSummaryPage ? classes.summaryColumnSummary : ''}

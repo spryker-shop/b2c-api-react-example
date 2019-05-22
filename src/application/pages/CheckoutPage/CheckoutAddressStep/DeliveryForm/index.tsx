@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { checkoutFormsNames, checkoutSelectionInputs, newAddressConfigInputStable } from '@constants/checkout';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
 import { InputChangeEvent } from '@interfaces/common';
 import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
 import { AddressForm } from '@components/AddressForm';

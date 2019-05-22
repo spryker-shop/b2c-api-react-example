@@ -1,6 +1,7 @@
 import { IProductCard } from '@interfaces/product';
 import { IProductLabelResponse, IRangeFacets, IValueFacets } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
+import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
 
 export interface ICatalogSearchRawResponse {
     data: [{
@@ -53,4 +54,20 @@ export interface IRowCatalogSearchIncludedResponse {
         frontEndReference?: string;
     };
     id?: string;
+}
+
+export interface ISuggestionSearchResponse {
+    data: [{
+        attributes: {
+            abstractProducts: IProductCard[] | null,
+            completion: string[]
+        }
+    }];
+    included: [TRowProductResponseIncluded];
+    links: {
+        first: string;
+        last: string;
+        next: string;
+        self: string;
+    };
 }

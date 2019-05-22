@@ -36,7 +36,6 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
 
     const attributes = data.attributes;
     type TAccumulator = { [key: string]: IOrderDetailsItem };
-    const accumulator: TAccumulator = {};
 
     const itemsParsed = attributes.items.reduce((acc: TAccumulator, item: IOrderDetailsItem) => {
 
@@ -53,7 +52,7 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
         }
 
         return acc;
-    }, accumulator);
+    }, {});
 
     const response: IOrderDetailsParsed = {
         id: data.id,
