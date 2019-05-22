@@ -3,21 +3,16 @@ import { IPagination } from '@containers/AppPagination/types';
 import { IIndexSignature } from '@interfaces/common';
 
 export type TActiveFilters = { [name: string]: string[] };
-export type TActiveRangeFilters = { [name: string]: RangeType };
+export type TActiveRangeFilters = { [name: string]: TRangeType };
 export type TRangeMinType = 'min';
 export type TRangeMaxType = 'max';
 export type TFilterItemTypeFilter = 'filter';
 export type TFilterItemTypeRange = 'range';
 export type TFilterItemName = string;
 export type TFilterItemType = TFilterItemTypeFilter | TFilterItemTypeRange;
-export type RangeType = { min: number, max: number, [name: string]: number };
-export type TRangeType = TRangeMinType | TRangeMaxType;
-export type TFilterItemValue = number | string | RangeType;
-
-export const rangeMinType: TRangeMinType = 'min';
-export const rangeMaxType: TRangeMaxType = 'max';
-export const filterTypeFilter: TFilterItemTypeFilter = 'filter';
-export const filterTypeRange: TFilterItemTypeRange = 'range';
+export type TRangeType = { min: number, max: number, [name: string]: number };
+export type TRangesType = TRangeMinType | TRangeMaxType;
+export type TFilterItemValue = number | string | TRangeType;
 
 export interface IFilterValue {
     value: string | number;
@@ -118,7 +113,7 @@ export interface IFilterItemToDelete {
     name: TFilterItemName;
     value: TFilterItemValue;
     type: TFilterItemType;
-    rangeSubType?: TRangeType;
+    rangeSubType?: TRangesType;
 }
 
 export interface IFilterItem extends IFilterItemToDelete {

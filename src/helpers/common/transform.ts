@@ -1,4 +1,5 @@
-import { rangeMaxType, rangeMinType, TRangeType } from '@interfaces/search';
+import { TRangesType } from '@interfaces/search';
+import { rangeMaxType, rangeMinType } from '@constants/search';
 
 export const firstLetterToUpperCase = (word: string): string | null => {
     if (!word) {
@@ -35,7 +36,7 @@ export const isWordHasPrice = (word: string): boolean => {
     return false;
 };
 
-export const rangeFilterValueToFront = (value: number, type: TRangeType): number => {
+export const rangeFilterValueToFront = (value: number, type: TRangesType): number => {
     const valueFixed = (value / 100);
 
     if (type === rangeMinType) {

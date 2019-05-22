@@ -3,11 +3,10 @@ import {
     ISearchPageData,
     IRangeFacets,
     IValueFacets,
-    rangeMaxType,
-    rangeMinType,
-    RangeType,
+    TRangeType,
     TActiveRangeFilters
 } from '@interfaces/search';
+import { rangeMaxType, rangeMinType } from '@constants/search';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { IActiveFilterCategories } from '../CategoriesList/types';
 import { labeledCategories, pathCategoryPageBase } from '@constants/routes';
@@ -17,7 +16,7 @@ export const isValidRangeInput = (
     activeRanges: TActiveRangeFilters,
     defaultRanges: ISearchPageData['rangeFilters']
 ): boolean => {
-    const activeData: { [key: string]: RangeType } = {...activeRanges};
+    const activeData: { [key: string]: TRangeType } = {...activeRanges};
     const defaultData = [...defaultRanges];
     let canMakeNewRequest: boolean = true;
 

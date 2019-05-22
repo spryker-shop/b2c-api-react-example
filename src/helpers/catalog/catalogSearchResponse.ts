@@ -3,11 +3,10 @@ import {
     ICatalogSearchDataParsed,
     IValueFacets,
     IAvailableLabelsCollection,
-    rangeMinType,
-    rangeMaxType,
     TActiveFilters,
     TActiveRangeFilters
 } from '@interfaces/search';
+import { rangeMaxType, rangeMinType } from '@constants/search';
 import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { getProductLabel } from '@helpers/product/label';

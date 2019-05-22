@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { filterTypeRange, IFilterItem, RangeType } from '@interfaces/search';
+import { IFilterItem, TRangeType } from '@interfaces/search';
+import { filterTypeRange } from '@constants/search';
 import { rangeFilterValueToBack } from '@helpers/common/transform';
 import { AppPrice } from '@components/AppPrice';
 
 /**
  *
  * @param {boolean} isPrice
- * @param {RangeType} value
+ * @param {TRangeType} value
  * @param {string} rangeName
  * @param {string} title
  * @returns {IFilterItem}
@@ -15,7 +16,7 @@ export const createRangeFilterItemCombined = (
     {isPrice, value, rangeName, title}:
         {
             isPrice: boolean,
-            value: RangeType,
+            value: TRangeType,
             rangeName: string,
             title: string,
         }):

@@ -12,7 +12,7 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     activeRangeFilters: TActiveRangeFilters;
     updateStore: Function;
     updateActiveFilters: Function;
-    updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: RangeType) => void;
+    updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: TRangeType) => void;
     categoriesList: (
         isOpened: boolean,
         onTitleClick: () => void,

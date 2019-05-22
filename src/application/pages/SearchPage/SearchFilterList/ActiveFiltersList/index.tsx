@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { IActiveFiltersListProps as Props } from './types';
-import { filterTypeFilter, IFilterItem, TFilterItemValue, IRangeFacets } from '@interfaces/search';
+import { IFilterItem, TFilterItemValue, IRangeFacets } from '@interfaces/search';
+import { filterTypeFilter } from '@constants/search';
 import { isWordHasPrice } from '@helpers/common/transform';
 import { createRangeFilterItemCombined } from './helper';
 import { Grid, Chip, withStyles, Button } from '@material-ui/core';

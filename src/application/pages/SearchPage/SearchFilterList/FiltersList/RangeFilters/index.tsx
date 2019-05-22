@@ -3,7 +3,7 @@ import { Grid, withStyles } from '@material-ui/core';
 import { RangeFiltersProps as Props } from './types';
 import { styles } from './styles';
 import { rangeFilterValueToFront } from '@helpers/common/transform';
-import { rangeMaxType, rangeMinType } from '@interfaces/search';
+import { rangeMaxType, rangeMinType } from '@constants/search';
 import { SprykerRangeSlider } from '@components/UI/SprykerRangeSlider';
 
 const RangeFiltersComponent: React.SFC<Props> = (props): JSX.Element => {
