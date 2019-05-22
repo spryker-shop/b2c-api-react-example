@@ -1,5 +1,5 @@
 import { reduxify } from '@hoc/Reduxify';
-import { IActiveFilters } from '@interfaces/searchPageData';
+import { IActiveFilters } from '@interfaces/search';
 import { clearActiveFiltersAction, setActiveFiltersAction } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ISearchState } from '@stores/reducers/pages/search/types';

@@ -1,22 +1,38 @@
 import { IProductCard } from '@interfaces/product';
 import { IPagination } from '@containers/AppPagination/types';
-import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
 import { IIndexSignature } from '@interfaces/common';
 
-export interface FilterValue {
+export type TActiveFilters = { [name: string]: string[] };
+export type TActiveRangeFilters = { [name: string]: RangeType };
+export type TRangeMinType = 'min';
+export type TRangeMaxType = 'max';
+export type TFilterItemTypeFilter = 'filter';
+export type TFilterItemTypeRange = 'range';
+export type TFilterItemName = string;
+export type TFilterItemType = TFilterItemTypeFilter | TFilterItemTypeRange;
+export type RangeType = { min: number, max: number, [name: string]: number };
+export type TRangeType = TRangeMinType | TRangeMaxType;
+export type TFilterItemValue = number | string | RangeType;
+
+export const rangeMinType: TRangeMinType = 'min';
+export const rangeMaxType: TRangeMaxType = 'max';
+export const filterTypeFilter: TFilterItemTypeFilter = 'filter';
+export const filterTypeRange: TFilterItemTypeRange = 'range';
+
+export interface IFilterValue {
     value: string | number;
     doc_count: number | null;
 }
 
-export interface ValueFacets {
+export interface IValueFacets {
     name: string;
     docCount: number | null;
-    values: FilterValue[];
+    values: IFilterValue[];
     activeValue: string | null;
     localizedName: string;
 }
 
-export interface RangeFacets {
+export interface IRangeFacets {
     name: string;
     min: number;
     max: number;
@@ -26,7 +42,7 @@ export interface RangeFacets {
     localizedName: string;
 }
 
-export interface FlyoutSearch {
+export interface IFlyoutSearch {
     suggestions: IProductCard[] | null;
     categories: IIndexSignature[] | null;
     completion: string[] | null;
@@ -63,13 +79,13 @@ export interface IAvailableLabelsCollection {
 
 export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
-    filters: ValueFacets[] | null;
-    category: FilterValue[];
+    filters: IValueFacets[] | null;
+    category: IFilterValue[];
     currentCategoryId: number | null;
     currentSort: string | null;
     currentItemsPerPage: number | null;
     currentPaginationPage: number;
-    rangeFilters: RangeFacets[] | null;
+    rangeFilters: IRangeFacets[] | null;
     sortParams: string[] | null;
     sortParamLocalizedNames: IIndexSignature | null;
     categoriesLocalizedName: string | null;
@@ -80,7 +96,7 @@ export interface ICatalogSearchDataParsed extends IActiveFilters {
 
 export interface ISearchPageData extends ICatalogSearchDataParsed {
     dispatch?: Function;
-    flyoutSearch?: FlyoutSearch;
+    flyoutSearch?: IFlyoutSearch;
     currency?: string | null;
     isFiltersUpdated: boolean;
     isCategoryAsFilter: boolean;
@@ -96,4 +112,16 @@ export interface ISearchQuery {
     page?: string | number;
 
     [key: string]: string | number | string[];
+}
+
+export interface IFilterItemToDelete {
+    name: TFilterItemName;
+    value: TFilterItemValue;
+    type: TFilterItemType;
+    rangeSubType?: TRangeType;
+}
+
+export interface IFilterItem extends IFilterItemToDelete {
+    label: string | JSX.Element;
+    order?: number;
 }

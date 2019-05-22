@@ -1,11 +1,11 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { FilterValue } from 'src/shared/interfaces/searchPageData';
-import { ICategory } from 'src/shared/interfaces/category';
+import { IFilterValue } from '@interfaces/searchPageData';
+import { ICategory } from '@interfaces/common';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
 export interface ICategoriesListProps extends WithStyles<typeof styles> {
-    categories: FilterValue[];
+    categories: IFilterValue[];
     categoriesTree: ICategory[];
     selectedCategory: number | string;
     selectedMobileCategory: number | string;

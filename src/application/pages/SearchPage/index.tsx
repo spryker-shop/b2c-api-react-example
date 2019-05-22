@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as qs from 'query-string';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { getCategoryNameById } from '@helpers/categories';
 import { addToQueryActiveRangeFilters } from './helpers/queries';
 import { getLabeledCategory, getCurrentCategoriesTree } from './helpers';

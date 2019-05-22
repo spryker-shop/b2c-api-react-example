@@ -1,4 +1,4 @@
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { RenderSuggestionsContainerParamsutProps } from 'react-autosuggest';
 import { ICategory } from '@interfaces/common';
 import { IProductCard } from '@interfaces/product';

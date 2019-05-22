@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { filterTypeRange, IFilterItem, RangeType } from '../types';
+import { filterTypeRange, IFilterItem, RangeType } from '@interfaces/search';
 import { rangeFilterValueToBack } from '@helpers/common/transform';
 import { AppPrice } from '@components/AppPrice';
 

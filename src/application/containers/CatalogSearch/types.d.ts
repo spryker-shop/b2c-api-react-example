@@ -1,11 +1,11 @@
 import { WithStyles } from '@material-ui/core';
 import { RouteProps } from 'react-router';
 import { styles } from './styles';
-import { FlyoutSearch } from '@interfaces/searchPageData';
+import { IFlyoutSearch } from '@interfaces/search';
 import * as React from 'react';
 import { BlurEvent, ChangeEvent } from 'react-autosuggest';
 
-export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Partial<FlyoutSearch> {
+export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Partial<IFlyoutSearch> {
     currency?: string | null;
     isLoading?: boolean;
     id: string;

@@ -1,4 +1,4 @@
-import { IAvailableLabelsCollection } from '@interfaces/searchPageData';
+import { IAvailableLabelsCollection } from '@interfaces/search';
 import { IProductLabel } from '@interfaces/product';
 
 export const getProductLabelCollection = (

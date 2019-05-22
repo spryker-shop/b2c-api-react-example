@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ValueFacets } from '@interfaces/searchPageData';
+import { IValueFacets } from '@interfaces/search';
 import { Grid, Hidden, withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { SprykerFilter } from '@components/UI/SprykerFilter';
@@ -20,7 +20,7 @@ const AttributeFiltersComponent: React.SFC<Props> = (props): JSX.Element => {
         icon
     } = props;
 
-    const renderFilterItems = (): JSX.Element[] => filters.map((filter: ValueFacets) => {
+    const renderFilterItems = (): JSX.Element[] => filters.map((filter: IValueFacets) => {
         const isFilterItemsExist = Array.isArray(filter.values) && filter.values.length;
 
         if (isFilterItemsExist) {

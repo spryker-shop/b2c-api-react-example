@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { ISearchFilterListProps as Props, ISearchFilterListState as State } from './types';
 import {
-    ISearchFilterListProps as Props,
-    ISearchFilterListState as State,
     filterTypeFilter,
     filterTypeRange,
     IFilterItemToDelete,
     RangeType,
     TFilterItemValue,
     TFilterItemName
-} from './types';
+} from '@interfaces/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';

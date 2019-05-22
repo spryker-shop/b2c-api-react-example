@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RangeFacets } from '@interfaces/searchPageData';
 import { IActiveFiltersListProps as Props } from './types';
-import { filterTypeFilter, IFilterItem, TFilterItemValue } from '../types';
+import { filterTypeFilter, IFilterItem, TFilterItemValue, IRangeFacets } from '@interfaces/search';
 import { isWordHasPrice } from '@helpers/common/transform';
 import { createRangeFilterItemCombined } from './helper';
 import { Grid, Chip, withStyles, Button } from '@material-ui/core';
@@ -37,7 +36,7 @@ const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
 
     if (isActiveRangesExist && rangeFilters) {
         for (const rangeName in activeValuesRanges) {
-            const defaultValuesArr = rangeFilters.filter((item: RangeFacets) => (item.name === rangeName));
+            const defaultValuesArr = rangeFilters.filter((item: IRangeFacets) => (item.name === rangeName));
             if (defaultValuesArr && defaultValuesArr[0]) {
 
                 let isPrice = false;

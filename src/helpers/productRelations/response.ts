@@ -8,7 +8,7 @@ import {
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import { parseImageSets } from '@helpers/product/imageSetsParser';
 import { getProductLabel } from '@helpers/product/label';
-import { IAvailableLabelsCollection } from '@interfaces/searchPageData';
+import { IAvailableLabelsCollection } from '@interfaces/search';
 
 export const parsePorductRelationsRequest = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
     const parsedProductRelations: IProductRelationsItem[] = [];

@@ -17,7 +17,7 @@ import {
     IActiveSort,
     ICatalogSearchDataParsed,
     ISearchQuery
-} from '@interfaces/searchPageData';
+} from '@interfaces/search';
 
 export const suggestPendingState = () => ({
     type: PAGES_SUGGESTION_REQUEST + '_PENDING'

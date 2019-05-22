@@ -1,17 +1,15 @@
 import {
-    FilterValue,
+    IFilterValue,
     ICatalogSearchDataParsed,
-    ValueFacets,
-    IAvailableLabelsCollection
-} from '@interfaces/searchPageData';
-import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
-import {
+    IValueFacets,
+    IAvailableLabelsCollection,
     rangeMinType,
     rangeMaxType,
     TActiveFilters,
     TActiveRangeFilters
-} from '@pages/SearchPage/SearchFilterList/types';
+} from '@interfaces/search';
+import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
+import { rangeFilterValueToFront } from '@helpers/common/transform';
 import { getProductLabel } from '@helpers/product/label';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
@@ -27,16 +25,16 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
 
     const attributes = data[0].attributes;
     const pagination = attributes.pagination;
-    const filters: ValueFacets[] = [];
+    const filters: IValueFacets[] = [];
     const activeFilters: TActiveFilters = {};
     const activeRangeFilters: TActiveRangeFilters = {};
     const currentSort: string = attributes.sort.currentSortParam || ' ';
     const currentPaginationPage: number = pagination.currentPage;
-    let category: FilterValue[] = [];
+    let category: IFilterValue[] = [];
     let currentCategoryId: number = null;
     let categoriesLocalizedName: string | null = null;
 
-    attributes.valueFacets.forEach((filter: ValueFacets) => {
+    attributes.valueFacets.forEach((filter: IValueFacets) => {
         if (filter.name === 'category') {
             category = Array.isArray(filter.values) ? filter.values : [];
             currentCategoryId = Number(filter.activeValue);

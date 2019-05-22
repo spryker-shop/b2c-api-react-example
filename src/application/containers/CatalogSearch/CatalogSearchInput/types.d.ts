@@ -1,5 +1,5 @@
 import { IInputProps } from '../types';
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 

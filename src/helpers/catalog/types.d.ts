@@ -1,5 +1,5 @@
 import { IProductCard } from '@interfaces/product';
-import { IProductLabelResponse, RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { IProductLabelResponse, IRangeFacets, IValueFacets } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
 
 export interface ICatalogSearchRawResponse {
@@ -18,7 +18,7 @@ export interface ICatalogSearchRawResponse {
                     validItemsPerPageOptions: number[],
                 },
             },
-            rangeFacets: RangeFacets[] | null,
+            rangeFacets: IRangeFacets[] | null,
             sort: {
                 currentSortOrder: string | null,
                 currentSortParam: string | null,
@@ -26,7 +26,7 @@ export interface ICatalogSearchRawResponse {
                 sortParamNames: string[] | null,
             },
             spellingSuggestion: string | null,
-            valueFacets: ValueFacets[] | null,
+            valueFacets: IValueFacets[] | null,
             id: null | string,
         }
     }];

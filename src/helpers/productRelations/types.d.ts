@@ -9,7 +9,7 @@ import {
     IRowProductImageSetsIncludedResponse, IRowProductPricesIncludedResponse
 } from '@helpers/product/types';
 import { IRowCustomerCartItemsIncludedResponse } from '@helpers/cart/types';
-import { IAvailableLabel } from '@interfaces/searchPageData';
+import { IAvailableLabel } from '@interfaces/search';
 
 export interface IProductRelationsRawResponse {
     data: IProductRelationsItemResponse[];

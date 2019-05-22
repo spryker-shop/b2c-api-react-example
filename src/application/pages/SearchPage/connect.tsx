@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { getRouterMatchParam } from '@helpers/router';
 import {
     sendSearchAction,

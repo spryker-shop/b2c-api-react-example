@@ -19,7 +19,7 @@ import {
     ISuperAttribute,
     TRowProductResponseIncluded
 } from '@helpers/product/types';
-import { IProductLabelResponse } from '@interfaces/searchPageData';
+import { IProductLabelResponse } from '@interfaces/search';
 import { IProductImage } from '@components/ProductImageSlider/types';
 import { IIndexSignature } from '@interfaces/common';
 

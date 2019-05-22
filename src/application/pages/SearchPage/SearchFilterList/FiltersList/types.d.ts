@@ -1,4 +1,4 @@
-import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { IRangeFacets, IValueFacets } from '@interfaces/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
@@ -6,9 +6,9 @@ import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 import { WithRouter } from '@interfaces/common';
 
 export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter {
-    filters: ValueFacets[];
+    filters: IValueFacets[];
     activeFilters: TActiveFilters;
-    ranges: RangeFacets[];
+    ranges: IRangeFacets[];
     activeRangeFilters: TActiveRangeFilters;
     updateStore: Function;
     updateActiveFilters: Function;
@@ -28,9 +28,9 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
 }
 
 export interface IFiltersListState {
-    [key: string]: boolean | (ValueFacets | RangeFacets)[];
-    openedFilters: ValueFacets[];
+    [key: string]: boolean | (IValueFacets | IRangeFacets)[];
+    openedFilters: IValueFacets[];
     openedCategories: boolean;
-    openedRanges: RangeFacets[];
+    openedRanges: IRangeFacets[];
     selectedMobileCategoryId: number | null;
 }

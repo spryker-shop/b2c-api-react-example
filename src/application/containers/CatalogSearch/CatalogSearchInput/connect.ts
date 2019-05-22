@@ -4,10 +4,10 @@ import { reduxify } from '@hoc/Reduxify';
 import { sendSearchAction } from '@stores/actions/pages/search';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { FlyoutSearch } from '@interfaces/searchPageData';
+import { IFlyoutSearch } from '@interfaces/search';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const searchProps: FlyoutSearch = state.pageSearch && state.pageSearch.data
+    const searchProps: IFlyoutSearch = state.pageSearch && state.pageSearch.data
         ? state.pageSearch.data.flyoutSearch
         : null;
     const currency: string | null = getAppCurrency(state, ownProps);

@@ -2,7 +2,7 @@ import api from '@services/api';
 import { parseCatalogSearchResponse } from '@helpers/catalog/catalogSearchResponse';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IProductCard } from '@interfaces/product';
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { IApiResponseData } from '@services/types';
 import { TRowProductResponseIncluded } from '@helpers/product/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';

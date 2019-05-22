@@ -1,12 +1,11 @@
-import { ISearchPageData, ISearchQuery } from 'src/shared/interfaces/searchPageData';
+import { ISearchPageData, ISearchQuery } from '@interfaces/search';
 import { History, Location } from 'history';
 import { RouteProps } from 'react-router';
-import { WithRouter } from 'src/shared/interfaces/common/react';
-import { ICategory } from 'src/shared/interfaces/category';
-import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
+import { WithRouter, IBreadcrumbItem } from '@interfaces/common';
+import { ICategory } from '@interfaces/category';
+import { TActiveFilters, TActiveRangeFilters } from '@interfaces/search';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IBreadcrumbItem } from '@interfaces/common';
 
 export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;
