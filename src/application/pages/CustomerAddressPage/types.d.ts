@@ -7,7 +7,6 @@ import { WithRouter } from '@interfaces/common';
 export interface ICustomerAddressPageProps extends WithStyles<typeof styles>, WithRouter {
     customer: string;
     currentAddress: IAddressItem;
-    routerPush: Function;
     isLoading: boolean;
     addressIdParam: string;
     isAddressExist: boolean;

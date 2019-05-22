@@ -4,7 +4,7 @@ import { reduxify } from '@hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 import { ISearchQuery } from '@interfaces/search';
-import { getRouterMatchParam } from '@helpers/router';
+import { getRouterMatchParam } from '@helpers/common';
 import {
     sendSearchAction,
     clearActiveFiltersAction,

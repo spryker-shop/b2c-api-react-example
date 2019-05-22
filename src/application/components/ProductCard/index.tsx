@@ -3,13 +3,12 @@ import { withStyles, Typography, Grid } from '@material-ui/core';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
 import { ProductLabel } from '@components/ProductLabel';
-import { getOneProductImage } from '@helpers/product/imageSetsParser';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
 
 export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, images, name = '', prices, sku, label, onSelectProduct } = props;
+    const { classes, image, name = '', prices, sku, label, onSelectProduct } = props;
 
     let actualPriceGross = 0;
     let actualPriceNet = 0;
@@ -28,8 +27,6 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
             }
         });
     }
-
-    const image = getOneProductImage(images);
 
     return (
         <div className={ classes.card } onClick={ () => onSelectProduct(sku) }>

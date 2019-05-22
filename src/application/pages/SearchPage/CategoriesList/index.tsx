@@ -11,7 +11,7 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { PopoverWrapper } from '@components/PopoverWrapper';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @connect
 class CategoriesListComponent extends React.Component<Props, State> {

@@ -7,7 +7,7 @@ import {
     TActiveRangeFilters
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
+import { rangeFilterValueToFront } from '@helpers/common';
 import { IActiveFilterCategories } from '../CategoriesList/types';
 import { labeledCategories, pathCategoryPageBase } from '@constants/routes';
 import { ICategory, IBreadcrumbItem, IIndexSignature } from '@interfaces/common';

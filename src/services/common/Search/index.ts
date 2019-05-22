@@ -4,7 +4,7 @@ import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract
 import { IProductCard } from '@interfaces/product';
 import { ISearchQuery } from '@interfaces/search';
 import { IApiResponseData } from '@services/types';
-import { TRowProductResponseIncluded } from '@helpers/product/types';
+import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import {
@@ -16,7 +16,7 @@ import {
     suggestFullfiledState
 } from '@stores/actions/pages/search';
 
-export class CatalogService extends ApiServiceAbstract {
+export class SearchService extends ApiServiceAbstract {
     public static async catalogSearch(dispatch: Function, params: ISearchQuery): Promise<void> {
         dispatch(sendSearchPendingState());
         try {
@@ -46,7 +46,7 @@ export class CatalogService extends ApiServiceAbstract {
         }
     }
 
-    public static async catalogSuggestion(dispatch: Function, query: string): Promise<void> {
+    public static async searchSuggestion(dispatch: Function, query: string): Promise<void> {
         dispatch(suggestPendingState());
         try {
 

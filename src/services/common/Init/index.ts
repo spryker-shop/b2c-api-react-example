@@ -21,7 +21,7 @@ import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import { NavigationService } from '@services/common/Navigations';
-import { getAnonymId } from '@helpers/common/anonymId';
+import { getAnonymId } from '@helpers/common';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getSalutationToShow } from '@helpers/customer/salutation';
+import { getSalutationToShow } from '@helpers/customer';
 import { withStyles, Typography } from '@material-ui/core';
 import { IAddressDetailsProps as Props } from './types';
 import { styles } from './styles';

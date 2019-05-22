@@ -1,5 +1,5 @@
 import { ICartDataResponse } from '@interfaces/cart';
-import { parseImageSets } from '@helpers/product/imageSetsParser';
+import { parseImageSets } from '@helpers/parsing/common';
 import { IProductPricesItem, priceTypeNameDefault, priceTypeNameOriginal } from '@interfaces/product';
 import {
     ICartItemDataShort,
@@ -48,15 +48,14 @@ const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataRespons
 
     // Fill data with concrete products ids
     if (data.relationships && data.relationships.items) {
-        data.relationships.items.data.forEach((datum: ICartItemDataShort) => {
-            result[datum.id] = {...getCartItemBlueprint()};
+        data.relationships.items.data.forEach((data: ICartItemDataShort) => {
+            result[data.id] = {...getCartItemBlueprint()};
         });
     }
 
     included && included.forEach((row: TRowCustomerCartIncludedResponse) => {
         if (row.type === 'concrete-product-image-sets' && !result[row.id].image) {
-            const images = parseImageSets(row.attributes.imageSets);
-            result[row.id].image = images[0].externalUrlSmall ? images[0].externalUrlSmall : null;
+            result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
         } else {
             if (row.type === 'items' && !result[row.id].sku) {
                 result[row.id].sku = row.id;

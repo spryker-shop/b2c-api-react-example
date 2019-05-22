@@ -6,11 +6,10 @@ import {
     IProductRelationsLabel
 } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
-import { parseImageSets } from '@helpers/product/imageSetsParser';
-import { getProductLabel } from '@helpers/product/label';
+import { parseImageSets, getProductLabel } from '@helpers/parsing/common';
 import { IAvailableLabelsCollection } from '@interfaces/search';
 
-export const parsePorductRelationsRequest = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
+export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
     const parsedProductRelations: IProductRelationsItem[] = [];
 
     response.data.forEach((item: IProductRelationsItemResponse) => {
@@ -81,7 +80,7 @@ const parseIncludedOptions = (
 ): IProductOptions => {
     switch (optionType) {
         case 'abstract-product-image-sets':
-            productOptions.images = parseImageSets(option.attributes.imageSets);
+            productOptions.image = parseImageSets(option.attributes.imageSets)[0].src;
             break;
         case 'abstract-product-prices':
             productOptions.price = option.attributes.price;

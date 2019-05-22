@@ -1,4 +1,4 @@
-import { ISuperAttribute } from '@helpers/product/types';
+import { ISuperAttribute } from '@helpers/parsing/product/types';
 import { IProductImage } from '@components/ProductImageSlider/types';
 
 export const concreteProductType = 'concreteProduct';
@@ -36,6 +36,7 @@ export interface IProductCardImages {
 }
 
 export interface IProductCard {
+    image?: string | null;
     images?: IProductCardImages[] | null;
     price: number;
     abstractName: string;

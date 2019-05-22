@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
-import { getAvailabilityDisplay, parseCurrentProductDataObject } from '@helpers/product';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
 import { AppMain } from '@components/AppMain';
@@ -99,10 +98,10 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }, {...(attributeVariants as unknown as IIndexSignature)}) as string;
 
         if (!idProductConcrete) {
-            return parseCurrentProductDataObject(abstractProduct, null);
+            return { ...abstractProduct };
         }
 
-        return parseCurrentProductDataObject(abstractProduct, concreteProducts[idProductConcrete]);
+        return { ...concreteProducts[idProductConcrete] };
     };
 
     protected changeProductDataState = (productData: IProductPropFullData): void =>
@@ -112,7 +111,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const { state: locationState } = this.props.location;
         const activeSupperAttributes = locationState && locationState.superAttributes
             ? locationState.superAttributes : false;
-        const { concreteProducts, abstractProduct, superAttributes, selectedAttrNames } = this.props.product;
+        const { concreteProducts, superAttributes, selectedAttrNames } = this.props.product;
         const concreteProductsIds = Object.keys(concreteProducts);
         const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
         const superAttrSelected = Object.keys(selectedAttrNames).reduce((acc: IIndexSignature, name) => {
@@ -128,7 +127,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         }, {});
 
         const productData: IProductPropFullData | null = isOneConcreteProduct
-            ? parseCurrentProductDataObject(abstractProduct, concreteProducts[concreteProductsIds[0]])
+            ? { ...concreteProducts[concreteProductsIds[0]] }
             : this.findAndParseConcreteProduct(superAttrSelected);
 
         this.setState({ superAttrSelected, ...productData });
@@ -197,7 +196,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                                     sku={ sku }
                                     price={ prices ? prices.priceDefaultGross : null }
                                     oldPrice={ prices && prices.priceOriginalGross ? prices.priceOriginalGross : null }
-                                    availability={ getAvailabilityDisplay(availability) }
+                                    availability={ availability }
                                 />
 
                                 { product.superAttributes &&

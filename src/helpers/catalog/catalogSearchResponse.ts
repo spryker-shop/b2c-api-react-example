@@ -8,8 +8,8 @@ import {
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
 import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse } from '@helpers/catalog/types';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
-import { getProductLabel } from '@helpers/product/label';
+import { rangeFilterValueToFront } from '@helpers/common';
+import { getProductLabel } from '@helpers/parsing/common';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -57,8 +57,14 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         }
     });
 
+    const parseProductItems = attributes.abstractProducts.map(item => ({
+        ...item,
+        labels: null,
+        image: item.images[0].externalUrlSmall
+    }));
+
     const result: ICatalogSearchDataParsed = {
-        items: attributes.abstractProducts.map(item => ({...item, labels: null})),
+        items: parseProductItems,
         filters,
         activeFilters,
         category,

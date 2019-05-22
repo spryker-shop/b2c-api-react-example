@@ -27,17 +27,6 @@ export type TRowProductResponseIncluded = IRowProductPricesIncludedResponse
     | IRowConcreteProductsIncludedResponse
     | IRowProductLabelsResponse;
 
-export interface IProductAvailabilitiesRawResponse {
-    data: [{
-        attributes: IProductAvailability;
-        id: string;
-    }];
-    links: {
-        self: string;
-    };
-    type: string;
-}
-
 export interface ISuperAttribute {
     name: string;
     nameToShow: string;

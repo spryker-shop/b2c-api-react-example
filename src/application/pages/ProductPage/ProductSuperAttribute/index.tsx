@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IProductSuperAttributeProps as Props } from './types';
-import { ISuperAttribute } from '@helpers/product/types';
+import { ISuperAttribute } from '@helpers/parsing/product/types';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 

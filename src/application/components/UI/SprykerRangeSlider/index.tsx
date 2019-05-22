@@ -10,7 +10,7 @@ import { ISprykerRangeSliderProps as Props, ISprykerRangeSliderState as State } 
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { isWidthUp } from '@material-ui/core/withWidth';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 class SprykerRangeSliderComponent extends React.Component<Props, State> {
     protected buttonRef: React.RefObject<HTMLDivElement> = React.createRef();

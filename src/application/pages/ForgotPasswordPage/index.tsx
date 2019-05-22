@@ -7,6 +7,8 @@ import { styles } from './styles';
 import { ClickEvent, InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
+import { pathLoginPage } from '@constants/routes';
+import { NavLink } from 'react-router-dom';
 
 @connect
 export class ForgotPasswordPageBase extends React.Component<Props, State> {
@@ -23,7 +25,7 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, routerGoBack, isLoading } = this.props;
+        const { classes, isLoading } = this.props;
         const { email } = this.state;
 
         return (
@@ -54,8 +56,11 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
                                             <Button
                                                 disabled={ isLoading }
                                                 variant="outlined"
-                                                onClick={ () => routerGoBack() }
                                                 fullWidth
+                                                component={
+                                                    ({ innerRef, ...props }) =>
+                                                        <NavLink { ...props } to={ pathLoginPage } />
+                                                }
                                             >
                                                 <FormattedMessage id={ 'word.back.title' } />
                                             </Button>

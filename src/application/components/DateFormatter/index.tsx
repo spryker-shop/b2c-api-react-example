@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedTime } from 'react-intl';
-import { formatDateToString, formattedDate, getDateUtcUnix } from '@helpers/common/dates';
+import { formatDateToString, formattedDate, getDateUtcUnix } from '@helpers/common';
 import { IDateFormatterProps } from './types';
 
 const DateFormatterComponent: React.SFC<IDateFormatterProps> = (props): JSX.Element => {

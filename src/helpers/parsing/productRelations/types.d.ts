@@ -1,13 +1,10 @@
-import {
-    IProductCardImages,
-    IProductLabel,
-    IProductPricesItem
-} from '@interfaces/product';
+import { IProductLabel, IProductPricesItem } from '@interfaces/product';
 import {
     IRowConcreteProductsIncludedResponse,
     IRowProductAvailabilitiesIncludedResponse,
-    IRowProductImageSetsIncludedResponse, IRowProductPricesIncludedResponse
-} from '@helpers/product/types';
+    IRowProductImageSetsIncludedResponse,
+    IRowProductPricesIncludedResponse
+} from '@helpers/parsing/product/types';
 import { IRowCustomerCartItemsIncludedResponse } from '@helpers/cart/types';
 import { IAvailableLabel } from '@interfaces/search';
 
@@ -46,7 +43,7 @@ export interface IProductOptions {
     label?: IProductLabel[];
     price?: number;
     prices?: IProductPricesItem[];
-    images?: IProductCardImages[];
+    image?: string;
 }
 
 export type IProductRelationsIncluded = IRowProductImageSetsIncludedResponse

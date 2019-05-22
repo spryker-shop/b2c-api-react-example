@@ -1,4 +1,4 @@
-import { ISuperAttribute } from '@helpers/product/types';
+import { ISuperAttribute } from '@helpers/parsing/product/types';
 import { IProductAttributes } from '@interfaces/product';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';

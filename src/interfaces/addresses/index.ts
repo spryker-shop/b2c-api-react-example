@@ -1,3 +1,7 @@
+export interface IAddressIndexSignture {
+    [index: string]: string | number | boolean;
+}
+
 export interface IAddressCountryComposed {
     id_country: number;
     iso2_code: string;
@@ -25,10 +29,9 @@ interface IAbstractAddressItem {
     iso2Code?: string | number | boolean | null;
 }
 
-export interface IAddressItem extends IAbstractAddressItem {
+export interface IAddressItem extends IAbstractAddressItem, IAddressIndexSignture {
     country?: string | null;
     email?: string | null;
-    [index: string]: string | number | boolean;
 }
 
 export interface IAddressItemCollection extends IAbstractAddressItem {

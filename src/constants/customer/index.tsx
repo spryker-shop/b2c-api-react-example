@@ -1,7 +1,8 @@
+import React from 'react';
 import { TSalutationVariant } from '@interfaces/customer';
-import { FormattedMessageTemplate } from '@helpers/formattedMessageTemplate';
 import { IConfigInputStable } from '@interfaces/forms';
 import { IAddressConfigInputStable } from '@constants/checkout/types';
+import { FormattedMessage } from 'react-intl';
 
 const SalutationVariantMrValue = 'Mr';
 const SalutationVariantMrsValue = 'Mrs';
@@ -11,19 +12,19 @@ const SalutationVariantMsValue = 'Ms';
 export const SalutationVariants: TSalutationVariant[] = [
     {
         value: SalutationVariantMrValue,
-        name: FormattedMessageTemplate('salutation.variant.mr')
+        name: <FormattedMessage id={ 'salutation.variant.mr' } />
     },
     {
         value: SalutationVariantMsValue,
-        name: FormattedMessageTemplate('salutation.variant.ms')
+        name: <FormattedMessage id={ 'salutation.variant.ms' } />
     },
     {
         value: SalutationVariantMrsValue,
-        name: FormattedMessageTemplate('salutation.variant.mrs')
+        name: <FormattedMessage id={ 'salutation.variant.mrs' } />
     },
     {
         value: SalutationVariantDrValue,
-        name: FormattedMessageTemplate('salutation.variant.dr')
+        name: <FormattedMessage id={ 'salutation.variant.dr' } />
     },
 ];
 
@@ -117,5 +118,3 @@ export const customerAddressConfigInputStable: IAddressConfigInputStable = {
         inputName: 'isDefaultBilling',
     }
 };
-
-export const logoutSetTimeoutTime: number = 250;

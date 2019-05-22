@@ -6,7 +6,7 @@ import {
     productRelationsRejectedAction,
     productRelationsFulfilledAction
 } from '@stores/actions/common/productRelations';
-import { parsePorductRelationsRequest } from '@helpers/productRelations/response';
+import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
 import api from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 
@@ -28,7 +28,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
             const response: IApiResponseData = await api.get(endpoint);
 
             if (response.ok) {
-                const parsedData = parsePorductRelationsRequest(response.data);
+                const parsedData = parsePorductRelationsResponse(response.data);
                 dispatch(productRelationsFulfilledAction(parsedData));
             }
         } catch (error) {
@@ -57,7 +57,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
             const response: IApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {
-                const parsedData = parsePorductRelationsRequest(response.data);
+                const parsedData = parsePorductRelationsResponse(response.data);
                 dispatch(productRelationsFulfilledAction(parsedData));
             }
         } catch (error) {

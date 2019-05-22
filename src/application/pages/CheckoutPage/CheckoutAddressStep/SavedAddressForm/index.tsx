@@ -4,7 +4,7 @@ import { FormControlLabel, Radio, RadioGroup, withStyles } from '@material-ui/co
 import { ISavedAddressFormProps as Props, IRadioItem } from './types';
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { getSalutationToShow } from '@helpers/customer/salutation';
+import { getSalutationToShow } from '@helpers/customer';
 
 const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, currentMode, addressesCollection, onFieldChangeHandler, formName, extraField } = props;

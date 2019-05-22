@@ -77,11 +77,16 @@ export const styles = (theme: Theme) => createStyles({
             '&:hover': {
                 background: 'none',
                 border: 'none'
-            },
+            }
         }
     },
     actionItemDisabled: {
-        opacity: 0.6
+        opacity: 0.6,
+        [theme.breakpoints.up('md')]: {
+            color: `${ theme.appColors.lightGrey } !important`,
+            background: 'none !important',
+            border: 'none !important'
+        }
     },
     actionDelete: {
         color: theme.appColors.red,

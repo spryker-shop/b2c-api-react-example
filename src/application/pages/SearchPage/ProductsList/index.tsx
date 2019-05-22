@@ -20,7 +20,7 @@ const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
                         <Grid item xs={ 6 } sm={ 4 } key={ product.abstractSku }>
                             <ProductCard
                                 currency={ currency }
-                                images={ product.images }
+                                image={ product.image }
                                 price={ product.price }
                                 prices={ product.prices }
                                 name={ product.abstractName }

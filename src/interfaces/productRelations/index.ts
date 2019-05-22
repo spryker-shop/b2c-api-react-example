@@ -1,4 +1,4 @@
-import { IProductCardImages, IProductLabel, IProductPricesItem } from '@interfaces/product';
+import { IProductLabel, IProductPricesItem } from '@interfaces/product';
 
 export interface IProductRelationsItem {
     name: string;
@@ -6,5 +6,5 @@ export interface IProductRelationsItem {
     label?: IProductLabel[];
     price?: number;
     prices?: IProductPricesItem[];
-    images?: IProductCardImages[];
+    image?: string;
 }

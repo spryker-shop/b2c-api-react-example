@@ -1,4 +1,4 @@
-import { IAddressItem } from '@interfaces/addresses';
+import { IAddressIndexSignture, IAddressItem } from '@interfaces/addresses';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import api, { setAuthToken } from '@services/api';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
@@ -8,7 +8,6 @@ import {
     IRequestAddAddressBody,
     IRequestUpdateAddressBody
 } from '@services/pages/Addresses/types';
-import { parseOneAddressRawResponse } from '@helpers/address/response';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
@@ -76,10 +75,18 @@ export class AddressesService extends ApiServiceAbstract {
             const response: IApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
-                const address = parseOneAddressRawResponse(response.data);
+                const { data: { attributes, id } } = response.data;
+
+                const address: IAddressItem = Object.keys(attributes).reduce((acc: IAddressIndexSignture, current) => {
+                    acc[current] = attributes[current];
+
+                    return acc;
+                }, {});
+                address.id = id;
+
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
-                    payloadFulfilled: { data: address, addressId: address.id }
+                    payloadFulfilled: { data: address, addressId: id }
                 });
             } else {
                 const errorMessage = this.getParsedAPIError(response);

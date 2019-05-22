@@ -22,7 +22,7 @@ import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { IApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
-import { getAnonymId, clearAnonymId } from '@helpers/common/anonymId';
+import { getAnonymId, clearAnonymId } from '@helpers/common';
 import { anonymIdFilFilled } from '@stores/actions/common/init';
 import { clearWishlistState } from '@stores/actions/pages/wishlist';
 
