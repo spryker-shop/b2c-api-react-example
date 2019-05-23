@@ -1,6 +1,6 @@
 import { PAGES_PRODUCT_REQUEST } from '@stores/actionTypes/pages/product';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IProductDataParsed } from '@helpers/parsing/product/types';
+import { IProductDataParsed } from '@interfaces/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageProductAction, IProductState } from '@stores/reducers/pages/product/types';
 import { IApiErrorResponse } from '@services/types';

@@ -1,6 +1,6 @@
 import { PAGES_PRODUCT_REQUEST } from '@stores/actionTypes/pages/product';
 import { ProductService } from '@services/pages/Product';
-import { IProductDataParsed } from '@helpers/parsing/product/types';
+import { IProductDataParsed } from '@interfaces/product';
 import { IPageProductAction } from '@stores/reducers/pages/Product/types';
 
 export const getProductDataItemPendingStateAction = (): IPageProductAction => ({

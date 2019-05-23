@@ -6,12 +6,20 @@ import {
     TActiveRangeFilters
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
-import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse, ISuggestionSearchResponse } from './types';
 import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
-import { TProductRowResponseIncluded, IProductAvailableLabelsCollection } from '@services/pages/Product/types';
-import { IProductCardResponse } from '@helpers/parsing/search/types';
+import {
+    TProductRowResponseIncluded,
+    IProductLabelsCollectionResponse,
+    IProductAvailableLabelResponse
+} from '@services/pages/Product/types';
+import {
+    ICatalogSearchRawResponse,
+    ICatalogSearchRowIncludedResponse,
+    IProductCardResponse
+} from '@services/pages/Search/types';
+import { ISuggestionSearchResponse } from '@services/common/Search/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -94,14 +102,15 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         return result;
     }
 
-    const availableLabels: IProductAvailableLabelsCollection | null = getAvailableLables(included);
+    const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
 
-    included.forEach((row: IRowCatalogSearchIncludedResponse) => {
+    included.forEach((row: ICatalogSearchRowIncludedResponse) => {
         const isProductHasLabels = row.type === 'abstract-products' && row.relationships &&
             row.relationships['product-labels'] && availableLabels;
 
         if (isProductHasLabels) {
-            const labelsIdArr: string[] = row.relationships['product-labels'].data.map(item => item.id);
+            const labelsIdArr: string[] = row.relationships['product-labels'].data
+                .map((item: IProductAvailableLabelResponse) => item.id);
             const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
             appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
@@ -131,5 +140,5 @@ export const parseSuggestionSearchResponse = (response: ISuggestionSearchRespons
         }
     });
 
-    return products;
+    return products as IProductCard[];
 };

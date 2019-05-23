@@ -1,4 +1,4 @@
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';

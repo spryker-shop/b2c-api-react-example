@@ -3,7 +3,8 @@ import {
     IProductAttributeMap,
     IProductAttributes,
     ISuperAttribute,
-    IDescriptionAttributes
+    IDescriptionAttributes,
+    IProductDataParsed
 } from '@interfaces/product';
 import { abstractProductType, concreteProductType } from '@constants/product';
 import {
@@ -11,7 +12,6 @@ import {
     IProductRowLabelsResponse,
     TProductRowResponseIncluded
 } from '@services/pages/Product/types';
-import { IProductDataParsed } from './types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 

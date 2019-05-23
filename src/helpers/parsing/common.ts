@@ -1,9 +1,9 @@
 import { IProductLabel, IProductPrices, IProductImage } from '@interfaces/product';
 import { priceTypeNameDefault, priceTypeNameOriginal } from '@constants/product';
-import { IProductRelationsIncluded } from '@helpers/parsing/productRelations/types';
+import { IProductRelationsIncluded } from '@services/common/ProductRelations/types';
 import {
     IProductRowLabelsResponse,
-    IProductAvailableLabelsCollection,
+    IProductLabelsCollectionResponse,
     IProductImageSetsRawResponse,
     IProductPricesResponse,
     IProductCardImagesResponse
@@ -26,7 +26,7 @@ export const parseImageSets = (imageSets: IProductImageSetsRawResponse[]): IProd
 
 export const getProductLabel = (
     labelsIdArr: string[] | null,
-    availableLabels: IProductAvailableLabelsCollection | null
+    availableLabels: IProductLabelsCollectionResponse | null
 ): IProductLabel[] | null => {
     const isLabelsExist = (Array.isArray(labelsIdArr) && labelsIdArr.length > 0);
 
@@ -58,8 +58,8 @@ export const parsePrices = (prices: IProductPricesResponse[]): IProductPrices =>
         return acc;
     }, {});
 
-export const getAvailableLables = (included: IProductRelationsIncluded[]): IProductAvailableLabelsCollection | null => {
-    const availableLabels: IProductAvailableLabelsCollection | null = {};
+export const getAvailableLables = (included: IProductRelationsIncluded[]): IProductLabelsCollectionResponse | null => {
+    const availableLabels: IProductLabelsCollectionResponse | null = {};
     const productLabelsType = 'product-labels';
 
     const includedLabels: IProductRowLabelsResponse[] = included.filter(item => (

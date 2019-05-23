@@ -1,6 +1,6 @@
 import { PRODUCT_RELATIONS_REQUEST } from '@stores/actionTypes/common/productRelations';
 import { ProductRelationsService } from '@services/common/ProductRelations';
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 
 export const productRelationsPendingAction = () => ({
     type: `${ PRODUCT_RELATIONS_REQUEST }_PENDING`

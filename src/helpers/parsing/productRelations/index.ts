@@ -2,35 +2,29 @@ import {
     IProductRelationsRawResponse,
     IProductRelationsIncluded,
     IProductRelationsItemResponse,
-    IProductOptions
-} from './types';
-import { IProductRelationsItem } from '@interfaces/productRelations';
-import { parseImageSets, getProductLabel, getAvailableLables } from '@helpers/parsing/common';
-import { IProductAvailableLabelsCollection, IProductAvailableLabel } from '@services/pages/Product/types';
+    IProductOptionsResponse
+} from '@services/common/ProductRelations/types';
+import { IProductRelationsItem } from '@interfaces/product';
+import { parseImageSets, getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
+import { IProductLabelsCollectionResponse, IProductAvailableLabelResponse } from '@services/pages/Product/types';
 
-export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
-    const parsedProductRelations: IProductRelationsItem[] = [];
+export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] =>
+    response.data.map((item: IProductRelationsItemResponse) => ({
+        name: String(item.attributes.name),
+        sku: String(item.attributes.sku),
+        ...parseRelationships(response.included, item)
+    }));
 
-    response.data.forEach((item: IProductRelationsItemResponse) => {
-        const product: IProductRelationsItem = {
-            name: String(item.attributes.name),
-            sku: String(item.attributes.sku),
-            ...parseRelationships(response.included, item)
-        };
-
-        parsedProductRelations.push(product);
-    });
-
-    return parsedProductRelations;
-};
-
-const parseRelationships = (included: IProductRelationsIncluded[], item: IProductRelationsItemResponse): object => {
+const parseRelationships = (
+    included: IProductRelationsIncluded[],
+    item: IProductRelationsItemResponse
+): IProductOptionsResponse => {
     if (!item.relationships && !item.relationships.length) {
         return {};
     }
 
-    let productOptions: IProductOptions = {};
-    const availableLabels: IProductAvailableLabelsCollection | null = getAvailableLables(included);
+    let productOptions: IProductOptionsResponse = {};
+    const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
 
     for (const optionType in item.relationships) {
         const optionId: string = item.relationships[optionType].data[0].id;
@@ -40,7 +34,7 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
 
         if (optionType === 'product-labels' && availableLabels) {
             const labelsIdArr: string[] = item.relationships[optionType].data
-                .map((item: IProductAvailableLabel) => item.id);
+                .map((item: IProductAvailableLabelResponse) => item.id);
             productOptions.label = getProductLabel(labelsIdArr, availableLabels);
 
             continue;
@@ -54,16 +48,16 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
 
 const parseIncludedOptions = (
     option: IProductRelationsIncluded,
-    productOptions: IProductOptions,
+    productOptions: IProductOptionsResponse,
     optionType: string
-): IProductOptions => {
+): IProductOptionsResponse => {
     switch (optionType) {
         case 'abstract-product-image-sets':
             productOptions.image = parseImageSets(option.attributes.imageSets)[0].src;
             break;
         case 'abstract-product-prices':
             productOptions.price = option.attributes.price;
-            productOptions.prices = option.attributes.prices;
+            productOptions.prices = parsePrices(option.attributes.prices);
             break;
         default:
             break;

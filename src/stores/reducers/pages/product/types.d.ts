@@ -1,5 +1,5 @@
 import { IActionData, IReduxState } from '@stores/reducers/types';
-import { IProductDataParsed } from '@helpers/parsing/product/types';
+import { IProductDataParsed } from '@interfaces/product';
 
 export interface IProductState extends IReduxState {
     data: {

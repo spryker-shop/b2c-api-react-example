@@ -1,4 +1,4 @@
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 export interface IProductRelationsState extends IReduxState {

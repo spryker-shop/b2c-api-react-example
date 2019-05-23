@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IProductRelationsState } from '@stores/reducers/common/productRelations/types';
 import { getProductRelationsAction, getProductRelationsCartAction } from '@stores/actions/common/productRelations';
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 import { getAnonymId, getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 

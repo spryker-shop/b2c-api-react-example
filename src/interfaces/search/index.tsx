@@ -14,6 +14,31 @@ export type TRangeType = { min: number, max: number, [name: string]: number };
 export type TRangesType = TRangeMinType | TRangeMaxType;
 export type TFilterItemValue = number | string | TRangeType;
 
+export interface ICatalogSearchDataParsed extends IActiveFilters {
+    items: IProductCard[] | null;
+    filters: IValueFacets[] | null;
+    category: IFilterValue[];
+    currentCategoryId: number | null;
+    currentSort: string | null;
+    currentItemsPerPage: number | null;
+    currentPaginationPage: number;
+    rangeFilters: IRangeFacets[] | null;
+    sortParams: string[] | null;
+    sortParamLocalizedNames: IIndexSignature | null;
+    categoriesLocalizedName: string | null;
+    pagination: IPagination;
+    spellingSuggestion: string | null;
+    searchTerm?: string;
+}
+
+export interface ISearchPageData extends ICatalogSearchDataParsed {
+    dispatch?: Function;
+    flyoutSearch?: IFlyoutSearch;
+    currency?: string | null;
+    isFiltersUpdated: boolean;
+    isCategoryAsFilter: boolean;
+}
+
 export interface IFilterValue {
     value: string | number;
     doc_count: number | null;
@@ -53,36 +78,6 @@ export interface IActiveSort {
 export interface IActiveFilters {
     activeFilters: TActiveFilters;
     activeRangeFilters: TActiveRangeFilters;
-}
-
-export interface IProductLabelResponse {
-    type: string;
-    id: string;
-}
-
-export interface ICatalogSearchDataParsed extends IActiveFilters {
-    items: IProductCard[] | null;
-    filters: IValueFacets[] | null;
-    category: IFilterValue[];
-    currentCategoryId: number | null;
-    currentSort: string | null;
-    currentItemsPerPage: number | null;
-    currentPaginationPage: number;
-    rangeFilters: IRangeFacets[] | null;
-    sortParams: string[] | null;
-    sortParamLocalizedNames: IIndexSignature | null;
-    categoriesLocalizedName: string | null;
-    pagination: IPagination;
-    spellingSuggestion: string | null;
-    searchTerm?: string;
-}
-
-export interface ISearchPageData extends ICatalogSearchDataParsed {
-    dispatch?: Function;
-    flyoutSearch?: IFlyoutSearch;
-    currency?: string | null;
-    isFiltersUpdated: boolean;
-    isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {

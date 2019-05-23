@@ -5,7 +5,7 @@ import {
     getProductDataItemPendingStateAction,
     getProductDataRejectedStateAction
 } from '@stores/actions/pages/product';
-import { IProductDataParsed } from '@helpers/parsing/product/types';
+import { IProductDataParsed } from '@interfaces/product';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';

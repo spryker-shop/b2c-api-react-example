@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ISlickSliderProps as Props } from './types';
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@components/ProductCard';
 import { ArrowButton } from './ArrowButton';

@@ -2,6 +2,18 @@ import { IProductAttributeMap, IProductAttributes } from '@interfaces/product';
 import { IIndexSignature } from '@intrfaces/common';
 import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
 
+export interface IProductRawResponse {
+    data: IProductDataResponse;
+    included: TProductRowResponseIncluded[];
+}
+
+interface IProductDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
+    attributes: IProductAttributesRawResponse;
+}
+
+export type TProductRowResponseIncluded = IProductRowPricesIncludedResponse | IProductRowImageSetsIncludedResponse
+    | IProductRowAvailabilitiesIncludedResponse | IProductsConcreteRowIncludedResponse | IProductRowLabelsResponse;
+
 export interface IProductRowPricesIncludedResponse extends IAbstractRowIncludedResponse {
     type: 'abstract-product-prices' | 'concrete-product-prices';
     attributes: {
@@ -73,29 +85,18 @@ interface IProductAttributesRawResponse {
 
 export interface IProductRowLabelsResponse extends IAbstractRowIncludedResponse {
     type: 'product-labels';
-    attributes: IProductAvailableLabel;
+    attributes: IProductAvailableLabelResponse;
+    relationships?: IIndexSignature;
 }
 
-interface IProductAvailableLabel {
-    id: string;
-    frontEndReference: string;
-    isExclusive: boolean;
-    name: string;
-    position: number;
+interface IProductAvailableLabelResponse {
+    id?: string;
+    frontEndReference?: string;
+    isExclusive?: boolean;
+    name?: string;
+    position?: number;
 }
 
-export interface IProductAvailableLabelsCollection {
-    [id: string]: IProductAvailableLabel;
+export interface IProductLabelsCollectionResponse {
+    [id: string]: IProductAvailableLabelResponse;
 }
-
-interface IProductDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
-    attributes: IProductAttributesRawResponse;
-}
-
-export interface IProductRawResponse {
-    data: IProductDataResponse;
-    included: TProductRowResponseIncluded[];
-}
-
-export type TProductRowResponseIncluded = IProductRowPricesIncludedResponse | IProductRowImageSetsIncludedResponse
-    | IProductRowAvailabilitiesIncludedResponse | IProductsConcreteRowIncludedResponse | IProductRowLabelsResponse;
