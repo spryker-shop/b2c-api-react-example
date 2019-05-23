@@ -1,5 +1,5 @@
-import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICustomerDataParsed, ICustomerProfileIdentity, ICustomerProfilePassword } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/parsing';
 import { RefreshTokenService } from '@services/common/RefreshToken';
@@ -8,20 +8,10 @@ import { logout } from '@stores/actions/pages/login';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
-
-interface IRequestBody {
-    data: {
-        type: string;
-        id?: string;
-        include?: string;
-        attributes: ICustomerProfileIdentity | ICustomerProfilePassword;
-    };
-}
+import { IRequestBody } from '@services/pages/CustomerProfile/types';
 
 export class CustomerProfileService extends ApiServiceAbstract {
-    private static getCustomersEndpoint = (customerReference: string) => (
-        `/customers/${customerReference}`
-    );
+    private static getCustomersEndpoint = (customerReference: string) => `/customers/${customerReference}`;
 
     public static async getProfileData(dispatch: Function, customerReference: string): Promise<void> {
         try {

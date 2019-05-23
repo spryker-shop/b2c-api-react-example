@@ -1,29 +1,12 @@
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { ICheckoutRequest, IcheckoutResponse, IShipmentMethod, IPaymentMethod } from '@interfaces/checkout';
-import {
-    getCheckoutDataInitPendingStateAction,
-    getCheckoutDataInitRejectedStateAction,
-    getCheckoutDataInitFulfilledStateAction,
-    sendCheckoutDataPendingStateAction,
-    sendCheckoutDataRejectedStateAction,
-    sendCheckoutDataFulfilledStateAction,
-} from '@stores/actions/pages/checkout';
-import { ICheckoutResponseData } from '@stores/reducers/pages/checkout/types';
+import { ICheckoutRequest } from '@interfaces/checkout';
+import * as CheckoutActions from '@stores/actions/pages/checkout';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
-
-interface IRequestBody {
-    data: {
-        type: string;
-        include?: string;
-        attributes: ICheckoutRequest;
-    };
-}
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { IRequestBody } from '@services/pages/Checkout/types';
+import { parseCheckoutData } from '@helpers/parsing';
 
 export class CheckoutService extends ApiServiceAbstract {
     public static async getCheckoutData(
@@ -49,16 +32,16 @@ export class CheckoutService extends ApiServiceAbstract {
                 }
             };
 
-            dispatch(getCheckoutDataInitPendingStateAction());
+            dispatch(CheckoutActions.getCheckoutDataInitPendingStateAction());
 
             const response: TApiResponseData = await api.post('checkout-data', body, headers);
 
             if (response.ok) {
-                const payload = CheckoutService.parseCheckoutData(response.data.data.attributes);
-                dispatch(getCheckoutDataInitFulfilledStateAction(payload));
+                const payloadData = parseCheckoutData(response.data);
+                dispatch(CheckoutActions.getCheckoutDataInitFulfilledStateAction(payloadData));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(getCheckoutDataInitRejectedStateAction(errorMessage));
+                dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -67,7 +50,7 @@ export class CheckoutService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(getCheckoutDataInitRejectedStateAction(error.message));
+            dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -95,19 +78,20 @@ export class CheckoutService extends ApiServiceAbstract {
                 }
             };
 
-            dispatch(sendCheckoutDataPendingStateAction());
+            dispatch(CheckoutActions.sendCheckoutDataPendingStateAction());
 
             const response: TApiResponseData = await api.post('checkout', body, headers);
 
             if (response.ok) {
-                dispatch(sendCheckoutDataFulfilledStateAction(response.data.data.attributes.orderReference));
+                const payload = response.data.data.attributes.orderReference;
+                dispatch(CheckoutActions.sendCheckoutDataFulfilledStateAction(payload));
                 NotificationsMessage({
                     id: 'order.successfully.created.message',
                     type: typeNotificationSuccess
                 });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(sendCheckoutDataRejectedStateAction(errorMessage));
+                dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -116,31 +100,12 @@ export class CheckoutService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(sendCheckoutDataRejectedStateAction(error.message));
+            dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
                 type: typeNotificationError
             });
         }
-    }
-
-    private static parseCheckoutData(data: IcheckoutResponse): ICheckoutResponseData {
-        const payments: IPaymentMethod[] = [];
-
-        Array.isArray(data.paymentProviders) && data.paymentProviders.forEach(provider => {
-            provider.paymentMethods.forEach(paymentMethod => {
-                payments.push({
-                    ...paymentMethod,
-                    paymentProviderName: provider.paymentProviderName,
-                });
-            });
-        });
-
-        return ({
-            payments,
-            shipments: data.shipmentMethods.map((method: IShipmentMethod) => ({...method, id: method.id.toString()})),
-            addressesCollection: Array.isArray(data.addresses) ? data.addresses : [],
-        });
     }
 }

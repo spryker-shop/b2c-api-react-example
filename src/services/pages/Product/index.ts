@@ -1,10 +1,6 @@
 import { api, ApiServiceAbstract } from '@services/api';
 import { parseProductResponse } from '@helpers/parsing/product';
-import {
-    getProductDataFulfilledStateAction,
-    getProductDataItemPendingStateAction,
-    getProductDataRejectedStateAction
-} from '@stores/actions/pages/product';
+import * as productActions from '@stores/actions/pages/product';
 import { IProductDataParsed } from '@interfaces/product';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -13,7 +9,7 @@ import { typeNotificationError } from '@constants/notifications';
 export class ProductService extends ApiServiceAbstract {
     public static async getAbstractData(dispatch: Function, sku: string): Promise<void> {
         try {
-            dispatch(getProductDataItemPendingStateAction());
+            dispatch(productActions.getProductDataItemPendingStateAction());
             const response: TApiResponseData = await api.get(`abstract-products/${ sku }`, {
                 include: 'abstract-product-image-sets,' +
                     'abstract-product-prices,' +
@@ -27,10 +23,10 @@ export class ProductService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const responseParsed: IProductDataParsed = parseProductResponse(response.data);
-                dispatch(getProductDataFulfilledStateAction(responseParsed));
+                dispatch(productActions.getProductDataFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(getProductDataRejectedStateAction(errorMessage));
+                dispatch(productActions.getProductDataRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -39,7 +35,7 @@ export class ProductService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(getProductDataRejectedStateAction(error.message));
+            dispatch(productActions.getProductDataRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,

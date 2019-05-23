@@ -2,16 +2,9 @@ import { IAddressIndexSignture, IAddressItem } from '@interfaces/addresses';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { TApiResponseData } from '@services/types';
-import {
-    IAddressDataRawResponse,
-    IRequestAddAddressBody,
-    IRequestUpdateAddressBody
-} from '@services/pages/Addresses/types';
+import { IAddressDataResponse, IRequestUpdateAddressBody } from '@services/pages/Addresses/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 import { ADD_ADDRESS, MULTIPLE_ADDRESSES } from '@stores/actionTypes/pages/addresses';
 
 export class AddressesService extends ApiServiceAbstract {
@@ -28,9 +21,8 @@ export class AddressesService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
-                const addresses = response.data.data.map((
-                    address: IAddressDataRawResponse
-                ): IAddressItem => ({ id: address.id, ...address.attributes }));
+                const addresses = response.data.data.map((address: IAddressDataResponse): IAddressItem =>
+                    ({ id: address.id, ...address.attributes }));
 
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
@@ -122,7 +114,7 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const body: IRequestAddAddressBody = {
+            const body: IRequestUpdateAddressBody = {
                 data: {
                     type: 'addresses',
                     attributes: payload

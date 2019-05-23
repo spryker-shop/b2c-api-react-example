@@ -1,13 +1,6 @@
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import {
-    orderDetailsFulfilledStateAction,
-    orderDetailsPendingStateAction,
-    orderDetailsRejectedStateAction,
-    ordersCollectionFulfilledStateAction,
-    ordersCollectionPendingStateAction,
-    ordersCollectionRejectedStateAction,
-} from '@stores/actions/pages/order';
+import * as orderActions from '@stores/actions/pages/order';
 import { OrderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
@@ -18,7 +11,7 @@ import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
 export class OrderService extends ApiServiceAbstract {
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
         try {
-            dispatch(ordersCollectionPendingStateAction());
+            dispatch(orderActions.ordersCollectionPendingStateAction());
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
@@ -29,10 +22,10 @@ export class OrderService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const responseParsed: IOrderCollectionParsed = parseGetOrdersCollectionResponse(response.data);
-                dispatch(ordersCollectionFulfilledStateAction(responseParsed));
+                dispatch(orderActions.ordersCollectionFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(ordersCollectionRejectedStateAction(errorMessage));
+                dispatch(orderActions.ordersCollectionRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -41,7 +34,7 @@ export class OrderService extends ApiServiceAbstract {
       }
 
         } catch (error) {
-            dispatch(ordersCollectionRejectedStateAction(error.message));
+            dispatch(orderActions.ordersCollectionRejectedStateAction(error.message));
             NotificationsMessage({
               messageWithCustomText: 'unexpected.error.message',
               message: error.message,
@@ -52,7 +45,7 @@ export class OrderService extends ApiServiceAbstract {
 
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
         try {
-            dispatch(orderDetailsPendingStateAction());
+            dispatch(orderActions.orderDetailsPendingStateAction());
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
@@ -64,10 +57,10 @@ export class OrderService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const responseParsed: IOrderDetailsParsed = parseGetOrderDetailsResponse(response.data);
-                dispatch(orderDetailsFulfilledStateAction(responseParsed));
+                dispatch(orderActions.orderDetailsFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(orderDetailsRejectedStateAction(errorMessage));
+                dispatch(orderActions.orderDetailsRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -76,7 +69,7 @@ export class OrderService extends ApiServiceAbstract {
       }
 
         } catch (error) {
-            dispatch(orderDetailsRejectedStateAction(error.message));
+            dispatch(orderActions.orderDetailsRejectedStateAction(error.message));
             NotificationsMessage({
               messageWithCustomText: 'unexpected.error.message',
               message: error.message,

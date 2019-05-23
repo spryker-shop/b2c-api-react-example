@@ -6,6 +6,7 @@ import { parseLoginDataResponse } from './login';
 import { parseCustomerDataResponse } from './customer';
 import { parseCatalogSearchResponse, parseSuggestionSearchResponse } from './search';
 import { parseCartResponse, parseCartCreateResponse } from './cart';
+import { parseCheckoutData } from './checkout';
 
 export {
     parsePorductRelationsResponse,
@@ -18,5 +19,6 @@ export {
     parseCatalogSearchResponse,
     parseCartResponse,
     parseCartCreateResponse,
-    parseSuggestionSearchResponse
+    parseSuggestionSearchResponse,
+    parseCheckoutData
 };

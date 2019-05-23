@@ -1,20 +1,14 @@
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import jwtDecoder from 'jwt-decode';
+import { ICustomerLoginRawResponse } from '@services/pages/Login/types';
 
-interface ICustomerLoginDataResponse {
-    data: {
-        attributes: ICustomerLoginDataParsed,
-        id: string | null;
-    };
-}
-
-export const parseLoginDataResponse = (response: ICustomerLoginDataResponse): ICustomerLoginDataParsed => {
+export const parseLoginDataResponse = (response: ICustomerLoginRawResponse): ICustomerLoginDataParsed => {
     if (!response) {
         return null;
     }
 
-    const {data: {attributes}}: ICustomerLoginDataResponse = response;
-    const {sub}: { sub: string } = jwtDecoder(attributes.accessToken);
+    const { data: { attributes } } = response;
+    const { sub }: { sub: string } = jwtDecoder(attributes.accessToken);
     const customerRef = JSON.parse(sub).customer_reference;
 
     const result = {
@@ -22,7 +16,7 @@ export const parseLoginDataResponse = (response: ICustomerLoginDataResponse): IC
         expiresIn: attributes.expiresIn,
         refreshToken: attributes.refreshToken,
         tokenType: attributes.tokenType,
-        customerRef,
+        customerRef
     };
 
     return result;

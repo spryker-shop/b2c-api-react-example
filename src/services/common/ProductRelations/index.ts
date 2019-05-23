@@ -1,11 +1,7 @@
 import { api, ApiServiceAbstract } from '@services/api';
 import { TApiResponseData } from '@services/types';
 import { typeNotificationError } from '@constants/notifications';
-import {
-    productRelationsPendingAction,
-    productRelationsRejectedAction,
-    productRelationsFulfilledAction
-} from '@stores/actions/common/productRelations';
+import * as productRelationsActions from '@stores/actions/common/productRelations';
 import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 
@@ -22,16 +18,16 @@ export class ProductRelationsService extends ApiServiceAbstract {
 
     public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
         try {
-            dispatch(productRelationsPendingAction());
+            dispatch(productRelationsActions.productRelationsPendingAction());
             const endpoint = this.endpoint(`abstract-products/${sku}/related-products`);
             const response: TApiResponseData = await api.get(endpoint);
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsResponse(response.data);
-                dispatch(productRelationsFulfilledAction(parsedData));
+                dispatch(productRelationsActions.productRelationsFulfilledAction(parsedData));
             }
         } catch (error) {
-            dispatch(productRelationsRejectedAction(error.message));
+            dispatch(productRelationsActions.productRelationsRejectedAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -47,7 +43,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
         anonymId?: string
     ): Promise<void> {
         try {
-            dispatch(productRelationsPendingAction());
+            dispatch(productRelationsActions.productRelationsPendingAction());
             const requestHeader = !isUserLoggedIn
                 ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
                 : {};
@@ -57,10 +53,10 @@ export class ProductRelationsService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsResponse(response.data);
-                dispatch(productRelationsFulfilledAction(parsedData));
+                dispatch(productRelationsActions.productRelationsFulfilledAction(parsedData));
             }
         } catch (error) {
-            dispatch(productRelationsRejectedAction(error.message));
+            dispatch(productRelationsActions.productRelationsRejectedAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,

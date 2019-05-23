@@ -1,17 +1,5 @@
 import { api, ApiServiceAbstract } from '@services/api';
-import {
-    categoriesFulfilledState,
-    categoriesPendingState,
-    categoriesRejectedState,
-    initApplicationDataFulfilledStateAction,
-    initApplicationDataPendingStateAction,
-    initApplicationDataRejectedStateAction,
-    switchLocalePendingState,
-    switchLocaleFulfilledState,
-    switchLocaleRejectedState,
-    getCategoriesAction,
-    anonymIdFilFilled
-} from '@stores/actions/common/init';
+import * as initActions from '@stores/actions/common/init';
 import { parseStoreResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';
@@ -25,7 +13,7 @@ import { getAnonymId } from '@helpers/common';
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
         const isTouch = 'ontouchstart' in window;
-        dispatch(initApplicationDataPendingStateAction());
+        dispatch(initActions.initApplicationDataPendingStateAction());
 
         try {
             const anonymId = getAnonymId();
@@ -34,12 +22,12 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
-                dispatch(anonymIdFilFilled(anonymId));
-                dispatch(getCategoriesAction());
+                dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
+                dispatch(initActions.anonymIdFilFilled(anonymId));
+                dispatch(initActions.getCategoriesAction());
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(initApplicationDataRejectedStateAction(errorMessage));
+                dispatch(initActions.initApplicationDataRejectedStateAction(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -48,7 +36,7 @@ export class InitAppService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(initApplicationDataRejectedStateAction(error.message));
+            dispatch(initActions.initApplicationDataRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -59,7 +47,7 @@ export class InitAppService extends ApiServiceAbstract {
 
     public static async getCategoriesTree(dispatch: Function): Promise<void> {
         try {
-            dispatch(categoriesPendingState());
+            dispatch(initActions.categoriesPendingState());
             const response: TApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
 
             if (response.ok) {
@@ -68,10 +56,10 @@ export class InitAppService extends ApiServiceAbstract {
                 if (!Array.isArray(tree)) {
                     tree = [];
                 }
-                dispatch(categoriesFulfilledState(tree));
+                dispatch(initActions.categoriesFulfilledState(tree));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(categoriesRejectedState(errorMessage));
+                dispatch(initActions.categoriesRejectedState(errorMessage));
                 NotificationsMessage({
                     messageWithCustomText: 'request.error.message',
                     message: errorMessage,
@@ -80,7 +68,7 @@ export class InitAppService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(categoriesRejectedState(error.message));
+            dispatch(initActions.categoriesRejectedState(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -90,7 +78,7 @@ export class InitAppService extends ApiServiceAbstract {
     }
 
     public static async switchLocale(dispatch: Function, payload?: ILocaleActionPayload): Promise<void> {
-        dispatch(switchLocalePendingState());
+        dispatch(initActions.switchLocalePendingState());
         try {
             api.setHeader('Accept-Language', payload.locale);
             localStorage.setItem('locale', payload.locale);
@@ -98,10 +86,10 @@ export class InitAppService extends ApiServiceAbstract {
             await NavigationService.getMainNavigation(dispatch);
             await this.getCategoriesTree(dispatch);
 
-            dispatch(switchLocaleFulfilledState(payload));
+            dispatch(initActions.switchLocaleFulfilledState(payload));
 
         } catch (error) {
-            dispatch(switchLocaleRejectedState(error.message));
+            dispatch(initActions.switchLocaleRejectedState(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'change.language.error.message',
                 message: error.message,
