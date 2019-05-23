@@ -13,6 +13,7 @@ import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
+import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
 
 export class OrderService extends ApiServiceAbstract {
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
@@ -27,7 +28,7 @@ export class OrderService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get('orders', null, {withCredentials: true});
 
             if (response.ok) {
-                const responseParsed = parseGetOrdersCollectionResponse(response.data);
+                const responseParsed: IOrderCollectionParsed = parseGetOrdersCollectionResponse(response.data);
                 dispatch(ordersCollectionFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
@@ -62,7 +63,7 @@ export class OrderService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get(endpoint, null, {withCredentials: true});
 
             if (response.ok) {
-                const responseParsed = parseGetOrderDetailsResponse(response.data.data);
+                const responseParsed: IOrderDetailsParsed = parseGetOrderDetailsResponse(response.data);
                 dispatch(orderDetailsFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);

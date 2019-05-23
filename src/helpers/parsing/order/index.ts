@@ -1,19 +1,18 @@
+import { IOrderCollectionParsed, IOrderDetailsItem, IOrderDetailsParsed, IOrderItem } from '@interfaces/order';
 import {
-    IOrderCollectionParsed,
-    IOrderCollectionResponse,
-    IOrderDetailsItem,
-    IOrderDetailsParsed,
-    IOrderDetailsResponse,
-    IOrderItem,
-    IOrderItemResponse
-} from '@interfaces/order';
+    IOrderDetailsRawResponse,
+    IOrderCollectionRawResponse,
+    IOrderCollectionDataResponse
+} from '@services/pages/Order/types';
 
-export const parseGetOrdersCollectionResponse = (data: IOrderCollectionResponse): IOrderCollectionParsed | null => {
-    if (!Array.isArray(data.data) || !data.data.length) {
+export const parseGetOrdersCollectionResponse = (
+    response: IOrderCollectionRawResponse
+): IOrderCollectionParsed | null => {
+    if (!Array.isArray(response.data) || !response.data.length) {
         return null;
     }
 
-    const items = data.data.map((item: IOrderItemResponse): IOrderItem => (
+    const items = response.data.map((item: IOrderCollectionDataResponse): IOrderItem => (
         {
             id: item.id,
             dateCreated: item.attributes.createdAt,
@@ -22,19 +21,17 @@ export const parseGetOrdersCollectionResponse = (data: IOrderCollectionResponse)
         }
     ));
 
-    const response = {
+    return {
         items
     };
-
-    return response;
 };
 
-export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrderDetailsParsed | null => {
-    if (!data) {
+export const parseGetOrderDetailsResponse = (response: IOrderDetailsRawResponse): IOrderDetailsParsed | null => {
+    if (!response.data) {
         return null;
     }
 
-    const attributes = data.attributes;
+    const { data, data: { attributes } } = response;
     type TAccumulator = { [key: string]: IOrderDetailsItem };
 
     const itemsParsed = attributes.items.reduce((acc: TAccumulator, item: IOrderDetailsItem) => {
@@ -54,7 +51,7 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
         return acc;
     }, {});
 
-    const response: IOrderDetailsParsed = {
+    return {
         id: data.id,
         dateCreated: attributes.createdAt,
         currency: attributes.currencyIsoCode,
@@ -65,6 +62,4 @@ export const parseGetOrderDetailsResponse = (data: IOrderDetailsResponse): IOrde
         shippingAddress: attributes.shippingAddress,
         priceMode: attributes.priceMode
     };
-
-    return response;
 };
