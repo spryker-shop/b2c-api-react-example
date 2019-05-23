@@ -31,7 +31,7 @@ export class WishlistService extends ApiServiceAbstract {
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(WishlistAuthenticateErrorMessage);
+                Promise.reject(WishlistAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
@@ -301,7 +301,7 @@ export class WishlistService extends ApiServiceAbstract {
             }
 
             if (!id) {
-                throw new Error('Wishlist doesn`t created.');
+                Promise.reject('Wishlist doesn`t created.');
             }
 
             const body: IRequestBody = {

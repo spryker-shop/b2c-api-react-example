@@ -1,7 +1,7 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductPropFullData, TProductType } from '@interfaces/product';
-import { ICartCreatePayload } from '@services/common/Cart/types';
+import { ICartCreatePayload } from '@interfaces/cart';
 
 export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof styles> {
     product: IProductPropFullData | null;

@@ -7,7 +7,7 @@ import {
     UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
-import { ICartDataResponse, ICartItem } from '@interfaces/cart';
+import { ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { ICartAction, ICartState } from './types';
 import { IApiErrorResponse } from '@services/types';
@@ -96,7 +96,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
 };
 
 // handlers
-const handleFulfilled = (cartState: ICartState, payload: ICartDataResponse | null) => (
+const handleFulfilled = (cartState: ICartState, payload: ICartDataParsed | null) => (
     {
         ...cartState,
         data: {
@@ -128,7 +128,7 @@ const handlePending = (cartState: ICartState) => (
     }
 );
 
-const handleCartFulfilled = (cartState: ICartState, payload: ICartDataResponse) => (
+const handleCartFulfilled = (cartState: ICartState, payload: ICartDataParsed) => (
     {
         ...cartState,
         data: {

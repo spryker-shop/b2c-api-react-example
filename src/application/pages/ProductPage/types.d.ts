@@ -3,7 +3,7 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductAttributes, IProductPropFullData } from '@interfaces/product';
 import { IProductDataParsed } from '@interfaces/product';
-import { ICartCreatePayload } from '@services/common/Cart/types';
+import { ICartCreatePayload } from '@interfaces/cart';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
     product: IProductDataParsed | null;

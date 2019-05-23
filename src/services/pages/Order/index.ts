@@ -15,14 +15,13 @@ import { NotificationsMessage } from '@components/Notifications/NotificationsMes
 import { typeNotificationError } from '@constants/notifications';
 
 export class OrderService extends ApiServiceAbstract {
-    // Get collection of orders
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
         try {
             dispatch(ordersCollectionPendingStateAction());
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(OrderAuthenticateErrorMessage);
+                Promise.reject(OrderAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.get('orders', null, {withCredentials: true});
@@ -50,14 +49,13 @@ export class OrderService extends ApiServiceAbstract {
         }
     }
 
-    // Get order by reference
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
         try {
             dispatch(orderDetailsPendingStateAction());
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(OrderAuthenticateErrorMessage);
+                Promise.reject(OrderAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const endpoint = `orders/${orderId}`;

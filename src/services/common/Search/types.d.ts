@@ -2,7 +2,7 @@ import { IProductRowPricesIncludedResponse } from '@services/pages/Product/types
 import { IProductCardResponse } from '@services/pages/Search/types';
 import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
 
-export interface ISuggestionSearchResponse {
+export interface ISuggestionSearchRawResponse {
     data: ISuggestionSearchDataResponse[];
     included: IProductRowPricesIncludedResponse[];
 }

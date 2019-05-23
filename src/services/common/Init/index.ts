@@ -24,7 +24,7 @@ import { getAnonymId } from '@helpers/common';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
-        const isTouch =  'ontouchstart' in window;
+        const isTouch = 'ontouchstart' in window;
         dispatch(initApplicationDataPendingStateAction());
 
         try {
@@ -34,7 +34,7 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initApplicationDataFulfilledStateAction({...responseParsed, isTouch}));
+                dispatch(initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
                 dispatch(anonymIdFilFilled(anonymId));
                 dispatch(getCategoriesAction());
             } else {
@@ -63,7 +63,7 @@ export class InitAppService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
 
             if (response.ok) {
-                let tree: ICategory[] = response.data.data[ 0 ].attributes.categoryNodesStorage;
+                let tree: ICategory[] = response.data.data[0].attributes.categoryNodesStorage;
 
                 if (!Array.isArray(tree)) {
                     tree = [];

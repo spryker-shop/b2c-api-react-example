@@ -1,13 +1,10 @@
 import { api, removeAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
-import { parseUserCartResponseOneValue } from '@helpers/parsing';
+import { parseCartResponse } from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
 import { TApiResponseData, IResponseError } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
 export class GuestCartService extends ApiServiceAbstract {
     public static endpoint(path: string): string {
@@ -24,18 +21,12 @@ export class GuestCartService extends ApiServiceAbstract {
         return `${path}${includeParams}`;
     }
 
-    public static async guestCartAddItem(
-        dispatch: Function,
-        payload: ICartAddItem,
-        anonymId: string
-    ): Promise<void> {
+    public static async guestCartAddItem(dispatch: Function, payload: ICartAddItem, anonymId: string): Promise<void> {
         try {
             removeAuthToken();
             dispatch(cartActions.cartAddItemPendingStateAction());
 
-            const body = {
-                data: { type: 'guest-cart-items', attributes: payload }
-            };
+            const body = { data: { type: 'guest-cart-items', attributes: payload } };
             const endpoint = this.endpoint('guest-cart-items');
             const response: TApiResponseData = await api.post(endpoint, body,
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
@@ -47,7 +38,7 @@ export class GuestCartService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                const responseParsed = parseUserCartResponseOneValue(response.data);
+                const responseParsed = parseCartResponse(response.data);
                 dispatch(cartActions.cartAddItemFulfilledStateAction(responseParsed));
             } else {
                 this.errorMessageInform(response, dispatch);
@@ -76,12 +67,10 @@ export class GuestCartService extends ApiServiceAbstract {
             if (response.ok) {
                 if (!response.data.data.length) {
                     dispatch(cartActions.getCartsFulfilledStateAction(null));
-
-                    return '';
                 }
 
-                const responseParsed = parseUserCartResponseOneValue({
-                    data: response.data.data[ 0 ],
+                const responseParsed = parseCartResponse({
+                    data: response.data.data[0],
                     included: response.data.included
                 });
 
@@ -90,8 +79,6 @@ export class GuestCartService extends ApiServiceAbstract {
                 return responseParsed.id;
             } else {
                 this.errorMessageInform(response, dispatch);
-
-                return '';
             }
 
         } catch (error) {
@@ -101,8 +88,6 @@ export class GuestCartService extends ApiServiceAbstract {
                 message: error.message,
                 type: typeNotificationError
             });
-
-            return '';
         }
     }
 
@@ -167,7 +152,7 @@ export class GuestCartService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                const responseParsed = parseUserCartResponseOneValue(response.data);
+                const responseParsed = parseCartResponse(response.data);
                 dispatch(cartActions.cartUpdateItemFulfilledStateAction(responseParsed));
             } else {
                 this.errorMessageInform(response, dispatch);

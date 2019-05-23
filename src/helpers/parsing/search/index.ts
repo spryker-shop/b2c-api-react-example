@@ -19,7 +19,7 @@ import {
     ICatalogSearchRowIncludedResponse,
     IProductCardResponse
 } from '@services/pages/Search/types';
-import { ISuggestionSearchResponse } from '@services/common/Search/types';
+import { ISuggestionSearchRawResponse } from '@services/common/Search/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -120,7 +120,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     return result;
 };
 
-export const parseSuggestionSearchResponse = (response: ISuggestionSearchResponse, productsLimit: number) => {
+export const parseSuggestionSearchResponse = (response: ISuggestionSearchRawResponse, productsLimit: number) => {
     const products: IProductCardResponse[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit)
         .map((product: IProductCardResponse) => {
             const image = product.images[0].externalUrlSmall;

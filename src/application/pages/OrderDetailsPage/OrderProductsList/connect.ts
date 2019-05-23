@@ -3,8 +3,7 @@ import { getPayloadForCreateCart } from '@stores/reducers/common/init/selectors'
 import { addItemToCartAction, createCartAndAddItemAction } from '@stores/actions/common/cart';
 import { getCartId, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem } from '@interfaces/cart';
+import { ICartCreatePayload, ICartAddItem } from '@interfaces/cart';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);

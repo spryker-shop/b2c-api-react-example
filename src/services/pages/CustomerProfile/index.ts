@@ -29,7 +29,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.get(
@@ -78,7 +78,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.patch(
@@ -126,7 +126,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
 
             const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.patch(`customer-password`, body, {withCredentials: true});
@@ -163,7 +163,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const endpoint = `customers/${customerReference}`;

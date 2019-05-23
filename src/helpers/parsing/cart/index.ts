@@ -1,53 +1,33 @@
-import { ICartDataResponse, ICommonDataInCart } from '@interfaces/cart';
+import { ICartCommonData, ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-import {
-    ICartItemDataShort,
-    ICartResultData,
-    IUserCartRawResponseMultiValue,
-    IUserCartRawResponse,
-    TRowCustomerCartIncludedResponse,
-    IUserCartRawResponseOneValue,
-    ICustomerCartDataRawResponse
-} from '@services/common/Cart/types';
+import { TCartRowIncludedResponse, ICartRawResponse, ICartDataResponse } from '@services/common/Cart/types';
+import { IRelationshipsDataResponse } from '@services/types';
 
-export const parseCartCreateResponse = (response: IUserCartRawResponseMultiValue): ICartDataResponse | null => {
+export const parseCartCreateResponse = (response: ICartRawResponse): ICartDataParsed | null => {
     if (!response) {
         return null;
     }
+    const data: ICartDataResponse[] = response.data as unknown as ICartDataResponse[];
 
     return {
-        ...parseCommonDataInCartResponse(response.data[0]),
+        ...parseCommonDataInCartResponse(data[0]),
         items: []
     };
 };
 
-export const parseUserCartResponseMultiValue = (response: IUserCartRawResponseMultiValue): ICartDataResponse | null => {
-    if (!response) {
-        return null;
-    }
-    const { included } = response;
-    const [data] = response.data;
-
-    return parseUserCartResponse({ data, included });
-};
-
-export const parseUserCartResponseOneValue = (response: IUserCartRawResponseOneValue): ICartDataResponse | null => {
+export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed => {
     if (!response) {
         return null;
     }
 
-    return parseUserCartResponse(response);
-};
-
-const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataResponse => {
     const { data, included } = response;
-    const result: ICartResultData = {};
+    const result: { [key: string]: ICartItem } = {};
     const isGuest = data.relationships && !Boolean(data.relationships.items);
     const itemName = isGuest ? 'guest-cart-items' : 'items';
     let totalQty: number = 0;
 
     if (data.relationships && data.relationships[itemName]) {
-        data.relationships[itemName].data.forEach((data: ICartItemDataShort) => {
+        data.relationships[itemName].data.forEach((data: IRelationshipsDataResponse) => {
             result[data.id] = {
                 sku: null,
                 abstractSku: null,
@@ -70,7 +50,7 @@ const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataRespons
         });
     }
 
-    included && included.forEach((row: TRowCustomerCartIncludedResponse) => {
+    included && included.forEach((row: TCartRowIncludedResponse) => {
         if (row.type === 'concrete-product-image-sets') {
             result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
 
@@ -127,7 +107,7 @@ const parseUserCartResponse = (response: IUserCartRawResponse): ICartDataRespons
     };
 };
 
-const parseCommonDataInCartResponse = (data: ICustomerCartDataRawResponse): ICommonDataInCart => ({
+const parseCommonDataInCartResponse = (data: ICartDataResponse): ICartCommonData => ({
     id: data.id,
     currency: data.attributes.currency,
     discounts: data.attributes.discounts,

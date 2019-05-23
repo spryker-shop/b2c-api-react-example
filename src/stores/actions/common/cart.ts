@@ -6,10 +6,8 @@ import {
     GET_CARTS,
     UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
-import { CartService } from '@services/common/Cart';
-import { GuestCartService } from '@services/common/Cart/guestCart';
-import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem, ICartDataResponse } from '@interfaces/cart';
+import { CartService, GuestCartService } from '@services/common/Cart';
+import { ICartAddItem, ICartDataParsed, ICartCreatePayload } from '@interfaces/cart';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';
 
 export const updateCartFulfilledStateAction = (): ICartAction => ({
@@ -25,7 +23,7 @@ export const getCartsPendingStateAction = (): ICartAction => ({
     type: GET_CARTS + '_PENDING',
 });
 
-export const getCartsFulfilledStateAction = (payload: ICartDataResponse | null): ICartAction => ({
+export const getCartsFulfilledStateAction = (payload: ICartDataParsed | null): ICartAction => ({
     type: GET_CARTS + '_FULFILLED',
     payloadCartItemFulfilled: payload,
 });
@@ -47,7 +45,7 @@ export const cartDeleteItemRejectedStateAction = {
     type: CART_DELETE_ITEM + '_REJECTED',
 };
 
-export const cartAddItemFulfilledStateAction = (payload: ICartDataResponse): ICartAction => ({
+export const cartAddItemFulfilledStateAction = (payload: ICartDataParsed): ICartAction => ({
     type: CART_ADD_ITEM + '_FULFILLED',
     payloadCartItemFulfilled: payload,
 });
@@ -66,7 +64,7 @@ export const cartCreateRejectedStateAction = (message: string): ICartAction => (
     payloadRejected: {error: message},
 });
 
-export const cartCreateFulfilledStateAction = (payload: ICartDataResponse): ICartAction => ({
+export const cartCreateFulfilledStateAction = (payload: ICartDataParsed): ICartAction => ({
     type: CART_CREATE + '_FULFILLED',
     payloadCartItemFulfilled: payload,
 });
@@ -93,7 +91,7 @@ export const cartUpdateItemRejectedStateAction = (message: string): ICartAction 
     payloadRejected: {error: message},
 });
 
-export const cartUpdateItemFulfilledStateAction = (payload: ICartDataResponse): ICartAction => ({
+export const cartUpdateItemFulfilledStateAction = (payload: ICartDataParsed): ICartAction => ({
     type: CART_UPDATE_ITEM + '_FULFILLED',
     payloadCartItemFulfilled: payload,
 });
@@ -107,16 +105,6 @@ export const updateItemInCartAction = function (payload: ICartAddItem, cartId: s
 export const multiItemsCartAction = function (cartId: string, listItems: string[]) {
     return (dispatch: Function, getState: Function) => {
         CartService.moveItemsToCart(dispatch, cartId, listItems);
-    };
-};
-
-export const addMultipleItemsToCartAction = function (
-    payload: ICartAddItem[] | null,
-    cartId: string,
-    payloadCartCreate: ICartCreatePayload,
-) {
-    return (dispatch: Function, getState: Function) => {
-        CartService.cartMultipleItems(dispatch, payload, cartId, payloadCartCreate);
     };
 };
 

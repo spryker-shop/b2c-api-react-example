@@ -31,13 +31,13 @@ export interface ICartItem {
     priceDefaultNet?: number | null;
 }
 
-export interface ICartDataResponse extends ICommonDataInCart {
+export interface ICartDataParsed extends ICartCommonData {
     isCartEmpty?: boolean;
     items: ICartItem[];
     totalQty?: number;
 }
 
-export interface ICommonDataInCart {
+export interface ICartCommonData {
     id: string | null;
     currency: string | null;
     discounts?: ICartDiscounts | {};
@@ -67,4 +67,10 @@ export interface ICartItemCalculation {
     unitProductOptionPriceAggregation: number;
     unitSubtotalAggregation: number;
     unitTaxAmountFullAggregation: number;
+}
+
+export interface ICartCreatePayload {
+    priceMode: string;
+    currency: string;
+    store: string;
 }

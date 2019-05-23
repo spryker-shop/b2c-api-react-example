@@ -1,11 +1,5 @@
-export interface ICartCreatePayload {
-    priceMode: string;
-    currency: string;
-    store: string;
-}
-
-import { ICartDiscounts, ICartItem, ICartItemCalculation } from '@interfaces/cart';
-import { IAbstractRowIncludedResponse } from '@services/types';
+import { ICartDiscounts, ICartItemCalculation } from '@interfaces/cart';
+import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
 import {
     IProductsConcreteRowIncludedResponse,
     IProductRowAvailabilitiesIncludedResponse,
@@ -14,20 +8,12 @@ import {
 } from '@services/pages/Product/types';
 import { ITotals } from '@interfaces/common';
 
-export interface IUserCartRawResponseMultiValue {
-    data: ICustomerCartDataRawResponse[];
-    included?: [TRowCustomerCartIncludedResponse];
+export interface ICartRawResponse {
+    data: ICartDataResponse;
+    included: TCartRowIncludedResponse[];
 }
 
-export interface IUserCartRawResponseOneValue {
-    data: ICustomerCartDataRawResponse;
-    included?: [TRowCustomerCartIncludedResponse];
-}
-
-export interface IUserCartRawResponse extends IUserCartRawResponseOneValue {
-}
-
-export interface ICustomerCartDataRawResponse {
+interface ICartDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: {
         currency: string;
         discounts: {} | ICartDiscounts[];
@@ -35,37 +21,15 @@ export interface ICustomerCartDataRawResponse {
         store: string;
         totals: ITotals;
     };
-    id: string;
-    links: {
-        self: string;
-    };
-    relationships: {
-        items: {
-            data: ICartItemDataShort[];
-        };
-        'guest-cart-items': {
-            data: ICartItemDataShort[];
-        }
-    };
-    type: string;
 }
 
-export interface ICartResultData {
-    [key: string]: ICartItem;
-}
-
-export interface ICartItemDataShort {
-    type: string;
-    id: string;
-}
-
-export type TRowCustomerCartIncludedResponse = IProductRowImageSetsIncludedResponse
+export type TCartRowIncludedResponse = IProductRowImageSetsIncludedResponse
     | IProductRowAvailabilitiesIncludedResponse
     | IProductRowPricesIncludedResponse
     | IProductsConcreteRowIncludedResponse
-    | IRowCustomerCartItemsIncludedResponse;
+    | ICarRowtItemsIncludedResponse;
 
-export interface IRowCustomerCartItemsIncludedResponse extends IAbstractRowIncludedResponse {
+export interface ICarRowtItemsIncludedResponse extends IAbstractRowIncludedResponse {
     type: 'items' | 'guest-cart-items';
     attributes: {
         amount: number | null;

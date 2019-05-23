@@ -1,7 +1,7 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IOrderDetailsItem } from '@interfaces/order';
-import { ICartCreatePayload } from '@services/common/Cart/types';
+import { ICartCreatePayload } from '@interfaces/cart';
 
 export interface IOrderProductListProps extends WithStyles<typeof styles> {
     items: IOrderDetailsItem[];

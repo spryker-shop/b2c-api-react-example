@@ -1,4 +1,4 @@
-import { ICartCreatePayload } from '@services/common/Cart/types';
+import { ICartCreatePayload } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/common';
 import { ICountry } from '@interfaces/addresses';

@@ -28,12 +28,14 @@ export interface IAbstractRowIncludedResponse {
 }
 
 export interface IRelationshipsResponse {
-    relationships: {
+    relationships?: {
         [key: string]: {
-            data: [{
-                type: string;
-                id: string;
-            }]
+            data: IRelationshipsDataResponse[]
         };
     };
+}
+
+export interface IRelationshipsDataResponse {
+    type: string;
+    id: string;
 }
