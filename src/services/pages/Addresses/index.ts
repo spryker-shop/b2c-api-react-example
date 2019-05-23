@@ -1,8 +1,7 @@
 import { IAddressIndexSignture, IAddressItem } from '@interfaces/addresses';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import api, { setAuthToken } from '@services/api';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
+import { TApiResponseData } from '@services/types';
 import {
     IAddressDataRawResponse,
     IRequestAddAddressBody,
@@ -26,7 +25,7 @@ export class AddressesService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = `customers/${ customerId }/addresses`;
-            const response: IApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
+            const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
                 const addresses = response.data.data.map((
@@ -72,7 +71,7 @@ export class AddressesService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = `customers/${ customerId }/addresses/${ addressId }`;
-            const response: IApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
+            const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
                 const { data: { attributes, id } } = response.data;
@@ -131,7 +130,7 @@ export class AddressesService extends ApiServiceAbstract {
             };
 
             const endpoint = `customers/${ customerId }/addresses`;
-            const response: IApiResponseData = await api.post(endpoint, body, { withCredentials: true });
+            const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
                 dispatch({
@@ -179,7 +178,7 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const response: IApiResponseData = await api.delete(
+            const response: TApiResponseData = await api.delete(
                 `customers/${ customerId }/addresses/${ addressId }`, {}, { withCredentials: true }
             );
 
@@ -235,7 +234,7 @@ export class AddressesService extends ApiServiceAbstract {
                 }
             };
 
-            const response: IApiResponseData = await api.patch(
+            const response: TApiResponseData = await api.patch(
                 `customers/${ customerId }/addresses/${ addressId }`, body, { withCredentials: true }
             );
 

@@ -1,4 +1,4 @@
-import api from '@services/api';
+import { api, ApiServiceAbstract } from '@services/api';
 import { saveLoginDataToStoreAction, deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
 import { parseLoginDataResponse } from '@helpers/parsing';
 import {
@@ -16,10 +16,9 @@ import {
     resetPasswordRejectedState,
     resetPasswordFulfilledState
 } from '@stores/actions/pages/login';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
 import { getAnonymId, clearAnonymId } from '@helpers/common';
@@ -38,7 +37,7 @@ export class PagesLoginService extends ApiServiceAbstract {
                     attributes: payload,
                 },
             };
-            const response: IApiResponseData = await api.post(
+            const response: TApiResponseData = await api.post(
                 'customers',
                 body,
                 {
@@ -98,7 +97,7 @@ export class PagesLoginService extends ApiServiceAbstract {
                 },
             };
 
-            const response: IApiResponseData = await api.post(
+            const response: TApiResponseData = await api.post(
                 'access-tokens',
                 body,
                 {
@@ -146,7 +145,7 @@ export class PagesLoginService extends ApiServiceAbstract {
                 },
             };
 
-            const response: IApiResponseData = await api.post(
+            const response: TApiResponseData = await api.post(
                 'customer-forgotten-password',
                 body,
                 {withCredentials: true}
@@ -190,7 +189,7 @@ export class PagesLoginService extends ApiServiceAbstract {
                 },
             };
 
-            const response: IApiResponseData = await api.patch(
+            const response: TApiResponseData = await api.patch(
                 'customer-restore-password',
                 body,
                 {withCredentials: true}

@@ -1,4 +1,4 @@
-import api, { setAuthToken } from '@services/api';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICheckoutRequest, IcheckoutResponse, IShipmentMethod, IPaymentMethod } from '@interfaces/checkout';
 import {
@@ -9,10 +9,8 @@ import {
     sendCheckoutDataRejectedStateAction,
     sendCheckoutDataFulfilledStateAction,
 } from '@stores/actions/pages/checkout';
-
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICheckoutResponseData } from '@stores/reducers/pages/checkout/types';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
@@ -53,7 +51,7 @@ export class CheckoutService extends ApiServiceAbstract {
 
             dispatch(getCheckoutDataInitPendingStateAction());
 
-            const response: IApiResponseData = await api.post('checkout-data', body, headers);
+            const response: TApiResponseData = await api.post('checkout-data', body, headers);
 
             if (response.ok) {
                 const payload = CheckoutService.parseCheckoutData(response.data.data.attributes);
@@ -99,7 +97,7 @@ export class CheckoutService extends ApiServiceAbstract {
 
             dispatch(sendCheckoutDataPendingStateAction());
 
-            const response: IApiResponseData = await api.post('checkout', body, headers);
+            const response: TApiResponseData = await api.post('checkout', body, headers);
 
             if (response.ok) {
                 dispatch(sendCheckoutDataFulfilledStateAction(response.data.data.attributes.orderReference));

@@ -1,4 +1,4 @@
-import api from '@services/api';
+import { api, ApiServiceAbstract } from '@services/api';
 import {
     categoriesFulfilledState,
     categoriesPendingState,
@@ -13,8 +13,7 @@ import {
     anonymIdFilFilled
 } from '@stores/actions/common/init';
 import { parseStoreResponse } from '@helpers/parsing';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';
 import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
@@ -30,7 +29,7 @@ export class InitAppService extends ApiServiceAbstract {
 
         try {
             const anonymId = getAnonymId();
-            const response: IApiResponseData = await api.get('stores', null);
+            const response: TApiResponseData = await api.get('stores', null);
 
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
@@ -61,7 +60,7 @@ export class InitAppService extends ApiServiceAbstract {
     public static async getCategoriesTree(dispatch: Function): Promise<void> {
         try {
             dispatch(categoriesPendingState());
-            const response: IApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
+            const response: TApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
 
             if (response.ok) {
                 let tree: ICategory[] = response.data.data[ 0 ].attributes.categoryNodesStorage;

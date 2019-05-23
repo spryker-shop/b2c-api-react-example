@@ -1,5 +1,5 @@
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
+import { api, ApiServiceAbstract } from '@services/api';
+import { TApiResponseData } from '@services/types';
 import { typeNotificationError } from '@constants/notifications';
 import {
     productRelationsPendingAction,
@@ -7,7 +7,6 @@ import {
     productRelationsFulfilledAction
 } from '@stores/actions/common/productRelations';
 import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
-import api from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 
 export class ProductRelationsService extends ApiServiceAbstract {
@@ -25,7 +24,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
         try {
             dispatch(productRelationsPendingAction());
             const endpoint = this.endpoint(`abstract-products/${sku}/related-products`);
-            const response: IApiResponseData = await api.get(endpoint);
+            const response: TApiResponseData = await api.get(endpoint);
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsResponse(response.data);
@@ -54,7 +53,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
                 : {};
             const cartType = isUserLoggedIn ? 'carts' : 'guest-carts';
             const endpoint = this.endpoint(`${cartType}/${cartId}/up-selling-products`);
-            const response: IApiResponseData = await api.get(endpoint, {}, requestHeader);
+            const response: TApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {
                 const parsedData = parsePorductRelationsResponse(response.data);

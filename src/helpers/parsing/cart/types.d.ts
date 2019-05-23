@@ -1,11 +1,12 @@
 import { ICartDiscounts, ICartItem, ICartItemCalculation } from '@interfaces/cart';
-import { IAbstractRowIncludedResponse, IAbstractTotals } from '@interfaces/abstract';
+import { IAbstractRowIncludedResponse } from '@services/types';
 import {
     IRowConcreteProductsIncludedResponse,
     IRowProductAvailabilitiesIncludedResponse,
     IRowProductImageSetsIncludedResponse,
     IRowProductPricesIncludedResponse
 } from '@helpers/parsing/product/types';
+import { ITotals } from '@interfaces/common';
 
 export interface IUserCartRawResponseMultiValue {
     data: ICustomerCartDataRawResponse[];
@@ -26,7 +27,7 @@ export interface ICustomerCartDataRawResponse {
         discounts: {} | ICartDiscounts[];
         priceMode: string;
         store: string;
-        totals: IAbstractTotals;
+        totals: ITotals;
     };
     id: string;
     links: {

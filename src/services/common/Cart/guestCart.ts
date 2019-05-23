@@ -1,10 +1,8 @@
-import api, { removeAuthToken } from '@services/api';
+import { api, removeAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
 import { parseUserCartResponseOneValue } from '@helpers/parsing';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import * as cartActions from '@stores/actions/common/cart';
-import { IApiResponseData } from '@services/types';
-import { IResponseError } from '@services/apiAbstractions/types';
+import { TApiResponseData, IResponseError } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
@@ -39,7 +37,7 @@ export class GuestCartService extends ApiServiceAbstract {
                 data: { type: 'guest-cart-items', attributes: payload }
             };
             const endpoint = this.endpoint('guest-cart-items');
-            const response: IApiResponseData = await api.post(endpoint, body,
+            const response: TApiResponseData = await api.post(endpoint, body,
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
 
@@ -71,7 +69,7 @@ export class GuestCartService extends ApiServiceAbstract {
 
             dispatch(cartActions.getCartsPendingStateAction());
             const endpoint = this.endpoint('guest-carts');
-            const response: IApiResponseData = await api.get(endpoint, {},
+            const response: TApiResponseData = await api.get(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
 
@@ -119,7 +117,7 @@ export class GuestCartService extends ApiServiceAbstract {
             dispatch(cartActions.cartDeleteItemPendingStateAction);
 
             const endpoint = `guest-carts/${cartUid}/guest-cart-items/${sku}`;
-            const response: IApiResponseData = await api.delete(endpoint, {},
+            const response: TApiResponseData = await api.delete(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
 
@@ -159,7 +157,7 @@ export class GuestCartService extends ApiServiceAbstract {
             const { sku } = payload;
 
             const endpoint = this.endpoint(`guest-carts/${cartId}/guest-cart-items/${sku}`);
-            const response: IApiResponseData = await api.patch(endpoint, body,
+            const response: TApiResponseData = await api.patch(endpoint, body,
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
 

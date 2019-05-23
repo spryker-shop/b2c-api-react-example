@@ -1,9 +1,8 @@
-import api from '@services/api';
+import { api, ApiServiceAbstract } from '@services/api';
 import { REFRESH_TOKEN_REQUEST } from '@stores/actionTypes/pages/login';
 import { parseLoginDataResponse } from '@helpers/parsing';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
@@ -56,7 +55,7 @@ export class RefreshTokenService extends ApiServiceAbstract {
 
         dispatch({type: REFRESH_TOKEN_REQUEST + '_PENDING'});
 
-        const response: IApiResponseData = await api.post('refresh-tokens', body, {withCredentials: true});
+        const response: TApiResponseData = await api.post('refresh-tokens', body, {withCredentials: true});
 
         if (response.ok) {
             const responseParsed = parseLoginDataResponse(response.data);

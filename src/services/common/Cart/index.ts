@@ -1,4 +1,4 @@
-import api, { setAuthToken } from '@services/api';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem, ICartDataResponse } from '@interfaces/cart';
 import {
     parseUserCartResponseMultiValue,
@@ -7,16 +7,11 @@ import {
 } from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
 import { CartAuthenticateErrorMessage } from '@translation/';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICartCreatePayload } from './types';
-import { IResponseError } from '@services/apiAbstractions/types';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData, IResponseError } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
 export class CartService extends ApiServiceAbstract {
     public static endpoint(path: string): string {
@@ -42,7 +37,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = this.endpoint('/carts');
-            const response: IApiResponseData = await api.get(endpoint, { withCredentials: true });
+            const response: TApiResponseData = await api.get(endpoint, { withCredentials: true });
 
             if (response.ok) {
                 if (!response.data.data[0].id) {
@@ -86,7 +81,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = this.endpoint('carts');
-            const response: IApiResponseData = await api.post(endpoint, body, { withCredentials: true });
+            const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed = parseCartCreateResponse(response.data);
@@ -129,7 +124,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = this.endpoint(`carts/${cartId}/items`);
-            const response: IApiResponseData = await api.post(endpoint, body, { withCredentials: true });
+            const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed: ICartDataResponse = parseUserCartResponseOneValue(response.data);
@@ -172,7 +167,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = `carts/${cartId}/items/${itemId}`;
-            const response: IApiResponseData = await api.delete(endpoint, {}, { withCredentials: true });
+            const response: TApiResponseData = await api.delete(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
                 dispatch({
@@ -186,7 +181,7 @@ export class CartService extends ApiServiceAbstract {
                 });
 
                 const endpoint = this.endpoint(`carts/${cartId}`);
-                const newCartResponse: IApiResponseData = await api.get(endpoint);
+                const newCartResponse: TApiResponseData = await api.get(endpoint);
 
                 if (newCartResponse.ok) {
                     const responseParsed: ICartDataResponse = parseUserCartResponseOneValue(newCartResponse.data);
@@ -236,7 +231,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = this.endpoint(`carts/${cartId}/items/${sku}`);
-            const response: IApiResponseData = await api.patch(endpoint, body, { withCredentials: true });
+            const response: TApiResponseData = await api.patch(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed: ICartDataResponse = parseUserCartResponseOneValue(response.data);
@@ -331,7 +326,7 @@ export class CartService extends ApiServiceAbstract {
         dispatch: Function,
         payload: ICartAddItem,
         cartId: string
-    ): Promise<IApiResponseData> {
+    ): Promise<TApiResponseData> {
         const body = {
             data: {
                 type: 'items',
@@ -347,7 +342,7 @@ export class CartService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const endpoint = this.endpoint(`carts/${cartId}/items`);
-            const response: IApiResponseData = await api.post(endpoint, body, { withCredentials: true });
+            const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             return response;
         } catch (error) {

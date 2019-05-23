@@ -1,12 +1,11 @@
-import api, { setAuthToken } from '@services/api';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
 import { ICustomerDataParsed, ICustomerProfileIdentity, ICustomerProfilePassword } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/parsing';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { CustomerProfileAuthenticateErrorMessage } from '@translation/';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { logout } from '@stores/actions/pages/login';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
@@ -33,7 +32,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 throw new Error(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get(
+            const response: TApiResponseData = await api.get(
                 this.getCustomersEndpoint(customerReference),
                 {include: ''},
                 {withCredentials: true}
@@ -82,7 +81,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 throw new Error(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.patch(
+            const response: TApiResponseData = await api.patch(
                 this.getCustomersEndpoint(customerReference),
                 body,
                 {withCredentials: true}
@@ -130,7 +129,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 throw new Error(CustomerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.patch(`customer-password`, body, {withCredentials: true});
+            const response: TApiResponseData = await api.patch(`customer-password`, body, {withCredentials: true});
 
             if (response.ok) {
                 dispatch(CustomerProfileActions.updateCustomerPasswordFulfilledStateAction());
@@ -168,7 +167,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
             }
             setAuthToken(token);
             const endpoint = `customers/${customerReference}`;
-            const response: IApiResponseData = await api.delete(endpoint, null, {withCredentials: true});
+            const response: TApiResponseData = await api.delete(endpoint, null, {withCredentials: true});
 
             if (response.ok) {
                 dispatch(logout());

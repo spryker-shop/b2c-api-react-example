@@ -1,13 +1,12 @@
-import api from '@services/api';
+import { api, ApiServiceAbstract } from '@services/api';
 import { parseProductResponse } from '@helpers/parsing/product';
 import {
     getProductDataFulfilledStateAction,
     getProductDataItemPendingStateAction,
     getProductDataRejectedStateAction,
 } from '@stores/actions/pages/product';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IProductDataParsed } from '@interfaces/product';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
@@ -15,7 +14,7 @@ export class ProductService extends ApiServiceAbstract {
     public static async getAbstractData(dispatch: Function, sku: string): Promise<void> {
         try {
             dispatch(getProductDataItemPendingStateAction());
-            const response: IApiResponseData = await api.get(`abstract-products/${sku}`, {
+            const response: TApiResponseData = await api.get(`abstract-products/${sku}`, {
                 include: 'abstract-product-image-sets,' +
                 'abstract-product-prices,' +
                 'abstract-product-availabilities,' +

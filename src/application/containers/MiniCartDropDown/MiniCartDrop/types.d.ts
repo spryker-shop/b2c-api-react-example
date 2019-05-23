@@ -1,10 +1,10 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { ICartItem } from '@interfaces/cart';
 import { styles } from './styles';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 
 export interface IMiniCartDropProps extends WithStyles<typeof styles> {
-    totals: IAbstractTotals | null;
+    totals: ITotals | null;
     cartItems: ICartItem[] | null;
     isUserLoggedIn: boolean;
     cartId: string;

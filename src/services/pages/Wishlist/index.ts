@@ -1,11 +1,10 @@
-import api, { setAuthToken } from '@services/api';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
 import { WishlistAuthenticateErrorMessage } from '@translation/';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import * as cartActions from '@stores/actions/common/cart';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import {
     IWishlistRawData,
     IWishlistRawResponse,
@@ -35,7 +34,7 @@ export class WishlistService extends ApiServiceAbstract {
                 throw new Error(WishlistAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
+            const response: TApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
 
             if (response.ok) {
                 const wishlists: IWishlist[] = response.data.data.map((
@@ -84,7 +83,7 @@ export class WishlistService extends ApiServiceAbstract {
                 'concrete-product-availabilities,' +
                 'concrete-product-prices';
 
-            const response: IApiResponseData = await api.get(
+            const response: TApiResponseData = await api.get(
                 `wishlists/${wishlistId}?include=${query}`,
                 {},
                 {withCredentials: true}
@@ -143,7 +142,7 @@ export class WishlistService extends ApiServiceAbstract {
                 },
             };
 
-            const response: IApiResponseData = await api.post('wishlists', body, {withCredentials: true});
+            const response: TApiResponseData = await api.post('wishlists', body, {withCredentials: true});
 
             if (response.ok) {
                 NotificationsMessage({
@@ -196,7 +195,7 @@ export class WishlistService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const response: IApiResponseData = await api.delete(`wishlists/${wishlistId}`, {}, {withCredentials: true});
+            const response: TApiResponseData = await api.delete(`wishlists/${wishlistId}`, {}, {withCredentials: true});
 
             if (response.ok) {
                 NotificationsMessage({
@@ -248,7 +247,7 @@ export class WishlistService extends ApiServiceAbstract {
                 },
             };
 
-            const response: IApiResponseData = await api.patch(
+            const response: TApiResponseData = await api.patch(
                 `wishlists/${wishlistId}`,
                 body,
                 {withCredentials: true}
@@ -313,11 +312,11 @@ export class WishlistService extends ApiServiceAbstract {
             };
 
             const endpointItems = `wishlists/${id}/wishlist-items`;
-            const response: IApiResponseData = await api.post(endpointItems, body, {withCredentials: true});
+            const response: TApiResponseData = await api.post(endpointItems, body, {withCredentials: true});
 
             if (response.ok) {
                 const endpoint = `wishlists/${id}`;
-                const wishlistResponse: IApiResponseData = await api.get(
+                const wishlistResponse: TApiResponseData = await api.get(
                     endpoint,
                     {include: ''},
                     {withCredentials: true}
@@ -367,7 +366,7 @@ export class WishlistService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const response: IApiResponseData = await api.delete(
+            const response: TApiResponseData = await api.delete(
                 `wishlists/${wishlistId}/wishlist-items/${sku}`,
                 {},
                 {withCredentials: true}

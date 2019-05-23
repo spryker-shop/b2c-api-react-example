@@ -1,7 +1,7 @@
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 import { IAddressItemOrder } from '@interfaces/addresses';
 
-export interface IOrderTotals extends IAbstractTotals {
+export interface IOrderTotals extends ITotals {
     canceledTotal: number;
 }
 

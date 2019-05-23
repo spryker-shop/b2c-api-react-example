@@ -1,8 +1,7 @@
-import api from '@services/api';
+import { api, ApiServiceAbstract } from '@services/api';
 import { parseCatalogSearchResponse, parseSuggestionSearchResponse } from '@helpers/parsing';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ISearchQuery } from '@interfaces/search';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import {
@@ -19,7 +18,7 @@ export class SearchService extends ApiServiceAbstract {
         dispatch(sendSearchPendingState());
         try {
             params.include = 'abstract-products,product-labels,';
-            const response: IApiResponseData = await api.get('catalog-search', params, { withCredentials: true });
+            const response: TApiResponseData = await api.get('catalog-search', params, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed = parseCatalogSearchResponse(response.data);
@@ -48,7 +47,7 @@ export class SearchService extends ApiServiceAbstract {
         dispatch(suggestPendingState());
         try {
 
-            const response: IApiResponseData = await api.get(
+            const response: TApiResponseData = await api.get(
                 'catalog-search-suggestions',
                 { q: query, include: 'abstract-products,abstract-product-prices' },
                 { withCredentials: true }

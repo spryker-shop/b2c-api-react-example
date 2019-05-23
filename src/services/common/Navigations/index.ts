@@ -1,16 +1,15 @@
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
+import { api, ApiServiceAbstract } from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import * as navigationsActions from '@stores/actions/common/navigations';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { IMainNavigationNode } from '@interfaces/navigations';
-import api from '@services/api';
 
 export class NavigationService extends ApiServiceAbstract {
     public static async getMainNavigation(dispatch: Function): Promise<void> {
         dispatch(navigationsActions.getMainNavigationPendingState());
         try {
-            const response: IApiResponseData = await api.get('navigations/main_navigation');
+            const response: TApiResponseData = await api.get('navigations/main_navigation');
             if (response.ok) {
                 const nodesTree: IMainNavigationNode[] = response.data.data.attributes.nodes
                     .filter((item: IMainNavigationNode) => {

@@ -1,5 +1,5 @@
 import { PRICE_MODE_DEFAULT } from '@constants/common';
-import api from '@services/api';
+import { api } from '@services/api';
 import { IStoreRawResponse } from './types';
 import { IInitData } from '@interfaces/init';
 

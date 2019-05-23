@@ -34,3 +34,11 @@ export interface IBreadcrumbItem {
     name: string | JSX.Element;
     current?: boolean;
 }
+
+export interface ITotals {
+    expenseTotal: number;
+    discountTotal: number;
+    taxTotal: number;
+    subtotal: number;
+    grandTotal: number;
+}

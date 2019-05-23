@@ -1,4 +1,4 @@
-import api, { setAuthToken } from '@services/api';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import {
     orderDetailsFulfilledStateAction,
@@ -10,8 +10,7 @@ import {
 } from '@stores/actions/pages/order';
 import { OrderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
@@ -26,7 +25,7 @@ export class OrderService extends ApiServiceAbstract {
                 throw new Error(OrderAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get('orders', null, {withCredentials: true});
+            const response: TApiResponseData = await api.get('orders', null, {withCredentials: true});
 
             if (response.ok) {
                 const responseParsed = parseGetOrdersCollectionResponse(response.data);
@@ -62,7 +61,7 @@ export class OrderService extends ApiServiceAbstract {
             }
             setAuthToken(token);
             const endpoint = `orders/${orderId}`;
-            const response: IApiResponseData = await api.get(endpoint, null, {withCredentials: true});
+            const response: TApiResponseData = await api.get(endpoint, null, {withCredentials: true});
 
             if (response.ok) {
                 const responseParsed = parseGetOrderDetailsResponse(response.data.data);

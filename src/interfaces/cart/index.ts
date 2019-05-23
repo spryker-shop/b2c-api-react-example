@@ -1,6 +1,5 @@
-import { IAbstractTotals } from '@interfaces/abstract';
 import { IProductParsedPrices } from '@interfaces/product';
-import { IIndexSignature } from '@interfaces/common';
+import { IIndexSignature, ITotals } from '@interfaces/common';
 
 export interface ICartDiscounts {
     displayName: string;
@@ -44,7 +43,7 @@ export interface ICommonDataInCart {
     discounts?: ICartDiscounts | {};
     priceMode: string | null;
     store: string | null;
-    totals: IAbstractTotals;
+    totals: ITotals;
     cartCreated?: boolean;
 }
 

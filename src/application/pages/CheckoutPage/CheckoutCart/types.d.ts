@@ -1,12 +1,11 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ICartItem } from '@interfaces/cart';
-import { ClickEvent, WithRouter } from '@interfaces/common';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ClickEvent, WithRouter, ITotals } from '@interfaces/common';
 
 export interface ICheckoutCartProps extends WithStyles<typeof styles>, WithRouter {
     products?: ICartItem[];
-    totals?: IAbstractTotals;
+    totals?: ITotals;
     isSendBtnDisabled: boolean;
     sendData: (event: ClickEvent) => void;
     isSummaryPage: boolean;
