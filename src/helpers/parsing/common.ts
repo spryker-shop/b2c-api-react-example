@@ -1,27 +1,23 @@
-import {
-    IProductCardImages,
-    IProductImageSetsRawResponse,
-    IProductLabel,
-    IProductPricesItem,
-    IProductResponseLabel,
-    priceTypeNameDefault,
-    priceTypeNameOriginal,
-    TProductImageSetsCollectionRawResponse,
-    IProductParsedPrices
-} from '@interfaces/product';
-import { IProductImage } from '@components/ProductImageSlider/types';
-import { IAvailableLabelsCollection } from '@interfaces/search';
+import { IProductLabel, IProductPrices, IProductImage } from '@interfaces/product';
+import { priceTypeNameDefault, priceTypeNameOriginal } from '@constants/product';
 import { IProductRelationsIncluded } from '@helpers/parsing/productRelations/types';
+import {
+    IProductRowLabelsResponse,
+    IProductAvailableLabelsCollection,
+    IProductImageSetsRawResponse,
+    IProductPricesResponse,
+    IProductCardImagesResponse
+} from '@services/pages/product/types';
 
-export const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse): IProductImage[] | null => {
+export const parseImageSets = (imageSets: IProductImageSetsRawResponse[]): IProductImage[] | null => {
     if (!Array.isArray(imageSets) || !imageSets.length) {
         return null;
     }
 
     const images = imageSets.reduce((acc, set: IProductImageSetsRawResponse) =>
-        acc.concat(set.images.map((imgs: IProductCardImages) => imgs)), []);
+        acc.concat(set.images.map((imgs: IProductCardImagesResponse) => imgs)), []);
 
-    return images.map((element: IProductCardImages, index: number) => ({
+    return images.map((element: IProductCardImagesResponse, index: number) => ({
         id: index,
         src: element.externalUrlLarge,
         srcSmall: element.externalUrlSmall
@@ -30,7 +26,7 @@ export const parseImageSets = (imageSets: TProductImageSetsCollectionRawResponse
 
 export const getProductLabel = (
     labelsIdArr: string[] | null,
-    availableLabels: IAvailableLabelsCollection | null
+    availableLabels: IProductAvailableLabelsCollection | null
 ): IProductLabel[] | null => {
     const isLabelsExist = (Array.isArray(labelsIdArr) && labelsIdArr.length > 0);
 
@@ -47,7 +43,7 @@ export const getProductLabel = (
         : null;
 };
 
-export const parsePrices = (prices: IProductPricesItem[]): IProductParsedPrices =>
+export const parsePrices = (prices: IProductPricesResponse[]): IProductPrices =>
     prices.reduce((acc: { [key: string]: number }, priceData) => {
         if (priceData.priceTypeName === priceTypeNameDefault) {
             acc['priceDefaultGross'] = priceData.grossAmount;
@@ -62,15 +58,15 @@ export const parsePrices = (prices: IProductPricesItem[]): IProductParsedPrices 
         return acc;
     }, {});
 
-export const getAvailableLables = (included: IProductRelationsIncluded[]): IAvailableLabelsCollection | null => {
-    const availableLabels: IAvailableLabelsCollection | null = {};
+export const getAvailableLables = (included: IProductRelationsIncluded[]): IProductAvailableLabelsCollection | null => {
+    const availableLabels: IProductAvailableLabelsCollection | null = {};
     const productLabelsType = 'product-labels';
 
-    const includedLabels: IProductResponseLabel[] = included.filter(item => (
+    const includedLabels: IProductRowLabelsResponse[] = included.filter(item => (
         item.type === productLabelsType
     ));
 
-    includedLabels.forEach((label: IProductResponseLabel) => {
+    includedLabels.forEach((label: IProductRowLabelsResponse) => {
         availableLabels[label.id] = {
             id: label.id,
             frontEndReference: label.attributes.frontEndReference,

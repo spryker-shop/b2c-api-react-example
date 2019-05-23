@@ -6,7 +6,6 @@ import { AppPrice } from '@components/AppPrice';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { FormattedMessage } from 'react-intl';
 
 export const MiniCartItemComponent: React.SFC<Props> = props => {
@@ -50,7 +49,7 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                                        <AppPrice value={ priceOriginalGross } isOriginal />
                                     </Typography>
                                 }
                             </Grid>

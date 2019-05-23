@@ -1,11 +1,11 @@
 import { ICartDiscounts, ICartItem, ICartItemCalculation } from '@interfaces/cart';
 import { IAbstractRowIncludedResponse } from '@services/types';
 import {
-    IRowConcreteProductsIncludedResponse,
-    IRowProductAvailabilitiesIncludedResponse,
-    IRowProductImageSetsIncludedResponse,
-    IRowProductPricesIncludedResponse
-} from '@helpers/parsing/product/types';
+    IProductsConcreteRowIncludedResponse,
+    IProductRowAvailabilitiesIncludedResponse,
+    IProductRowImageSetsIncludedResponse,
+    IProductRowPricesIncludedResponse
+} from '@services/pages/Product/types';
 import { ITotals } from '@interfaces/common';
 
 export interface IUserCartRawResponseMultiValue {
@@ -53,10 +53,10 @@ export interface ICartItemDataShort {
     id: string;
 }
 
-export type TRowCustomerCartIncludedResponse = IRowProductImageSetsIncludedResponse
-    | IRowProductAvailabilitiesIncludedResponse
-    | IRowProductPricesIncludedResponse
-    | IRowConcreteProductsIncludedResponse
+export type TRowCustomerCartIncludedResponse = IProductRowImageSetsIncludedResponse
+    | IProductRowAvailabilitiesIncludedResponse
+    | IProductRowPricesIncludedResponse
+    | IProductsConcreteRowIncludedResponse
     | IRowCustomerCartItemsIncludedResponse;
 
 export interface IRowCustomerCartItemsIncludedResponse extends IAbstractRowIncludedResponse {

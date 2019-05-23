@@ -1,10 +1,10 @@
-import { IProductLabel, IProductParsedPrices } from '@interfaces/product';
+import { IProductLabel, IProductPrices } from '@interfaces/product';
 
 export interface IProductRelationsItem {
     name: string;
     sku: string;
     label?: IProductLabel[];
     price?: number;
-    prices?: IProductParsedPrices;
+    prices?: IProductPrices;
     image?: string;
 }

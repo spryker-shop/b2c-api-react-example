@@ -4,7 +4,6 @@ import { CartItemProps as Props } from './types';
 import { SquareImage } from '@components/SquareImage';
 import { AppPrice } from '@components/AppPrice';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
 import { withRouter } from 'react-router-dom';
@@ -91,9 +90,9 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 <AppPrice value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
-                            <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
-                                <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
-                            </Typography>
+                                <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
+                                    <AppPrice value={ priceOriginalGross } isOriginal />
+                                </Typography>
                             }
                         </div>
                         { (quantity > 1) &&

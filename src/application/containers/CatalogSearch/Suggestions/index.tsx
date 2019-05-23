@@ -6,7 +6,6 @@ import { SquareImage } from '@components/SquareImage';
 import { AppPrice } from '@components/AppPrice';
 import { ISuggestionsProps as Props } from './types';
 import { styles } from './styles';
-import { priceTypeNameOriginal } from '@interfaces/product';
 
 export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
     const { suggestion, classes, isHighlighted, clearSuggestion } = props;
@@ -24,7 +23,7 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                 <div className={ classes.imageWrapper }>
                     <SquareImage
                         classes={{ actionAreaOverlay: classes.imageOverlay, imgWrapper: classes.image }}
-                        image={ suggestion.images.length ? suggestion.images[0].externalUrlSmall : '' }
+                        image={ suggestion.image }
                         alt={ suggestion.abstractName }
                     />
                 </div>
@@ -34,7 +33,7 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                     <div className={ classes.prices }>
                         <span
                             className={`
-                               ${classes.priceItem} ${isDefaultPriceExist ? classes.newPrice : classes.mainPrice}
+                               ${classes.priceItem} ${isOriginalPriceExist ? classes.newPrice : classes.mainPrice}
                             `}
                         >
                             <AppPrice value={ isDefaultPriceExist ? prices.priceDefaultGross : price } />
@@ -42,7 +41,7 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
 
                         { isOriginalPriceExist &&
                             <span className={ `${classes.priceItem} ${classes.oldPrice}` }>
-                                <AppPrice value={ prices.priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                                <AppPrice value={ prices.priceOriginalGross } isOriginal />
                             </span>
                         }
                     </div>

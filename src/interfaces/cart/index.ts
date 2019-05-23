@@ -1,4 +1,4 @@
-import { IProductParsedPrices } from '@interfaces/product';
+import { IProductPrices } from '@interfaces/product';
 import { IIndexSignature, ITotals } from '@interfaces/common';
 
 export interface ICartDiscounts {
@@ -19,7 +19,7 @@ export interface ICartItem {
     image?: string | null;
     quantity?: number | null;
     amount?: number | null;
-    prices?: IProductParsedPrices;
+    prices?: IProductPrices;
     calculations?: ICartItemCalculation | null;
     groupKey?: string | null;
     availability?: boolean | null;

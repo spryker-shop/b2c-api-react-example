@@ -9,14 +9,14 @@ import {
     IWishlistRawData,
     IWishlistRawResponse,
     TRowWishlistIncludedResponse,
-    ERowTypes
+    ECommonIncludeTypes
 } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import {
     typeNotificationSuccess,
     typeNotificationError
 } from '@constants/notifications';
-import { IProductPricesItem } from '@interfaces/product';
+import { IProductPricesResponse } from '@services/pages/Product/types';
 
 interface IRequestBody {
     data: {
@@ -458,7 +458,7 @@ export class WishlistService extends ApiServiceAbstract {
                 items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
             }
 
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
+            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
                 if (
                     row.attributes.imageSets &&
                     row.attributes.imageSets.length &&
@@ -471,11 +471,11 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === ERowTypes.WISHLIST_ITEMS) {
+            if (row.type === ECommonIncludeTypes.WISHLIST_ITEMS) {
                 items[row.id].sku = row.attributes.sku;
             }
 
-            if (row.type === ERowTypes.CONCRETE_CONCRETE_PRODUCTS) {
+            if (row.type === ECommonIncludeTypes.CONCRETE_CONCRETE_PRODUCTS) {
                 items[row.id].name = row.attributes.name;
                 Object.keys(row.attributes.attributes).forEach((attr: string) => {
                     if (row.attributes.superAttributesDefinition.includes(attr)) {
@@ -488,9 +488,9 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_PRICES) {
+            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_PRICES) {
                 items[row.id].prices = {};
-                row.attributes.prices.forEach((price: IProductPricesItem) => {
+                row.attributes.prices.forEach((price: IProductPricesResponse) => {
                     const priceType = price.priceTypeName;
                     const priceName = priceType.charAt(0).toLocaleUpperCase() +
                         priceType.slice(1).toLocaleLowerCase();
@@ -502,7 +502,7 @@ export class WishlistService extends ApiServiceAbstract {
                 return;
             }
 
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
+            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
                 items[row.id].availability = row.attributes.availability;
 
                 if (row.attributes.isNeverOutOfStock) {

@@ -60,18 +60,6 @@ export interface IProductLabelResponse {
     id: string;
 }
 
-export interface IAvailableLabel {
-    id: string;
-    frontEndReference: string;
-    isExclusive: boolean;
-    name: string;
-    position: number;
-}
-
-export interface IAvailableLabelsCollection {
-    [id: string]: IAvailableLabel;
-}
-
 export interface ICatalogSearchDataParsed extends IActiveFilters {
     items: IProductCard[] | null;
     filters: IValueFacets[] | null;

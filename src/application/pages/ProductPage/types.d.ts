@@ -1,7 +1,8 @@
 import { RouteProps } from 'react-router';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IProductAttributes, IProductDataParsed, IProductPropFullData } from '@interfaces/product';
+import { IProductAttributes, IProductPropFullData } from '@interfaces/product';
+import { IProductDataParsed } from '@helpers/parsing/product/types';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {

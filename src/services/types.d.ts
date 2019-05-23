@@ -26,3 +26,14 @@ export interface IAbstractRowIncludedResponse {
     };
     id?: string;
 }
+
+export interface IRelationshipsResponse {
+    relationships: {
+        [key: string]: {
+            data: [{
+                type: string;
+                id: string;
+            }]
+        };
+    };
+}

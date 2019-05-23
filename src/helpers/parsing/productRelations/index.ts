@@ -6,7 +6,7 @@ import {
 } from './types';
 import { IProductRelationsItem } from '@interfaces/productRelations';
 import { parseImageSets, getProductLabel, getAvailableLables } from '@helpers/parsing/common';
-import { IAvailableLabelsCollection } from '@interfaces/search';
+import { IProductAvailableLabelsCollection, IProductAvailableLabel } from '@services/pages/Product/types';
 
 export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] => {
     const parsedProductRelations: IProductRelationsItem[] = [];
@@ -30,7 +30,7 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
     }
 
     let productOptions: IProductOptions = {};
-    const availableLabels: IAvailableLabelsCollection | null = getAvailableLables(included);
+    const availableLabels: IProductAvailableLabelsCollection | null = getAvailableLables(included);
 
     for (const optionType in item.relationships) {
         const optionId: string = item.relationships[optionType].data[0].id;
@@ -39,7 +39,8 @@ const parseRelationships = (included: IProductRelationsIncluded[], item: IProduc
         ));
 
         if (optionType === 'product-labels' && availableLabels) {
-            const labelsIdArr: string[] = item.relationships[optionType].data.map(item => item.id);
+            const labelsIdArr: string[] = item.relationships[optionType].data
+                .map((item: IProductAvailableLabel) => item.id);
             productOptions.label = getProductLabel(labelsIdArr, availableLabels);
 
             continue;

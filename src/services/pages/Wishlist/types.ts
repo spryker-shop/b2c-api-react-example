@@ -1,10 +1,10 @@
 import { IWishlist } from '@interfaces/wishlist';
 import {
-    IRowConcreteProductsIncludedResponse,
-    IRowProductAvailabilitiesIncludedResponse,
-    IRowProductImageSetsIncludedResponse,
-    IRowProductPricesIncludedResponse
-} from '@helpers/parsing/product/types';
+    IProductsConcreteRowIncludedResponse,
+    IProductRowAvailabilitiesIncludedResponse,
+    IProductRowImageSetsIncludedResponse,
+    IProductRowPricesIncludedResponse
+} from '@services/pages/Product/types';
 
 export interface IWishlistRawResponse {
     data: IWishlistRawData[];
@@ -21,7 +21,7 @@ export interface IWishlistRawData {
     type: string;
 }
 
-export enum ERowTypes {
+export enum ECommonIncludeTypes {
     CONCRETE_PRODUCT_IMAGE_SETS = 'concrete-product-image-sets',
     CONCRETE_CONCRETE_PRODUCTS = 'concrete-products',
     CONCRETE_PRODUCT_PRICES = 'concrete-product-prices',
@@ -29,7 +29,7 @@ export enum ERowTypes {
     WISHLIST_ITEMS = 'wishlist-items'
 }
 
-export type TRowWishlistIncludedResponse = IRowProductImageSetsIncludedResponse
-    | IRowProductAvailabilitiesIncludedResponse
-    | IRowProductPricesIncludedResponse
-    | IRowConcreteProductsIncludedResponse;
+export type TRowWishlistIncludedResponse = IProductRowImageSetsIncludedResponse
+    | IProductRowAvailabilitiesIncludedResponse
+    | IProductRowPricesIncludedResponse
+    | IProductsConcreteRowIncludedResponse;

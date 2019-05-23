@@ -2,7 +2,6 @@ import {
     IFilterValue,
     ICatalogSearchDataParsed,
     IValueFacets,
-    IAvailableLabelsCollection,
     TActiveFilters,
     TActiveRangeFilters
 } from '@interfaces/search';
@@ -11,7 +10,8 @@ import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse, ISuggesti
 import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
-import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
+import { TProductRowResponseIncluded, IProductAvailableLabelsCollection } from '@services/pages/Product/types';
+import { IProductCardResponse } from '@helpers/parsing/search/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -94,7 +94,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         return result;
     }
 
-    const availableLabels: IAvailableLabelsCollection | null = getAvailableLables(included);
+    const availableLabels: IProductAvailableLabelsCollection | null = getAvailableLables(included);
 
     included.forEach((row: IRowCatalogSearchIncludedResponse) => {
         const isProductHasLabels = row.type === 'abstract-products' && row.relationships &&
@@ -112,15 +112,22 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
 };
 
 export const parseSuggestionSearchResponse = (response: ISuggestionSearchResponse, productsLimit: number) => {
-    const products: IProductCard[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit);
+    const products: IProductCardResponse[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit)
+        .map((product: IProductCardResponse) => {
+            const image = product.images[0].externalUrlSmall;
+            delete product.images;
 
-    response.included && response.included.forEach((row: TRowProductResponseIncluded) => {
-        if (row.type === 'abstract-product-prices') {
-            const product: IProductCard = products.find((prod: IProductCard) => prod.abstractSku === row.id);
+            return {
+                ...product,
+                image
+            };
+        });
 
-            if (product && row.attributes.prices && row.attributes.prices.length) {
-                product.prices = parsePrices(row.attributes.prices);
-            }
+    response.included && response.included.forEach((row: TProductRowResponseIncluded) => {
+        const product: IProductCardResponse = products.find(product => product.abstractSku === row.id);
+
+        if (row.type === 'abstract-product-prices' && product && row.attributes.prices) {
+            (product as IProductCard).prices = parsePrices(row.attributes.prices);
         }
     });
 

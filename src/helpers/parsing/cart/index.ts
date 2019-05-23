@@ -8,7 +8,7 @@ import {
     TRowCustomerCartIncludedResponse,
     IUserCartRawResponseOneValue,
     ICustomerCartDataRawResponse
-} from '@helpers/parsing/cart/types';
+} from '@services/common/Cart/types';
 
 export const parseCartCreateResponse = (response: IUserCartRawResponseMultiValue): ICartDataResponse | null => {
     if (!response) {

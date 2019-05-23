@@ -1,12 +1,12 @@
-import { IProductCard } from '@interfaces/product';
+import { IProductCard, IProductLabel, IProductPrices } from '@interfaces/product';
 import { IProductLabelResponse, IRangeFacets, IValueFacets } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
-import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
+import { TProductRowResponseIncluded, IProductPricesResponse } from '@services/pages/Product/types';
 
 export interface ICatalogSearchRawResponse {
     data: [{
         attributes: {
-            abstractProducts: IProductCard[] | null,
+            abstractProducts: IProductCardResponse[] | null,
             pagination: {
                 currentItemsPerPage: number,
                 currentPage: number,
@@ -59,15 +59,23 @@ export interface IRowCatalogSearchIncludedResponse {
 export interface ISuggestionSearchResponse {
     data: [{
         attributes: {
-            abstractProducts: IProductCard[] | null,
+            abstractProducts: IProductCardResponse[] | null,
             completion: string[]
         }
     }];
-    included: [TRowProductResponseIncluded];
+    included: [TProductRowResponseIncluded];
     links: {
         first: string;
         last: string;
         next: string;
         self: string;
     };
+}
+
+export interface IProductCardResponse {
+    images?: IProductCardImagesResponse[] | null;
+    price: number;
+    abstractName: string;
+    abstractSku: string;
+    prices: IProductPricesResponse[];
 }

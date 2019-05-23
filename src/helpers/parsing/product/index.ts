@@ -1,18 +1,17 @@
 import {
-    abstractProductType,
-    concreteProductType,
-    IProductDataParsed,
     IProductPropFullData,
     IProductAttributeMap,
     IProductAttributes,
-    ISuperAttribute
+    ISuperAttribute,
+    IDescriptionAttributes
 } from '@interfaces/product';
+import { abstractProductType, concreteProductType } from '@constants/product';
 import {
     IProductRawResponse,
-    IRowProductLabelsResponse,
-    TRowProductResponseIncluded
-} from '@helpers/parsing/product/types';
-import { IProductLabelResponse } from '@interfaces/search';
+    IProductRowLabelsResponse,
+    TProductRowResponseIncluded
+} from '@services/pages/Product/types';
+import { IProductDataParsed } from './types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 
@@ -39,6 +38,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         quantity: null,
         productType: null
     };
+
     const { data, included } = response;
     const result: IProductDataParsed = {
         attributeVariants: data.attributes.attributeMap.attribute_variants,
@@ -69,7 +69,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         });
     }
 
-    included.forEach((row: TRowProductResponseIncluded) => {
+    included.forEach((row: TProductRowResponseIncluded) => {
         if (row.type === 'abstract-product-image-sets') {
             result.abstractProduct.images = parseImageSets(row.attributes.imageSets);
 
@@ -126,9 +126,9 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     const isLabelsExist = labelsRelationships && filteredIncludedLabels.length;
 
     if (isLabelsExist) {
-        const filteredAvailableLabels = labelsRelationships.data.map((item: IProductLabelResponse) => item.id);
+        const filteredAvailableLabels = labelsRelationships.data.map(item => item.id);
         filteredAvailableLabels.forEach((availableLabelId: string) => {
-            filteredIncludedLabels.forEach((includedLabel: IRowProductLabelsResponse) => {
+            filteredIncludedLabels.forEach((includedLabel: IProductRowLabelsResponse) => {
                 const isLabelExist = availableLabelId === includedLabel.id;
                 if (isLabelExist) {
                     const labelData = {
@@ -176,7 +176,8 @@ const parseSuperAttributes = (
 const parseDescriptionAttributes = (
     attributeNames: IIndexSignature,
     attributeValues: IProductAttributes
-) => Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
+): IDescriptionAttributes[] | null =>
+Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
     name: attributeNames[attributeKey],
     value: attributeValues[attributeKey]
 }));

@@ -1,10 +1,10 @@
-import { IProductLabel, IProductPricesItem } from '@interfaces/product';
+import { IProductLabel, IProductPricesResponse } from '@interfaces/product';
 import {
-    IRowConcreteProductsIncludedResponse,
-    IRowProductAvailabilitiesIncludedResponse,
-    IRowProductImageSetsIncludedResponse,
-    IRowProductPricesIncludedResponse
-} from '@helpers/parsing/product/types';
+    IProductsConcreteRowIncludedResponse,
+    IProductRowAvailabilitiesIncludedResponse,
+    IProductRowImageSetsIncludedResponse,
+    IProductRowPricesIncludedResponse
+} from '@services/pages/Product/types';
 import { IRowCustomerCartItemsIncludedResponse } from '@helpers/parsing/cart/types';
 
 export interface IProductRelationsRawResponse {
@@ -21,27 +21,16 @@ export interface IProductRelationsItemResponse {
     relationships: IProductRelationsItemRelationships;
 }
 
-export interface IProductRelationsItemRelationships {
-    [key: string]: {
-        data: [
-            {
-                type: string;
-                id: string;
-            }
-        ]
-    };
-}
-
 export interface IProductOptions {
     label?: IProductLabel[];
     price?: number;
-    prices?: IProductPricesItem[];
+    prices?: IProductPricesResponse[];
     image?: string;
 }
 
-export type IProductRelationsIncluded = IRowProductImageSetsIncludedResponse
-    | IRowProductAvailabilitiesIncludedResponse
-    | IRowProductPricesIncludedResponse
-    | IRowConcreteProductsIncludedResponse
+export type IProductRelationsIncluded = IProductRowImageSetsIncludedResponse
+    | IProductRowAvailabilitiesIncludedResponse
+    | IProductRowPricesIncludedResponse
+    | IProductsConcreteRowIncludedResponse
     | IRowCustomerCartItemsIncludedResponse
     | IProducRelationstLabel;

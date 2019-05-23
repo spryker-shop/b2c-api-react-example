@@ -7,7 +7,7 @@ import { withStyles, Button, Typography } from '@material-ui/core';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 import { CartIcon } from './icons';
-import { concreteProductType } from '@interfaces/product';
+import { concreteProductType } from '@constants/product';
 import { ClickEvent } from '@interfaces/common';
 import { ICartAddItem } from '@interfaces/cart';
 import { IProductConfiguratorAddToCartProps as Props, IProductConfiguratorAddToCartState as State, } from './types';

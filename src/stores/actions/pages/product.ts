@@ -1,6 +1,6 @@
-import { PAGES_PRODUCT_REQUEST, PRODUCT_AVAILABILITY_REQUEST } from '@stores/actionTypes/pages/product';
+import { PAGES_PRODUCT_REQUEST } from '@stores/actionTypes/pages/product';
 import { ProductService } from '@services/pages/Product';
-import { IConcreteProductAvailability, IProductDataParsed } from '@interfaces/product';
+import { IProductDataParsed } from '@helpers/parsing/product/types';
 import { IPageProductAction } from '@stores/reducers/pages/Product/types';
 
 export const getProductDataItemPendingStateAction = (): IPageProductAction => ({
@@ -22,20 +22,3 @@ export const getProductDataAction = function (sku: string) {
         ProductService.getAbstractData(dispatch, sku);
     };
 };
-
-// Product availability
-
-export const getProductAvailabilityPendingStateAction = (): IPageProductAction => ({
-    type: PRODUCT_AVAILABILITY_REQUEST + '_PENDING',
-});
-
-export const getProductAvailabilityRejectedStateAction = (message: string): IPageProductAction => ({
-    type: PRODUCT_AVAILABILITY_REQUEST + '_REJECTED',
-    payloadRejected: {error: message},
-});
-
-export const getProductAvailabilityFulfilledStateAction = (payload: IConcreteProductAvailability):
-    IPageProductAction => ({
-    type: PRODUCT_AVAILABILITY_REQUEST + '_FULFILLED',
-    payloadAvailability: payload,
-});
