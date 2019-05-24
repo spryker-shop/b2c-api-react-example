@@ -7,8 +7,9 @@ import { customerProfileAuthenticateErrorMessage } from '@translation/';
 import { logoutAction } from '@stores/actions/pages/login';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { typeNotificationSuccess } from '@constants/notifications';
 import { IRequestBody } from '@services/pages/CustomerProfile/types';
+import { errorMessageInform } from '@helpers/common';
 
 export class CustomerProfileService extends ApiServiceAbstract {
     private static getCustomersEndpoint = (customerReference: string) => `/customers/${ customerReference }`;
@@ -33,20 +34,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.getCustomerProfileRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.getCustomerProfileRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -87,20 +80,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.updateCustomerProfileRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.updateCustomerProfileRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -129,20 +114,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.updateCustomerPasswordRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.updateCustomerPasswordRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -167,20 +144,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.deleteCustomerRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.deleteCustomerRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

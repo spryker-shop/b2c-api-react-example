@@ -4,9 +4,10 @@ import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICheckoutRequest } from '@interfaces/checkout';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { typeNotificationSuccess } from '@constants/notifications';
 import { IRequestBody } from '@services/pages/Checkout/types';
 import { parseCheckoutData } from '@helpers/parsing';
+import { errorMessageInform } from '@helpers/common';
 
 export class CheckoutService extends ApiServiceAbstract {
     public static async getCheckoutData(
@@ -41,20 +42,12 @@ export class CheckoutService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -90,20 +83,12 @@ export class CheckoutService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

@@ -5,8 +5,9 @@ import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { TApiResponseData } from '@services/types';
 import { IRequestUpdateAddressBody } from '@services/pages/Addresses/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { typeNotificationSuccess } from '@constants/notifications';
 import { AddressesService } from '@services/pages/Addresses';
+import { errorMessageInform } from '@helpers/common';
 
 export class AddressesActionsService extends ApiServiceAbstract {
     public static async addAddress(dispatch: Function, payload: IAddressItem, customerId: string): Promise<void> {
@@ -37,20 +38,12 @@ export class AddressesActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(addressesActions.addAddressRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(addressesActions.addAddressRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -73,20 +66,12 @@ export class AddressesActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(addressesActions.deleteAddressRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(addressesActions.deleteAddressRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -125,20 +110,12 @@ export class AddressesActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(addressesActions.updateAddressRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(addressesActions.updateAddressRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 

@@ -7,7 +7,7 @@ import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
-import { getAnonymId, clearAnonymId } from '@helpers/common';
+import { getAnonymId, clearAnonymId, errorMessageInform } from '@helpers/common';
 import { anonymIdFilFilled } from '@stores/actions/common/init';
 import { clearWishlistState } from '@stores/actions/pages/wishlist';
 
@@ -55,11 +55,7 @@ export class PagesLoginService extends ApiServiceAbstract {
 
         } catch (error) {
             dispatch(loginActions.registerRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -85,19 +81,12 @@ export class PagesLoginService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(loginActions.loginCustomerRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(loginActions.loginCustomerRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -118,20 +107,14 @@ export class PagesLoginService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch(loginActions.forgotPasswordRejectedState(response.problem));
-                NotificationsMessage({
-                    message: response.problem,
-                    type: typeNotificationError
-                });
+                const errorMessage = this.getParsedAPIError(response);
+                dispatch(loginActions.forgotPasswordRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(loginActions.forgotPasswordRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -152,21 +135,14 @@ export class PagesLoginService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch(loginActions.resetPasswordRejectedState(response.problem));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: response.problem,
-                    type: typeNotificationError
-                });
+                const errorMessage = this.getParsedAPIError(response);
+                dispatch(loginActions.resetPasswordRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(loginActions.resetPasswordRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 

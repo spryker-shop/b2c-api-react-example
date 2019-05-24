@@ -79,8 +79,9 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
         this.setState({ quantitySelected: value, isUpdateValue: false });
 
     public render(): JSX.Element {
-        const { classes, isCartLoading } = this.props;
+        const { classes, isCartLoading, productType } = this.props;
         const { sku, quantitySelected, isUpdateValue, availability } = this.state;
+        const isButtonDisable = productType !== concreteProductType || isCartLoading || !availability;
 
         return (
             <div className={ classes.root }>
@@ -106,7 +107,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
 
                 <Button
                     variant="contained"
-                    disabled={ isCartLoading || !availability }
+                    disabled={ isButtonDisable }
                     onClick={ this.handleBuyBtnClick }
                     className={ classes.button }
                     fullWidth

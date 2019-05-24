@@ -6,9 +6,10 @@ import { wishlistAuthenticateErrorMessage, firstWishlistName } from '@translatio
 import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { IRequestBody, IWishlistDataResponse } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError, typeNotificationSuccess } from '@constants/notifications';
+import { typeNotificationSuccess } from '@constants/notifications';
 import { parseWishlistResponse, parseWishlistItems } from '@helpers/parsing/wishlist';
 import { WishlistActionsService } from './wishlistActions';
+import { errorMessageInform } from '@helpers/common';
 
 export class WishlistService extends WishlistActionsService {
     public static async getWishlists(dispatch: Function): Promise<void> {
@@ -28,20 +29,12 @@ export class WishlistService extends WishlistActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.getWishlistsRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.getWishlistsRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -70,20 +63,12 @@ export class WishlistService extends WishlistActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.getDetailWishlisRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.getDetailWishlisRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -129,20 +114,12 @@ export class WishlistService extends WishlistActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.addItemWishlistRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.addItemWishlistRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -168,20 +145,12 @@ export class WishlistService extends WishlistActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.deleteItemWishlistRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.deleteItemWishlistRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

@@ -5,8 +5,9 @@ import { IWishlist } from '@interfaces/wishlist';
 import { TApiResponseData } from '@services/types';
 import { IRequestBody } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { typeNotificationSuccess } from '@constants/notifications';
 import { parseWishlistResponse } from '@helpers/parsing/wishlist';
+import { errorMessageInform } from '@helpers/common';
 
 export class WishlistActionsService extends ApiServiceAbstract {
     public static async addWishlist(dispatch: Function, name: string): Promise<string> {
@@ -36,20 +37,12 @@ export class WishlistActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.addWishlistRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.addWishlistRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -70,20 +63,12 @@ export class WishlistActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.deleteWishlistRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.deleteWishlistRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -112,20 +97,12 @@ export class WishlistActionsService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(wishlistActions.updateWishlistRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(wishlistActions.updateWishlistRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

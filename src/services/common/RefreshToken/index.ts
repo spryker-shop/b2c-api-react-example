@@ -7,9 +7,8 @@ import { api, ApiServiceAbstract } from '@services/api';
 import { parseLoginDataResponse } from '@helpers/parsing';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { TApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
+import { errorMessageInform } from '@helpers/common';
 
 export class RefreshTokenService extends ApiServiceAbstract {
     public static async getActualToken(dispatch: Function): Promise<string> {
@@ -30,11 +29,7 @@ export class RefreshTokenService extends ApiServiceAbstract {
                 return newToken;
             } catch (error) {
                 dispatch(refreshTokenRejectedState(error.message));
-                NotificationsMessage({
-                    messageWithCustomText: 'unexpected.error.message',
-                    message: error.message,
-                    type: typeNotificationError
-                });
+                errorMessageInform(error.message, false);
 
                 return Promise.reject(error.message);
             }
@@ -66,11 +61,7 @@ export class RefreshTokenService extends ApiServiceAbstract {
         } else {
             const errorMessage = this.getParsedAPIError(response);
             dispatch(refreshTokenRejectedState(errorMessage));
-            NotificationsMessage({
-                messageWithCustomText: 'request.error.message',
-                message: errorMessage,
-                type: typeNotificationError
-            });
+            errorMessageInform(errorMessage);
 
             return Promise.reject(errorMessage);
         }

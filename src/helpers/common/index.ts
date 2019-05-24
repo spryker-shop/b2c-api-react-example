@@ -3,6 +3,7 @@ import { resolutionChecker } from './resolutionChecker';
 import { rangeFilterValueToFront, rangeFilterValueToBack } from './transform';
 import { getRouterMatchParam } from './router';
 import { getSalutationToShow } from './salutation';
+import { errorMessageInform } from './errorMessage';
 
 export {
     getAnonymId,
@@ -11,5 +12,6 @@ export {
     rangeFilterValueToFront,
     rangeFilterValueToBack,
     getRouterMatchParam,
-    getSalutationToShow
+    getSalutationToShow,
+    errorMessageInform
 };

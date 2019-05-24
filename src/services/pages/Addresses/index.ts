@@ -4,9 +4,8 @@ import { RefreshTokenService } from '@services/common/RefreshToken';
 import { api, setAuthToken } from '@services/api';
 import { TApiResponseData } from '@services/types';
 import { IAddressDataResponse } from '@services/pages/Addresses/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { AddressesActionsService } from './addressActions';
+import { errorMessageInform } from '@helpers/common';
 
 export class AddressesService extends AddressesActionsService {
     public static async getCustomerAddresses(dispatch: Function, customerId: string): Promise<void> {
@@ -26,20 +25,12 @@ export class AddressesService extends AddressesActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(addressesActions.getAddressesRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(addressesActions.getAddressesRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -70,19 +61,11 @@ export class AddressesService extends AddressesActionsService {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(addressesActions.getOneAddressRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
         } catch (error) {
             dispatch(addressesActions.getOneAddressRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

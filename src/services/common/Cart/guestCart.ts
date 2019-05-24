@@ -2,31 +2,19 @@ import * as cartActions from '@stores/actions/common/cart';
 import { api, removeAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
 import { parseCartResponse } from '@helpers/parsing';
-import { TApiResponseData, EIncludeTypes } from '@services/types';
+import { TApiResponseData, } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { cartEndpoint } from '@helpers/cart';
+import { errorMessageInform } from '@helpers/common';
 
 export class GuestCartService extends ApiServiceAbstract {
-    public static endpoint(path: string): string {
-        const includeParams =
-            `?include=${EIncludeTypes.GUEST_CART_ITEMS},` +
-            `${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
-            `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
-            `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
-            `${EIncludeTypes.CONCRETE_PRODUCTS},` +
-            `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
-            `${EIncludeTypes.CONCRETE_PRODUCT_PRICES},` +
-            EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES;
-
-        return `${path}${includeParams}`;
-    }
-
     public static async guestCartAddItem(dispatch: Function, payload: ICartAddItem, anonymId: string): Promise<void> {
         dispatch(cartActions.cartAddItemPendingStateAction());
         try {
             removeAuthToken();
             const body = { data: { type: 'guest-cart-items', attributes: payload } };
-            const endpoint = this.endpoint('guest-cart-items');
+            const endpoint = cartEndpoint('guest-cart-items', true);
             const response: TApiResponseData = await api.post(endpoint, body,
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
@@ -41,17 +29,13 @@ export class GuestCartService extends ApiServiceAbstract {
                 dispatch(cartActions.cartAddItemFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                this.errorMessageInform(errorMessage);
+                errorMessageInform(errorMessage);
                 dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
             dispatch(cartActions.cartAddItemRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -59,7 +43,7 @@ export class GuestCartService extends ApiServiceAbstract {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
             removeAuthToken();
-            const endpoint = this.endpoint('guest-carts');
+            const endpoint = cartEndpoint('guest-carts', true);
             const response: TApiResponseData = await api.get(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
@@ -81,17 +65,13 @@ export class GuestCartService extends ApiServiceAbstract {
                 return responseParsed.id;
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                this.errorMessageInform(errorMessage);
+                errorMessageInform(errorMessage);
                 dispatch(cartActions.getCartsRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
             dispatch(cartActions.getCartsRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -118,17 +98,13 @@ export class GuestCartService extends ApiServiceAbstract {
                 await GuestCartService.getGuestCart(dispatch, anonymId);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                this.errorMessageInform(errorMessage);
+                errorMessageInform(errorMessage);
                 dispatch(cartActions.cartDeleteItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
             dispatch(cartActions.cartDeleteItemRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -144,7 +120,7 @@ export class GuestCartService extends ApiServiceAbstract {
             const body = { data: { type: 'guest-cart-items', attributes: payload } };
             const { sku } = payload;
 
-            const endpoint = this.endpoint(`guest-carts/${cartId}/guest-cart-items/${sku}`);
+            const endpoint = cartEndpoint(`guest-carts/${cartId}/guest-cart-items/${sku}`, true);
             const response: TApiResponseData = await api.patch(endpoint, body,
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
@@ -159,25 +135,13 @@ export class GuestCartService extends ApiServiceAbstract {
                 dispatch(cartActions.cartUpdateItemFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                this.errorMessageInform(errorMessage);
+                errorMessageInform(errorMessage);
                 dispatch(cartActions.cartUpdateItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
             dispatch(cartActions.cartUpdateItemRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
-    }
-
-    public static errorMessageInform(errorMessage: string): void {
-        NotificationsMessage({
-            messageWithCustomText: 'request.error.message',
-            message: errorMessage,
-            type: typeNotificationError
-        });
     }
 }

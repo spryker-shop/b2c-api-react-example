@@ -5,10 +5,8 @@ import { TApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';
 import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { NavigationService } from '@services/common/Navigations';
-import { getAnonymId } from '@helpers/common';
+import { errorMessageInform, getAnonymId } from '@helpers/common';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
@@ -27,20 +25,12 @@ export class InitAppService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(initActions.initApplicationDataRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(initActions.initApplicationDataRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -59,20 +49,12 @@ export class InitAppService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(initActions.categoriesRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(initActions.categoriesRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -89,11 +71,7 @@ export class InitAppService extends ApiServiceAbstract {
 
         } catch (error) {
             dispatch(initActions.switchLocaleRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'change.language.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }
