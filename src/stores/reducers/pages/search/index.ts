@@ -13,7 +13,7 @@ import {
 } from '@stores/actionTypes/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
-import { DefaultItemsPerPage } from '@constants/search';
+import { defaultItemsPerPage } from '@constants/search';
 import { IIndexSignature } from '@interfaces/common';
 
 export const initialState: ISearchState = {
@@ -44,8 +44,8 @@ export const initialState: ISearchState = {
             numFound: 0,
             currentPage: 0,
             maxPage: 0,
-            currentItemsPerPage: DefaultItemsPerPage,
-            validItemsPerPageOptions: [DefaultItemsPerPage],
+            currentItemsPerPage: defaultItemsPerPage,
+            validItemsPerPageOptions: [defaultItemsPerPage],
         },
         category: [],
         spellingSuggestion: null
