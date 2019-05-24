@@ -22,9 +22,9 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
+                dispatch(initActions.getCategoriesTree(dispatch));
                 dispatch(initActions.anonymIdFilFilled(anonymId));
-                dispatch(initActions.getCategoriesAction());
+                dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(initActions.initApplicationDataRejectedStateAction(errorMessage));

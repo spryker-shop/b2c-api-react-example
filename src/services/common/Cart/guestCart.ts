@@ -65,7 +65,7 @@ export class GuestCartService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
-
+console.log(response, 'responseresponseresponseresponseresponse', anonymId);
             if (response.ok) {
                 if (!response.data.data.length) {
                     dispatch(cartActions.getCartsFulfilledStateAction(null));

@@ -118,8 +118,3 @@ export const updateGuestCartAction = (payload: ICartAddItem, cartId: string, ano
 export const updateCartFulfilledStateAction = (): ICartAction => ({
     type: actionTypes.CART_UPDATE_FULLFILLED_STATE
 });
-
-export const multiItemsCartAction = (cartId: string, listItems: string[]) =>
-    (dispatch: Function, getState: Function) => {
-        CartService.moveItemsToCart(dispatch, cartId, listItems);
-    };

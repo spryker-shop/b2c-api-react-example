@@ -34,7 +34,7 @@ export class CartService extends ApiServiceAbstract {
             dispatch(cartActions.getCartsPendingStateAction());
             const endpoint = this.endpoint('/carts');
             const response: TApiResponseData = await api.get(endpoint, { withCredentials: true });
-
+console.log(response, 'request.error.messagerequest.error.messagerequest.error.messagerequest.error.messagerequest.error.message');
             if (response.ok) {
                 if (!response.data.data[0].id) {
                     return;
@@ -149,7 +149,7 @@ export class CartService extends ApiServiceAbstract {
 
     public static async createCartAndAddItem(dispatch: Function, payload: ICartCreatePayload, item: ICartAddItem) {
         const cartId = await CartService.cartCreate(dispatch, payload);
-
+        console.log(response, 'request.error.messagerequest.error.messagerequest.error.messagerequest.error.messagerequest.error.message');
         if (cartId) {
             await CartService.cartAddItem(dispatch, item, cartId);
         }
@@ -226,23 +226,6 @@ export class CartService extends ApiServiceAbstract {
 
         } catch (error) {
             dispatch(cartActions.cartUpdateItemRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
-        }
-    }
-
-    public static async moveItemsToCart(dispatch: Function, cartId: string, productsList: string[]): Promise<void> {
-        try {
-            for (const sku of productsList) {
-                const payload = { sku, quantity: 1 };
-
-                await CartService.cartAddItem(dispatch, payload, cartId);
-            }
-        } catch (error) {
-            dispatch(cartActions.cartAddItemRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
