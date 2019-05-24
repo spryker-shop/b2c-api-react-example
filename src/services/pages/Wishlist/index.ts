@@ -5,7 +5,7 @@ import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
 import { WishlistAuthenticateErrorMessage } from '@translation/';
 import * as cartActions from '@stores/actions/common/cart';
 import { TApiResponseData } from '@services/types';
-import { IWishlistRawData, IRequestBody } from '@services/pages/Wishlist/types';
+import { IWishlistDataResponse, IRequestBody } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 import { parseWishlistResponse, parseWishlistItems } from '@helpers/parsing/wishlist';
@@ -21,7 +21,7 @@ export class WishlistService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
 
             if (response.ok) {
-                const wishlists: IWishlist[] = response.data.data.map((list: IWishlistRawData) =>
+                const wishlists: IWishlist[] = response.data.data.map((list: IWishlistDataResponse) =>
                     parseWishlistResponse(list));
 
                 dispatch({
@@ -73,12 +73,8 @@ export class WishlistService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
-                let products: IWishlistProduct[] = [];
                 const wishlist: IWishlist = parseWishlistResponse(response.data.data);
-
-                if (response.data.included) {
-                    products = parseWishlistItems(response.data.included);
-                }
+                const products: IWishlistProduct[] = parseWishlistItems(response.data);
 
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',

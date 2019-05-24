@@ -3,27 +3,22 @@ import {
     IProductsConcreteRowIncludedResponse,
     IProductRowAvailabilitiesIncludedResponse,
     IProductRowImageSetsIncludedResponse,
-    IProductRowPricesIncludedResponse
+    IProductRowPricesIncludedResponse,
+    IAbstractRowIncludedResponse,
+    IRelationshipsResponse
 } from '@services/types';
 
 export interface IWishlistRawResponse {
-    data: IWishlistRawData[];
-    id: string;
-    included?: TRowWishlistIncludedResponse[];
+    data: IWishlistDataResponse;
+    included: TWishlistRowIncludedResponse[];
 }
 
-export interface IWishlistRawData {
+interface IWishlistDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: IWishlist;
-    id: string;
-    links: {
-        self: string;
-    };
-    type: string;
 }
 
-export type TRowWishlistIncludedResponse = IProductRowImageSetsIncludedResponse
-    | IProductRowAvailabilitiesIncludedResponse
-    | IProductRowPricesIncludedResponse
+export type TWishlistRowIncludedResponse = IProductRowImageSetsIncludedResponse
+    | IProductRowAvailabilitiesIncludedResponse | IProductRowPricesIncludedResponse
     | IProductsConcreteRowIncludedResponse;
 
 export interface IRequestBody {

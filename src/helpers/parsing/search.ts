@@ -9,7 +9,7 @@ import { rangeMaxType, rangeMinType } from '@constants/search';
 import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
-import { TProductRowResponseIncluded } from '@services/pages/Product/types';
+import { TProductRowIncludedResponse } from '@services/pages/Product/types';
 import {
     IProductLabelsCollectionResponse,
     IProductAvailableLabelResponse,
@@ -133,7 +133,7 @@ export const parseFlyoutSearchResponse = (response: ISuggestionSearchRawResponse
             };
         });
 
-    response.included && response.included.forEach((row: TProductRowResponseIncluded) => {
+    response.included && response.included.forEach((row: TProductRowIncludedResponse) => {
         const product: IProductCardResponse = products.find(product => product.abstractSku === row.id);
 
         if (row.type === 'abstract-product-prices' && product && row.attributes.prices) {

@@ -1,9 +1,13 @@
-import { IWishlistRawData, IWishlistRawResponse, TRowWishlistIncludedResponse } from '@services/pages/Wishlist/types';
+import {
+    IWishlistDataResponse,
+    IWishlistRawResponse,
+    TWishlistRowIncludedResponse
+} from '@services/pages/Wishlist/types';
 import { EIncludeTypes } from '@services/types';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { parsePrices } from '@helpers/parsing/common';
 
-export const parseWishlistResponse = (data: IWishlistRawData): IWishlist => {
+export const parseWishlistResponse = (data: IWishlistDataResponse): IWishlist => {
     const wishlist: IWishlist = {
         id: data.id,
         name: data.attributes.name,
@@ -15,10 +19,14 @@ export const parseWishlistResponse = (data: IWishlistRawData): IWishlist => {
     return wishlist;
 };
 
-export const parseWishlistItems = (included: IWishlistRawResponse['included']): IWishlistProduct[] => {
+export const parseWishlistItems = (response: IWishlistRawResponse): IWishlistProduct[] => {
+    if (!response.included) {
+        return null;
+    }
+
     const items: {[key: string]: IWishlistProduct} = {};
 
-    included.forEach((row: TRowWishlistIncludedResponse) => {
+    response.included.forEach((row: TWishlistRowIncludedResponse) => {
         if (!items[row.id]) {
             items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
         }

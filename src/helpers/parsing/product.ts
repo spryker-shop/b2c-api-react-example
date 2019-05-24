@@ -7,7 +7,7 @@ import {
     IProductDataParsed
 } from '@interfaces/product';
 import { abstractProductType, concreteProductType } from '@constants/product';
-import { IProductRawResponse, TProductRowResponseIncluded } from '@services/pages/Product/types';
+import { IProductRawResponse, TProductRowIncludedResponse } from '@services/pages/Product/types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 import { IProductLabelsRowIncludedResponse } from '@services/types';
@@ -66,7 +66,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         });
     }
 
-    included.forEach((row: TProductRowResponseIncluded) => {
+    included.forEach((row: TProductRowIncludedResponse) => {
         if (row.type === 'abstract-product-image-sets') {
             result.abstractProduct.images = parseImageSets(row.attributes.imageSets);
 

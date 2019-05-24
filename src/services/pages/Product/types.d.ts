@@ -11,13 +11,13 @@ import {
 
 export interface IProductRawResponse {
     data: IProductDataResponse;
-    included: TProductRowResponseIncluded[];
+    included: TProductRowIncludedResponse[];
 }
 
 interface IProductDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: IProductAttributesRawResponse;
 }
 
-export type TProductRowResponseIncluded = IProductRowPricesIncludedResponse | IProductRowImageSetsIncludedResponse
+export type TProductRowIncludedResponse = IProductRowPricesIncludedResponse | IProductRowImageSetsIncludedResponse
     | IProductRowAvailabilitiesIncludedResponse | IProductsConcreteRowIncludedResponse
     | IProductLabelsRowIncludedResponse;
