@@ -6,7 +6,7 @@ import {
     isWishlistsCollectionInitiated
 } from '@stores/reducers/pages/wishlist/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { addItemAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
+import { addItemWishlistAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
 import {
     addItemGuestCartAction,
     addItemToCartAction,
@@ -41,7 +41,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 const mapDispatchToProps = (dispatch: Function) => ({
     dispatch,
     getWishlists: () => dispatch(getWishlistsAction()),
-    addToWishlist: (wishlistId: string, sku: string) => dispatch(addItemAction(wishlistId, sku)),
+    addToWishlist: (wishlistId: string, sku: string) => dispatch(addItemWishlistAction(wishlistId, sku)),
     createCartAndAddItem: (
         payload: ICartCreatePayload,
         item: ICartAddItem

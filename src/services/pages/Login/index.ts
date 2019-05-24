@@ -1,7 +1,7 @@
+import * as loginActions from '@stores/actions/pages/login';
 import { api, ApiServiceAbstract } from '@services/api';
-import { saveLoginDataToStoreAction, deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
+import { deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
 import { parseLoginDataResponse } from '@helpers/parsing';
-import * as loginActions  from '@stores/actions/pages/login';
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { TApiResponseData } from '@services/types';
@@ -15,7 +15,6 @@ export class PagesLoginService extends ApiServiceAbstract {
     public static async register(dispatch: Function, payload: ICustomerProfile, getState: Function): Promise<void> {
         const anonymId: string = getState().init.data.anonymId;
         dispatch(loginActions.registerPendingState());
-
         try {
             const body = { data: { type: 'customers', attributes: payload } };
             const response: TApiResponseData = await api.post(
@@ -31,10 +30,11 @@ export class PagesLoginService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                await PagesLoginService.loginRequest(dispatch, {
-                    username: payload.email,
-                    password: payload.password
-                }, anonymId);
+                await PagesLoginService.loginRequest(
+                    dispatch,
+                    { username: payload.email, password: payload.password },
+                    anonymId
+                );
                 clearAnonymId();
             } else {
                 const errorMessage = this.getParsedAPIError(response);
@@ -64,9 +64,8 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async loginRequest(dispatch: Function, payload: ICustomerLoginData, anonymId: string): Promise<void> {
+        dispatch(loginActions.loginCustomerPendingStateAction());
         try {
-            dispatch(loginActions.loginCustomerPendingStateAction());
-
             const body = { data: { type: 'access-tokens', attributes: payload } };
             const response: TApiResponseData = await api.post(
                 'access-tokens',
@@ -76,7 +75,7 @@ export class PagesLoginService extends ApiServiceAbstract {
 
             if (response.ok) {
                 const responseParsed = parseLoginDataResponse(response.data);
-                dispatch(saveLoginDataToStoreAction({ email: payload.username }));
+                dispatch(loginActions.saveLoginDataToStoreAction({ email: payload.username }));
                 saveAccessDataToLocalStorage(responseParsed);
                 dispatch(loginActions.loginCustomerFulfilledStateAction(responseParsed));
                 NotificationsMessage({
@@ -103,9 +102,8 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async forgotPassword(dispatch: Function, email: string): Promise<void> {
+        dispatch(loginActions.forgotPasswordPendingState());
         try {
-            dispatch(loginActions.forgotPasswordPendingState());
-
             const body = { data: { type: 'customer-forgotten-password', attributes: { email } } };
             const response: TApiResponseData = await api.post(
                 'customer-forgotten-password',
@@ -138,9 +136,8 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static async resetPassword(dispatch: Function, payload: IResetPasswordPayload): Promise<void> {
+        dispatch(loginActions.resetPasswordPendingState());
         try {
-            dispatch(loginActions.resetPasswordPendingState());
-
             const body = { data: { type: 'customer-restore-password', attributes: payload } };
             const response: TApiResponseData = await api.patch(
                 'customer-restore-password',
@@ -177,7 +174,7 @@ export class PagesLoginService extends ApiServiceAbstract {
         const anonymId = getAnonymId();
 
         dispatch(anonymIdFilFilled(anonymId));
-        dispatch(loginActions.logoutAction());
+        dispatch(loginActions.logoutFulfilledState());
         dispatch(deleteCustomerFulfilledStateAction());
         dispatch(clearWishlistState());
     }

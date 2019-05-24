@@ -1,7 +1,7 @@
+import * as orderActions from '@stores/actions/pages/order';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import * as orderActions from '@stores/actions/pages/order';
-import { OrderAuthenticateErrorMessage } from '@translation/';
+import { orderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -10,12 +10,11 @@ import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
 
 export class OrderService extends ApiServiceAbstract {
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
+        dispatch(orderActions.ordersCollectionPendingStateAction());
         try {
-            dispatch(orderActions.ordersCollectionPendingStateAction());
-
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const response: TApiResponseData = await api.get('orders', null, {withCredentials: true});
@@ -44,12 +43,11 @@ export class OrderService extends ApiServiceAbstract {
     }
 
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
+        dispatch(orderActions.orderDetailsPendingStateAction());
         try {
-            dispatch(orderActions.orderDetailsPendingStateAction());
-
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
             const endpoint = `orders/${orderId}`;

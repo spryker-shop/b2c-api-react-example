@@ -17,11 +17,11 @@ export const getCartsRejectedStateAction = (message: string): ICartAction => ({
     payloadRejected: { error: message }
 });
 
-export const getCustomerCartsAction = () => (dispatch: Function, getState: Function) => {
+export const getCustomerCartsAction = (): Function => (dispatch: Function, getState: Function): void => {
     CartService.getCustomerCarts(dispatch);
 };
 
-export const getGuestCartAction = (anonymId: string) => (dispatch: Function, getState: Function) => {
+export const getGuestCartAction = (anonymId: string): Function => (dispatch: Function, getState: Function): void => {
     GuestCartService.getGuestCart(dispatch, anonymId);
 };
 
@@ -39,12 +39,13 @@ export const cartDeleteItemFulfilledStateAction = (payload: { sku: string }): IC
     payloadCartDeleteItemFulfilled: payload
 });
 
-export const cartDeleteItemAction = (cartId: string, itemId: string) => (dispatch: Function, getState: Function) => {
+export const cartDeleteItemAction = (cartId: string, itemId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
     CartService.cartDeleteItem(dispatch, cartId, itemId);
 };
 
-export const removeItemGuestCartAction = (cartUid: string, sku: string, anonymId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const removeItemGuestCartAction = (cartUid: string, sku: string, anonymId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         GuestCartService.guestCartRemoveItem(dispatch, cartUid, sku, anonymId);
     };
 
@@ -62,13 +63,13 @@ export const cartAddItemRejectedStateAction = (message: string): ICartAction => 
     payloadRejected: { error: message }
 });
 
-export const addItemToCartAction = (payload: ICartAddItem, cartId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const addItemToCartAction = (payload: ICartAddItem, cartId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         CartService.cartAddItem(dispatch, payload, cartId);
     };
 
-export const addItemGuestCartAction = (payload: ICartAddItem, anonymId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const addItemGuestCartAction = (payload: ICartAddItem, anonymId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         GuestCartService.guestCartAddItem(dispatch, payload, anonymId);
     };
 
@@ -86,8 +87,8 @@ export const cartCreateFulfilledStateAction = (payload: ICartDataParsed): ICartA
     payloadCartItemFulfilled: payload
 });
 
-export const createCartAndAddItemAction = (payloadCartCreate: ICartCreatePayload, item: ICartAddItem) =>
-    (dispatch: Function, getState: Function) => {
+export const createCartAndAddItemAction = (payloadCartCreate: ICartCreatePayload, item: ICartAddItem): Function =>
+    (dispatch: Function, getState: Function): void => {
         CartService.createCartAndAddItem(dispatch, payloadCartCreate, item);
     };
 
@@ -105,13 +106,13 @@ export const cartUpdateItemFulfilledStateAction = (payload: ICartDataParsed): IC
     payloadCartItemFulfilled: payload
 });
 
-export const updateItemInCartAction = (payload: ICartAddItem, cartId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const updateItemInCartAction = (payload: ICartAddItem, cartId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         CartService.cartUpdateItem(dispatch, payload, cartId);
     };
 
-export const updateGuestCartAction = (payload: ICartAddItem, cartId: string, anonymId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const updateGuestCartAction = (payload: ICartAddItem, cartId: string, anonymId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         GuestCartService.guestCartUpdate(dispatch, payload, cartId, anonymId);
     };
 

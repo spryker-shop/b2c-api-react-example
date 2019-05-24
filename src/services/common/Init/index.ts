@@ -1,5 +1,5 @@
-import { api, ApiServiceAbstract } from '@services/api';
 import * as initActions from '@stores/actions/common/init';
+import { api, ApiServiceAbstract } from '@services/api';
 import { parseStoreResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';
@@ -14,7 +14,6 @@ export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
         const isTouch = 'ontouchstart' in window;
         dispatch(initActions.initApplicationDataPendingStateAction());
-
         try {
             const anonymId = getAnonymId();
             const response: TApiResponseData = await api.get('stores', null);
@@ -22,7 +21,7 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initActions.getCategoriesTree(dispatch));
+                dispatch(initActions.getCategoriesAction());
                 dispatch(initActions.anonymIdFilFilled(anonymId));
                 dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
             } else {
@@ -46,8 +45,8 @@ export class InitAppService extends ApiServiceAbstract {
     }
 
     public static async getCategoriesTree(dispatch: Function): Promise<void> {
+        dispatch(initActions.categoriesPendingState());
         try {
-            dispatch(initActions.categoriesPendingState());
             const response: TApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
 
             if (response.ok) {

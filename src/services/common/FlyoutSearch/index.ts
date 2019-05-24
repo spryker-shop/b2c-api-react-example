@@ -10,7 +10,6 @@ export class FlyoutSearchService extends ApiServiceAbstract {
     public static async searchSuggestion(dispatch: Function, query: string): Promise<void> {
         dispatch(suggestPendingState());
         try {
-
             const response: TApiResponseData = await api.get(
                 'catalog-search-suggestions',
                 { q: query, include: `${EIncludeTypes.ABSTRACT_PRODUCTS},${EIncludeTypes.ABSTRACT_PRODUCT_PRICES}` },

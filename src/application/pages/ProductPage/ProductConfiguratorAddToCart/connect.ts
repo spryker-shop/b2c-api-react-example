@@ -6,13 +6,13 @@ import {
     isWishlistsCollectionInitiated
 } from '@stores/reducers/pages/wishlist/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { addItemAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
+import { addItemWishlistAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
 import {
     addItemGuestCartAction,
     addItemToCartAction,
     createCartAndAddItemAction
 } from '@stores/actions/common/cart';
-import { getCartId, isCartCreated } from '@stores/reducers/common/cart/selectors';
+import { getCartId, isCartCreated, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartCreatePayload, ICartAddItem } from '@interfaces/cart';
 
@@ -25,6 +25,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlists = getWishlistsCollectionFromStore(state, ownProps);
     const isWishlistsFetched: boolean = isWishlistsCollectionInitiated(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
+    const isCartLoading: boolean = isCartStateLoading(state, ownProps);
 
     return ({
         cartCreated,
@@ -34,18 +35,17 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         wishlists,
         isWishlistsFetched,
         isWishlistLoading,
-        anonymId
+        anonymId,
+        isCartLoading
     });
 };
 
 const mapDispatchToProps = (dispatch: Function) => ({
     dispatch,
     getWishlists: () => dispatch(getWishlistsAction()),
-    addToWishlist: (wishlistId: string, sku: string) => dispatch(addItemAction(wishlistId, sku)),
-    createCartAndAddItem: (
-        payload: ICartCreatePayload,
-        item: ICartAddItem
-    ) => dispatch(createCartAndAddItemAction(payload, item)),
+    addToWishlist: (wishlistId: string, sku: string) => dispatch(addItemWishlistAction(wishlistId, sku)),
+    createCartAndAddItem: (payload: ICartCreatePayload, item: ICartAddItem) =>
+        dispatch(createCartAndAddItemAction(payload, item)),
     addItemToCart: (payload: ICartAddItem, cartId: string) => dispatch(addItemToCartAction(payload, cartId)),
     addItemGuestCart: (item: ICartAddItem, anonymId: string) => dispatch(addItemGuestCartAction(item, anonymId))
 });

@@ -1,7 +1,7 @@
+import * as cartActions from '@stores/actions/common/cart';
 import { api, removeAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
 import { parseCartResponse } from '@helpers/parsing';
-import * as cartActions from '@stores/actions/common/cart';
 import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
@@ -22,10 +22,9 @@ export class GuestCartService extends ApiServiceAbstract {
     }
 
     public static async guestCartAddItem(dispatch: Function, payload: ICartAddItem, anonymId: string): Promise<void> {
+        dispatch(cartActions.cartAddItemPendingStateAction());
         try {
             removeAuthToken();
-            dispatch(cartActions.cartAddItemPendingStateAction());
-
             const body = { data: { type: 'guest-cart-items', attributes: payload } };
             const endpoint = this.endpoint('guest-cart-items');
             const response: TApiResponseData = await api.post(endpoint, body,
@@ -57,18 +56,19 @@ export class GuestCartService extends ApiServiceAbstract {
     }
 
     public static async getGuestCart(dispatch: Function, anonymId: string): Promise<string> {
+        dispatch(cartActions.getCartsPendingStateAction());
         try {
             removeAuthToken();
-
-            dispatch(cartActions.getCartsPendingStateAction());
             const endpoint = this.endpoint('guest-carts');
             const response: TApiResponseData = await api.get(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
-console.log(response, 'responseresponseresponseresponseresponse', anonymId);
+
             if (response.ok) {
                 if (!response.data.data.length) {
                     dispatch(cartActions.getCartsFulfilledStateAction(null));
+
+                    return;
                 }
 
                 const responseParsed = parseCartResponse({
@@ -101,10 +101,9 @@ console.log(response, 'responseresponseresponseresponseresponse', anonymId);
         sku: string,
         anonymId: string
     ): Promise<void> {
+        dispatch(cartActions.cartDeleteItemPendingStateAction());
         try {
             removeAuthToken();
-            dispatch(cartActions.cartDeleteItemPendingStateAction());
-
             const endpoint = `guest-carts/${cartUid}/guest-cart-items/${sku}`;
             const response: TApiResponseData = await api.delete(endpoint, {},
                 { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
@@ -139,13 +138,10 @@ console.log(response, 'responseresponseresponseresponseresponse', anonymId);
         cartId: string,
         anonymId: string
     ): Promise<void> {
+        dispatch(cartActions.cartUpdateItemPendingStateAction());
         try {
             removeAuthToken();
-            dispatch(cartActions.cartUpdateItemPendingStateAction());
-
-            const body = {
-                data: { type: 'guest-cart-items', attributes: payload }
-            };
+            const body = { data: { type: 'guest-cart-items', attributes: payload } };
             const { sku } = payload;
 
             const endpoint = this.endpoint(`guest-carts/${cartId}/guest-cart-items/${sku}`);

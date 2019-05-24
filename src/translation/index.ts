@@ -558,8 +558,8 @@ export const messages: IMessages = {
     }
 };
 
-// Console Messages
-export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
-export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
-export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const cartAuthenticateErrorMessage = 'You should login to add item to the cart';
+export const customerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
+export const orderAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const wishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const firstWishlistName = 'Wishlist';

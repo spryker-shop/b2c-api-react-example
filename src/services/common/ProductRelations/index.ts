@@ -1,7 +1,7 @@
+import * as productRelationsActions from '@stores/actions/common/productRelations';
 import { api, ApiServiceAbstract } from '@services/api';
 import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { typeNotificationError } from '@constants/notifications';
-import * as productRelationsActions from '@stores/actions/common/productRelations';
 import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 
@@ -17,8 +17,8 @@ export class ProductRelationsService extends ApiServiceAbstract {
     }
 
     public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
+        dispatch(productRelationsActions.productRelationsPendingAction());
         try {
-            dispatch(productRelationsActions.productRelationsPendingAction());
             const endpoint = this.endpoint(`abstract-products/${sku}/related-products`);
             const response: TApiResponseData = await api.get(endpoint);
 
@@ -42,8 +42,8 @@ export class ProductRelationsService extends ApiServiceAbstract {
         isUserLoggedIn?: boolean,
         anonymId?: string
     ): Promise<void> {
+        dispatch(productRelationsActions.productRelationsPendingAction());
         try {
-            dispatch(productRelationsActions.productRelationsPendingAction());
             const requestHeader = !isUserLoggedIn
                 ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
                 : {};

@@ -19,7 +19,7 @@ export const initApplicationDataFulfilledStateAction = (payload: IInitData): IIn
     payloadInitFulfilled: payload
 });
 
-export const initApplicationDataAction = () => (dispatch: Function, getState: Function) => {
+export const initApplicationDataAction = (): Function => (dispatch: Function, getState: Function): void => {
     InitAppService.getInitData(dispatch);
 };
 
@@ -37,7 +37,7 @@ export const categoriesFulfilledState = (categories: ICategory[]): IInitAction =
     payloadCategoriesTreeFulfilled: { categories }
 });
 
-export const getCategoriesAction = () => (dispatch: Function, getState: Function) => {
+export const getCategoriesAction = (): Function => (dispatch: Function, getState: Function): void => {
     InitAppService.getCategoriesTree(dispatch);
 };
 
@@ -55,7 +55,7 @@ export const switchLocaleFulfilledState = (payload: ILocaleActionPayload): IInit
     payloadLocaleFulfilled: payload
 });
 
-export const switchLocaleAction = (payload: any) => (dispatch: Function, getState: Function) => {
+export const switchLocaleAction = (payload: any): Function => (dispatch: Function, getState: Function): void => {
     InitAppService.switchLocale(dispatch, payload);
 };
 

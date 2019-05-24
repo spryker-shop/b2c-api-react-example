@@ -1,7 +1,7 @@
+import * as CheckoutActions from '@stores/actions/pages/checkout';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { ICheckoutRequest } from '@interfaces/checkout';
-import * as CheckoutActions from '@stores/actions/pages/checkout';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
@@ -14,6 +14,7 @@ export class CheckoutService extends ApiServiceAbstract {
         payload: ICheckoutRequest,
         anonymId: string
     ): Promise<void> {
+        dispatch(CheckoutActions.getCheckoutDataInitPendingStateAction());
         try {
             let headers: { withCredentials: boolean, headers?: {} };
 
@@ -31,8 +32,6 @@ export class CheckoutService extends ApiServiceAbstract {
                     attributes: payload,
                 }
             };
-
-            dispatch(CheckoutActions.getCheckoutDataInitPendingStateAction());
 
             const response: TApiResponseData = await api.post('checkout-data', body, headers);
 
@@ -60,6 +59,7 @@ export class CheckoutService extends ApiServiceAbstract {
     }
 
     public static async sendOrderData(dispatch: Function, payload: ICheckoutRequest, anonymId: string): Promise<void> {
+        dispatch(CheckoutActions.sendCheckoutDataPendingStateAction());
         try {
             let headers: { withCredentials: boolean, headers?: {} };
 
@@ -77,8 +77,6 @@ export class CheckoutService extends ApiServiceAbstract {
                     attributes: payload,
                 }
             };
-
-            dispatch(CheckoutActions.sendCheckoutDataPendingStateAction());
 
             const response: TApiResponseData = await api.post('checkout', body, headers);
 

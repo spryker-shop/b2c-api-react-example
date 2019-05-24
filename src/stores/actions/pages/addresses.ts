@@ -17,7 +17,7 @@ export const getAddressesRejectedStateAction = (message: string): IPageAddresses
     payloadRejected: { error: message }
 });
 
-export const getAddressesAction = (customerId: string) => (dispatch: Function, getState: Function) => {
+export const getAddressesAction = (customerId: string): Function => (dispatch: Function, getState: Function): void => {
     AddressesService.getCustomerAddresses(dispatch, customerId);
 };
 
@@ -35,8 +35,8 @@ export const addAddressRejectedStateAction = (message: string): IPageAddressesAc
     payloadRejected: { error: message }
 });
 
-export const addAddressAction = (payload: IAddressItem, customerId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const addAddressAction = (payload: IAddressItem, customerId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         AddressesService.addAddress(dispatch, payload, customerId);
     };
 
@@ -55,8 +55,8 @@ export const updateAddressRejectedStateAction = (message: string): IPageAddresse
     payloadRejected: { error: message }
 });
 
-export const updateAddressAction = (addressId: string, customerId: string, payload: IAddressItem) =>
-    (dispatch: Function, getState: Function) => {
+export const updateAddressAction = (addressId: string, customerId: string, payload: IAddressItem): Function =>
+    (dispatch: Function, getState: Function): void => {
         AddressesService.updateAddress(dispatch, addressId, customerId, payload);
     };
 
@@ -74,8 +74,8 @@ export const deleteAddressRejectedStateAction = (message: string): IPageAddresse
     payloadRejected: { error: message }
 });
 
-export const deleteAddressAction = (addressId: string, customerId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const deleteAddressAction = (addressId: string, customerId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         AddressesService.deleteAddress(dispatch, addressId, customerId);
     };
 
@@ -94,8 +94,8 @@ export const getOneAddressRejectedStateAction = (message: string): IPageAddresse
     payloadRejected: { error: message }
 });
 
-export const getOneAddressAction = (customerId: string, addressId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const getOneAddressAction = (customerId: string, addressId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         AddressesService.getOneCustomerAddress(dispatch, customerId, addressId);
     };
 
@@ -107,13 +107,14 @@ export const multipleAddressesFulfilledStateAction = (): IPageAddressesAction =>
     type: actionTypes.MULTIPLE_ADDRESSES + '_PENDING'
 });
 
-export const addMultipleAddressAction = (payload: IAddressItem, customerId: string, billing: IAddressItem | null) =>
-    (dispatch: Function, getState: Function) => {
-        AddressesService.addMultipleAddressAction(dispatch, payload, customerId, billing);
-    };
+export const addMultipleAddressAction =
+    (payload: IAddressItem, customerId: string, billing: IAddressItem | null): Function =>
+        (dispatch: Function, getState: Function): void => {
+            AddressesService.addMultipleAddressAction(dispatch, payload, customerId, billing);
+        };
 
 export const setCurrentAddressAction = (addressId: string): IPageAddressesAction => ({
-    type: actionTypes.DELETE_ADDRESS + '_FULFILLED',
+    type: actionTypes.SET_CURRENT_ADDRESS + '_FULFILLED',
     addressId
 });
 

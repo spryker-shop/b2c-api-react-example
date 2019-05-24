@@ -29,7 +29,6 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
         const { classes, customerData, isAddressesListInitiated, isHasOrders, addresses } = this.props;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const isParallelRequest = isDevServer ? isAddressesListInitiated : true;
-        console.log(isDevServer, isAddressesListInitiated);
 
         return (
             <>

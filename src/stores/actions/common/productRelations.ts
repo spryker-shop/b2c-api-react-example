@@ -17,11 +17,12 @@ export const productRelationsFulfilledAction = (payload: IProductRelationsItem[]
     payloadFulfilled: payload
 });
 
-export const getProductRelationsAction = (payload: string) => (dispatch: Function, getState: Function) => {
-    ProductRelationsService.getProductRelations(dispatch, payload);
-};
+export const getProductRelationsAction = (payload: string): Function =>
+    (dispatch: Function, getState: Function): void => {
+        ProductRelationsService.getProductRelations(dispatch, payload);
+    };
 
-export const getProductRelationsCartAction = (cartId: string, isUserLoggedIn: boolean, anonymId: string) =>
-    (dispatch: Function, getState: Function) => {
+export const getProductRelationsCartAction = (cartId: string, isUserLoggedIn: boolean, anonymId: string): Function =>
+    (dispatch: Function, getState: Function): void => {
         ProductRelationsService.getProductRelationsCart(dispatch, cartId, isUserLoggedIn, anonymId);
     };

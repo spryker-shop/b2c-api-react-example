@@ -1,7 +1,7 @@
+import * as navigationsActions from '@stores/actions/common/navigations';
 import { api, ApiServiceAbstract } from '@services/api';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
-import * as navigationsActions from '@stores/actions/common/navigations';
 import { TApiResponseData } from '@services/types';
 import { IMainNavigationNode } from '@interfaces/navigations';
 

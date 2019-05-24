@@ -10,11 +10,11 @@ import { AddressesActionsService } from './addressActions';
 
 export class AddressesService extends AddressesActionsService {
     public static async getCustomerAddresses(dispatch: Function, customerId: string): Promise<void> {
+        dispatch(addressesActions.getAddressesPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            dispatch(addressesActions.getAddressesPendingStateAction());
             const endpoint = `customers/${ customerId }/addresses`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
@@ -48,11 +48,11 @@ export class AddressesService extends AddressesActionsService {
         customerId: string,
         addressId: string
     ): Promise<void> {
+        dispatch(addressesActions.getOneAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            dispatch(addressesActions.getOneAddressPendingStateAction());
             const endpoint = `customers/${ customerId }/addresses/${ addressId }`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 

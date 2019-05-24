@@ -10,10 +10,10 @@ import { AddressesService } from '@services/pages/Addresses';
 
 export class AddressesActionsService extends ApiServiceAbstract {
     public static async addAddress(dispatch: Function, payload: IAddressItem, customerId: string): Promise<void> {
+        dispatch(addressesActions.addAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
-            dispatch(addressesActions.addAddressPendingStateAction());
 
             const body: IRequestUpdateAddressBody = {
                 data: {
@@ -55,10 +55,10 @@ export class AddressesActionsService extends ApiServiceAbstract {
     }
 
     public static async deleteAddress(dispatch: Function, addressId: string, customerId: string): Promise<void> {
+        dispatch(addressesActions.deleteAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
-            dispatch(addressesActions.deleteAddressPendingStateAction());
 
             const response: TApiResponseData = await api.delete(
                 `customers/${ customerId }/addresses/${ addressId }`, {}, { withCredentials: true }
@@ -96,10 +96,10 @@ export class AddressesActionsService extends ApiServiceAbstract {
         customerId: string,
         payload: IAddressItem
     ): Promise<void> {
+        dispatch(addressesActions.updateAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
-            dispatch(addressesActions.updateAddressPendingStateAction());
 
             const body: IRequestUpdateAddressBody = {
                 data: {

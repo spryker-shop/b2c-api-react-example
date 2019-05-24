@@ -2,7 +2,7 @@ import * as cartActions from '@stores/actions/common/cart';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem, ICartDataParsed, ICartCreatePayload } from '@interfaces/cart';
 import { parseCartCreateResponse, parseCartResponse } from '@helpers/parsing';
-import { CartAuthenticateErrorMessage } from '@translation/';
+import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -24,17 +24,17 @@ export class CartService extends ApiServiceAbstract {
     }
 
     public static async getCustomerCarts(dispatch: Function): Promise<string> {
+        dispatch(cartActions.getCartsPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(CartAuthenticateErrorMessage);
+                Promise.reject(cartAuthenticateErrorMessage);
             }
             setAuthToken(token);
 
-            dispatch(cartActions.getCartsPendingStateAction());
             const endpoint = this.endpoint('/carts');
             const response: TApiResponseData = await api.get(endpoint, { withCredentials: true });
-console.log(response, 'request.error.messagerequest.error.messagerequest.error.messagerequest.error.messagerequest.error.message');
+
             if (response.ok) {
                 if (!response.data.data[0].id) {
                     return;
@@ -63,9 +63,8 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
     }
 
     public static async cartCreate(dispatch: Function, payload: ICartCreatePayload): Promise<string> {
+        dispatch(cartActions.cartCreatePendingStateAction());
         try {
-            dispatch(cartActions.cartCreatePendingStateAction());
-
             const body = {
                 data: {
                     type: 'carts',
@@ -75,7 +74,7 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(CartAuthenticateErrorMessage);
+                Promise.reject(cartAuthenticateErrorMessage);
             }
             setAuthToken(token);
 
@@ -104,9 +103,8 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
     }
 
     public static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: string): Promise<void> {
+        dispatch(cartActions.cartAddItemPendingStateAction());
         try {
-            dispatch(cartActions.cartAddItemPendingStateAction());
-
             const body = {
                 data: {
                     type: 'items',
@@ -116,7 +114,7 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
 
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(CartAuthenticateErrorMessage);
+                Promise.reject(cartAuthenticateErrorMessage);
             }
             setAuthToken(token);
 
@@ -149,18 +147,18 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
 
     public static async createCartAndAddItem(dispatch: Function, payload: ICartCreatePayload, item: ICartAddItem) {
         const cartId = await CartService.cartCreate(dispatch, payload);
-        console.log(response, 'request.error.messagerequest.error.messagerequest.error.messagerequest.error.messagerequest.error.message');
+
         if (cartId) {
             await CartService.cartAddItem(dispatch, item, cartId);
         }
     }
 
     public static async cartDeleteItem(dispatch: Function, cartId: string, sku: string): Promise<void> {
+        dispatch(cartActions.cartDeleteItemPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            dispatch(cartActions.cartDeleteItemPendingStateAction());
             const endpoint = `carts/${cartId}/items/${sku}`;
             const response: TApiResponseData = await api.delete(endpoint, {}, { withCredentials: true });
 
@@ -189,9 +187,8 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
     }
 
     public static async cartUpdateItem(dispatch: Function, payload: ICartAddItem, cartId: string): Promise<void> {
+        dispatch(cartActions.cartUpdateItemPendingStateAction());
         try {
-            dispatch(cartActions.cartUpdateItemPendingStateAction());
-
             const body = {
                 data: {
                     type: 'items',
@@ -203,7 +200,7 @@ console.log(response, 'request.error.messagerequest.error.messagerequest.error.m
             const token = await RefreshTokenService.getActualToken(dispatch);
 
             if (!token) {
-                Promise.reject(CartAuthenticateErrorMessage);
+                Promise.reject(cartAuthenticateErrorMessage);
             }
 
             setAuthToken(token);

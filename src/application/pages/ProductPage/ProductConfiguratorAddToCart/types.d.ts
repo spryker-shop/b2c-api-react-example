@@ -15,13 +15,12 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
     cartId?: string;
     payloadForCreateCart?: ICartCreatePayload;
     anonymId?: string;
+    isCartLoading?: boolean;
 }
 
 export interface IProductConfiguratorAddToCartState {
     quantitySelected: number;
     quantity: number;
-    isBuyBtnDisabled?: boolean;
-    isProcessCartLoading?: boolean;
     availability: boolean | null;
     sku: string | null;
     isUpdateValue: boolean;

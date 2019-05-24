@@ -4,7 +4,7 @@ import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { push } from 'connected-react-router';
 import { addItemToCartAction } from '@stores/actions/common/cart';
-import { deleteItemAction } from '@stores/actions/pages/wishlist';
+import { deleteItemWishlistAction } from '@stores/actions/pages/wishlist';
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         {
             changeLocation: (location: string) => push(location),
             addItemToCartAction,
-            deleteItemAction,
+            deleteItemWishlistAction,
         },
         dispatch,
     );
