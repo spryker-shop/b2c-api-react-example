@@ -1,7 +1,7 @@
+import * as cartActions from '@stores/actions/common/cart';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem, ICartDataParsed, ICartCreatePayload } from '@interfaces/cart';
 import { parseCartCreateResponse, parseCartResponse } from '@helpers/parsing';
-import * as cartActions from '@stores/actions/common/cart';
 import { CartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { TApiResponseData, EIncludeTypes } from '@services/types';
