@@ -41,7 +41,9 @@ export class GuestCartService extends ApiServiceAbstract {
                 const responseParsed = parseCartResponse(response.data);
                 dispatch(cartActions.cartAddItemFulfilledStateAction(responseParsed));
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -78,7 +80,9 @@ export class GuestCartService extends ApiServiceAbstract {
 
                 return responseParsed.id;
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.getCartsRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -99,7 +103,7 @@ export class GuestCartService extends ApiServiceAbstract {
     ): Promise<void> {
         try {
             removeAuthToken();
-            dispatch(cartActions.cartDeleteItemPendingStateAction);
+            dispatch(cartActions.cartDeleteItemPendingStateAction());
 
             const endpoint = `guest-carts/${cartUid}/guest-cart-items/${sku}`;
             const response: TApiResponseData = await api.delete(endpoint, {},
@@ -107,17 +111,20 @@ export class GuestCartService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
+                dispatch(cartActions.cartDeleteItemFulfilledStateAction({ sku }));
                 NotificationsMessage({
                     id: 'items.removed.message',
                     type: typeNotificationSuccess
                 });
                 await GuestCartService.getGuestCart(dispatch, anonymId);
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartDeleteItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
-            dispatch(cartActions.getCartsRejectedStateAction(error.message));
+            dispatch(cartActions.cartDeleteItemRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -155,7 +162,9 @@ export class GuestCartService extends ApiServiceAbstract {
                 const responseParsed = parseCartResponse(response.data);
                 dispatch(cartActions.cartUpdateItemFulfilledStateAction(responseParsed));
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartUpdateItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -168,9 +177,7 @@ export class GuestCartService extends ApiServiceAbstract {
         }
     }
 
-    public static errorMessageInform(response: IResponseError, dispatch: Function): void {
-        const errorMessage = this.getParsedAPIError(response);
-        dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
+    public static errorMessageInform(errorMessage: string): void {
         NotificationsMessage({
             messageWithCustomText: 'request.error.message',
             message: errorMessage,

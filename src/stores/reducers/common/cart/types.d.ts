@@ -12,6 +12,6 @@ export interface ICartState extends IReduxState {
 export interface ICartAction extends IActionData {
     payloadCartItemFulfilled?: ICartDataParsed;
     payloadCartDeleteItemFulfilled?: {
-        itemId: string;
+        sku: string;
     };
 }

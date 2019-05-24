@@ -4,7 +4,7 @@ import {
     CART_DELETE_ITEM,
     CART_UPDATE_ITEM,
     GET_CARTS,
-    UPDATE_FULLFILLED_STATE
+    CART_UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
 import { ICartDataParsed, ICartItem } from '@interfaces/cart';
@@ -68,7 +68,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
         case `${CART_DELETE_ITEM}_FULFILLED`:
             const itemsAfterDelete: ICartItem[] = state.data.items.filter((
                 item: ICartItem
-            ) => item.sku !== action.payloadCartDeleteItemFulfilled.itemId);
+            ) => item.sku !== action.payloadCartDeleteItemFulfilled.sku);
 
             return {
                 ...state,
@@ -85,7 +85,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
                 data: {...initialState.data, cartCreated: true},
                 ...getReducerPartFulfilled(),
             };
-        case UPDATE_FULLFILLED_STATE:
+        case CART_UPDATE_FULLFILLED_STATE:
             return {
                 ...state,
                 ...getReducerPartFulfilled(),

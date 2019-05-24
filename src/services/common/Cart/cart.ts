@@ -4,7 +4,7 @@ import { parseCartCreateResponse, parseCartResponse } from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
 import { CartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { TApiResponseData, IResponseError } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
@@ -31,6 +31,7 @@ export class CartService extends ApiServiceAbstract {
             }
             setAuthToken(token);
 
+            dispatch(cartActions.getCartsPendingStateAction());
             const endpoint = this.endpoint('/carts');
             const response: TApiResponseData = await api.get(endpoint, { withCredentials: true });
 
@@ -47,7 +48,9 @@ export class CartService extends ApiServiceAbstract {
 
                 return responseParsed.id;
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.getCartsRejectedStateAction(errorMessage));
             }
         } catch (err) {
             dispatch(cartActions.getCartsRejectedStateAction(err.message));
@@ -85,7 +88,9 @@ export class CartService extends ApiServiceAbstract {
 
                 return responseParsed.id;
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartCreateRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -115,7 +120,7 @@ export class CartService extends ApiServiceAbstract {
             }
             setAuthToken(token);
 
-            const endpoint = this.endpoint(`carts/${ cartId }/items`);
+            const endpoint = this.endpoint(`carts/${cartId}/items`);
             const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
@@ -127,7 +132,9 @@ export class CartService extends ApiServiceAbstract {
                 });
 
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -148,48 +155,31 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async cartDeleteItem(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        cartId: string,
-        itemId: string
-    ): Promise<void> {
+    public static async cartDeleteItem(dispatch: Function, cartId: string, sku: string): Promise<void> {
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `carts/${ cartId }/items/${ itemId }`;
+            dispatch(cartActions.cartDeleteItemPendingStateAction());
+            const endpoint = `carts/${cartId}/items/${sku}`;
             const response: TApiResponseData = await api.delete(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadCartDeleteItemFulfilled: { itemId }
-                });
-
+                dispatch(cartActions.cartDeleteItemFulfilledStateAction({ sku }));
                 NotificationsMessage({
                     id: 'items.removed.message',
                     type: typeNotificationSuccess
                 });
 
-                const endpoint = this.endpoint(`carts/${ cartId }`);
-                const newCartResponse: TApiResponseData = await api.get(endpoint);
-
-                if (newCartResponse.ok) {
-                    const responseParsed: ICartDataParsed = parseCartResponse(newCartResponse.data);
-                    dispatch(cartActions.cartAddItemFulfilledStateAction(responseParsed));
-                } else {
-                    this.errorMessageInform(newCartResponse, dispatch);
-                }
+                await CartService.getCustomerCarts(dispatch);
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartDeleteItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error: error.message
-            });
+            dispatch(cartActions.cartDeleteItemRejectedStateAction(error.message));
             NotificationsMessage({
                 messageWithCustomText: 'unexpected.error.message',
                 message: error.message,
@@ -198,11 +188,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async cartUpdateItem(
-        dispatch: Function,
-        payload: ICartAddItem,
-        cartId: string | null
-    ): Promise<void> {
+    public static async cartUpdateItem(dispatch: Function, payload: ICartAddItem, cartId: string): Promise<void> {
         try {
             dispatch(cartActions.cartUpdateItemPendingStateAction());
 
@@ -233,7 +219,9 @@ export class CartService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
             } else {
-                this.errorMessageInform(response, dispatch);
+                const errorMessage = this.getParsedAPIError(response);
+                this.errorMessageInform(errorMessage);
+                dispatch(cartActions.cartUpdateItemRejectedStateAction(errorMessage));
             }
 
         } catch (error) {
@@ -263,9 +251,7 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static errorMessageInform(response: IResponseError, dispatch: Function): void {
-        const errorMessage = this.getParsedAPIError(response);
-        dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
+    public static errorMessageInform(errorMessage: string): void {
         NotificationsMessage({
             messageWithCustomText: 'request.error.message',
             message: errorMessage,
