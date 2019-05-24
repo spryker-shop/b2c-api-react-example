@@ -48,7 +48,7 @@ export const parseWishlistItems = (response: IWishlistRawResponse): IWishlistPro
             items[row.id].sku = row.attributes.sku;
         }
 
-        if (row.type === EIncludeTypes.CONCRETE_CONCRETE_PRODUCTS) {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCTS) {
             items[row.id].name = row.attributes.name;
             Object.keys(row.attributes.attributes).forEach((attr: string) => {
                 if (row.attributes.superAttributesDefinition.includes(attr)) {

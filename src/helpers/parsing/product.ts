@@ -6,13 +6,11 @@ import {
     IDescriptionAttributes,
     IProductDataParsed
 } from '@interfaces/product';
-import { abstractProductType, concreteProductType } from '@constants/product';
+import { abstractProductType, concreteProductType, defaultProductQuantity } from '@constants/product';
 import { IProductRawResponse, TProductRowIncludedResponse } from '@services/pages/Product/types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-import { IProductLabelsRowIncludedResponse } from '@services/types';
-
-const defaultProductQuantity = 10;
+import { IProductLabelsRowIncludedResponse, EIncludeTypes } from '@services/types';
 
 export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed | null => {
     if (!response) {
@@ -67,25 +65,25 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     }
 
     included.forEach((row: TProductRowIncludedResponse) => {
-        if (row.type === 'abstract-product-image-sets') {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS) {
             result.abstractProduct.images = parseImageSets(row.attributes.imageSets);
 
             return;
         }
-        if (row.type === 'abstract-product-prices') {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_PRICES) {
             if (row.attributes.prices && row.attributes.prices.length) {
                 result.abstractProduct.prices = parsePrices(row.attributes.prices);
             }
 
             return;
         }
-        if (row.type === 'abstract-product-availabilities') {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES) {
             result.abstractProduct.availability = row.attributes.availability;
             result.abstractProduct.quantity = row.attributes.quantity;
 
             return;
         }
-        if (row.type === 'concrete-products' && !result.concreteProducts[row.id].name) {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCTS && !result.concreteProducts[row.id].name) {
             result.concreteProducts[row.id].name = row.attributes.name;
             result.concreteProducts[row.id].sku = row.attributes.sku;
             result.concreteProducts[row.id].description = row.attributes.description;
@@ -95,17 +93,21 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-        if (row.type === 'concrete-product-image-sets' && !result.concreteProducts[row.id].images) {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS && !result.concreteProducts[row.id].images) {
             result.concreteProducts[row.id].images = parseImageSets(row.attributes.imageSets);
 
             return;
         }
-        if (row.type === 'concrete-product-prices' && row.attributes.prices && row.attributes.prices.length) {
+        if (
+            row.type === EIncludeTypes.CONCRETE_PRODUCT_PRICES && row.attributes.prices && row.attributes.prices.length
+        ) {
             result.concreteProducts[row.id].prices = parsePrices(row.attributes.prices);
 
             return;
         }
-        if (row.type === 'concrete-product-availabilities' && !result.concreteProducts[row.id].availability) {
+        if (
+            row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES && !result.concreteProducts[row.id].availability
+        ) {
             result.concreteProducts[row.id].availability = row.attributes.availability;
             result.concreteProducts[row.id].quantity = row.attributes.quantity;
 
@@ -118,8 +120,8 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             }
         }
     });
-    const filteredIncludedLabels = included.filter(row => row.type === 'product-labels');
-    const labelsRelationships = data.relationships['product-labels'];
+    const filteredIncludedLabels = included.filter(row => row.type === EIncludeTypes.PRODUCT_LABELS);
+    const labelsRelationships = data.relationships[EIncludeTypes.PRODUCT_LABELS];
     const isLabelsExist = labelsRelationships && filteredIncludedLabels.length;
 
     if (isLabelsExist) {

@@ -2,21 +2,21 @@ import { api, removeAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
 import { parseCartResponse } from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
-import { TApiResponseData, IResponseError } from '@services/types';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
 
 export class GuestCartService extends ApiServiceAbstract {
     public static endpoint(path: string): string {
         const includeParams =
-            '?include=guest-cart-items,' +
-            'abstract-product-image-sets,' +
-            'abstract-product-prices,' +
-            'abstract-product-availabilities,' +
-            'concrete-products,' +
-            'concrete-product-image-sets,' +
-            'concrete-product-prices,' +
-            'concrete-product-availabilities';
+            `?include=${EIncludeTypes.GUEST_CART_ITEMS},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
+            `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+            `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+            `${EIncludeTypes.CONCRETE_PRODUCT_PRICES},` +
+            EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES;
 
         return `${path}${includeParams}`;
     }

@@ -10,11 +10,7 @@ import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
 import { TProductRowIncludedResponse } from '@services/pages/Product/types';
-import {
-    IProductLabelsCollectionResponse,
-    IProductAvailableLabelResponse,
-    IProductLabelsRowIncludedResponse
-} from '@services/types';
+import { EIncludeTypes, IProductLabelsCollectionResponse, IProductLabelsRowIncludedResponse } from '@services/types';
 import {
     ICatalogSearchRawResponse,
     ICatalogSearchRowIncludedResponse,
@@ -106,12 +102,12 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
 
     included.forEach((row: ICatalogSearchRowIncludedResponse) => {
-        const isProductHasLabels = row.type === 'abstract-products' && row.relationships &&
-            row.relationships['product-labels'] && availableLabels;
+        const isProductHasLabels = row.type === EIncludeTypes.ABSTRACT_PRODUCTS && row.relationships &&
+            row.relationships[EIncludeTypes.PRODUCT_LABELS] && availableLabels;
 
         if (isProductHasLabels) {
-            const labelsIdArr: string[] = (row as IProductLabelsRowIncludedResponse).relationships['product-labels']
-                .data.map((item: IProductAvailableLabelResponse) => item.id);
+            const labelsIdArr: string[] = (row as IProductLabelsRowIncludedResponse)
+                .relationships[EIncludeTypes.PRODUCT_LABELS].data.map(item => item.id);
             const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
             appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
@@ -136,7 +132,7 @@ export const parseFlyoutSearchResponse = (response: ISuggestionSearchRawResponse
     response.included && response.included.forEach((row: TProductRowIncludedResponse) => {
         const product: IProductCardResponse = products.find(product => product.abstractSku === row.id);
 
-        if (row.type === 'abstract-product-prices' && product && row.attributes.prices) {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_PRICES && product && row.attributes.prices) {
             (product as IProductCard).prices = parsePrices(row.attributes.prices);
         }
     });

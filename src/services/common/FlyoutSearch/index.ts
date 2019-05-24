@@ -1,6 +1,6 @@
 import { api, ApiServiceAbstract } from '@services/api';
 import { parseFlyoutSearchResponse } from '@helpers/parsing';
-import { TApiResponseData } from '@services/types';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import { suggestPendingState, suggestRejectState, suggestFullfiledState } from '@stores/actions/pages/search';
@@ -13,7 +13,7 @@ export class FlyoutSearchService extends ApiServiceAbstract {
 
             const response: TApiResponseData = await api.get(
                 'catalog-search-suggestions',
-                { q: query, include: 'abstract-products,abstract-product-prices' },
+                { q: query, include: `${EIncludeTypes.ABSTRACT_PRODUCTS},${EIncludeTypes.ABSTRACT_PRODUCT_PRICES}` },
                 { withCredentials: true }
             );
 

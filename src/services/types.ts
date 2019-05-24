@@ -43,15 +43,22 @@ export interface IRelationshipsDataResponse {
 }
 
 export enum EIncludeTypes {
+    CONCRETE_PRODUCTS = 'concrete-products',
+    ABSTRACT_PRODUCTS = 'abstract-products',
     CONCRETE_PRODUCT_IMAGE_SETS = 'concrete-product-image-sets',
-    CONCRETE_CONCRETE_PRODUCTS = 'concrete-products',
+    ABSTRACT_PRODUCT_IMAGE_SETS = 'abstract-product-image-sets',
     CONCRETE_PRODUCT_PRICES = 'concrete-product-prices',
+    ABSTRACT_PRODUCT_PRICES = 'abstract-product-prices',
     CONCRETE_PRODUCT_AVAILABILITIES = 'concrete-product-availabilities',
-    WISHLIST_ITEMS = 'wishlist-items'
+    ABSTRACT_PRODUCT_AVAILABILITIES = 'abstract-product-availabilities',
+    WISHLIST_ITEMS = 'wishlist-items',
+    PRODUCT_LABELS = 'product-labels',
+    CART_ITEMS = 'items',
+    GUEST_CART_ITEMS = 'guest-cart-items'
 }
 
 export interface IProductRowPricesIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'abstract-product-prices' | 'concrete-product-prices';
+    type: EIncludeTypes.ABSTRACT_PRODUCT_PRICES | EIncludeTypes.CONCRETE_PRODUCT_PRICES;
     attributes: {
         price: number;
         prices: IProductPricesResponse[];
@@ -73,7 +80,7 @@ export interface IProductPricesResponse {
 }
 
 export interface IProductRowAvailabilitiesIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'abstract-product-availabilities' | 'concrete-product-availabilities';
+    type: EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES | EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES;
     attributes: IProductAvailability;
 }
 
@@ -84,7 +91,7 @@ interface IProductAvailability {
 }
 
 export interface IProductRowImageSetsIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'abstract-product-image-sets' | 'concrete-product-image-sets';
+    type: EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS | EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS;
     attributes: {
         imageSets: IProductImageSetsRawResponse[];
     };
@@ -101,7 +108,7 @@ export interface IProductCardImagesResponse {
 }
 
 export interface IProductsConcreteRowIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'concrete-products' | 'wishlist-items';
+    type: EIncludeTypes.CONCRETE_PRODUCTS | EIncludeTypes.WISHLIST_ITEMS;
     attributes: IProductAttributesRawResponse;
 }
 
@@ -120,10 +127,10 @@ interface IProductAttributesRawResponse {
 }
 
 export interface IProductLabelsRowIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'product-labels';
+    type: EIncludeTypes.PRODUCT_LABELS;
     attributes: IProductAvailableLabelResponse;
     relationships?: {
-        'product-labels'?: {
+        [EIncludeTypes.PRODUCT_LABELS]?: {
             data: IProductAvailableLabelResponse[],
         }
     };

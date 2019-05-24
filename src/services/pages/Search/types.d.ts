@@ -1,6 +1,7 @@
 import { IRangeFacets, IValueFacets } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
 import {
+    EIncludeTypes,
     IAbstractRowIncludedResponse,
     IRelationshipsResponse,
     IProductPricesResponse,
@@ -44,7 +45,7 @@ interface ICatalogSearchDataResponse extends IAbstractRowIncludedResponse, IRela
 export type ICatalogSearchRowIncludedResponse = IProductLabelsRowIncludedResponse | ICatalogSearchRowAbstractProduct;
 
 export interface ICatalogSearchRowAbstractProduct extends IAbstractRowIncludedResponse {
-    type: 'abstract-products';
+    type: EIncludeTypes.ABSTRACT_PRODUCTS;
     relationships?: IIndexSignature;
 }
 

@@ -1,7 +1,7 @@
 import { ICartCommonData, ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 import { TCartRowIncludedResponse, ICartRawResponse, ICartDataResponse } from '@services/common/Cart/types';
-import { IRelationshipsDataResponse } from '@services/types';
+import { IRelationshipsDataResponse, EIncludeTypes } from '@services/types';
 
 export const parseCartCreateResponse = (response: ICartRawResponse): ICartDataParsed | null => {
     if (!response) {
@@ -23,7 +23,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     const { data, included } = response;
     const result: { [key: string]: ICartItem } = {};
     const isGuest = data.relationships && !Boolean(data.relationships.items);
-    const itemName = isGuest ? 'guest-cart-items' : 'items';
+    const itemName = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
     let totalQty: number = 0;
 
     if (data.relationships && data.relationships[itemName]) {
@@ -51,7 +51,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     }
 
     included && included.forEach((row: TCartRowIncludedResponse) => {
-        if (row.type === 'concrete-product-image-sets') {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
             result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
 
             return;
@@ -68,7 +68,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
             return;
         }
 
-        if (row.type === 'concrete-products') {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCTS) {
             result[row.id].name = row.attributes.name;
 
             if (Array.isArray(row.attributes.superAttributesDefinition)) {
@@ -87,13 +87,13 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
             return;
         }
 
-        if (row.type === 'concrete-product-prices') {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCT_PRICES) {
             result[row.id].prices = parsePrices(row.attributes.prices);
 
             return;
         }
 
-        if (row.type === 'concrete-product-availabilities') {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
             result[row.id].availability = row.attributes.availability;
             result[row.id].availableQuantity = row.attributes.quantity;
         }

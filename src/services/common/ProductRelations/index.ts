@@ -1,5 +1,5 @@
 import { api, ApiServiceAbstract } from '@services/api';
-import { TApiResponseData } from '@services/types';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { typeNotificationError } from '@constants/notifications';
 import * as productRelationsActions from '@stores/actions/common/productRelations';
 import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
@@ -8,10 +8,10 @@ import { NotificationsMessage } from '@components/Notifications/NotificationsMes
 export class ProductRelationsService extends ApiServiceAbstract {
     public static endpoint(path: string): string {
         const includeParams =
-            '?include=abstract-product-image-sets,' +
-            'abstract-product-availabilities,' +
-            'abstract-product-prices,' +
-            'product-labels';
+            `?include=${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
+            EIncludeTypes.PRODUCT_LABELS;
 
         return `${path}${includeParams}`;
     }

@@ -2,7 +2,7 @@ import { api, ApiServiceAbstract } from '@services/api';
 import { parseProductResponse } from '@helpers/parsing/product';
 import * as productActions from '@stores/actions/pages/product';
 import { IProductDataParsed } from '@interfaces/product';
-import { TApiResponseData } from '@services/types';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 
@@ -11,14 +11,14 @@ export class ProductService extends ApiServiceAbstract {
         try {
             dispatch(productActions.getProductDataItemPendingStateAction());
             const response: TApiResponseData = await api.get(`abstract-products/${ sku }`, {
-                include: 'abstract-product-image-sets,' +
-                    'abstract-product-prices,' +
-                    'abstract-product-availabilities,' +
-                    'concrete-products,' +
-                    'concrete-product-image-sets,' +
-                    'concrete-product-prices,' +
-                    'concrete-product-availabilities,' +
-                    'product-labels'
+                include: `${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
+                    `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
+                    `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_PRICES},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES},` +
+                    EIncludeTypes.PRODUCT_LABELS
             });
 
             if (response.ok) {

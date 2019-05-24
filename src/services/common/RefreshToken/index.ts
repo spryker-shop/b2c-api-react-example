@@ -42,13 +42,12 @@ export class RefreshTokenService extends ApiServiceAbstract {
     }
 
     public static async refreshTokenRequest(dispatch: Function, refreshToken: string): Promise<string> {
-        const refresh_token = refreshToken;
         const body = {
             data: {
                 type: 'refresh-tokens',
                 attributes: {
                     'refreshToken': refreshToken,
-                    'refresh_token': refresh_token,
+                    'refresh_token': refreshToken,
                 },
             },
         };

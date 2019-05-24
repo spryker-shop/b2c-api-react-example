@@ -2,6 +2,7 @@ import { IProductLabel, IProductPrices, IProductImage } from '@interfaces/produc
 import { priceTypeNameDefault, priceTypeNameOriginal } from '@constants/product';
 import { IProductRelationsIncluded } from '@services/common/ProductRelations/types';
 import {
+    EIncludeTypes,
     IProductLabelsRowIncludedResponse,
     IProductLabelsCollectionResponse,
     IProductImageSetsRawResponse,
@@ -60,7 +61,7 @@ export const parsePrices = (prices: IProductPricesResponse[]): IProductPrices =>
 
 export const getAvailableLables = (included: IProductRelationsIncluded[]): IProductLabelsCollectionResponse | null => {
     const availableLabels: IProductLabelsCollectionResponse | null = {};
-    const productLabelsType = 'product-labels';
+    const productLabelsType = EIncludeTypes.PRODUCT_LABELS;
 
     const includedLabels: IProductLabelsRowIncludedResponse[] = included.filter(item => (
         item.type === productLabelsType

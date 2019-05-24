@@ -1,7 +1,7 @@
 import { api, ApiServiceAbstract } from '@services/api';
 import { parseCatalogSearchResponse } from '@helpers/parsing';
 import { ICatalogSearchDataParsed, ISearchQuery } from '@interfaces/search';
-import { TApiResponseData } from '@services/types';
+import { EIncludeTypes, TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import { sendSearchPendingState, sendSearchRejectState, sendSearchFulfilledState } from '@stores/actions/pages/search';
@@ -10,7 +10,7 @@ export class SearchService extends ApiServiceAbstract {
     public static async catalogSearch(dispatch: Function, params: ISearchQuery): Promise<void> {
         dispatch(sendSearchPendingState());
         try {
-            params.include = 'abstract-products,product-labels,';
+            params.include = `${EIncludeTypes.ABSTRACT_PRODUCTS},${EIncludeTypes.PRODUCT_LABELS}`;
             const response: TApiResponseData = await api.get('catalog-search', params, { withCredentials: true });
 
             if (response.ok) {

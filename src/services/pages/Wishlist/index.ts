@@ -4,7 +4,7 @@ import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
 import { WishlistAuthenticateErrorMessage } from '@translation/';
 import * as cartActions from '@stores/actions/common/cart';
-import { TApiResponseData } from '@services/types';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
 import { IWishlistDataResponse, IRequestBody } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
@@ -59,12 +59,11 @@ export class WishlistService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const query: string = 'wishlist-items,' +
-                'concrete-products,' +
-                'wishlist-items-products,' +
-                'concrete-product-image-sets,' +
-                'concrete-product-availabilities,' +
-                'concrete-product-prices';
+            const query: string = `${EIncludeTypes.WISHLIST_ITEMS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES},` +
+                EIncludeTypes.CONCRETE_PRODUCT_PRICES;
 
             const response: TApiResponseData = await api.get(
                 `wishlists/${wishlistId}?include=${query}`,

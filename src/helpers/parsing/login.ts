@@ -11,13 +11,11 @@ export const parseLoginDataResponse = (response: ICustomerLoginRawResponse): ICu
     const { sub }: { sub: string } = jwtDecoder(attributes.accessToken);
     const customerRef = JSON.parse(sub).customer_reference;
 
-    const result = {
+    return {
         accessToken: attributes.accessToken,
         expiresIn: attributes.expiresIn,
         refreshToken: attributes.refreshToken,
         tokenType: attributes.tokenType,
         customerRef
     };
-
-    return result;
 };

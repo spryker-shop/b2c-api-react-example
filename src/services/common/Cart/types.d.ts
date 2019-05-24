@@ -5,7 +5,7 @@ import {
     IProductsConcreteRowIncludedResponse,
     IProductRowAvailabilitiesIncludedResponse,
     IProductRowImageSetsIncludedResponse,
-    IProductRowPricesIncludedResponse
+    IProductRowPricesIncludedResponse, EIncludeTypes
 } from '@services/types';
 import { ITotals } from '@interfaces/common';
 
@@ -31,7 +31,7 @@ export type TCartRowIncludedResponse = IProductRowImageSetsIncludedResponse
     | ICarRowtItemsIncludedResponse;
 
 export interface ICarRowtItemsIncludedResponse extends IAbstractRowIncludedResponse {
-    type: 'items' | 'guest-cart-items';
+    type: EIncludeTypes.CART_ITEMS | EIncludeTypes.GUEST_CART_ITEMS;
     attributes: {
         amount: number | null;
         calculations: ICartItemCalculation;
