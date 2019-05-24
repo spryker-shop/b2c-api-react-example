@@ -6,7 +6,7 @@ import {
 } from '@services/common/ProductRelations/types';
 import { IProductRelationsItem } from '@interfaces/product';
 import { parseImageSets, getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
-import { IProductLabelsCollectionResponse, IProductAvailableLabelResponse } from '@services/pages/Product/types';
+import { IProductLabelsCollectionResponse, IProductAvailableLabelResponse } from '@services/types';
 
 export const parsePorductRelationsResponse = (response: IProductRelationsRawResponse): IProductRelationsItem[] =>
     response.data.map((item: IProductRelationsItemResponse) => ({

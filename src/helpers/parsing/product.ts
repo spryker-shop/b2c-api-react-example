@@ -7,13 +7,10 @@ import {
     IProductDataParsed
 } from '@interfaces/product';
 import { abstractProductType, concreteProductType } from '@constants/product';
-import {
-    IProductRawResponse,
-    IProductRowLabelsResponse,
-    TProductRowResponseIncluded
-} from '@services/pages/Product/types';
+import { IProductRawResponse, TProductRowResponseIncluded } from '@services/pages/Product/types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
+import { IProductLabelsRowIncludedResponse } from '@services/types';
 
 const defaultProductQuantity = 10;
 
@@ -128,7 +125,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
     if (isLabelsExist) {
         const filteredAvailableLabels = labelsRelationships.data.map(item => item.id);
         filteredAvailableLabels.forEach((availableLabelId: string) => {
-            filteredIncludedLabels.forEach((includedLabel: IProductRowLabelsResponse) => {
+            filteredIncludedLabels.forEach((includedLabel: IProductLabelsRowIncludedResponse) => {
                 const isLabelExist = availableLabelId === includedLabel.id;
                 if (isLabelExist) {
                     const labelData = {

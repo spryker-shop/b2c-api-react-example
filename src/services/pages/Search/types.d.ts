@@ -1,11 +1,12 @@
 import { IRangeFacets, IValueFacets } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
 import {
+    IAbstractRowIncludedResponse,
+    IRelationshipsResponse,
     IProductPricesResponse,
-    IProductRowLabelsResponse,
+    IProductLabelsRowIncludedResponse,
     IProductCardImagesResponse
-} from '@services/pages/Product/types';
-import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
+} from '@services/types';
 
 export interface ICatalogSearchRawResponse {
     data: ICatalogSearchDataResponse[];
@@ -40,7 +41,7 @@ interface ICatalogSearchDataResponse extends IAbstractRowIncludedResponse, IRela
     };
 }
 
-export type ICatalogSearchRowIncludedResponse = IProductRowLabelsResponse | ICatalogSearchRowAbstractProduct;
+export type ICatalogSearchRowIncludedResponse = IProductLabelsRowIncludedResponse | ICatalogSearchRowAbstractProduct;
 
 export interface ICatalogSearchRowAbstractProduct extends IAbstractRowIncludedResponse {
     type: 'abstract-products';

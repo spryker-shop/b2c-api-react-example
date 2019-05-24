@@ -1,11 +1,12 @@
 import { ICartDiscounts, ICartItemCalculation } from '@interfaces/cart';
-import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
 import {
+    IAbstractRowIncludedResponse,
+    IRelationshipsResponse,
     IProductsConcreteRowIncludedResponse,
     IProductRowAvailabilitiesIncludedResponse,
     IProductRowImageSetsIncludedResponse,
     IProductRowPricesIncludedResponse
-} from '@services/pages/Product/types';
+} from '@services/types';
 import { ITotals } from '@interfaces/common';
 
 export interface ICartRawResponse {

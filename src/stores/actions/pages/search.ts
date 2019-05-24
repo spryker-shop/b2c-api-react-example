@@ -11,7 +11,7 @@ import {
     PAGES_SEARCH_CURRENT_CATEGORY_SET,
     PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 } from '@stores/actionTypes/pages/search';
-import { FlyoutSearcService } from '@services/common/Search';
+import { FlyoutSearchService } from '@services/common/FlyoutSearch';
 import { SearchService } from '@services/pages/Search';
 import {
     IActiveFilters,
@@ -36,7 +36,7 @@ export const suggestFullfiledState = (payload: object) => ({
 
 export const sendSuggestionAction = function (query: string) {
     return (dispatch: Function, getState: Function) => {
-        FlyoutSearcService.searchSuggestion(dispatch, query);
+        FlyoutSearchService.searchSuggestion(dispatch, query);
     };
 };
 

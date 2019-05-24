@@ -2,12 +2,12 @@ import { IProductLabel, IProductPrices, IProductImage } from '@interfaces/produc
 import { priceTypeNameDefault, priceTypeNameOriginal } from '@constants/product';
 import { IProductRelationsIncluded } from '@services/common/ProductRelations/types';
 import {
-    IProductRowLabelsResponse,
+    IProductLabelsRowIncludedResponse,
     IProductLabelsCollectionResponse,
     IProductImageSetsRawResponse,
     IProductPricesResponse,
     IProductCardImagesResponse
-} from '@services/pages/product/types';
+} from '@services//types';
 
 export const parseImageSets = (imageSets: IProductImageSetsRawResponse[]): IProductImage[] | null => {
     if (!Array.isArray(imageSets) || !imageSets.length) {
@@ -62,11 +62,11 @@ export const getAvailableLables = (included: IProductRelationsIncluded[]): IProd
     const availableLabels: IProductLabelsCollectionResponse | null = {};
     const productLabelsType = 'product-labels';
 
-    const includedLabels: IProductRowLabelsResponse[] = included.filter(item => (
+    const includedLabels: IProductLabelsRowIncludedResponse[] = included.filter(item => (
         item.type === productLabelsType
     ));
 
-    includedLabels.forEach((label: IProductRowLabelsResponse) => {
+    includedLabels.forEach((label: IProductLabelsRowIncludedResponse) => {
         availableLabels[label.id] = {
             id: label.id,
             frontEndReference: label.attributes.frontEndReference,

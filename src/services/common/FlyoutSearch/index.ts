@@ -1,12 +1,12 @@
 import { api, ApiServiceAbstract } from '@services/api';
-import { parseSuggestionSearchResponse } from '@helpers/parsing';
+import { parseFlyoutSearchResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationError } from '@constants/notifications';
 import { suggestPendingState, suggestRejectState, suggestFullfiledState } from '@stores/actions/pages/search';
 import { IProductCard } from '@interfaces/product';
 
-export class FlyoutSearcService extends ApiServiceAbstract {
+export class FlyoutSearchService extends ApiServiceAbstract {
     public static async searchSuggestion(dispatch: Function, query: string): Promise<void> {
         dispatch(suggestPendingState());
         try {
@@ -20,7 +20,7 @@ export class FlyoutSearcService extends ApiServiceAbstract {
             if (response.ok) {
                 const productsLimit = 5;
                 const { data } = response;
-                const products: IProductCard[] = parseSuggestionSearchResponse(data, productsLimit);
+                const products: IProductCard[] = parseFlyoutSearchResponse(data, productsLimit);
                 const payloadSuggestionFulfilled = {
                     suggestions: products,
                     categories: data.data[0].attributes.categories,

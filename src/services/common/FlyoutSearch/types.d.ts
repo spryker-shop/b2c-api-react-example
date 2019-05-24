@@ -1,6 +1,9 @@
-import { IProductRowPricesIncludedResponse } from '@services/pages/Product/types';
 import { IProductCardResponse } from '@services/pages/Search/types';
-import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
+import {
+    IAbstractRowIncludedResponse,
+    IRelationshipsResponse,
+    IProductRowPricesIncludedResponse
+} from '@services/types';
 
 export interface ISuggestionSearchRawResponse {
     data: ISuggestionSearchDataResponse[];

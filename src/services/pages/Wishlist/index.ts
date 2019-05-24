@@ -5,26 +5,10 @@ import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
 import { WishlistAuthenticateErrorMessage } from '@translation/';
 import * as cartActions from '@stores/actions/common/cart';
 import { TApiResponseData } from '@services/types';
-import {
-    IWishlistRawData,
-    IWishlistRawResponse,
-    TRowWishlistIncludedResponse,
-    ECommonIncludeTypes
-} from '@services/pages/Wishlist/types';
+import { IWishlistRawData, IRequestBody } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
-import { IProductPricesResponse } from '@services/pages/Product/types';
-
-interface IRequestBody {
-    data: {
-        type: string;
-        include?: string;
-        attributes: {};
-    };
-}
+import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
+import { parseWishlistResponse, parseWishlistItems } from '@helpers/parsing/wishlist';
 
 export class WishlistService extends ApiServiceAbstract {
     public static async getLists(ACTION_TYPE: string, dispatch: Function): Promise<void> {
@@ -37,9 +21,8 @@ export class WishlistService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
 
             if (response.ok) {
-                const wishlists: IWishlist[] = response.data.data.map((
-                    list: IWishlistRawData
-                ) => WishlistService.parseWishlistResponse(list));
+                const wishlists: IWishlist[] = response.data.data.map((list: IWishlistRawData) =>
+                    parseWishlistResponse(list));
 
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
@@ -91,10 +74,10 @@ export class WishlistService extends ApiServiceAbstract {
 
             if (response.ok) {
                 let products: IWishlistProduct[] = [];
-                const wishlist: IWishlist = WishlistService.parseWishlistResponse(response.data.data);
+                const wishlist: IWishlist = parseWishlistResponse(response.data.data);
 
                 if (response.data.included) {
-                    products = WishlistService.parseWishlistItems(response.data.included);
+                    products = parseWishlistItems(response.data.included);
                 }
 
                 dispatch({
@@ -149,7 +132,7 @@ export class WishlistService extends ApiServiceAbstract {
                     id: 'wishlist.created.message',
                     type: typeNotificationSuccess
                 });
-                const parsedWishlist: IWishlist = WishlistService.parseWishlistResponse(response.data.data);
+                const parsedWishlist: IWishlist = parseWishlistResponse(response.data.data);
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
                     payloadWishlistDataFulfilled: { data: parsedWishlist },
@@ -257,7 +240,7 @@ export class WishlistService extends ApiServiceAbstract {
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
                     payloadWishlistDataFulfilled: {
-                        data: WishlistService.parseWishlistResponse(response.data.data),
+                        data: parseWishlistResponse(response.data.data),
                         wishlistId,
                     },
                 });
@@ -321,7 +304,7 @@ export class WishlistService extends ApiServiceAbstract {
                     {include: ''},
                     {withCredentials: true}
                 );
-                const wishlist: IWishlist = WishlistService.parseWishlistResponse(wishlistResponse.data.data);
+                const wishlist: IWishlist = parseWishlistResponse(wishlistResponse.data.data);
 
                 dispatch({
                     type: ACTION_TYPE + '_FULFILLED',
@@ -436,81 +419,5 @@ export class WishlistService extends ApiServiceAbstract {
                 type: typeNotificationError
             });
         }
-    }
-
-    private static parseWishlistResponse(data: IWishlistRawData): IWishlist {
-        const wishlist: IWishlist = {
-            id: data.id,
-            name: data.attributes.name,
-            numberOfItems: data.attributes.numberOfItems || 0,
-            createdAt: data.attributes.createdAt,
-            updatedAt: data.attributes.updatedAt,
-        };
-
-        return wishlist;
-    }
-
-    private static parseWishlistItems(included: IWishlistRawResponse['included']): IWishlistProduct[] {
-        const items: {[key: string]: IWishlistProduct} = {};
-
-        included.forEach((row: TRowWishlistIncludedResponse) => {
-            if (!items[row.id]) {
-                items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
-            }
-
-            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
-                if (
-                    row.attributes.imageSets &&
-                    row.attributes.imageSets.length &&
-                    row.attributes.imageSets[0].images &&
-                    row.attributes.imageSets[0].images.length
-                ) {
-                    items[row.id].image = row.attributes.imageSets[0].images[0].externalUrlSmall;
-                }
-
-                return;
-            }
-
-            if (row.type === ECommonIncludeTypes.WISHLIST_ITEMS) {
-                items[row.id].sku = row.attributes.sku;
-            }
-
-            if (row.type === ECommonIncludeTypes.CONCRETE_CONCRETE_PRODUCTS) {
-                items[row.id].name = row.attributes.name;
-                Object.keys(row.attributes.attributes).forEach((attr: string) => {
-                    if (row.attributes.superAttributesDefinition.includes(attr)) {
-                        const attributeKey: string = String(attr);
-                        const attributeValue: string = String(row.attributes.attributes[attr]);
-                        items[row.id].attributes.push({[attributeKey]: attributeValue});
-                    }
-                });
-
-                return;
-            }
-
-            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_PRICES) {
-                items[row.id].prices = {};
-                row.attributes.prices.forEach((price: IProductPricesResponse) => {
-                    const priceType = price.priceTypeName;
-                    const priceName = priceType.charAt(0).toLocaleUpperCase() +
-                        priceType.slice(1).toLocaleLowerCase();
-
-                    items[row.id].prices[`grossAmount${priceName}`] = price.grossAmount;
-                    items[row.id].prices[`netAmount${priceName}`] = price.netAmount;
-                });
-
-                return;
-            }
-
-            if (row.type === ECommonIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
-                items[row.id].availability = row.attributes.availability;
-
-                if (row.attributes.isNeverOutOfStock) {
-                    items[row.id].availability = true;
-                }
-            }
-        });
-
-        return Object.values(items);
     }
 }

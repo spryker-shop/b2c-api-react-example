@@ -4,7 +4,7 @@ import { parseGetOrdersCollectionResponse, parseGetOrderDetailsResponse } from '
 import { parseStoreResponse } from './init';
 import { parseLoginDataResponse } from './login';
 import { parseCustomerDataResponse } from './customer';
-import { parseCatalogSearchResponse, parseSuggestionSearchResponse } from './search';
+import { parseCatalogSearchResponse, parseFlyoutSearchResponse } from './search';
 import { parseCartResponse, parseCartCreateResponse } from './cart';
 import { parseCheckoutData } from './checkout';
 
@@ -19,6 +19,6 @@ export {
     parseCatalogSearchResponse,
     parseCartResponse,
     parseCartCreateResponse,
-    parseSuggestionSearchResponse,
+    parseFlyoutSearchResponse,
     parseCheckoutData
 };

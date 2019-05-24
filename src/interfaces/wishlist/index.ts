@@ -1,11 +1,11 @@
-import { IProductAttributes } from '@interfaces/product';
+import { IProductAttributes, IProductPrices } from '@interfaces/product';
 
 export interface IWishlistProduct {
     sku: string;
     name: string;
     image: string;
     attributes: IProductAttributes[];
-    prices: { [key: string]: number | null; };
+    prices: IProductPrices;
     availability: boolean;
 }
 

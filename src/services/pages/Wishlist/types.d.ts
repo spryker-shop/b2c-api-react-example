@@ -4,7 +4,7 @@ import {
     IProductRowAvailabilitiesIncludedResponse,
     IProductRowImageSetsIncludedResponse,
     IProductRowPricesIncludedResponse
-} from '@services/pages/Product/types';
+} from '@services/types';
 
 export interface IWishlistRawResponse {
     data: IWishlistRawData[];
@@ -21,15 +21,15 @@ export interface IWishlistRawData {
     type: string;
 }
 
-export enum ECommonIncludeTypes {
-    CONCRETE_PRODUCT_IMAGE_SETS = 'concrete-product-image-sets',
-    CONCRETE_CONCRETE_PRODUCTS = 'concrete-products',
-    CONCRETE_PRODUCT_PRICES = 'concrete-product-prices',
-    CONCRETE_PRODUCT_AVAILABILITIES = 'concrete-product-availabilities',
-    WISHLIST_ITEMS = 'wishlist-items'
-}
-
 export type TRowWishlistIncludedResponse = IProductRowImageSetsIncludedResponse
     | IProductRowAvailabilitiesIncludedResponse
     | IProductRowPricesIncludedResponse
     | IProductsConcreteRowIncludedResponse;
+
+export interface IRequestBody {
+    data: {
+        type: string;
+        include?: string;
+        attributes: {};
+    };
+}

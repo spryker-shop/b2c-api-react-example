@@ -1,10 +1,11 @@
 import { IProductLabel, IProductPrices, IProductPricesResponse } from '@interfaces/product';
 import {
+    IAbstractRowIncludedResponse,
+    IRelationshipsResponse,
     IProductRowAvailabilitiesIncludedResponse,
     IProductRowImageSetsIncludedResponse,
     IProductRowPricesIncludedResponse
-} from '@services/pages/Product/types';
-import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
+} from '@services/types';
 
 export interface IProductRelationsRawResponse {
     data: IProductRelationsItemResponse[];

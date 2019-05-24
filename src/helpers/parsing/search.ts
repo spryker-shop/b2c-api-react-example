@@ -9,17 +9,18 @@ import { rangeMaxType, rangeMinType } from '@constants/search';
 import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
+import { TProductRowResponseIncluded } from '@services/pages/Product/types';
 import {
-    TProductRowResponseIncluded,
     IProductLabelsCollectionResponse,
-    IProductAvailableLabelResponse
-} from '@services/pages/Product/types';
+    IProductAvailableLabelResponse,
+    IProductLabelsRowIncludedResponse
+} from '@services/types';
 import {
     ICatalogSearchRawResponse,
     ICatalogSearchRowIncludedResponse,
     IProductCardResponse
 } from '@services/pages/Search/types';
-import { ISuggestionSearchRawResponse } from '@services/common/Search/types';
+import { ISuggestionSearchRawResponse } from '@services/common/FlyoutSearch/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -109,8 +110,8 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
             row.relationships['product-labels'] && availableLabels;
 
         if (isProductHasLabels) {
-            const labelsIdArr: string[] = row.relationships['product-labels'].data
-                .map((item: IProductAvailableLabelResponse) => item.id);
+            const labelsIdArr: string[] = (row as IProductLabelsRowIncludedResponse).relationships['product-labels']
+                .data.map((item: IProductAvailableLabelResponse) => item.id);
             const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
             appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
@@ -120,7 +121,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     return result;
 };
 
-export const parseSuggestionSearchResponse = (response: ISuggestionSearchRawResponse, productsLimit: number) => {
+export const parseFlyoutSearchResponse = (response: ISuggestionSearchRawResponse, productsLimit: number) => {
     const products: IProductCardResponse[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit)
         .map((product: IProductCardResponse) => {
             const image = product.images[0].externalUrlSmall;
