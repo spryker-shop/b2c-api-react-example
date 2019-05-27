@@ -1,7 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductPropFullData, TProductType } from '@interfaces/product';
-import { ICartCreatePayload } from '@interfaces/cart';
 
 export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof styles> {
     product: IProductPropFullData | null;
@@ -9,11 +8,8 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
     sku: string | null;
     isUserLoggedIn?: boolean;
     addItemToCart?: Function;
-    addItemGuestCart?: Function;
-    createCartAndAddItem?: Function;
     cartCreated?: boolean;
     cartId?: string;
-    payloadForCreateCart?: ICartCreatePayload;
     anonymId?: string;
     isCartLoading?: boolean;
 }

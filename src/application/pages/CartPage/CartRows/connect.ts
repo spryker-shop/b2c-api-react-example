@@ -1,14 +1,10 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-
 import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-
 import {
     cartDeleteItemAction,
-    removeItemGuestCartAction,
     updateItemInCartAction,
-    updateGuestCartAction,
     updateCartFulfilledStateAction
 } from '@stores/actions/common/cart';
 import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/selectors';
@@ -34,9 +30,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
     {
         cartDeleteItemAction,
-        removeItemGuestCartAction,
         updateItemInCartAction,
-        updateGuestCartAction,
         updateCartFulfilledStateAction
     },
     dispatch,

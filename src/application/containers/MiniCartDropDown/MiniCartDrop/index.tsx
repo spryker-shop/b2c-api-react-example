@@ -21,21 +21,9 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
     } = props;
 
     const deleteFromCart = (cartItemId: string): void => {
-        const {
-            cartDeleteItemAction,
-            removeItemGuestCartAction,
-            cartId,
-            anonymId,
-            isUserLoggedIn
-        } = props;
+        const { cartDeleteItemAction, cartId, anonymId, isUserLoggedIn } = props;
 
-        if (isUserLoggedIn) {
-            cartDeleteItemAction(cartId, cartItemId);
-
-            return;
-        }
-
-        removeItemGuestCartAction(cartId, cartItemId, anonymId);
+        cartDeleteItemAction(cartId, cartItemId, anonymId, isUserLoggedIn);
     };
 
     return (

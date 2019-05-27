@@ -104,7 +104,7 @@ export const multipleAddressesPendingStateAction = (): IPageAddressesAction => (
 });
 
 export const multipleAddressesFulfilledStateAction = (): IPageAddressesAction => ({
-    type: actionTypes.MULTIPLE_ADDRESSES + '_PENDING'
+    type: actionTypes.MULTIPLE_ADDRESSES + '_FULFILLED'
 });
 
 export const addMultipleAddressAction =
