@@ -18,13 +18,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartId: string = getCartId(state, ownProps);
     const cartRejected: boolean = state.cart.rejected;
 
-    return ({
+    return {
         isUserLoggedIn,
         anonymId,
         items,
         cartId,
         cartRejected
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

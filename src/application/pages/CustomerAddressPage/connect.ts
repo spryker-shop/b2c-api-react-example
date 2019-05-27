@@ -18,13 +18,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const addressIdParam: string | null = getRouterMatchParam(state, ownProps, 'addressId');
     const isAddressExist: boolean = isCurrentAddressPresent(state, ownProps);
 
-    return ({
+    return {
         customer,
         currentAddress,
         isLoading,
         addressIdParam,
         isAddressExist
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

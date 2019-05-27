@@ -24,7 +24,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const order: IOrderDetailsParsed = getOrderDetailsFromStore(state, ownProps);
     const orderIdParam: string | null = getRouterMatchParam(state, ownProps, 'orderId');
 
-    return ({
+    return {
         isLoading,
         isRejected,
         isFulfilled,
@@ -33,7 +33,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isOrderExist,
         orderIdParam,
         order
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

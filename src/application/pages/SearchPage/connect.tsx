@@ -40,7 +40,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? pageSearchProps.data.isFiltersUpdated : false;
     const category: IFilterValue[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : null;
 
-    return ({
+    return {
         isFiltersUpdated,
         isCategoryAsFilter,
         category,
@@ -56,7 +56,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isLoading,
         currency,
         locationCategoryId,
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

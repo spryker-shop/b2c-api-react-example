@@ -19,7 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? wishlistProps.data.currentItems : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
-    return ({
+    return {
         isLoading,
         isCartLoading,
         products,
@@ -27,7 +27,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         cartItemsLength,
         cartId,
         currency
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

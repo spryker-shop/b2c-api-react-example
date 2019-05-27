@@ -19,14 +19,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
     const profile: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
 
-    return ({
+    return {
         orderId,
         isUserLoggedIn,
         anonymId,
         deliveryNewAddress,
         isCartLoading,
         profile
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

@@ -9,10 +9,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
     const passwordUpdated: boolean = isCustomerPasswordUpdated(state, ownProps);
 
-    return ({
+    return {
         customerData,
         passwordUpdated
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

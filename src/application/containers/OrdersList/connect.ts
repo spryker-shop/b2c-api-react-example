@@ -16,12 +16,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const orders: IOrderItem[] | null = getOrdersCollectionFromStore(state, ownProps);
 
-    return ({
+    return {
         isFulfilled,
         isHasOrders,
         orders,
         isInitiated
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

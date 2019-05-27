@@ -8,9 +8,9 @@ import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
 
-    return ({
+    return {
         customerData
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

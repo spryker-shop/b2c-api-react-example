@@ -8,10 +8,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
 
-    return ({
+    return {
         cartId,
         isCartLoading
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

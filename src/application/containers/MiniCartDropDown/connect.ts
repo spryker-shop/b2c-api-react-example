@@ -9,12 +9,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const locale: string = getAppLocale(state, ownProps);
     const isTouch: boolean = getIsTouch(state, ownProps);
 
-    return ({
+    return {
         cartItemsQuantity,
         cartProductsQuantity,
         locale,
         isTouch
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

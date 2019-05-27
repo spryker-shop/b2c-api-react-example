@@ -7,10 +7,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const stepsCompletion: ICheckoutStepsCompletionState = state.pageCheckout.stepsCompletion;
 
-    return ({
+    return {
         isUserLoggedIn,
         stepsCompletion
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

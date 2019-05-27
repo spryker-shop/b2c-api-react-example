@@ -7,9 +7,9 @@ import { IPagination } from '@containers/AppPagination/types';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pagination: IPagination = state.pageSearch.data.pagination;
 
-    return ({
+    return {
         pagination
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

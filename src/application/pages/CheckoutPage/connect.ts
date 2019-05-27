@@ -49,7 +49,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const paymentMethod: IPaymentMethod['paymentMethodName'] | null = state.pageCheckout.paymentMethod;
     const shipmentMethod: IShipmentMethod['id'] | null = state.pageCheckout.shipmentMethod;
 
-    return ({
+    return {
         isCheckoutInitiated,
         isUserLoggedIn,
         isCheckoutFulfilled,
@@ -68,7 +68,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         billingSelection,
         paymentMethod,
         shipmentMethod
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

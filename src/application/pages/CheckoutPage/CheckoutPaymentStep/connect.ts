@@ -5,9 +5,9 @@ import { ICheckoutStepsCompletionState } from '@interfaces/checkout';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const stepsCompletion: ICheckoutStepsCompletionState = state.pageCheckout.stepsCompletion;
 
-    return ({
+    return {
         stepsCompletion
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

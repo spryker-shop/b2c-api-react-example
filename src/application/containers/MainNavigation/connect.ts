@@ -8,11 +8,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isFulfilled = mainNavigation.fulfilled;
     const isTouch = getIsTouch(state, ownProps);
 
-    return ({
+    return {
         nodesTree,
         isFulfilled,
         isTouch
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

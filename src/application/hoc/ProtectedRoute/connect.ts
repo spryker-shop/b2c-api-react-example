@@ -10,11 +10,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
 
-    return ({
+    return {
         isUserLoggedIn,
         isInitStateFulfilled,
         anonymId
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

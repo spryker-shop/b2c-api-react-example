@@ -20,7 +20,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const totals: ITotals | null = cartProps && cartProps.data ? cartProps.data.totals : null;
     const cartItems: ICartItem[] | null = cartProps && cartProps.data ? cartProps.data.items : null;
 
-    return ({
+    return {
         cartId,
         totals,
         cartItems,
@@ -28,7 +28,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         anonymId,
         isCartLoading,
         cartItemsQuantity
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

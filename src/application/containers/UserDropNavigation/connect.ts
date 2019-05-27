@@ -10,11 +10,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const locale: string = getAppLocale(state, ownProps);
     const isTouch: boolean = getIsTouch(state, ownProps);
 
-    return ({
+    return {
         isUserLoggedIn,
         locale,
         isTouch
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

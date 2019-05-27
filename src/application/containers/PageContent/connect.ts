@@ -25,7 +25,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
     const isPageLocked: boolean = getIsPageLocked(state, ownProps);
 
-    return ({
+    return {
         isLoading,
         locale,
         isAppDataSet,
@@ -34,7 +34,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         cartCreated,
         isInitStateFulfilled,
         isPageLocked
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

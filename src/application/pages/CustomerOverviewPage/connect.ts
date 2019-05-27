@@ -31,7 +31,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
 
-    return ({
+    return {
         isLoading,
         isRejected,
         isFulfilled,
@@ -43,7 +43,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isAddressesListInitiated,
         isHasOrders,
         addresses
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

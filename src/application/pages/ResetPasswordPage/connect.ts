@@ -10,7 +10,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
         ? isPageLoginStateLoading(state, ownProps) : false;
 
-    return ({ restoreKey, isLoading });
+    return {
+        restoreKey,
+        isLoading
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

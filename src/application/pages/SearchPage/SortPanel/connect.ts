@@ -14,13 +14,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const sortParams: string[] = pageSearchState.sortParams;
     const currentItemsPerPage: number = pageSearchState.currentItemsPerPage;
 
-    return ({
+    return {
         pagination,
         currentSort,
         sortParams,
         currentItemsPerPage,
         sortParamLocalizedNames
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

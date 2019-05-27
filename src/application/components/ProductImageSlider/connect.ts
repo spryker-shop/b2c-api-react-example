@@ -5,9 +5,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const productPage = state.pageProduct.data.selectedProduct;
     const productLabels = productPage && productPage.productLabels ? productPage.productLabels : null;
 
-    return ({
+    return {
         productLabels
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps, null);

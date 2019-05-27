@@ -8,9 +8,9 @@ import { setCurrentCategoryAction } from '@stores/actions/pages/search';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const categoriesLocalizedName: string | null = getCategoriesLocalizedName(state, ownProps);
 
-    return ({
+    return {
         categoriesLocalizedName
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

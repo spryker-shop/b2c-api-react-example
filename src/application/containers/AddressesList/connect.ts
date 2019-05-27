@@ -16,12 +16,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
     const isInitiated: boolean = isAddressesInitiated(state, ownProps);
 
-    return ({
+    return {
         customer,
         addresses,
         isLoading,
         isInitiated
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

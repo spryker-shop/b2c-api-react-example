@@ -11,12 +11,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartId: string = getCartId(state, ownProps);
     const isCartEmpty: boolean = state.cart.data.isCartEmpty;
 
-    return ({
+    return {
         isCartEmpty,
         totalQty,
         totals,
         cartId
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

@@ -10,10 +10,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
     const wishlists: IWishlist[] | null = wishlistProps && wishlistProps.data ? wishlistProps.data.wishlists : null;
 
-    return ({
+    return {
         isLoading,
         wishlists
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

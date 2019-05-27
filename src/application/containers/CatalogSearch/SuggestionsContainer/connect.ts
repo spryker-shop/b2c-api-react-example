@@ -18,14 +18,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const completion: string[] | null = searchProps ? searchProps.completion : null;
     const isFulfilled: boolean = searchProps ? searchProps.fulfilled : null;
 
-    return ({
+    return {
         categories,
         suggestions,
         isFulfilled,
         completion,
         categoriesTree,
         currency
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

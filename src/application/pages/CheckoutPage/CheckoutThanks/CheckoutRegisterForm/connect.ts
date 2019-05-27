@@ -20,7 +20,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;
     const isMultipleAddressesLoading: boolean = state.pageAddresses.data.isMultipleAddressesLoading;
 
-    return ({
+    return {
         isAuth,
         isLoading,
         isCartLoading,
@@ -29,7 +29,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         billingNewAddress,
         deliveryNewAddress,
         isMultipleAddressesLoading
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

@@ -13,13 +13,13 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
 
-    return ({
+    return {
         cartCreated,
         cartId,
         isUserLoggedIn,
         anonymId,
         isCartLoading
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

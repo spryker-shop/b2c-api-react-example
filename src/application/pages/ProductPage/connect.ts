@@ -28,7 +28,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const isWishlistsFetched: boolean = isWishlistsCollectionInitiated(state, ownProps);
 
-    return ({
+    return {
         product,
         isUserLoggedIn,
         isInitiated,
@@ -39,7 +39,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isProductExist,
         anonymId,
         isWishlistsFetched
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

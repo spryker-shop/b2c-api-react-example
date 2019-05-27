@@ -17,14 +17,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
-    return ({
+    return {
         isLoading,
         isWishlistExist,
         isRejected,
         isAppDataSet,
         wishlist,
         wishlistIdParam
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

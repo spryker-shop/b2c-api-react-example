@@ -8,9 +8,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
     const isInitial: boolean = wishlistProps && wishlistProps.data ? wishlistProps.data.isInitialList : false;
 
-    return ({
+    return {
         isInitial
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

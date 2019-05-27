@@ -10,11 +10,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false;
     const products: IProductCard[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.items : null;
 
-    return ({
+    return {
         isLoading,
         products,
         currency
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

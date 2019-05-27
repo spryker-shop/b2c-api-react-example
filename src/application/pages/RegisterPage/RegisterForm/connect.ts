@@ -12,11 +12,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? isPageLoginStateLoading(state, ownProps) : false;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
 
-    return ({
+    return {
         isAuth,
         isLoading,
         isCartLoading
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

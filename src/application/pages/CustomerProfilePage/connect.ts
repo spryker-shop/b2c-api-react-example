@@ -19,14 +19,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCustomerDataExist = isCustomerProfilePresent(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
 
-    return ({
+    return {
         isLoading,
         isRejected,
         isFulfilled,
         isAppDataSet,
         isCustomerDataExist,
         customerReference
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

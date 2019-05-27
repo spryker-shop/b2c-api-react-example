@@ -7,9 +7,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
     const wishlists: IWishlist[] | null = wishlistProps && wishlistProps.data ? wishlistProps.data.wishlists : null;
 
-    return ({
+    return {
         wishlists
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

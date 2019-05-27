@@ -14,11 +14,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const completion: string[] | null = searchProps ? searchProps.completion : null;
     const isLoading: boolean = searchProps ? searchProps.pending : null;
 
-    return ({
+    return {
         completion,
         isLoading,
         currency
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({

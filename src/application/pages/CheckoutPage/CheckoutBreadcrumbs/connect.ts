@@ -5,9 +5,9 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
 
-    return ({
+    return {
         isUserLoggedIn
-    });
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

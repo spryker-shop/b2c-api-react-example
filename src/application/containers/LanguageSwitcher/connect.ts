@@ -7,9 +7,9 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const appLocale = getAppLocale(state, ownProps);
 
-    return ({
+    return {
         appLocale
-    });
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
