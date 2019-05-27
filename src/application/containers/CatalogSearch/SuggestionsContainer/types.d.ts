@@ -14,5 +14,5 @@ export interface ISuggestionsContainerProps extends WithStyles<typeof styles> {
     categoriesTree?: ICategory[] | null;
     clearSuggestion: (query: string) => void;
     sendSearchAction?: (params: ISearchQuery) => void;
-    fulfilled?: boolean;
+    isFulfilled?: boolean;
 }

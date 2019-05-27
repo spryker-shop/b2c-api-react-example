@@ -21,10 +21,10 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        const { getOrdersCollection, isInitiated } = this.props;
+        const { getCustomerCartsAction, isInitiated } = this.props;
 
         if (!isInitiated) {
-            getOrdersCollection();
+            getCustomerCartsAction();
         }
     };
 

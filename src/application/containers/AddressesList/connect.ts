@@ -24,11 +24,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators({
-        getAddressesAction,
-        setCurrentAddressAction,
-        deleteAddressAction
-    }, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getAddressesAction,
+    setCurrentAddressAction,
+    deleteAddressAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

@@ -20,12 +20,12 @@ export class LoginFormComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isAuth, getCustomerCart, history, redirectAfterLoginPath, isCartLoading } = this.props;
+        const { isAuth, getCustomerCartsAction, history, redirectAfterLoginPath, isCartLoading } = this.props;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
         if (!prevProps.isAuth && isAuth) {
-            getCustomerCart();
+            getCustomerCartsAction();
             this.setState({ isCartLoading: true });
         }
 
@@ -37,7 +37,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
         const { username, password } = this.state;
-        const { handleSubmitLoginForm } = this.props;
+        const { loginCustomerAction } = this.props;
 
         if (!Boolean(username) || !Boolean(password)) {
             return null;
@@ -45,7 +45,7 @@ export class LoginFormComponent extends React.Component<Props, State> {
 
         const payload = { username, password };
 
-        handleSubmitLoginForm(payload);
+        loginCustomerAction(payload);
     };
 
     protected handleChange = () => (event: InputChangeEvent): void => {

@@ -7,12 +7,14 @@ import {
     isOrderHistoryInitiated
 } from '@stores/reducers/pages/orderHistory';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { bindActionCreators, Dispatch } from 'redux';
+import { IOrderItem } from '@interfaces/order';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isInitiated = isOrderHistoryInitiated(state, ownProps);
-    const isFulfilled = isOrderHistoryFulfilled(state, ownProps);
-    const isHasOrders = isOrderHistoryItems(state, ownProps);
-    const orders = getOrdersCollectionFromStore(state, ownProps);
+    const isInitiated: boolean = isOrderHistoryInitiated(state, ownProps);
+    const isFulfilled: boolean = isOrderHistoryFulfilled(state, ownProps);
+    const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
+    const orders: IOrderItem[] | null = getOrdersCollectionFromStore(state, ownProps);
 
     return ({
         isFulfilled,
@@ -22,9 +24,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    getOrdersCollection: () => dispatch(getOrdersCollectionAction()),
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getOrdersCollectionAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

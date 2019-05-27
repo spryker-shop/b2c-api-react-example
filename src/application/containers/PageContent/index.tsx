@@ -40,7 +40,7 @@ class PageContentComponent extends React.Component<Props, State> {
         const customerRef: string = localStorage.getItem('customerRef');
 
         if (accessToken && expiresIn && refreshToken) {
-            this.props.setAuth({
+            this.props.initApplicationDataAction({
                 accessToken,
                 expiresIn,
                 refreshToken,
@@ -49,7 +49,7 @@ class PageContentComponent extends React.Component<Props, State> {
         }
 
         if (!this.props.isAppDataSet) {
-            this.props.initApplicationData(null);
+            this.props.initApplicationDataAction(null);
 
             return;
         }
@@ -60,7 +60,7 @@ class PageContentComponent extends React.Component<Props, State> {
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
-            this.props.getCustomerCart(anonymId, isCustomerAuth);
+            this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
         }
 
         if (prevProps.isPageLocked !== isPageLocked) {
@@ -92,7 +92,7 @@ class PageContentComponent extends React.Component<Props, State> {
             && this.props.location.pathname.includes(pathCategoryPageBase) === false
             && this.props.location.pathname.includes(pathSearchPage) === false
         ) {
-            this.props.clearSearchTerm();
+            this.props.clearSearchTermAction();
         }
     };
 
