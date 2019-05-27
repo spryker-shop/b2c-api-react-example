@@ -133,4 +133,4 @@ class PageContentComponent extends React.Component<Props, State> {
 }
 
 const PageContent = withStyles(styles)(PageContentComponent);
-export default PageContent;
+export default hot(PageContent);
