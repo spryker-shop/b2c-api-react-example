@@ -4,6 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 export const styles = (theme: Theme) => createStyles({
     box: {
         display: 'flex',
+        justifyContent: 'center',
         padding: '30px 15px',
         background: theme.appColors.white,
         marginBottom: 20,

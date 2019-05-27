@@ -19,8 +19,8 @@ export interface ICheckoutState extends IReduxState {
     deliveryNewAddress: IAddressFormState;
     billingNewAddress: IAddressFormState;
     stepsCompletion: ICheckoutStepsCompletionState;
-    shipmentMethod: IShipmentMethod['id'] | null;
-    paymentMethod: IPaymentMethod['paymentMethodName'] | null;
+    shipmentMethod: string | null;
+    paymentMethod: string | null;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData: ICheckoutInvoiceState;
     data: ICheckoutStateData;

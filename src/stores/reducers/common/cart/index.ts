@@ -1,15 +1,7 @@
-import {
-    CART_ADD_ITEM,
-    CART_DELETE_ITEM,
-    CART_UPDATE_ITEM,
-    GET_CARTS,
-    CART_UPDATE_FULLFILLED_STATE
-} from '@stores/actionTypes/common/cart';
+import * as actionTypes from '@stores/actionTypes/common/cart';
+import * as cartHandlers  from './handlers';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
-import { ICartDataParsed, ICartItem } from '@interfaces/cart';
-import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { ICartAction, ICartState } from './types';
-import { IApiErrorResponse } from '@services/types';
 
 export const initialState: ICartState = {
     data: {
@@ -22,105 +14,37 @@ export const initialState: ICartState = {
         store: null,
         discounts: null,
         totals: null,
-        totalQty: 0,
-    },
+        totalQty: 0
+    }
 };
 
 export const cart = function (state: ICartState = initialState, action: ICartAction): ICartState {
     switch (action.type) {
-        case `${CART_ADD_ITEM}_PENDING`:
-        case `${CART_UPDATE_ITEM}_PENDING`:
-        case `${GET_CARTS}_PENDING`:
-            return handlePending(state);
-        case `${CART_ADD_ITEM}_FULFILLED`:
-        case `${CART_UPDATE_ITEM}_FULFILLED`:
-            return handleFulfilled(state, action.payloadCartItemFulfilled);
-        case `${CART_ADD_ITEM}_REJECTED`:
-        case `${CART_DELETE_ITEM}_REJECTED`:
-        case `${CART_UPDATE_ITEM}_REJECTED`:
-        case `${GET_CARTS}_REJECTED`:
-            return handleRejected(state, action.payloadRejected || {error: action.error});
-        case `${GET_CARTS}_FULFILLED`:
+        case `${actionTypes.CART_ADD_ITEM}_PENDING`:
+        case `${actionTypes.CART_UPDATE_ITEM}_PENDING`:
+        case `${actionTypes.GET_CARTS}_PENDING`:
+            return cartHandlers.handleCartPending(state);
+        case `${actionTypes.CART_ADD_ITEM}_FULFILLED`:
+        case `${actionTypes.CART_UPDATE_ITEM}_FULFILLED`:
+            return cartHandlers.handleUpdateCartFulfilled(state, action.payloadCartItemFulfilled);
+        case `${actionTypes.CART_ADD_ITEM}_REJECTED`:
+        case `${actionTypes.CART_DELETE_ITEM}_REJECTED`:
+        case `${actionTypes.CART_UPDATE_ITEM}_REJECTED`:
+        case `${actionTypes.GET_CARTS}_REJECTED`:
+            return cartHandlers.handleCartRejected(state, action.payloadRejected);
+        case `${actionTypes.GET_CARTS}_FULFILLED`:
             if (!action.payloadCartItemFulfilled) {
-                return {
-                    ...state,
-                    data: {...initialState.data, cartCreated: true},
-                    ...getReducerPartFulfilled(),
-                };
+                return cartHandlers.handleCartCreatedFulfilled(state);
             }
 
-            return handleCartFulfilled(state, action.payloadCartItemFulfilled);
-        case `${CART_DELETE_ITEM}_FULFILLED`:
-            const itemsAfterDelete: ICartItem[] = state.data.items.filter((
-                item: ICartItem
-            ) => item.sku !== action.payloadCartDeleteItemFulfilled.sku);
-
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    isCartEmpty: !(itemsAfterDelete && itemsAfterDelete.length),
-                    items: itemsAfterDelete
-                },
-                ...getReducerPartFulfilled(),
-            };
+            return cartHandlers.handleCartFulfilled(state, action.payloadCartItemFulfilled);
+        case `${actionTypes.CART_DELETE_ITEM}_FULFILLED`:
+            return cartHandlers.handleCartDeleteItemFulfilled(state, action.payloadCartDeleteItemFulfilled);
         case PAGES_CUSTOMER_LOGOUT:
-            return {
-                ...state,
-                data: {...initialState.data, cartCreated: true},
-                ...getReducerPartFulfilled(),
-            };
-        case CART_UPDATE_FULLFILLED_STATE:
-            return {
-                ...state,
-                ...getReducerPartFulfilled(),
-            };
+            return cartHandlers.handleCartCreatedFulfilled(state);
+        case actionTypes.CART_UPDATE_FULLFILLED_STATE:
+            return cartHandlers.handleCartUpdateFulfilledState(state);
         default:
             return state;
     }
 };
-
-const handleFulfilled = (cartState: ICartState, payload: ICartDataParsed | null) => (
-    {
-        ...cartState,
-        data: {
-            ...cartState.data,
-            isCartEmpty: !(payload.items && payload.items.length),
-            ...payload,
-        },
-        ...getReducerPartFulfilled(),
-    }
-);
-
-const handleRejected = (cartState: ICartState, payload: IApiErrorResponse) => (
-    {
-        ...cartState,
-        data: {
-            ...cartState.data,
-        },
-        ...getReducerPartRejected(payload.error),
-    }
-);
-
-const handlePending = (cartState: ICartState) => (
-    {
-        ...cartState,
-        data: {
-            ...cartState.data,
-        },
-        ...getReducerPartPending(),
-    }
-);
-
-const handleCartFulfilled = (cartState: ICartState, payload: ICartDataParsed) => (
-    {
-        ...cartState,
-        data: {
-            ...cartState.data,
-            isCartEmpty: !(payload.items && payload.items.length),
-            cartCreated: true,
-            ...payload,
-        },
-        ...getReducerPartFulfilled(),
-    }
-);

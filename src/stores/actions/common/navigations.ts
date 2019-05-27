@@ -8,7 +8,7 @@ export const getMainNavigationPendingState = (): INavigationsAction => ({
 
 export const getMainNavigationRejectState = (message: string): INavigationsAction => ({
     type: actionTypes.GET_MAIN_NAVIGATION + '_REJECTED',
-    payloadRejected: {error: message}
+    payloadRejected: { error: message }
 });
 
 export const getMainNavigationFulfilledState = (payloadMainNavigation: IMainNavigationNode[]): INavigationsAction => ({

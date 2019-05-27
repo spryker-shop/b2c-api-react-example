@@ -7,9 +7,9 @@ export const suggestPendingState = () => ({
     type: actionTypes.PAGES_SUGGESTION_REQUEST + '_PENDING'
 });
 
-export const suggestRejectState = (message: string) => ({
+export const suggestRejectedState = (message: string) => ({
     type: actionTypes.PAGES_SUGGESTION_REQUEST + '_REJECTED',
-    payloadRejected: {error: message}
+    payloadRejected: { error: message }
 });
 
 export const suggestFullfiledState = (payload: object) => ({
@@ -27,14 +27,14 @@ export const sendSearchPendingState = () => ({
     type: actionTypes.PAGES_SEARCH_REQUEST + '_PENDING'
 });
 
-export const sendSearchRejectState = (message: string) => ({
+export const sendSearchRejectedState = (message: string) => ({
     type: actionTypes.PAGES_SEARCH_REQUEST + '_REJECTED',
-    payloadRejected: {error: message}
+    payloadRejected: { error: message }
 });
 
 export const sendSearchFulfilledState = (payloadCategory: ICatalogSearchDataParsed, query: string) => ({
     type: actionTypes.PAGES_SEARCH_REQUEST + '_FULFILLED',
-    payloadSearchFulfilled: {...payloadCategory, searchTerm: query}
+    payloadSearchFulfilled: { ...payloadCategory, searchTerm: query }
 });
 
 export const sendSearchAction = function (payload: ISearchQuery) {
@@ -68,7 +68,7 @@ export const clearPaginationPageAction = () => ({
 
 export const clearSuggestions = (searchTerm: string) => ({
     type: actionTypes.PAGES_SEARCH_REQUEST_CLEAR,
-    payloadSearchTermFulfilled: {searchTerm}
+    payloadSearchTermFulfilled: { searchTerm }
 });
 
 export const setCurrentCategoryAction = (categoryId: number) => ({
@@ -78,7 +78,7 @@ export const setCurrentCategoryAction = (categoryId: number) => ({
 
 export const clearSearchTermAction = function () {
     return {
-        type: actionTypes.PAGES_SEARCH_TERM_CLEAR,
+        type: actionTypes.PAGES_SEARCH_TERM_CLEAR
     };
 };
 

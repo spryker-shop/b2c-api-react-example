@@ -1,15 +1,6 @@
-import { IInitAction, IInitState, ILocaleActionPayload } from '@stores/reducers/common/init/types';
-import {
-    ANONYM_ID,
-    CATEGORIES_TREE_REQUEST,
-    INIT_APP_ACTION_TYPE,
-    SWITCH_LOCALE,
-    IS_PAGE_LOCKED
-} from '@stores/actionTypes/common/init';
-import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IInitData } from '@interfaces/init';
-import { IApiErrorResponse } from '@services/types';
-import { ICategory } from '@interfaces/common';
+import * as actionTypes from '@stores/actionTypes/common/init';
+import * as initHandlers  from './handlers';
+import { IInitAction, IInitState } from '@stores/reducers/common/init/types';
 
 export const initialState: IInitState = {
     data: {
@@ -24,109 +15,35 @@ export const initialState: IInitState = {
         anonymId: 'anonym',
         isTouch: true,
         isPageLocked: false
-    },
+    }
 };
 
-export const init = function(state: IInitState = initialState, action: IInitAction): IInitState {
+export const init = function (state: IInitState = initialState, action: IInitAction): IInitState {
     switch (action.type) {
-        case `${INIT_APP_ACTION_TYPE}_PENDING`:
-        case `${CATEGORIES_TREE_REQUEST}_PENDING`:
-        case `${SWITCH_LOCALE}_PENDING`:
-            return handleInitAppPending(state);
-        case `${INIT_APP_ACTION_TYPE}_FULFILLED`:
-            return handleInitAppFulfilled(state, action.payloadInitFulfilled);
-        case `${INIT_APP_ACTION_TYPE}_REJECTED`:
-        case `${CATEGORIES_TREE_REQUEST}_REJECTED`:
-        case `${SWITCH_LOCALE}_REJECTED`:
-            return handleInitAppRejected(state, action.payloadRejected || {error: action.error});
-        case `${CATEGORIES_TREE_REQUEST}_FULFILLED`:
-            return handleCategoriesTreeRequestFulfilled(state, action.payloadCategoriesTreeFulfilled);
-        case `${SWITCH_LOCALE}_FULFILLED`:
-            return handleSwitchLocaleFulfilled(state, action.payloadLocaleFulfilled);
-        case `${INIT_APP_ACTION_TYPE}_CLEAR`:
-            return handleInitAppClear(state);
-        case `${ANONYM_ID}_FULFILLED`:
-            return handleAnonymIdFulfilled(state, action.payloadAnonymIdFulfilled);
-        case `${IS_PAGE_LOCKED}_FULFILLED`:
-            return handleisPageLockedFulfilled(state, action.payloadisPageLocked);
+        case `${actionTypes.INIT_APP_ACTION_TYPE}_PENDING`:
+        case `${actionTypes.CATEGORIES_TREE_REQUEST}_PENDING`:
+        case `${actionTypes.SWITCH_LOCALE}_PENDING`:
+            return initHandlers.handleInitAppPending(state);
+        case `${actionTypes.INIT_APP_ACTION_TYPE}_FULFILLED`:
+            return initHandlers.handleInitAppFulfilled(state, action.payloadInitFulfilled);
+        case `${actionTypes.INIT_APP_ACTION_TYPE}_REJECTED`:
+        case `${actionTypes.CATEGORIES_TREE_REQUEST}_REJECTED`:
+        case `${actionTypes.SWITCH_LOCALE}_REJECTED`:
+            return initHandlers.handleInitAppRejected(state, action.payloadRejected);
+        case `${actionTypes.CATEGORIES_TREE_REQUEST}_FULFILLED`:
+            return initHandlers.handleCategoriesTreeRequestFulfilled(
+                state,
+                action.payloadCategoriesTreeFulfilled.categories
+            );
+        case `${actionTypes.SWITCH_LOCALE}_FULFILLED`:
+            return initHandlers.handleSwitchLocaleFulfilled(state, action.payloadLocaleFulfilled);
+        case `${actionTypes.INIT_APP_ACTION_TYPE}_CLEAR`:
+            return initHandlers.handleInitAppClear(state);
+        case `${actionTypes.ANONYM_ID}_FULFILLED`:
+            return initHandlers.handleAnonymIdFulfilled(state, action.payloadAnonymIdFulfilled);
+        case `${actionTypes.IS_PAGE_LOCKED}_FULFILLED`:
+            return initHandlers.handleisPageLockedFulfilled(state, action.payloadisPageLocked);
         default:
             return state;
     }
 };
-
-const handleInitAppFulfilled = (appState: IInitState, payload: IInitData) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-        ok: true,
-        priceMode: payload.priceMode,
-        currency: payload.currency,
-        store: payload.store,
-        locale: payload.locale,
-        timeZone: payload.timeZone,
-        countries: payload.countries,
-        isTouch: payload.isTouch
-    },
-    ...getReducerPartFulfilled(),
-});
-
-const handleInitAppRejected = (appState: IInitState, payload: IApiErrorResponse) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-        ok: false,
-    },
-    ...getReducerPartRejected(payload.error),
-});
-
-const handleInitAppPending = (appState: IInitState) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-    },
-    ...getReducerPartPending(),
-});
-
-const handleCategoriesTreeRequestFulfilled = (appState: IInitState, payload: {categories: ICategory[]}) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-        ok: true,
-        categoriesTree: payload.categories,
-    },
-    ...getReducerPartFulfilled()
-});
-
-const handleSwitchLocaleFulfilled = (appState: IInitState, payload: ILocaleActionPayload) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-        locale: payload.locale,
-    },
-    ...getReducerPartFulfilled(),
-});
-
-const handleInitAppClear = (appState: IInitState) => ({
-    ...appState,
-    data: {
-        anonymId: ''
-    }
-});
-
-const handleisPageLockedFulfilled = (appState: IInitState, payload: boolean) =>
-    ({
-        ...appState,
-        data: {
-            ...appState.data,
-            isPageLocked: payload
-        },
-        ...getReducerPartFulfilled(),
-    });
-
-const handleAnonymIdFulfilled = (appState: IInitState, payload: string) => ({
-    ...appState,
-    data: {
-        ...appState.data,
-        anonymId: payload
-    }
-});

@@ -1,5 +1,5 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
-import { IAddressItem, IAddressItemCollection } from '@interfaces/addresses';
+import { IAddressItem } from '@interfaces/addresses';
 import { IConfigInputState } from '@interfaces/forms';
 
 export interface IPaymentMethod {
@@ -58,13 +58,11 @@ export interface ICheckoutCreditCardState {
     cardName: IConfigInputState;
     cardExpiryDate: IConfigInputState;
     cardCVC: IConfigInputState;
-
     [key: string]: IConfigInputState;
 }
 
 export interface ICheckoutInvoiceState {
     dateOfBirth: IConfigInputState;
-
     [key: string]: IConfigInputState;
 }
 

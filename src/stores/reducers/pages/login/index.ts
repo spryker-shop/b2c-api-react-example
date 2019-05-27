@@ -44,7 +44,7 @@ export const pagesLogin = function (state: ILoginState = initialState, action: I
         case `${RESET_PASSWORD}_REJECTED`:
             return {
                 ...state,
-                ...getReducerPartRejected(action.payloadRejected.error || action.error),
+                ...getReducerPartRejected(action.payloadRejected.error),
             };
         case `${PAGES_LOGIN_REQUEST}_PENDING`:
         case `${FORGOT_PASSWORD}_PENDING`:

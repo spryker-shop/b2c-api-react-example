@@ -32,13 +32,13 @@ export const pageCustomerProfile = function (state: ICustomerDataState = initial
         case `${CUSTOMER_PASSWORD_UPDATE}_FULFILLED`:
             return handleUpdatePasswordFulfilled(state);
         case `${CUSTOMER_PASSWORD_UPDATE}_REJECTED`:
-            return handleUpdatePasswordRejected(state, action.payloadRejected || {error: action.error});
+            return handleUpdatePasswordRejected(state, action.payloadRejected);
         case `${CUSTOMER_PASSWORD_UPDATE}_PENDING`:
             return handleUpdatePasswordPending(state);
         case `${CUSTOMER_DELETE_ENTITY}_FULFILLED`:
             return handleDeleteCustomerFulfilled(state);
         case `${CUSTOMER_DELETE_ENTITY}_REJECTED`:
-            return handleDeleteCustomerRejected(state, action.payloadRejected || {error: action.error});
+            return handleDeleteCustomerRejected(state, action.payloadRejected);
         case `${CUSTOMER_DELETE_ENTITY}_PENDING`:
             return handleDeleteCustomerPending(state);
         default:

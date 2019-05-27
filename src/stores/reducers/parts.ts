@@ -23,3 +23,11 @@ export const getReducerPartRejected = (errorMessage: string): IReduxState => ({
     rejected: true,
     initiated: false
 });
+
+export const clearReducerPartState = (): IReduxState => ({
+    error: null,
+    pending: null,
+    fulfilled: null,
+    rejected: null,
+    initiated: null
+});
