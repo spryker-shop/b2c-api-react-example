@@ -4,33 +4,60 @@ import { ICartAddItem, ICartDataParsed } from '@interfaces/cart';
 import { parseCartResponse } from '@helpers/parsing';
 import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { TApiResponseData } from '@services/types';
+import { EIncludeTypes, TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
-import { cartEndpoint } from '@helpers/cart';
 import { errorMessageInform } from '@helpers/common';
 
 export class CartService extends ApiServiceAbstract {
-    public static async getCustomerCarts(dispatch: Function, anonymId: string = null, isUserLoggedIn = true): Promise<string> {
+    public static cartHeader = (isUserLoggedIn: boolean, anonymId: string): object => !isUserLoggedIn
+        ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
+        : { withCredentials: true };
+
+    public static cartEndpoint(path: string, isUserLoggedIn: boolean): string {
+        const itemsIncludeType = isUserLoggedIn ? EIncludeTypes.CART_ITEMS : EIncludeTypes.GUEST_CART_ITEMS;
+
+        const includeParams =
+            `?include=${itemsIncludeType},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
+            `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
+            `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+            `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+            `${EIncludeTypes.CONCRETE_PRODUCT_PRICES},` +
+            EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES;
+
+        return `${path}${includeParams}`;
+    }
+
+    public static async cartTokenActions(dispatch: Function, isUserLoggedIn: boolean): Promise<void> {
+        if (isUserLoggedIn) {
+            const token = await RefreshTokenService.getActualToken(dispatch);
+
+            if (!token) {
+                throw new Error(cartAuthenticateErrorMessage);
+            }
+
+            setAuthToken(token);
+        }
+
+        if (!isUserLoggedIn) {
+            removeAuthToken();
+        }
+    }
+
+    public static async getCustomerCarts(
+        dispatch: Function,
+        anonymId: string = null,
+        isUserLoggedIn = true
+    ): Promise<void> {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
-            if (isUserLoggedIn) {
-                const token = await RefreshTokenService.getActualToken(dispatch);
-                if (!token) {
-                    Promise.reject(cartAuthenticateErrorMessage);
-                }
-                setAuthToken(token);
-            }
+            await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            if (!isUserLoggedIn) {
-                removeAuthToken();
-            }
-
-            const requestHeader = !isUserLoggedIn
-                ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
-                : { withCredentials: true };
+            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const cartType = isUserLoggedIn ? 'carts' : 'guest-carts';
-            const endpoint = cartEndpoint(cartType, isUserLoggedIn);
+            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {
@@ -44,8 +71,6 @@ export class CartService extends ApiServiceAbstract {
                     included: response.data.included
                 });
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
-
-                return responseParsed.id;
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 errorMessageInform(errorMessage);
@@ -57,27 +82,21 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async cartAddItem(dispatch: Function, payload: ICartAddItem, cartId: string, anonymId: string = null, isUserLoggedIn = true): Promise<void> {
+    public static async cartAddItem(
+        dispatch: Function,
+        payload: ICartAddItem,
+        cartId: string,
+        anonymId: string = null,
+        isUserLoggedIn = true
+    ): Promise<void> {
         dispatch(cartActions.cartAddItemPendingStateAction());
         try {
-            if (isUserLoggedIn) {
-                const token = await RefreshTokenService.getActualToken(dispatch);
-                if (!token) {
-                    Promise.reject(cartAuthenticateErrorMessage);
-                }
-                setAuthToken(token);
-            }
+            await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            if (!isUserLoggedIn) {
-                removeAuthToken();
-            }
-
-            const requestHeader = !isUserLoggedIn
-                ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
-                : { withCredentials: true };
+            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
             const cartType = isUserLoggedIn ? `carts/${cartId}/items` : 'guest-cart-items';
-            const endpoint = cartEndpoint(cartType, isUserLoggedIn);
+            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.post(endpoint, body, requestHeader);
 
             if (response.ok) {
@@ -100,21 +119,18 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async cartDeleteItem(dispatch: Function, cartId: string, sku: string, anonymId: string, isUserLoggedIn: boolean): Promise<void> {
+    public static async cartDeleteItem(
+        dispatch: Function,
+        cartId: string,
+        sku: string,
+        anonymId: string,
+        isUserLoggedIn: boolean
+    ): Promise<void> {
         dispatch(cartActions.cartDeleteItemPendingStateAction());
         try {
-            if (isUserLoggedIn) {
-                const token = await RefreshTokenService.getActualToken(dispatch);
-                setAuthToken(token);
-            }
+            await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            if (!isUserLoggedIn) {
-                removeAuthToken();
-            }
-
-            const requestHeader = !isUserLoggedIn
-                ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
-                : { withCredentials: true };
+            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const endpoint = isUserLoggedIn
                 ? `carts/${cartId}/items/${sku}`
                 : `guest-carts/${cartId}/guest-cart-items/${sku}`;
@@ -140,30 +156,23 @@ export class CartService extends ApiServiceAbstract {
         }
     }
 
-    public static async cartUpdateItem(dispatch: Function, payload: ICartAddItem, cartId: string, anonymId: string, isUserLoggedIn: boolean): Promise<void> {
+    public static async cartUpdateItem(
+        dispatch: Function,
+        payload: ICartAddItem,
+        cartId: string,
+        anonymId: string,
+        isUserLoggedIn: boolean
+    ): Promise<void> {
         dispatch(cartActions.cartUpdateItemPendingStateAction());
         try {
-            if (isUserLoggedIn) {
-                const token = await RefreshTokenService.getActualToken(dispatch);
-                if (!token) {
-                    Promise.reject(cartAuthenticateErrorMessage);
-                }
+            await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-                setAuthToken(token);
-            }
-
-            if (!isUserLoggedIn) {
-                removeAuthToken();
-            }
-
-            const requestHeader = !isUserLoggedIn
-                ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
-                : { withCredentials: true };
+            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const cartType = isUserLoggedIn
                 ? `carts/${cartId}/items/${payload.sku}`
                 : `guest-carts/${cartId}/guest-cart-items/${payload.sku}`;
 
-            const endpoint = cartEndpoint(cartType, isUserLoggedIn);
+            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
 
             const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
             const response: TApiResponseData = await api.patch(endpoint, body, requestHeader);
