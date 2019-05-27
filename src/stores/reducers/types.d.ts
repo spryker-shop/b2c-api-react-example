@@ -50,7 +50,6 @@ export interface IReduxOwnProps extends RouteProps, WithRouter {
     };
 }
 
-// Common interface for actions
 export interface IActionData {
     type: string;
     payloadRejected?: IApiErrorResponse;

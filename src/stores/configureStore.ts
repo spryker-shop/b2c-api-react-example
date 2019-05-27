@@ -11,6 +11,7 @@ export const configureStore = function (history: History, initialState?: any) {
         thunk,
         routerMiddleware(history),
     ];
+
     if (process.env.NODE_ENV !== 'production') {
         const logger = createLogger({
             actionTransformer: action => ({
@@ -18,15 +19,14 @@ export const configureStore = function (history: History, initialState?: any) {
                 type: String(action.type),
             }),
         });
-        // Logger must be the last middleware in chain, otherwise it will log thunk and promise, not actual actions
         middlewares.push(logger);
     }
-    // Add the reducer to your store on the `router` key
+
     const reducer = combineReducers({
         router: connectRouter(history),
         ...reducers
     });
-    // Apply our middleware for navigating
+
     const middleware = process.env.NODE_ENV !== 'production' ?
         composeWithDevTools(applyMiddleware(...middlewares)) : compose(applyMiddleware(...middlewares));
 

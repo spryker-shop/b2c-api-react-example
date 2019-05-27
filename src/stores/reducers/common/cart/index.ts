@@ -1,6 +1,5 @@
 import {
     CART_ADD_ITEM,
-    CART_CREATE,
     CART_DELETE_ITEM,
     CART_UPDATE_ITEM,
     GET_CARTS,
@@ -31,7 +30,6 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
     switch (action.type) {
         case `${CART_ADD_ITEM}_PENDING`:
         case `${CART_UPDATE_ITEM}_PENDING`:
-        case `${CART_CREATE}_PENDING`:
         case `${GET_CARTS}_PENDING`:
             return handlePending(state);
         case `${CART_ADD_ITEM}_FULFILLED`:
@@ -42,7 +40,6 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
         case `${CART_UPDATE_ITEM}_REJECTED`:
         case `${GET_CARTS}_REJECTED`:
             return handleRejected(state, action.payloadRejected || {error: action.error});
-        case `${CART_CREATE}_FULFILLED`:
         case `${GET_CARTS}_FULFILLED`:
             if (!action.payloadCartItemFulfilled) {
                 return {
@@ -53,18 +50,6 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
             }
 
             return handleCartFulfilled(state, action.payloadCartItemFulfilled);
-        case `${CART_CREATE}_REJECTED`:
-            return handleCartCreateRejected(state, action.payloadRejected);
-        case `${CART_DELETE_ITEM}_PENDING`:
-            return {
-                ...state,
-                ...getReducerPartPending(),
-            };
-        case `${CART_DELETE_ITEM}_REJECTED`:
-            return {
-                ...state,
-                ...getReducerPartRejected(action.payloadRejected.error),
-            };
         case `${CART_DELETE_ITEM}_FULFILLED`:
             const itemsAfterDelete: ICartItem[] = state.data.items.filter((
                 item: ICartItem
@@ -95,7 +80,6 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
     }
 };
 
-// handlers
 const handleFulfilled = (cartState: ICartState, payload: ICartDataParsed | null) => (
     {
         ...cartState,
@@ -138,17 +122,5 @@ const handleCartFulfilled = (cartState: ICartState, payload: ICartDataParsed) =>
             ...payload,
         },
         ...getReducerPartFulfilled(),
-    }
-);
-
-const handleCartCreateRejected = (cartState: ICartState, payload: IApiErrorResponse) => (
-    {
-        ...cartState,
-        data: {
-            ...cartState.data,
-            isCartEmpty: true,
-            cartCreated: false,
-        },
-        ...getReducerPartRejected(payload.error),
     }
 );
