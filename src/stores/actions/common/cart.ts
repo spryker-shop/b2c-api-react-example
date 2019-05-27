@@ -36,10 +36,11 @@ export const cartDeleteItemFulfilledStateAction = (payload: { sku: string }): IC
     payloadCartDeleteItemFulfilled: payload
 });
 
-export const cartDeleteItemAction = (cartId: string, itemId: string, anonymId: string, isUserLoggedIn: boolean): Function =>
-    (dispatch: Function, getState: Function): void => {
-    CartService.cartDeleteItem(dispatch, cartId, itemId, anonymId, isUserLoggedIn);
-};
+export const cartDeleteItemAction =
+    (cartId: string, itemId: string, anonymId: string, isUserLoggedIn: boolean): Function =>
+        (dispatch: Function, getState: Function): void => {
+            CartService.cartDeleteItem(dispatch, cartId, itemId, anonymId, isUserLoggedIn);
+        };
 
 export const cartAddItemPendingStateAction = (): ICartAction => ({
     type: actionTypes.CART_ADD_ITEM + '_PENDING'
@@ -55,10 +56,11 @@ export const cartAddItemRejectedStateAction = (message: string): ICartAction => 
     payloadRejected: { error: message }
 });
 
-export const addItemToCartAction = (payload: ICartAddItem, cartId: string, anonymId?: string, isUserLoggedIn?: boolean): Function =>
-    (dispatch: Function, getState: Function): void => {
-        CartService.cartAddItem(dispatch, payload, cartId, anonymId, isUserLoggedIn);
-    };
+export const addItemToCartAction =
+    (payload: ICartAddItem, cartId: string, anonymId?: string, isUserLoggedIn?: boolean): Function =>
+        (dispatch: Function, getState: Function): void => {
+            CartService.cartAddItem(dispatch, payload, cartId, anonymId, isUserLoggedIn);
+        };
 
 export const cartUpdateItemPendingStateAction = (): ICartAction => ({
     type: actionTypes.CART_UPDATE_ITEM + '_PENDING'
@@ -74,10 +76,11 @@ export const cartUpdateItemFulfilledStateAction = (payload: ICartDataParsed): IC
     payloadCartItemFulfilled: payload
 });
 
-export const updateItemInCartAction = (payload: ICartAddItem, cartId: string, anonymId: string, isUserLoggedIn: boolean): Function =>
-    (dispatch: Function, getState: Function): void => {
-        CartService.cartUpdateItem(dispatch, payload, cartId, anonymId, isUserLoggedIn);
-    };
+export const updateItemInCartAction =
+    (payload: ICartAddItem, cartId: string, anonymId: string, isUserLoggedIn: boolean): Function =>
+        (dispatch: Function, getState: Function): void => {
+            CartService.cartUpdateItem(dispatch, payload, cartId, anonymId, isUserLoggedIn);
+        };
 
 export const updateCartFulfilledStateAction = (): ICartAction => ({
     type: actionTypes.CART_UPDATE_FULLFILLED_STATE
