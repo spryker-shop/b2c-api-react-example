@@ -4,7 +4,7 @@ import { ISearchPaginationProps as Props } from './types';
 import { AppPagination } from '@containers/AppPagination';
 
 const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { pagination, history, setPaginationPage } = props;
+    const { pagination, history, setPaginationPageAction } = props;
 
     const handlePagination = async (value: number | string): Promise<void> => {
         setPaginationParam(String(value));
@@ -14,7 +14,7 @@ const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
         const searchQuery = new URLSearchParams(history.location.search);
         searchQuery.set('page', page);
         history.replace({...history.location, search: searchQuery.toString()});
-        setPaginationPage(Number(page));
+        setPaginationPageAction(Number(page));
     };
 
     return (

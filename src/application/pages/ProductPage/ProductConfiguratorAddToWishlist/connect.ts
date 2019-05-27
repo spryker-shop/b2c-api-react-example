@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import {
@@ -9,15 +10,16 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { addItemWishlistAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
 import { getCartId, isCartCreated } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { IWishlist } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const cartCreated: boolean = isCartCreated(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
     const isWishlistLoading: boolean = isPageWishlistStateLoading(state, ownProps);
-    const wishlists = getWishlistsCollectionFromStore(state, ownProps);
+    const wishlists: IWishlist[] | null = getWishlistsCollectionFromStore(state, ownProps);
     const isWishlistsFetched: boolean = isWishlistsCollectionInitiated(state, ownProps);
-    const anonymId = getAnonymId(state, ownProps);
+    const anonymId: string = getAnonymId(state, ownProps);
 
     return ({
         cartCreated,
@@ -30,10 +32,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    getWishlists: () => dispatch(getWishlistsAction()),
-    addToWishlist: (wishlistId: string, sku: string) => dispatch(addItemWishlistAction(wishlistId, sku))
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getWishlistsAction,
+    addItemWishlistAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

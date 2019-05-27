@@ -10,9 +10,9 @@ export interface IBillingFormProps extends WithStyles<typeof styles> {
     isCheckoutFulfilled?: boolean;
     billingNewAddress?: IAddressFormState;
     billingSelection?: IBillingSelectionState;
-    mutateStateBillingSelectionSameAsDelivery?: (payload: boolean) => void;
-    mutateStateBillingSelectionAddressId?: (payload: string) => void;
-    mutateStateBillingSelectionAddNew?: () => void;
-    mutateBillingStep?: (payload: boolean) => void;
-    mutateStateNewAddressBilling?: (payload: IFormFieldMutate) => void;
+    mutateStateBillingSelectionSameAsDeliveryAction?: (payload: boolean) => void;
+    mutateStateBillingSelectionAddressIdAction?: (payload: string) => void;
+    mutateStateBillingSelectionAddNewAction?: () => void;
+    mutateBillingStepAction?: (payload: boolean) => void;
+    mutateStateNewAddressBillingAction?: (payload: IFormFieldMutate) => void;
 }

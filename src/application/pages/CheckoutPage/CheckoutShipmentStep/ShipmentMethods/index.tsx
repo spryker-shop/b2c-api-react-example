@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
 const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethod } = props;
+    const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethodAction } = props;
     const isShipmentMethodsExist = Array.isArray(shipmentMethods) && shipmentMethods.length > 0;
 
     if (!isShipmentMethodsExist) {
@@ -43,7 +43,7 @@ const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
             labelForm={ shipmentCarrierNameToIcon[key] }
             collections={ shipmentMethodsGrouped[key] }
             currentMode={ shipmentMethod }
-            onChangeHandler={ mutateShipmentMethod }
+            onChangeHandler={ mutateShipmentMethodAction }
             classes={{ form: classes.formItem }}
         />
     );

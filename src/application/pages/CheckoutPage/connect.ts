@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login';
@@ -17,7 +18,6 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartItem } from '@interfaces/cart';
 import {
     IBillingSelectionState,
-    ICheckoutRequest,
     ICheckoutStepsCompletionState,
     IDeliverySelectionState,
     IPaymentMethod,
@@ -71,17 +71,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    getCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-        dispatch(getCheckoutDataAction(payload, anonymId));
-    },
-    sendCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-        dispatch(sendCheckoutDataAction(payload, anonymId));
-    },
-    getCustomerData: (customerReference: string): void => {
-        dispatch(getCustomerProfileAction(customerReference));
-    }
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getCheckoutDataAction,
+    sendCheckoutDataAction,
+    getCustomerProfileAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

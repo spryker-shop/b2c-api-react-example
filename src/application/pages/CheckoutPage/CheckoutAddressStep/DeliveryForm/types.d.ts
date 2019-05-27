@@ -8,10 +8,10 @@ export interface IDeliveryFormProps {
     addressesCollection?: IAddressItemCollection[] | null;
     deliveryNewAddress?: IAddressFormState;
     deliverySelection?:  IDeliverySelectionState;
-    mutateStateDeliverySelectionAddressId?: (payload: string) => void;
-    mutateDeliveryStep?: (payload: boolean) => void;
-    mutateStateDeliverySelectionAddNew?: () => void;
-    mutateStateNewAddressDelivery?: (payload: IFormFieldMutate) => void;
+    mutateStateDeliverySelectionAddressIdAction?: (payload: string) => void;
+    mutateDeliveryStepAction?: (payload: boolean) => void;
+    mutateStateDeliverySelectionAddNewAction?: () => void;
+    mutateStateNewAddressDeliveryAction?: (payload: IFormFieldMutate) => void;
 }
 
 export type TCurrentValueDeliverySelection = IAddressItemCollection['id'] | string | null;

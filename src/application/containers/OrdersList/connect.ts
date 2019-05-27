@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getOrdersCollectionAction } from '@stores/actions/pages/order';
 import {
@@ -7,7 +8,6 @@ import {
     isOrderHistoryInitiated
 } from '@stores/reducers/pages/orderHistory';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { bindActionCreators, Dispatch } from 'redux';
 import { IOrderItem } from '@interfaces/order';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

@@ -4,7 +4,7 @@ import { WithRouter } from '@interfaces/common';
 
 export interface IAccountActionsProps extends WithStyles<typeof styles>, WithRouter {
     customerReference: string;
-    deleteCustomerEntity?: (customerReference: string) => void;
+    deleteCustomerAction?: (customerReference: string) => void;
 }
 
 export interface IAccountActionsState {

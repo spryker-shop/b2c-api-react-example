@@ -95,7 +95,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected runResetActiveFilters = async (): Promise<void> => {
-        this.props.clearActiveFilters();
+        this.props.clearActiveFiltersAction();
         await this.setState((prevState: State) => ({
             ...prevState,
             activeFilters: {},
@@ -113,7 +113,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         const isActiveFiltersChanged = this.state.activeFilters !== this.props.activeFilters;
         const isActiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
         if (isActiveFiltersChanged || isActiveRangeFiltersChanged) {
-            this.props.setActiveFilters({
+            this.props.setActiveFiltersAction({
                 activeFilters: this.state.activeFilters,
                 activeRangeFilters: this.state.activeRangeFilters
             });
@@ -129,11 +129,11 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
-        const { isPageLocked } = this.props;
+        const { isPageLockedFulfilledState } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
         this.setState(({isFilterListOpened}));
         if (isMobile) {
-            isPageLocked(isFilterListOpened);
+            isPageLockedFulfilledState(isFilterListOpened);
         }
     };
 

@@ -85,7 +85,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
             confirmPassword: confirmPassword.value.toString()
         };
 
-        this.props.updateCustomerPassword(this.props.customerReference, passwordData);
+        this.props.updateCustomerPasswordAction(this.props.customerReference, passwordData);
     };
 
     protected clearPasswords = (): void => {

@@ -42,11 +42,11 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const { isAuth, getCustomerCart, isCartLoading, history, isMultipleAddressesLoading } = this.props;
+        const { isAuth, getCustomerCartsAction, isCartLoading, history, isMultipleAddressesLoading } = this.props;
         const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
         if (!prevProps.isAuth && isAuth) {
-            getCustomerCart();
+            getCustomerCartsAction();
             this.setState({ isCartLoading: true });
         }
 
@@ -62,7 +62,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     protected addingAddress = () => {
         const {
             customer,
-            addAddress,
+            addMultipleAddressAction,
             billingSelection: { isSameAsDelivery },
             deliveryNewAddress,
             billingNewAddress
@@ -80,7 +80,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         };
         const deliveryPayload = this.transformAddressData(addressDelivery);
         const billingPayload = !isSameAsDelivery ? this.transformAddressData(addressBilling) : null;
-        addAddress(deliveryPayload, customer, billingPayload);
+        addMultipleAddressAction(deliveryPayload, customer, billingPayload);
     };
 
     protected handleChange = ({ target: { name, value } }: InputChangeEvent): void => {
@@ -90,7 +90,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     protected handleSubmitForm = (event: FormEvent): void => {
         event.preventDefault();
         const { password, confirmPassword } = this.state;
-        const { deliveryNewAddress, handleSubmitRegisterForm } = this.props;
+        const { deliveryNewAddress, customerRegisterAction } = this.props;
 
         if (password !== confirmPassword) {
             NotificationsMessage({
@@ -111,7 +111,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
             confirmPassword,
         };
 
-        handleSubmitRegisterForm(payload);
+        customerRegisterAction(payload);
     };
 
     public render(): JSX.Element {

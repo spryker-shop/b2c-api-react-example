@@ -38,10 +38,10 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
     };
 
     protected initRequestWishlistsData = (): void => {
-        const { isWishlistLoading, isWishlistsFetched, getWishlists } = this.props;
+        const { isWishlistLoading, isWishlistsFetched, getWishlistsAction } = this.props;
 
         if (!isWishlistLoading && !isWishlistsFetched) {
-            getWishlists();
+            getWishlistsAction();
         }
     };
 
@@ -69,7 +69,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
     };
 
     protected handleAddToWishlist = (event: ClickEvent): void => {
-        this.props.addToWishlist(this.state.wishlistSelected, this.props.sku);
+        this.props.addItemWishlistAction(this.state.wishlistSelected, this.props.sku);
     };
 
     protected isAddToWishlistBtnDisabled = (): boolean => {

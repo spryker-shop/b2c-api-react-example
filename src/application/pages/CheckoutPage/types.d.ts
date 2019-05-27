@@ -27,9 +27,9 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     addressesCollection: IAddressItemCollection[] | null;
     orderId: string;
     anonymId: string;
-    getCheckoutData: (payload: ICheckoutRequest, anonymId: string) => void;
-    sendCheckoutData: (payload: ICheckoutRequest, anonymId: string) => void;
-    getCustomerData: (customerReference: string) => void;
+    getCheckoutDataAction: (payload: ICheckoutRequest, anonymId: string) => void;
+    sendCheckoutDataAction: (payload: ICheckoutRequest, anonymId: string) => void;
+    getCustomerProfileAction: (customerReference: string) => void;
     stepsCompletion: ICheckoutStepsCompletionState;
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;

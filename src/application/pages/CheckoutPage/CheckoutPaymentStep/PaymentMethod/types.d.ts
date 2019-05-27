@@ -8,5 +8,5 @@ export interface IPaymentMethodProps extends WithStyles<typeof styles> {
     paymentMethods: IPaymentMethod[] | null;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData: ICheckoutInvoiceState;
-    mutatePaymentMethod: (IFormUpdatePaymentStatus) => void;
+    mutatePaymentMethodAction: (IFormUpdatePaymentStatus) => void;
 }

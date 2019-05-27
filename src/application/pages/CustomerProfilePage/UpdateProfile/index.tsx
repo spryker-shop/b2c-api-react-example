@@ -82,7 +82,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
     };
 
     protected handleSubmitUpdateProfile = (): void => {
-        const { customerReference, updateCustomerData } = this.props;
+        const { customerReference, updateCustomerProfileAction } = this.props;
         const { firstName, lastName, salutation, email } = this.state.fields;
 
         if (!customerReference) {
@@ -96,7 +96,7 @@ export class UpdateProfileComponent extends React.Component<Props, State> {
             email: email.value.toString()
         };
 
-        updateCustomerData(customerReference, profileData);
+        updateCustomerProfileAction(customerReference, profileData);
         this.setState({ isFormValid: false });
     };
 

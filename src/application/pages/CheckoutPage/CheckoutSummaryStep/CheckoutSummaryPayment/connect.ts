@@ -11,7 +11,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         paymentMethod,
         paymentInvoiceData,
         paymentCreditCardData
-
     };
 };
 

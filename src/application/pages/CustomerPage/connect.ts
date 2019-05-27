@@ -21,14 +21,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            getWishlistsAction,
-            clearAddressAction,
-            clearOrdersCollectionAction
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getWishlistsAction,
+    clearAddressAction,
+    clearOrdersCollectionAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

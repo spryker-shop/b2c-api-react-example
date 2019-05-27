@@ -10,9 +10,9 @@ export interface ICustomerAddressPageProps extends WithStyles<typeof styles>, Wi
     isLoading: boolean;
     addressIdParam: string;
     isAddressExist: boolean;
-    addAddress: (payload: IAddressItem, customerId: string) => void;
-    updateAddress: (addressId: string, customerId: string, payload: IAddressItem) => void;
-    getOneAddress: (customerId: string, addressId: string) => void;
+    addAddressAction: (payload: IAddressItem, customerId: string) => void;
+    updateAddressAction: (addressId: string, customerId: string, payload: IAddressItem) => void;
+    getOneAddressAction: (customerId: string, addressId: string) => void;
 }
 
 export interface ICustomerAddressPageState {

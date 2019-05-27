@@ -7,7 +7,7 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
     productType: TProductType | null;
     sku: string | null;
     isUserLoggedIn?: boolean;
-    addItemToCart?: Function;
+    addItemToCartAction?: Function;
     cartCreated?: boolean;
     cartId?: string;
     anonymId?: string;

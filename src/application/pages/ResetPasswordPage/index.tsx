@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { AppMain } from '@components/AppMain';
 import { IResetPasswordPageProps as Props, IResetPasswordPageState as State } from './types';
-import { ClickEvent, InputChangeEvent } from '@interfaces/common';
+import { InputChangeEvent } from '@interfaces/common';
 import { IResetPasswordPayload } from '@interfaces/customer';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
@@ -25,7 +25,7 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
         });
     };
 
-    protected submitRequest = (e: ClickEvent): void => {
+    protected submitRequest = (): void => {
         this.setState({ submitted: true });
         if (this.state.password !== this.state.confirmPassword) {
             return;
@@ -37,7 +37,7 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
             confirmPassword: this.state.confirmPassword
         };
 
-        this.props.resetPasswordRequest(payload);
+        this.props.resetPasswordAction(payload);
     };
 
     public render(): JSX.Element {

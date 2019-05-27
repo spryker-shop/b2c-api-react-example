@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { push } from 'connected-react-router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
@@ -6,7 +7,6 @@ import { getProductRelationsAction, getProductRelationsCartAction } from '@store
 import { IProductRelationsItem } from '@interfaces/product';
 import { getAnonymId, getAppCurrency } from '@stores/reducers/common/init/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { bindActionCreators, Dispatch } from 'redux';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const productRelationsState: IProductRelationsState = state.productRelations ? state.productRelations : null;

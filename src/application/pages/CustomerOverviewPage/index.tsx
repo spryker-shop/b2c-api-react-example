@@ -21,7 +21,7 @@ class CustomerOverviewPageComponent extends React.PureComponent<Props> {
 
     protected initRequestData = (): void => {
         if (!this.props.isLoading && this.props.isAppDataSet && this.props.customerReference) {
-            this.props.getCustomerData(this.props.customerReference);
+            this.props.getCustomerProfileAction(this.props.customerReference);
         }
     };
 

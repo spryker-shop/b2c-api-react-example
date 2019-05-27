@@ -9,5 +9,5 @@ export interface ICustomerProfilePageProps extends WithStyles<typeof styles>, Ro
     isCustomerDataExist: boolean;
     isAppDataSet: boolean;
     customerReference: string;
-    getCustomerData: (customerReference: string) => void;
+    getCustomerProfileAction: (customerReference: string) => void;
 }

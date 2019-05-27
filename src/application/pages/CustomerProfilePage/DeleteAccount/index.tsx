@@ -17,13 +17,13 @@ export class DeleteAccountComponent extends React.Component<Props, State> {
     };
 
     protected handleDeleteProfileDialogAgree = (): void => {
-        const { customerReference, deleteCustomerEntity, history } = this.props;
+        const { customerReference, deleteCustomerAction, history } = this.props;
 
         if (!customerReference) {
             return;
         }
 
-        deleteCustomerEntity(customerReference);
+        deleteCustomerAction(customerReference);
         this.handleDeleteProfileDialogShowing();
 
         history.push(`${pathLoginPage}`);

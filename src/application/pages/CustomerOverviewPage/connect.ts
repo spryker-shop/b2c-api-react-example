@@ -15,18 +15,20 @@ import { getOrdersCollectionFromStore, isOrderHistoryItems } from '@stores/reduc
 import { getOrdersCollectionAction } from '@stores/actions/pages/order';
 import { getAddressesCollection, isAddressesInitiated } from '@stores/reducers/pages/addresses/selectors';
 import { IAddressItem } from '@interfaces/addresses';
+import { IOrderItem } from '@interfaces/order';
+import { ICustomerDataParsed } from '@interfaces/customer';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isLoading = isPageCustomerProfileLoading(state, ownProps);
-    const isRejected = isPageCustomerProfileRejected(state, ownProps);
-    const isFulfilled = isPageCustomerProfileFulfilled(state, ownProps);
-    const isAppDataSet = isAppInitiated(state, ownProps);
-    const isCustomerDataExist = isCustomerProfilePresent(state, ownProps);
-    const customerReference = getCustomerReference(state, ownProps);
-    const customerData = getCustomerProfile(state, ownProps);
-    const orders = getOrdersCollectionFromStore(state, ownProps);
+    const isLoading: boolean = isPageCustomerProfileLoading(state, ownProps);
+    const isRejected: boolean = isPageCustomerProfileRejected(state, ownProps);
+    const isFulfilled: boolean = isPageCustomerProfileFulfilled(state, ownProps);
+    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
+    const isCustomerDataExist: boolean = isCustomerProfilePresent(state, ownProps);
+    const customerReference: string = getCustomerReference(state, ownProps);
+    const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
+    const orders: IOrderItem[] | null = getOrdersCollectionFromStore(state, ownProps);
     const isAddressesListInitiated: boolean = isAddressesInitiated(state, ownProps);
-    const isHasOrders = isOrderHistoryItems(state, ownProps);
+    const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
 
     return ({
@@ -44,13 +46,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            getCustomerData: (customerReference: string) => getCustomerProfileAction(customerReference),
-            getOrdersCollectionAction
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getCustomerProfileAction,
+    getOrdersCollectionAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

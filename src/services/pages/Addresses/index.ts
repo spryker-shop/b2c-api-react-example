@@ -15,7 +15,7 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${ customerId }/addresses`;
+            const endpoint = `customers/${customerId}/addresses`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
@@ -45,7 +45,7 @@ export class AddressesService extends ApiServiceAbstract {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${ customerId }/addresses/${ addressId }`;
+            const endpoint = `customers/${customerId}/addresses/${addressId}`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
@@ -83,7 +83,7 @@ export class AddressesService extends ApiServiceAbstract {
                 }
             };
 
-            const endpoint = `customers/${ customerId }/addresses`;
+            const endpoint = `customers/${customerId}/addresses`;
             const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
@@ -114,7 +114,7 @@ export class AddressesService extends ApiServiceAbstract {
             setAuthToken(token);
 
             const response: TApiResponseData = await api.delete(
-                `customers/${ customerId }/addresses/${ addressId }`, {}, { withCredentials: true }
+                `customers/${customerId}/addresses/${addressId}`, {}, { withCredentials: true }
             );
 
             if (response.ok) {
@@ -155,7 +155,7 @@ export class AddressesService extends ApiServiceAbstract {
             };
 
             const response: TApiResponseData = await api.patch(
-                `customers/${ customerId }/addresses/${ addressId }`, body, { withCredentials: true }
+                `customers/${customerId}/addresses/${addressId}`, body, { withCredentials: true }
             );
 
             if (response.ok) {

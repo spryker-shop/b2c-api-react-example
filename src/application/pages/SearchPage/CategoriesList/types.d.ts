@@ -9,10 +9,10 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     categoriesTree: ICategory[];
     selectedCategory: number | string;
     selectedMobileCategory: number | string;
-    localizedName?: string | null;
+    categoriesLocalizedName?: string | null;
     locationCategoryId: number | string;
-    changeLocation?: (location: string) => void;
-    setCurrentCategory?: (categoryId: number | string) => void;
+    push?: (location: string) => void;
+    setCurrentCategoryAction?: (categoryId: number | string) => void;
     width?: Breakpoint;
     isOpened: boolean;
     onTitleClick: () => void;

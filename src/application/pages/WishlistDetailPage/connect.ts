@@ -10,10 +10,10 @@ import { IWishlist } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
-    const wishlistIdParam = getRouterMatchParam(state, ownProps, 'wishlistId');
-    const isAppDataSet = isAppInitiated(state, ownProps);
-    const isWishlistExist = isWishlistDetailsPresent(state, ownProps);
-    const isRejected = isWishlistDetailsStateRejected(state, ownProps);
+    const wishlistIdParam: string | null = getRouterMatchParam(state, ownProps, 'wishlistId');
+    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
+    const isWishlistExist: boolean = isWishlistDetailsPresent(state, ownProps);
+    const isRejected: boolean = isWishlistDetailsStateRejected(state, ownProps);
     const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
@@ -27,12 +27,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     });
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            getDetailWishlistAction
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getDetailWishlistAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

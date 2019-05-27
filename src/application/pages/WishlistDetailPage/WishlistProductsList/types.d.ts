@@ -1,5 +1,3 @@
-import { LocationDescriptor, LocationState } from 'history';
-import { RouterAction } from 'connected-react-router';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 import { ICartAddItem } from '@interfaces/cart';
 import { WithStyles } from '@material-ui/core';
@@ -13,7 +11,6 @@ export interface WishlistProductsListProps extends WithStyles<typeof styles> {
     cartItemsLength?: number;
     cartId?: string;
     currency?: string | null;
-    changeLocation?: (location: LocationDescriptor, state?: LocationState) => RouterAction;
     addItemToCartAction?: (payload: ICartAddItem, cartId: string) => void;
     deleteItemWishlistAction?: (wishlistId: string, sku: string) => void;
 }

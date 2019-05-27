@@ -37,7 +37,7 @@ class OrderDetailsPageComponent extends React.Component<Props, State> {
         }
 
         if (this.props.isAppDataSet && this.props.orderIdParam) {
-            this.props.getOrderData(this.props.orderIdParam as string);
+            this.props.getOrderDetailsAction(this.props.orderIdParam as string);
         }
     };
 

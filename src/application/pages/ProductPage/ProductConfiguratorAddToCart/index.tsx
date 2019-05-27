@@ -50,9 +50,9 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
 
     protected runAddToCart = (): void => {
         const item: ICartAddItem = createCartItemAddToCart(this.props.sku, this.state.quantitySelected);
-        const { isUserLoggedIn, addItemToCart, cartId, anonymId } = this.props;
+        const { isUserLoggedIn, addItemToCartAction, cartId, anonymId } = this.props;
 
-        addItemToCart(item, cartId, anonymId, isUserLoggedIn);
+        addItemToCartAction(item, cartId, anonymId, isUserLoggedIn);
     };
 
     protected handleChangeQty = (name: string, value: number): void =>

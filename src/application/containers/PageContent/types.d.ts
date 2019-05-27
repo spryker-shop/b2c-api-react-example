@@ -15,6 +15,7 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     cartCreated?: boolean;
     isInitStateFulfilled?: boolean;
     clearSearchTermAction?: () => void;
+    setAuthFromStorageAction?: Function;
     isPageLocked?: boolean;
 }
 

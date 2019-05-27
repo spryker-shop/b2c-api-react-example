@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isStateLoading } from '@stores/reducers';
@@ -13,7 +14,6 @@ import { isCartCreated } from '@stores/reducers/common/cart/selectors';
 import { initApplicationDataAction, setAuthFromStorageAction } from '@stores/actions/common/init';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { clearSearchTermAction } from '@stores/actions/pages/search';
-import { bindActionCreators, Dispatch } from 'redux';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isStateLoading(state, ownProps) || false;

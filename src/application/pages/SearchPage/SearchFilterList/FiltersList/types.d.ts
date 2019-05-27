@@ -22,8 +22,8 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     changeWrapperState?: (isOpen: boolean) => void;
     width: Breakpoint;
     currentCategoryId?: number | null;
-    changeLocation?: (location: string) => void;
-    setCurrentCategory?: (categoryId: number | string) => void;
+    push?: (location: string) => void;
+    setCurrentCategoryAction?: (categoryId: number | string) => void;
     locationCategoryId?: number | string;
 }
 

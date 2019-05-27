@@ -92,7 +92,7 @@ export const styles = (theme: Theme) => createStyles({
         textTransform: 'capitalize',
         paddingRight: 5,
         [theme.breakpoints.up('md')]: {
-            width: 100
+            width: 110
         }
     },
     available: {
@@ -105,7 +105,7 @@ export const styles = (theme: Theme) => createStyles({
         fontSize: 14,
         padding: '10px 8px',
         [theme.breakpoints.up('md')]: {
-            padding: '13px 15px',
+            padding: '13px 12px',
             fontSize: 16
         }
     },

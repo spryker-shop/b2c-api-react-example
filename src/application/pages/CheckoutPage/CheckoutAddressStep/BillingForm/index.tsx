@@ -49,17 +49,17 @@ class BillingFormComponent extends React.Component<Props> {
 
     protected handleBillingInputs = (event: InputChangeEvent): void => {
         const { name, value } = event.target;
-        const { mutateStateNewAddressBilling } = this.props;
+        const { mutateStateNewAddressBillingAction } = this.props;
         const isInputValid = checkFormInputValidity({ value, fieldConfig: newAddressConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateNewAddressBilling(changedFiledData);
+        mutateStateNewAddressBillingAction(changedFiledData);
     };
 
     protected handleBillingNewAddressValidity = (): boolean => {
-        const { mutateBillingStep, billingNewAddress } = this.props;
+        const { mutateBillingStepAction, billingNewAddress } = this.props;
         const isFormValid = checkFormValidity({ form: billingNewAddress, fieldsConfig: newAddressConfigInputStable });
-        mutateBillingStep(isFormValid);
+        mutateBillingStepAction(isFormValid);
 
         return isFormValid;
     };
@@ -72,26 +72,26 @@ class BillingFormComponent extends React.Component<Props> {
 
     protected handleBillingSelection = (value: string, checker = false): void => {
         const {
-            mutateStateBillingSelectionSameAsDelivery,
-            mutateStateBillingSelectionAddressId,
-            mutateStateBillingSelectionAddNew,
+            mutateStateBillingSelectionSameAsDeliveryAction,
+            mutateStateBillingSelectionAddressIdAction,
+            mutateStateBillingSelectionAddNewAction,
             billingSelection: { isSameAsDelivery }
         } = this.props;
 
         if (value === checkoutSelectionInputs.isAddNewBillingValue) {
-            mutateStateBillingSelectionAddNew();
+            mutateStateBillingSelectionAddNewAction();
 
             return null;
         }
 
         if (value === checkoutSelectionInputs.isSameAsDeliveryValue) {
             const mutatedValue = checker ? checker : !isSameAsDelivery;
-            mutateStateBillingSelectionSameAsDelivery(mutatedValue);
+            mutateStateBillingSelectionSameAsDeliveryAction(mutatedValue);
 
             return null;
         }
 
-        mutateStateBillingSelectionAddressId(value);
+        mutateStateBillingSelectionAddressIdAction(value);
     };
 
     protected getCurrentValueBillingSelection = (): IAddressItemCollection['id'] | string | null => {
