@@ -3,18 +3,6 @@ import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 import { TCartRowIncludedResponse, ICartRawResponse, ICartDataResponse } from '@services/common/Cart/types';
 import { IRelationshipsDataResponse, EIncludeTypes } from '@services/types';
 
-export const parseCartCreateResponse = (response: ICartRawResponse): ICartDataParsed | null => {
-    if (!response) {
-        return null;
-    }
-    const data: ICartDataResponse[] = response.data as unknown as ICartDataResponse[];
-
-    return {
-        ...parseCommonDataInCartResponse(data[0]),
-        items: []
-    };
-};
-
 export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed => {
     if (!response) {
         return null;

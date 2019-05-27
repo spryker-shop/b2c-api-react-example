@@ -141,9 +141,10 @@ export const pageWishlist = produce<WishlistState>((draft: WishlistState, action
                 break;
             }
             case `${DELETE_ITEM_WISHLIST}_FULFILLED`: {
-                const currentItems: IWishlistProduct[] = draft.data.currentItems.filter((
-                    item: IWishlistProduct,
-                ) => item.sku !== action.payloadWishlistProductFulfilled.sku);
+                const currentItems: IWishlistProduct[] = Boolean(draft.data.currentItems) &&
+                    draft.data.currentItems.filter((item: IWishlistProduct) =>
+                        item.sku !== action.payloadWishlistProductFulfilled.sku);
+
                 const wishlists: IWishlist[] = draft.data.wishlists.map((
                     wishlist: IWishlist,
                     ) => wishlist.id === action.payloadWishlistProductFulfilled.wishlistId

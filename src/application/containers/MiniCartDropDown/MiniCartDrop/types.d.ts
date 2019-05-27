@@ -13,7 +13,6 @@ export interface IMiniCartDropProps extends WithStyles<typeof styles> {
     cartItemsQuantity: number;
     onMouseLeave: () => void;
     onMouseEnter: () => void;
-    cartDeleteItemAction?: (cartId: string, itemId: string) => void;
-    removeItemGuestCartAction?: (cartId: string, itemId: string, anonymId: string) => void;
+    cartDeleteItemAction?: (cartId: string, itemId: string, anonymId: string, isUserLoggedIn: boolean) => void;
     clearCheckoutDataForm: () => void;
 }

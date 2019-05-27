@@ -2,9 +2,8 @@ import { api, ApiServiceAbstract } from '@services/api';
 import { parseCatalogSearchResponse } from '@helpers/parsing';
 import { ICatalogSearchDataParsed, ISearchQuery } from '@interfaces/search';
 import { EIncludeTypes, TApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { sendSearchPendingState, sendSearchRejectState, sendSearchFulfilledState } from '@stores/actions/pages/search';
+import { errorMessageInform } from '@helpers/common';
 
 export class SearchService extends ApiServiceAbstract {
     public static async catalogSearch(dispatch: Function, params: ISearchQuery): Promise<void> {
@@ -19,20 +18,12 @@ export class SearchService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(sendSearchRejectState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(sendSearchRejectState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

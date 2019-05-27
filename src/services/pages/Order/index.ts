@@ -1,24 +1,22 @@
+import * as orderActions from '@stores/actions/pages/order';
 import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import * as orderActions from '@stores/actions/pages/order';
-import { OrderAuthenticateErrorMessage } from '@translation/';
+import { orderAuthenticateErrorMessage } from '@translation/';
 import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
+import { errorMessageInform } from '@helpers/common';
 
 export class OrderService extends ApiServiceAbstract {
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
+        dispatch(orderActions.ordersCollectionPendingStateAction());
         try {
-            dispatch(orderActions.ordersCollectionPendingStateAction());
-
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: TApiResponseData = await api.get('orders', null, {withCredentials: true});
+            const response: TApiResponseData = await api.get('orders', null, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed: IOrderCollectionParsed = parseGetOrdersCollectionResponse(response.data);
@@ -26,34 +24,25 @@ export class OrderService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(orderActions.ordersCollectionRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-      }
+                errorMessageInform(errorMessage);
+            }
 
         } catch (error) {
             dispatch(orderActions.ordersCollectionRejectedStateAction(error.message));
-            NotificationsMessage({
-              messageWithCustomText: 'unexpected.error.message',
-              message: error.message,
-              type: typeNotificationError
-          });
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
+        dispatch(orderActions.orderDetailsPendingStateAction());
         try {
-            dispatch(orderActions.orderDetailsPendingStateAction());
-
             const token = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                Promise.reject(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const endpoint = `orders/${orderId}`;
-            const response: TApiResponseData = await api.get(endpoint, null, {withCredentials: true});
+            const endpoint = `orders/${ orderId }`;
+            const response: TApiResponseData = await api.get(endpoint, null, { withCredentials: true });
 
             if (response.ok) {
                 const responseParsed: IOrderDetailsParsed = parseGetOrderDetailsResponse(response.data);
@@ -61,20 +50,12 @@ export class OrderService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(orderActions.orderDetailsRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-      }
+                errorMessageInform(errorMessage);
+            }
 
         } catch (error) {
             dispatch(orderActions.orderDetailsRejectedStateAction(error.message));
-            NotificationsMessage({
-              messageWithCustomText: 'unexpected.error.message',
-              message: error.message,
-              type: typeNotificationError
-          });
+            errorMessageInform(error.message, false);
         }
     }
 }

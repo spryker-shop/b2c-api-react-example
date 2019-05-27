@@ -68,9 +68,3 @@ export interface ICartItemCalculation {
     unitSubtotalAggregation: number;
     unitTaxAmountFullAggregation: number;
 }
-
-export interface ICartCreatePayload {
-    priceMode: string;
-    currency: string;
-    store: string;
-}

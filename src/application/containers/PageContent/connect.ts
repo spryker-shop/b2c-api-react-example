@@ -12,7 +12,7 @@ import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { isCartCreated } from '@stores/reducers/common/cart/selectors';
 import { initApplicationDataAction, setAuthFromStorageAction } from '@stores/actions/common/init';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
-import { getCustomerCartsAction, getGuestCartAction } from '@stores/actions/common/cart';
+import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { clearSearchTermAction } from '@stores/actions/pages/search';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
@@ -41,8 +41,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch,
     initApplicationData: () => dispatch(initApplicationDataAction()),
     setAuth: (payload: ICustomerLoginDataParsed) => dispatch(setAuthFromStorageAction(payload)),
-    getCustomerCart: () => dispatch(getCustomerCartsAction()),
-    getGuestCart: (anonymId: string) => dispatch(getGuestCartAction(anonymId)),
+    getCustomerCart: (anonymId: string, isUserLoggedIn: boolean) =>
+        dispatch(getCustomerCartsAction(anonymId, isUserLoggedIn)),
     clearSearchTerm: () => dispatch(clearSearchTermAction())
 });
 

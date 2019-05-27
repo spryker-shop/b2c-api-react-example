@@ -1,20 +1,17 @@
-import { api, ApiServiceAbstract } from '@services/api';
 import * as initActions from '@stores/actions/common/init';
+import { api, ApiServiceAbstract } from '@services/api';
 import { parseStoreResponse } from '@helpers/parsing';
 import { TApiResponseData } from '@services/types';
 import { ICategory } from '@interfaces/common';
 import { IInitData } from '@interfaces/init';
 import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import { NavigationService } from '@services/common/Navigations';
-import { getAnonymId } from '@helpers/common';
+import { errorMessageInform, getAnonymId } from '@helpers/common';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
         const isTouch = 'ontouchstart' in window;
         dispatch(initActions.initApplicationDataPendingStateAction());
-
         try {
             const anonymId = getAnonymId();
             const response: TApiResponseData = await api.get('stores', null);
@@ -22,32 +19,24 @@ export class InitAppService extends ApiServiceAbstract {
             if (response.ok) {
                 const responseParsed: IInitData = parseStoreResponse(response.data);
                 await NavigationService.getMainNavigation(dispatch);
-                dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
-                dispatch(initActions.anonymIdFilFilled(anonymId));
                 dispatch(initActions.getCategoriesAction());
+                dispatch(initActions.anonymIdFilFilled(anonymId));
+                dispatch(initActions.initApplicationDataFulfilledStateAction({ ...responseParsed, isTouch }));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(initActions.initApplicationDataRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(initActions.initApplicationDataRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async getCategoriesTree(dispatch: Function): Promise<void> {
+        dispatch(initActions.categoriesPendingState());
         try {
-            dispatch(initActions.categoriesPendingState());
             const response: TApiResponseData = await api.get('category-trees', {}, { withCredentials: true });
 
             if (response.ok) {
@@ -60,20 +49,12 @@ export class InitAppService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(initActions.categoriesRejectedState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(initActions.categoriesRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -90,11 +71,7 @@ export class InitAppService extends ApiServiceAbstract {
 
         } catch (error) {
             dispatch(initActions.switchLocaleRejectedState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'change.language.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

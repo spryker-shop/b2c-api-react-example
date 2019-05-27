@@ -14,7 +14,7 @@ import { CartIcon } from './icons';
 const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, products } = props;
 
-    if (!Boolean(products.length)) {
+    if (!Boolean(products && products.length)) {
         return (
             <Typography component="h3" variant="h3">
                 <FormattedMessage id={ 'wishlist.empty.message' } />
@@ -27,7 +27,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
             isLoading,
             isCartLoading,
             classes,
-            deleteItemAction,
+            deleteItemWishlistAction,
             wishlist: { id },
             addItemToCartAction,
             cartId
@@ -58,7 +58,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                         </div>
                         <IconButton
                             className={ classes.removeButton }
-                            onClick={ () => deleteItemAction(id, sku) }
+                            onClick={ () => deleteItemWishlistAction(id, sku) }
                             disabled={ isCartLoading || isLoading }
                             classes={{ disabled: classes.buttonDisabled }}
                         >

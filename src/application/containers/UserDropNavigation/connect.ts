@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { reduxify } from '@hoc/Reduxify';
-import { logout } from '@stores/actions/pages/login';
+import { logoutAction } from '@stores/actions/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getAppLocale, getIsTouch } from '@stores/reducers/common/init/selectors';
 
@@ -16,7 +16,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
-            logout,
+            logoutAction,
         },
         dispatch,
     );
