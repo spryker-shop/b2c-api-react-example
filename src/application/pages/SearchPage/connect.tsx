@@ -10,7 +10,8 @@ import {
     sendSearchAction,
     clearSearchTermAction,
     clearSortAction,
-    clearPaginationPageAction
+    clearPaginationPageAction,
+    clearActiveFiltersAction
 } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/common';
@@ -60,6 +61,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     push,
+    clearActiveFiltersAction,
     sendSearchAction,
     clearSearchTermAction,
     clearSortAction,

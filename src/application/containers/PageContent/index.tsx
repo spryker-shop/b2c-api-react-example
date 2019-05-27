@@ -96,10 +96,6 @@ class PageContentComponent extends React.Component<Props, State> {
         }
     };
 
-    protected isDataFulfilled = () => (
-        Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
-    );
-
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [
             pathLoginPage,
@@ -114,7 +110,8 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { locale, classes } = this.props;
+        const { locale, classes, cartCreated, isInitStateFulfilled } = this.props;
+        const isDataFulfilled = Boolean(cartCreated && isInitStateFulfilled);
         addLocaleData(getLocaleData(locale));
 
         return (
@@ -122,7 +119,7 @@ class PageContentComponent extends React.Component<Props, State> {
                 <div className={ classes.root }>
                     <AppHeader />
                     <ErrorBoundary>
-                        <Routes isAppLoading={ this.isDataFulfilled() } />
+                        <Routes isAppLoading={ isDataFulfilled } />
                     </ErrorBoundary>
                     { !this.shouldHideFooter() && <AppFooter /> }
                     <Notifications />
