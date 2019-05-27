@@ -6,7 +6,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const currency: string | null = getAppCurrency(state, ownProps);
 
     return ({
-        currency,
+        currency
     });
 };
 
