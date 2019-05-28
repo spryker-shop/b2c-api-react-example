@@ -3,7 +3,7 @@ import { reduxify } from '@hoc/Reduxify';
 import { getRouterMatchParam } from '@helpers/common';
 import { IAddressItem } from '@interfaces/addresses';
 import { addAddressAction, updateAddressAction, getOneAddressAction } from '@stores/actions/pages/addresses';
-import { getCustomerReference } from '@stores/reducers/pages/login';
+import { getCustomerReference } from '@stores/reducers/pages/login/selectors';
 import {
     getCurrentAddress,
     isCurrentAddressPresent,

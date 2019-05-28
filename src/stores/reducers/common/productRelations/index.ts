@@ -1,6 +1,6 @@
 import * as actionTypes from '@stores/actionTypes/common/productRelations';
-import * as relationsHandlers  from './handlers';
-import { IProductRelationsState, IProductRelationsAction } from './types';
+import * as relationsHandlers  from '@stores/reducers/common/productRelations/handlers';
+import { IProductRelationsState, IProductRelationsAction } from '@stores/reducers/common/productRelations/types';
 
 const initialState: IProductRelationsState = {
     data: {
@@ -8,10 +8,10 @@ const initialState: IProductRelationsState = {
     }
 };
 
-export const productRelations = function (
+export const productRelations = (
     state: IProductRelationsState = initialState,
     action: IProductRelationsAction
-): IProductRelationsState {
+): IProductRelationsState => {
     switch (action.type) {
         case `${actionTypes.PRODUCT_RELATIONS_REQUEST}_PENDING`:
             return relationsHandlers.handleProductRelationsPending(state);

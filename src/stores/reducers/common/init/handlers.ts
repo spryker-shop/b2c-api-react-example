@@ -31,9 +31,6 @@ export const handleInitAppRejected = (state: IInitState, payload: IApiErrorRespo
 
 export const handleInitAppPending = (state: IInitState): IInitState => ({
     ...state,
-    data: {
-        ...state.data
-    },
     ...getReducerPartPending()
 });
 

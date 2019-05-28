@@ -1,6 +1,6 @@
 import * as actionTypes from '@stores/actionTypes/common/navigations';
-import * as navigationHandlers  from './handlers';
-import { INavigationsAction, INavigationsState } from './types';
+import * as navigationHandlers  from '@stores/reducers/common/navigations/handlers';
+import { INavigationsAction, INavigationsState } from '@stores/reducers/common/navigations/types';
 
 export const initialState: INavigationsState = {
     mainNavigation: {

@@ -1,7 +1,7 @@
 import * as actionTypes from '@stores/actionTypes/common/cart';
-import * as cartHandlers  from './handlers';
+import * as cartHandlers  from '@stores/reducers/common/cart/handlers';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
-import { ICartAction, ICartState } from './types';
+import { ICartAction, ICartState } from '@stores/reducers/common/cart/types';
 
 export const initialState: ICartState = {
     data: {
@@ -18,7 +18,7 @@ export const initialState: ICartState = {
     }
 };
 
-export const cart = function (state: ICartState = initialState, action: ICartAction): ICartState {
+export const cart = (state: ICartState = initialState, action: ICartAction): ICartState => {
     switch (action.type) {
         case `${actionTypes.CART_ADD_ITEM}_PENDING`:
         case `${actionTypes.CART_UPDATE_ITEM}_PENDING`:

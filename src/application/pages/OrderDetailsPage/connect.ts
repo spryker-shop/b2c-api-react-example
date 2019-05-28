@@ -8,7 +8,7 @@ import {
     isOrderDetailsLoading,
     isOrderDetailsPresent,
     isOrderDetailsStateRejected,
-} from '@stores/reducers/pages/orderDetails';
+} from '@stores/reducers/pages/orderDetails/selectors';
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 import { getOrderDetailsAction } from '@stores/actions/pages/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

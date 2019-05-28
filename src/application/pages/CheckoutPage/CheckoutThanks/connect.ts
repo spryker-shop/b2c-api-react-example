@@ -4,10 +4,10 @@ import { getCreatedOrder } from '@stores/reducers/pages/checkout/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { clearCheckoutDataForm } from '@stores/actions/pages/checkout';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
-import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
+import { getCustomerProfile } from '@stores/reducers/pages/customerProfile/selectors';
 import { IAddressFormState } from '@interfaces/forms';
 import { ICustomerDataParsed } from '@interfaces/customer';
 

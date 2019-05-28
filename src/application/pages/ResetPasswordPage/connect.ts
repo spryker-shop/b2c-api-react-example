@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getRouterMatchParam } from '@helpers/common';
 import { resetPasswordAction } from '@stores/actions/pages/login';
-import { isPageLoginStateLoading } from '@stores/reducers/pages/login';
+import { isPageLoginStateLoading } from '@stores/reducers/pages/login/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

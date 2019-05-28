@@ -31,7 +31,6 @@
 		"connected-react-router": "^6.3.1",
 		"express": "4.16.3",
 		"history": "4.7.2",
-		"immer": "1.7.2",
 		"jwt-decode": "2.2.0",
 		"lodash": "4.17.11",
 		"query-string": "^6.2.0",

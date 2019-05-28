@@ -3,7 +3,7 @@ import { reduxify } from '@hoc/Reduxify';
 import { ICustomerDataParsed } from '@interfaces/customer';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { updateCustomerPasswordAction } from '@stores/actions/pages/customerProfile';
-import { getCustomerProfile, isCustomerPasswordUpdated } from '@stores/reducers/pages/customerProfile';
+import { getCustomerProfile, isCustomerPasswordUpdated } from '@stores/reducers/pages/customerProfile/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);

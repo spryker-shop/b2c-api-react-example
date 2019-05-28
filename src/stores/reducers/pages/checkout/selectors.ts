@@ -17,7 +17,8 @@ export const getShipmentMethodsFromStore = (state: IReduxStore, props: IReduxOwn
 export const isShipmentMethodsExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageCheckout.data.shipments);
 
-export const getPaymentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IPaymentMethod[] | null => isPaymentMethodsExist(state, props) ? state.pageCheckout.data.payments : null;
+export const getPaymentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IPaymentMethod[] | null =>
+    isPaymentMethodsExist(state, props) ? state.pageCheckout.data.payments : null;
 
 export const isPaymentMethodsExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageCheckout.data.payments);

@@ -11,8 +11,8 @@ export const handleMainNavigationFulfilled = (
     mainNavigation: {
         ...state.mainNavigation,
         nodesTree: payload,
-        ...getReducerPartFulfilled(),
-    },
+        ...getReducerPartFulfilled()
+    }
 });
 
 export const handleMainNavigationRejected = (
@@ -22,7 +22,7 @@ export const handleMainNavigationRejected = (
     ...state,
     mainNavigation: {
         ...state.mainNavigation,
-        ...getReducerPartRejected(payload.error),
+        ...getReducerPartRejected(payload.error)
     }
 });
 
@@ -30,6 +30,6 @@ export const handleMainNavigationPending = (state: INavigationsState): INavigati
     ...state,
     mainNavigation: {
         ...state.mainNavigation,
-        ...getReducerPartPending(),
-    },
+        ...getReducerPartPending()
+    }
 });

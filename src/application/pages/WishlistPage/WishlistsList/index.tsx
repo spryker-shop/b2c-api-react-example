@@ -47,7 +47,7 @@ export class WishlistsList extends React.Component<Props, State> {
                 id={ wishlist.id }
                 activeListId={ listId }
                 name={ wishlist.name }
-                numberOfItems={ wishlist.numberOfItems }
+                numberOfItems={ wishlist.numberOfItems || 0 }
                 date={ wishlist.createdAt }
                 isLoading={ isLoading }
                 activeListName={ listName }

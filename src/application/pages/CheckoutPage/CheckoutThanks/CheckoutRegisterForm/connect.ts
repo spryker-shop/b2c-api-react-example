@@ -1,6 +1,10 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { getCustomerReference, isPageLoginStateLoading, isUserAuthenticated } from '@stores/reducers/pages/login';
+import {
+    getCustomerReference,
+    isPageLoginStateLoading,
+    isUserAuthenticated
+} from '@stores/reducers/pages/login/selectors';
 import { customerRegisterAction } from '@stores/actions/pages/login';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

@@ -147,6 +147,7 @@ export class PagesLoginService extends ApiServiceAbstract {
     }
 
     public static logout(dispatch: Function): void {
+        localStorage.clear();
         const anonymId = getAnonymId();
 
         dispatch(anonymIdFilFilled(anonymId));

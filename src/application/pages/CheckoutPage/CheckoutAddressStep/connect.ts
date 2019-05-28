@@ -1,5 +1,5 @@
 import { reduxify } from '@hoc/Reduxify';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICheckoutStepsCompletionState } from '@interfaces/checkout';
 

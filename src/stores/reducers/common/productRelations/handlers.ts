@@ -4,9 +4,7 @@ import { IApiErrorResponse } from '@services/types';
 import { IProductRelationsItem } from '@interfaces/product';
 
 export const handleProductRelationsPending = (state: IProductRelationsState): IProductRelationsState => ({
-    data: {
-        ...state.data
-    },
+    ...state,
     ...getReducerPartPending()
 });
 

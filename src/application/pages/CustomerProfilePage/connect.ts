@@ -6,9 +6,9 @@ import {
     isPageCustomerProfileFulfilled,
     isPageCustomerProfileLoading,
     isPageCustomerProfileRejected
-} from '@stores/reducers/pages/customerProfile';
+} from '@stores/reducers/pages/customerProfile/selectors';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
-import { getCustomerReference } from '@stores/reducers/pages/login';
+import { getCustomerReference } from '@stores/reducers/pages/login/selectors';
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {

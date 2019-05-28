@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { getSortParamLocalizedNames } from '@stores/reducers/pages/search';
+import { getSortParamLocalizedNames } from '@stores/reducers/pages/search/selectors';
 import { setSortAction } from '@stores/actions/pages/search';
 import { IIndexSignature } from '@interfaces/common';
 import { IPagination } from '@containers/AppPagination/types';

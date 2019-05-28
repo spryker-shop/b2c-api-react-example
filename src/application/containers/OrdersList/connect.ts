@@ -6,7 +6,7 @@ import {
     isOrderHistoryFulfilled,
     isOrderHistoryItems,
     isOrderHistoryInitiated
-} from '@stores/reducers/pages/orderHistory';
+} from '@stores/reducers/pages/orderHistory/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IOrderItem } from '@interfaces/order';
 

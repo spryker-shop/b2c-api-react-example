@@ -10,9 +10,6 @@ import { IAddressItem } from '@interfaces/addresses';
 
 export const handleAddressesPending = (state: IAddressesState): IAddressesState => ({
     ...state,
-    data: {
-        ...state.data,
-    },
     ...getReducerPartPending()
 });
 

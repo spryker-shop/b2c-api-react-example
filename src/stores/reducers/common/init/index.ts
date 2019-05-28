@@ -1,5 +1,5 @@
 import * as actionTypes from '@stores/actionTypes/common/init';
-import * as initHandlers  from './handlers';
+import * as initHandlers  from '@stores/reducers/common/init/handlers';
 import { IInitAction, IInitState } from '@stores/reducers/common/init/types';
 
 export const initialState: IInitState = {
@@ -18,7 +18,7 @@ export const initialState: IInitState = {
     }
 };
 
-export const init = function (state: IInitState = initialState, action: IInitAction): IInitState {
+export const init = (state: IInitState = initialState, action: IInitAction): IInitState => {
     switch (action.type) {
         case `${actionTypes.INIT_APP_ACTION_TYPE}_PENDING`:
         case `${actionTypes.CATEGORIES_TREE_REQUEST}_PENDING`:

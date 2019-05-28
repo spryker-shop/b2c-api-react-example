@@ -2,7 +2,7 @@ import { ICartState } from '@stores/reducers/common/cart/types';
 import { ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IApiErrorResponse } from '@services/types';
-import { initialState } from '@stores/reducers/common/cart/index';
+import { initialState } from '@stores/reducers/common/cart';
 
 export const handleUpdateCartFulfilled = (state: ICartState, payload: ICartDataParsed | null): ICartState => ({
     ...state,
@@ -16,17 +16,11 @@ export const handleUpdateCartFulfilled = (state: ICartState, payload: ICartDataP
 
 export const handleCartRejected = (state: ICartState, payload: IApiErrorResponse): ICartState => ({
     ...state,
-    data: {
-        ...state.data
-    },
     ...getReducerPartRejected(payload.error)
 });
 
 export const handleCartPending = (state: ICartState): ICartState => ({
     ...state,
-    data: {
-        ...state.data
-    },
     ...getReducerPartPending()
 });
 

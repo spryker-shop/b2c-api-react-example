@@ -8,7 +8,7 @@ import { ICartState } from '@stores/reducers/common/cart/types';
 import { INavigationsState } from '@stores/reducers/common/navigations/types';
 import { IOrderHistoryState } from '@stores/reducers/pages/orderHistory/types';
 import { IOrderDetailsState } from '@stores/reducers/pages/orderDetails/types';
-import { ICustomerDataState } from '@stores/reducers/pages/customerProfile/types';
+import { ICustomerState } from '@stores/reducers/pages/customerProfile/types';
 import { RouteProps } from 'react-router';
 import { IIndexSignature, WithRouter } from '@interfaces/common';
 import { IInitState } from '@stores/reducers/common/init/types';
@@ -35,7 +35,7 @@ export interface IReduxStore {
     init: IInitState;
     orderHistory: IOrderHistoryState;
     orderDetails: IOrderDetailsState;
-    pageCustomerProfile: ICustomerDataState;
+    pageCustomerProfile: ICustomerState;
     productRelations: IProductRelationsState;
     navigations: INavigationsState;
 }

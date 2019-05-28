@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { getAddressesCollectionFromCheckoutStore } from '@stores/reducers/pages/checkout/selectors';

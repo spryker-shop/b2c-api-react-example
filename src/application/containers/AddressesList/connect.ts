@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getAddressesAction, setCurrentAddressAction, deleteAddressAction } from '@stores/actions/pages/addresses';
-import { getCustomerReference } from '@stores/reducers/pages/login';
+import { getCustomerReference } from '@stores/reducers/pages/login/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import {
     getAddressesCollection,

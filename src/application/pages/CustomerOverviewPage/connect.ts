@@ -7,11 +7,11 @@ import {
     isPageCustomerProfileFulfilled,
     isPageCustomerProfileLoading,
     isPageCustomerProfileRejected
-} from '@stores/reducers/pages/customerProfile';
+} from '@stores/reducers/pages/customerProfile/selectors';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
-import { getCustomerReference } from '@stores/reducers/pages/login';
+import { getCustomerReference } from '@stores/reducers/pages/login/selectors';
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
-import { getOrdersCollectionFromStore, isOrderHistoryItems } from '@stores/reducers/pages/orderHistory';
+import { getOrdersCollectionFromStore, isOrderHistoryItems } from '@stores/reducers/pages/orderHistory/selectors';
 import { getOrdersCollectionAction } from '@stores/actions/pages/order';
 import { getAddressesCollection, isAddressesInitiated } from '@stores/reducers/pages/addresses/selectors';
 import { IAddressItem } from '@interfaces/addresses';

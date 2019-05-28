@@ -9,7 +9,7 @@ import {
     isAppStateFulfilled,
     getIsPageLocked
 } from '@stores/reducers/common/init/selectors';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { isCartCreated } from '@stores/reducers/common/cart/selectors';
 import { initApplicationDataAction, setAuthFromStorageAction } from '@stores/actions/common/init';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';

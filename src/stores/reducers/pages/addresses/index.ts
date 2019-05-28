@@ -1,6 +1,6 @@
 import * as actionTypes from '@stores/actionTypes/pages/addresses';
-import * as addressesHandlers  from './handlers';
-import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/Addresses/types';
+import * as addressesHandlers  from '@stores/reducers/pages/addresses/handlers';
+import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/addresses/types';
 
 const initialState: IAddressesState = {
     data: {
@@ -10,10 +10,10 @@ const initialState: IAddressesState = {
     }
 };
 
-export const pageAddresses = function (
+export const pageAddresses = (
     state: IAddressesState = initialState,
     action: IPageAddressesAction
-): IAddressesState {
+): IAddressesState => {
     switch (action.type) {
         case `${actionTypes.ADDRESSES_LIST}_PENDING`:
         case `${actionTypes.ADD_ADDRESS}_PENDING`:
@@ -35,21 +35,16 @@ export const pageAddresses = function (
             return addressesHandlers.handleAddressesFulfilled(state, action.addresses);
         case `${actionTypes.ADD_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleAddAddressFulfilled(state, action.address);
-        case `${actionTypes.DELETE_ADDRESS}_FULFILLED`: {
+        case `${actionTypes.DELETE_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleDeleteAddressFulfilled(state, action.addressId);
-        }
-        case `${actionTypes.UPDATE_ADDRESS}_FULFILLED`: {
+        case `${actionTypes.UPDATE_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleUpdateAddressFulfilled(state, action.payloadFulfilled);
-        }
-        case actionTypes.SET_CURRENT_ADDRESS: {
+        case actionTypes.SET_CURRENT_ADDRESS:
             return addressesHandlers.handleSetCurrentAddress(state, action.addressId);
-        }
-        case `${actionTypes.GET_ONE_ADDRESS}_FULFILLED`: {
+        case `${actionTypes.GET_ONE_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleGetOneAddress(state, action.payloadFulfilled.data);
-        }
-        case actionTypes.CLEAR_ADDRESS: {
+        case actionTypes.CLEAR_ADDRESS:
             return addressesHandlers.handleClearAddress(initialState);
-        }
         default:
             return state;
     }
