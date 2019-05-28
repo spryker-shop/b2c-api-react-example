@@ -1,4 +1,4 @@
-import { IParamFormValidity, IParamInputValidity } from '@helpers/forms/types';
+import { IParamFormValidity, IParamInputValidity } from '@interfaces/forms';
 
 export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
     const { value, fieldConfig } = param;

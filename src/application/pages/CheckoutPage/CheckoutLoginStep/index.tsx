@@ -71,6 +71,6 @@ class CheckoutLoginStepComponent extends React.Component<Props> {
             </>
         );
     }
-};
+}
 
 export const CheckoutLoginStep = connect(withStyles(styles)(CheckoutLoginStepComponent));

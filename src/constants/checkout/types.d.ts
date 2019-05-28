@@ -47,7 +47,6 @@ export interface IAddressConfigInputStable {
     country: IConfigInputStable;
     company: IConfigInputStable;
     phone: IConfigInputStable;
-
     [key: string]: IConfigInputStable;
 }
 
@@ -57,12 +56,10 @@ export interface ICreditCardObjectConfigInputStable {
     cardName: IConfigInputStable;
     cardExpiryDate: IConfigInputStable;
     cardCVC: IConfigInputStable;
-
     [key: string]: IConfigInputStable;
 }
 
 export interface IInvoiceObjectConfigInputStable {
     dateOfBirth: IConfigInputStable;
-
     [key: string]: IConfigInputStable;
 }

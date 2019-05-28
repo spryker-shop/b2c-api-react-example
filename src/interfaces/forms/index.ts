@@ -22,6 +22,15 @@ export interface IAddressFormState {
     country: IConfigInputState;
     company: IConfigInputState;
     phone: IConfigInputState;
-
     [key: string]: IConfigInputState;
+}
+
+export interface IParamInputValidity {
+    value: string | number | boolean;
+    fieldConfig: IConfigInputStable;
+}
+
+export interface IParamFormValidity {
+    form: { [key: string]: IConfigInputState };
+    fieldsConfig: { [key: string]: IConfigInputStable };
 }
