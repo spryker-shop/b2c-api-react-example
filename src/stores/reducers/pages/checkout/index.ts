@@ -44,33 +44,11 @@ export const pageCheckout = function (
             return checkoutHandlers.handleCheckoutPending(state);
         case `${actionTypes.CHECKOUT_DATA_INIT_REQUEST}_REJECTED`:
         case `${actionTypes.SEND_CHECKOUT_DATA}_REJECTED`:
-            draft.data.orderId = '';
-            draft.error = action.payloadRejected.error;
-            draft.pending = false;
-            draft.fulfilled = false;
-            draft.rejected = true;
-            draft.initiated = false;
-            break;
+            return checkoutHandlers.handleCheckoutRejected(state, action.payloadRejected);
         case `${actionTypes.CHECKOUT_DATA_INIT_REQUEST}_FULFILLED`:
-            draft.data.payments = action.payloadGetFulfilled.payments || null;
-            draft.data.shipments = action.payloadGetFulfilled.shipments || null;
-            draft.data.addressesCollection = action.payloadGetFulfilled.addressesCollection || null;
-
-            draft.error = null;
-            draft.pending = false;
-            draft.fulfilled = true;
-            draft.rejected = false;
-            draft.initiated = true;
-            break;
-        case `${actionTypes.SEND_CHECKOUT_DATA}_FULFILLED`: {
-            draft.data.orderId = action.payloadSendFulfilled.orderId;
-            draft.error = null;
-            draft.pending = false;
-            draft.fulfilled = true;
-            draft.rejected = false;
-            draft.initiated = true;
-            break;
-        }
+            return checkoutHandlers.handleCheckoutFulfilled(state, action.payloadGetFulfilled);
+        case `${actionTypes.SEND_CHECKOUT_DATA}_FULFILLED`:
+            return checkoutHandlers.handleSendCheckoutDataFulfilled(state, action.payloadSendFulfilled.orderId);
         case actionTypes.CHECKOUT_MUTATE_DELIVERY_ADDRESS: {
             draft.deliveryNewAddress = {
                 ...draft.deliveryNewAddress,

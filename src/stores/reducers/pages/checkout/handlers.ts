@@ -1,6 +1,6 @@
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IApiErrorResponse } from '@services/types';
-import { ICheckoutState } from '@stores/reducers/pages/checkout/types';
+import { ICheckoutResponseData, ICheckoutState } from '@stores/reducers/pages/checkout/types';
 
 export const handleCheckoutPending = (state: ICheckoutState): ICheckoutState => ({
     ...state,
@@ -11,17 +11,31 @@ export const handleCheckoutPending = (state: ICheckoutState): ICheckoutState => 
     ...getReducerPartPending()
 });
 
-export const handleAddressesRejected = (state: ICheckoutState, payload: IApiErrorResponse) => ({
-    ...state,
-    ...getReducerPartRejected(payload.error)
-});
-
-export const handleAddressesFulfilled = (state: ICheckoutState, addresses: IAddressItem[]) => ({
+export const handleCheckoutRejected = (state: ICheckoutState, payload: IApiErrorResponse) => ({
     ...state,
     data: {
         ...state.data,
-        currentAddress: null as null,
-        addresses
+        orderId: ''
+    },
+    ...getReducerPartRejected(payload.error)
+});
+
+export const handleCheckoutFulfilled = (state: ICheckoutState, payload: ICheckoutResponseData) => ({
+    ...state,
+    data: {
+        ...state.data,
+        payments: payload.payments,
+        shipments: payload.shipments,
+        addressesCollection: payload.addressesCollection
+    },
+    ...getReducerPartFulfilled()
+});
+
+export const handleSendCheckoutDataFulfilled = (state: ICheckoutState, orderId: string) => ({
+    ...state,
+    data: {
+        ...state.data,
+        orderId
     },
     ...getReducerPartFulfilled()
 });
