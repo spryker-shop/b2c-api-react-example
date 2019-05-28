@@ -10,7 +10,7 @@ import { SprykerInput } from '@components/UI/SprykerInput';
 import { styles } from './styles';
 
 @connect
-export class ResetPasswordPageBase extends React.Component<Props, State> {
+class ResetPasswordPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
         password: '',
         confirmPassword: '',
@@ -93,4 +93,4 @@ export class ResetPasswordPageBase extends React.Component<Props, State> {
     }
 }
 
-export const ResetPasswordPage = withStyles(styles)(ResetPasswordPageBase);
+export const ResetPasswordPage = withStyles(styles)(ResetPasswordPageComponent);

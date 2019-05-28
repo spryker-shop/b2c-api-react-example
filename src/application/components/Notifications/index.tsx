@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { INotificationsProps as Props } from './types';
 import { styles } from './styles';
 
-export const NotificationsComponent: React.SFC<Props> = (props): JSX.Element => {
+const NotificationsComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

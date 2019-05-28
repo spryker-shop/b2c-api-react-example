@@ -13,7 +13,7 @@ import { ISuggestionsContainerProps as Props } from './types';
 import { ICompletionMatch } from '../types';
 import { styles } from './styles';
 
-export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
+const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         categories,
         completion,

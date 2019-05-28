@@ -6,7 +6,7 @@ import { pathSearchPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
-export const SearchIntroComponent: React.SFC<ISearchIntroProps> = props => {
+const SearchIntroComponent: React.SFC<ISearchIntroProps> = props => {
     const {spellingSuggestion, onLinkClick, classes} = props;
 
     if (!spellingSuggestion) {

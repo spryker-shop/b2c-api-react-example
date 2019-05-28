@@ -12,7 +12,7 @@ import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
 @connect
-export class CatalogSearchInputComponent extends React.Component<Props, State> {
+class CatalogSearchInputComponent extends React.Component<Props, State> {
     public readonly state: State = {
         parts: [],
         matches: []

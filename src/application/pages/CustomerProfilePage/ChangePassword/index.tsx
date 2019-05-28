@@ -12,7 +12,7 @@ import { InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 
 @connect
-export class ChangePasswordComponent extends React.Component<Props, State> {
+class ChangePasswordComponent extends React.Component<Props, State> {
     readonly state: State = {
         fields: {
             password: {

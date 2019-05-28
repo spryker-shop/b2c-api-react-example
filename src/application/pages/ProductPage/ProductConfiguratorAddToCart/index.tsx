@@ -11,7 +11,7 @@ import { IProductConfiguratorAddToCartProps as Props, IProductConfiguratorAddToC
 import { styles } from './styles';
 
 @connect
-export class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
     public readonly state: State = {
         quantitySelected: quantitySelectedInitial,
         quantity: 1,

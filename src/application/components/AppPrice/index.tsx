@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedNumber } from 'react-intl';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core';
 import { IAppPriceProps as Props } from './types';
 import { styles } from './styles';
 

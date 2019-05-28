@@ -11,7 +11,7 @@ import { pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 
 @connect
-export class ForgotPasswordPageBase extends React.Component<Props, State> {
+class ForgotPasswordPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
         email: ''
     };
@@ -84,4 +84,4 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
     }
 }
 
-export const ForgotPasswordPage = withStyles(styles)(ForgotPasswordPageBase);
+export const ForgotPasswordPage = withStyles(styles)(ForgotPasswordPageComponent);

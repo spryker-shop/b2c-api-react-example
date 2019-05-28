@@ -1,6 +1,5 @@
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
-import { getCustomerCartsAction } from '@stores/actions/common/cart';
 
 export interface IProtectedRouteProps extends RouteProps, WithRouter {
     pageTitle?: string;

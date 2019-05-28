@@ -14,7 +14,7 @@ import { IWishlist } from '@interfaces/wishlist';
 import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
 @connect
-export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
     public readonly state: State = {
         wishlistSelected: null
     };

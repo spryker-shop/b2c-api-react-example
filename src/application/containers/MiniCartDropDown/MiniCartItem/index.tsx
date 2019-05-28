@@ -1,14 +1,12 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { withStyles, Typography, Grid } from '@material-ui/core';
 import { AppPrice } from '@components/AppPrice';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
 import { FormattedMessage } from 'react-intl';
 
-export const MiniCartItemComponent: React.SFC<Props> = props => {
+const MiniCartItemComponent: React.SFC<Props> = props => {
     const {
         classes,
         productData: {

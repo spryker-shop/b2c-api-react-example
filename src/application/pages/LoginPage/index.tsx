@@ -9,7 +9,7 @@ import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
 import { styles } from './styles';
 
-export class LoginPageComponent extends React.Component<Props> {
+class LoginPageComponent extends React.Component<Props> {
     public render(): JSX.Element {
         const { classes } = this.props;
 

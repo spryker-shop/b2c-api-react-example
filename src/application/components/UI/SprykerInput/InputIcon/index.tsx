@@ -3,7 +3,7 @@ import { InputAdornment, withStyles, Tooltip } from '@material-ui/core';
 import { IInputIconProps as Props } from './types';
 import { styles } from './styles';
 
-export const InputIconComponent: React.SFC<Props> = (props): JSX.Element => {
+const InputIconComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
         classes,
         icon,

@@ -13,7 +13,7 @@ import { styles } from './styles';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductRelations } from '@containers/ProductRelations';
 
-export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
+const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
     const breadcrumbsList = [{
         name: <FormattedMessage id={ 'word.cart.title' } />,

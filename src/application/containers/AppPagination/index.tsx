@@ -9,7 +9,7 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { PrevIcon, NextIcon } from './icons';
 
 @(withRouter as Function)
-export class AppPaginationComponent extends React.Component<Props, State> {
+class AppPaginationComponent extends React.Component<Props, State> {
     public readonly state: State = {
         pagination: null
     };

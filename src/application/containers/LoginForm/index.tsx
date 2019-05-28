@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 @(withRouter as Function)
 @connect
-export class LoginFormComponent extends React.Component<Props, State> {
+class LoginFormComponent extends React.Component<Props, State> {
     public readonly state: State = {
         username: '',
         password: '',

@@ -6,7 +6,7 @@ import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { ICategoriesTeasersData as TeaserData, ICategoriesTeasersProps as Props } from './types';
 import { styles } from './styles';
 
-export const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element => {
+const CategoriesTeasersComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     if (!teasers || !Array.isArray(teasers) || !teasers.length) {

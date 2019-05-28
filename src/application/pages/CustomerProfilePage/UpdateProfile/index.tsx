@@ -11,7 +11,7 @@ import { InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 
 @connect
-export class UpdateProfileComponent extends React.Component<Props, State> {
+class UpdateProfileComponent extends React.Component<Props, State> {
     public readonly state: State = {
         fields: {
             salutation: {

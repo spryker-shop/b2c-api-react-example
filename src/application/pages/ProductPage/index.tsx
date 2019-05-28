@@ -21,7 +21,7 @@ import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class ProductPageComponent extends React.Component<Props, State> {
+class ProductPageComponent extends React.Component<Props, State> {
     public state: State = {
         superAttrSelected: {},
         productType: null,

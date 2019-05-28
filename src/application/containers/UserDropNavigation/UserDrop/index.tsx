@@ -9,7 +9,7 @@ import { INavLinkData } from '@interfaces/navigations';
 import { IUserDropProps as Props } from './types';
 import { styles } from './styles';
 
-export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
+const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, isUserLoggedIn, onLogoutClick, onMouseLeave, onMouseEnter } = props;
 
     const loggedInUser = (

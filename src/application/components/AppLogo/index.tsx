@@ -6,7 +6,7 @@ import { ILogoProps as Props } from './types';
 import { SprykerLogo, SprykerLogoWithoutImage, SimpleLogo } from './icons';
 import { styles } from './styles';
 
-export const AppLogoComponent: React.SFC<Props> = (props): JSX.Element => {
+const AppLogoComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, addlLogoWithoutImage, addSimpleLogo } = props;
 
     return (

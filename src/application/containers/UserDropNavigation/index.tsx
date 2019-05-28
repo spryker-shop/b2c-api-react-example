@@ -10,7 +10,6 @@ import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
-import { logoutAction } from '@stores/actions/pages/login';
 
 @connect
 @(withRouter as Function)

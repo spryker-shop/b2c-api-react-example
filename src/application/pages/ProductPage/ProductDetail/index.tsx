@@ -6,7 +6,7 @@ import { IProductDetailProps as Props, IProductDetailState as State } from './ty
 import { styles } from './styles';
 import { ClickEvent } from '@interfaces/common';
 
-export class ProductDetailComponent extends React.Component<Props, State> {
+class ProductDetailComponent extends React.Component<Props, State> {
     public readonly state: State = {
         value: 0
     };

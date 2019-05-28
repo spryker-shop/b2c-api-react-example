@@ -11,7 +11,7 @@ import { LoadableCustomerPage } from '@pages/CustomerPage/loadable';
 import { LoadablePasswordForgotPage } from '@pages/ForgotPasswordPage/loadable';
 import { LoadablePasswordResetPage } from '@pages/ResetPasswordPage/loadable';
 import { LoadableCheckoutPage } from '@pages/CheckoutPage/loadable';
-import { LoadableNotFound } from '@pages/NotFound/loadable';
+import { LoadableNotFound } from '@pages/NotFoundPage/loadable';
 import {
     pathCartPage,
     pathCategoryPage,

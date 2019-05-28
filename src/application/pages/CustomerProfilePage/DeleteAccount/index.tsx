@@ -11,7 +11,7 @@ import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class DeleteAccountComponent extends React.Component<Props, State> {
+class DeleteAccountComponent extends React.Component<Props, State> {
     readonly state: State = {
         isDeleteProfileDialogOpen: false
     };

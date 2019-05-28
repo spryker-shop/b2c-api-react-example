@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { withStyles, Typography, Grid } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import { IAppPageTitleProps as Props } from './types';
 import { styles } from './styles';
 
-export const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
+const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, title, children } = props;
 
     return (
