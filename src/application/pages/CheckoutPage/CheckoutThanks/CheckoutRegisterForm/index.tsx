@@ -14,7 +14,7 @@ import { IAddressItem } from '@interfaces/addresses';
 @(withRouter as Function)
 @connect
 export class CheckoutRegisterForm extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         password: '',
         confirmPassword: '',
         isCartLoading: false

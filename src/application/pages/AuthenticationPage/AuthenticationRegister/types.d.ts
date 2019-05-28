@@ -1,7 +1,7 @@
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
 
-export interface IRegisterFormProps extends RouteProps, WithRouter {
+export interface IAuthenticationRegisterProps extends RouteProps, WithRouter {
     isAuth?: boolean;
     customerRegisterAction?: Function;
     getCustomerCartsAction?: Function;
@@ -9,7 +9,7 @@ export interface IRegisterFormProps extends RouteProps, WithRouter {
     isCartLoading?: boolean;
 }
 
-export interface IRegisterFormState {
+export interface IAuthenticationRegisterState {
     salutation: string;
     firstName: string;
     lastName: string;

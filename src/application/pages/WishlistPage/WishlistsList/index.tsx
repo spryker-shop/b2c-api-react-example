@@ -9,7 +9,7 @@ import { WishlistsListItem } from './WishlistsListItem';
 
 @connect
 export class WishlistsList extends React.Component<Props, State> {
-    readonly state: State = {
+    public readonly state: State = {
         listName: '',
         listId: '',
         isUpdating: false

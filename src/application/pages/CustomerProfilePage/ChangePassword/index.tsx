@@ -13,7 +13,7 @@ import { styles } from './styles';
 
 @connect
 class ChangePasswordComponent extends React.Component<Props, State> {
-    readonly state: State = {
+    public readonly state: State = {
         fields: {
             password: {
                 value: '',

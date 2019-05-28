@@ -18,7 +18,7 @@ import { PrevIcon } from './icons';
 @(withRouter as Function)
 @connect
 class CustomerAddressPageComponent extends React.Component<Props, State> {
-    public state: State = { ...initialState };
+    public readonly state: State = { ...initialState };
 
     public componentDidMount = (): void => {
         if (this.props.currentAddress) {

@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 class SprykerFilterComponent extends React.Component<Props, State> {
     protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
 
-    public state: State = {
+    public readonly state: State = {
         isOpen: false
     };
 

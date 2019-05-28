@@ -7,7 +7,7 @@ import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
 import { Button, Grid } from '@material-ui/core';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { IRegisterFormProps as Props, IRegisterFormState as State } from './types';
+import { IAuthenticationRegisterProps as Props, IAuthenticationRegisterState as State } from './types';
 import { InputChangeEvent, FormEvent } from '@interfaces/common';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
@@ -15,8 +15,8 @@ import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
 
 @(withRouter as Function)
 @connect
-export class RegisterForm extends React.Component<Props, State> {
-    public state: State = {
+export class AuthenticationRegister extends React.Component<Props, State> {
+    public readonly state: State = {
         salutation: ' ',
         firstName: '',
         lastName: '',

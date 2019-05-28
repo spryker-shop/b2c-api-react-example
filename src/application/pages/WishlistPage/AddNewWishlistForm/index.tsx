@@ -9,7 +9,7 @@ import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
 class AddNewWishlistFormComponent extends React.Component<Props, State> {
-    readonly state: State = {
+    public readonly state: State = {
         name: ''
     };
 

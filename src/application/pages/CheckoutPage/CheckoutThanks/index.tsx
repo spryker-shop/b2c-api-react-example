@@ -11,7 +11,7 @@ import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 
 @connect
 class CheckoutThanksComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         shouldHideForm: true,
         email: null
     };

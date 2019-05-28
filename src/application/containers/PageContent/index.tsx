@@ -7,11 +7,11 @@ import { withRouter } from 'react-router';
 import { Routes } from '@components/Routes';
 import {
     pathCategoryPageBase,
-    pathLoginPage,
-    pathRegisterPage,
+    pathAuthenticationPage,
     pathSearchPage,
     pathForgotPassword,
-    pathResetPassword, pathCheckoutPage
+    pathResetPassword,
+    pathCheckoutPage
 } from '@constants/routes';
 import { withStyles } from '@material-ui/core';
 import { Header } from '@containers/Header';
@@ -98,8 +98,7 @@ class PageContentComponent extends React.Component<Props, State> {
 
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [
-            pathLoginPage,
-            pathRegisterPage,
+            pathAuthenticationPage,
             pathResetPassword,
             pathForgotPassword,
             pathCheckoutPage

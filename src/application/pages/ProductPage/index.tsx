@@ -22,7 +22,7 @@ import { styles } from './styles';
 @(withRouter as Function)
 @connect
 class ProductPageComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         superAttrSelected: {},
         productType: null,
         sku: null,

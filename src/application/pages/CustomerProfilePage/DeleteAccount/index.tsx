@@ -12,7 +12,7 @@ import { styles } from './styles';
 @(withRouter as Function)
 @connect
 class DeleteAccountComponent extends React.Component<Props, State> {
-    readonly state: State = {
+    public readonly state: State = {
         isDeleteProfileDialogOpen: false
     };
 
