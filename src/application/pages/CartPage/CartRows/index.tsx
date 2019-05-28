@@ -16,36 +16,15 @@ export class CartRows extends React.Component<Props> {
     };
 
     protected handleDeleteItem = (sku: string): void => {
-        const { cartDeleteItemAction, removeItemGuestCartAction, cartId, isUserLoggedIn, anonymId } = this.props;
+        const { cartDeleteItemAction, cartId, isUserLoggedIn, anonymId } = this.props;
 
-        if (isUserLoggedIn) {
-            cartDeleteItemAction(cartId, sku);
-        } else {
-            removeItemGuestCartAction(cartId, sku, anonymId);
-        }
+        cartDeleteItemAction(cartId, sku, anonymId, isUserLoggedIn);
     };
 
     protected handleChangeQty = (name: string, value: number): void => {
-        const {
-            cartId,
-            isUserLoggedIn,
-            anonymId,
-            updateItemInCartAction,
-            updateGuestCartAction
-        } = this.props;
+        const { cartId, isUserLoggedIn, anonymId, updateItemInCartAction } = this.props;
 
-        if (isUserLoggedIn) {
-            updateItemInCartAction(
-                createCartItemAddToCart(name, value),
-                cartId
-            );
-        } else {
-            updateGuestCartAction(
-                createCartItemAddToCart(name, value),
-                cartId,
-                anonymId
-            );
-        }
+        updateItemInCartAction(createCartItemAddToCart(name, value), cartId, anonymId, isUserLoggedIn);
     };
 
     public render(): JSX.Element {

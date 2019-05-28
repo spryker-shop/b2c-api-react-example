@@ -10,13 +10,13 @@ export interface IAddressesState extends IReduxState {
 }
 
 export interface IPageAddressesActionPayloadFulfilled {
-  addressId: IAddressItem['id'];
+  addressId: string | null;
   data: IAddressItem;
 }
 
 export interface IPageAddressesAction extends IActionData {
   addresses?: IAddressItem[];
   address?: IAddressItem;
-  addressId?: IAddressItem['id'];
+  addressId?: string | null;
   payloadFulfilled?: IPageAddressesActionPayloadFulfilled;
 }

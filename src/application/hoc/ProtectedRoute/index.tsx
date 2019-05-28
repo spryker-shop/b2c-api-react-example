@@ -25,7 +25,7 @@ export class ProtectedRoute extends React.PureComponent<Props> {
                 type: typeNotificationSuccess
             });
             setTimeout(() => {
-                this.props.getGuestCartAction(this.props.anonymId);
+                this.props.getCustomerCartsAction(this.props.anonymId, false);
             }, 100);
         }
 

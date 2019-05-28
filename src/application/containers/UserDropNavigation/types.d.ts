@@ -4,7 +4,7 @@ import { styles } from './styles';
 
 export interface IUserDropNavigationProps extends WithStyles<typeof styles>, WithRouter {
     isUserLoggedIn?: boolean;
-    logout?(): void;
+    logoutAction?: () => void;
     isTouch?: boolean;
 }
 

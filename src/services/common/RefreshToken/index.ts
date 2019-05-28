@@ -1,10 +1,14 @@
+import {
+    refreshTokenPendingState,
+    refreshTokenRejectedState,
+    refreshTokenFulfilledState
+} from '@stores/actions/pages/login';
 import { api, ApiServiceAbstract } from '@services/api';
-import { REFRESH_TOKEN_REQUEST } from '@stores/actionTypes/pages/login';
 import { parseLoginDataResponse } from '@helpers/parsing';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
 import { TApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
+import { ICustomerLoginDataParsed } from '@interfaces/customer';
+import { errorMessageInform } from '@helpers/common';
 
 export class RefreshTokenService extends ApiServiceAbstract {
     public static async getActualToken(dispatch: Function): Promise<string> {
@@ -24,15 +28,8 @@ export class RefreshTokenService extends ApiServiceAbstract {
 
                 return newToken;
             } catch (error) {
-                dispatch({
-                    type: REFRESH_TOKEN_REQUEST + '_REJECTED',
-                    error: error.message,
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'unexpected.error.message',
-                    message: error.message,
-                    type: typeNotificationError
-                });
+                dispatch(refreshTokenRejectedState(error.message));
+                errorMessageInform(error.message, false);
 
                 return Promise.reject(error.message);
             }
@@ -51,31 +48,20 @@ export class RefreshTokenService extends ApiServiceAbstract {
                 },
             },
         };
-
-        dispatch({type: REFRESH_TOKEN_REQUEST + '_PENDING'});
+        dispatch(refreshTokenPendingState());
 
         const response: TApiResponseData = await api.post('refresh-tokens', body, {withCredentials: true});
 
         if (response.ok) {
-            const responseParsed = parseLoginDataResponse(response.data);
+            const responseParsed: ICustomerLoginDataParsed = parseLoginDataResponse(response.data);
             saveAccessDataToLocalStorage(responseParsed);
-            dispatch({
-                type: REFRESH_TOKEN_REQUEST + '_FULFILLED',
-                payloadProfileDataFulfilled: responseParsed,
-            });
+            dispatch(refreshTokenFulfilledState(responseParsed));
 
             return responseParsed.accessToken;
         } else {
             const errorMessage = this.getParsedAPIError(response);
-            dispatch({
-                type: REFRESH_TOKEN_REQUEST + '_REJECTED',
-                error: errorMessage,
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'request.error.message',
-                message: errorMessage,
-                type: typeNotificationError
-            });
+            dispatch(refreshTokenRejectedState(errorMessage));
+            errorMessageInform(errorMessage);
 
             return Promise.reject(errorMessage);
         }

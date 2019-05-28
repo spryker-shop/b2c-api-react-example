@@ -68,9 +68,9 @@ class WishlistDetailComponent extends React.Component<Props> {
 
                         <div className={ classes.back }>
                             <NavLink to={ pathWishlistsPage } className={ classes.backLink }>
-                                <span className={ classes.icon } >
-                                    <PrevIcon />
-                                </span>
+                                        <span className={ classes.icon } >
+                                            <PrevIcon />
+                                        </span>
                                 <FormattedMessage id={ 'word.back.title' } />
                             </NavLink>
                         </div>

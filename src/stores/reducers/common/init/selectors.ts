@@ -1,4 +1,3 @@
-import { ICartCreatePayload } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/common';
 import { ICountry } from '@interfaces/addresses';
@@ -28,28 +27,8 @@ export function getAppTimeZone(state: IReduxStore, props: IReduxOwnProps): strin
     return isAppInitiated(state, props) ? state.init.data.timeZone : null;
 }
 
-export function getAppPriceMode(state: IReduxStore, props: IReduxOwnProps): string | null {
-    return isAppInitiated(state, props) ? state.init.data.priceMode : null;
-}
-
-export function getAppStore(state: IReduxStore, props: IReduxOwnProps): string | null {
-    return isAppInitiated(state, props) ? state.init.data.store : null;
-}
-
 export function getCounties(state: IReduxStore, props: IReduxOwnProps): ICountry[] {
     return isAppInitiated(state, props) ? state.init.data.countries : null;
-}
-
-export function getPayloadForCreateCart(state: IReduxStore, props: IReduxOwnProps): ICartCreatePayload {
-    return (
-        isAppInitiated(state, props)
-            ? {
-                priceMode: state.init.data.priceMode,
-                currency: state.init.data.currency,
-                store: state.init.data.store,
-            }
-            : null
-    );
 }
 
 export function getCategoriesTree(state: IReduxStore, props: IReduxOwnProps): ICategory[] {

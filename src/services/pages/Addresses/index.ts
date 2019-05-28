@@ -1,18 +1,16 @@
+import * as addressesActions from '@stores/actions/pages/addresses';
 import { IAddressIndexSignture, IAddressItem } from '@interfaces/addresses';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
+import { api, ApiServiceAbstract, setAuthToken } from '@services/api';
 import { TApiResponseData } from '@services/types';
 import { IAddressDataResponse, IRequestUpdateAddressBody } from '@services/pages/Addresses/types';
+import { errorMessageInform } from '@helpers/common';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
-import { ADD_ADDRESS, MULTIPLE_ADDRESSES } from '@stores/actionTypes/pages/addresses';
+import { typeNotificationSuccess } from '@constants/notifications';
 
 export class AddressesService extends ApiServiceAbstract {
-    public static async getCustomerAddresses(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        customerId: string
-    ): Promise<void> {
+    public static async getCustomerAddresses(dispatch: Function, customerId: string): Promise<void> {
+        dispatch(addressesActions.getAddressesPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
@@ -24,40 +22,25 @@ export class AddressesService extends ApiServiceAbstract {
                 const addresses = response.data.data.map((address: IAddressDataResponse): IAddressItem =>
                     ({ id: address.id, ...address.attributes }));
 
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    addresses
-                });
+                dispatch(addressesActions.getAddressesFulfilledStateAction(addresses));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    error: errorMessage
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(addressesActions.getAddressesRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error: error.message
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(addressesActions.getAddressesRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async getOneCustomerAddress(ACTION_TYPE: string,
-                                              dispatch: Function,
-                                              customerId: string,
-                                              addressId: string): Promise<void> {
+    public static async getOneCustomerAddress(
+        dispatch: Function,
+        customerId: string,
+        addressId: string
+    ): Promise<void> {
+        dispatch(addressesActions.getOneAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
@@ -75,41 +58,20 @@ export class AddressesService extends ApiServiceAbstract {
                 }, {});
                 address.id = id;
 
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadFulfilled: { data: address, addressId: id }
-                });
+                dispatch(addressesActions.getOneAddressFulfilledStateAction({ data: address, addressId: id }));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    error: errorMessage
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(addressesActions.getOneAddressRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error: error.message
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(addressesActions.getOneAddressRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async addAddress(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        payload: IAddressItem,
-        customerId: string
-    ): Promise<void> {
+    public static async addAddress(dispatch: Function, payload: IAddressItem, customerId: string): Promise<void> {
+        dispatch(addressesActions.addAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
@@ -125,47 +87,28 @@ export class AddressesService extends ApiServiceAbstract {
             const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    address: { id: response.data.data.id, ...response.data.data.attributes }
-
-                });
+                const address = { id: response.data.data.id, ...response.data.data.attributes };
+                dispatch(addressesActions.addAddressFulfilledStateAction(address));
                 NotificationsMessage({
                     id: 'new.address.added.message',
                     type: typeNotificationSuccess
                 });
 
-                await AddressesService.getCustomerAddresses('ADDRESSES_LIST', dispatch, customerId);
+                await AddressesService.getCustomerAddresses(dispatch, customerId);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    error: errorMessage
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(addressesActions.addAddressRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(addressesActions.addAddressRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async deleteAddress(ACTION_TYPE: string,
-                                      dispatch: Function,
-                                      addressId: string,
-                                      customerId: string): Promise<void> {
+    public static async deleteAddress(dispatch: Function, addressId: string, customerId: string): Promise<void> {
+        dispatch(addressesActions.deleteAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
@@ -175,45 +118,30 @@ export class AddressesService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
+                dispatch(addressesActions.deleteAddressFulfilledStateAction(addressId));
                 NotificationsMessage({
                     id: 'address.removed.message',
                     type: typeNotificationSuccess
                 });
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    addressId
-                });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    error: errorMessage
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(addressesActions.deleteAddressRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(addressesActions.deleteAddressRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async updateAddress(ACTION_TYPE: string,
-                                      dispatch: Function,
-                                      addressId: string,
-                                      customerId: string,
-                                      payload: IAddressItem): Promise<void> {
+    public static async updateAddress(
+        dispatch: Function,
+        addressId: string,
+        customerId: string,
+        payload: IAddressItem
+    ): Promise<void> {
+        dispatch(addressesActions.updateAddressPendingStateAction());
         try {
             const token = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
@@ -231,55 +159,38 @@ export class AddressesService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadFulfilled: {
-                        addressId,
-                        data: response.data.data.attributes
-                    }
-                });
+                const updatedAddress = { addressId, data: response.data.data.attributes };
+                dispatch(addressesActions.updateAddressFulfilledStateAction(updatedAddress));
                 NotificationsMessage({
                     id: 'address.updated.message',
                     type: typeNotificationSuccess
                 });
 
-                await AddressesService.getCustomerAddresses('ADDRESSES_LIST', dispatch, customerId);
+                await AddressesService.getCustomerAddresses(dispatch, customerId);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    error: errorMessage
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(addressesActions.updateAddressRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                error
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(addressesActions.updateAddressRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async addMultipleAddressAction(ACTION_TYPE: string,
-                                                 dispatch: Function,
-                                                 payload: IAddressItem,
-                                                 customerId: string,
-                                                 billing: IAddressItem): Promise<void> {
-        await AddressesService.addAddress(ADD_ADDRESS, dispatch, payload, customerId);
+    public static async addMultipleAddressAction(
+        dispatch: Function,
+        shipping: IAddressItem,
+        customerId: string,
+        billing: IAddressItem
+    ): Promise<void> {
+        dispatch(addressesActions.multipleAddressesPendingStateAction());
+        await AddressesService.addAddress(dispatch, shipping, customerId);
 
         if (Boolean(billing)) {
-            await AddressesService.addAddress(ADD_ADDRESS, dispatch, billing, customerId);
+            await AddressesService.addAddress(dispatch, billing, customerId);
         }
-        dispatch({ type: MULTIPLE_ADDRESSES + '_FULFILLED' });
+        dispatch(addressesActions.multipleAddressesFulfilledStateAction());
     }
 }

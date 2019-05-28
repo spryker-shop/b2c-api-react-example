@@ -39,7 +39,6 @@ export const messages: IMessages = {
         'category.name.workstations': 'Pcs & Workstations',
         'category.results.filter.title': 'Filter your results',
         'category.suggestion.title': 'Did you mean {suggestionTerm}?',
-        'change.language.error.message': 'Error occurs during the changing a language: {messageText}',
         'change.password.title': 'Change Password',
         'checkout.login.message': 'Login and use one of your saved carts',
         'city.label': 'City',
@@ -315,7 +314,6 @@ export const messages: IMessages = {
         'category.name.workstations': 'Pcs & Workstations',
         'category.results.filter.title': 'Resultate filtern',
         'category.suggestion.title': 'Meinten Sie {suggestionTerm}?',
-        'change.language.error.message': 'Fehler beim Ändern einer Sprache: {messageText}',
         'change.password.title': 'Passwort ändern',
         'checkout.login.message': 'Anmelden sich an und verwenden Sie einen Ihrer gespeicherten Einkaufswagen',
         'city.label': 'Stadt',
@@ -558,8 +556,8 @@ export const messages: IMessages = {
     }
 };
 
-// Console Messages
-export const CartAuthenticateErrorMessage = 'You should login to add item to the cart';
-export const CustomerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
-export const OrderAuthenticateErrorMessage = 'You should login to see your history of orders';
-export const WishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const cartAuthenticateErrorMessage = 'You should login to add item to the cart';
+export const customerProfileAuthenticateErrorMessage = 'You should login to see your Profile';
+export const orderAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const wishlistAuthenticateErrorMessage = 'You should login to see your history of orders';
+export const firstWishlistName = 'Wishlist';
