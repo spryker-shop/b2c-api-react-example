@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography, Grid, Button } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { IOrderProductListProps as Props } from './types';
 import { IOrderDetailsItem } from '@interfaces/order';
 import { SquareImage } from '@components/SquareImage';
@@ -71,7 +71,7 @@ const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
                                         <FormattedMessage id={ 'word.price.title' } />:
                                     </span>
                                     <span className={ classes.attributesValue }>
-                                        <AppPrice value={ sumPrice } />
+                                        <Price value={ sumPrice } />
                                     </span>
                                 </div>
                                 { quantity > 1 &&
@@ -80,7 +80,7 @@ const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
                                             <FormattedMessage id={ 'total.price.title' } />:
                                         </span>
                                         <span className={ classes.attributesValue }>
-                                            <AppPrice value={ sumPrice * quantity } />
+                                            <Price value={ sumPrice * quantity } />
                                         </span>
                                     </div>
                                 }

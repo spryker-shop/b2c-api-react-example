@@ -3,7 +3,7 @@ import { withStyles, RadioGroup, FormLabel, FormControlLabel, Radio, Typography 
 import { InputChangeEvent } from '@interfaces/common';
 import { IShipmentFormProps as Props } from './types';
 import { styles } from './styles';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 
 const ShipmentFormComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, currentMode, formName, labelForm, collections, onChangeHandler } = props;
@@ -24,7 +24,7 @@ const ShipmentFormComponent: React.SFC<Props> = (props): JSX.Element => {
                 label: `${classes.radioLabel} ${(currentMode === item.id) ? classes.checkedRadioLabel : '' }`
             }}
             control={ <Radio classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
-            label={ <>{`${item.name}: `}<AppPrice value={item.price} /></> }
+            label={ <>{`${item.name}: `}<Price value={item.price} /></> }
         />
     ));
 

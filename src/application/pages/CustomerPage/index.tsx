@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { Redirect, withRouter } from 'react-router';
 import { ICustomerPageProps as Props, ICustomerPageState as State } from './types';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { CustomerSideBar } from './CustomerSideBar';
 import { CustomerRouting } from './CustomerRouting';
@@ -81,7 +81,7 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
             <>
                 <Breadcrumbs breadcrumbsList={ breadcrumbsList } />
 
-                <AppMain>
+                <MainContainer>
                     { isWishlistsInitial &&
                     <div className={ classes.container }>
                         <div className={ classes.colSidebar }>
@@ -95,7 +95,7 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
                         </div>
                     </div>
                     }
-                </AppMain>
+                </MainContainer>
             </>
         );
     }

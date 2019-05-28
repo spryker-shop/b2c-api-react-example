@@ -5,16 +5,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { NavigationList } from './NavigationList';
 import { PartnerLogos } from './PartnerLogos';
 import { socialMediaLinks } from './fixtures';
-import { AppLogo } from '@components/AppLogo';
-import { IAppFooterProps as Props } from './types';
+import { Logo } from '@components/Logo';
+import { IFooterProps as Props } from './types';
 import { styles } from './styles';
 import { LanguageSwitcher } from '@containers/LanguageSwitcher';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { pathCategoryNew, pathCategoryPageBase, pathCategorySale, } from '@constants/routes';
-import { TNavigationItem } from '@components/AppFooter/NavigationList/types';
+import { TNavigationItem } from '@components/Footer/NavigationList/types';
 import { ICategory } from '@interfaces/common';
 
-const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
+const FooterComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, categoriesTree } = props;
 
     const getCategoriesTree = (): TNavigationItem[] => {
@@ -50,7 +50,7 @@ const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
                     <div className={ classes.row }>
                         <div className={`${classes.col} ${classes.colLogo}`}>
                             <div className={ classes.logo }>
-                                <AppLogo addSimpleLogo />
+                                <Logo addSimpleLogo />
                             </div>
                             <span className={`${classes.copyrights} ${classes.copyrightsIsHiddenOnDektop}`}>
                                 <FormattedHTMLMessage id={ 'spryker.name.title' } />
@@ -95,4 +95,4 @@ const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AppFooter = connect(withStyles(styles)(AppFooterComponent));
+export const Footer = connect(withStyles(styles)(FooterComponent));

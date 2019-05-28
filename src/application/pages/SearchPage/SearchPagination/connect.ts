@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { setPaginationPageAction } from '@stores/actions/pages/search';
-import { IPagination } from '@containers/AppPagination/types';
+import { IPagination } from '@containers/Pagination/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pagination: IPagination = state.pageSearch.data.pagination;

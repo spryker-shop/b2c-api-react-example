@@ -4,7 +4,7 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getSortParamLocalizedNames } from '@stores/reducers/pages/search/selectors';
 import { setSortAction } from '@stores/actions/pages/search';
 import { IIndexSignature } from '@interfaces/common';
-import { IPagination } from '@containers/AppPagination/types';
+import { IPagination } from '@containers/Pagination/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchState = state.pageSearch.data;

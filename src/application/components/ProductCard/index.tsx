@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withStyles, Typography, Grid } from '@material-ui/core';
-import { AppPrice } from '../AppPrice';
+import { Price } from '@components/Price';
 import { ProductLabel } from '@components/ProductLabel';
 import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
@@ -40,13 +40,13 @@ const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                                 variant="h3"
                                 className={`${classes.price} ${Boolean(priceOriginalGross) ? classes.newPrice : ''}`}
                             >
-                                <AppPrice value={ priceDefaultGross } />
+                                <Price value={ priceDefaultGross } />
                             </Typography>
                         </Grid>
                         { Boolean(priceOriginalGross) &&
                             <Grid item>
                                 <Typography color="textSecondary" component="span" className={ classes.oldPrice }>
-                                    <AppPrice value={ priceOriginalGross } isOriginal />
+                                    <Price value={ priceOriginalGross } isOriginal />
                                 </Typography>
                             </Grid>
                         }

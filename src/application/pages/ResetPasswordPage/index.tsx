@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { IResetPasswordPageProps as Props, IResetPasswordPageState as State } from './types';
 import { InputChangeEvent } from '@interfaces/common';
 import { IResetPasswordPayload } from '@interfaces/customer';
@@ -45,7 +45,7 @@ class ResetPasswordPageComponent extends React.Component<Props, State> {
         const { confirmPassword, password, submitted } = this.state;
 
         return (
-            <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
+            <MainContainer classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
                         <Typography variant="h2" component="h2" className={ classes.title }>
@@ -88,7 +88,7 @@ class ResetPasswordPageComponent extends React.Component<Props, State> {
                         </form>
                     </Grid>
                 </Grid>
-            </AppMain>
+            </MainContainer>
         );
     }
 }

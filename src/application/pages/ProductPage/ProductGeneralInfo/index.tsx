@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { IProductGeneralInfoProps as Props } from './types';
 import { styles } from './styles';
 
@@ -33,11 +33,11 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
                         component="span"
                         className={`${classes.price} ${oldPrice ? classes.newPrice : ''}`}
                     >
-                        <AppPrice value={ price } />
+                        <Price value={ price } />
                     </Typography>
                     { oldPrice &&
                         <Typography component="span" className={ classes.oldPrice }>
-                            <AppPrice value={ oldPrice } isOriginal />
+                            <Price value={ oldPrice } isOriginal />
                         </Typography>
                     }
                     <Typography component="span" className={ classes.vat }>

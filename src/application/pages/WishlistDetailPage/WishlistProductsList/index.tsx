@@ -5,7 +5,7 @@ import { createCartItemAddToCart } from '@helpers/cart';
 import { WishlistProductsListProps as Props } from './types';
 import { IWishlistProduct } from '@interfaces/wishlist';
 import { IProductAttributes } from '@interfaces/product';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { Typography, Button, withStyles, Grid, IconButton } from '@material-ui/core';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
@@ -88,7 +88,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                         <FormattedMessage id={ 'word.price.title' } />:
                                     </span>
                                     <span className={ classes.attributesValue }>
-                                        <AppPrice value={ prices ? prices.priceDefaultGross : 0 } />
+                                        <Price value={ prices ? prices.priceDefaultGross : 0 } />
                                     </span>
                                 </div>
                                 <div className={ classes.attributes }>

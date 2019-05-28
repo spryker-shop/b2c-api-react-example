@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { ProductImageSlider } from '@components/ProductImageSlider';
 import { ProductGeneralInfo } from './ProductGeneralInfo';
 import { ProductSuperAttribute } from './ProductSuperAttribute';
@@ -182,7 +182,7 @@ class ProductPageComponent extends React.Component<Props, State> {
         return (
             <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ categoriesTree } />
-                <AppMain>
+                <MainContainer>
                     <Grid container spacing={ 16 } className={ classes.productMain }>
                         <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
                             <div className={ classes.productPreview }>
@@ -239,7 +239,7 @@ class ProductPageComponent extends React.Component<Props, State> {
                             />
                         </ErrorBoundary>
                     }
-                </AppMain>
+                </MainContainer>
             </div>
         );
     }

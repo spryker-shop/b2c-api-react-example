@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IAppMainProps as Props } from './types';
+import { IMainContainerProps as Props } from './types';
 
-const AppMainComponent: React.SFC<Props> = (props): JSX.Element => {
+const MainContainerComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (
@@ -13,4 +13,4 @@ const AppMainComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AppMain = withStyles(styles)(AppMainComponent);
+export const MainContainer = withStyles(styles)(MainContainerComponent);

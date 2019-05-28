@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { withStyles, Typography } from '@material-ui/core';
-import { IAppPageTitleProps as Props } from './types';
+import { IPageTitleProps as Props } from './types';
 import { styles } from './styles';
 
-const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
+const PageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, title, children } = props;
 
     return (
@@ -20,4 +20,4 @@ const AppPageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AppPageTitle = withStyles(styles)(AppPageTitleComponent);
+export const PageTitle = withStyles(styles)(PageTitleComponent);

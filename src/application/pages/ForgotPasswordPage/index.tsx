@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { IForgotPasswordPageProps as Props, IForgotPasswordPageState as State } from './types';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { styles } from './styles';
 import { InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
@@ -27,7 +27,7 @@ class ForgotPasswordPageComponent extends React.Component<Props, State> {
         const { email } = this.state;
 
         return (
-            <AppMain classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
+            <MainContainer classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
                         <Typography variant="h2" component="h2">
@@ -79,7 +79,7 @@ class ForgotPasswordPageComponent extends React.Component<Props, State> {
                         </form>
                     </Grid>
                 </Grid>
-            </AppMain>
+            </MainContainer>
         );
     }
 }

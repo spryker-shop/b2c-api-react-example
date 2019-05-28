@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withStyles, Typography, Grid } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
@@ -42,12 +42,12 @@ const MiniCartItemComponent: React.SFC<Props> = props => {
                                     component="p"
                                     className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                 >
-                                    <AppPrice value={ priceDefaultGross } />
+                                    <Price value={ priceDefaultGross } />
                                 </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice value={ priceOriginalGross } isOriginal />
+                                        <Price value={ priceOriginalGross } isOriginal />
                                     </Typography>
                                 }
                             </Grid>

@@ -1,4 +1,4 @@
-import { IPagination } from '@containers/AppPagination/types';
+import { IPagination } from '@containers/Pagination/types';
 import { History } from 'history';
 
 export interface ISearchPaginationProps {

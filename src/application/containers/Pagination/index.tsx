@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { withStyles, Grid, Button, withWidth, Hidden } from '@material-ui/core';
-import { IAppPaginationProps as Props, IAppPaginationState as State } from './types';
+import { IPaginationProps as Props, IPaginationState as State } from './types';
 import { FormattedMessage } from 'react-intl';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
@@ -9,7 +9,7 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { PrevIcon, NextIcon } from './icons';
 
 @(withRouter as Function)
-class AppPaginationComponent extends React.Component<Props, State> {
+class PaginationComponent extends React.Component<Props, State> {
     public readonly state: State = {
         pagination: null
     };
@@ -164,4 +164,4 @@ class AppPaginationComponent extends React.Component<Props, State> {
     }
 }
 
-export const AppPagination = withWidth()(withStyles(styles)(AppPaginationComponent));
+export const Pagination = withWidth()(withStyles(styles)(PaginationComponent));

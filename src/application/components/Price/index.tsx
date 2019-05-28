@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedNumber } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { IAppPriceProps as Props } from './types';
+import { IPriceProps as Props } from './types';
 import { styles } from './styles';
 
-const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
+const PriceComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, currency, value, specificCurrency, isOriginal, isMinus } = props;
     const isPriceExist = value || value === 0;
 
@@ -25,4 +25,4 @@ const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
     );
 };
 
-export const AppPrice = connect(withStyles(styles)(AppPriceComponent));
+export const Price = connect(withStyles(styles)(PriceComponent));

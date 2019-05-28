@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography, Tooltip, Button } from '@material-ui/core';
 import { pathOrderDetailsPageBase } from '@constants/routes';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
@@ -58,7 +58,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     <FormattedMessage id={ 'orders.total.title' } />
                                 </span>
                                 <span className={ classes.orderText }>
-                                    <AppPrice
+                                    <Price
                                         value={ order.totals.grandTotal }
                                         specificCurrency={ order.currency }
                                         isStylesInherited

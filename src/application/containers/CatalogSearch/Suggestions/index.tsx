@@ -3,7 +3,7 @@ import { pathProductPageBase } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, MenuItem } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { ISuggestionsProps as Props } from './types';
 import { styles } from './styles';
 
@@ -36,12 +36,12 @@ const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                                ${classes.priceItem} ${isOriginalPriceExist ? classes.newPrice : classes.mainPrice}
                             `}
                         >
-                            <AppPrice value={ isDefaultPriceExist ? prices.priceDefaultGross : price } />
+                            <Price value={ isDefaultPriceExist ? prices.priceDefaultGross : price } />
                         </span>
 
                         { isOriginalPriceExist &&
                             <span className={ `${classes.priceItem} ${classes.oldPrice}` }>
-                                <AppPrice value={ prices.priceOriginalGross } isOriginal />
+                                <Price value={ prices.priceOriginalGross } isOriginal />
                             </span>
                         }
                     </div>

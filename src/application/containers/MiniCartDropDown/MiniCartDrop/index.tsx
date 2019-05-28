@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { pathCartPage, pathCheckoutPage } from '@constants/routes';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Typography, Grid, Button } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { MiniCartItem } from '../MiniCartItem';
 import { IMiniCartDropProps as Props } from './types';
 import { styles } from './styles';
@@ -57,7 +57,7 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
                             <FormattedMessage id={ 'word.discount.title' } />
                         </Typography>
                         <span className={`${classes.priceTotal} ${classes.discountPriceTotal}`}>
-                            <AppPrice value={ totals.discountTotal } isMinus />
+                            <Price value={ totals.discountTotal } isMinus />
                         </span>
                     </div>
                 }
@@ -66,7 +66,7 @@ export const MiniCartDropComponent: React.SFC<Props> = (props): JSX.Element => {
                         <FormattedMessage id={ 'word.total.title' } />
                     </Typography>
                     <span className={ classes.priceTotal }>
-                        <AppPrice value={ totals.grandTotal }/>
+                        <Price value={ totals.grandTotal }/>
                     </span>
                 </div>
             </div>

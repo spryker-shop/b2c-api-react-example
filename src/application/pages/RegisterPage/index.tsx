@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, Grid } from '@material-ui/core';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { RegisterForm } from './RegisterForm';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { ILoginPageProps as Props } from './types';
@@ -14,7 +14,7 @@ class RegisterPageComponent extends React.Component<Props> {
         const { classes } = this.props;
 
         return (
-            <AppMain classes={{ layout: classes.layout, wrapper: classes.wrapper }}>
+            <MainContainer classes={{ layout: classes.layout, wrapper: classes.wrapper }}>
                 <Grid container justify="center">
                     <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 6 } className={ classes.box }>
                         <ul className={ classes.heading }>
@@ -36,7 +36,7 @@ class RegisterPageComponent extends React.Component<Props> {
                         </div>
                     </Grid>
                 </Grid>
-            </AppMain>
+            </MainContainer>
         );
     }
 }

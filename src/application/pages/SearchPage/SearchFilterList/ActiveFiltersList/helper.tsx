@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IFilterItem, TRangeType } from '@interfaces/search';
 import { filterTypeRange } from '@constants/search';
 import { rangeFilterValueToBack } from '@helpers/common';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 
 /**
  *
@@ -23,9 +23,9 @@ export const createRangeFilterItemCombined = (
 
     const label = (
         <>
-            <AppPrice value={rangeFilterValueToBack(value.min)} />
+            <Price value={rangeFilterValueToBack(value.min)} />
             &nbsp;{'-'}&nbsp;
-            <AppPrice value={rangeFilterValueToBack(value.max)} />
+            <Price value={rangeFilterValueToBack(value.max)} />
         </>
     );
 

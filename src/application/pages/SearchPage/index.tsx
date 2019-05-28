@@ -8,8 +8,8 @@ import { addToQueryActiveRangeFilters } from './helpers/queries';
 import { getLabeledCategory, getCurrentCategoriesTree } from './helpers';
 import { withRouter } from 'react-router';
 import { pathProductPageBase } from '@constants/routes';
-import { AppPageTitle } from '@components/AppPageTitle';
-import { AppMain } from '@components/AppMain';
+import { PageTitle } from '@components/PageTitle';
+import { MainContainer } from '@components/MainContainer';
 import { SortPanel } from './SortPanel';
 import { ProductsList } from './ProductsList';
 import { Breadcrumbs } from '@components/Breadcrumbs';
@@ -185,7 +185,7 @@ class SearchPageComponent extends React.Component<Props, State> {
         return (
             <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ formattedCategoriesTree } />
-                <AppPageTitle
+                <PageTitle
                     title={ searchTerm
                         ? <FormattedMessage id={ 'search.result.title' } values={ { terms: searchTerm } } />
                         : (currentCategoryId && categoryDisplayName)
@@ -199,9 +199,9 @@ class SearchPageComponent extends React.Component<Props, State> {
                             onLinkClick={ () => sendSearchAction({ q: spellingSuggestion }) }
                         />
                     }
-                </AppPageTitle>
+                </PageTitle>
 
-                <AppMain>
+                <MainContainer>
                     <Grid container spacing={ 24 }>
                         <Hidden only={['xs', 'sm', 'md']}>
                             { isCategoriesExist &&
@@ -217,7 +217,7 @@ class SearchPageComponent extends React.Component<Props, State> {
                             <SearchPagination history={ history } />
                         </Grid>
                     </Grid>
-                </AppMain>
+                </MainContainer>
             </div>
         );
     }

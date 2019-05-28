@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { CheckoutCart } from '@pages/CheckoutPage/CheckoutCart';
-import { AppPageTitle } from '@components/AppPageTitle';
+import { PageTitle } from '@components/PageTitle';
 import { getAddressForm } from '@helpers/forms';
 import { ClickEvent } from '@interfaces/common';
 import { IAddressItemCollection } from '@interfaces/addresses';
@@ -164,9 +164,9 @@ class CheckoutPageComponent extends React.Component<Props, State> {
 
         if (!isProductsExists && !isThanksPage && !isLoginPage) {
             return (
-                <AppMain classes={ { wrapper: classes.wrapper } }>
-                    <AppPageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
-                </AppMain>
+                <MainContainer classes={ { wrapper: classes.wrapper } }>
+                    <PageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
+                </MainContainer>
             );
         }
 
@@ -175,7 +175,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                 { !isThanksPage &&
                 <CheckoutBreadcrumbs />
                 }
-                <AppMain classes={ { wrapper: classes.wrapper } }>
+                <MainContainer classes={ { wrapper: classes.wrapper } }>
                     { (!isCheckoutLoading || isSummaryPage) &&
                         <div className={ classes.container }>
                             <div
@@ -206,7 +206,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                             }
                         </div>
                     }
-                </AppMain>
+                </MainContainer>
             </>
         );
     }

@@ -5,18 +5,18 @@ import { FormattedMessage } from 'react-intl';
 import debounce from 'lodash/debounce';
 import { pathCheckoutPage } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { AppLogo } from '@components/AppLogo';
+import { Logo } from '@components/Logo';
 import { MainNavigation } from '@containers/MainNavigation';
 import { AdditionalNavigation } from './AdditionalNavigation';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
-import { IAppHeaderProps as Props, IAppHeaderState as State } from './types';
+import { IHeaderProps as Props, IHeaderState as State } from './types';
 import { styles } from './styles';
 import { BurgerIcon, PhoneIcon } from './icons';
 import { Hidden } from '@material-ui/core';
 
 @connect
 @(withRouter as Function)
-class AppHeaderComponent extends React.PureComponent<Props, State> {
+class HeaderComponent extends React.PureComponent<Props, State> {
     protected stickyTriggerRef: React.RefObject<HTMLDivElement> = React.createRef();
 
     public readonly state: State = {
@@ -77,7 +77,7 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
                         }
 
                         <div className={ classes.logoCol }>
-                            <AppLogo addlLogoWithoutImage classes={{ logoContainer: classes.logoContainer }} />
+                            <Logo addlLogoWithoutImage classes={{ logoContainer: classes.logoContainer }} />
                         </div>
 
                         { !isCheckoutPage &&
@@ -116,4 +116,4 @@ class AppHeaderComponent extends React.PureComponent<Props, State> {
     }
 }
 
-export const AppHeader = withStyles(styles)(AppHeaderComponent);
+export const Header = withStyles(styles)(HeaderComponent);
