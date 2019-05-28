@@ -101,17 +101,13 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     const items = Object.values(result);
 
     return {
-        ...parseCommonDataInCartResponse(data),
+        id: data.id,
+        currency: data.attributes.currency,
+        discounts: data.attributes.discounts,
+        priceMode: data.attributes.priceMode,
+        store: data.attributes.store,
+        totals: data.attributes.totals,
         items,
         totalQty
     };
 };
-
-const parseCommonDataInCartResponse = (data: ICartDataResponse): ICartCommonData => ({
-    id: data.id,
-    currency: data.attributes.currency,
-    discounts: data.attributes.discounts,
-    priceMode: data.attributes.priceMode,
-    store: data.attributes.store,
-    totals: data.attributes.totals
-});

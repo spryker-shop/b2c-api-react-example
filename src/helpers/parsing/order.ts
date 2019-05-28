@@ -12,14 +12,12 @@ export const parseGetOrdersCollectionResponse = (
         return null;
     }
 
-    const items = response.data.map((item: IOrderCollectionDataResponse): IOrderItem => (
-        {
-            id: item.id,
-            dateCreated: item.attributes.createdAt,
-            currency: item.attributes.currencyIsoCode,
-            totals: item.attributes.totals
-        }
-    ));
+    const items = response.data.map((item: IOrderCollectionDataResponse): IOrderItem => ({
+        id: item.id,
+        dateCreated: item.attributes.createdAt,
+        currency: item.attributes.currencyIsoCode,
+        totals: item.attributes.totals
+    }));
 
     return {
         items
