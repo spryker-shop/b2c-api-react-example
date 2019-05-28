@@ -3,11 +3,10 @@ import * as qs from 'query-string';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { ISearchQuery } from '@interfaces/search';
-import { getCategoryNameById } from '@helpers/categories';
+import { getCategoryNameById, getCurrentCategoriesTree } from '@helpers/categories';
 import { addToQueryActiveRangeFilters } from './helpers/queries';
-import { getLabeledCategory, getCurrentCategoriesTree } from './helpers';
 import { withRouter } from 'react-router';
-import { pathProductPageBase } from '@constants/routes';
+import { labeledCategories, pathProductPageBase } from '@constants/routes';
 import { PageTitle } from '@components/PageTitle';
 import { MainContainer } from '@components/MainContainer';
 import { SortPanel } from './SortPanel';
@@ -89,18 +88,19 @@ class SearchPageComponent extends React.Component<Props, State> {
     };
 
     protected getQueryBaseParams = (): ISearchQuery => {
+        const { locationCategoryId,  currency} = this.props;
         const query: ISearchQuery = {};
 
-        if (this.props.locationCategoryId) {
-            const labeledCategory = getLabeledCategory(this.props.locationCategoryId);
-            if (labeledCategory) {
-                query.label = labeledCategory;
-            } else {
-                query.category = this.props.locationCategoryId;
-            }
+        if (locationCategoryId && labeledCategories[locationCategoryId]) {
+            query.label = labeledCategories[locationCategoryId];
         }
-        if (this.props.currency) {
-            query.currency = this.props.currency;
+
+        if (locationCategoryId && !labeledCategories[locationCategoryId]) {
+            query.category = locationCategoryId;
+        }
+
+        if (currency) {
+            query.currency = currency;
         }
 
         return query;

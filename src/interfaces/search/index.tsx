@@ -88,7 +88,6 @@ export interface ISearchQuery {
     ipp?: number;
     label?: string;
     page?: string | number;
-
     [key: string]: string | number | string[];
 }
 

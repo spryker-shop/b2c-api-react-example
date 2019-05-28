@@ -26,7 +26,7 @@ import {
 import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
     const isCheckoutFulfilled: boolean = isPageCheckoutFulfilled(state, ownProps);
     const isCheckoutLoading: boolean = isPageCheckoutStateLoading(state, ownProps);

@@ -3,7 +3,7 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
 
     return {
         isUserLoggedIn

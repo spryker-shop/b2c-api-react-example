@@ -109,7 +109,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
     if (isWidthUp('sm', width) && !shouldRenderSlider) {
         return (
             <div className={ classes.layout }>
-                <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
+                <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`} justify="center">
                     { renderProductCards() }
                 </Grid>
             </div>
