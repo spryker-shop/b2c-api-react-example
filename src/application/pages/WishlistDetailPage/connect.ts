@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
+import { IWishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getRouterMatchParam } from '@helpers/common';
 import { getDetailWishlistAction } from '@stores/actions/pages/wishlist';
@@ -9,7 +9,7 @@ import { isWishlistDetailsPresent, isWishlistDetailsStateRejected } from '@store
 import { IWishlist } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
+    const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
     const wishlistIdParam: string | null = getRouterMatchParam(state, ownProps, 'wishlistId');
     const isAppDataSet: boolean = isAppInitiated(state, ownProps);
     const isWishlistExist: boolean = isWishlistDetailsPresent(state, ownProps);

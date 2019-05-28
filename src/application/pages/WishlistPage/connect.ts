@@ -1,11 +1,11 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { WishlistState } from '@stores/reducers/pages/wishlist/types';
+import { IWishlistState } from '@stores/reducers/pages/wishlist/types';
 import { getWishlistsAction } from '@stores/actions/pages/wishlist';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
+    const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
     const isInitial: boolean = wishlistProps && wishlistProps.data ? wishlistProps.data.isInitialList : false;
 
     return {

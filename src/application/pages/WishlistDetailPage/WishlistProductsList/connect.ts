@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
+import { IWishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { addItemToCartAction } from '@stores/actions/common/cart';
 import { deleteItemWishlistAction } from '@stores/actions/pages/wishlist';
@@ -10,7 +10,7 @@ import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
-    const wishlistProps: WishlistState = state.pageWishlist ? state.pageWishlist : null;
+    const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
     const cartItemsLength: number = getTotalItemsQuantity(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
     const currency: string | null = getAppCurrency(state, ownProps);

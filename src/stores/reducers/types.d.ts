@@ -1,7 +1,7 @@
 import { ILoginState } from '@stores/reducers/pages/login/types';
 import { ISearchState } from '@stores/reducers/pages/search/types';
 import { IProductState } from '@stores/reducers/pages/product/types';
-import { WishlistState } from '@stores/reducers/pages/wishlist/types';
+import { IWishlistState } from '@stores/reducers/pages/wishlist/types';
 import { IAddressesState } from '@stores/reducers/pages/addresses/types';
 import { ICheckoutState } from '@stores/reducers/pages/checkout/types';
 import { ICartState } from '@stores/reducers/common/cart/types';
@@ -28,7 +28,7 @@ export interface IReduxStore {
     pagesLogin: ILoginState;
     pageSearch: ISearchState;
     pageProduct: IProductState;
-    pageWishlist: WishlistState;
+    pageWishlist: IWishlistState;
     pageAddresses: IAddressesState;
     pageCheckout: ICheckoutState;
     cart: ICartState;
