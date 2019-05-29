@@ -6,7 +6,7 @@ import {
     IProductConfiguratorAddToWishlistProps as Props,
     IProductConfiguratorAddToWishlistState as State
 } from './types';
-import { concreteProductType } from '@interfaces/product';
+import { concreteProductType } from '@constants/product';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';

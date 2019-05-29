@@ -34,12 +34,6 @@ export interface IPaymentProvider {
     paymentMethods: IPaymentMethod[];
 }
 
-export interface IcheckoutResponse {
-    addresses: IAddressItemCollection[] | {};
-    paymentProviders: IPaymentProvider[];
-    shipmentMethods: IShipmentMethod[];
-}
-
 export interface IDeliverySelectionState {
     selectedAddressId: string;
     isAddNew: boolean;

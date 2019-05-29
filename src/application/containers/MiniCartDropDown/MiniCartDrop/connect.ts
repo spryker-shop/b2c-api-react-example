@@ -1,7 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
-
 import { reduxify } from '@hoc/Reduxify';
-import { cartDeleteItemAction, removeItemGuestCartAction } from '@stores/actions/common/cart';
+import { cartDeleteItemAction } from '@stores/actions/common/cart';
 import { ICartState } from '@stores/reducers/common/cart/types';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
@@ -31,7 +30,6 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(
         {
             cartDeleteItemAction,
-            removeItemGuestCartAction,
             clearCheckoutDataForm
         },
         dispatch,

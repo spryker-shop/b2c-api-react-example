@@ -1,8 +1,8 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 
 export interface OrderSummaryProps extends WithStyles<typeof styles> {
-    totals: IAbstractTotals;
+    totals: ITotals;
     clearCheckoutDataForm: () => void;
 }

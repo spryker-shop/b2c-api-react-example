@@ -1,6 +1,5 @@
-import { IAbstractTotals } from '@interfaces/abstract';
-import { IProductParsedPrices } from '@interfaces/product';
-import { IIndexSignature } from '@interfaces/common';
+import { IProductPrices } from '@interfaces/product';
+import { IIndexSignature, ITotals } from '@interfaces/common';
 
 export interface ICartDiscounts {
     displayName: string;
@@ -20,10 +19,10 @@ export interface ICartItem {
     image?: string;
     quantity?: number;
     amount?: number;
-    prices?: IProductParsedPrices;
+    prices?: IProductPrices;
     calculations?: ICartItemCalculation;
     groupKey?: string;
-    availability?: boolean;
+    isAvailable?: boolean;
     availableQuantity?: number;
     superAttributes?: IIndexSignature[];
     priceOriginalGross?: number;
@@ -32,20 +31,20 @@ export interface ICartItem {
     priceDefaultNet?: number;
 }
 
-export interface ICartDataResponse extends ICommonDataInCart {
+export interface ICartDataParsed extends ICartCommonData {
     isCartEmpty?: boolean;
     items: ICartItem[];
     totalQty?: number;
 }
 
-export interface ICommonDataInCart {
+export interface ICartCommonData {
     id: string;
     currency: string;
     discounts?: ICartDiscounts | {};
     priceMode: string;
     store: string;
-    totals: IAbstractTotals;
-    cartCreated?: boolean;
+    totals: ITotals;
+    isCartCreated?: boolean;
 }
 
 export interface ICartItemCalculation {

@@ -7,8 +7,6 @@ export interface CartRowsProps {
     anonymId?: string;
     updateItemInCartAction?: Function;
     cartDeleteItemAction?: Function;
-    removeItemGuestCartAction?: Function;
-    updateGuestCartAction?: Function;
     updateCartFulfilledStateAction?: Function;
     cartRejected?: boolean;
 }

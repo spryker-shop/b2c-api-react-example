@@ -14,7 +14,7 @@ import { CartIcon } from './icons';
 const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, products } = props;
 
-    if (!Boolean(products.length)) {
+    if (!Boolean(products && products.length)) {
         return (
             <Typography component="h3" variant="h3">
                 <FormattedMessage id={ 'wishlist.empty.message' } />
@@ -27,14 +27,14 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
             isLoading,
             isCartLoading,
             classes,
-            deleteItemAction,
+            deleteItemWishlistAction,
             wishlist: { id },
             addItemToCartAction,
             cartId
         } = props;
 
         return products.map((product: IWishlistProduct) => {
-            const { sku, name, prices, attributes, image, availability } = product;
+            const { sku, name, prices, attributes, image, isAvailable } = product;
 
             const renderSuperAttributes = attributes ? (
                 attributes.map((attr: IProductAttributes, index: number) => {
@@ -58,7 +58,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                         </div>
                         <IconButton
                             className={ classes.removeButton }
-                            onClick={ () => deleteItemAction(id, sku) }
+                            onClick={ () => deleteItemWishlistAction(id, sku) }
                             disabled={ isCartLoading || isLoading }
                             classes={{ disabled: classes.buttonDisabled }}
                         >
@@ -88,7 +88,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                         <FormattedMessage id={ 'word.price.title' } />:
                                     </span>
                                     <span className={ classes.attributesValue }>
-                                        <AppPrice value={ prices ? prices.grossAmountDefault : 0 } />
+                                        <AppPrice value={ prices ? prices.priceDefaultGross : 0 } />
                                     </span>
                                 </div>
                                 <div className={ classes.attributes }>
@@ -98,11 +98,11 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                     <span
                                         className={`
                                             ${classes.attributesValue}
-                                            ${availability ? classes.available : classes.noAvailable}
+                                            ${isAvailable ? classes.available : classes.noAvailable}
                                         `}
                                     >
                                          <FormattedMessage
-                                             id={`${ availability ? 'available.title' : 'unavailable.title' }`}
+                                             id={`${ isAvailable ? 'available.title' : 'unavailable.title' }`}
                                          />
                                     </span>
                                 </div>
@@ -110,7 +110,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                             <Grid item className={ classes.colButton }>
                                 <Button
                                     variant="outlined"
-                                    disabled={ isCartLoading || !availability || isLoading }
+                                    disabled={ isCartLoading || !isAvailable || isLoading }
                                     onClick={ () => addItemToCartAction(createCartItemAddToCart(sku, 1), cartId) }
                                     fullWidth
                                     className={ classes.button }

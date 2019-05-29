@@ -1,5 +1,5 @@
 import { IActionData, IReduxState } from '@stores/reducers/types';
-import { IConcreteProductAvailability, IProductDataParsed } from '@interfaces/product';
+import { IProductDataParsed } from '@interfaces/product';
 
 export interface IProductState extends IReduxState {
     data: {
@@ -9,5 +9,4 @@ export interface IProductState extends IReduxState {
 
 export interface IPageProductAction extends IActionData {
     payloadFulfilled?: IProductDataParsed;
-    payloadAvailability?: IConcreteProductAvailability | null;
 }

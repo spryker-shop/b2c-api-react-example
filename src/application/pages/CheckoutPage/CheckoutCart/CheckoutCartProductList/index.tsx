@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
 import { AppPrice } from '@components/AppPrice';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { ICartItem } from '@interfaces/cart';
 import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
@@ -63,9 +62,9 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                                         <AppPrice value={ priceDefaultGross } />
                                     </Typography>
                                     { priceOriginalGross &&
-                                    <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
-                                    </Typography>
+                                        <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
+                                            <AppPrice value={ priceOriginalGross } isOriginal />
+                                        </Typography>
                                     }
                                 </div>
                             </Grid>

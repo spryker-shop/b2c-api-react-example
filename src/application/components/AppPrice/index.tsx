@@ -2,12 +2,11 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedNumber } from 'react-intl';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { IAppPriceProps as Props } from './types';
 import { styles } from './styles';
 
 const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, currency, value, specificCurrency, priceType, isMinus } = props;
+    const { classes, currency, value, specificCurrency, isOriginal, isMinus } = props;
     const isPriceExist = value || value === 0;
 
     if (!currency || !isPriceExist) {
@@ -15,7 +14,7 @@ const AppPriceComponent: React.SFC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <span className={`${classes.price} ${ priceType === priceTypeNameOriginal ? classes.strikethrough : '' }`}>
+        <span className={`${classes.price} ${ isOriginal ? classes.strikethrough : '' }`}>
             { isMinus && <span>&nbsp; -</span>  }
             <FormattedNumber
                 value={ value / 100 }

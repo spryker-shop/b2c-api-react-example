@@ -1,16 +1,14 @@
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
 import * as navigationsActions from '@stores/actions/common/navigations';
-import { IApiResponseData } from '@services/types';
+import { api, ApiServiceAbstract } from '@services/api';
+import { TApiResponseData } from '@services/types';
 import { IMainNavigationNode } from '@interfaces/navigations';
-import api from '@services/api';
+import { errorMessageInform } from '@helpers/common';
 
 export class NavigationService extends ApiServiceAbstract {
     public static async getMainNavigation(dispatch: Function): Promise<void> {
         dispatch(navigationsActions.getMainNavigationPendingState());
         try {
-            const response: IApiResponseData = await api.get('navigations/main_navigation');
+            const response: TApiResponseData = await api.get('navigations/main_navigation');
             if (response.ok) {
                 const nodesTree: IMainNavigationNode[] = response.data.data.attributes.nodes
                     .filter((item: IMainNavigationNode) => {
@@ -23,20 +21,12 @@ export class NavigationService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(navigationsActions.getMainNavigationRejectState(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(navigationsActions.getMainNavigationRejectState(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

@@ -1,8 +1,7 @@
 import { RouteProps } from 'react-router';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IProductAttributes, IProductDataParsed, IProductPropFullData } from '@interfaces/product';
-import { ICartCreatePayload } from '@services/common/Cart/types';
+import { IProductAttributes, IProductPropFullData, IProductDataParsed } from '@interfaces/product';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
     product: IProductDataParsed | null;
@@ -10,7 +9,6 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     appPriceMode: string | null;
     appStore: string | null;
     getProductData: Function;
-    payloadForCreateCart: ICartCreatePayload;
     isLoading: boolean;
     isRejected: boolean;
     isFulfilled: boolean;

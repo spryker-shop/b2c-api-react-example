@@ -1,6 +1,6 @@
 import { PRICE_MODE_DEFAULT } from '@constants/common';
-import api from '@services/api';
-import { IStoreRawResponse } from './types';
+import { api } from '@services/api';
+import { IStoreRawResponse } from '@services/common/Init/types';
 import { IInitData } from '@interfaces/init';
 
 export const parseStoreResponse = (data: IStoreRawResponse): IInitData => {

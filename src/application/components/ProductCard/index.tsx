@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withStyles, Typography, Grid } from '@material-ui/core';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { AppPrice } from '../AppPrice';
 import { ProductLabel } from '@components/ProductLabel';
 import { IProductCardProps as Props } from './types';
@@ -47,7 +46,7 @@ export const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
                         { Boolean(priceOriginalGross) &&
                             <Grid item>
                                 <Typography color="textSecondary" component="span" className={ classes.oldPrice }>
-                                    <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                                    <AppPrice value={ priceOriginalGross } isOriginal />
                                 </Typography>
                             </Grid>
                         }

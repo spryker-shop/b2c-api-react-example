@@ -14,16 +14,10 @@ const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {classes, items, isCartLoading} = props;
 
     const addItemToCart = (sku: string, quantity: number): void => {
-        const { cartId, addItemToCart, createCartAndAddItem, payloadForCreateCart } = props;
+        const { cartId, addItemToCart } = props;
         const item: ICartAddItem = createCartItemAddToCart(sku, quantity);
 
-        if (cartId) {
-            addItemToCart(item, cartId);
-
-            return;
-        }
-
-        createCartAndAddItem(payloadForCreateCart, item);
+        addItemToCart(item, cartId);
     };
 
     const renderProductItems = (): JSX.Element[] => (

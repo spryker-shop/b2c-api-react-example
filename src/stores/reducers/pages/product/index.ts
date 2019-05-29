@@ -1,6 +1,6 @@
-import { PAGES_PRODUCT_REQUEST, PRODUCT_AVAILABILITY_REQUEST } from '@stores/actionTypes/pages/product';
+import { PAGES_PRODUCT_REQUEST } from '@stores/actionTypes/pages/product';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IConcreteProductAvailability, IProductDataParsed } from '@interfaces/product';
+import { IProductDataParsed } from '@interfaces/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageProductAction, IProductState } from '@stores/reducers/pages/product/types';
 import { IApiErrorResponse } from '@services/types';
@@ -14,15 +14,11 @@ export const initialState: IProductState = {
 export const pageProduct = function (state: IProductState = initialState, action: IPageProductAction): IProductState {
     switch (action.type) {
         case `${PAGES_PRODUCT_REQUEST}_REJECTED`:
-        case `${PRODUCT_AVAILABILITY_REQUEST}_REJECTED`:
             return handleRejected(state, action.payloadRejected || {error: action.error});
         case `${PAGES_PRODUCT_REQUEST}_PENDING`:
-        case `${PRODUCT_AVAILABILITY_REQUEST}_PENDING`:
             return handlePending(state);
         case `${PAGES_PRODUCT_REQUEST}_FULFILLED`:
             return handleFulfilled(state, action.payloadFulfilled);
-        case `${PRODUCT_AVAILABILITY_REQUEST}_FULFILLED`:
-            return handleAvailabilityFulfilled(state, action.payloadAvailability);
         default:
             return state;
     }
@@ -38,31 +34,6 @@ const handleFulfilled = (productState: IProductState, payload: IProductDataParse
         },
         ...getReducerPartFulfilled(),
     });
-
-const handleAvailabilityFulfilled = (productState: IProductState, payload: IConcreteProductAvailability | null) => {
-    if (!payload) {
-        return {...productState};
-    }
-
-    return {
-        ...productState,
-        data: {
-            ...productState.data,
-            selectedProduct: {
-                ...productState.data.selectedProduct,
-                concreteProducts: {
-                    ...productState.data.selectedProduct.concreteProducts,
-                    [payload.sku]: {
-                        ...productState.data.selectedProduct.concreteProducts[payload.sku],
-                        availability: payload.availability,
-                        quantity: payload.quantity,
-                    }
-                }
-            },
-        },
-        ...getReducerPartFulfilled(),
-    };
-};
 
 const handleRejected = (productState: IProductState, payload: IApiErrorResponse) => (
     {

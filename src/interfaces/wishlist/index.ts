@@ -1,12 +1,12 @@
-import { IProductAttributes } from '@interfaces/product';
+import { IProductAttributes, IProductPrices } from '@interfaces/product';
 
 export interface IWishlistProduct {
     sku: string;
     name: string;
     image: string;
     attributes: IProductAttributes[];
-    prices: { [key: string]: number; };
-    availability: boolean;
+    prices: IProductPrices;
+    isAvailable: boolean;
 }
 
 export interface IWishlist {

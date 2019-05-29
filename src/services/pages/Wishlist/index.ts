@@ -1,308 +1,90 @@
-import api, { setAuthToken } from '@services/api';
+import * as wishlistActions from '@stores/actions/pages/wishlist';
+import { api, setAuthToken } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { IWishlist, IWishlistProduct } from '@interfaces/wishlist';
-import { ADD_WISHLIST } from '@stores/actionTypes/pages/wishlist';
-import { WishlistAuthenticateErrorMessage } from '@translation/';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import * as cartActions from '@stores/actions/common/cart';
-import { IApiResponseData } from '@services/types';
-import {
-    IWishlistRawData,
-    IWishlistRawResponse,
-    TRowWishlistIncludedResponse,
-    ERowTypes
-} from '@services/pages/Wishlist/types';
+import { wishlistAuthenticateErrorMessage, firstWishlistName } from '@translation/';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
+import { IRequestBody, IWishlistDataResponse } from '@services/pages/Wishlist/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
-import { IProductPricesItem } from '@interfaces/product';
+import { typeNotificationSuccess } from '@constants/notifications';
+import { parseWishlistResponse, parseWishlistItems } from '@helpers/parsing/wishlist';
+import { WishlistActionsService } from './wishlistActions';
+import { errorMessageInform } from '@helpers/common';
 
-interface IRequestBody {
-    data: {
-        type: string;
-        include?: string;
-        attributes: {};
-    };
-}
-
-export class WishlistService extends ApiServiceAbstract {
-    public static async getLists(ACTION_TYPE: string, dispatch: Function): Promise<void> {
+export class WishlistService extends WishlistActionsService {
+    public static async getWishlists(dispatch: Function): Promise<void> {
+        dispatch(wishlistActions.getWishlistsPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(WishlistAuthenticateErrorMessage);
+                Promise.reject(wishlistAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
+            const response: TApiResponseData = await api.get('wishlists', {}, {withCredentials: true});
 
             if (response.ok) {
-                const wishlists: IWishlist[] = response.data.data.map((
-                    list: IWishlistRawData
-                ) => WishlistService.parseWishlistResponse(list));
-
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: {wishlists},
-                });
+                const wishlists: IWishlist[] = response.data.data.map((list: IWishlistDataResponse) =>
+                    parseWishlistResponse(list));
+                dispatch(wishlistActions.getWishlistsFulfilledState(wishlists));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(wishlistActions.getWishlistsRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(wishlistActions.getWishlistsRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async getWishlist(ACTION_TYPE: string, dispatch: Function, wishlistId: string): Promise<void> {
+    public static async getDetailWishlist(dispatch: Function, wishlistId: string): Promise<void> {
+        dispatch(wishlistActions.getDetailWishlisPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const query: string = 'wishlist-items,' +
-                'concrete-products,' +
-                'wishlist-items-products,' +
-                'concrete-product-image-sets,' +
-                'concrete-product-availabilities,' +
-                'concrete-product-prices';
+            const query: string = `${EIncludeTypes.WISHLIST_ITEMS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+                `${EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES},` +
+                EIncludeTypes.CONCRETE_PRODUCT_PRICES;
 
-            const response: IApiResponseData = await api.get(
+            const response: TApiResponseData = await api.get(
                 `wishlists/${wishlistId}?include=${query}`,
                 {},
                 {withCredentials: true}
             );
 
             if (response.ok) {
-                let products: IWishlistProduct[] = [];
-                const wishlist: IWishlist = WishlistService.parseWishlistResponse(response.data.data);
-
-                if (response.data.included) {
-                    products = WishlistService.parseWishlistItems(response.data.included);
-                }
-
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: {
-                        data: wishlist,
-                        products,
-                    },
-                });
+                const wishlist: IWishlist = parseWishlistResponse(response.data.data);
+                const products: IWishlistProduct[] = parseWishlistItems(response.data);
+                dispatch(wishlistActions.getDetailWishlisFulfilledState(wishlist, products));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(wishlistActions.getDetailWishlisRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(wishlistActions.getDetailWishlisRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async addWishlist(ACTION_TYPE: string, dispatch: Function, name: string): Promise<string> {
+    public static async addItemWishlist(dispatch: Function, wishlistId: string | null, sku: string): Promise<void> {
+        dispatch(wishlistActions.addItemWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
-            setAuthToken(token);
-
-            const body: IRequestBody = {
-                data: {
-                    type: 'wishlists',
-                    attributes: {name},
-                },
-            };
-
-            const response: IApiResponseData = await api.post('wishlists', body, {withCredentials: true});
-
-            if (response.ok) {
-                NotificationsMessage({
-                    id: 'wishlist.created.message',
-                    type: typeNotificationSuccess
-                });
-                const parsedWishlist: IWishlist = WishlistService.parseWishlistResponse(response.data.data);
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: { data: parsedWishlist },
-                });
-
-                return parsedWishlist.id;
-            } else {
-                const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: { error: errorMessage },
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-
-                return '';
-            }
-
-        } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
-
-            return '';
-        }
-    }
-
-    public static async deleteWishlist(
-        ACTION_TYPE: string,
-        dispatch: Function,
-        wishlistId: string
-    ): Promise<void> {
-        try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
-            setAuthToken(token);
-
-            const response: IApiResponseData = await api.delete(`wishlists/${wishlistId}`, {}, {withCredentials: true});
-
-            if (response.ok) {
-                NotificationsMessage({
-                    id: 'wishlist.deleted.message',
-                    type: typeNotificationSuccess
-                });
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: { wishlistId },
-                });
-            } else {
-                const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: { error: errorMessage },
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-            }
-
-        } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
-        }
-    }
-
-    public static async updateWishlist(ACTION_TYPE: string,
-                                       dispatch: Function,
-                                       wishlistId: string,
-                                       name: string): Promise<void> {
-        try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
-            setAuthToken(token);
-
-            const body: IRequestBody = {
-                data: {
-                    type: 'wishlists',
-                    attributes: {name},
-                },
-            };
-
-            const response: IApiResponseData = await api.patch(
-                `wishlists/${wishlistId}`,
-                body,
-                {withCredentials: true}
-            );
-
-            if (response.ok) {
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: {
-                        data: WishlistService.parseWishlistResponse(response.data.data),
-                        wishlistId,
-                    },
-                });
-            } else {
-                const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-            }
-
-        } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
-        }
-    }
-
-    public static async addItemWishlist(ACTION_TYPE: string,
-                                        dispatch: Function,
-                                        wishlistId: string | null,
-                                        sku: string): Promise<void> {
-        try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
             let id: string | null = wishlistId;
 
             if (!wishlistId) {
-                id = await WishlistService.addWishlist(ADD_WISHLIST, dispatch, 'My first wishlist');
+                id = await WishlistService.addWishlist(dispatch, firstWishlistName);
             }
 
             if (!id) {
-                throw new Error('Wishlist doesn`t created.');
+                Promise.reject('Wishlist doesn`t created.');
             }
 
             const body: IRequestBody = {
@@ -312,22 +94,18 @@ export class WishlistService extends ApiServiceAbstract {
                 },
             };
 
-            const endpointItems = `wishlists/${id}/wishlist-items`;
-            const response: IApiResponseData = await api.post(endpointItems, body, {withCredentials: true});
+            const endpointItems: string = `wishlists/${id}/wishlist-items`;
+            const response: TApiResponseData = await api.post(endpointItems, body, {withCredentials: true});
 
             if (response.ok) {
                 const endpoint = `wishlists/${id}`;
-                const wishlistResponse: IApiResponseData = await api.get(
+                const wishlistResponse: TApiResponseData = await api.get(
                     endpoint,
                     {include: ''},
                     {withCredentials: true}
                 );
-                const wishlist: IWishlist = WishlistService.parseWishlistResponse(wishlistResponse.data.data);
-
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistDataFulfilled: {data: wishlist},
-                });
+                const wishlist: IWishlist = parseWishlistResponse(wishlistResponse.data.data);
+                dispatch(wishlistActions.addItemWishlistFulfilledState(wishlist));
                 NotificationsMessage({
                     messageWithCustomText: 'wishlist.add.product.message',
                     message: wishlist.name,
@@ -335,183 +113,44 @@ export class WishlistService extends ApiServiceAbstract {
                 });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(wishlistActions.addItemWishlistRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(wishlistActions.addItemWishlistRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async deleteItemWishlist(ACTION_TYPE: string,
-                                           dispatch: Function,
-                                           wishlistId: string,
-                                           sku: string): Promise<void> {
+    public static async deleteItemWishlist(dispatch: Function, wishlistId: string, sku: string): Promise<void> {
+        dispatch(wishlistActions.deleteItemWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const response: IApiResponseData = await api.delete(
+            const response: TApiResponseData = await api.delete(
                 `wishlists/${wishlistId}/wishlist-items/${sku}`,
                 {},
                 {withCredentials: true}
             );
 
             if (response.ok) {
+                await WishlistService.getDetailWishlist(dispatch, wishlistId);
+                dispatch(wishlistActions.deleteItemWishlistFulfilledState(wishlistId, sku));
                 NotificationsMessage({
                     id: 'wishlist.removed.items.message',
                     type: typeNotificationSuccess
                 });
-                dispatch({
-                    type: ACTION_TYPE + '_FULFILLED',
-                    payloadWishlistProductFulfilled: {
-                        wishlistId,
-                        sku,
-                    },
-                });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch({
-                    type: ACTION_TYPE + '_REJECTED',
-                    payloadRejected: {error: errorMessage},
-                });
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(wishlistActions.deleteItemWishlistRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch({
-                type: ACTION_TYPE + '_REJECTED',
-                payloadRejected: {error: error.message},
-            });
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(wishlistActions.deleteItemWishlistRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
-    }
-
-    public static async removeMultiItems(
-        dispatch: Function,
-        wishlistId: string,
-        productsList: string[]
-    ): Promise<void> {
-        try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
-            setAuthToken(token);
-
-            for (const sku of productsList) {
-                await api.delete(
-                    `wishlists/${wishlistId}/wishlist-items/${sku}`,
-                    {},
-                    {withCredentials: true}
-                );
-            }
-
-            await WishlistService.getWishlist('DETAIL_WISHLIST', dispatch, wishlistId);
-        } catch (error) {
-            dispatch(cartActions.cartAddItemRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
-        }
-    }
-
-    private static parseWishlistResponse(data: IWishlistRawData): IWishlist {
-        const wishlist: IWishlist = {
-            id: data.id,
-            name: data.attributes.name,
-            numberOfItems: data.attributes.numberOfItems || 0,
-            createdAt: data.attributes.createdAt,
-            updatedAt: data.attributes.updatedAt,
-        };
-
-        return wishlist;
-    }
-
-    private static parseWishlistItems(included: IWishlistRawResponse['included']): IWishlistProduct[] {
-        const items: {[key: string]: IWishlistProduct} = {};
-
-        included.forEach((row: TRowWishlistIncludedResponse) => {
-            if (!items[row.id]) {
-                items[row.id] = {attributes: [], image: ''} as IWishlistProduct;
-            }
-
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
-                if (
-                    row.attributes.imageSets &&
-                    row.attributes.imageSets.length &&
-                    row.attributes.imageSets[0].images &&
-                    row.attributes.imageSets[0].images.length
-                ) {
-                    items[row.id].image = row.attributes.imageSets[0].images[0].externalUrlSmall;
-                }
-
-                return;
-            }
-
-            if (row.type === ERowTypes.WISHLIST_ITEMS) {
-                items[row.id].sku = row.attributes.sku;
-            }
-
-            if (row.type === ERowTypes.CONCRETE_CONCRETE_PRODUCTS) {
-                items[row.id].name = row.attributes.name;
-                Object.keys(row.attributes.attributes).forEach((attr: string) => {
-                    if (row.attributes.superAttributesDefinition.includes(attr)) {
-                        const attributeKey: string = String(attr);
-                        const attributeValue: string = String(row.attributes.attributes[attr]);
-                        items[row.id].attributes.push({[attributeKey]: attributeValue});
-                    }
-                });
-
-                return;
-            }
-
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_PRICES) {
-                items[row.id].prices = {};
-                row.attributes.prices.forEach((price: IProductPricesItem) => {
-                    const priceType = price.priceTypeName;
-                    const priceName = priceType.charAt(0).toLocaleUpperCase() +
-                        priceType.slice(1).toLocaleLowerCase();
-
-                    items[row.id].prices[`grossAmount${priceName}`] = price.grossAmount;
-                    items[row.id].prices[`netAmount${priceName}`] = price.netAmount;
-                });
-
-                return;
-            }
-
-            if (row.type === ERowTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
-                items[row.id].availability = row.attributes.availability;
-
-                if (row.attributes.isNeverOutOfStock) {
-                    items[row.id].availability = true;
-                }
-            }
-        });
-
-        return Object.values(items);
     }
 }

@@ -1,7 +1,7 @@
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 import { IAddressItemOrder } from '@interfaces/addresses';
 
-export interface IOrderTotals extends IAbstractTotals {
+export interface IOrderTotals extends ITotals {
     canceledTotal: number;
 }
 
@@ -9,38 +9,11 @@ export interface IOrderCollectionParsed {
     items: IOrderItem[];
 }
 
-export interface IOrderCollectionResponse {
-    data: IOrderItemResponse[];
-}
-
 export interface IOrderItem {
     id: string;
     dateCreated: string;
     currency: string;
     totals: IOrderTotals;
-}
-
-export interface IOrderItemResponse {
-    attributes: {
-        createdAt: string;
-        currencyIsoCode: string;
-        totals: IOrderTotals;
-    };
-    id: string;
-}
-
-export interface IOrderDetailsResponse {
-    attributes: {
-        createdAt: string,
-        currencyIsoCode: string;
-        expenses: IOrderDetailsExpenseItem[];
-        items: IOrderDetailsItem[];
-        totals: IOrderTotals;
-        billingAddress: IAddressItemOrder;
-        shippingAddress: IAddressItemOrder;
-        priceMode: string;
-    };
-    id: string;
 }
 
 export interface IOrderDetailsParsed extends IOrderItem {

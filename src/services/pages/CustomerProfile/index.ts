@@ -1,42 +1,31 @@
-import api, { setAuthToken } from '@services/api';
 import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { ICustomerDataParsed, ICustomerProfileIdentity, ICustomerProfilePassword } from '@interfaces/customer';
 import { parseCustomerDataResponse } from '@helpers/parsing';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { CustomerProfileAuthenticateErrorMessage } from '@translation/';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { logout } from '@stores/actions/pages/login';
-import { IApiResponseData } from '@services/types';
+import { customerProfileAuthenticateErrorMessage } from '@translation/';
+import { logoutAction } from '@stores/actions/pages/login';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationSuccess, typeNotificationError } from '@constants/notifications';
-
-interface IRequestBody {
-    data: {
-        type: string;
-        id?: string;
-        include?: string;
-        attributes: ICustomerProfileIdentity | ICustomerProfilePassword;
-    };
-}
+import { typeNotificationSuccess } from '@constants/notifications';
+import { IRequestBody } from '@services/pages/CustomerProfile/types';
+import { errorMessageInform } from '@helpers/common';
 
 export class CustomerProfileService extends ApiServiceAbstract {
-    private static getCustomersEndpoint = (customerReference: string) => (
-        `/customers/${customerReference}`
-    );
+    private static getCustomersEndpoint = (customerReference: string) => `/customers/${ customerReference }`;
 
     public static async getProfileData(dispatch: Function, customerReference: string): Promise<void> {
+        dispatch(CustomerProfileActions.getCustomerProfilePendingStateAction());
         try {
-            dispatch(CustomerProfileActions.getCustomerProfilePendingStateAction());
-
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get(
+            const response: TApiResponseData = await api.get(
                 this.getCustomersEndpoint(customerReference),
-                {include: ''},
-                {withCredentials: true}
+                { include: '' },
+                { withCredentials: true }
             );
 
             if (response.ok) {
@@ -45,29 +34,22 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.getCustomerProfileRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.getCustomerProfileRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
-    public static async updateProfileData(dispatch: Function,
-                                          customerReference: string,
-                                          payload: ICustomerProfileIdentity): Promise<void> {
+    public static async updateProfileData(
+        dispatch: Function,
+        customerReference: string,
+        payload: ICustomerProfileIdentity
+    ): Promise<void> {
+        dispatch(CustomerProfileActions.updateCustomerProfilePendingStateAction());
         try {
-            dispatch(CustomerProfileActions.updateCustomerProfilePendingStateAction());
-
             const body: IRequestBody = {
                 data: {
                     type: 'customers',
@@ -77,15 +59,15 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 }
             };
 
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.patch(
+            const response: TApiResponseData = await api.patch(
                 this.getCustomersEndpoint(customerReference),
                 body,
-                {withCredentials: true}
+                { withCredentials: true }
             );
 
             if (response.ok) {
@@ -98,20 +80,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.updateCustomerProfileRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.updateCustomerProfileRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -120,17 +94,16 @@ export class CustomerProfileService extends ApiServiceAbstract {
         customerReference: string,
         payload: ICustomerProfilePassword
     ): Promise<void> {
+        dispatch(CustomerProfileActions.updateCustomerPasswordPendingStateAction());
         try {
-            dispatch(CustomerProfileActions.updateCustomerPasswordPendingStateAction());
-
             const body: IRequestBody = { data: { type: 'customer-password', attributes: payload } };
 
             const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.patch(`customer-password`, body, {withCredentials: true});
+            const response: TApiResponseData = await api.patch(`customer-password`, body, { withCredentials: true });
 
             if (response.ok) {
                 dispatch(CustomerProfileActions.updateCustomerPasswordFulfilledStateAction());
@@ -141,37 +114,28 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.updateCustomerPasswordRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.updateCustomerPasswordRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async deleteCustomerEntity(dispatch: Function, customerReference: string): Promise<void> {
+        dispatch(CustomerProfileActions.deleteCustomerPendingStateAction());
         try {
-            dispatch(CustomerProfileActions.deleteCustomerPendingStateAction());
-
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(CustomerProfileAuthenticateErrorMessage);
+                Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const endpoint = `customers/${customerReference}`;
-            const response: IApiResponseData = await api.delete(endpoint, null, {withCredentials: true});
+            const endpoint = `customers/${ customerReference }`;
+            const response: TApiResponseData = await api.delete(endpoint, null, { withCredentials: true });
 
             if (response.ok) {
-                dispatch(logout());
+                dispatch(logoutAction());
                 dispatch(CustomerProfileActions.deleteCustomerFulfilledStateAction());
                 NotificationsMessage({
                     id: 'account.was.deleted.message',
@@ -180,20 +144,12 @@ export class CustomerProfileService extends ApiServiceAbstract {
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 dispatch(CustomerProfileActions.deleteCustomerRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
             dispatch(CustomerProfileActions.deleteCustomerRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            errorMessageInform(error.message, false);
         }
     }
 }

@@ -10,11 +10,10 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     initApplicationData?: Function;
     setAuth?: Function;
     getCustomerCart?: Function;
-    getGuestCart?: Function;
     isAppDataSet?: boolean;
     isCustomerAuth?: boolean;
     anonymId?: string;
-    cartCreated?: boolean;
+    isCartCreated?: boolean;
     isInitStateFulfilled?: boolean;
     clearSearchTerm?: () => void;
     isPageLocked?: boolean;

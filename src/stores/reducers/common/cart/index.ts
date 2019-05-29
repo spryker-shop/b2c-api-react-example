@@ -4,10 +4,10 @@ import {
     CART_DELETE_ITEM,
     CART_UPDATE_ITEM,
     GET_CARTS,
-    UPDATE_FULLFILLED_STATE
+    CART_UPDATE_FULLFILLED_STATE
 } from '@stores/actionTypes/common/cart';
 import { PAGES_CUSTOMER_LOGOUT } from '@stores/actionTypes/pages/login';
-import { ICartDataResponse, ICartItem } from '@interfaces/cart';
+import { ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { ICartAction, ICartState } from './types';
 import { IApiErrorResponse } from '@services/types';
@@ -15,7 +15,7 @@ import { IApiErrorResponse } from '@services/types';
 export const initialState: ICartState = {
     data: {
         isCartEmpty: true,
-        cartCreated: false,
+        isCartCreated: false,
         currency: null,
         items: [],
         id: null,
@@ -47,7 +47,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
             if (!action.payloadCartItemFulfilled) {
                 return {
                     ...state,
-                    data: {...initialState.data, cartCreated: true},
+                    data: {...initialState.data, isCartCreated: true},
                     ...getReducerPartFulfilled(),
                 };
             }
@@ -68,7 +68,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
         case `${CART_DELETE_ITEM}_FULFILLED`:
             const itemsAfterDelete: ICartItem[] = state.data.items.filter((
                 item: ICartItem
-            ) => item.sku !== action.payloadCartDeleteItemFulfilled.itemId);
+            ) => item.sku !== action.payloadCartDeleteItemFulfilled.sku);
 
             return {
                 ...state,
@@ -82,10 +82,10 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
         case PAGES_CUSTOMER_LOGOUT:
             return {
                 ...state,
-                data: {...initialState.data, cartCreated: true},
+                data: {...initialState.data, isCartCreated: true},
                 ...getReducerPartFulfilled(),
             };
-        case UPDATE_FULLFILLED_STATE:
+        case CART_UPDATE_FULLFILLED_STATE:
             return {
                 ...state,
                 ...getReducerPartFulfilled(),
@@ -96,7 +96,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
 };
 
 // handlers
-const handleFulfilled = (cartState: ICartState, payload: ICartDataResponse | null) => (
+const handleFulfilled = (cartState: ICartState, payload: ICartDataParsed | null) => (
     {
         ...cartState,
         data: {
@@ -128,13 +128,13 @@ const handlePending = (cartState: ICartState) => (
     }
 );
 
-const handleCartFulfilled = (cartState: ICartState, payload: ICartDataResponse) => (
+const handleCartFulfilled = (cartState: ICartState, payload: ICartDataParsed) => (
     {
         ...cartState,
         data: {
             ...cartState.data,
             isCartEmpty: !(payload.items && payload.items.length),
-            cartCreated: true,
+            isCartCreated: true,
             ...payload,
         },
         ...getReducerPartFulfilled(),
@@ -147,7 +147,7 @@ const handleCartCreateRejected = (cartState: ICartState, payload: IApiErrorRespo
         data: {
             ...cartState.data,
             isCartEmpty: true,
-            cartCreated: false,
+            isCartCreated: false,
         },
         ...getReducerPartRejected(payload.error),
     }

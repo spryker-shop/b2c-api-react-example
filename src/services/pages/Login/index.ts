@@ -1,67 +1,45 @@
-import api from '@services/api';
-import { saveLoginDataToStoreAction, deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
+import * as loginActions from '@stores/actions/pages/login';
+import { IRequestBody } from '@services/pages/Login/types';
+import { api, ApiServiceAbstract } from '@services/api';
+import { deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
 import { parseLoginDataResponse } from '@helpers/parsing';
-import {
-    loginCustomerFulfilledStateAction,
-    loginCustomerPendingStateAction,
-    loginCustomerRejectedStateAction,
-    logoutAction,
-    registerPendingState,
-    registerFulfilledState,
-    registerRejectedState,
-    forgotPasswordPendingState,
-    forgotPasswordRejectedState,
-    forgotPasswordFulfilledState,
-    resetPasswordPendingState,
-    resetPasswordRejectedState,
-    resetPasswordFulfilledState
-} from '@stores/actions/pages/login';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { ICustomerLoginData, ICustomerProfile, IResetPasswordPayload } from '@interfaces/customer';
 import { saveAccessDataToLocalStorage } from '@helpers/localStorage';
-import { IApiResponseData } from '@services/types';
+import { TApiResponseData } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess, typeNotificationError, typeNotificationWarning } from '@constants/notifications';
-import { getAnonymId, clearAnonymId } from '@helpers/common';
+import { getAnonymId, clearAnonymId, errorMessageInform } from '@helpers/common';
 import { anonymIdFilFilled } from '@stores/actions/common/init';
 import { clearWishlistState } from '@stores/actions/pages/wishlist';
 
 export class PagesLoginService extends ApiServiceAbstract {
     public static async register(dispatch: Function, payload: ICustomerProfile, getState: Function): Promise<void> {
         const anonymId: string = getState().init.data.anonymId;
-        dispatch(registerPendingState());
-
+        dispatch(loginActions.registerPendingState());
         try {
-            const body = {
-                data: {
-                    type: 'customers',
-                    attributes: payload,
-                },
-            };
-            const response: IApiResponseData = await api.post(
+            const body: IRequestBody = { data: { type: 'customers', attributes: payload } };
+            const response: TApiResponseData = await api.post(
                 'customers',
                 body,
-                {
-                    withCredentials: true,
-                    headers: {'X-Anonymous-Customer-Unique-Id': anonymId}
-                });
+                { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
+            );
 
             if (response.ok) {
-                dispatch(registerFulfilledState());
-
+                dispatch(loginActions.registerFulfilledState());
                 NotificationsMessage({
                     id: 'register.success.message',
                     type: typeNotificationSuccess
                 });
 
-                await PagesLoginService.loginRequest(dispatch, {
-                    username: payload.email,
-                    password: payload.password,
-                }, anonymId);
+                await PagesLoginService.loginRequest(
+                    dispatch,
+                    { username: payload.email, password: payload.password },
+                    anonymId
+                );
                 clearAnonymId();
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(registerRejectedState(errorMessage));
+                dispatch(loginActions.registerRejectedState(errorMessage));
 
                 if (response.status === 422) {
                     NotificationsMessage({
@@ -77,150 +55,95 @@ export class PagesLoginService extends ApiServiceAbstract {
             }
 
         } catch (error) {
-            dispatch(registerRejectedState(error.message));
-
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(loginActions.registerRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async loginRequest(dispatch: Function, payload: ICustomerLoginData, anonymId: string): Promise<void> {
+        dispatch(loginActions.loginCustomerPendingStateAction());
         try {
-            dispatch(loginCustomerPendingStateAction());
-
-            const body = {
-                data: {
-                    type: 'access-tokens',
-                    attributes: payload,
-                },
-            };
-
-            const response: IApiResponseData = await api.post(
+            const body: IRequestBody = { data: { type: 'access-tokens', attributes: payload } };
+            const response: TApiResponseData = await api.post(
                 'access-tokens',
                 body,
-                {
-                    withCredentials: true,
-                    headers: {'X-Anonymous-Customer-Unique-Id': anonymId}
-                }
+                { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } }
             );
 
             if (response.ok) {
                 const responseParsed = parseLoginDataResponse(response.data);
-                dispatch(saveLoginDataToStoreAction({email: payload.username}));
+                dispatch(loginActions.saveLoginDataToStoreAction({ email: payload.username }));
                 saveAccessDataToLocalStorage(responseParsed);
-                dispatch(loginCustomerFulfilledStateAction(responseParsed));
+                dispatch(loginActions.loginCustomerFulfilledStateAction(responseParsed));
                 NotificationsMessage({
                     id: 'customer.login.message',
                     type: typeNotificationSuccess
                 });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(loginCustomerRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(loginActions.loginCustomerRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(loginCustomerRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(loginActions.loginCustomerRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async forgotPassword(dispatch: Function, email: string): Promise<void> {
+        dispatch(loginActions.forgotPasswordPendingState());
         try {
-            dispatch(forgotPasswordPendingState());
-
-            const body = {
-                data: {
-                    type: 'customer-forgotten-password',
-                    attributes: {email},
-                },
-            };
-
-            const response: IApiResponseData = await api.post(
+            const body: IRequestBody = { data: { type: 'customer-forgotten-password', attributes: { email } } };
+            const response: TApiResponseData = await api.post(
                 'customer-forgotten-password',
                 body,
-                {withCredentials: true}
+                { withCredentials: true }
             );
 
             if (response.ok) {
-                dispatch(forgotPasswordFulfilledState());
-
+                dispatch(loginActions.forgotPasswordFulfilledState());
                 NotificationsMessage({
                     id: 'link.sanded.created.message',
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch(forgotPasswordRejectedState(response.problem));
-
-                NotificationsMessage({
-                    message: response.problem,
-                    type: typeNotificationError
-                });
+                const errorMessage = this.getParsedAPIError(response);
+                dispatch(loginActions.forgotPasswordRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(forgotPasswordRejectedState(error.message));
-
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(loginActions.forgotPasswordRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async resetPassword(dispatch: Function, payload: IResetPasswordPayload): Promise<void> {
+        dispatch(loginActions.resetPasswordPendingState());
         try {
-            dispatch(resetPasswordPendingState());
-
-            const body = {
-                data: {
-                    type: 'customer-restore-password',
-                    attributes: payload,
-                },
-            };
-
-            const response: IApiResponseData = await api.patch(
+            const body: IRequestBody = { data: { type: 'customer-restore-password', attributes: payload } };
+            const response: TApiResponseData = await api.patch(
                 'customer-restore-password',
                 body,
-                {withCredentials: true}
+                { withCredentials: true }
             );
 
             if (response.ok) {
-                dispatch(resetPasswordFulfilledState());
-
+                dispatch(loginActions.resetPasswordFulfilledState());
                 NotificationsMessage({
                     id: 'password.successfull.updated.message',
                     type: typeNotificationSuccess
                 });
             } else {
-                dispatch(resetPasswordRejectedState(response.problem));
-
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: response.problem,
-                    type: typeNotificationError
-                });
+                const errorMessage = this.getParsedAPIError(response);
+                dispatch(loginActions.resetPasswordRejectedState(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(resetPasswordRejectedState(error.message));
-
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(loginActions.resetPasswordRejectedState(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
@@ -228,7 +151,7 @@ export class PagesLoginService extends ApiServiceAbstract {
         const anonymId = getAnonymId();
 
         dispatch(anonymIdFilFilled(anonymId));
-        dispatch(logoutAction());
+        dispatch(loginActions.logoutFulfilledState());
         dispatch(deleteCustomerFulfilledStateAction());
         dispatch(clearWishlistState());
     }

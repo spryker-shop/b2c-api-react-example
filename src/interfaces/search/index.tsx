@@ -14,6 +14,31 @@ export type TRangeType = { min: number, max: number, [name: string]: number };
 export type TRangesType = TRangeMinType | TRangeMaxType;
 export type TFilterItemValue = number | string | TRangeType;
 
+export interface ICatalogSearchDataParsed extends IActiveFilters {
+    items: IProductCard[];
+    filters: IValueFacets[];
+    category: IFilterValue[];
+    currentCategoryId: number;
+    currentSort: string;
+    currentItemsPerPage: number;
+    currentPaginationPage: number;
+    rangeFilters: IRangeFacets[];
+    sortParams: string[];
+    sortParamLocalizedNames: IIndexSignature;
+    categoriesLocalizedName: string;
+    pagination: IPagination;
+    spellingSuggestion: string;
+    searchTerm?: string;
+}
+
+export interface ISearchPageData extends ICatalogSearchDataParsed {
+    dispatch?: Function;
+    flyoutSearch?: IFlyoutSearch;
+    currency?: string;
+    isFiltersUpdated: boolean;
+    isCategoryAsFilter: boolean;
+}
+
 export interface IFilterValue {
     value: string | number;
     doc_count: number;
@@ -53,48 +78,6 @@ export interface IActiveSort {
 export interface IActiveFilters {
     activeFilters: TActiveFilters;
     activeRangeFilters: TActiveRangeFilters;
-}
-
-export interface IProductLabelResponse {
-    type: string;
-    id: string;
-}
-
-export interface IAvailableLabel {
-    id: string;
-    frontEndReference: string;
-    isExclusive: boolean;
-    name: string;
-    position: number;
-}
-
-export interface IAvailableLabelsCollection {
-    [id: string]: IAvailableLabel;
-}
-
-export interface ICatalogSearchDataParsed extends IActiveFilters {
-    items: IProductCard[];
-    filters: IValueFacets[];
-    category: IFilterValue[];
-    currentCategoryId: number;
-    currentSort: string;
-    currentItemsPerPage: number;
-    currentPaginationPage: number;
-    rangeFilters: IRangeFacets[];
-    sortParams: string[];
-    sortParamLocalizedNames: IIndexSignature;
-    categoriesLocalizedName: string;
-    pagination: IPagination;
-    spellingSuggestion: string;
-    searchTerm?: string;
-}
-
-export interface ISearchPageData extends ICatalogSearchDataParsed {
-    dispatch?: Function;
-    flyoutSearch?: IFlyoutSearch;
-    currency?: string;
-    isFiltersUpdated: boolean;
-    isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {

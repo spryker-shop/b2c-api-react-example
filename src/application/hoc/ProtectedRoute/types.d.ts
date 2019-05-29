@@ -6,5 +6,4 @@ export interface IProtectedRouteProps extends RouteProps, WithRouter {
     isUserLoggedIn?: boolean;
     isInitStateFulfilled?: boolean;
     anonymId?: string;
-    getGuestCartAction?: (anonymId: string) => void;
 }

@@ -3,10 +3,10 @@ import { getCartTotals, getProductsFromCart, getTotalItemsQuantity } from '@stor
 import { getAppLocale } from '@stores/reducers/common/init/selectors';
 import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const totals: IAbstractTotals = getCartTotals(state, ownProps);
+    const totals: ITotals = getCartTotals(state, ownProps);
     const {items: products}: {items: ICartItem[]} = getProductsFromCart(state, ownProps);
     const locale = getAppLocale(state, ownProps);
     const cartItemsQuantity = getTotalItemsQuantity(state, ownProps);

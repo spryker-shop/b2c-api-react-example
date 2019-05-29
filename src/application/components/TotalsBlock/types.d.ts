@@ -1,10 +1,10 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IOrderDetailsExpenseItem } from '@interfaces/order';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 
 interface ITotalsBlockProps extends WithStyles<typeof styles> {
-    totals: IAbstractTotals;
+    totals: ITotals;
     expenses?: IOrderDetailsExpenseItem[] | null;
     isMinus?: boolean;
 }

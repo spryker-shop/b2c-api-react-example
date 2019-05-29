@@ -1,6 +1,6 @@
 import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { IAbstractTotals } from '@interfaces/abstract';
+import { ITotals } from '@interfaces/common';
 
 export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.items.reduce((acc: number, item: ICartItem) =>
@@ -11,8 +11,8 @@ export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps)
   return state.cart.data.totalQty;
 }
 
-export function isCartCreated(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return (state.cart.data.cartCreated);
+export function isCustomerCartCreated(state: IReduxStore, props: IReduxOwnProps): boolean {
+  return (state.cart.data.isCartCreated);
 }
 
 export function isCartStateLoading(state: IReduxStore, props: IReduxOwnProps): boolean {
@@ -28,10 +28,10 @@ export function isCartStateRejected(state: IReduxStore, props: IReduxOwnProps): 
 }
 
 export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
-  return (isCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
+  return (isCustomerCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
 }
 
-export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): IAbstractTotals | null {
+export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): ITotals | null {
   return isStateExist(state, props) ? state.cart.data.totals : null;
 }
 

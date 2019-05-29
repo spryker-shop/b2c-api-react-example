@@ -1,7 +1,8 @@
-import { create } from 'apisauce';
+import { IErrorItem, IResponseError } from '@services/types';
+import { ApisauceInstance, create } from 'apisauce';
 const config = require('@configs/env_config');
 
-const api = create({
+export const api: ApisauceInstance = create({
     baseURL: config.API_URL,
     headers: {
         'Accept': 'application/vnd.api+json',
@@ -13,4 +14,26 @@ const api = create({
 export const setAuthToken = (userAuth: string) => api.setHeader('Authorization', 'Bearer ' + userAuth);
 export const removeAuthToken = () => api.deleteHeader('Authorization');
 
-export default api;
+export class ApiServiceAbstract {
+    protected static getParsedAPIError = (response: IResponseError) => {
+        let errorMessage: string;
+        if (!response || !response.problem) {
+            errorMessage = 'Sorry, we have an unexpected server error';
+        } else {
+            errorMessage = response.problem;
+        }
+
+        if (
+            response.data &&
+            response.data.errors &&
+            Array.isArray(response.data.errors) &&
+            response.data.errors.length
+        ) {
+            errorMessage = response.data.errors.reduce((accumulator: string, currentValue: IErrorItem) => (
+                accumulator + ' ' + currentValue.detail
+            ), '');
+        }
+
+        return errorMessage;
+    };
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import api from '@services/api';
+import { api } from '@services/api';
 import { connect } from './connect';
 import { availableLanguages } from './fixtures';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';

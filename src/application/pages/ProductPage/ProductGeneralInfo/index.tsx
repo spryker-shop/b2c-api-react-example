@@ -2,7 +2,6 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
 import { AppPrice } from '@components/AppPrice';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { IProductGeneralInfoProps as Props } from './types';
 import { styles } from './styles';
 
@@ -12,7 +11,7 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
         name = <FormattedMessage id={ 'no.name.title' } />,
         price = <FormattedMessage id={ 'no.price.title' } />,
         oldPrice,
-        availability
+        isAvailable
     } = props;
 
     return (
@@ -20,10 +19,10 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
             <Typography component="span"
                 className={ `
                     ${ classes.availableContainer }
-                    ${ classes[availability ? 'available' : 'unavailable'] }`
+                    ${ classes[isAvailable ? 'available' : 'unavailable'] }`
                 }
             >
-                <FormattedMessage id={ availability ? 'available.title' : 'unavailable.title' } />
+                <FormattedMessage id={ isAvailable ? 'available.title' : 'unavailable.title' } />
             </Typography>
             <Typography component="h1" variant="h3" color="textSecondary" className={ classes.title }>
                 { name }
@@ -37,9 +36,9 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
                         <AppPrice value={ price } />
                     </Typography>
                     { oldPrice &&
-                    <Typography component="span" className={ classes.oldPrice }>
-                        <AppPrice value={ oldPrice } priceType={ priceTypeNameOriginal } />
-                    </Typography>
+                        <Typography component="span" className={ classes.oldPrice }>
+                            <AppPrice value={ oldPrice } isOriginal />
+                        </Typography>
                     }
                     <Typography component="span" className={ classes.vat }>
                         <FormattedMessage id={ 'inc.vat.message' } />

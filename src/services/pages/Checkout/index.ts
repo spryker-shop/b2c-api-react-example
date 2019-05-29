@@ -1,31 +1,13 @@
-import api, { setAuthToken } from '@services/api';
+import * as CheckoutActions from '@stores/actions/pages/checkout';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { ICheckoutRequest, IcheckoutResponse, IShipmentMethod, IPaymentMethod } from '@interfaces/checkout';
-import {
-    getCheckoutDataInitPendingStateAction,
-    getCheckoutDataInitRejectedStateAction,
-    getCheckoutDataInitFulfilledStateAction,
-    sendCheckoutDataPendingStateAction,
-    sendCheckoutDataRejectedStateAction,
-    sendCheckoutDataFulfilledStateAction,
-} from '@stores/actions/pages/checkout';
-
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { ICheckoutResponseData } from '@stores/reducers/pages/checkout/types';
-import { IApiResponseData } from '@services/types';
+import { ICheckoutRequest } from '@interfaces/checkout';
+import { TApiResponseData, IRequestHeader } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import {
-    typeNotificationSuccess,
-    typeNotificationError
-} from '@constants/notifications';
-
-interface IRequestBody {
-    data: {
-        type: string;
-        include?: string;
-        attributes: ICheckoutRequest;
-    };
-}
+import { typeNotificationSuccess } from '@constants/notifications';
+import { IRequestBody } from '@services/pages/Checkout/types';
+import { parseCheckoutData } from '@helpers/parsing';
+import { errorMessageInform } from '@helpers/common';
 
 export class CheckoutService extends ApiServiceAbstract {
     public static async getCheckoutData(
@@ -33,116 +15,80 @@ export class CheckoutService extends ApiServiceAbstract {
         payload: ICheckoutRequest,
         anonymId: string
     ): Promise<void> {
+        dispatch(CheckoutActions.getCheckoutDataInitPendingStateAction());
         try {
-            let headers: { withCredentials: boolean, headers?: {} };
+            let headers: IRequestHeader;
 
             if (anonymId) {
-                headers = {withCredentials: true, headers: {'X-Anonymous-Customer-Unique-Id': anonymId}};
+                headers = { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } };
             } else {
-                const token = await RefreshTokenService.getActualToken(dispatch);
+                const token: string = await RefreshTokenService.getActualToken(dispatch);
                 setAuthToken(token);
-                headers = {withCredentials: true};
+                headers = { withCredentials: true };
             }
 
             const body: IRequestBody = {
                 data: {
                     type: 'checkout-data',
-                    attributes: payload,
+                    attributes: payload
                 }
             };
 
-            dispatch(getCheckoutDataInitPendingStateAction());
-
-            const response: IApiResponseData = await api.post('checkout-data', body, headers);
+            const response: TApiResponseData = await api.post('checkout-data', body, headers);
 
             if (response.ok) {
-                const payload = CheckoutService.parseCheckoutData(response.data.data.attributes);
-                dispatch(getCheckoutDataInitFulfilledStateAction(payload));
+                const payloadData = parseCheckoutData(response.data);
+                dispatch(CheckoutActions.getCheckoutDataInitFulfilledStateAction(payloadData));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(getCheckoutDataInitRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(getCheckoutDataInitRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(CheckoutActions.getCheckoutDataInitRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
     public static async sendOrderData(dispatch: Function, payload: ICheckoutRequest, anonymId: string): Promise<void> {
+        dispatch(CheckoutActions.sendCheckoutDataPendingStateAction());
         try {
-            let headers: { withCredentials: boolean, headers?: {} };
+            let headers: IRequestHeader;
 
             if (anonymId) {
-                headers = {withCredentials: true, headers: {'X-Anonymous-Customer-Unique-Id': anonymId}};
+                headers = { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId } };
             } else {
-                const token = await RefreshTokenService.getActualToken(dispatch);
+                const token: string = await RefreshTokenService.getActualToken(dispatch);
                 setAuthToken(token);
-                headers = {withCredentials: true};
+                headers = { withCredentials: true };
             }
 
             const body: IRequestBody = {
                 data: {
                     type: 'checkout',
-                    attributes: payload,
+                    attributes: payload
                 }
             };
 
-            dispatch(sendCheckoutDataPendingStateAction());
-
-            const response: IApiResponseData = await api.post('checkout', body, headers);
+            const response: TApiResponseData = await api.post('checkout', body, headers);
 
             if (response.ok) {
-                dispatch(sendCheckoutDataFulfilledStateAction(response.data.data.attributes.orderReference));
+                const payload = response.data.data.attributes.orderReference;
+                dispatch(CheckoutActions.sendCheckoutDataFulfilledStateAction(payload));
                 NotificationsMessage({
                     id: 'order.successfully.created.message',
                     type: typeNotificationSuccess
                 });
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(sendCheckoutDataRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(sendCheckoutDataRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(CheckoutActions.sendCheckoutDataRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
-    }
-
-    private static parseCheckoutData(data: IcheckoutResponse): ICheckoutResponseData {
-        const payments: IPaymentMethod[] = [];
-
-        Array.isArray(data.paymentProviders) && data.paymentProviders.forEach(provider => {
-            provider.paymentMethods.forEach(paymentMethod => {
-                payments.push({
-                    ...paymentMethod,
-                    paymentProviderName: provider.paymentProviderName,
-                });
-            });
-        });
-
-        return ({
-            payments,
-            shipments: data.shipmentMethods.map((method: IShipmentMethod) => ({...method, id: method.id.toString()})),
-            addressesCollection: Array.isArray(data.addresses) ? data.addresses : [],
-        });
     }
 }

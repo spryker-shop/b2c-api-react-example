@@ -1,22 +1,16 @@
 import {
-    abstractProductType,
-    concreteProductType,
-    IProductDataParsed,
     IProductPropFullData,
     IProductAttributeMap,
     IProductAttributes,
-    ISuperAttribute
+    ISuperAttribute,
+    IDescriptionAttributes,
+    IProductDataParsed
 } from '@interfaces/product';
-import {
-    IProductRawResponse,
-    IRowProductLabelsResponse,
-    TRowProductResponseIncluded
-} from '@helpers/parsing/product/types';
-import { IProductLabelResponse } from '@interfaces/search';
+import { abstractProductType, concreteProductType, defaultProductQuantity } from '@constants/product';
+import { IProductRawResponse, TProductRowIncludedResponse } from '@services/pages/Product/types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-
-const defaultProductQuantity = 10;
+import { IProductLabelsRowIncludedResponse, EIncludeTypes, IRelationshipsDataResponse } from '@services/types';
 
 export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed | null => {
     if (!response) {
@@ -35,10 +29,11 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             priceDefaultGross: null,
             priceDefaultNet: null
         },
-        availability: null,
+        isAvailable: null,
         quantity: null,
         productType: null
     };
+
     const { data, included } = response;
     const result: IProductDataParsed = {
         attributeVariants: data.attributes.attributeMap.attribute_variants,
@@ -69,26 +64,26 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         });
     }
 
-    included.forEach((row: TRowProductResponseIncluded) => {
-        if (row.type === 'abstract-product-image-sets') {
+    included.forEach((row: TProductRowIncludedResponse) => {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS) {
             result.abstractProduct.images = parseImageSets(row.attributes.imageSets);
 
             return;
         }
-        if (row.type === 'abstract-product-prices') {
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_PRICES) {
             if (row.attributes.prices && row.attributes.prices.length) {
                 result.abstractProduct.prices = parsePrices(row.attributes.prices);
             }
 
             return;
         }
-        if (row.type === 'abstract-product-availabilities') {
-            result.abstractProduct.availability = row.attributes.availability;
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES) {
+            result.abstractProduct.isAvailable = row.attributes.availability;
             result.abstractProduct.quantity = row.attributes.quantity;
 
             return;
         }
-        if (row.type === 'concrete-products' && !result.concreteProducts[row.id].name) {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCTS && !result.concreteProducts[row.id].name) {
             result.concreteProducts[row.id].name = row.attributes.name;
             result.concreteProducts[row.id].sku = row.attributes.sku;
             result.concreteProducts[row.id].description = row.attributes.description;
@@ -98,38 +93,43 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 
             return;
         }
-        if (row.type === 'concrete-product-image-sets' && !result.concreteProducts[row.id].images) {
+        if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS && !result.concreteProducts[row.id].images) {
             result.concreteProducts[row.id].images = parseImageSets(row.attributes.imageSets);
 
             return;
         }
-        if (row.type === 'concrete-product-prices' && row.attributes.prices && row.attributes.prices.length) {
+        if (
+            row.type === EIncludeTypes.CONCRETE_PRODUCT_PRICES && row.attributes.prices && row.attributes.prices.length
+        ) {
             result.concreteProducts[row.id].prices = parsePrices(row.attributes.prices);
 
             return;
         }
-        if (row.type === 'concrete-product-availabilities' && !result.concreteProducts[row.id].availability) {
-            result.concreteProducts[row.id].availability = row.attributes.availability;
+        if (
+            row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES && !result.concreteProducts[row.id].isAvailable
+        ) {
+            result.concreteProducts[row.id].isAvailable = row.attributes.availability;
             result.concreteProducts[row.id].quantity = row.attributes.quantity;
 
             if (row.attributes.isNeverOutOfStock) {
-                result.concreteProducts[row.id].availability = true;
+                result.concreteProducts[row.id].isAvailable = true;
                 result.concreteProducts[row.id].quantity = defaultProductQuantity;
 
-                result.abstractProduct.availability = true;
+                result.abstractProduct.isAvailable = true;
                 result.abstractProduct.quantity = defaultProductQuantity;
             }
         }
     });
-    const filteredIncludedLabels = included.filter(row => row.type === 'product-labels');
-    const labelsRelationships = data.relationships['product-labels'];
-    const isLabelsExist = labelsRelationships && filteredIncludedLabels.length;
+    const filteredIncludedLabels: TProductRowIncludedResponse[] = included.filter(row =>
+        row.type === EIncludeTypes.PRODUCT_LABELS);
+    const labelsRelationships: {data: IRelationshipsDataResponse[]} = data.relationships[EIncludeTypes.PRODUCT_LABELS];
+    const isLabelsExist: boolean = Boolean(labelsRelationships && filteredIncludedLabels.length);
 
     if (isLabelsExist) {
-        const filteredAvailableLabels = labelsRelationships.data.map((item: IProductLabelResponse) => item.id);
+        const filteredAvailableLabels: string[] = labelsRelationships.data.map(item => item.id);
         filteredAvailableLabels.forEach((availableLabelId: string) => {
-            filteredIncludedLabels.forEach((includedLabel: IRowProductLabelsResponse) => {
-                const isLabelExist = availableLabelId === includedLabel.id;
+            filteredIncludedLabels.forEach((includedLabel: IProductLabelsRowIncludedResponse) => {
+                const isLabelExist: boolean = availableLabelId === includedLabel.id;
                 if (isLabelExist) {
                     const labelData = {
                         type: includedLabel.id,
@@ -141,7 +141,9 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             });
         });
     }
-    const superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
+    const superAttributes: ISuperAttribute[] = parseSuperAttributes(
+        data.attributes.attributeMap, attributeNamesContainer
+    );
     result.superAttributes = superAttributes;
     result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: { [key: string]: string }, name) => {
         acc[name] = null;
@@ -160,7 +162,7 @@ const parseSuperAttributes = (
         return null;
     }
 
-    const names = Object.keys(superAttributes.super_attributes);
+    const names: string[] = Object.keys(superAttributes.super_attributes);
 
     return names.reduce((acc, name) => [
         ...acc,
@@ -176,7 +178,8 @@ const parseSuperAttributes = (
 const parseDescriptionAttributes = (
     attributeNames: IIndexSignature,
     attributeValues: IProductAttributes
-) => Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
+): IDescriptionAttributes[] | null =>
+Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
     name: attributeNames[attributeKey],
     value: attributeValues[attributeKey]
 }));

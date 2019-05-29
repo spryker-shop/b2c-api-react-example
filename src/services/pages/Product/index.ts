@@ -1,51 +1,37 @@
-import api from '@services/api';
+import * as productActions from '@stores/actions/pages/product';
+import { api, ApiServiceAbstract } from '@services/api';
 import { parseProductResponse } from '@helpers/parsing/product';
-import {
-    getProductDataFulfilledStateAction,
-    getProductDataItemPendingStateAction,
-    getProductDataRejectedStateAction,
-} from '@stores/actions/pages/product';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import { IProductDataParsed } from '@interfaces/product';
-import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
+import { TApiResponseData, EIncludeTypes } from '@services/types';
+import { errorMessageInform } from '@helpers/common';
 
 export class ProductService extends ApiServiceAbstract {
     public static async getAbstractData(dispatch: Function, sku: string): Promise<void> {
+        dispatch(productActions.getProductDataItemPendingStateAction());
         try {
-            dispatch(getProductDataItemPendingStateAction());
-            const response: IApiResponseData = await api.get(`abstract-products/${sku}`, {
-                include: 'abstract-product-image-sets,' +
-                'abstract-product-prices,' +
-                'abstract-product-availabilities,' +
-                'concrete-products,' +
-                'concrete-product-image-sets,' +
-                'concrete-product-prices,' +
-                'concrete-product-availabilities,' +
-                'product-labels',
+            const response: TApiResponseData = await api.get(`abstract-products/${ sku }`, {
+                include: `${EIncludeTypes.ABSTRACT_PRODUCT_IMAGE_SETS},` +
+                    `${EIncludeTypes.ABSTRACT_PRODUCT_PRICES},` +
+                    `${EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCTS},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_PRICES},` +
+                    `${EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES},` +
+                    EIncludeTypes.PRODUCT_LABELS
             });
 
             if (response.ok) {
                 const responseParsed: IProductDataParsed = parseProductResponse(response.data);
-                dispatch(getProductDataFulfilledStateAction(responseParsed));
+                dispatch(productActions.getProductDataFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(getProductDataRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
+                dispatch(productActions.getProductDataRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
             }
 
         } catch (error) {
-            dispatch(getProductDataRejectedStateAction(error.message));
-            NotificationsMessage({
-                messageWithCustomText: 'unexpected.error.message',
-                message: error.message,
-                type: typeNotificationError
-            });
+            dispatch(productActions.getProductDataRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 }

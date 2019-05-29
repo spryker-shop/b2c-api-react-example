@@ -2,16 +2,21 @@ import {
     IFilterValue,
     ICatalogSearchDataParsed,
     IValueFacets,
-    IAvailableLabelsCollection,
     TActiveFilters,
     TActiveRangeFilters
 } from '@interfaces/search';
 import { rangeMaxType, rangeMinType } from '@constants/search';
-import { ICatalogSearchRawResponse, IRowCatalogSearchIncludedResponse, ISuggestionSearchResponse } from './types';
 import { rangeFilterValueToFront } from '@helpers/common';
 import { getProductLabel, getAvailableLables, parsePrices } from '@helpers/parsing/common';
 import { IProductCard } from '@interfaces/product';
-import { TRowProductResponseIncluded } from '@helpers/parsing/product/types';
+import { TProductRowIncludedResponse } from '@services/pages/Product/types';
+import { EIncludeTypes, IProductLabelsCollectionResponse, IProductLabelsRowIncludedResponse } from '@services/types';
+import {
+    ICatalogSearchRawResponse,
+    ICatalogSearchRowIncludedResponse,
+    IProductCardResponse
+} from '@services/pages/Search/types';
+import { ISuggestionSearchRawResponse } from '@services/common/FlyoutSearch/types';
 
 export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
     if (!response) {
@@ -94,14 +99,15 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         return result;
     }
 
-    const availableLabels: IAvailableLabelsCollection | null = getAvailableLables(included);
+    const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
 
-    included.forEach((row: IRowCatalogSearchIncludedResponse) => {
-        const isProductHasLabels = row.type === 'abstract-products' && row.relationships &&
-            row.relationships['product-labels'] && availableLabels;
+    included.forEach((row: ICatalogSearchRowIncludedResponse) => {
+        const isProductHasLabels = row.type === EIncludeTypes.ABSTRACT_PRODUCTS && row.relationships &&
+            row.relationships[EIncludeTypes.PRODUCT_LABELS] && availableLabels;
 
         if (isProductHasLabels) {
-            const labelsIdArr: string[] = row.relationships['product-labels'].data.map(item => item.id);
+            const labelsIdArr: string[] = (row as IProductLabelsRowIncludedResponse)
+                .relationships[EIncludeTypes.PRODUCT_LABELS].data.map(item => item.id);
             const appropriateResultItem = result.items.filter(item => item.abstractSku === row.id)[0];
 
             appropriateResultItem.labels = getProductLabel(labelsIdArr, availableLabels);
@@ -111,18 +117,28 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     return result;
 };
 
-export const parseSuggestionSearchResponse = (response: ISuggestionSearchResponse, productsLimit: number) => {
-    const products: IProductCard[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit);
+export const parseFlyoutSearchResponse = (
+    response: ISuggestionSearchRawResponse,
+    productsLimit: number
+): IProductCard[] => {
+    const products: IProductCardResponse[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit)
+        .map((product: IProductCardResponse) => {
+            const image = product.images[0].externalUrlSmall;
+            delete product.images;
 
-    response.included && response.included.forEach((row: TRowProductResponseIncluded) => {
-        if (row.type === 'abstract-product-prices') {
-            const product: IProductCard = products.find((prod: IProductCard) => prod.abstractSku === row.id);
+            return {
+                ...product,
+                image
+            };
+        });
 
-            if (product && row.attributes.prices && row.attributes.prices.length) {
-                product.prices = parsePrices(row.attributes.prices);
-            }
+    response.included && response.included.forEach((row: TProductRowIncludedResponse) => {
+        const product: IProductCardResponse = products.find(product => product.abstractSku === row.id);
+
+        if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_PRICES && product && row.attributes.prices) {
+            (product as IProductCard).prices = parsePrices(row.attributes.prices);
         }
     });
 
-    return products;
+    return products as IProductCard[];
 };
