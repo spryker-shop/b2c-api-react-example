@@ -5,7 +5,7 @@ export interface IWishlistProduct {
     name: string;
     image: string;
     attributes: IProductAttributes[];
-    prices: { [key: string]: number | null; };
+    prices: { [key: string]: number; };
     availability: boolean;
 }
 
