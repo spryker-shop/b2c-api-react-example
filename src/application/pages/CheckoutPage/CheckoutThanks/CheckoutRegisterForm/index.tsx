@@ -12,6 +12,7 @@ import { SprykerInput } from '@components/UI/SprykerInput';
 import { IAddressItem } from '@interfaces/addresses';
 import { checkFormInputValidity, checkFormValidity, formDataTransformer } from '@helpers/forms';
 import { createPasswordConfigInputStable as inputsConfig } from '@constants/authentication';
+import { ICustomerProfile, ICustomerProfilePassword } from '@interfaces/customer';
 
 @(withRouter as Function)
 @connect
@@ -127,7 +128,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         event.preventDefault();
         const { fields } = this.state;
         const { deliveryNewAddress, customerRegisterAction } = this.props;
-        const passwordsPayload = formDataTransformer(fields);
+        const passwordsPayload: ICustomerProfilePassword | {} = formDataTransformer(fields);
 
         if (fields.password.value !== fields.confirmPassword.value) {
             NotificationsMessage({
@@ -138,12 +139,13 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
             return;
         }
 
-        const payload = {
-            ...passwordsPayload,
-            salutation: deliveryNewAddress.salutation.value,
-            firstName: deliveryNewAddress.firstName.value,
-            lastName: deliveryNewAddress.lastName.value,
-            email: deliveryNewAddress.email.value,
+        const payload: ICustomerProfile = {
+            password: (passwordsPayload as ICustomerProfilePassword).password,
+            confirmPassword: (passwordsPayload as ICustomerProfilePassword).confirmPassword,
+            salutation: deliveryNewAddress.salutation.value.toString(),
+            firstName: deliveryNewAddress.firstName.value.toString(),
+            lastName: deliveryNewAddress.lastName.value.toString(),
+            email: deliveryNewAddress.email.value.toString(),
             acceptedTerms: true
         };
 
