@@ -39,7 +39,7 @@ export const pageAddresses = (
             return addressesHandlers.handleDeleteAddressFulfilled(state, action.addressId);
         case `${actionTypes.UPDATE_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleUpdateAddressFulfilled(state, action.payloadFulfilled);
-        case actionTypes.SET_CURRENT_ADDRESS:
+        case `${actionTypes.SET_CURRENT_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleSetCurrentAddress(state, action.addressId);
         case `${actionTypes.GET_ONE_ADDRESS}_FULFILLED`:
             return addressesHandlers.handleGetOneAddress(state, action.payloadFulfilled.data);

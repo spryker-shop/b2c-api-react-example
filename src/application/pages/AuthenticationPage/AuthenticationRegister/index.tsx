@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
-import { pathCustomerOverviewPage } from '@constants/routes';
+import { pathCustomerOverview } from '@constants/routes';
 import { SalutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
@@ -38,7 +38,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
         }
 
         if (isAuth && isParallelRequest) {
-            history.push(pathCustomerOverviewPage);
+            history.push(pathCustomerOverview);
         }
     };
 

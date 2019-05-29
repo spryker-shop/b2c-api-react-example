@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography, Tooltip, Button } from '@material-ui/core';
-import { pathOrderDetailsPageBase } from '@constants/routes';
+import { pathCustomerOrderDetailsBase } from '@constants/routes';
 import { Price } from '@components/Price';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
@@ -85,7 +85,7 @@ class OrdersListComponent extends React.Component<Props> {
                                         component={ ({ innerRef, ...props }) =>
                                             <NavLink
                                                 { ...props }
-                                                to={`${ pathOrderDetailsPageBase }/${ order.id }`}
+                                                to={`${ pathCustomerOrderDetailsBase }/${ order.id }`}
                                             />
                                         }
                                     >

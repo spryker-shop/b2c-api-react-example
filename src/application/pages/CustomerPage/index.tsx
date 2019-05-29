@@ -7,7 +7,7 @@ import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { CustomerSideBar } from './CustomerSideBar';
 import { CustomerRouting } from './CustomerRouting';
 import { withStyles } from '@material-ui/core';
-import { pathCustomerPage, pathCustomerOverviewPage, pathWishlistsPage } from '@constants/routes';
+import { pathCustomerPage, pathCustomerOverview, pathWishlistsPage } from '@constants/routes';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { FormattedMessage } from 'react-intl';
 import { breadcrumbsListFixtures } from './fixtures';
@@ -30,8 +30,8 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const isWishlistPage = !prevProps.isWishlistsDetailInitial && this.props.isWishlistsDetailInitial;
-        if (prevProps.location.pathname !== this.props.location.pathname || isWishlistPage) {
+        const isCustomerWishlists = !prevProps.isWishlistsDetailInitial && this.props.isWishlistsDetailInitial;
+        if (prevProps.location.pathname !== this.props.location.pathname || isCustomerWishlists) {
             this.getBreadcrumbsList(this.props.location.pathname);
         }
     };
@@ -43,7 +43,7 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
 
         const breadcrumbsListTemplate: IBreadcrumbItem[] = [{
             name: <FormattedMessage id={ 'account.title' } />,
-            path: pathCustomerOverviewPage,
+            path: pathCustomerOverview,
             current: !Boolean(additionalBreadcrumbsItems)
         }];
 
@@ -74,7 +74,7 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
         const isTemplatePage = location.pathname === pathCustomerPage;
 
         if (isTemplatePage) {
-            return <Redirect to={ pathCustomerOverviewPage } />;
+            return <Redirect to={ pathCustomerOverview } />;
         }
 
         return (

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
-import { pathCustomerOverviewPage } from '@constants/routes';
+import { pathCustomerOverview } from '@constants/routes';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
 import { Button, Grid } from '@material-ui/core';
@@ -55,7 +55,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         }
 
         if (isAddressRequest) {
-            history.push(pathCustomerOverviewPage);
+            history.push(pathCustomerOverview);
         }
     };
 

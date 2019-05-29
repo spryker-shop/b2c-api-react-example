@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { pathOrderDetailsPage, pathOrderHistoryPage, pathWishlistsPage } from '@constants/routes';
+import { pathCustomerOrderDetails, pathCustomerOrderHistory, pathWishlistsPage } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 
 export const breadcrumbsListFixtures = [
     {
-        path: `${pathOrderHistoryPage}/`,
+        path: `${pathCustomerOrderHistory}/`,
         listData: [
             {
                 name:  <FormattedMessage id={ 'word.order.history.title' } />,
-                path: pathOrderHistoryPage,
+                path: pathCustomerOrderHistory,
                 current: false
             },
             {
                 name:  <FormattedMessage id={ 'order.details.title' } />,
-                path: pathOrderDetailsPage,
+                path: pathCustomerOrderDetails,
                 current: true
             }
         ]
