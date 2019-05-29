@@ -1,6 +1,5 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from '@components/UI/SprykerRangeSlider/styles';
-import { TAppCurrency } from '@interfaces/currency';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 import { ClickEvent } from '@interfaces/common';
 
@@ -17,7 +16,7 @@ export interface ISprykerRangeSliderProps extends WithStyles<typeof styles> {
     max: number;
     currentValue?: { min: number, max: number };
     valueFormatter?: Function | null;
-    currency: TAppCurrency;
+    currency: string | null;
     width: Breakpoint;
     isActive: boolean;
     openFilter: (event: ClickEvent) => void;

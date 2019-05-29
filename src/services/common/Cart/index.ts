@@ -1,10 +1,10 @@
 import api, { setAuthToken } from '@services/api';
-import { ICartAddItem, ICartDataResponse, TCartAddItemCollection } from '@interfaces/cart';
+import { ICartAddItem, ICartDataResponse } from '@interfaces/cart';
 import {
     parseUserCartResponseMultiValue,
     parseCartCreateResponse,
     parseUserCartResponseOneValue
-} from '@helpers/cart';
+} from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
 import { CartAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
@@ -278,7 +278,7 @@ export class CartService extends ApiServiceAbstract {
 
     public static async cartMultipleItems(
         dispatch: Function,
-        payload: TCartAddItemCollection,
+        payload: ICartAddItem[] | null,
         cartId: string | null,
         payloadCartCreate: ICartCreatePayload
     ): Promise<void> {

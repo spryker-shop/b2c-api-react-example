@@ -9,7 +9,7 @@ import {
 import { CartService } from '@services/common/Cart';
 import { GuestCartService } from '@services/common/Cart/guestCart';
 import { ICartCreatePayload } from '@services/common/Cart/types';
-import { ICartAddItem, ICartDataResponse, TCartAddItemCollection } from '@interfaces/cart';
+import { ICartAddItem, ICartDataResponse } from '@interfaces/cart';
 import { ICartAction } from '@stores/reducers/Common/Cart/types';
 
 export const updateCartFulfilledStateAction = (): ICartAction => ({
@@ -111,7 +111,7 @@ export const multiItemsCartAction = function (cartId: string, listItems: string[
 };
 
 export const addMultipleItemsToCartAction = function (
-    payload: TCartAddItemCollection,
+    payload: ICartAddItem[] | null,
     cartId: string,
     payloadCartCreate: ICartCreatePayload,
 ) {

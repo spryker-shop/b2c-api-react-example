@@ -4,16 +4,15 @@ import { sendSearchAction } from '@stores/actions/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { FlyoutSearch } from '@interfaces/searchPageData';
-import { ICategory } from '@interfaces/category';
-import { TAppCurrency } from '@interfaces/currency';
+import { IFlyoutSearch } from '@interfaces/search';
+import { ICategory } from '@interfaces/common';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const searchProps: FlyoutSearch = state.pageSearch && state.pageSearch.data
+    const searchProps: IFlyoutSearch = state.pageSearch && state.pageSearch.data
         ? state.pageSearch.data.flyoutSearch
         : null;
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
-    const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const currency: string | null = getAppCurrency(state, ownProps);
 
     return (
         {

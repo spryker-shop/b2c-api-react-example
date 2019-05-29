@@ -12,7 +12,7 @@ import { LanguageSwitcher } from '@containers/LanguageSwitcher';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { pathCategoryNew, pathCategoryPageBase, pathCategorySale, } from '@constants/routes';
 import { TNavigationItem } from '@components/AppFooter/NavigationList/types';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 
 const AppFooterComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, categoriesTree } = props;

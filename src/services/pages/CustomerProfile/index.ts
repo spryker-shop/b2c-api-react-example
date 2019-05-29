@@ -1,7 +1,7 @@
 import api, { setAuthToken } from '@services/api';
 import * as CustomerProfileActions from '@stores/actions/pages/customerProfile';
 import { ICustomerDataParsed, ICustomerProfileIdentity, ICustomerProfilePassword } from '@interfaces/customer';
-import { parseCustomerDataResponse } from '@helpers/customer/customerDataResponse';
+import { parseCustomerDataResponse } from '@helpers/parsing';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { CustomerProfileAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';

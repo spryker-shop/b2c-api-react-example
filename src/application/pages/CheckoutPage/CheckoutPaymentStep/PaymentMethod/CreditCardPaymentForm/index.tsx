@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Radio, FormControlLabel } from '@material-ui/core';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
-import { cardExpiryFormat } from '@helpers/forms';
+import { checkFormInputValidity, checkFormValidity, cardExpiryFormat } from '@helpers/forms';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { ICreditCardPaymentFormProps as Props } from './types';

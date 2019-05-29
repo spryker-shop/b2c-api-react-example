@@ -1,9 +1,8 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { RouteProps } from 'react-router';
-import { TRouterMatchParam } from '@helpers/router/types';
 import { IOrderDetailsParsed, IOrderDetailsSelectedItems } from '@interfaces/order';
-import { TCartAddItemCollection } from '@interfaces/cart';
+import { ICartAddItem } from '@interfaces/cart';
 
 export interface IOrderDetailsPageProps extends WithStyles<typeof styles>, RouteProps {
     isLoading: boolean;
@@ -14,11 +13,11 @@ export interface IOrderDetailsPageProps extends WithStyles<typeof styles>, Route
     isInitiated: boolean;
     isOrderExist: boolean;
     getOrderData: Function;
-    orderIdParam: TRouterMatchParam;
+    orderIdParam: string | null;
     order: IOrderDetailsParsed;
 }
 
 export interface IOrderDetailsPageState {
     selectedItems: IOrderDetailsSelectedItems;
-    selectedItemsData: TCartAddItemCollection;
+    selectedItemsData: ICartAddItem[] | null;
 }

@@ -1,5 +1,6 @@
-import { ICartItem, ICartTotals } from '@interfaces/cart';
+import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { IAbstractTotals } from '@interfaces/abstract';
 
 export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
   return state.cart.data.items.reduce((acc: number, item: ICartItem) =>
@@ -30,7 +31,7 @@ export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
   return (isCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
 }
 
-export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): ICartTotals | null {
+export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): IAbstractTotals | null {
   return isStateExist(state, props) ? state.cart.data.totals : null;
 }
 

@@ -6,5 +6,5 @@ export interface IProductGeneralInfoProps extends WithStyles<typeof styles> {
     sku: string;
     price: number | null;
     oldPrice: number | null;
-    availability: string;
+    availability: boolean;
 }

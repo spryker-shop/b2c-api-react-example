@@ -1,6 +1,6 @@
 import api, { removeAuthToken } from '@services/api';
 import { ICartAddItem } from '@interfaces/cart';
-import { parseGuestCartResponse } from '@helpers/cart';
+import { parseUserCartResponseOneValue } from '@helpers/parsing';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
 import * as cartActions from '@stores/actions/common/cart';
 import { IApiResponseData } from '@services/types';
@@ -49,7 +49,7 @@ export class GuestCartService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                const responseParsed = parseGuestCartResponse(response.data);
+                const responseParsed = parseUserCartResponseOneValue(response.data);
                 dispatch(cartActions.cartAddItemFulfilledStateAction(responseParsed));
             } else {
                 this.errorMessageInform(response, dispatch);
@@ -82,7 +82,7 @@ export class GuestCartService extends ApiServiceAbstract {
                     return '';
                 }
 
-                const responseParsed = parseGuestCartResponse({
+                const responseParsed = parseUserCartResponseOneValue({
                     data: response.data.data[ 0 ],
                     included: response.data.included
                 });
@@ -169,7 +169,7 @@ export class GuestCartService extends ApiServiceAbstract {
                     type: typeNotificationSuccess
                 });
 
-                const responseParsed = parseGuestCartResponse(response.data);
+                const responseParsed = parseUserCartResponseOneValue(response.data);
                 dispatch(cartActions.cartUpdateItemFulfilledStateAction(responseParsed));
             } else {
                 this.errorMessageInform(response, dispatch);

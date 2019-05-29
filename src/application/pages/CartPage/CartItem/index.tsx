@@ -9,6 +9,7 @@ import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
 import { withRouter } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
+import { IIndexSignature } from '@interfaces/common';
 
 const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
@@ -20,8 +21,10 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         handleDeleteItem,
         handleChangeQty,
         name,
-        priceDefaultGross,
-        priceOriginalGross,
+        prices: {
+            priceDefaultGross,
+            priceOriginalGross
+        },
         isUpdateToDefault,
         abstractSku,
         calculations: { unitPriceToPayAggregation },
@@ -38,7 +41,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     };
 
     const renderSuperAttributes = superAttributes ? (
-        superAttributes.map((attr: { [key: string]: string }, index: number) => {
+        superAttributes.map((attr: IIndexSignature, index: number) => {
             const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
             const attributeValue = Object.values(attr)[0];
 

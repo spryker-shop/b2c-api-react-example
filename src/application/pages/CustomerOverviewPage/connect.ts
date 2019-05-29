@@ -1,6 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { getRouterHistoryPush } from '@helpers/router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import {
     getCustomerProfile,
@@ -24,7 +23,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAppDataSet = isAppInitiated(state, ownProps);
     const isCustomerDataExist = isCustomerProfilePresent(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
-    const routerPush = getRouterHistoryPush(state, ownProps);
     const customerData = getCustomerProfile(state, ownProps);
     const orders = getOrdersCollectionFromStore(state, ownProps);
     const isAddressesListInitiated: boolean = isAddressesInitiated(state, ownProps);
@@ -38,7 +36,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isAppDataSet,
         isCustomerDataExist,
         customerReference,
-        routerPush,
         customerData,
         orders,
         isAddressesListInitiated,

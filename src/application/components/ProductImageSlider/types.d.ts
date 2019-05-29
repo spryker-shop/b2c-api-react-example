@@ -5,6 +5,7 @@ import { IProductLabel } from '@interfaces/product';
 export type IProductImage = {
     id: number;
     src: string;
+    srcSmall?: string;
 };
 
 export interface IProductImageSliderProps extends WithStyles<typeof styles> {

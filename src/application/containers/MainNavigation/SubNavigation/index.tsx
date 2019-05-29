@@ -7,7 +7,7 @@ import { ISubNavigationProps as Props } from './types';
 import { IRelatedProductDataFixture } from '../fixtures';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 const SubNavigationComponent: React.SFC<Props> = (props): JSX.Element => {
     const { nodes, classes, simpleDrop, productsList, headerHeight } = props;

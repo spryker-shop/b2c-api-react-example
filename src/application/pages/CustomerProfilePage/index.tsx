@@ -30,7 +30,7 @@ class CustomerProfilePageComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { customerReference, routerPush, isCustomerDataExist } = this.props;
+        const { customerReference, isCustomerDataExist } = this.props;
         if (!isCustomerDataExist) {
             return <Preloader isStatic />;
         }
@@ -44,7 +44,7 @@ class CustomerProfilePageComponent extends React.Component<Props> {
                     <ChangePassword customerReference={ customerReference } />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <DeleteAccount customerReference={ customerReference } routerPush={ routerPush } />
+                    <DeleteAccount customerReference={ customerReference } />
                 </ErrorBoundary>
             </>
         );

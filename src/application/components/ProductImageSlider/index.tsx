@@ -22,7 +22,7 @@ export class ProductImageSliderComponent extends React.Component<Props> {
         </div>
     );
 
-    protected renderDots = (dots: React.ReactNode): JSX.Element => (
+    protected renderDots = (dots: JSX.Element): JSX.Element => (
         <div><ul className={ this.props.classes.dotsContainer }>{ dots }</ul></div>
     );
 

@@ -1,12 +1,11 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { TAppCurrency } from '@interfaces/currency';
 import { TPriceTypeName } from '@interfaces/product';
 
 interface IAppPriceProps extends WithStyles<typeof styles> {
-    currency: TAppCurrency;
+    currency: string | null;
     value: number | null;
-    specificCurrency?: TAppCurrency;
+    specificCurrency?: string | null;
     priceType?: TPriceTypeName;
     isMinus?: boolean;
 }

@@ -22,7 +22,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         </div>
     );
 
-    const renderDots = (dots: React.ReactNode): JSX.Element => (
+    const renderDots = (dots: JSX.Element): JSX.Element => (
         <div>
             <ul className={ classes.dotsContainer }>{ dots }</ul>
         </div>
@@ -34,7 +34,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                 <Grid item xs={ 12 }>
                     <ProductCard
                         currency={ currency }
-                        images={ product.images }
+                        image={ product.image }
                         price={ product.price }
                         prices={ product.prices }
                         name={ product.name }

@@ -1,14 +1,12 @@
-import { IAbstractTotals, TCanceledTotal } from '@interfaces/abstract/totals';
-import { TCartPriceMode } from '@interfaces/cart';
+import { IAbstractTotals } from '@interfaces/abstract';
 import { IAddressItemOrder } from '@interfaces/addresses';
-import { TAppCurrency } from '@interfaces/currency';
 
 export interface IOrderTotals extends IAbstractTotals {
-    canceledTotal: TCanceledTotal;
+    canceledTotal: number;
 }
 
 export interface IOrderCollectionParsed {
-    items: IOrderItem[] | null;
+    items: IOrderItem[];
 }
 
 export interface IOrderCollectionResponse {
@@ -18,14 +16,14 @@ export interface IOrderCollectionResponse {
 export interface IOrderItem {
     id: string;
     dateCreated: string;
-    currency: TAppCurrency;
+    currency: string;
     totals: IOrderTotals;
 }
 
 export interface IOrderItemResponse {
     attributes: {
         createdAt: string;
-        currencyIsoCode: TAppCurrency;
+        currencyIsoCode: string;
         totals: IOrderTotals;
     };
     id: string;
@@ -34,23 +32,23 @@ export interface IOrderItemResponse {
 export interface IOrderDetailsResponse {
     attributes: {
         createdAt: string,
-        currencyIsoCode: TAppCurrency;
-        expenses: IOrderDetailsExpenseItem[] | null;
-        items: IOrderDetailsItem[] | null;
+        currencyIsoCode: string;
+        expenses: IOrderDetailsExpenseItem[];
+        items: IOrderDetailsItem[];
         totals: IOrderTotals;
         billingAddress: IAddressItemOrder;
         shippingAddress: IAddressItemOrder;
-        priceMode: TCartPriceMode;
+        priceMode: string;
     };
     id: string;
 }
 
 export interface IOrderDetailsParsed extends IOrderItem {
-    expenses: IOrderDetailsExpenseItem[] | null;
-    items: IOrderDetailsItem[] | null;
+    expenses: IOrderDetailsExpenseItem[];
+    items: IOrderDetailsItem[];
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
-    priceMode: TCartPriceMode;
+    priceMode: string;
 }
 
 export interface IOrderDetailsExpenseItem {

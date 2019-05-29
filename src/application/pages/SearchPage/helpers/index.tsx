@@ -1,30 +1,26 @@
 import {
-    FilterValue,
-    ILocalizedNamesMap,
+    IFilterValue,
     ISearchPageData,
-    RangeFacets,
-    ValueFacets
-} from '@interfaces/searchPageData';
-import { rangeFilterValueToFront } from '@helpers/common/transform';
-import {
-    rangeMaxType,
-    rangeMinType,
-    RangeType,
+    IRangeFacets,
+    IValueFacets,
+    TRangeType,
     TActiveRangeFilters
-} from '../SearchFilterList/types';
+} from '@interfaces/search';
+import { rangeMaxType, rangeMinType } from '@constants/search';
+import { rangeFilterValueToFront } from '@helpers/common';
 import { IActiveFilterCategories } from '../CategoriesList/types';
 import { labeledCategories, pathCategoryPageBase } from '@constants/routes';
-import { ICategory, IBreadcrumbItem } from '@interfaces/category';
+import { ICategory, IBreadcrumbItem, IIndexSignature } from '@interfaces/common';
 
 export const isValidRangeInput = (
     activeRanges: TActiveRangeFilters,
     defaultRanges: ISearchPageData['rangeFilters']
 ): boolean => {
-    const activeData: { [key: string]: RangeType } = {...activeRanges};
+    const activeData: { [key: string]: TRangeType } = {...activeRanges};
     const defaultData = [...defaultRanges];
     let canMakeNewRequest: boolean = true;
 
-    defaultData.forEach((filter: RangeFacets) => {
+    defaultData.forEach((filter: IRangeFacets) => {
         if (activeData[filter.name]) {
             const defaultMin = rangeFilterValueToFront(filter.min, rangeMinType);
             const defaultMax = rangeFilterValueToFront(filter.max, rangeMaxType);
@@ -42,42 +38,42 @@ export const isValidRangeInput = (
     return canMakeNewRequest;
 };
 
-export const getFormattedActiveCategories = (data: FilterValue[]): IActiveFilterCategories | null => {
+export const getFormattedActiveCategories = (data: IFilterValue[]): IActiveFilterCategories | null => {
     if (!Array.isArray(data) || !data.length) {
         return null;
     }
 
     const response: IActiveFilterCategories = {};
 
-    data.forEach((item: FilterValue) => {
+    data.forEach((item: IFilterValue) => {
         response[item.value] = item.doc_count;
     });
 
     return response;
 };
 
-export const getRangeFiltersLocalizedNames = (data: RangeFacets[] | null): ILocalizedNamesMap | null => {
+export const getRangeFiltersLocalizedNames = (data: IRangeFacets[] | null): IIndexSignature | null => {
     if (!Array.isArray(data) || !data.length) {
         return null;
     }
 
-    const response: ILocalizedNamesMap = {};
+    const response: IIndexSignature = {};
 
-    data.forEach((item: RangeFacets) => {
+    data.forEach((item: IRangeFacets) => {
         response[item.name] = item.localizedName;
     });
 
     return response;
 };
 
-export const getFiltersLocalizedNames = (data: ValueFacets[] | null): ILocalizedNamesMap | null => {
+export const getFiltersLocalizedNames = (data: IValueFacets[] | null): IIndexSignature | null => {
     if (!Array.isArray(data) || !data.length) {
         return null;
     }
 
-    const response: ILocalizedNamesMap = {};
+    const response: IIndexSignature = {};
 
-    data.forEach((item: ValueFacets) => {
+    data.forEach((item: IValueFacets) => {
         response[item.name] = item.localizedName;
     });
 

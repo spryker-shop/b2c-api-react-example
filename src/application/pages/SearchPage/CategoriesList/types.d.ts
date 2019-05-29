@@ -1,19 +1,18 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { FilterValue, TLocalizedName } from 'src/shared/interfaces/searchPageData';
-import { TCategoryId } from 'src/shared/components/Pages/SearchPage/types';
-import { ICategory } from 'src/shared/interfaces/category';
+import { IFilterValue } from '@interfaces/searchPageData';
+import { ICategory } from '@interfaces/common';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
 export interface ICategoriesListProps extends WithStyles<typeof styles> {
-    categories: FilterValue[];
+    categories: IFilterValue[];
     categoriesTree: ICategory[];
-    selectedCategory: TCategoryId;
-    selectedMobileCategory: TCategoryId;
-    localizedName?: TLocalizedName | null;
-    locationCategoryId: TCategoryId;
+    selectedCategory: number | string;
+    selectedMobileCategory: number | string;
+    localizedName?: string | null;
+    locationCategoryId: number | string;
     changeLocation?: (location: string) => void;
-    setCurrentCategory?: (categoryId: TCategoryId) => void;
+    setCurrentCategory?: (categoryId: number | string) => void;
     width?: Breakpoint;
     isOpened: boolean;
     onTitleClick: () => void;

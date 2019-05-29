@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
+import { ISearchFilterListProps as Props, ISearchFilterListState as State } from './types';
 import {
-    ISearchFilterListProps as Props,
-    ISearchFilterListState as State,
-    filterTypeFilter,
-    filterTypeRange,
     IFilterItemToDelete,
-    RangeType,
+    TRangeType,
     TFilterItemValue,
     TFilterItemName
-} from './types';
+} from '@interfaces/search';
+import { filterTypeFilter, filterTypeRange } from '@constants/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
 import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';
@@ -18,7 +16,7 @@ import { Button, Hidden, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @connect
 class SearchFilterListComponent extends React.Component<Props, State> {
@@ -56,7 +54,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         };
     };
 
-    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> =>
+    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: TRangeType): Promise<void> =>
         await this.setState((prevState: State) => ({
             activeRangeFilters: {
                 ...prevState.activeRangeFilters,

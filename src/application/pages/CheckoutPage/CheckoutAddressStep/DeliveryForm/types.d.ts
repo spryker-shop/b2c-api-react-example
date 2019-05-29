@@ -1,11 +1,12 @@
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { ICheckoutAddressState, IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
+import { IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface IDeliveryFormProps {
     isUserLoggedIn?: boolean;
     addressesCollection?: IAddressItemCollection[] | null;
-    deliveryNewAddress?: ICheckoutAddressState;
+    deliveryNewAddress?: IAddressFormState;
     deliverySelection?:  IDeliverySelectionState;
     mutateStateDeliverySelectionAddressId?: (payload: string) => void;
     mutateDeliveryStep?: (payload: boolean) => void;

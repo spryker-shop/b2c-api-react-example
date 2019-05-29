@@ -11,12 +11,12 @@ export interface ISavedAddressFormProps extends WithStyles<typeof styles> {
     onFieldChangeHandler: (event: InputChangeEvent) => void;
     extraField: {
         value: string;
-        label: React.ReactNode
+        label: JSX.Element
     };
 }
 
 export interface IRadioItem {
     value: string;
-    label: string | React.ReactNode;
-    salutation?: React.ReactNode;
+    label: string | JSX.Element;
+    salutation?: JSX.Element | string;
 }

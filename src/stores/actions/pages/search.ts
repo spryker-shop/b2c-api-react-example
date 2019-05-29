@@ -11,14 +11,13 @@ import {
     PAGES_SEARCH_CURRENT_CATEGORY_SET,
     PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 } from '@stores/actionTypes/pages/search';
-import { CatalogService } from '@services/common/Catalog';
+import { SearchService } from '@services/common/Search';
 import {
     IActiveFilters,
     IActiveSort,
     ICatalogSearchDataParsed,
-    ISearchQuery,
-    TSearchTerm
-} from '@interfaces/searchPageData';
+    ISearchQuery
+} from '@interfaces/search';
 
 export const suggestPendingState = () => ({
     type: PAGES_SUGGESTION_REQUEST + '_PENDING'
@@ -36,7 +35,7 @@ export const suggestFullfiledState = (payload: object) => ({
 
 export const sendSuggestionAction = function (query: string) {
     return (dispatch: Function, getState: Function) => {
-        CatalogService.catalogSuggestion(dispatch, query);
+        SearchService.searchSuggestion(dispatch, query);
     };
 };
 
@@ -56,7 +55,7 @@ export const sendSearchFulfilledState = (payloadCategory: ICatalogSearchDataPars
 
 export const sendSearchAction = function (payload: ISearchQuery) {
     return (dispatch: Function, getState: Function) => {
-        CatalogService.catalogSearch(dispatch, payload);
+        SearchService.catalogSearch(dispatch, payload);
     };
 };
 
@@ -83,7 +82,7 @@ export const clearPaginationPageAction = () => ({
     type: PAGES_SEARCH_PAGINATION_PAGE_CLEAR
 });
 
-export const clearSuggestions = (searchTerm: TSearchTerm) => ({
+export const clearSuggestions = (searchTerm: string) => ({
     type: PAGES_SEARCH_REQUEST_CLEAR,
     payloadSearchTermFulfilled: {searchTerm}
 });

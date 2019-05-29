@@ -13,7 +13,6 @@ import {
     createCartAndAddItemAction
 } from '@stores/actions/common/cart';
 import { getCartId, isCartCreated } from '@stores/reducers/common/cart/selectors';
-import { getProductAvailabilityAction } from '@stores/actions/pages/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartCreatePayload } from '@services/common/Cart/types';
 import { ICartAddItem } from '@interfaces/cart';
@@ -49,8 +48,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
         item: ICartAddItem
     ) => dispatch(createCartAndAddItemAction(payload, item)),
     addItemToCart: (payload: ICartAddItem, cartId: string) => dispatch(addItemToCartAction(payload, cartId)),
-    addItemGuestCart: (item: ICartAddItem, anonymId: string) => dispatch(addItemGuestCartAction(item, anonymId)),
-    getProductAvailability: (sku: string) => dispatch(getProductAvailabilityAction(sku))
+    addItemGuestCart: (item: ICartAddItem, anonymId: string) => dispatch(addItemGuestCartAction(item, anonymId))
 });
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

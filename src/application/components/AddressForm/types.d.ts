@@ -1,8 +1,8 @@
 import { styles } from './styles';
-import { ICountry } from '@interfaces/country';
+import { ICountry } from '@interfaces/addresses';
 import { InputChangeEvent } from '@interfaces/common';
-import { ICheckoutAddressState } from '@interfaces/checkout';
 import { WithStyles } from '@material-ui/core';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface IAddressFormProps extends WithStyles<typeof styles> {
     countriesCollection: ICountry[];
@@ -10,6 +10,6 @@ export interface IAddressFormProps extends WithStyles<typeof styles> {
     formName: string;
     onFieldChangeHandler: (event: InputChangeEvent) => void;
     onFieldBlurHandler?: () => boolean;
-    data: ICheckoutAddressState;
+    data: IAddressFormState;
     additionalActions: JSX.Element | null;
 }

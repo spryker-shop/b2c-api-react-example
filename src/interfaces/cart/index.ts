@@ -1,18 +1,11 @@
-import { IAbstractTotals } from '@interfaces/abstract/totals';
-import { IProductPricesItem } from '@interfaces/product';
-import { TAppCurrency } from '@interfaces/currency';
-
-export type TCartPriceMode = string;
-export type TCartStore = string;
-export type TCartDisplayName = string;
-export type TCartAmount = number;
-export type TCartCode = string;
-export type TCartAddItemCollection = ICartAddItem[] | null;
+import { IAbstractTotals } from '@interfaces/abstract';
+import { IProductParsedPrices } from '@interfaces/product';
+import { IIndexSignature } from '@interfaces/common';
 
 export interface ICartDiscounts {
-    displayName: TCartDisplayName;
-    amount: TCartAmount;
-    code: TCartCode;
+    displayName: string;
+    amount: number;
+    code: string;
 }
 
 export interface ICartAddItem {
@@ -20,27 +13,23 @@ export interface ICartAddItem {
     quantity: number;
 }
 
-export interface ICartTotals extends IAbstractTotals {
-
-}
-
 export interface ICartItem {
-    sku: string | null;
+    sku: string;
     abstractSku: string;
-    name?: string | null;
-    image?: string | null;
-    quantity?: number | null;
-    amount?: number | null;
-    prices?: IProductPricesItem[];
-    calculations?: ICartItemCalculation | null;
-    groupKey?: string | null;
-    availability?: boolean | null;
-    availableQuantity?: number | null;
-    superAttributes?: { [key: string]: string }[] | null;
-    priceOriginalGross?: number | null;
-    priceOriginalNet?: number | null;
-    priceDefaultGross?: number | null;
-    priceDefaultNet?: number | null;
+    name?: string;
+    image?: string;
+    quantity?: number;
+    amount?: number;
+    prices?: IProductParsedPrices;
+    calculations?: ICartItemCalculation;
+    groupKey?: string;
+    availability?: boolean;
+    availableQuantity?: number;
+    superAttributes?: IIndexSignature[];
+    priceOriginalGross?: number;
+    priceOriginalNet?: number;
+    priceDefaultGross?: number;
+    priceDefaultNet?: number;
 }
 
 export interface ICartDataResponse extends ICommonDataInCart {
@@ -50,12 +39,12 @@ export interface ICartDataResponse extends ICommonDataInCart {
 }
 
 export interface ICommonDataInCart {
-    id: string | null;
-    currency: TAppCurrency;
+    id: string;
+    currency: string;
     discounts?: ICartDiscounts | {};
-    priceMode: TCartPriceMode | null;
-    store: TCartStore | null;
-    totals: ICartTotals;
+    priceMode: string;
+    store: string;
+    totals: IAbstractTotals;
     cartCreated?: boolean;
 }
 
@@ -79,20 +68,4 @@ export interface ICartItemCalculation {
     unitProductOptionPriceAggregation: number;
     unitSubtotalAggregation: number;
     unitTaxAmountFullAggregation: number;
-}
-
-interface ICartResponseItemAttributes {
-    amount: number | null;
-    calculations: ICartItemCalculation;
-    groupKey: string;
-    quantity: number;
-    sku: string;
-}
-
-export interface ICartResponseItem {
-    attributes: ICartResponseItemAttributes;
-    id?: string;
-    links?: object;
-    relationships?: object;
-    type?: string;
 }

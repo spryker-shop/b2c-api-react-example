@@ -11,10 +11,10 @@ import {
     PAGES_SEARCH_PAGINATION_PAGE_SET,
     PAGES_SEARCH_CURRENT_CATEGORY_SET
 } from '@stores/actionTypes/pages/search';
-import { ILocalizedNamesMap, TLocalizedName, TSpellingSuggestion, } from '@interfaces/searchPageData';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IPageSearchAction, ISearchState } from '@stores/reducers/pages/search/types';
 import { DefaultItemsPerPage } from '@constants/search';
+import { IIndexSignature } from '@interfaces/common';
 
 export const initialState: ISearchState = {
     data: {
@@ -165,7 +165,7 @@ export function isPageSearchStateLoading(state: IReduxStore, props: IReduxOwnPro
     return (state.pageSearch && state.pageSearch.pending && state.pageSearch.pending === true);
 }
 
-export function getSpellingSuggestion(state: IReduxStore, props: IReduxOwnProps): TSpellingSuggestion | null {
+export function getSpellingSuggestion(state: IReduxStore, props: IReduxOwnProps): string | null {
     return (
         state.pageSearch.data && state.pageSearch.data.spellingSuggestion
             ? state.pageSearch.data.spellingSuggestion
@@ -173,7 +173,7 @@ export function getSpellingSuggestion(state: IReduxStore, props: IReduxOwnProps)
     );
 }
 
-export function getSortParamLocalizedNames(state: IReduxStore, props: IReduxOwnProps): ILocalizedNamesMap | null {
+export function getSortParamLocalizedNames(state: IReduxStore, props: IReduxOwnProps): IIndexSignature | null {
     return (
         state.pageSearch.data && state.pageSearch.data.sortParamLocalizedNames
             ? state.pageSearch.data.sortParamLocalizedNames
@@ -181,7 +181,7 @@ export function getSortParamLocalizedNames(state: IReduxStore, props: IReduxOwnP
     );
 }
 
-export function getCategoriesLocalizedName(state: IReduxStore, props: IReduxOwnProps): TLocalizedName | null {
+export function getCategoriesLocalizedName(state: IReduxStore, props: IReduxOwnProps): string | null {
     return (
         state.pageSearch.data && state.pageSearch.data.categoriesLocalizedName
             ? state.pageSearch.data.categoriesLocalizedName

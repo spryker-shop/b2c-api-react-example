@@ -1,14 +1,11 @@
-import { ISearchPageData, ISearchQuery } from 'src/shared/interfaces/searchPageData';
+import { ISearchPageData, ISearchQuery } from '@interfaces/search';
 import { History, Location } from 'history';
 import { RouteProps } from 'react-router';
-import { WithRouter } from 'src/shared/interfaces/common/react';
-import { ICategory } from 'src/shared/interfaces/category';
-import { TAppCurrency } from '@interfaces/currency';
-import { TActiveFilters, TActiveRangeFilters } from '@pages/SearchPage/SearchFilterList/types';
-import { TSpellingSuggestion } from '@interfaces/searchPageData';
+import { WithRouter, IBreadcrumbItem } from '@interfaces/common';
+import { ICategory } from '@interfaces/category';
+import { TActiveFilters, TActiveRangeFilters } from '@interfaces/search';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { IBreadcrumbItem } from '@interfaces/category';
 
 export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;
@@ -17,7 +14,7 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
     location: Location;
     isFulfilled: boolean;
     isFiltersUpdated: boolean;
-    locationCategoryId: TCategoryId;
+    locationCategoryId: number | string;
     currentPaginationPage: number;
     sendSearch: (params: ISearchQuery) => void;
     clearActiveFilters: () => void;
@@ -25,14 +22,14 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
     clearSort: () => void;
     clearPaginationPage: () => void;
     isCategoryAsFilter: boolean;
-    currency: TAppCurrency;
+    currency: string | null;
     searchTerm: string;
     currentSort: string;
     currentItemsPerPage: number;
     activeFilters: TActiveFilters;
     activeRangeFilters: TActiveRangeFilters;
     currentCategoryId: string;
-    spellingSuggestion: TSpellingSuggestion;
+    spellingSuggestion: string;
     category: ICategory;
     history: History;
 }
@@ -40,5 +37,3 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
 export interface ISearchPageState {
     formattedCategoriesTree: IBreadcrumbItem[];
 }
-
-export type TCategoryId = number | string;

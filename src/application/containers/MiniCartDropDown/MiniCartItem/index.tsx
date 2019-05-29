@@ -15,8 +15,10 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
         productData: {
             image,
             name,
-            priceDefaultGross,
-            priceOriginalGross,
+            prices: {
+                priceDefaultGross,
+                priceOriginalGross
+            },
             quantity,
             sku
         },

@@ -1,17 +1,6 @@
-import { createCartItemAddToCart } from './item';
-import {
-    parseCartCreateResponse,
-    parseUserCartResponseMultiValue,
-    parseUserCartResponseOneValue
-} from './response';
-import { parseGuestCartResponse } from './guestCartResponse';
-import { parseCommonDataInCartResponse } from './parseCommonDataInCartResponse';
+import { ICartAddItem } from '@interfaces/cart';
 
-export {
-    createCartItemAddToCart,
-    parseCartCreateResponse,
-    parseGuestCartResponse,
-    parseCommonDataInCartResponse,
-    parseUserCartResponseMultiValue,
-    parseUserCartResponseOneValue
-};
+export const createCartItemAddToCart = (sku: string, quantity: number): ICartAddItem => ({
+    sku,
+    quantity
+});

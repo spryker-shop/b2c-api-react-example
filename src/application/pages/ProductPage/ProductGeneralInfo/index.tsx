@@ -20,10 +20,10 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
             <Typography component="span"
                 className={ `
                     ${ classes.availableContainer }
-                    ${ classes[availability === 'Available' ? 'available' : 'unavailable'] }`
+                    ${ classes[availability ? 'available' : 'unavailable'] }`
                 }
             >
-                { availability }
+                <FormattedMessage id={ availability ? 'available.title' : 'unavailable.title' } />
             </Typography>
             <Typography component="h1" variant="h3" color="textSecondary" className={ classes.title }>
                 { name }

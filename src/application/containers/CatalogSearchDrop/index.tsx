@@ -8,7 +8,7 @@ import { SearchIcon, CrossIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @(withRouter as Function)
 class CatalogSearchDropComponent extends React.Component<Props, State> {

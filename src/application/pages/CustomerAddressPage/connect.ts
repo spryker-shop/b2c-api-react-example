@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { getRouterHistoryPush, getRouterMatchParam } from '@helpers/router';
+import { getRouterMatchParam } from '@helpers/common';
 import { IAddressItem } from '@interfaces/addresses';
 import { addAddressAction, updateAddressAction, getOneAddressAction } from '@stores/actions/pages/addresses';
 import { getCustomerReference } from '@stores/reducers/pages/login';
@@ -12,7 +12,6 @@ import {
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const routerPush: Function = getRouterHistoryPush(state, ownProps);
     const currentAddress: IAddressItem = getCurrentAddress(state, ownProps);
     const customer: string | null = getCustomerReference(state, ownProps);
     const isLoading: boolean = isPageAddressesStateLoading(state, ownProps);
@@ -22,7 +21,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     return ({
         customer,
         currentAddress,
-        routerPush,
         isLoading,
         addressIdParam,
         isAddressExist
@@ -32,9 +30,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators({
         addAddress: (payload: IAddressItem, customerId: string) => addAddressAction(payload, customerId),
-        updateAddress: (addressId: string,
-                        customerId: string,
-                        payload: IAddressItem) => updateAddressAction(addressId, customerId, payload),
+        updateAddress: (addressId: string, customerId: string, payload: IAddressItem) =>
+            updateAddressAction(addressId, customerId, payload),
         getOneAddress: (customerId: string, addressId: string) => getOneAddressAction(customerId, addressId),
     }, dispatch);
 
