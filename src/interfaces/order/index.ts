@@ -6,7 +6,7 @@ export interface IOrderTotals extends IAbstractTotals {
 }
 
 export interface IOrderCollectionParsed {
-    items: IOrderItem[] | null;
+    items: IOrderItem[];
 }
 
 export interface IOrderCollectionResponse {
@@ -16,14 +16,14 @@ export interface IOrderCollectionResponse {
 export interface IOrderItem {
     id: string;
     dateCreated: string;
-    currency: string | null;
+    currency: string;
     totals: IOrderTotals;
 }
 
 export interface IOrderItemResponse {
     attributes: {
         createdAt: string;
-        currencyIsoCode: string | null;
+        currencyIsoCode: string;
         totals: IOrderTotals;
     };
     id: string;
@@ -32,9 +32,9 @@ export interface IOrderItemResponse {
 export interface IOrderDetailsResponse {
     attributes: {
         createdAt: string,
-        currencyIsoCode: string | null;
-        expenses: IOrderDetailsExpenseItem[] | null;
-        items: IOrderDetailsItem[] | null;
+        currencyIsoCode: string;
+        expenses: IOrderDetailsExpenseItem[];
+        items: IOrderDetailsItem[];
         totals: IOrderTotals;
         billingAddress: IAddressItemOrder;
         shippingAddress: IAddressItemOrder;
@@ -44,8 +44,8 @@ export interface IOrderDetailsResponse {
 }
 
 export interface IOrderDetailsParsed extends IOrderItem {
-    expenses: IOrderDetailsExpenseItem[] | null;
-    items: IOrderDetailsItem[] | null;
+    expenses: IOrderDetailsExpenseItem[];
+    items: IOrderDetailsItem[];
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
     priceMode: string;

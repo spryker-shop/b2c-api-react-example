@@ -9,25 +9,25 @@ export interface IAddressCountryComposed {
 }
 
 interface IAbstractAddressItem {
-    id?: string | null;
-    salutation?: string | null;
-    firstName?: string | null;
-    lastName?: string | null;
-    address1?: string | null;
-    address2?: string | null;
-    address3?: string | null;
-    zipCode?: string | null;
-    city?: string | null;
-    company?: string | null;
-    phone?: string | null;
+    id?: string;
+    salutation?: string;
+    firstName?: string;
+    lastName?: string;
+    address1?: string;
+    address2?: string;
+    address3?: string;
+    zipCode?: string;
+    city?: string;
+    company?: string;
+    phone?: string;
     isDefaultShipping?: boolean;
     isDefaultBilling?: boolean;
-    iso2Code?: string | number | boolean | null;
+    iso2Code?: string | number | boolean;
 }
 
 export interface IAddressItem extends IAbstractAddressItem {
-    country?: string | null;
-    email?: string | null;
+    country?: string;
+    email?: string;
     [index: string]: string | number | boolean;
 }
 
@@ -37,13 +37,13 @@ export interface IAddressItemCollection extends IAbstractAddressItem {
 }
 
 export interface IAddressItemOrder extends IAbstractAddressItem {
-    email?: string | null;
+    email?: string;
     country: string;
-    cellPhone?: string | null;
-    comment?: string | null;
-    description?: string | null;
-    middleName?: string | null;
-    poBox?: string | null;
+    cellPhone?: string;
+    comment?: string;
+    description?: string;
+    middleName?: string;
+    poBox?: string;
 }
 
 export interface ICountry {

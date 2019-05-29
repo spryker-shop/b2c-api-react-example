@@ -14,22 +14,22 @@ export interface ICartAddItem {
 }
 
 export interface ICartItem {
-    sku: string | null;
+    sku: string;
     abstractSku: string;
-    name?: string | null;
-    image?: string | null;
-    quantity?: number | null;
-    amount?: number | null;
+    name?: string;
+    image?: string;
+    quantity?: number;
+    amount?: number;
     prices?: IProductPricesItem[];
-    calculations?: ICartItemCalculation | null;
-    groupKey?: string | null;
-    availability?: boolean | null;
-    availableQuantity?: number | null;
-    superAttributes?: IIndexSignature[] | null;
-    priceOriginalGross?: number | null;
-    priceOriginalNet?: number | null;
-    priceDefaultGross?: number | null;
-    priceDefaultNet?: number | null;
+    calculations?: ICartItemCalculation;
+    groupKey?: string;
+    availability?: boolean;
+    availableQuantity?: number;
+    superAttributes?: IIndexSignature[];
+    priceOriginalGross?: number;
+    priceOriginalNet?: number;
+    priceDefaultGross?: number;
+    priceDefaultNet?: number;
 }
 
 export interface ICartDataResponse extends ICommonDataInCart {
@@ -39,11 +39,11 @@ export interface ICartDataResponse extends ICommonDataInCart {
 }
 
 export interface ICommonDataInCart {
-    id: string | null;
-    currency: string | null;
+    id: string;
+    currency: string;
     discounts?: ICartDiscounts | {};
-    priceMode: string | null;
-    store: string | null;
+    priceMode: string;
+    store: string;
     totals: IAbstractTotals;
     cartCreated?: boolean;
 }

@@ -16,14 +16,14 @@ export type TFilterItemValue = number | string | TRangeType;
 
 export interface IFilterValue {
     value: string | number;
-    doc_count: number | null;
+    doc_count: number;
 }
 
 export interface IValueFacets {
     name: string;
-    docCount: number | null;
+    docCount: number;
     values: IFilterValue[];
-    activeValue: string | null;
+    activeValue: string;
     localizedName: string;
 }
 
@@ -33,14 +33,14 @@ export interface IRangeFacets {
     max: number;
     activeMin: number;
     activeMax: number;
-    docCount: number | null;
+    docCount: number;
     localizedName: string;
 }
 
 export interface IFlyoutSearch {
-    suggestions: IProductCard[] | null;
-    categories: IIndexSignature[] | null;
-    completion: string[] | null;
+    suggestions: IProductCard[];
+    categories: IIndexSignature[];
+    completion: string[];
     pending: boolean;
     fulfilled: boolean;
 }
@@ -73,33 +73,33 @@ export interface IAvailableLabelsCollection {
 }
 
 export interface ICatalogSearchDataParsed extends IActiveFilters {
-    items: IProductCard[] | null;
-    filters: IValueFacets[] | null;
+    items: IProductCard[];
+    filters: IValueFacets[];
     category: IFilterValue[];
-    currentCategoryId: number | null;
-    currentSort: string | null;
-    currentItemsPerPage: number | null;
+    currentCategoryId: number;
+    currentSort: string;
+    currentItemsPerPage: number;
     currentPaginationPage: number;
-    rangeFilters: IRangeFacets[] | null;
-    sortParams: string[] | null;
-    sortParamLocalizedNames: IIndexSignature | null;
-    categoriesLocalizedName: string | null;
+    rangeFilters: IRangeFacets[];
+    sortParams: string[];
+    sortParamLocalizedNames: IIndexSignature;
+    categoriesLocalizedName: string;
     pagination: IPagination;
-    spellingSuggestion: string | null;
+    spellingSuggestion: string;
     searchTerm?: string;
 }
 
 export interface ISearchPageData extends ICatalogSearchDataParsed {
     dispatch?: Function;
     flyoutSearch?: IFlyoutSearch;
-    currency?: string | null;
+    currency?: string;
     isFiltersUpdated: boolean;
     isCategoryAsFilter: boolean;
 }
 
 export interface ISearchQuery {
     q?: string;
-    currency?: string | null;
+    currency?: string;
     sort?: string;
     category?: number | string;
     ipp?: number;

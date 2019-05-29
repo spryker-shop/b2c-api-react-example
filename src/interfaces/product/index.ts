@@ -20,8 +20,8 @@ export type TProductType = TAbstractProductType | TConcreteProductType | TAbsent
 export type TPriceTypeName = TPriceTypeNameDefault | TPriceTypeNameOriginal;
 
 export interface IProductPricesItem {
-    grossAmount: number | null;
-    netAmount: number | null;
+    grossAmount: number;
+    netAmount: number;
     priceTypeName: TPriceTypeName;
     currency?: {
         code: string;
@@ -36,12 +36,12 @@ export interface IProductCardImages {
 }
 
 export interface IProductCard {
-    images?: IProductCardImages[] | null;
+    images?: IProductCardImages[];
     price: number;
     abstractName: string;
     abstractSku: string;
     prices: IProductPricesItem[];
-    labels?: IProductLabel[] | null;
+    labels?: IProductLabel[];
 }
 
 export interface IProductAttributeMap {
@@ -55,38 +55,38 @@ export interface IProductAttributes {
 }
 
 export interface IProductAvailability {
-    availability: boolean | null;
-    quantity?: number | null;
+    availability: boolean;
+    quantity?: number;
     isNeverOutOfStock?: boolean;
 }
 
 export interface IConcreteProductAvailability extends IProductAvailability {
-    sku: string | null;
+    sku: string;
 }
 
 export interface IProductPropFullData extends IProductAvailability {
-    description: string | null;
-    descriptionAttributes: IDescriptionAttributes[] | null;
-    images: IProductImage[] | null;
-    name: string | null;
+    description: string;
+    descriptionAttributes: IDescriptionAttributes[];
+    images: IProductImage[];
+    name: string;
     prices: {
         priceOriginalGross?: null,
         priceOriginalNet?: null,
         priceDefaultGross?: null,
         priceDefaultNet?: null,
     };
-    sku: string | null;
-    productType: TProductType | null;
+    sku: string;
+    productType: TProductType;
 }
 
 export interface IProductDataParsed {
     attributeVariants: { [key: string]: IProductAttributes };
-    superAttributes: ISuperAttribute[] | null;
-    abstractProduct: IProductPropFullData | null;
+    superAttributes: ISuperAttribute[];
+    abstractProduct: IProductPropFullData;
     concreteProducts: {
         [key: string]: IProductPropFullData
     };
-    productLabels: IProductLabel[] | null;
+    productLabels: IProductLabel[];
     selectedAttrNames: IProductAttributes;
 }
 
