@@ -3,7 +3,7 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ITotals } from '@interfaces/common';
 
 export const getTotalProductsQuantity = (state: IReduxStore, props: IReduxOwnProps): number =>
-    state.cart.data.items.reduce((acc: number, item: ICartItem) => acc + item.quantity, 0);
+    state.cart.data.items.reduce((accumulator: number, item: ICartItem) => accumulator + item.quantity, 0);
 
 export const getTotalItemsQuantity = (state: IReduxStore, props: IReduxOwnProps): number => state.cart.data.totalQty;
 

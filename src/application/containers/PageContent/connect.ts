@@ -5,7 +5,7 @@ import { isStateLoading } from '@stores/reducers';
 import {
     getAnonymId,
     getAppLocale,
-    isAppInitiated,
+    isAppInitialized,
     isAppStateFulfilled,
     getIsPageLocked
 } from '@stores/reducers/common/init/selectors';
@@ -18,7 +18,7 @@ import { clearSearchTermAction } from '@stores/actions/pages/search';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isStateLoading(state, ownProps) || false;
     const locale: string = getAppLocale(state, ownProps);
-    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
+    const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isCustomerAuth: boolean = isUserAuthenticated(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
     const isCustomerCartCreated: boolean = isCartCreated(state, ownProps);
