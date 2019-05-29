@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
 import { pathCustomerOverview } from '@constants/routes';
-import { SalutationVariants } from '@constants/customer';
+import { salutationVariants } from '@constants/customer';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
 import { Button, Grid } from '@material-ui/core';
@@ -12,22 +12,18 @@ import { InputChangeEvent, FormEvent } from '@interfaces/common';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
+import { registerConfigInputStable as inputsConfig } from '@constants/authentication';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
+import { IFormInputIndexSignature } from '@interfaces/forms';
+import { ICustomerProfile } from '@interfaces/customer';
+import { initialState } from './settings';
 
 @(withRouter as Function)
 @connect
 export class AuthenticationRegister extends React.Component<Props, State> {
-    public readonly state: State = {
-        salutation: ' ',
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        acceptedTerms: false,
-        isCartLoading: false
-    };
+    public readonly state: State = { ...initialState };
 
-    public componentDidUpdate = (prevProps: Props): void => {
+    public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const { isAuth, getCustomerCartsAction, history, isCartLoading } = this.props;
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
@@ -40,127 +36,156 @@ export class AuthenticationRegister extends React.Component<Props, State> {
         if (isAuth && isParallelRequest) {
             history.push(pathCustomerOverview);
         }
-    };
 
-    protected handleChangeSalutation = (event: InputChangeEvent): void => {
-        this.setState(() => ({ salutation: event.target.value }));
-    };
-
-    protected handleChangeAgreement = (event: InputChangeEvent): void => {
-        this.setState(() => ({ acceptedTerms: !this.state.acceptedTerms }));
-    };
-
-    protected handleChange = ({ target: { name, value } }: InputChangeEvent): void => {
-        this.setState(() => ({ ...this.state, [name]: value }));
-    };
-
-    protected handleSubmitForm = (e: FormEvent): void => {
-        e.preventDefault();
-        const { salutation, firstName, lastName, email, password, confirmPassword, acceptedTerms } = this.state;
-
-        if (!salutation || !firstName || !lastName || !email || !password || !confirmPassword || !acceptedTerms) {
-            NotificationsMessage({
-                id: 'empty.required.fields.message',
-                type: typeNotificationWarning
-            });
-
-            return null;
+        if (prevState.fields !== this.state.fields) {
+            this.handleFormValidity();
         }
+    };
 
-        if (password !== confirmPassword) {
+    protected handleInputChange = (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: inputsConfig[name] });
+        const isCheckboxes = value === inputsConfig.acceptedTerms.inputName;
+
+        this.setState((prevState: State) => ({
+            ...prevState,
+            fields: {
+                ...prevState.fields,
+                [name]: {
+                    value: isCheckboxes ? !prevState.fields[name].value : value.trim(),
+                    isError: !isInputValid
+                }
+            }
+        }));
+    };
+
+    protected handleFormValidity = (): void => {
+        const isFormValid = checkFormValidity({
+            form: this.state.fields,
+            fieldsConfig: inputsConfig
+        });
+
+        this.setState({ isFormValid });
+    };
+
+    protected handleSubmitForm = (event: FormEvent): void => {
+        event.preventDefault();
+        const { customerRegisterAction } = this.props;
+        const { fields } = this.state;
+        const payload: ICustomerProfile | {} = Object.keys(fields)
+            .reduce((accumulator: IFormInputIndexSignature, name: string) => {
+                accumulator[name] = fields[name].value;
+
+                return accumulator;
+            }, {});
+
+        if (fields.password.value !== fields.confirmPassword.value) {
             NotificationsMessage({
                 id: 'password.not.equal.message',
                 type: typeNotificationWarning
             });
 
-            return null;
+            return;
         }
 
-        this.props.customerRegisterAction(this.state);
+        customerRegisterAction(payload);
     };
 
     public render(): JSX.Element {
         const { isLoading } = this.props;
-        const { isCartLoading } = this.state;
+        const { isCartLoading, isFormValid, fields } = this.state;
+        const isButtonDisables = isLoading || isCartLoading || !isFormValid;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmitForm } id="RegisterForm">
                 <Grid container direction="column" spacing={ 24 }>
                     <Grid item xs={ 12 }>
                         <SprykerSelect
-                            currentMode={ this.state.salutation }
-                            onChangeHandler={ this.handleChangeSalutation }
-                            menuItems={ SalutationVariants }
+                            currentMode={ fields.salutation.value }
+                            onChangeHandler={ this.handleInputChange }
+                            menuItems={ salutationVariants }
                             label={ <FormattedMessage id={ 'salutation.label' } /> }
                             menuItemFirst={{
                                 value: ' ',
                                 name: <FormattedMessage id={ 'salutation.label' } />,
                                 disabled: true
                             }}
-                            name="salutation"
+                            name={ inputsConfig.salutation.inputName }
                             isFullWidth
                             isSimple
                             isRequired
+                            isError={ fields.salutation.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'first.name.label' } /> }
-                            inputName="firstName"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.firstName }
+                            inputName={ inputsConfig.firstName.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.firstName.value }
+                            isError={ fields.firstName.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'last.name.label' } /> }
-                            inputName="lastName"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.lastName }
+                            inputName={ inputsConfig.lastName.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.lastName.value }
+                            isError={ fields.lastName.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'email.label' } /> }
-                            inputName="email"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.email }
+                            inputName={ inputsConfig.email.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.email.value }
                             inputType="email"
+                            isError={ fields.email.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'word.password.title' } /> }
-                            inputName="password"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.password }
+                            inputName={ inputsConfig.password.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.password.value }
                             inputType="password"
+                            isError={ fields.password.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'confirm.password.title' } /> }
-                            inputName="confirmPassword"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.confirmPassword }
+                            inputName={ inputsConfig.confirmPassword.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.confirmPassword.value }
                             inputType="password"
+                            isError={ fields.confirmPassword.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
                         <SprykerCheckbox
-                            isChecked={ this.state.acceptedTerms }
-                            changeHandler={ this.handleChangeAgreement }
+                            isChecked={ Boolean(fields.acceptedTerms.value) }
+                            changeHandler={ this.handleInputChange }
                             label={  <FormattedMessage id={ 'accept.terms.title' } /> }
-                            inputName="acceptedTerms"
+                            inputName={ inputsConfig.acceptedTerms.inputName }
+                            isError={ fields.acceptedTerms.isError }
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <Button disabled={ isLoading || isCartLoading } type="submit" variant="contained" fullWidth>
+                        <Button
+                            disabled={ isButtonDisables }
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                        >
                             <FormattedMessage id={ 'sign.up.title' } />
                         </Button>
                     </Grid>

@@ -2,10 +2,8 @@ import {
     ICheckoutFormsNames,
     ICheckoutPaymentMethodsNames,
     ICheckoutSelectionInputs,
-    ICreditCardObjectConfigInputStable,
-    IAddressConfigInputStable,
-    IInvoiceObjectConfigInputStable
-} from './types';
+    IFormConfigInputStable
+} from '@interfaces/forms';
 
 export const checkoutSelectionInputs: ICheckoutSelectionInputs = {
     isAddNewDeliveryValue: 'isAddNewDeliveryValue',
@@ -30,7 +28,7 @@ export const checkoutPaymentMethodsNames: ICheckoutPaymentMethodsNames = {
     creditCard: 'credit card',
 };
 
-export const newAddressConfigInputStable: IAddressConfigInputStable = {
+export const newAddressConfigInputStable: IFormConfigInputStable = {
     firstName: {
         isRequired: true,
         inputName: 'firstName',
@@ -83,7 +81,7 @@ export const newAddressConfigInputStable: IAddressConfigInputStable = {
     },
 };
 
-export const invoiceConfigInputStable: IInvoiceObjectConfigInputStable = {
+export const invoiceConfigInputStable: IFormConfigInputStable = {
     dateOfBirth: {
         isRequired: true,
         inputName: 'dateOfBirth',
@@ -91,7 +89,7 @@ export const invoiceConfigInputStable: IInvoiceObjectConfigInputStable = {
     },
 };
 
-export const creditCardConfigInputStable: ICreditCardObjectConfigInputStable = {
+export const creditCardConfigInputStable: IFormConfigInputStable = {
     paymentProvider: {
         isRequired: true,
         inputName: 'paymentProvider',

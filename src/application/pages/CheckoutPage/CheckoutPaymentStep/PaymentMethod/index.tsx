@@ -5,8 +5,7 @@ import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
 import { PartnerIconVisa } from './icons';
 import { checkFormValidity } from '@helpers/forms';
-import { IPaymentMethod } from '@interfaces/checkout';
-import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
+import { IPaymentMethod, IPaymentMethodsGrouped } from '@interfaces/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { IPaymentMethodProps as Props } from './types';
 import {
@@ -15,6 +14,7 @@ import {
     creditCardConfigInputStable
 } from '@constants/checkout';
 import { styles } from './styles';
+import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
 const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentMethods } = props;
@@ -58,7 +58,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         paymentMethodsGrouped[item.paymentMethodName].push(item);
     });
 
-    const creditCardProvidersCollection: TPaymentProvidersCollection = [];
+    const creditCardProvidersCollection: IMenuItemSelect[] = [];
 
     Object.keys(paymentMethodsGrouped).forEach(key => {
         paymentMethodsGrouped[key].forEach((item: IPaymentMethod) => {

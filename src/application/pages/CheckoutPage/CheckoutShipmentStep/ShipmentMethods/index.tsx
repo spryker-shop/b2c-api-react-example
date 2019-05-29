@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles } from '@material-ui/core';
 import { PartnerIconHermes, PartnerIconDhl } from './icons';
-import { IShipmentMethodsGrouped } from '@constants/checkout/types';
+import { IShipmentMethodsGrouped } from '@interfaces/checkout';
 import { IShipmentMethodProps as Props } from './types';
 import { ShipmentForm } from './ShipmentForm';
 import { styles } from './styles';

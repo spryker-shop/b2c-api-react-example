@@ -1,4 +1,6 @@
-export const initialState = {
+import { ICustomerAddressState } from './types';
+
+export const initialState: ICustomerAddressState = {
     fields: {
         salutation: {
             value: ' ',

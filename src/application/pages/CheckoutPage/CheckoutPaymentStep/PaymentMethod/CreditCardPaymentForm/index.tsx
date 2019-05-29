@@ -44,7 +44,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
         return providersCollection.map(item => (
             <Grid item xs={ 6 }  lg={ 3 } key={ item.value }>
                 <FormControlLabel
-                    value={ item.value }
+                    value={ item.value.toString() }
                     classes={{
                         root: `${classes.inputRadio} ${item.value === selectedValue ? classes.checkedInputRadio : '' }`,
                         label: classes.radioLabel

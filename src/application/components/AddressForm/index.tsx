@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { Grid, withStyles } from '@material-ui/core';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
-import { SalutationVariants } from '@constants/customer';
+import { salutationVariants } from '@constants/customer';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { ICountry } from '@interfaces/addresses';
@@ -31,7 +31,7 @@ const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
                     <SprykerSelect
                         currentMode={ data.salutation.value }
                         onChangeHandler={ onFieldChangeHandler }
-                        menuItems={ SalutationVariants }
+                        menuItems={ salutationVariants }
                         label={ <FormattedMessage id={ 'salutation.label' } /> }
                         menuItemFirst={{
                             value: ' ',

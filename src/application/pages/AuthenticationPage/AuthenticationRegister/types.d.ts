@@ -1,5 +1,6 @@
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
+import { IConfigInputState } from '@interfaces/forms';
 
 export interface IAuthenticationRegisterProps extends RouteProps, WithRouter {
     isAuth?: boolean;
@@ -10,12 +11,15 @@ export interface IAuthenticationRegisterProps extends RouteProps, WithRouter {
 }
 
 export interface IAuthenticationRegisterState {
-    salutation: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    acceptedTerms: boolean;
+    fields: {
+        [index: string]: IConfigInputState;
+        salutation: IConfigInputState;
+        firstName: IConfigInputState;
+        lastName: IConfigInputState;
+        password: IConfigInputState;
+        confirmPassword: IConfigInputState;
+        acceptedTerms: IConfigInputState;
+    };
+    isFormValid: boolean;
     isCartLoading: boolean;
 }

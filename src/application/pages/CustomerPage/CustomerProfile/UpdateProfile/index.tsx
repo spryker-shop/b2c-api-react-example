@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { IUpdateProfileProps as Props, IUpdateProfileState as State } from './types';
-import { SalutationVariants, updateAccountConfigInputStable } from '@constants/customer';
+import { salutationVariants, updateAccountConfigInputStable as inputsConfig } from '@constants/customer';
 import { Button, Grid, Typography, withStyles } from '@material-ui/core';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { SprykerInput } from '@components/UI/SprykerInput';
@@ -15,7 +15,7 @@ class UpdateProfileComponent extends React.Component<Props, State> {
     public readonly state: State = {
         fields: {
             salutation: {
-                value: this.props.customerData ? this.props.customerData.salutation : '',
+                value: this.props.customerData ? this.props.customerData.salutation : ' ',
                 isError: false
             },
             firstName: {
@@ -58,7 +58,7 @@ class UpdateProfileComponent extends React.Component<Props, State> {
     protected handleInputChange = (event: InputChangeEvent): void => {
         const { name, value } = event.target;
         const cleanValue = value.trim();
-        const isInputValid = checkFormInputValidity({ value, fieldConfig: updateAccountConfigInputStable[name] });
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: inputsConfig[name] });
 
         this.setState({
             ...this.state,
@@ -75,7 +75,7 @@ class UpdateProfileComponent extends React.Component<Props, State> {
     protected handleFormValidity = (): void => {
         const isFormValid = checkFormValidity({
             form: this.state.fields,
-            fieldsConfig: updateAccountConfigInputStable
+            fieldsConfig: inputsConfig
         });
 
         this.setState({ isFormValid });
@@ -108,7 +108,7 @@ class UpdateProfileComponent extends React.Component<Props, State> {
             lastName: lastNameConfig,
             salutation: salutationConfig,
             email: emailConfig
-        } = updateAccountConfigInputStable;
+        } = inputsConfig;
 
         return (
             <>
@@ -121,13 +121,13 @@ class UpdateProfileComponent extends React.Component<Props, State> {
                             <SprykerSelect
                                 currentMode={ salutation.value }
                                 onChangeHandler={ this.handleInputChange }
-                                menuItems={ SalutationVariants }
+                                menuItems={ salutationVariants }
                                 label={ <FormattedMessage id={ 'salutation.label' } /> }
-                                menuItemFirst={ {
+                                menuItemFirst={{
                                     value: ' ',
                                     name: <FormattedMessage id={ 'salutation.label' } />,
                                     disabled: true
-                                } }
+                                }}
                                 name={ salutationConfig.inputName }
                                 isFullWidth
                                 isSimple

@@ -1,34 +1,33 @@
 import React from 'react';
 import { TSalutationVariant } from '@interfaces/customer';
-import { IConfigInputStable } from '@interfaces/forms';
-import { IAddressConfigInputStable } from '@constants/checkout/types';
+import { IFormConfigInputStable } from '@interfaces/forms';
 import { FormattedMessage } from 'react-intl';
 
-const SalutationVariantMrValue: string = 'Mr';
-const SalutationVariantMrsValue: string = 'Mrs';
-const SalutationVariantDrValue: string = 'Dr';
-const SalutationVariantMsValue: string = 'Ms';
+const salutationVariantMrValue: string = 'Mr';
+const salutationVariantMrsValue: string = 'Mrs';
+const salutationVariantDrValue: string = 'Dr';
+const salutationVariantMsValue: string = 'Ms';
 
-export const SalutationVariants: TSalutationVariant[] = [
+export const salutationVariants: TSalutationVariant[] = [
     {
-        value: SalutationVariantMrValue,
+        value: salutationVariantMrValue,
         name: <FormattedMessage id={ 'salutation.variant.mr' } />
     },
     {
-        value: SalutationVariantMsValue,
+        value: salutationVariantMsValue,
         name: <FormattedMessage id={ 'salutation.variant.ms' } />
     },
     {
-        value: SalutationVariantMrsValue,
+        value: salutationVariantMrsValue,
         name: <FormattedMessage id={ 'salutation.variant.mrs' } />
     },
     {
-        value: SalutationVariantDrValue,
+        value: salutationVariantDrValue,
         name: <FormattedMessage id={ 'salutation.variant.dr' } />
     },
 ];
 
-export const updateAccountConfigInputStable: {[key: string]: IConfigInputStable} = {
+export const updateAccountConfigInputStable: IFormConfigInputStable = {
     salutation: {
         isRequired: true,
         inputName: 'salutation',
@@ -48,7 +47,7 @@ export const updateAccountConfigInputStable: {[key: string]: IConfigInputStable}
     }
 };
 
-export const changePasswordConfigInputStable: {[key: string]: IConfigInputStable} = {
+export const changePasswordConfigInputStable: IFormConfigInputStable = {
     password: {
         isRequired: true,
         inputName: 'password',
@@ -63,7 +62,7 @@ export const changePasswordConfigInputStable: {[key: string]: IConfigInputStable
     }
 };
 
-export const customerAddressConfigInputStable: IAddressConfigInputStable = {
+export const customerAddressConfigInputStable: IFormConfigInputStable = {
     firstName: {
         isRequired: true,
         inputName: 'firstName',

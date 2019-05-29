@@ -8,14 +8,8 @@ import { ICustomerOverviewProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { EditIcon } from './icons';
 import { NavLink, withRouter } from 'react-router-dom';
-import {
-    pathCustomerProfile,
-    pathCustomerOrderHistory,
-    pathCheckoutShipmentStep,
-    pathLoginPage
-} from '@constants/routes';
+import { pathCustomerProfile, pathCustomerOrderHistory, pathLoginPage } from '@constants/routes';
 import { styles } from './styles';
-import { LogoutIcon } from '@containers/UserDropNavigation/UserDrop/icons';
 import { ClickEvent } from '@interfaces/common';
 
 @connect

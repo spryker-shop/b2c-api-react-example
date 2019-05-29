@@ -4,7 +4,8 @@ import * as React from 'react';
 
 interface IMenuItemSelect {
     value: string | number;
-    name: string | number | JSX.Element;
+    name?: string | number | JSX.Element;
+    labelIcon?: JSX.Element;
 }
 
 interface IMenuItemFirst extends IMenuItemSelect {
