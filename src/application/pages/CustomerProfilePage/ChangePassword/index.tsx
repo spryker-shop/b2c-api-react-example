@@ -36,7 +36,7 @@ export class ChangePasswordComponent extends React.Component<Props, State> {
             this.handleFormValidity();
         }
 
-        if (this.props.passwordUpdated && !prevProps.passwordUpdated) {
+        if (this.props.isPasswordUpdated && !prevProps.isPasswordUpdated) {
             this.clearPasswords();
         }
     };
