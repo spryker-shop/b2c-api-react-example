@@ -10,3 +10,6 @@ export const getCustomerReference = (state: IReduxStore, props: IReduxOwnProps):
 
 export const isPageLoginStateLoading = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     state.pagesLogin && state.pagesLogin.pending && state.pagesLogin.pending === true;
+
+export const isPageLoginStateFulfilled = (state: IReduxStore, props: IReduxOwnProps): boolean =>
+    state.pagesLogin && state.pagesLogin.fulfilled && state.pagesLogin.fulfilled === true;

@@ -8,6 +8,8 @@ export interface IResetPasswordPageProps extends WithStyles<typeof styles> {
     resetPasswordAction?: (payload: IResetPasswordPayload) => void;
     location: Location;
     isLoading: boolean;
+    push: Function;
+    isFulfilled: boolean;
 }
 
 export interface IResetPasswordPageState {

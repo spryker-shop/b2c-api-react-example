@@ -13,6 +13,7 @@ import { createPasswordConfigInputStable as inputsConfig } from '@constants/auth
 import { checkFormInputValidity, checkFormValidity, formDataTransformer } from '@helpers/forms';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationWarning } from '@constants/notifications';
+import { pathLoginPage } from '@constants/routes';
 
 @connect
 class ResetPasswordPageComponent extends React.Component<Props, State> {
@@ -33,6 +34,10 @@ class ResetPasswordPageComponent extends React.Component<Props, State> {
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         if (prevState.fields !== this.state.fields) {
             this.handleFormValidity();
+        }
+
+        if (!prevProps.isFulfilled && this.props.isFulfilled) {
+            this.props.push(pathLoginPage);
         }
     };
 
