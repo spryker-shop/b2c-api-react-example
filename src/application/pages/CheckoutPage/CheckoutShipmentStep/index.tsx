@@ -32,7 +32,7 @@ const CheckoutShipmentStepComponent: React.SFC<Props> = (props): JSX.Element => 
                     variant="contained"
                     className={ classes.button }
                 >
-                    <FormattedMessage id={ 'go.to.shipment.title' } />
+                    <FormattedMessage id={ 'go.to.payment.title' } />
                 </Button>
 
                 <NavLink to={ pathCheckoutAddressStep } className={ classes.back }>

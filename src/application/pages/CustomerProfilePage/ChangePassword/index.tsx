@@ -7,7 +7,7 @@ import { NotificationsMessage } from '@components/Notifications/NotificationsMes
 import { Button, Grid, Typography, withStyles } from '@material-ui/core';
 import { changePasswordConfigInputStable } from '@constants/customer';
 import { SprykerInput } from '@components/UI/SprykerInput';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
 import { InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 

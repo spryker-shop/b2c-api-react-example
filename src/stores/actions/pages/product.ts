@@ -39,9 +39,3 @@ export const getProductAvailabilityFulfilledStateAction = (payload: IConcretePro
     type: PRODUCT_AVAILABILITY_REQUEST + '_FULFILLED',
     payloadAvailability: payload,
 });
-
-export const getProductAvailabilityAction = function (sku: string) {
-    return (dispatch: Function, getState: Function) => (
-        ProductService.getConcreteProductAvailability(dispatch, sku)
-    );
-};

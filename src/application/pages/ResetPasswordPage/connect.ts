@@ -1,5 +1,5 @@
 import { reduxify } from '@hoc/Reduxify';
-import { getRouterMatchParam } from '@helpers/router';
+import { getRouterMatchParam } from '@helpers/common';
 import { resetPasswordAction } from '@stores/actions/pages/login';
 import { isPageLoginStateLoading } from '@stores/reducers/pages/login';
 import { IResetPasswordPayload } from '@interfaces/customer';

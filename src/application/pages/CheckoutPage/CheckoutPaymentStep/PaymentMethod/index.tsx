@@ -4,12 +4,11 @@ import { withStyles, FormControlLabel, Radio, Grid } from '@material-ui/core';
 import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
 import { PartnerIconVisa } from './icons';
-import { checkFormValidity } from '@helpers/forms/validation';
+import { checkFormValidity } from '@helpers/forms';
 import { IPaymentMethod } from '@interfaces/checkout';
 import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
 import { InputChangeEvent } from '@interfaces/common';
 import { IPaymentMethodProps as Props } from './types';
-import { IPaymentProviderToIcon } from '@helpers/formCreations/checkout/types';
 import {
     invoiceConfigInputStable,
     checkoutPaymentMethodsNames,
@@ -46,7 +45,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         mutatePaymentMethod({ value, isPaymentStepCompleted });
     };
 
-    const paymentProviderToIcon: IPaymentProviderToIcon = {
+    const paymentProviderToIcon: {[key: string]: JSX.Element;} = {
         DummyPayment: <PartnerIconVisa key="visa" />
     };
 

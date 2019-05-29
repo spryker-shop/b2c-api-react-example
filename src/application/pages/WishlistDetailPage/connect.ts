@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { getRouterMatchParam } from '@helpers/router';
+import { getRouterMatchParam } from '@helpers/common';
 import { getDetailWishlistAction } from '@stores/actions/pages/wishlist';
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 import { isWishlistDetailsPresent, isWishlistDetailsStateRejected } from '@stores/reducers/pages/wishlist/selectors';

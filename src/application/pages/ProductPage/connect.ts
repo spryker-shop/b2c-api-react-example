@@ -9,7 +9,7 @@ import {
     isProductDetailsPresent,
 } from '@stores/reducers/pages/product';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { getRouterMatchParam } from '@helpers/router';
+import { getRouterMatchParam } from '@helpers/common';
 import { getProductDataAction } from '@stores/actions/pages/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isWishlistsCollectionInitiated } from '@stores/reducers/pages/wishlist/selectors';

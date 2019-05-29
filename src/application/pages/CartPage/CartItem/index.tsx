@@ -21,8 +21,10 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         handleDeleteItem,
         handleChangeQty,
         name,
-        priceDefaultGross,
-        priceOriginalGross,
+        prices: {
+            priceDefaultGross,
+            priceOriginalGross
+        },
         isUpdateToDefault,
         abstractSku,
         calculations: { unitPriceToPayAggregation },

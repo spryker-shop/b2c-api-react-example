@@ -11,7 +11,7 @@ import { IMainNavProps as Props, IMainNavState as State } from './types';
 import { IMainNavigationNode } from '@interfaces/navigations';
 import { styles } from './styles';
 import { ChevronIcon, CrossIcon } from './icons';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @(withRouter as Function)
 class MainNavigationComponent extends React.Component<Props, State> {

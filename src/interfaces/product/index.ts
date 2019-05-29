@@ -1,5 +1,5 @@
-import { ISuperAttribute } from '@helpers/product/types';
 import { IProductImage } from '@components/ProductImageSlider/types';
+import { IAvailableLabel } from '@interfaces/search';
 
 export const concreteProductType = 'concreteProduct';
 export type TConcreteProductType = 'concreteProduct';
@@ -7,7 +7,6 @@ export type TConcreteProductType = 'concreteProduct';
 export const abstractProductType = 'abstractProduct';
 export type TAbstractProductType = 'abstractProduct';
 
-export const absentProductType = 'absentProduct';
 export type TAbsentProductType = 'absentProduct';
 
 export const priceTypeNameDefault = 'DEFAULT';
@@ -36,11 +35,12 @@ export interface IProductCardImages {
 }
 
 export interface IProductCard {
+    image?: string;
     images?: IProductCardImages[];
     price: number;
     abstractName: string;
     abstractSku: string;
-    prices: IProductPricesItem[];
+    prices: IProductParsedPrices;
     labels?: IProductLabel[];
 }
 
@@ -69,12 +69,7 @@ export interface IProductPropFullData extends IProductAvailability {
     descriptionAttributes: IDescriptionAttributes[];
     images: IProductImage[];
     name: string;
-    prices: {
-        priceOriginalGross?: null,
-        priceOriginalNet?: null,
-        priceDefaultGross?: null,
-        priceDefaultNet?: null,
-    };
+    prices: IProductParsedPrices;
     sku: string;
     productType: TProductType;
 }
@@ -124,4 +119,29 @@ export interface IDescriptionAttributes {
 
 export interface IIndexSignature {
     [key: string]: string;
+}
+
+export interface ISuperAttribute {
+    name: string;
+    nameToShow: string;
+    data: ISuperAttributeData[];
+}
+
+export interface ISuperAttributeData {
+    value: string;
+    name: string;
+    idProductConcrete?: string | number;
+}
+
+export interface IProductResponseLabel {
+    id: string;
+    type: string;
+    attributes: IAvailableLabel;
+}
+
+export interface IProductParsedPrices {
+    priceOriginalGross?: null;
+    priceOriginalNet?: null;
+    priceDefaultGross?: null;
+    priceDefaultNet?: null;
 }

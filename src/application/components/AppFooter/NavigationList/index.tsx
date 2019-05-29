@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { INavigationListProps as Props, INavigationListState as State } from './types';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 class NavigationListComponent extends React.Component<Props, State> {
     public readonly state: State = {

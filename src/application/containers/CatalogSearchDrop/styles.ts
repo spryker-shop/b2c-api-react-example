@@ -22,6 +22,7 @@ export const styles = (theme: Theme) => createStyles({
         },
     },
     content: {
+        overflow: 'visible',
         [theme.breakpoints.up('lg')]: {
             background: 'none',
             width: '50%',

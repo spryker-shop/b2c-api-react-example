@@ -4,7 +4,7 @@ import {
     parseUserCartResponseMultiValue,
     parseCartCreateResponse,
     parseUserCartResponseOneValue
-} from '@helpers/cart';
+} from '@helpers/parsing';
 import * as cartActions from '@stores/actions/common/cart';
 import { CartAuthenticateErrorMessage } from '@translation/';
 import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';

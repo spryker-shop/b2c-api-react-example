@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { createWishlistMenuVariants } from '@helpers/wishlist/list';
 import { connect } from './connect';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import {
@@ -11,6 +10,8 @@ import { concreteProductType } from '@interfaces/product';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
+import { IWishlist } from '@interfaces/wishlist';
+import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
 @connect
 export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
@@ -77,6 +78,9 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         return !isWishlistsFetched || productType !== concreteProductType || isWishlistLoading;
     };
 
+    protected createWishlistMenuVariants = (): IMenuItemSelect[] | null =>
+        this.props.wishlists.map((wishlist: IWishlist) => ({name: wishlist.name, value: wishlist.id}));
+
     public render(): JSX.Element {
         const { classes, wishlists } = this.props;
         const { wishlistSelected } = this.state;
@@ -88,7 +92,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                         <SprykerSelect
                             currentMode={ wishlistSelected }
                             onChangeHandler={ this.handleWishlistChange }
-                            menuItems={ createWishlistMenuVariants(wishlists) }
+                            menuItems={ this.createWishlistMenuVariants() }
                             name="wishlists"
                             menuItemFirst={{
                                 value: '',

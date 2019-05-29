@@ -1,22 +1,9 @@
 import { IAddressItem } from '@interfaces/addresses';
 import { IAddressFormState } from '@interfaces/forms';
-
-export const addressDefault: IAddressItem = {
-    firstName: '',
-    lastName: '',
-    salutation: '',
-    address1: '',
-    address2: '',
-    address3: '',
-    zipCode: '',
-    city: '',
-    country: '',
-    company: '',
-    phone: ''
-};
+import { checkFormInputValidity, checkFormValidity } from './validation';
 
 export const getAddressForm = (address: IAddressFormState): IAddressItem => {
-    let payloadAddress: IAddressItem = addressDefault;
+    let payloadAddress: IAddressItem = {};
 
     Object.keys(address).map((field: string) => {
         const { value } = address[field];
@@ -29,7 +16,7 @@ export const getAddressForm = (address: IAddressFormState): IAddressItem => {
     return payloadAddress;
 };
 
-const limit = (value: string, max: string): string => {
+const charsLimit = (value: string, max: string): string => {
     if (value.length === 1 && value[0] > max[0]) {
         value = '0' + value;
     }
@@ -46,7 +33,7 @@ const limit = (value: string, max: string): string => {
 };
 
 export const cardExpiryFormat = (value: string): string => {
-    const month = limit(value.substring(0, 2), '12');
+    const month = charsLimit(value.substring(0, 2), '12');
     const year = value.substring(2, 4);
     const isMonthFulfilled = value.length >= 2;
 
@@ -54,11 +41,16 @@ export const cardExpiryFormat = (value: string): string => {
 };
 
 export const dateBirthFormat = (value: string): string => {
-    const days = limit(value.substring(0, 2), '31');
-    const month = limit(value.substring(2, 4), '12');
+    const days = charsLimit(value.substring(0, 2), '31');
+    const month = charsLimit(value.substring(2, 4), '12');
     const year = value.substring(4, 8);
     const isMonthFulfilled = value.length >= 4;
     const isDaysFulfilled = value.length >= 2;
 
     return `${days}${isDaysFulfilled ? `/${month}` : ''}${isMonthFulfilled ? `/${year}` : ''}`;
+};
+
+export {
+    checkFormInputValidity,
+    checkFormValidity
 };

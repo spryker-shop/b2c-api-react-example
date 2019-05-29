@@ -7,7 +7,7 @@ import { ICustomerAddressPageProps as Props, ICustomerAddressPageState as State 
 import { Grid, Button, withStyles, Typography } from '@material-ui/core';
 import { styles } from './styles';
 import { AddressForm } from '@components/AddressForm';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
 import { customerAddressConfigInputStable as inputsConfig } from '@constants/customer';
 import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
 import { IAddressItem } from '@interfaces/addresses';

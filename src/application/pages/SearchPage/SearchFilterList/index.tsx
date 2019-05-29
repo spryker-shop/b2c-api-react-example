@@ -16,7 +16,7 @@ import { Button, Hidden, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @connect
 class SearchFilterListComponent extends React.Component<Props, State> {

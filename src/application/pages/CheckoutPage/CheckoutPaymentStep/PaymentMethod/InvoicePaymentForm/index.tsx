@@ -4,10 +4,9 @@ import { Grid } from '@material-ui/core';
 import { checkoutFormsNames, invoiceConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { IInvoicePaymentFormProps as Props } from './types';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity, dateBirthFormat } from '@helpers/forms';
 import { FormattedMessage } from 'react-intl';
 import { CalendarIcon } from './icons';
-import { dateBirthFormat } from '@helpers/forms';
 import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
