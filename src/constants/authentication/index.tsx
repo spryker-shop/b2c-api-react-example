@@ -1,9 +1,9 @@
 import { IFormConfigInputStable } from '@interfaces/forms';
 
 export const loginConfigInputStable: IFormConfigInputStable = {
-    email: {
+    username: {
         isRequired: true,
-        inputName: 'email',
+        inputName: 'username',
         isEmail: true
     },
     password: {
@@ -13,7 +13,6 @@ export const loginConfigInputStable: IFormConfigInputStable = {
 };
 
 export const registerConfigInputStable: IFormConfigInputStable = {
-    ...loginConfigInputStable,
     salutation: {
         isRequired: true,
         inputName: 'salutation',
@@ -25,6 +24,15 @@ export const registerConfigInputStable: IFormConfigInputStable = {
     lastName: {
         isRequired: true,
         inputName: 'lastName',
+    },
+    email: {
+        isRequired: true,
+        inputName: 'email',
+        isEmail: true
+    },
+    password: {
+        isRequired: true,
+        inputName: 'password',
     },
     confirmPassword: {
         isRequired: true,

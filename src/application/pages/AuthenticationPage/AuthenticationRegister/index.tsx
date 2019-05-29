@@ -94,7 +94,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
     public render(): JSX.Element {
         const { isLoading } = this.props;
         const { isCartLoading, isFormValid, fields } = this.state;
-        const isButtonDisables = isLoading || isCartLoading || !isFormValid;
+        const isButtonDisabled = isLoading || isCartLoading || !isFormValid;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmitForm } id="RegisterForm">
@@ -181,7 +181,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
                     </Grid>
                     <Grid item xs={ 12 }>
                         <Button
-                            disabled={ isButtonDisables }
+                            disabled={ isButtonDisabled }
                             type="submit"
                             variant="contained"
                             fullWidth
