@@ -32,9 +32,9 @@ class CheckoutPageComponent extends React.Component<Props, State> {
     };
 
     public componentDidMount = (): void => {
-        const { isCheckoutFulfilled } = this.props;
+        const { isCheckoutFulfilled, isCartEmpty } = this.props;
 
-        if (!isCheckoutFulfilled) {
+        if (!isCheckoutFulfilled && !isCartEmpty) {
             this.getCheckoutDataAction();
         }
     };
@@ -156,13 +156,12 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
         const isSummaryPage = location.pathname === pathCheckoutSummaryStep;
         const isThanksPage = location.pathname === pathCheckoutThanks;
-        const isLoginPage = location.pathname === pathCheckoutLoginStep;
 
         if (pathCheckoutPage === location.pathname) {
             return <Redirect to={ redirectPath } />;
         }
 
-        if (!isProductsExists && !isThanksPage && !isLoginPage) {
+        if (!isProductsExists && !isThanksPage) {
             return (
                 <MainContainer classes={ { wrapper: classes.wrapper } }>
                     <PageTitle title={ <FormattedMessage id={ 'no.products.in.checkout.title' } /> } />
@@ -173,7 +172,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         return (
             <>
                 { !isThanksPage &&
-                <CheckoutBreadcrumbs />
+                    <CheckoutBreadcrumbs />
                 }
                 <MainContainer classes={ { wrapper: classes.wrapper } }>
                     { (!isCheckoutLoading || isSummaryPage) &&

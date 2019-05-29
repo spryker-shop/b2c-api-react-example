@@ -1,5 +1,5 @@
 import { IAddressItem } from '@interfaces/addresses';
-import { IAddressFormState } from '@interfaces/forms';
+import { IAddressFormState, IFormStateIndexSignature, IFormInputIndexSignature } from '@interfaces/forms';
 import { checkFormInputValidity, checkFormValidity } from './validation';
 
 export const getAddressForm = (address: IAddressFormState): IAddressItem => {
@@ -49,6 +49,13 @@ export const dateBirthFormat = (value: string): string => {
 
     return `${days}${isDaysFulfilled ? `/${month}` : ''}${isMonthFulfilled ? `/${year}` : ''}`;
 };
+
+export const formDataTransformer = (fields: IFormStateIndexSignature): object => Object.keys(fields)
+    .reduce((accumulator: IFormInputIndexSignature, name: string) => {
+        accumulator[name] = fields[name].value;
+
+        return accumulator;
+    }, {});
 
 export {
     checkFormInputValidity,

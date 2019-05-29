@@ -38,6 +38,7 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData:  ICheckoutInvoiceState;
     isCheckoutInitiated: boolean;
+    isCartEmpty: boolean;
 }
 
 export interface ICheckoutPageState {

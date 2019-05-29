@@ -1,6 +1,7 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { WithRouter } from '@interfaces/common';
+import { IConfigInputState } from '@interfaces/forms';
 
 export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, WithRouter {
     dispatch?: Function;
@@ -10,5 +11,9 @@ export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, Wit
 }
 
 export interface IForgotPasswordPageState {
-    email: string;
+    fields: {
+        [index: string]: IConfigInputState;
+        email: IConfigInputState;
+    };
+    isFormValid: boolean;
 }

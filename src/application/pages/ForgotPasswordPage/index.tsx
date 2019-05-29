@@ -9,22 +9,68 @@ import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { pathLoginPage } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
+import { emailConfigInputStable as inputsConfig } from '@constants/authentication';
 
 @connect
 class ForgotPasswordPageComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        email: ''
+        fields: {
+            email: {
+                value: '',
+                isError: false
+            }
+        },
+        isFormValid: false
     };
 
-    protected handleChange = (event: InputChangeEvent): void => {
-        this.setState({ email: event.target.value });
+    public componentDidUpdate = (prevProps: Props, prevState: State): void => {
+        if (prevState.fields !== this.state.fields) {
+            this.handleFormValidity();
+        }
+
+        if (prevProps.isLoading && !this.props.isLoading) {
+            this.setState({
+                fields: {
+                    email: {
+                        value: '',
+                        isError: false
+                    }
+                }
+            });
+        }
     };
 
-    protected submitRequest = (): void => this.props.forgotPasswordAction(this.state.email);
+    protected handleInputChange = (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: inputsConfig[name] });
+
+        this.setState((prevState: State) => ({
+            ...prevState,
+            fields: {
+                ...prevState.fields,
+                [name]: {
+                    value: value.trim(),
+                    isError: !isInputValid
+                }
+            }
+        }));
+    };
+
+    protected submitRequest = (): void =>  this.props.forgotPasswordAction(this.state.fields.email.value);
+
+    protected handleFormValidity = (): void => {
+        const isFormValid = checkFormValidity({
+            form: this.state.fields,
+            fieldsConfig: inputsConfig
+        });
+
+        this.setState({ isFormValid });
+    };
 
     public render(): JSX.Element {
         const { classes, isLoading } = this.props;
-        const { email } = this.state;
+        const { fields, isFormValid } = this.state;
 
         return (
             <MainContainer classes={ { layout: classes.layout, wrapper: classes.wrapper } }>
@@ -42,10 +88,11 @@ class ForgotPasswordPageComponent extends React.Component<Props, State> {
                                     <SprykerInput
                                         isRequired
                                         label={ <FormattedMessage id={ 'email.label' } /> }
-                                        inputName="email"
-                                        onChangeHandler={ this.handleChange }
-                                        inputValue={ email }
+                                        inputName={ inputsConfig.email.inputName }
+                                        onChangeHandler={ this.handleInputChange }
                                         inputType="email"
+                                        inputValue={ fields.email.value }
+                                        isError={ fields.email.isError }
                                     />
                                 </Grid>
                                 <Grid item xs={ 12 }>
@@ -65,7 +112,7 @@ class ForgotPasswordPageComponent extends React.Component<Props, State> {
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 6 }>
                                             <Button
-                                                disabled={ isLoading }
+                                                disabled={ isLoading || !isFormValid }
                                                 variant="contained"
                                                 onClick={ this.submitRequest }
                                                 fullWidth

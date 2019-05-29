@@ -13,8 +13,7 @@ import { SprykerInput } from '@components/UI/SprykerInput';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
 import { SprykerCheckbox } from '@components/UI/SprykerCheckbox';
 import { registerConfigInputStable as inputsConfig } from '@constants/authentication';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
-import { IFormInputIndexSignature } from '@interfaces/forms';
+import { checkFormInputValidity, checkFormValidity, formDataTransformer } from '@helpers/forms';
 import { ICustomerProfile } from '@interfaces/customer';
 import { initialState } from './settings';
 
@@ -72,12 +71,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
         event.preventDefault();
         const { customerRegisterAction } = this.props;
         const { fields } = this.state;
-        const payload: ICustomerProfile | {} = Object.keys(fields)
-            .reduce((accumulator: IFormInputIndexSignature, name: string) => {
-                accumulator[name] = fields[name].value;
-
-                return accumulator;
-            }, {});
+        const payload: ICustomerProfile | {} = formDataTransformer(fields);
 
         if (fields.password.value !== fields.confirmPassword.value) {
             NotificationsMessage({

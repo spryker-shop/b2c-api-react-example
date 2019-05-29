@@ -10,9 +10,8 @@ import { FormEvent, InputChangeEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
 import { loginConfigInputStable as inputsConfig } from '@constants/authentication';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
+import { checkFormInputValidity, checkFormValidity, formDataTransformer } from '@helpers/forms';
 import { ICustomerLoginData } from '@interfaces/customer';
-import { IFormInputIndexSignature } from '@interfaces/forms';
 
 @(withRouter as Function)
 @connect
@@ -20,7 +19,7 @@ class LoginFormComponent extends React.Component<Props, State> {
     public readonly state: State = {
         fields: {
             username: {
-                value: ' ',
+                value: '',
                 isError: false
             },
             password: {
@@ -55,12 +54,7 @@ class LoginFormComponent extends React.Component<Props, State> {
         event.preventDefault();
         const { fields } = this.state;
         const { loginCustomerAction } = this.props;
-        const payload: ICustomerLoginData | {} = Object.keys(fields)
-            .reduce((accumulator: IFormInputIndexSignature, name: string) => {
-                accumulator[name] = fields[name].value;
-
-                return accumulator;
-            }, {});
+        const payload: ICustomerLoginData | {} = formDataTransformer(fields);
 
         loginCustomerAction(payload);
     };

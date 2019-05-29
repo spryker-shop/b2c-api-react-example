@@ -16,13 +16,7 @@ import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/sel
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartItem } from '@interfaces/cart';
-import {
-    IBillingSelectionState,
-    ICheckoutStepsCompletionState,
-    IDeliverySelectionState,
-    IPaymentMethod,
-    IShipmentMethod
-} from '@interfaces/checkout';
+import { IBillingSelectionState, ICheckoutStepsCompletionState, IDeliverySelectionState } from '@interfaces/checkout';
 import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
@@ -48,6 +42,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
     const paymentMethod: string = state.pageCheckout.paymentMethod;
     const shipmentMethod: string = state.pageCheckout.shipmentMethod;
+    const isCartEmpty: boolean = state.cart.data.isCartEmpty;
 
     return {
         isCheckoutInitiated,
@@ -67,7 +62,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         billingNewAddress,
         billingSelection,
         paymentMethod,
-        shipmentMethod
+        shipmentMethod,
+        isCartEmpty
     };
 };
 
