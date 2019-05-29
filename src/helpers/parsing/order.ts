@@ -30,21 +30,23 @@ export const parseGetOrderDetailsResponse = (response: IOrderDetailsRawResponse)
     const { data, data: { attributes } } = response;
     type TAccumulator = { [key: string]: IOrderDetailsItem };
 
-    const itemsParsed = attributes.items.reduce((acc: TAccumulator, item: IOrderDetailsItem) => {
+    const itemsParsed = attributes.items.reduce((accumulator: TAccumulator, item: IOrderDetailsItem) => {
 
-        if (acc[item.sku]) {
-            const prev = acc[item.sku];
-            acc[item.sku].sku = item.sku;
-            acc[item.sku].quantity = prev.quantity + item.quantity;
-            acc[item.sku].name = item.name;
-            acc[item.sku].sumPrice = prev.sumPrice;
-            acc[item.sku].sumPriceToPayAggregation = prev.sumPriceToPayAggregation + item.sumPriceToPayAggregation;
+        if (accumulator[item.sku]) {
+            const prev = accumulator[item.sku];
+            const sumPriceToPayAggregation = prev.sumPriceToPayAggregation + item.sumPriceToPayAggregation;
+
+            accumulator[item.sku].sku = item.sku;
+            accumulator[item.sku].quantity = prev.quantity + item.quantity;
+            accumulator[item.sku].name = item.name;
+            accumulator[item.sku].sumPrice = prev.sumPrice;
+            accumulator[item.sku].sumPriceToPayAggregation = sumPriceToPayAggregation;
 
         } else {
-            acc[item.sku] = item;
+            accumulator[item.sku] = item;
         }
 
-        return acc;
+        return accumulator;
     }, {});
 
     return {

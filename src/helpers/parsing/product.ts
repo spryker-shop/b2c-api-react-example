@@ -4,7 +4,8 @@ import {
     IProductAttributes,
     ISuperAttribute,
     IDescriptionAttributes,
-    IProductDataParsed
+    IProductDataParsed,
+    ISuperAttributeData
 } from '@interfaces/product';
 import { abstractProductType, concreteProductType, defaultProductQuantity } from '@constants/product';
 import { IProductRawResponse, TProductRowIncludedResponse } from '@services/pages/Product/types';
@@ -145,11 +146,12 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
         data.attributes.attributeMap, attributeNamesContainer
     );
     result.superAttributes = superAttributes;
-    result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: { [key: string]: string }, name) => {
-        acc[name] = null;
+    result.selectedAttrNames = superAttributes.map(attr => attr.name)
+        .reduce((accumulator: IIndexSignature, name: string) => {
+            accumulator[name] = null;
 
-        return acc;
-    }, {});
+            return accumulator;
+        }, {});
 
     return result;
 };
@@ -164,13 +166,13 @@ const parseSuperAttributes = (
 
     const names: string[] = Object.keys(superAttributes.super_attributes);
 
-    return names.reduce((acc, name) => [
-        ...acc,
+    return names.reduce((accumulator: ISuperAttribute[], name: string) => [
+        ...accumulator,
         {
             name,
             nameToShow: attributeNamesContainer[name],
-            data: superAttributes.super_attributes[name]
-                .reduce((acc, value) => [...acc, { value, name: value }], [])
+            data: superAttributes.super_attributes[name].reduce((accumulator: ISuperAttributeData[], value: string) =>
+                [...accumulator, { value, name: value }], [])
         }
     ], []);
 };
@@ -178,8 +180,8 @@ const parseSuperAttributes = (
 const parseDescriptionAttributes = (
     attributeNames: IIndexSignature,
     attributeValues: IProductAttributes
-): IDescriptionAttributes[] =>
-Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
-    name: attributeNames[attributeKey],
-    value: attributeValues[attributeKey]
-}));
+): IDescriptionAttributes[] => Object.keys(attributeNames)
+    .filter(attributeKey => Boolean(attributeValues[attributeKey])).map((attributeKey: string) => ({
+        name: attributeNames[attributeKey],
+        value: attributeValues[attributeKey]
+    }));

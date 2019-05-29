@@ -15,8 +15,9 @@ export const parseImageSets = (imageSets: IProductImageSetsRawResponse[]): IProd
         return null;
     }
 
-    const images = imageSets.reduce((acc, set: IProductImageSetsRawResponse) =>
-        acc.concat(set.images.map((imgs: IProductCardImagesResponse) => imgs)), []);
+    const images: IProductCardImagesResponse[] =
+        imageSets.reduce((accumulator: IProductCardImagesResponse[], set: IProductImageSetsRawResponse) =>
+            accumulator.concat(set.images.map((imgs: IProductCardImagesResponse) => imgs)), []);
 
     return images.map((element: IProductCardImagesResponse, index: number) => ({
         id: index,
@@ -29,7 +30,7 @@ export const getProductLabel = (
     labelsIdArr: string[],
     availableLabels: IProductLabelsCollectionResponse
 ): IProductLabel[] => {
-    const isLabelsExist = (Array.isArray(labelsIdArr) && labelsIdArr.length > 0);
+    const isLabelsExist: boolean = Array.isArray(labelsIdArr) && labelsIdArr.length > 0;
 
     return isLabelsExist
         ? labelsIdArr.map((labelId: string) => {
@@ -45,26 +46,25 @@ export const getProductLabel = (
 };
 
 export const parsePrices = (prices: IProductPricesResponse[]): IProductPrices =>
-    prices.reduce((acc: { [key: string]: number }, priceData) => {
+    prices.reduce((accumulator: { [key: string]: number }, priceData) => {
         if (priceData.priceTypeName === priceTypeNameDefault) {
-            acc['priceDefaultGross'] = priceData.grossAmount;
-            acc['priceDefaultNet'] = priceData.netAmount;
+            accumulator['priceDefaultGross'] = priceData.grossAmount;
+            accumulator['priceDefaultNet'] = priceData.netAmount;
         }
 
         if (priceData.priceTypeName === priceTypeNameOriginal) {
-            acc['priceOriginalGross'] = priceData.grossAmount;
-            acc['priceOriginalNet'] = priceData.netAmount;
+            accumulator['priceOriginalGross'] = priceData.grossAmount;
+            accumulator['priceOriginalNet'] = priceData.netAmount;
         }
 
-        return acc;
+        return accumulator;
     }, {});
 
 export const getAvailableLables = (included: IProductRelationsIncluded[]): IProductLabelsCollectionResponse => {
     const availableLabels: IProductLabelsCollectionResponse = {};
-    const productLabelsType = EIncludeTypes.PRODUCT_LABELS;
 
     const includedLabels: IProductLabelsRowIncludedResponse[] = included.filter(item => (
-        item.type === productLabelsType
+        item.type === EIncludeTypes.PRODUCT_LABELS
     ));
 
     includedLabels.forEach((label: IProductLabelsRowIncludedResponse) => {

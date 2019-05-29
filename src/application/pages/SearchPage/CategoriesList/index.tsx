@@ -80,10 +80,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
     };
 
     protected getFormattedActiveCategories = (data: IFilterValue[]): IActiveFilterCategories => (
-        data.reduce((acc: IActiveFilterCategories, item: IFilterValue) => {
-            acc[item.value] = item.doc_count;
+        data.reduce((accumulator: IActiveFilterCategories, item: IFilterValue) => {
+            accumulator[item.value] = item.doc_count;
 
-            return acc;
+            return accumulator;
         }, {})
     );
 

@@ -13,5 +13,3 @@ export interface IDeliveryFormProps {
     mutateStateDeliverySelectionAddNewAction?: () => void;
     mutateStateNewAddressDeliveryAction?: (payload: IFormFieldMutate) => void;
 }
-
-export type TCurrentValueDeliverySelection = string;
