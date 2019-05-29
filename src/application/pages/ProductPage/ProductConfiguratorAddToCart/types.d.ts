@@ -17,7 +17,7 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
 export interface IProductConfiguratorAddToCartState {
     quantitySelected: number;
     quantity: number;
-    availability: boolean | null;
+    isAvailable: boolean | null;
     sku: string | null;
     isUpdateValue: boolean;
 }

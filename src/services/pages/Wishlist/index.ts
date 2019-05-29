@@ -15,7 +15,7 @@ export class WishlistService extends WishlistActionsService {
     public static async getWishlists(dispatch: Function): Promise<void> {
         dispatch(wishlistActions.getWishlistsPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(wishlistAuthenticateErrorMessage);
             }
@@ -41,7 +41,7 @@ export class WishlistService extends WishlistActionsService {
     public static async getDetailWishlist(dispatch: Function, wishlistId: string): Promise<void> {
         dispatch(wishlistActions.getDetailWishlisPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const query: string = `${EIncludeTypes.WISHLIST_ITEMS},` +
@@ -75,7 +75,7 @@ export class WishlistService extends WishlistActionsService {
     public static async addItemWishlist(dispatch: Function, wishlistId: string | null, sku: string): Promise<void> {
         dispatch(wishlistActions.addItemWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
             let id: string | null = wishlistId;
 
@@ -94,7 +94,7 @@ export class WishlistService extends WishlistActionsService {
                 },
             };
 
-            const endpointItems = `wishlists/${id}/wishlist-items`;
+            const endpointItems: string = `wishlists/${id}/wishlist-items`;
             const response: TApiResponseData = await api.post(endpointItems, body, {withCredentials: true});
 
             if (response.ok) {
@@ -126,7 +126,7 @@ export class WishlistService extends WishlistActionsService {
     public static async deleteItemWishlist(dispatch: Function, wishlistId: string, sku: string): Promise<void> {
         dispatch(wishlistActions.deleteItemWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const response: TApiResponseData = await api.delete(

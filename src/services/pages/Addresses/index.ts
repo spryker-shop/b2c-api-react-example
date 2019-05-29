@@ -12,10 +12,10 @@ export class AddressesService extends ApiServiceAbstract {
     public static async getCustomerAddresses(dispatch: Function, customerId: string): Promise<void> {
         dispatch(addressesActions.getAddressesPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${ customerId }/addresses`;
+            const endpoint: string = `customers/${ customerId }/addresses`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
@@ -42,10 +42,10 @@ export class AddressesService extends ApiServiceAbstract {
     ): Promise<void> {
         dispatch(addressesActions.getOneAddressPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
-            const endpoint = `customers/${ customerId }/addresses/${ addressId }`;
+            const endpoint: string = `customers/${ customerId }/addresses/${ addressId }`;
             const response: TApiResponseData = await api.get(endpoint, {}, { withCredentials: true });
 
             if (response.ok) {
@@ -73,7 +73,7 @@ export class AddressesService extends ApiServiceAbstract {
     public static async addAddress(dispatch: Function, payload: IAddressItem, customerId: string): Promise<void> {
         dispatch(addressesActions.addAddressPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const body: IRequestUpdateAddressBody = {
@@ -83,7 +83,7 @@ export class AddressesService extends ApiServiceAbstract {
                 }
             };
 
-            const endpoint = `customers/${ customerId }/addresses`;
+            const endpoint: string = `customers/${ customerId }/addresses`;
             const response: TApiResponseData = await api.post(endpoint, body, { withCredentials: true });
 
             if (response.ok) {
@@ -110,7 +110,7 @@ export class AddressesService extends ApiServiceAbstract {
     public static async deleteAddress(dispatch: Function, addressId: string, customerId: string): Promise<void> {
         dispatch(addressesActions.deleteAddressPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const response: TApiResponseData = await api.delete(
@@ -143,7 +143,7 @@ export class AddressesService extends ApiServiceAbstract {
     ): Promise<void> {
         dispatch(addressesActions.updateAddressPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const body: IRequestUpdateAddressBody = {

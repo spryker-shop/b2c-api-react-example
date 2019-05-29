@@ -10,10 +10,10 @@ import { errorMessageInform, getAnonymId } from '@helpers/common';
 
 export class InitAppService extends ApiServiceAbstract {
     public static async getInitData(dispatch: Function): Promise<void> {
-        const isTouch = 'ontouchstart' in window;
+        const isTouch: boolean = 'ontouchstart' in window;
         dispatch(initActions.initApplicationDataPendingStateAction());
         try {
-            const anonymId = getAnonymId();
+            const anonymId: string = getAnonymId();
             const response: TApiResponseData = await api.get('stores', null);
 
             if (response.ok) {

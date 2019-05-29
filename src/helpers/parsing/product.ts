@@ -10,7 +10,7 @@ import { abstractProductType, concreteProductType, defaultProductQuantity } from
 import { IProductRawResponse, TProductRowIncludedResponse } from '@services/pages/Product/types';
 import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-import { IProductLabelsRowIncludedResponse, EIncludeTypes } from '@services/types';
+import { IProductLabelsRowIncludedResponse, EIncludeTypes, IRelationshipsDataResponse } from '@services/types';
 
 export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed | null => {
     if (!response) {
@@ -29,7 +29,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             priceDefaultGross: null,
             priceDefaultNet: null
         },
-        availability: null,
+        isAvailable: null,
         quantity: null,
         productType: null
     };
@@ -78,7 +78,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             return;
         }
         if (row.type === EIncludeTypes.ABSTRACT_PRODUCT_AVAILABILITIES) {
-            result.abstractProduct.availability = row.attributes.availability;
+            result.abstractProduct.isAvailable = row.attributes.availability;
             result.abstractProduct.quantity = row.attributes.quantity;
 
             return;
@@ -106,29 +106,30 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             return;
         }
         if (
-            row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES && !result.concreteProducts[row.id].availability
+            row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES && !result.concreteProducts[row.id].isAvailable
         ) {
-            result.concreteProducts[row.id].availability = row.attributes.availability;
+            result.concreteProducts[row.id].isAvailable = row.attributes.availability;
             result.concreteProducts[row.id].quantity = row.attributes.quantity;
 
             if (row.attributes.isNeverOutOfStock) {
-                result.concreteProducts[row.id].availability = true;
+                result.concreteProducts[row.id].isAvailable = true;
                 result.concreteProducts[row.id].quantity = defaultProductQuantity;
 
-                result.abstractProduct.availability = true;
+                result.abstractProduct.isAvailable = true;
                 result.abstractProduct.quantity = defaultProductQuantity;
             }
         }
     });
-    const filteredIncludedLabels = included.filter(row => row.type === EIncludeTypes.PRODUCT_LABELS);
-    const labelsRelationships = data.relationships[EIncludeTypes.PRODUCT_LABELS];
-    const isLabelsExist = labelsRelationships && filteredIncludedLabels.length;
+    const filteredIncludedLabels: TProductRowIncludedResponse[] = included.filter(row =>
+        row.type === EIncludeTypes.PRODUCT_LABELS);
+    const labelsRelationships: {data: IRelationshipsDataResponse[]} = data.relationships[EIncludeTypes.PRODUCT_LABELS];
+    const isLabelsExist: boolean = Boolean(labelsRelationships && filteredIncludedLabels.length);
 
     if (isLabelsExist) {
-        const filteredAvailableLabels = labelsRelationships.data.map(item => item.id);
+        const filteredAvailableLabels: string[] = labelsRelationships.data.map(item => item.id);
         filteredAvailableLabels.forEach((availableLabelId: string) => {
             filteredIncludedLabels.forEach((includedLabel: IProductLabelsRowIncludedResponse) => {
-                const isLabelExist = availableLabelId === includedLabel.id;
+                const isLabelExist: boolean = availableLabelId === includedLabel.id;
                 if (isLabelExist) {
                     const labelData = {
                         type: includedLabel.id,
@@ -140,7 +141,9 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
             });
         });
     }
-    const superAttributes = parseSuperAttributes(data.attributes.attributeMap, attributeNamesContainer);
+    const superAttributes: ISuperAttribute[] = parseSuperAttributes(
+        data.attributes.attributeMap, attributeNamesContainer
+    );
     result.superAttributes = superAttributes;
     result.selectedAttrNames = superAttributes.map(attr => attr.name).reduce((acc: { [key: string]: string }, name) => {
         acc[name] = null;
@@ -159,7 +162,7 @@ const parseSuperAttributes = (
         return null;
     }
 
-    const names = Object.keys(superAttributes.super_attributes);
+    const names: string[] = Object.keys(superAttributes.super_attributes);
 
     return names.reduce((acc, name) => [
         ...acc,

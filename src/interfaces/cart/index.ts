@@ -22,7 +22,7 @@ export interface ICartItem {
     prices?: IProductPrices;
     calculations?: ICartItemCalculation | null;
     groupKey?: string | null;
-    availability?: boolean | null;
+    isAvailable?: boolean | null;
     availableQuantity?: number | null;
     superAttributes?: IIndexSignature[] | null;
     priceOriginalGross?: number | null;

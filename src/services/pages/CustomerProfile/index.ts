@@ -17,7 +17,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
     public static async getProfileData(dispatch: Function, customerReference: string): Promise<void> {
         dispatch(CustomerProfileActions.getCustomerProfilePendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(customerProfileAuthenticateErrorMessage);
             }
@@ -59,7 +59,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 }
             };
 
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(customerProfileAuthenticateErrorMessage);
             }
@@ -126,7 +126,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
     public static async deleteCustomerEntity(dispatch: Function, customerReference: string): Promise<void> {
         dispatch(CustomerProfileActions.deleteCustomerPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(customerProfileAuthenticateErrorMessage);
             }

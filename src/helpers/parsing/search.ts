@@ -117,7 +117,10 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     return result;
 };
 
-export const parseFlyoutSearchResponse = (response: ISuggestionSearchRawResponse, productsLimit: number) => {
+export const parseFlyoutSearchResponse = (
+    response: ISuggestionSearchRawResponse,
+    productsLimit: number
+): IProductCard[] => {
     const products: IProductCardResponse[] = response.data[0].attributes.abstractProducts.slice(0, productsLimit)
         .map((product: IProductCardResponse) => {
             const image = product.images[0].externalUrlSmall;

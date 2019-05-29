@@ -22,7 +22,7 @@ export interface IProductPropFullData {
     prices: IProductPrices;
     sku: string | null;
     productType: TProductType | null;
-    availability: boolean | null;
+    isAvailable: boolean | null;
     quantity?: number | null;
 }
 

@@ -4,6 +4,11 @@ import { IIndexSignature } from '@interfaces/common';
 
 export type TApiResponseData = ApiResponse<any>;
 
+export interface IRequestHeader {
+    withCredentials: boolean;
+    headers?: {};
+}
+
 export interface IApiErrorResponse {
     error?: string;
 }

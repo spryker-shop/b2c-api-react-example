@@ -13,7 +13,7 @@ export class WishlistActionsService extends ApiServiceAbstract {
     public static async addWishlist(dispatch: Function, name: string): Promise<string> {
         dispatch(wishlistActions.addWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const body: IRequestBody = {
@@ -49,7 +49,7 @@ export class WishlistActionsService extends ApiServiceAbstract {
     public static async deleteWishlist(dispatch: Function, wishlistId: string): Promise<void> {
         dispatch(wishlistActions.deleteWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const response: TApiResponseData = await api.delete(`wishlists/${wishlistId}`, {}, {withCredentials: true});
@@ -75,7 +75,7 @@ export class WishlistActionsService extends ApiServiceAbstract {
     public static async updateWishlist(dispatch: Function, wishlistId: string, name: string): Promise<void> {
         dispatch(wishlistActions.updateWishlistPendingState());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
 
             const body: IRequestBody = {
