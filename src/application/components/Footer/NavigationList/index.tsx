@@ -20,7 +20,7 @@ class NavigationListComponent extends React.Component<Props, State> {
         }
     };
 
-    protected renderNavigationList = (): JSX.Element[] | null => {
+    protected renderNavigationList = (): JSX.Element[] => {
         const { classes, navigationList, external = false } = this.props;
 
         if (!Boolean(navigationList.length)) {

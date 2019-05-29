@@ -9,7 +9,7 @@ import { IWishlist } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
-    const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
+    const wishlist: IWishlist = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
     const isWishlistsInitial: boolean = wishlistProps && wishlistProps.data ? wishlistProps.data.isInitialList : false;
     const isWishlistsDetailInitial: boolean = wishlistProps && wishlistProps.data ?
         wishlistProps.data.isInitialDetail : false;

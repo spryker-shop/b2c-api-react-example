@@ -1,6 +1,6 @@
 export interface IErrorBoundaryState {
     hasError: boolean;
-    error: Error | null;
+    error: Error;
     info: object;
 }
 

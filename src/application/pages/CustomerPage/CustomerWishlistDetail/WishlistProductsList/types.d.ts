@@ -6,11 +6,11 @@ import { styles } from './styles';
 export interface WishlistProductsListProps extends WithStyles<typeof styles> {
     isLoading?: boolean;
     isCartLoading?: boolean;
-    wishlist?: IWishlist | null;
-    products?: IWishlistProduct[] | null;
+    wishlist?: IWishlist;
+    products?: IWishlistProduct[];
     cartItemsLength?: number;
     cartId?: string;
-    currency?: string | null;
+    currency?: string;
     addItemToCartAction?: (payload: ICartAddItem, cartId: string) => void;
     deleteItemWishlistAction?: (wishlistId: string, sku: string) => void;
 }

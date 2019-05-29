@@ -10,11 +10,11 @@ import { IWishlist } from '@interfaces/wishlist';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
-    const wishlistIdParam: string | null = getRouterMatchParam(state, ownProps, 'wishlistId');
+    const wishlistIdParam: string = getRouterMatchParam(state, ownProps, 'wishlistId');
     const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isWishlistExist: boolean = isWishlistDetailsPresent(state, ownProps);
     const isRejected: boolean = isWishlistDetailsStateRejected(state, ownProps);
-    const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
+    const wishlist: IWishlist = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
     return {

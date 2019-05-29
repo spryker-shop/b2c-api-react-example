@@ -72,12 +72,12 @@ export class WishlistService extends WishlistActionsService {
         }
     }
 
-    public static async addItemWishlist(dispatch: Function, wishlistId: string | null, sku: string): Promise<void> {
+    public static async addItemWishlist(dispatch: Function, wishlistId: string, sku: string): Promise<void> {
         dispatch(wishlistActions.addItemWishlistPendingState());
         try {
             const token: string = await RefreshTokenService.getActualToken(dispatch);
             setAuthToken(token);
-            let id: string | null = wishlistId;
+            let id: string = wishlistId;
 
             if (!wishlistId) {
                 id = await WishlistService.addWishlist(dispatch, firstWishlistName);

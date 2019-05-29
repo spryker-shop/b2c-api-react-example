@@ -11,13 +11,13 @@ export const isPageCheckoutFulfilled = (state: IReduxStore, props: IReduxOwnProp
 export const isPageCheckoutInitiated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageCheckout.initiated);
 
-export const getShipmentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IShipmentMethod[] | null =>
+export const getShipmentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IShipmentMethod[] =>
     isShipmentMethodsExist(state, props) ? state.pageCheckout.data.shipments : null;
 
 export const isShipmentMethodsExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageCheckout.data.shipments);
 
-export const getPaymentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IPaymentMethod[] | null =>
+export const getPaymentMethodsFromStore = (state: IReduxStore, props: IReduxOwnProps): IPaymentMethod[] =>
     isPaymentMethodsExist(state, props) ? state.pageCheckout.data.payments : null;
 
 export const isPaymentMethodsExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>
@@ -26,7 +26,7 @@ export const isPaymentMethodsExist = (state: IReduxStore, props: IReduxOwnProps)
 export const getAddressesCollectionFromCheckoutStore = (
     state: IReduxStore,
     props: IReduxOwnProps
-): IAddressItemCollection[] | null => checkAddressesCollectionExist(state, props)
+): IAddressItemCollection[] => checkAddressesCollectionExist(state, props)
     ? state.pageCheckout.data.addressesCollection : null;
 
 export const checkAddressesCollectionExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>

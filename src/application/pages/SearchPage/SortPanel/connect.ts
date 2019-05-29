@@ -8,7 +8,7 @@ import { IPagination } from '@containers/Pagination/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchState = state.pageSearch.data;
-    const sortParamLocalizedNames: IIndexSignature | null = getSortParamLocalizedNames(state, ownProps);
+    const sortParamLocalizedNames: IIndexSignature = getSortParamLocalizedNames(state, ownProps);
     const pagination: IPagination = pageSearchState.pagination;
     const currentSort: string = pageSearchState.currentSort;
     const sortParams: string[] = pageSearchState.sortParams;

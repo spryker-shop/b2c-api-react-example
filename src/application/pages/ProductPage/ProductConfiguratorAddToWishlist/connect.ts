@@ -16,7 +16,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
     const isWishlistLoading: boolean = isPageWishlistStateLoading(state, ownProps);
-    const wishlists: IWishlist[] | null = getWishlistsCollectionFromStore(state, ownProps);
+    const wishlists: IWishlist[] = getWishlistsCollectionFromStore(state, ownProps);
     const isWishlistsFetched: boolean = isWishlistsCollectionInitiated(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
 

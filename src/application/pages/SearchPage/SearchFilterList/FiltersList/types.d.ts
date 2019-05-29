@@ -21,7 +21,7 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     ) => JSX.Element;
     changeWrapperState?: (isOpen: boolean) => void;
     width: Breakpoint;
-    currentCategoryId?: number | null;
+    currentCategoryId?: number;
     push?: (location: string) => void;
     setCurrentCategoryAction?: (categoryId: number | string) => void;
     locationCategoryId?: number | string;
@@ -32,5 +32,5 @@ export interface IFiltersListState {
     openedFilters: IValueFacets[];
     openedCategories: boolean;
     openedRanges: IRangeFacets[];
-    selectedMobileCategoryId: number | null;
+    selectedMobileCategoryId: number;
 }

@@ -18,7 +18,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
         ? isPageLoginStateLoading(state, ownProps) : false;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
-    const customer: string | null = getCustomerReference(state, ownProps);
+    const customer: string = getCustomerReference(state, ownProps);
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
     const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;
     const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;

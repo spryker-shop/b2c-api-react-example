@@ -13,6 +13,6 @@ export interface IMainNavProps extends WithStyles<typeof styles>, WithRouter {
 }
 
 export interface IMainNavState {
-    selectedNode: IMainNavigationNode | null;
+    selectedNode: IMainNavigationNode;
     openedNodes: IMainNavigationNode[];
 }

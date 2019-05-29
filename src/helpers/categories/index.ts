@@ -1,7 +1,7 @@
 import { IBreadcrumbItem, ICategory } from '@interfaces/common';
 import { pathCategoryPageBase } from '@constants/routes';
 
-export const getCategoryNameById = (categoryId: string | number, categoriesTree: ICategory[]): string | null => {
+export const getCategoryNameById = (categoryId: string | number, categoriesTree: ICategory[]): string => {
     if (!categoryId) {
         return null;
     }
@@ -9,7 +9,7 @@ export const getCategoryNameById = (categoryId: string | number, categoriesTree:
         return null;
     }
     const categoryIdNumbered = Number(categoryId);
-    let name: string | null = null;
+    let name: string = null;
 
     categoriesTree.forEach((category: ICategory) => {
         if (name) {
@@ -25,7 +25,7 @@ export const getCategoryNameById = (categoryId: string | number, categoriesTree:
     return name;
 };
 
-export const getCategoryIdByName = (categoryName: string, categoriesTree: ICategory[]): number | null => {
+export const getCategoryIdByName = (categoryName: string, categoriesTree: ICategory[]): number => {
     if (!categoryName) {
         return null;
     }
@@ -33,7 +33,7 @@ export const getCategoryIdByName = (categoryName: string, categoriesTree: ICateg
         return null;
     }
 
-    let id: number | null = null;
+    let id: number = null;
 
     categoriesTree.forEach((category: ICategory) => {
         if (id) {
@@ -49,7 +49,7 @@ export const getCategoryIdByName = (categoryName: string, categoriesTree: ICateg
     return id;
 };
 
-export const getCurrentCategoriesTree = (categoriesTree: ICategory[], categoryId: number): IBreadcrumbItem[] | null => {
+export const getCurrentCategoriesTree = (categoriesTree: ICategory[], categoryId: number): IBreadcrumbItem[] => {
     if (!categoryId) {
         return null;
     }

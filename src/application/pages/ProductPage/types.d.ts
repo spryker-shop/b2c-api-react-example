@@ -4,16 +4,16 @@ import { styles } from './styles';
 import { IProductAttributes, IProductPropFullData, IProductDataParsed } from '@interfaces/product';
 
 export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
-    product: IProductDataParsed | null;
+    product: IProductDataParsed;
     isUserLoggedIn: boolean;
-    appPriceMode: string | null;
-    appStore: string | null;
+    appPriceMode: string;
+    appStore: string;
     getProductDataAction: Function;
     isLoading: boolean;
     isRejected: boolean;
     isFulfilled: boolean;
     isInitiated: boolean;
-    locationProductSKU?: string | null;
+    locationProductSKU?: string;
     isProductExist: boolean;
     anonymId: string;
     getProductAvailability: Function;

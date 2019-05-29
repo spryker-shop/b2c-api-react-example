@@ -12,7 +12,7 @@ export const isWishlistDetailsStateRejected = (state: IReduxStore, props: IRedux
 export const isWishlistsCollectionExist = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageWishlist.data.wishlists);
 
-export const getWishlistsCollectionFromStore = (state: IReduxStore, props: IReduxOwnProps): IWishlist[] | null =>
+export const getWishlistsCollectionFromStore = (state: IReduxStore, props: IReduxOwnProps): IWishlist[] =>
     isWishlistsCollectionExist(state, props) ? state.pageWishlist.data.wishlists : null;
 
 export const isWishlistsCollectionInitiated = (state: IReduxStore, props: IReduxOwnProps): boolean =>

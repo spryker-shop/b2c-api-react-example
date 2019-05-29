@@ -1,7 +1,7 @@
 import { ICartItem } from '@interfaces/cart';
 
 export interface CartRowsProps {
-    items?: ICartItem[] | null;
+    items?: ICartItem[];
     cartId?: string;
     isUserLoggedIn?: boolean;
     anonymId?: string;

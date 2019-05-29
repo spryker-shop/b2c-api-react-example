@@ -4,7 +4,7 @@ import { styles } from './styles';
 export interface IProductGeneralInfoProps extends WithStyles<typeof styles> {
     name: string;
     sku: string;
-    price: number | null;
-    oldPrice: number | null;
+    price: number;
+    oldPrice: number;
     isAvailable: boolean;
 }

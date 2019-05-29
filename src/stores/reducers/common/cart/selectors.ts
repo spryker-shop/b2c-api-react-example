@@ -16,7 +16,7 @@ export const isCartStateLoading = (state: IReduxStore, props: IReduxOwnProps): b
 export const getCartId = (state: IReduxStore, props: IReduxOwnProps): string =>
     isCustomerCartCreated(state, props) && state.cart.data.id ? state.cart.data.id : null;
 
-export const getCartTotals = (state: IReduxStore, props: IReduxOwnProps): ITotals | null =>
+export const getCartTotals = (state: IReduxStore, props: IReduxOwnProps): ITotals =>
     isStateExist(state, props) ? state.cart.data.totals : null;
 
 export const getProductsFromCart = (

@@ -7,5 +7,5 @@ interface IProductCardProps extends WithStyles<typeof styles>, Partial<IProductC
     currency: string;
     name: string;
     sku: string;
-    label: IProductLabel[] | null;
+    label: IProductLabel[];
 }

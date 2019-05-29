@@ -15,7 +15,7 @@ export interface IPaginationProps extends WithStyles<typeof styles>, RouteCompon
 }
 
 export interface IPaginationState {
-    pagination: JSX.Element[] | null;
+    pagination: JSX.Element[];
 }
 
 export interface IPagination {

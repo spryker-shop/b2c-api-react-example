@@ -17,7 +17,7 @@ import { IProductRelationsState } from '@stores/reducers/common/productRelations
 
 export interface IReduxState {
     dispatch?: Function;
-    error?: string | null;
+    error?: string;
     pending?: boolean;
     fulfilled?: boolean;
     rejected?: boolean;

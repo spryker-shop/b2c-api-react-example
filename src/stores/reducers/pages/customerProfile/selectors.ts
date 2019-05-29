@@ -17,10 +17,10 @@ export const isPageCustomerProfileFulfilled = (state: IReduxStore, props: IRedux
     Boolean(isStateExist(state, props) && state.pageCustomerProfile.fulfilled &&
         state.pageCustomerProfile.fulfilled === true);
 
-export const getCustomerProfile = (state: IReduxStore, props: IReduxOwnProps): ICustomerDataParsed | null =>
+export const getCustomerProfile = (state: IReduxStore, props: IReduxOwnProps): ICustomerDataParsed =>
     !isCustomerProfilePresent(state, props) ? null : state.pageCustomerProfile.data.profile;
 
-export const isCustomerPasswordUpdated = (state: IReduxStore, props: IReduxOwnProps): boolean | null =>
+export const isCustomerPasswordUpdated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     isStateExist(state, props) ? state.pageCustomerProfile.data.isPasswordUpdated : null;
 
 const isStateExist = (state: IReduxStore, props: IReduxOwnProps): boolean => Boolean(state.pageCustomerProfile);

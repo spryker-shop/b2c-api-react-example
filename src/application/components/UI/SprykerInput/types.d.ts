@@ -18,8 +18,8 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
     label?: JSX.Element | string;
     isError?: boolean;
     isRequired?: boolean;
-    placeholder?: string | null | JSX.Element;
-    errorText?: string | null | JSX.Element;
+    placeholder?: string | JSX.Element;
+    errorText?: string | JSX.Element;
     inputType?: 'email' | 'password' | 'number' | 'range' | 'tel';
     iconProps?: {
         iconStartComponent?: IIconProps,
@@ -29,6 +29,6 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
         mask?: string | string[],
         format?: string | FormatInputValueFunction,
         placeholder?: string
-    } | null;
+    };
     autoFocus?: boolean;
 }

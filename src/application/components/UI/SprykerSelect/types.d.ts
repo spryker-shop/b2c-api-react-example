@@ -17,7 +17,7 @@ export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     onChangeHandler: (event: React.ChangeEvent<HTMLSelectElement>, child: JSX.Element) => void;
     name: string;
     menuItems: IMenuItemSelect[];
-    menuItemFirst?: IMenuItemFirst | null;
+    menuItemFirst?: IMenuItemFirst;
     title?: string;
     label?: string | JSX.Element;
     isRequired?: boolean;

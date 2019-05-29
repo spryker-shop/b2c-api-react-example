@@ -7,8 +7,6 @@ import {
     IDeliverySelectionState,
     IBillingSelectionState,
     ICheckoutRequest,
-    IShipmentMethod,
-    IPaymentMethod,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState
 } from '@interfaces/checkout';
@@ -20,11 +18,11 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     isUserLoggedIn: boolean;
     isCheckoutLoading: boolean;
     isCheckoutFulfilled: boolean;
-    profile: ICustomerDataParsed | null;
+    profile: ICustomerDataParsed;
     isProductsExists: boolean;
     cartId: string;
-    customerReference: string | null;
-    addressesCollection: IAddressItemCollection[] | null;
+    customerReference: string;
+    addressesCollection: IAddressItemCollection[];
     orderId: string;
     anonymId: string;
     getCheckoutDataAction: (payload: ICheckoutRequest, anonymId: string) => void;
@@ -35,8 +33,8 @@ export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProp
     billingSelection: IBillingSelectionState;
     deliveryNewAddress: IAddressFormState;
     billingNewAddress: IAddressFormState;
-    shipmentMethod: IShipmentMethod['id'] | null;
-    paymentMethod: IPaymentMethod['paymentMethodName'] | null;
+    shipmentMethod: string;
+    paymentMethod: string;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData:  ICheckoutInvoiceState;
     isCheckoutInitiated: boolean;

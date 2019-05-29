@@ -9,10 +9,10 @@ export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeo
     isWishlistsFetched?: boolean;
     isWishlistLoading?: boolean;
     wishlists?: IWishlist[];
-    productType: TProductType | null;
-    sku: string | null;
+    productType: TProductType;
+    sku: string;
 }
 
 export interface IProductConfiguratorAddToWishlistState {
-    wishlistSelected: string | null;
+    wishlistSelected: string;
 }

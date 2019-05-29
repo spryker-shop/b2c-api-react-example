@@ -94,7 +94,7 @@ class BillingFormComponent extends React.Component<Props> {
         mutateStateBillingSelectionAddressIdAction(value);
     };
 
-    protected getCurrentValueBillingSelection = (): IAddressItemCollection['id'] | string | null => {
+    protected getCurrentValueBillingSelection = (): IAddressItemCollection['id'] | string => {
         const { selectedAddressId, isAddNew, isSameAsDelivery } = this.props.billingSelection;
 
         return selectedAddressId || (isAddNew && checkoutSelectionInputs.isAddNewBillingValue) ||

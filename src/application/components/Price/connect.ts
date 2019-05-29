@@ -3,7 +3,7 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getAppCurrency } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const currency: string | null = getAppCurrency(state, ownProps);
+    const currency: string = getAppCurrency(state, ownProps);
 
     return {
         currency

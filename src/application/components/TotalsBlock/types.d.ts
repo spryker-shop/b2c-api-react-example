@@ -5,6 +5,6 @@ import { ITotals } from '@interfaces/common';
 
 interface ITotalsBlockProps extends WithStyles<typeof styles> {
     totals: ITotals;
-    expenses?: IOrderDetailsExpenseItem[] | null;
+    expenses?: IOrderDetailsExpenseItem[];
     isMinus?: boolean;
 }

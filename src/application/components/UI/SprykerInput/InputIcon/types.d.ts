@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IInputIconProps extends WithStyles<typeof styles> {
-    icon: JSX.Element | null;
+    icon: JSX.Element;
     position?: 'end' | 'start';
     tooltip?: boolean;
     tooltipPosition?:

@@ -6,7 +6,7 @@ import { IProductCard } from '@interfaces/product';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchProps: ISearchState = state.pageSearch ? state.pageSearch : null;
-    const currency: string | null = getAppCurrency(state, ownProps);
+    const currency: string = getAppCurrency(state, ownProps);
     const isLoading: boolean = pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false;
     const products: IProductCard[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.items : null;
 

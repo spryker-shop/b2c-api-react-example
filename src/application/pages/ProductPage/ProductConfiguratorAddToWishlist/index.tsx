@@ -60,7 +60,7 @@ class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, S
         }
     };
 
-    protected getFirstWishlist = (): string | null => {
+    protected getFirstWishlist = (): string => {
         if (!this.props.isWishlistsFetched) {
             return null;
         }
@@ -78,7 +78,7 @@ class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, S
         return !isWishlistsFetched || productType !== concreteProductType || isWishlistLoading;
     };
 
-    protected createWishlistMenuVariants = (): IMenuItemSelect[] | null =>
+    protected createWishlistMenuVariants = (): IMenuItemSelect[] =>
         this.props.wishlists.map((wishlist: IWishlist) => ({name: wishlist.name, value: wishlist.id}));
 
     public render(): JSX.Element {

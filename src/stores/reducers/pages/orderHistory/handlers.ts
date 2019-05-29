@@ -5,7 +5,7 @@ import { IApiErrorResponse } from '@services/types';
 
 export const handleFulfilled = (
     state: IOrderHistoryState,
-    payload: IOrderCollectionParsed | null
+    payload: IOrderCollectionParsed
 ): IOrderHistoryState => ({
     ...state,
     data: {

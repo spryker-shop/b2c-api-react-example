@@ -16,7 +16,7 @@ export const isPageProductStateRejected = (state: IReduxStore, props: IReduxOwnP
 export const isPageProductStateFulfilled = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     isStateExist(state, props) && state.pageProduct.fulfilled && state.pageProduct.fulfilled === true;
 
-export const getProduct = (state: IReduxStore, props: IReduxOwnProps): IProductDataParsed | null =>
+export const getProduct = (state: IReduxStore, props: IReduxOwnProps): IProductDataParsed =>
     !(isStateExist(state, props) && state.pageProduct.data.selectedProduct) || isPageProductStateRejected(state, props)
         ? null
         : state.pageProduct.data.selectedProduct;

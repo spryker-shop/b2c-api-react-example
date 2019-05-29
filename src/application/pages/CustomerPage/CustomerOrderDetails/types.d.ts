@@ -13,11 +13,11 @@ export interface ICustomerOrderDetailsProps extends WithStyles<typeof styles>, R
     isInitiated: boolean;
     isOrderExist: boolean;
     getOrderDetailsAction: Function;
-    orderIdParam: string | null;
+    orderIdParam: string;
     order: IOrderDetailsParsed;
 }
 
 export interface ICustomerOrderDetailsState {
     selectedItems: IOrderDetailsSelectedItems;
-    selectedItemsData: ICartAddItem[] | null;
+    selectedItemsData: ICartAddItem[];
 }

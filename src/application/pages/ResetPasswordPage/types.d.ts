@@ -4,7 +4,7 @@ import { styles } from './styles';
 
 export interface IResetPasswordPageProps extends WithStyles<typeof styles> {
     resetPasswordAction?: (payload: IResetPasswordPayload) => void;
-    restoreKey?: string | null;
+    restoreKey?: string;
     isLoading: boolean;
 }
 

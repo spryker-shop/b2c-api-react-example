@@ -33,7 +33,7 @@ export type TCartRowIncludedResponse = IProductRowImageSetsIncludedResponse
 export interface ICarRowtItemsIncludedResponse extends IAbstractRowIncludedResponse {
     type: EIncludeTypes.CART_ITEMS | EIncludeTypes.GUEST_CART_ITEMS;
     attributes: {
-        amount: number | null;
+        amount: number;
         calculations: ICartItemCalculation;
         groupKey: string;
         quantity: number;

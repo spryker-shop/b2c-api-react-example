@@ -8,7 +8,7 @@ export class ErrorBoundary extends React.PureComponent<Props, State> {
         info: null
     };
 
-    public componentDidCatch(error: Error | null, info: object): void {
+    public componentDidCatch(error: Error, info: object): void {
         this.setState({hasError: true, error, info});
         console.error('ErrorBoundary->componentDidCatch->error', error);
         console.error('ErrorBoundary->componentDidCatch->info', info);

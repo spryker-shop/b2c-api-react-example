@@ -5,7 +5,7 @@ import { WithRouter } from '@interfaces/common';
 
 export interface IAddressesListProps extends WithStyles <typeof styles>, WithRouter {
     isLoading?: boolean;
-    customer?: string | null;
+    customer?: string;
     addresses?: IAddressItem[];
     deleteAddressAction?: Function;
     setCurrentAddressAction?: Function;

@@ -22,7 +22,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isOrderExist: boolean = isOrderDetailsPresent(state, ownProps);
     const order: IOrderDetailsParsed = getOrderDetailsFromStore(state, ownProps);
-    const orderIdParam: string | null = getRouterMatchParam(state, ownProps, 'orderId');
+    const orderIdParam: string = getRouterMatchParam(state, ownProps, 'orderId');
 
     return {
         isLoading,

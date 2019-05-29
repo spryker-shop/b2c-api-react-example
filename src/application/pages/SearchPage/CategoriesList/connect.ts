@@ -6,7 +6,7 @@ import { getCategoriesLocalizedName } from '@stores/reducers/pages/search/select
 import { setCurrentCategoryAction } from '@stores/actions/pages/search';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const categoriesLocalizedName: string | null = getCategoriesLocalizedName(state, ownProps);
+    const categoriesLocalizedName: string = getCategoriesLocalizedName(state, ownProps);
 
     return {
         categoriesLocalizedName

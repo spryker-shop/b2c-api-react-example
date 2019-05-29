@@ -4,7 +4,7 @@ import { IActionData, IReduxState } from '@stores/reducers/types';
 export interface IWishlistState extends IReduxState {
     data: {
         wishlists: IWishlist[],
-        currentWishlist: IWishlist | null,
+        currentWishlist: IWishlist,
         currentItems: IWishlistProduct[],
         isInitialList: boolean,
         isInitialDetail: boolean,

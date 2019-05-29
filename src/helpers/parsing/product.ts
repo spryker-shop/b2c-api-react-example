@@ -12,7 +12,7 @@ import { IIndexSignature } from '@interfaces/common';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
 import { IProductLabelsRowIncludedResponse, EIncludeTypes, IRelationshipsDataResponse } from '@services/types';
 
-export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed | null => {
+export const parseProductResponse = (response: IProductRawResponse): IProductDataParsed => {
     if (!response) {
         return null;
     }
@@ -157,7 +157,7 @@ export const parseProductResponse = (response: IProductRawResponse): IProductDat
 const parseSuperAttributes = (
     superAttributes: IProductAttributeMap,
     attributeNamesContainer: IIndexSignature
-): ISuperAttribute[] | null => {
+): ISuperAttribute[] => {
     if (!superAttributes.super_attributes || typeof superAttributes.super_attributes !== 'object') {
         return null;
     }
@@ -178,7 +178,7 @@ const parseSuperAttributes = (
 const parseDescriptionAttributes = (
     attributeNames: IIndexSignature,
     attributeValues: IProductAttributes
-): IDescriptionAttributes[] | null =>
+): IDescriptionAttributes[] =>
 Object.keys(attributeNames).filter(attributeKey => Boolean(attributeValues[attributeKey])).map(attributeKey => ({
     name: attributeNames[attributeKey],
     value: attributeValues[attributeKey]

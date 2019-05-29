@@ -8,7 +8,7 @@ import { getRouterMatchParam } from '@helpers/common';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchProps: ISearchState = state.pageSearch ? state.pageSearch : null;
-    const locationCategoryId: string | null = getRouterMatchParam(state, ownProps, 'categoryId');
+    const locationCategoryId: string = getRouterMatchParam(state, ownProps, 'categoryId');
     const currentCategoryId: number = pageSearchProps && pageSearchProps.data
         ? pageSearchProps.data.currentCategoryId : null;
 

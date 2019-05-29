@@ -8,7 +8,7 @@ import { IWishlist } from '@interfaces/wishlist';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
-    const wishlists: IWishlist[] | null = wishlistProps && wishlistProps.data ? wishlistProps.data.wishlists : null;
+    const wishlists: IWishlist[] = wishlistProps && wishlistProps.data ? wishlistProps.data.wishlists : null;
 
     return {
         isLoading,

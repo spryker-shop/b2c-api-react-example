@@ -13,9 +13,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const wishlistProps: IWishlistState = state.pageWishlist ? state.pageWishlist : null;
     const cartItemsLength: number = getTotalItemsQuantity(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
-    const currency: string | null = getAppCurrency(state, ownProps);
-    const wishlist: IWishlist | null = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
-    const products: IWishlistProduct[] | null = wishlistProps && wishlistProps.data
+    const currency: string = getAppCurrency(state, ownProps);
+    const wishlist: IWishlist = wishlistProps && wishlistProps.data ? wishlistProps.data.currentWishlist : null;
+    const products: IWishlistProduct[] = wishlistProps && wishlistProps.data
         ? wishlistProps.data.currentItems : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 

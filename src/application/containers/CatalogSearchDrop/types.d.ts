@@ -6,5 +6,5 @@ export interface IUserDropNavigationProps extends WithStyles<typeof styles>, Wit
 }
 
 export interface IUserDropNavigationState {
-    anchorElement: HTMLElement | null;
+    anchorElement: HTMLElement;
 }

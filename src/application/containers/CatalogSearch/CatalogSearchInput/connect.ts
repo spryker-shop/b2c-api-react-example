@@ -10,8 +10,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const searchProps: IFlyoutSearch = state.pageSearch && state.pageSearch.data
         ? state.pageSearch.data.flyoutSearch
         : null;
-    const currency: string | null = getAppCurrency(state, ownProps);
-    const completion: string[] | null = searchProps ? searchProps.completion : null;
+    const currency: string = getAppCurrency(state, ownProps);
+    const completion: string[] = searchProps ? searchProps.completion : null;
     const isLoading: boolean = searchProps ? searchProps.pending : null;
 
     return {

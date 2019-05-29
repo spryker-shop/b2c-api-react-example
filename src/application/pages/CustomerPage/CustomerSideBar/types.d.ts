@@ -5,5 +5,5 @@ import { IWishlist } from '@interfaces/wishlist';
 
 interface ICustomerSideBarProps extends WithStyles<typeof styles> {
     location: Location;
-    wishlists?: IWishlist[] | null;
+    wishlists?: IWishlist[];
 }

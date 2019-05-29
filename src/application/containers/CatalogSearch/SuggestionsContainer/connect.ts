@@ -12,10 +12,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? state.pageSearch.data.flyoutSearch
         : null;
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
-    const currency: string | null = getAppCurrency(state, ownProps);
-    const categories: IIndexSignature[] | null = searchProps ? searchProps.categories : null;
-    const suggestions: IProductCard[] | null = searchProps ? searchProps.suggestions : null;
-    const completion: string[] | null = searchProps ? searchProps.completion : null;
+    const currency: string = getAppCurrency(state, ownProps);
+    const categories: IIndexSignature[] = searchProps ? searchProps.categories : null;
+    const suggestions: IProductCard[] = searchProps ? searchProps.suggestions : null;
+    const completion: string[] = searchProps ? searchProps.completion : null;
     const isFulfilled: boolean = searchProps ? searchProps.fulfilled : false;
 
     return {

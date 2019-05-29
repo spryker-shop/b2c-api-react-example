@@ -12,7 +12,7 @@ export interface ISuggestionSearchRawResponse {
 
 interface ISuggestionSearchDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: {
-        abstractProducts: IProductCardResponse[] | null,
+        abstractProducts: IProductCardResponse[],
         completion: string[]
     };
 }

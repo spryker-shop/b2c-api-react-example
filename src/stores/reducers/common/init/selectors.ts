@@ -11,13 +11,13 @@ export const isAppLoading = (state: IReduxStore, props: IReduxOwnProps): boolean
 export const isAppStateFulfilled = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(state.init && state.init.fulfilled && state.init.fulfilled === true);
 
-export const getAppCurrency = (state: IReduxStore, props: IReduxOwnProps): string | null =>
+export const getAppCurrency = (state: IReduxStore, props: IReduxOwnProps): string =>
     isAppInitialized(state, props) ? state.init.data.currency : null;
 
-export const getAppLocale = (state: IReduxStore, props: IReduxOwnProps): string | null =>
+export const getAppLocale = (state: IReduxStore, props: IReduxOwnProps): string =>
     isAppInitialized(state, props) ? state.init.data.locale : APP_LOCALE_DEFAULT;
 
-export const getAppTimeZone = (state: IReduxStore, props: IReduxOwnProps): string | null =>
+export const getAppTimeZone = (state: IReduxStore, props: IReduxOwnProps): string =>
     isAppInitialized(state, props) ? state.init.data.timeZone : null;
 
 export const getCounties = (state: IReduxStore, props: IReduxOwnProps): ICountry[] =>

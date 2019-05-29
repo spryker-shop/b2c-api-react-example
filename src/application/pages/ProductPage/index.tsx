@@ -126,7 +126,7 @@ class ProductPageComponent extends React.Component<Props, State> {
             return acc;
         }, {});
 
-        const productData: IProductPropFullData | null = isOneConcreteProduct
+        const productData: IProductPropFullData = isOneConcreteProduct
             ? { ...concreteProducts[concreteProductsIds[0]] }
             : this.findAndParseConcreteProduct(superAttrSelected);
 

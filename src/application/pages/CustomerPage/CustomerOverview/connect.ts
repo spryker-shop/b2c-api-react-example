@@ -25,8 +25,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isCustomerDataExist: boolean = isCustomerProfilePresent(state, ownProps);
     const customerReference: string = getCustomerReference(state, ownProps);
-    const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
-    const orders: IOrderItem[] | null = getOrdersCollectionFromStore(state, ownProps);
+    const customerData: ICustomerDataParsed = getCustomerProfile(state, ownProps);
+    const orders: IOrderItem[] = getOrdersCollectionFromStore(state, ownProps);
     const isAddressesListInitiated: boolean = isAddressesInitiated(state, ownProps);
     const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);

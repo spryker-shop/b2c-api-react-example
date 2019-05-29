@@ -6,7 +6,7 @@ import * as React from 'react';
 import { BlurEvent, ChangeEvent } from 'react-autosuggest';
 
 export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Partial<IFlyoutSearch> {
-    currency?: string | null;
+    currency?: string;
     isLoading?: boolean;
     id: string;
     sendSuggestionAction?: (query: string) => void;

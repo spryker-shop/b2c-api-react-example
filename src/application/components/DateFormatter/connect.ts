@@ -3,7 +3,7 @@ import { getAppLocale, getAppTimeZone } from '@stores/reducers/common/init/selec
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const timeZone: string | null = getAppTimeZone(state, ownProps);
+    const timeZone: string = getAppTimeZone(state, ownProps);
     const locale = getAppLocale(state, ownProps);
 
     return {

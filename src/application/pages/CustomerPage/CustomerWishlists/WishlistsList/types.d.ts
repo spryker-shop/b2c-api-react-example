@@ -2,7 +2,7 @@ import { IWishlist } from '@interfaces/wishlist';
 
 export interface IWishlistsListProps {
     isLoading?: boolean;
-    wishlists?: IWishlist[] | null;
+    wishlists?: IWishlist[];
     getWishlistsAction?: () => void;
     updateWishlistAction?: (wishlistId: string, name: string) => void;
     deleteWishlistAction?: (wishlistId: string) => void;

@@ -6,7 +6,7 @@ import { updateCustomerProfileAction } from '@stores/actions/pages/customerProfi
 import { getCustomerProfile } from '@stores/reducers/pages/customerProfile/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
+    const customerData: ICustomerDataParsed = getCustomerProfile(state, ownProps);
 
     return {
         customerData

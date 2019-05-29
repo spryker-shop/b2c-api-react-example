@@ -5,9 +5,7 @@ import {
     IOrderCollectionDataResponse
 } from '@services/pages/Order/types';
 
-export const parseGetOrdersCollectionResponse = (
-    response: IOrderCollectionRawResponse
-): IOrderCollectionParsed | null => {
+export const parseGetOrdersCollectionResponse = (response: IOrderCollectionRawResponse): IOrderCollectionParsed => {
     if (!Array.isArray(response.data) || !response.data.length) {
         return null;
     }
@@ -24,7 +22,7 @@ export const parseGetOrdersCollectionResponse = (
     };
 };
 
-export const parseGetOrderDetailsResponse = (response: IOrderDetailsRawResponse): IOrderDetailsParsed | null => {
+export const parseGetOrderDetailsResponse = (response: IOrderDetailsRawResponse): IOrderDetailsParsed => {
     if (!response.data) {
         return null;
     }

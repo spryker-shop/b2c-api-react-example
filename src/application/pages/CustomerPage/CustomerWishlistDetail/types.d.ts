@@ -8,7 +8,7 @@ export interface ICustomerWishlistsProps extends WithStyles<typeof styles>, With
     isWishlistExist: boolean;
     isRejected: boolean;
     isAppDataSet: boolean;
-    wishlist: IWishlist | null;
+    wishlist: IWishlist;
     wishlistIdParam: string;
     getDetailWishlistAction: (wishlistId: string) => void;
 }

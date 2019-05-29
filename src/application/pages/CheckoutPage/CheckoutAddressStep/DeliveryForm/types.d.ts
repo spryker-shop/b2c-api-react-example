@@ -5,7 +5,7 @@ import { IAddressFormState } from '@interfaces/forms';
 
 export interface IDeliveryFormProps {
     isUserLoggedIn?: boolean;
-    addressesCollection?: IAddressItemCollection[] | null;
+    addressesCollection?: IAddressItemCollection[];
     deliveryNewAddress?: IAddressFormState;
     deliverySelection?:  IDeliverySelectionState;
     mutateStateDeliverySelectionAddressIdAction?: (payload: string) => void;
@@ -14,4 +14,4 @@ export interface IDeliveryFormProps {
     mutateStateNewAddressDeliveryAction?: (payload: IFormFieldMutate) => void;
 }
 
-export type TCurrentValueDeliverySelection = IAddressItemCollection['id'] | string | null;
+export type TCurrentValueDeliverySelection = string;

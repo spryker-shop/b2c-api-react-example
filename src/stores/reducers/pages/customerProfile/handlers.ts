@@ -3,7 +3,7 @@ import { ICustomerDataParsed } from '@interfaces/customer';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IApiErrorResponse } from '@services/types';
 
-export const handleFulfilled = (state: ICustomerState, payload: ICustomerDataParsed | null): ICustomerState => ({
+export const handleFulfilled = (state: ICustomerState, payload: ICustomerDataParsed): ICustomerState => ({
     ...state,
     data: {
         ...state.data,

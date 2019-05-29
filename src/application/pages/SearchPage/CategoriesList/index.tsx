@@ -46,7 +46,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
     protected getCategoriesList = (
         data: ICategory[],
         activeData: IActiveFilterCategories
-    ): JSX.Element[] | null => {
+    ): JSX.Element[] => {
         const { selectedCategory, selectedMobileCategory, width } = this.props;
         const isMobile = !isWidthUp('md', width);
 
@@ -79,7 +79,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
         });
     };
 
-    protected getFormattedActiveCategories = (data: IFilterValue[]): IActiveFilterCategories | null => (
+    protected getFormattedActiveCategories = (data: IFilterValue[]): IActiveFilterCategories => (
         data.reduce((acc: IActiveFilterCategories, item: IFilterValue) => {
             acc[item.value] = item.doc_count;
 

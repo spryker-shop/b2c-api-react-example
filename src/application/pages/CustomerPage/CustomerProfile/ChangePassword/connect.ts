@@ -6,7 +6,7 @@ import { updateCustomerPasswordAction } from '@stores/actions/pages/customerProf
 import { getCustomerProfile, isCustomerPasswordUpdated } from '@stores/reducers/pages/customerProfile/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
+    const customerData: ICustomerDataParsed = getCustomerProfile(state, ownProps);
     const isPasswordUpdated: boolean = isCustomerPasswordUpdated(state, ownProps);
 
     return {

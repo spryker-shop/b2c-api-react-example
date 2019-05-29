@@ -36,7 +36,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartId: string = getCartId(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
     const profile = getCustomerProfile(state, ownProps);
-    const addressesCollection: IAddressItemCollection[] | null = getAddressesCollectionFromCheckoutStore(
+    const addressesCollection: IAddressItemCollection[] = getAddressesCollectionFromCheckoutStore(
         state,
         ownProps
     );
@@ -46,8 +46,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
     const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
-    const paymentMethod: IPaymentMethod['paymentMethodName'] | null = state.pageCheckout.paymentMethod;
-    const shipmentMethod: IShipmentMethod['id'] | null = state.pageCheckout.shipmentMethod;
+    const paymentMethod: string = state.pageCheckout.paymentMethod;
+    const shipmentMethod: string = state.pageCheckout.shipmentMethod;
 
     return {
         isCheckoutInitiated,

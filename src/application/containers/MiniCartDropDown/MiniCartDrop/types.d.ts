@@ -4,8 +4,8 @@ import { styles } from './styles';
 import { ITotals } from '@interfaces/common';
 
 export interface IMiniCartDropProps extends WithStyles<typeof styles> {
-    totals: ITotals | null;
-    cartItems: ICartItem[] | null;
+    totals: ITotals;
+    cartItems: ICartItem[];
     isUserLoggedIn: boolean;
     cartId: string;
     anonymId: string;

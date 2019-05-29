@@ -4,14 +4,14 @@ import { ILocaleActionPayload } from '@stores/reducers/common/Init/types';
 
 export type TLanguage = {
     name: JSX.Element,
-    code: string | null
+    code: string
 };
 
 export interface ILangProps extends WithStyles<typeof styles> {
-    appLocale?: string | null;
+    appLocale?: string;
     switchLocaleAction?: (payload: ILocaleActionPayload) => void;
 }
 
 export interface ILangState {
-    anchorElement: HTMLElement | null;
+    anchorElement: HTMLElement;
 }

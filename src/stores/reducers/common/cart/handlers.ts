@@ -4,7 +4,7 @@ import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected 
 import { IApiErrorResponse } from '@services/types';
 import { initialState } from '@stores/reducers/common/cart';
 
-export const handleUpdateCartFulfilled = (state: ICartState, payload: ICartDataParsed | null): ICartState => ({
+export const handleUpdateCartFulfilled = (state: ICartState, payload: ICartDataParsed): ICartState => ({
     ...state,
     data: {
         ...state.data,

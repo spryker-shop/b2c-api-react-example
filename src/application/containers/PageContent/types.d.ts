@@ -6,7 +6,7 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     classes: IIndexSignature;
     dispatch?: Function;
     isLoading?: boolean;
-    locale?: string | null;
+    locale?: string;
     initApplicationDataAction?: Function;
     getCustomerCartsAction?: Function;
     isAppDataSet?: boolean;
