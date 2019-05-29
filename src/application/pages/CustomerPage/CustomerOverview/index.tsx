@@ -1,17 +1,25 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { Grid, IconButton, Typography, withStyles } from '@material-ui/core';
+import { Button, Grid, IconButton, Typography, withStyles } from '@material-ui/core';
 import { OrdersList } from '@containers/OrdersList';
 import { AddressesList } from '@containers/AddressesList';
 import { ICustomerOverviewProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { EditIcon } from './icons';
-import { NavLink } from 'react-router-dom';
-import { pathCustomerProfile, pathCustomerOrderHistory } from '@constants/routes';
+import { NavLink, withRouter } from 'react-router-dom';
+import {
+    pathCustomerProfile,
+    pathCustomerOrderHistory,
+    pathCheckoutShipmentStep,
+    pathLoginPage
+} from '@constants/routes';
 import { styles } from './styles';
+import { LogoutIcon } from '@containers/UserDropNavigation/UserDrop/icons';
+import { ClickEvent } from '@interfaces/common';
 
 @connect
+@(withRouter as Function)
 class CustomerOverviewComponent extends React.PureComponent<Props> {
     public componentDidMount = (): void => {
         if (!this.props.isCustomerDataExist) {
@@ -23,6 +31,12 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
         if (!this.props.isLoading && this.props.isAppDataSet && this.props.customerReference) {
             this.props.getCustomerProfileAction(this.props.customerReference);
         }
+    };
+
+    protected handleLogout = (event: ClickEvent): void => {
+        event.preventDefault();
+        this.props.logoutAction();
+        this.props.history.push(pathLoginPage);
     };
 
     public render(): JSX.Element {
@@ -98,6 +112,12 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
                                     </ErrorBoundary>
                                 </Grid>
                             }
+
+                            <Grid item xs={ 12 } className={ classes.col }>
+                                <Button onClick={ this.handleLogout } variant="contained" fullWidth>
+                                    <FormattedMessage id={ 'log.out.button.title' } />
+                                </Button>
+                            </Grid>
                         </Grid>
                     </>
                 }

@@ -3,8 +3,9 @@ import { styles } from './styles';
 import { ICustomerDataParsed } from '@interfaces/customer';
 import { IOrderItem } from '@interfaces/order';
 import { IAddressItem } from '@interfaces/addresses';
+import { WithRouter } from '@interfaces/common';
 
-export interface ICustomerOverviewProps extends WithStyles<typeof styles> {
+export interface ICustomerOverviewProps extends WithStyles<typeof styles>, WithRouter {
     customerData: ICustomerDataParsed;
     isAppDataSet: boolean;
     isLoading: boolean;
@@ -16,4 +17,5 @@ export interface ICustomerOverviewProps extends WithStyles<typeof styles> {
     isAddressesListInitiated?: boolean;
     isHasOrders?: boolean;
     addresses?: IAddressItem[];
+    logoutAction?: () => void;
 }

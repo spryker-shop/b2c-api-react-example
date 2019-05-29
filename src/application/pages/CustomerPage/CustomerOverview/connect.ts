@@ -17,6 +17,7 @@ import { getAddressesCollection, isAddressesInitiated } from '@stores/reducers/p
 import { IAddressItem } from '@interfaces/addresses';
 import { IOrderItem } from '@interfaces/order';
 import { ICustomerDataParsed } from '@interfaces/customer';
+import { logoutAction } from '@stores/actions/pages/login';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isPageCustomerProfileLoading(state, ownProps);
@@ -48,7 +49,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     getCustomerProfileAction,
-    getOrdersCollectionAction
+    getOrdersCollectionAction,
+    logoutAction
 }, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

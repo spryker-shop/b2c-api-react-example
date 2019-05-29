@@ -26,7 +26,8 @@ const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     variant="text"
                     onClick={ onLogoutClick }
-                    className={ `${classes.userLink} ${classes.userLinkLogout}` }
+                    className={`${classes.userLink} ${classes.userLinkLogout}`}
+                    fullWidth
                 >
                     <span className={ classes.userIcon }><LogoutIcon /></span>
                     <FormattedMessage id={ 'log.out.button.title' } />
