@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import * as qs from 'query-string';
 import { FormattedMessage } from 'react-intl';

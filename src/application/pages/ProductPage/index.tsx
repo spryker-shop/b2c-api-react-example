@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';

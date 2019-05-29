@@ -2,7 +2,7 @@ import { IParamFormValidity, IParamInputValidity } from '@interfaces/forms';
 
 export const checkFormInputValidity = (param: IParamInputValidity): boolean => {
     const { value, fieldConfig } = param;
-    const comparedValue = value.toString();
+    const comparedValue: string = value.toString();
 
     if (!Boolean(value) && fieldConfig.isRequired) {
         return false;

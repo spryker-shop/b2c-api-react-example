@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
