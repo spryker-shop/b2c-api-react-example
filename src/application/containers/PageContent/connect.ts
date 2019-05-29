@@ -21,7 +21,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isCustomerAuth: boolean = isUserAuthenticated(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
-    const isCustomerCartCreated: boolean = isCustomerCartCreated(state, ownProps);
+    const isCartCreated: boolean = isCustomerCartCreated(state, ownProps);
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
     const isPageLocked: boolean = getIsPageLocked(state, ownProps);
 
@@ -31,7 +31,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isAppDataSet,
         isCustomerAuth,
         anonymId,
-        isCustomerCartCreated,
+        isCartCreated,
         isInitStateFulfilled,
         isPageLocked
     };

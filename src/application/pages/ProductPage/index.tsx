@@ -98,7 +98,7 @@ class ProductPageComponent extends React.Component<Props, State> {
         }, {...(attributeVariants as unknown as IIndexSignature)}) as string;
 
         if (!idProductConcrete) {
-            return { ...abstractProduct, availability: false };
+            return { ...abstractProduct, isAvailable: false };
         }
 
         return { ...concreteProducts[idProductConcrete] };
