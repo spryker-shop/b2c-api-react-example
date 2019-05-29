@@ -1,5 +1,5 @@
 import { bindActionCreators, Dispatch } from 'redux';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { reduxify } from '@hoc/Reduxify';
 import { logoutAction } from '@stores/actions/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

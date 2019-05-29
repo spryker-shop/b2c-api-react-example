@@ -1,8 +1,8 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
-import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login';
-import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
+import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
+import { getCustomerProfile } from '@stores/reducers/pages/customerProfile/selectors';
 import { getCheckoutDataAction, sendCheckoutDataAction } from '@stores/actions/pages/checkout';
 import {
     getAddressesCollectionFromCheckoutStore,

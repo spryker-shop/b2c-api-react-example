@@ -149,7 +149,7 @@ export const styles = (theme: Theme) => createStyles({
         '&$selected': {
             color: theme.appColors.white,
             background: theme.appColors.blue,
-            '&:hover': {
+            '&:hover, &:focus': {
                 background: theme.appColors.blue
             },
             [theme.breakpoints.up('lg')]: {

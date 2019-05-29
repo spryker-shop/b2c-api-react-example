@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { cartDeleteItemAction } from '@stores/actions/common/cart';
 import { ICartState } from '@stores/reducers/common/cart/types';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

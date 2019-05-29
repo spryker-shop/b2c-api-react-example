@@ -1,135 +1,51 @@
-import produce from 'immer';
-import {
-    ADD_ADDRESS,
-    ADDRESSES_LIST,
-    DELETE_ADDRESS,
-    SET_CURRENT_ADDRESS,
-    UPDATE_ADDRESS,
-    GET_ONE_ADDRESS,
-    CLEAR_ADDRESS,
-    MULTIPLE_ADDRESSES
-} from '@stores/actionTypes/pages/addresses';
-import { IAddressItem } from '@interfaces/addresses';
-import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/Addresses/types';
+import * as actionTypes from '@stores/actionTypes/pages/addresses';
+import * as addressesHandlers  from '@stores/reducers/pages/addresses/handlers';
+import { IAddressesState, IPageAddressesAction } from '@stores/reducers/pages/addresses/types';
 
 const initialState: IAddressesState = {
     data: {
         isMultipleAddressesLoading: false,
         addresses: [],
-        currentAddress: null,
-    },
+        currentAddress: null
+    }
 };
 
-export const pageAddresses = produce<IAddressesState>(
-    (draft: IAddressesState, action: IPageAddressesAction) => {
-        switch (action.type) {
-            case `${ADDRESSES_LIST}_PENDING`:
-            case `${ADD_ADDRESS}_PENDING`:
-            case `${DELETE_ADDRESS}_PENDING`:
-            case `${UPDATE_ADDRESS}_PENDING`:
-            case `${GET_ONE_ADDRESS}_PENDING`:
-                draft.error = null;
-                draft.pending = true;
-                draft.fulfilled = false;
-                draft.rejected = false;
-                draft.initiated = false;
-                break;
-            case `${MULTIPLE_ADDRESSES}_PENDING`:
-                draft.data.isMultipleAddressesLoading = true;
-                break;
-            case `${ADDRESSES_LIST}_REJECTED`:
-            case `${ADD_ADDRESS}_REJECTED`:
-            case `${DELETE_ADDRESS}_REJECTED`:
-            case `${UPDATE_ADDRESS}_REJECTED`:
-            case `${GET_ONE_ADDRESS}_REJECTED`:
-                draft.error = action.error || action.payloadRejected.error;
-                draft.pending = false;
-                draft.fulfilled = false;
-                draft.rejected = true;
-                draft.initiated = false;
-                draft.data.currentAddress = null;
-                break;
-            case `${MULTIPLE_ADDRESSES}_FULFILLED`:
-                draft.data.isMultipleAddressesLoading = false;
-                break;
-            case `${ADDRESSES_LIST}_FULFILLED`:
-                draft.data.addresses = action.addresses;
-                draft.data.currentAddress = null;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
-                break;
-            case `${ADD_ADDRESS}_FULFILLED`: {
-                const addresses: IAddressItem[] = [...draft.data.addresses, action.address];
-                draft.data.addresses = addresses;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
-                break;
-            }
-            case `${DELETE_ADDRESS}_FULFILLED`: {
-                const addresses: IAddressItem[] = draft.data.addresses.filter((
-                    address: IAddressItem
-                ) => address.id !== action.addressId);
-                draft.data.addresses = addresses;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
-                break;
-            }
-            case `${UPDATE_ADDRESS}_FULFILLED`: {
-                const addresses: IAddressItem[] = draft.data.addresses
-                    .map((address: IAddressItem) => (
-                        address.id === action.payloadFulfilled.addressId
-                            ? {...action.payloadFulfilled.data, id: action.payloadFulfilled.addressId}
-                            : address)
-                    );
-                draft.data.addresses = addresses;
-                draft.data.currentAddress = null;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                break;
-            }
-            case SET_CURRENT_ADDRESS: {
-                if (action.addressId) {
-                    const currentAddress: IAddressItem = draft.data.addresses.find((
-                        address: IAddressItem
-                    ) => address.id === action.addressId);
-                    draft.data.currentAddress = currentAddress || null;
-                } else {
-                    draft.data.currentAddress = null;
-                }
-                break;
-            }
-            case `${GET_ONE_ADDRESS}_FULFILLED`: {
-                draft.data.currentAddress = action.payloadFulfilled.data;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                break;
-            }
-            case `${CLEAR_ADDRESS}`: {
-                draft.data.addresses = initialState.data.addresses;
-                draft.data.currentAddress = initialState.data.currentAddress;
-                draft.error = null;
-                draft.pending = null;
-                draft.fulfilled = null;
-                draft.rejected = null;
-                draft.initiated = null;
-                break;
-            }
-            default:
-                break;
-        }
-    },
-    initialState,
-);
+export const pageAddresses = (
+    state: IAddressesState = initialState,
+    action: IPageAddressesAction
+): IAddressesState => {
+    switch (action.type) {
+        case `${actionTypes.ADDRESSES_LIST}_PENDING`:
+        case `${actionTypes.ADD_ADDRESS}_PENDING`:
+        case `${actionTypes.DELETE_ADDRESS}_PENDING`:
+        case `${actionTypes.UPDATE_ADDRESS}_PENDING`:
+        case `${actionTypes.GET_ONE_ADDRESS}_PENDING`:
+            return addressesHandlers.handleAddressesPending(state);
+        case `${actionTypes.MULTIPLE_ADDRESSES}_PENDING`:
+            return addressesHandlers.handleMultipleAddressesPending(state);
+        case `${actionTypes.ADDRESSES_LIST}_REJECTED`:
+        case `${actionTypes.ADD_ADDRESS}_REJECTED`:
+        case `${actionTypes.DELETE_ADDRESS}_REJECTED`:
+        case `${actionTypes.UPDATE_ADDRESS}_REJECTED`:
+        case `${actionTypes.GET_ONE_ADDRESS}_REJECTED`:
+            return addressesHandlers.handleAddressesRejected(state, action.payloadRejected);
+        case `${actionTypes.MULTIPLE_ADDRESSES}_FULFILLED`:
+            return addressesHandlers.handleMultipleAddressesFulfilled(state);
+        case `${actionTypes.ADDRESSES_LIST}_FULFILLED`:
+            return addressesHandlers.handleAddressesFulfilled(state, action.addresses);
+        case `${actionTypes.ADD_ADDRESS}_FULFILLED`:
+            return addressesHandlers.handleAddAddressFulfilled(state, action.address);
+        case `${actionTypes.DELETE_ADDRESS}_FULFILLED`:
+            return addressesHandlers.handleDeleteAddressFulfilled(state, action.addressId);
+        case `${actionTypes.UPDATE_ADDRESS}_FULFILLED`:
+            return addressesHandlers.handleUpdateAddressFulfilled(state, action.payloadFulfilled);
+        case actionTypes.SET_CURRENT_ADDRESS:
+            return addressesHandlers.handleSetCurrentAddress(state, action.addressId);
+        case `${actionTypes.GET_ONE_ADDRESS}_FULFILLED`:
+            return addressesHandlers.handleGetOneAddress(state, action.payloadFulfilled.data);
+        case actionTypes.CLEAR_ADDRESS:
+            return addressesHandlers.handleClearAddress(initialState);
+        default:
+            return state;
+    }
+};

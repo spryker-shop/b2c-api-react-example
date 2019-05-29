@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
-import { getSpellingSuggestion } from '@stores/reducers/pages/search';
+import { getSpellingSuggestion } from '@stores/reducers/pages/search/selectors';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
 import { TActiveFilters, TActiveRangeFilters, IFilterValue } from '@interfaces/search';
 import { getRouterMatchParam } from '@helpers/common';

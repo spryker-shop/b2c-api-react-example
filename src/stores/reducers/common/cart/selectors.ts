@@ -2,49 +2,34 @@ import { ICartItem } from '@interfaces/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ITotals } from '@interfaces/common';
 
-export function getTotalProductsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
-  return state.cart.data.items.reduce((acc: number, item: ICartItem) =>
-    acc + item.quantity, 0);
-}
+export const getTotalProductsQuantity = (state: IReduxStore, props: IReduxOwnProps): number =>
+    state.cart.data.items.reduce((accumulator: number, item: ICartItem) => accumulator + item.quantity, 0);
 
-export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps): number {
-  return state.cart.data.totalQty;
-}
+export const getTotalItemsQuantity = (state: IReduxStore, props: IReduxOwnProps): number => state.cart.data.totalQty;
 
-export function isCustomerCartCreated(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return (state.cart.data.isCartCreated);
-}
+export const isCustomerCartCreated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
+    state.cart.data.isCartCreated;
 
-export function isCartStateLoading(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return Boolean(state.cart && state.cart.pending && state.cart.pending === true);
-}
+export const isCartStateLoading = (state: IReduxStore, props: IReduxOwnProps): boolean =>
+    Boolean(state.cart && state.cart.pending && state.cart.pending === true);
 
-export function isCartStateFulfilled(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return Boolean(isStateExist(state, props) && state.cart.fulfilled && state.cart.fulfilled === true);
-}
+export const getCartId = (state: IReduxStore, props: IReduxOwnProps): string =>
+    isCustomerCartCreated(state, props) && state.cart.data.id ? state.cart.data.id : null;
 
-export function isCartStateRejected(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return Boolean(isStateExist(state, props) && state.cart.rejected && state.cart.rejected === true);
-}
+export const getCartTotals = (state: IReduxStore, props: IReduxOwnProps): ITotals | null =>
+    isStateExist(state, props) ? state.cart.data.totals : null;
 
-export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
-  return (isCustomerCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
-}
+export const getProductsFromCart = (
+    state: IReduxStore,
+    props: IReduxOwnProps
+): { items: ICartItem[], totalQty: number } => {
+    const items: ICartItem[] = isStateExist(state, props) ? state.cart.data.items : [];
+    const totalQty: number = isStateExist(state, props) ? state.cart.data.totalQty : 0;
 
-export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): ITotals | null {
-  return isStateExist(state, props) ? state.cart.data.totals : null;
-}
+    return {
+        items,
+        totalQty
+    };
+};
 
-export function getProductsFromCart(state: IReduxStore, props: IReduxOwnProps): {items: ICartItem[], totalQty: number} {
-  const items: ICartItem[] = isStateExist(state, props) ? state.cart.data.items : [];
-  const totalQty: number = isStateExist(state, props) ? state.cart.data.totalQty : 0;
-
-  return ({
-    items,
-    totalQty,
-  });
-}
-
-function isStateExist(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return Boolean(state.cart);
-}
+const isStateExist = (state: IReduxStore, props: IReduxOwnProps): boolean => Boolean(state.cart);

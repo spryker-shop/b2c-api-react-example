@@ -8,8 +8,8 @@ import {
     isOrderDetailsLoading,
     isOrderDetailsPresent,
     isOrderDetailsStateRejected,
-} from '@stores/reducers/pages/orderDetails';
-import { isAppInitiated } from '@stores/reducers/common/init/selectors';
+} from '@stores/reducers/pages/orderDetails/selectors';
+import { isAppInitialized } from '@stores/reducers/common/init/selectors';
 import { getOrderDetailsAction } from '@stores/actions/pages/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IOrderDetailsParsed } from '@interfaces/order';
@@ -19,7 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isRejected: boolean = isOrderDetailsStateRejected(state, ownProps);
     const isFulfilled: boolean = isOrderDetailsFulfilled(state, ownProps);
     const isInitiated: boolean = isOrderDetailsInitiated(state, ownProps);
-    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
+    const isAppDataSet: boolean = isAppInitialized(state, ownProps);
     const isOrderExist: boolean = isOrderDetailsPresent(state, ownProps);
     const order: IOrderDetailsParsed = getOrderDetailsFromStore(state, ownProps);
     const orderIdParam: string | null = getRouterMatchParam(state, ownProps, 'orderId');

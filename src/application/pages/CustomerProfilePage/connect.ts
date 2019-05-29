@@ -6,16 +6,16 @@ import {
     isPageCustomerProfileFulfilled,
     isPageCustomerProfileLoading,
     isPageCustomerProfileRejected
-} from '@stores/reducers/pages/customerProfile';
+} from '@stores/reducers/pages/customerProfile/selectors';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
-import { getCustomerReference } from '@stores/reducers/pages/login';
-import { isAppInitiated } from '@stores/reducers/common/init/selectors';
+import { getCustomerReference } from '@stores/reducers/pages/login/selectors';
+import { isAppInitialized } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading = isPageCustomerProfileLoading(state, ownProps);
     const isRejected = isPageCustomerProfileRejected(state, ownProps);
     const isFulfilled = isPageCustomerProfileFulfilled(state, ownProps);
-    const isAppDataSet = isAppInitiated(state, ownProps);
+    const isAppDataSet = isAppInitialized(state, ownProps);
     const isCustomerDataExist = isCustomerProfilePresent(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
 

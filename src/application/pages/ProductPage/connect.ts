@@ -8,8 +8,8 @@ import {
     isPageProductStateLoading,
     isPageProductStateRejected,
     isProductDetailsPresent,
-} from '@stores/reducers/pages/product';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
+} from '@stores/reducers/pages/product/selectors';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
 import { getRouterMatchParam } from '@helpers/common';
 import { getProductDataAction } from '@stores/actions/pages/product';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';

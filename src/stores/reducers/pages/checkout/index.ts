@@ -1,23 +1,5 @@
-import produce from 'immer';
-import {
-    CHECKOUT_DATA_INIT_REQUEST,
-    SEND_CHECKOUT_DATA,
-    CHECKOUT_MUTATE_DELIVERY_ADDRESS,
-    CHECKOUT_MUTATE_DELIVERY_SELECTION_ADD_NEW,
-    CHECKOUT_MUTATE_DELIVERY_SELECTION_ADDRESS_ID,
-    CHECKOUT_MUTATE_BILLING_SELECTION_ADD_NEW,
-    CHECKOUT_MUTATE_BILLING_SELECTION_ADDRESS_ID,
-    CHECKOUT_MUTATE_BILLING_SELECTION_SAME_AS_DELIVERY,
-    CHECKOUT_MUTATE_BILLING_ADDRESS,
-    CHECKOUT_MUTATE_SHIPMENT_METHOD,
-    CHECKOUT_MUTATE_DELIVERY_STEP,
-    CHECKOUT_MUTATE_BILLING_STEP,
-    CHECKOUT_MUTATE_PAYMENT_METHOD,
-    CHECKOUT_MUTATE_PAYMENT_SECTION,
-    CHECKOUT_MUTATE_INVOICE_FORM,
-    CHECKOUT_MUTATE_CREDIT_CARD_FORM,
-    CHECKOUT_CLEAR_DATA_FORM
-} from '@stores/actionTypes/pages/checkout';
+import * as actionTypes  from '@stores/actionTypes/pages/checkout';
+import * as checkoutHandlers  from '@stores/reducers/pages/checkout/handlers';
 import { ICheckoutState, IPageCheckoutAction } from '@stores/reducers/pages/checkout/types';
 import {
     deliverySelectionDefault,
@@ -52,188 +34,64 @@ export const initialState: ICheckoutState = {
     initiated: false
 };
 
-export const pageCheckout = produce<ICheckoutState>(
-    (draft: ICheckoutState, action: IPageCheckoutAction) => {
-        switch (action.type) {
-            case `${CHECKOUT_DATA_INIT_REQUEST}_PENDING`:
-            case `${SEND_CHECKOUT_DATA}_PENDING`:
-                draft.data.orderId = '';
-                draft.error = null;
-                draft.pending = true;
-                draft.fulfilled = false;
-                draft.rejected = false;
-                draft.initiated = false;
-                break;
-            case `${CHECKOUT_DATA_INIT_REQUEST}_REJECTED`:
-            case `${SEND_CHECKOUT_DATA}_REJECTED`:
-                draft.data.orderId = '';
-                draft.error = action.payloadRejected.error;
-                draft.pending = false;
-                draft.fulfilled = false;
-                draft.rejected = true;
-                draft.initiated = false;
-                break;
-            case `${CHECKOUT_DATA_INIT_REQUEST}_FULFILLED`:
-                draft.data.payments = action.payloadGetFulfilled.payments || null;
-                draft.data.shipments = action.payloadGetFulfilled.shipments || null;
-                draft.data.addressesCollection = action.payloadGetFulfilled.addressesCollection || null;
-
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
-                break;
-            case `${SEND_CHECKOUT_DATA}_FULFILLED`: {
-                draft.data.orderId = action.payloadSendFulfilled.orderId;
-                draft.error = null;
-                draft.pending = false;
-                draft.fulfilled = true;
-                draft.rejected = false;
-                draft.initiated = true;
-                break;
-            }
-            case CHECKOUT_MUTATE_DELIVERY_ADDRESS: {
-                draft.deliveryNewAddress = {
-                    ...draft.deliveryNewAddress,
-                    [action.payloadFormFieldMutate.key]: {
-                        value: action.payloadFormFieldMutate.value,
-                        isError: action.payloadFormFieldMutate.isError
-                    }
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_DELIVERY_SELECTION_ADD_NEW: {
-                draft.deliverySelection = {
-                    selectedAddressId: null,
-                    isAddNew: true
-                };
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isAddressStepPassed: false
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_DELIVERY_SELECTION_ADDRESS_ID: {
-                draft.deliverySelection = {
-                    selectedAddressId: action.payloadCurrentSelection,
-                    isAddNew: false
-                };
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isAddressStepPassed: true
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_DELIVERY_STEP: {
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isAddressStepPassed: action.payloadUpdateSectionStatus
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_BILLING_SELECTION_ADD_NEW: {
-                draft.billingSelection = {
-                    selectedAddressId: null,
-                    isAddNew: true,
-                    isSameAsDelivery: false
-                };
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isBillingStepPassed: false
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_BILLING_SELECTION_ADDRESS_ID: {
-                draft.billingSelection = {
-                    selectedAddressId: action.payloadCurrentSelection,
-                    isAddNew: false,
-                    isSameAsDelivery: false
-                };
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isBillingStepPassed: true
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_BILLING_SELECTION_SAME_AS_DELIVERY: {
-                draft.billingSelection = {
-                    selectedAddressId: null,
-                    isAddNew: false,
-                    isSameAsDelivery: action.payloadSelectionSameAsDelivery
-                };
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isBillingStepPassed: action.payloadSelectionSameAsDelivery
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_BILLING_STEP: {
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isBillingStepPassed: action.payloadUpdateSectionStatus
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_BILLING_ADDRESS: {
-                draft.billingNewAddress = {
-                    ...draft.billingNewAddress,
-                    [action.payloadFormFieldMutate.key]: {
-                        value: action.payloadFormFieldMutate.value,
-                        isError: action.payloadFormFieldMutate.isError
-                    }
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_SHIPMENT_METHOD: {
-                draft.shipmentMethod = action.payloadCurrentSelection;
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isShipmentStepPassed: true
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_PAYMENT_METHOD: {
-                draft.paymentMethod = action.payloadFormUpdatePaymentStatus.value;
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isPaymentStepPassed: action.payloadFormUpdatePaymentStatus.isPaymentStepCompleted
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_PAYMENT_SECTION: {
-                draft.stepsCompletion = {
-                    ...draft.stepsCompletion,
-                    isPaymentStepPassed: action.payloadUpdateSectionStatus
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_CREDIT_CARD_FORM: {
-                draft.paymentCreditCardData = {
-                    ...draft.paymentCreditCardData,
-                    [action.payloadFormFieldMutate.key]: {
-                        value: action.payloadFormFieldMutate.value,
-                        isError: action.payloadFormFieldMutate.isError
-                    }
-                };
-                break;
-            }
-            case CHECKOUT_MUTATE_INVOICE_FORM: {
-                draft.paymentInvoiceData = {
-                    ...draft.paymentInvoiceData,
-                    [action.payloadFormFieldMutate.key]: {
-                        value: action.payloadFormFieldMutate.value,
-                        isError: action.payloadFormFieldMutate.isError
-                    }
-                };
-                break;
-            }
-            case CHECKOUT_CLEAR_DATA_FORM: {
-                return initialState;
-            }
-            default:
-                break;
-        }
-    },
-    initialState
-);
+export const pageCheckout = (
+    state: ICheckoutState = initialState,
+    action: IPageCheckoutAction
+): ICheckoutState => {
+    switch (action.type) {
+        case `${actionTypes.CHECKOUT_DATA_INIT_REQUEST}_PENDING`:
+        case `${actionTypes.SEND_CHECKOUT_DATA}_PENDING`:
+            return checkoutHandlers.handleCheckoutPending(state);
+        case `${actionTypes.CHECKOUT_DATA_INIT_REQUEST}_REJECTED`:
+        case `${actionTypes.SEND_CHECKOUT_DATA}_REJECTED`:
+            return checkoutHandlers.handleCheckoutRejected(state, action.payloadRejected);
+        case `${actionTypes.CHECKOUT_DATA_INIT_REQUEST}_FULFILLED`:
+            return checkoutHandlers.handleCheckoutFulfilled(state, action.payloadGetFulfilled);
+        case `${actionTypes.SEND_CHECKOUT_DATA}_FULFILLED`:
+            return checkoutHandlers.handleSendCheckoutDataFulfilled(state, action.payloadSendFulfilled.orderId);
+        case actionTypes.CHECKOUT_MUTATE_DELIVERY_ADDRESS:
+            return checkoutHandlers.handleMutateCheckoutDeliveryAddress(state, action.payloadFormFieldMutate);
+        case actionTypes.CHECKOUT_MUTATE_DELIVERY_SELECTION_ADD_NEW:
+            return checkoutHandlers.handleMutateCheckoutDeliverySelectionAddNew(state);
+        case actionTypes.CHECKOUT_MUTATE_DELIVERY_SELECTION_ADDRESS_ID:
+            return checkoutHandlers.handleMutateCheckoutDeliveryAddressId(state, action.payloadCurrentSelection);
+        case actionTypes.CHECKOUT_MUTATE_DELIVERY_STEP:
+            return checkoutHandlers.handleMutateCheckoutStep(
+                state,
+                action.payloadUpdateSectionStatus,
+                'isAddressStepPassed'
+            );
+        case actionTypes.CHECKOUT_MUTATE_BILLING_SELECTION_ADD_NEW:
+            return checkoutHandlers.handleMutateCheckoutBillingSelectionAddNew(state);
+        case actionTypes.CHECKOUT_MUTATE_BILLING_SELECTION_ADDRESS_ID:
+            return checkoutHandlers.handleMutateCheckoutBillingAddressId(state, action.payloadCurrentSelection);
+        case actionTypes.CHECKOUT_MUTATE_BILLING_SELECTION_SAME_AS_DELIVERY:
+            return checkoutHandlers.handleMutateCheckoutSameAsDelivery(state, action.payloadSelectionSameAsDelivery);
+        case actionTypes.CHECKOUT_MUTATE_BILLING_STEP:
+            return checkoutHandlers.handleMutateCheckoutStep(
+                state,
+                action.payloadUpdateSectionStatus,
+                'isBillingStepPassed'
+            );
+        case actionTypes.CHECKOUT_MUTATE_BILLING_ADDRESS:
+            return checkoutHandlers.handleMutateCheckoutBillingAddress(state, action.payloadFormFieldMutate);
+        case actionTypes.CHECKOUT_MUTATE_SHIPMENT_METHOD:
+            return checkoutHandlers.handleMutateCheckoutShipmentMethod(state, action.payloadCurrentSelection);
+        case actionTypes.CHECKOUT_MUTATE_PAYMENT_METHOD:
+            return checkoutHandlers.handleMutateCheckoutPaymentMethod(state, action.payloadFormUpdatePaymentStatus);
+        case actionTypes.CHECKOUT_MUTATE_PAYMENT_SECTION:
+            return checkoutHandlers.handleMutateCheckoutStep(
+                state,
+                action.payloadUpdateSectionStatus,
+                'isPaymentStepPassed'
+            );
+        case actionTypes.CHECKOUT_MUTATE_CREDIT_CARD_FORM:
+            return checkoutHandlers.handleMutateCheckoutCreditCardForm(state, action.payloadFormFieldMutate);
+        case actionTypes.CHECKOUT_MUTATE_INVOICE_FORM:
+            return checkoutHandlers.handleMutateCheckoutInvoiceForm(state, action.payloadFormFieldMutate);
+        case actionTypes.CHECKOUT_CLEAR_DATA_FORM:
+            return initialState;
+        default:
+            return state;
+    }
+};

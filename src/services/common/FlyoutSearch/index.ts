@@ -1,7 +1,7 @@
 import { api, ApiServiceAbstract } from '@services/api';
 import { parseFlyoutSearchResponse } from '@helpers/parsing';
 import { TApiResponseData, EIncludeTypes } from '@services/types';
-import { suggestPendingState, suggestRejectState, suggestFullfiledState } from '@stores/actions/pages/search';
+import { suggestPendingState, suggestRejectedState, suggestFullfiledState } from '@stores/actions/pages/search';
 import { IProductCard } from '@interfaces/product';
 import { errorMessageInform } from '@helpers/common';
 
@@ -27,13 +27,13 @@ export class FlyoutSearchService extends ApiServiceAbstract {
                 dispatch(suggestFullfiledState(payloadSuggestionFulfilled));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(suggestRejectState(errorMessage));
+                dispatch(suggestRejectedState(errorMessage));
                 errorMessageInform(errorMessage);
 
                 return null;
             }
         } catch (error) {
-            dispatch(suggestRejectState(error.message));
+            dispatch(suggestRejectedState(error.message));
             errorMessageInform(error.message, false);
         }
     }

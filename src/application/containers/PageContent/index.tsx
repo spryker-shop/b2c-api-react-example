@@ -110,8 +110,8 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { locale, classes, isCartCreated, isInitStateFulfilled } = this.props;
-        const isDataFulfilled = Boolean(isCartCreated && isInitStateFulfilled);
+        const { locale, classes, isCustomerCartCreated, isInitStateFulfilled } = this.props;
+        const isDataFulfilled = Boolean(isCustomerCartCreated && isInitStateFulfilled);
         addLocaleData(getLocaleData(locale));
 
         return (
