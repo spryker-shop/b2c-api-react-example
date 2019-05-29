@@ -22,7 +22,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         isFilterListOpened: false
     };
 
-    static getDerivedStateFromProps = (props: Props, state: State): State => {
+    public static getDerivedStateFromProps = (props: Props, state: State): State => {
         if (props.isFulfilled && state.isFirstLoadPassed === null) {
             return {
                 ...state,
