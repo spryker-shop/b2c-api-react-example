@@ -11,7 +11,7 @@ export class OrderService extends ApiServiceAbstract {
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
         dispatch(orderActions.ordersCollectionPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(orderAuthenticateErrorMessage);
             }
@@ -36,7 +36,7 @@ export class OrderService extends ApiServiceAbstract {
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
         dispatch(orderActions.orderDetailsPendingStateAction());
         try {
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
                 Promise.reject(orderAuthenticateErrorMessage);
             }

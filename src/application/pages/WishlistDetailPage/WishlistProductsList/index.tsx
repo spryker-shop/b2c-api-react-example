@@ -34,7 +34,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
         } = props;
 
         return products.map((product: IWishlistProduct) => {
-            const { sku, name, prices, attributes, image, availability } = product;
+            const { sku, name, prices, attributes, image, isAvailable } = product;
 
             const renderSuperAttributes = attributes ? (
                 attributes.map((attr: IProductAttributes, index: number) => {
@@ -98,11 +98,11 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                                     <span
                                         className={`
                                             ${classes.attributesValue}
-                                            ${availability ? classes.available : classes.noAvailable}
+                                            ${isAvailable ? classes.available : classes.noAvailable}
                                         `}
                                     >
                                          <FormattedMessage
-                                             id={`${ availability ? 'available.title' : 'unavailable.title' }`}
+                                             id={`${ isAvailable ? 'available.title' : 'unavailable.title' }`}
                                          />
                                     </span>
                                 </div>
@@ -110,7 +110,7 @@ const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => 
                             <Grid item className={ classes.colButton }>
                                 <Button
                                     variant="outlined"
-                                    disabled={ isCartLoading || !availability || isLoading }
+                                    disabled={ isCartLoading || !isAvailable || isLoading }
                                     onClick={ () => addItemToCartAction(createCartItemAddToCart(sku, 1), cartId) }
                                     fullWidth
                                     className={ classes.button }

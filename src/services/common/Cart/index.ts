@@ -4,13 +4,13 @@ import { ICartAddItem, ICartDataParsed } from '@interfaces/cart';
 import { parseCartResponse } from '@helpers/parsing';
 import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import { EIncludeTypes, TApiResponseData } from '@services/types';
+import { EIncludeTypes, TApiResponseData, IRequestHeader } from '@services/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
 import { errorMessageInform } from '@helpers/common';
 
 export class CartService extends ApiServiceAbstract {
-    public static cartHeader = (isUserLoggedIn: boolean, anonymId: string): object => !isUserLoggedIn
+    public static cartHeader = (isUserLoggedIn: boolean, anonymId: string): IRequestHeader => !isUserLoggedIn
         ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
         : { withCredentials: true };
 
@@ -55,9 +55,9 @@ export class CartService extends ApiServiceAbstract {
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const cartType = isUserLoggedIn ? 'carts' : 'guest-carts';
-            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
+            const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
+            const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
+            const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {
@@ -93,10 +93,10 @@ export class CartService extends ApiServiceAbstract {
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
+            const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
-            const cartType = isUserLoggedIn ? `carts/${cartId}/items` : 'guest-cart-items';
-            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
+            const cartType: string = isUserLoggedIn ? `carts/${cartId}/items` : 'guest-cart-items';
+            const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.post(endpoint, body, requestHeader);
 
             if (response.ok) {
@@ -130,8 +130,8 @@ export class CartService extends ApiServiceAbstract {
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const endpoint = isUserLoggedIn
+            const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
+            const endpoint: string = isUserLoggedIn
                 ? `carts/${cartId}/items/${sku}`
                 : `guest-carts/${cartId}/guest-cart-items/${sku}`;
 
@@ -167,12 +167,12 @@ export class CartService extends ApiServiceAbstract {
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
 
-            const requestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const cartType = isUserLoggedIn
+            const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
+            const cartType: string = isUserLoggedIn
                 ? `carts/${cartId}/items/${payload.sku}`
                 : `guest-carts/${cartId}/guest-cart-items/${payload.sku}`;
 
-            const endpoint = this.cartEndpoint(cartType, isUserLoggedIn);
+            const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
 
             const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
             const response: TApiResponseData = await api.patch(endpoint, body, requestHeader);

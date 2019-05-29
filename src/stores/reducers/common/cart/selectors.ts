@@ -7,13 +7,14 @@ export const getTotalProductsQuantity = (state: IReduxStore, props: IReduxOwnPro
 
 export const getTotalItemsQuantity = (state: IReduxStore, props: IReduxOwnProps): number => state.cart.data.totalQty;
 
-export const isCartCreated = (state: IReduxStore, props: IReduxOwnProps): boolean => state.cart.data.cartCreated;
+export const isCustomerCartCreated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
+    state.cart.data.isCartCreated;
 
 export const isCartStateLoading = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(state.cart && state.cart.pending && state.cart.pending === true);
 
 export const getCartId = (state: IReduxStore, props: IReduxOwnProps): string =>
-    isCartCreated(state, props) && state.cart.data.id ? state.cart.data.id : null;
+    isCustomerCartCreated(state, props) && state.cart.data.id ? state.cart.data.id : null;
 
 export const getCartTotals = (state: IReduxStore, props: IReduxOwnProps): ITotals | null =>
     isStateExist(state, props) ? state.cart.data.totals : null;

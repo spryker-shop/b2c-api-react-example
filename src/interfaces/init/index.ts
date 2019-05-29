@@ -3,11 +3,11 @@ import { ICountry } from '@interfaces/addresses';
 
 export interface IInitData {
     ok?: boolean;
-    priceMode?: string | null;
-    currency?: string | null;
-    store?: string | null;
-    locale?: string | null;
-    timeZone?: string | null;
+    priceMode?: string;
+    currency?: string;
+    store?: string;
+    locale?: string;
+    timeZone?: string;
     categoriesTree?: ICategory[];
     countries?: ICountry[];
     anonymId?: string;

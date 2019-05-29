@@ -2,7 +2,7 @@ import { ICartDataParsed } from '@interfaces/cart';
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 export interface ICartData extends ICartDataParsed {
-    cartCreated: boolean;
+    isCartCreated: boolean;
 }
 
 export interface ICartState extends IReduxState {

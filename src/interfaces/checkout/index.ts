@@ -13,9 +13,9 @@ export interface IShipmentMethod {
     id: string;
     name: string;
     price: number;
-    taxRate: number | null;
-    shipmentDeliveryTime: string | null;
-    [key: string]: string | number | null;
+    taxRate: number;
+    shipmentDeliveryTime: string;
+    [key: string]: string | number;
 }
 
 export interface ICheckoutRequest {
@@ -35,12 +35,12 @@ export interface IPaymentProvider {
 }
 
 export interface IDeliverySelectionState {
-    selectedAddressId: string | null;
+    selectedAddressId: string;
     isAddNew: boolean;
 }
 
 export interface IBillingSelectionState {
-    selectedAddressId: string | null;
+    selectedAddressId: string;
     isAddNew: boolean;
     isSameAsDelivery: boolean;
 }

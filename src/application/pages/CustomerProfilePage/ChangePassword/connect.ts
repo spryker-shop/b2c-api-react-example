@@ -7,11 +7,11 @@ import { getCustomerProfile, isCustomerPasswordUpdated } from '@stores/reducers/
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
-    const passwordUpdated: boolean = isCustomerPasswordUpdated(state, ownProps);
+    const isPasswordUpdated: boolean = isCustomerPasswordUpdated(state, ownProps);
 
     return {
         customerData,
-        passwordUpdated
+        isPasswordUpdated
     };
 };
 
