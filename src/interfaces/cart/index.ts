@@ -44,7 +44,7 @@ export interface ICartCommonData {
     priceMode: string;
     store: string;
     totals: ITotals;
-    cartCreated?: boolean;
+    isCartCreated?: boolean;
 }
 
 export interface ICartItemCalculation {

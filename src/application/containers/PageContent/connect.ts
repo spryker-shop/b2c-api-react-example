@@ -9,7 +9,7 @@ import {
     getIsPageLocked
 } from '@stores/reducers/common/init/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import { isCartCreated } from '@stores/reducers/common/cart/selectors';
+import { isCustomerCartCreated } from '@stores/reducers/common/cart/selectors';
 import { initApplicationDataAction, setAuthFromStorageAction } from '@stores/actions/common/init';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
@@ -21,7 +21,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isAppDataSet: boolean = isAppInitiated(state, ownProps);
     const isCustomerAuth: boolean = isUserAuthenticated(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
-    const cartCreated: boolean = isCartCreated(state, ownProps);
+    const isCartCreated: boolean = isCustomerCartCreated(state, ownProps);
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
     const isPageLocked: boolean = getIsPageLocked(state, ownProps);
 
@@ -31,7 +31,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isAppDataSet,
         isCustomerAuth,
         anonymId,
-        cartCreated,
+        isCartCreated,
         isInitStateFulfilled,
         isPageLocked
     });

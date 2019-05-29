@@ -7,12 +7,11 @@ import {
 } from '@stores/reducers/pages/wishlist/selectors';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { addItemWishlistAction, getWishlistsAction } from '@stores/actions/pages/wishlist';
-import { getCartId, isCartCreated } from '@stores/reducers/common/cart/selectors';
+import { getCartId } from '@stores/reducers/common/cart/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn = isUserAuthenticated(state, ownProps);
-    const cartCreated: boolean = isCartCreated(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
     const isWishlistLoading: boolean = isPageWishlistStateLoading(state, ownProps);
     const wishlists = getWishlistsCollectionFromStore(state, ownProps);
@@ -20,7 +19,6 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId = getAnonymId(state, ownProps);
 
     return ({
-        cartCreated,
         cartId,
         isUserLoggedIn,
         wishlists,

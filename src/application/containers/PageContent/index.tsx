@@ -97,7 +97,7 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     protected isDataFulfilled = () => (
-        Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
+        Boolean(this.props.isCartCreated && this.props.isInitStateFulfilled)
     );
 
     protected shouldHideFooter = (): boolean => {
