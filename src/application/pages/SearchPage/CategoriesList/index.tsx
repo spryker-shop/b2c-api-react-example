@@ -22,13 +22,13 @@ class CategoriesListComponent extends React.Component<Props, State> {
     };
 
     protected selectCategory = (categoryId: number) => (event: ClickEvent): void => {
-        const { locationCategoryId, changeLocation, setCurrentCategory, onItemClickHandler } = this.props;
+        const { locationCategoryId, push, setCurrentCategoryAction, onItemClickHandler } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
 
         if (locationCategoryId !== categoryId && !isMobile) {
             this.closePopover();
-            setCurrentCategory(categoryId);
-            changeLocation(`${pathCategoryPageBase}/${categoryId}`);
+            setCurrentCategoryAction(categoryId);
+            push(`${pathCategoryPageBase}/${categoryId}`);
 
             return;
         }
@@ -84,7 +84,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
             classes,
             categories,
             categoriesTree,
-            localizedName,
+            categoriesLocalizedName,
             width,
             isOpened,
             onTitleClick
@@ -102,7 +102,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
             return (
                 <div className={classes.root}>
                     <span className={ classes.title } ref={ this.buttonRef } onClick={ this.openPopover }>
-                        { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                        { categoriesLocalizedName
+                            ? categoriesLocalizedName
+                            : <FormattedMessage id={ 'categories.panel.title' } />
+                        }
                         <span className={`${classes.chevron} ${isOpen ? classes.chevronOpened : ''}`}>
                             <ChevronIcon />
                         </span>
@@ -135,7 +138,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
         return (
             <div className={classes.root}>
                 <span className={ classes.title } onClick={ onTitleClick }>
-                    { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                    { categoriesLocalizedName
+                        ? categoriesLocalizedName
+                        : <FormattedMessage id={ 'categories.panel.title' } />
+                    }
                     <span className={`${classes.chevron} ${isOpened ? classes.chevronOpened : ''}`}>
                         <ChevronIcon />
                     </span>

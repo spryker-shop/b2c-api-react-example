@@ -36,7 +36,7 @@ class SearchPageComponent extends React.Component<Props, State> {
             query = Object.assign(query, parsedGetParams);
         }
         if (!this.props.isLoading) {
-            this.props.sendSearch(query);
+            this.props.sendSearchAction(query);
             this.categoriesTree();
         }
     };
@@ -66,9 +66,9 @@ class SearchPageComponent extends React.Component<Props, State> {
     public componentWillUnmount = (): void => this.clearAllFilters();
 
     protected clearAllFilters = (): void => {
-        this.props.clearActiveFilters();
-        this.props.clearSort();
-        this.props.clearPaginationPage();
+        this.props.clearActiveFiltersAction();
+        this.props.clearSortAction();
+        this.props.clearPaginationPageAction();
     };
 
     protected updatePageUrl(query: ISearchQuery): void {
@@ -80,7 +80,7 @@ class SearchPageComponent extends React.Component<Props, State> {
 
     protected sendCategoryRequest = async (query: ISearchQuery, shouldUpdatePath?: boolean): Promise<void> => {
         if (!this.props.isLoading) {
-            await this.props.sendSearch(query);
+            await this.props.sendSearchAction(query);
         }
 
         if (shouldUpdatePath) {
@@ -145,7 +145,7 @@ class SearchPageComponent extends React.Component<Props, State> {
             state: { categoriesTree: formattedCategoriesTree }
         };
 
-        this.props.changeLocation(location);
+        this.props.push(location);
     };
 
     public render() {
@@ -156,7 +156,7 @@ class SearchPageComponent extends React.Component<Props, State> {
             spellingSuggestion,
             categoriesTree,
             currentCategoryId,
-            sendSearch,
+            sendSearchAction,
             locationCategoryId,
             history
         } = this.props;
@@ -196,7 +196,7 @@ class SearchPageComponent extends React.Component<Props, State> {
                     { spellingSuggestion &&
                         <SearchIntro
                             spellingSuggestion={ spellingSuggestion }
-                            onLinkClick={ () => sendSearch({ q: spellingSuggestion }) }
+                            onLinkClick={ () => sendSearchAction({ q: spellingSuggestion }) }
                         />
                     }
                 </AppPageTitle>

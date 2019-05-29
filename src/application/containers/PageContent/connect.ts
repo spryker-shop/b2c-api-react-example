@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isStateLoading } from '@stores/reducers';
@@ -11,21 +12,20 @@ import {
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { isCustomerCartCreated } from '@stores/reducers/common/cart/selectors';
 import { initApplicationDataAction, setAuthFromStorageAction } from '@stores/actions/common/init';
-import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { clearSearchTermAction } from '@stores/actions/pages/search';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isLoading = isStateLoading(state, ownProps) || false;
-    const locale = getAppLocale(state, ownProps);
+    const isLoading: boolean = isStateLoading(state, ownProps) || false;
+    const locale: string = getAppLocale(state, ownProps);
     const isAppDataSet: boolean = isAppInitiated(state, ownProps);
     const isCustomerAuth: boolean = isUserAuthenticated(state, ownProps);
-    const anonymId = getAnonymId(state, ownProps);
-    const isCartCreated: boolean = isCustomerCartCreated(state, ownProps);
+    const anonymId: string = getAnonymId(state, ownProps);
+    const cartCreated: boolean = isCustomerCartCreated(state, ownProps);
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
     const isPageLocked: boolean = getIsPageLocked(state, ownProps);
 
-    return ({
+    return {
         isLoading,
         locale,
         isAppDataSet,
@@ -34,16 +34,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isCartCreated,
         isInitStateFulfilled,
         isPageLocked
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    initApplicationData: () => dispatch(initApplicationDataAction()),
-    setAuth: (payload: ICustomerLoginDataParsed) => dispatch(setAuthFromStorageAction(payload)),
-    getCustomerCart: (anonymId: string, isUserLoggedIn: boolean) =>
-        dispatch(getCustomerCartsAction(anonymId, isUserLoggedIn)),
-    clearSearchTerm: () => dispatch(clearSearchTermAction())
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    initApplicationDataAction,
+    setAuthFromStorageAction,
+    getCustomerCartsAction,
+    clearSearchTermAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

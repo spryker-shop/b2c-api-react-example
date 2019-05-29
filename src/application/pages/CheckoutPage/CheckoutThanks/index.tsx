@@ -17,11 +17,11 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
     };
 
     public componentDidMount = (): void => {
-        const { getCustomerCart, isUserLoggedIn, anonymId, profile, deliveryNewAddress } = this.props;
+        const { getCustomerCartsAction, isUserLoggedIn, anonymId, profile, deliveryNewAddress } = this.props;
         const userEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
         this.setState({ email: userEmail.toString() });
 
-        getCustomerCart(anonymId, isUserLoggedIn);
+        getCustomerCartsAction(anonymId, isUserLoggedIn);
 
         if (isUserLoggedIn) {
             return;

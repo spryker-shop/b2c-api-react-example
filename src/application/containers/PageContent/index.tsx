@@ -40,7 +40,7 @@ class PageContentComponent extends React.Component<Props, State> {
         const customerRef: string = localStorage.getItem('customerRef');
 
         if (accessToken && expiresIn && refreshToken) {
-            this.props.setAuth({
+            this.props.setAuthFromStorageAction({
                 accessToken,
                 expiresIn,
                 refreshToken,
@@ -49,7 +49,7 @@ class PageContentComponent extends React.Component<Props, State> {
         }
 
         if (!this.props.isAppDataSet) {
-            this.props.initApplicationData(null);
+            this.props.initApplicationDataAction(null);
 
             return;
         }
@@ -60,7 +60,7 @@ class PageContentComponent extends React.Component<Props, State> {
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
-            this.props.getCustomerCart(anonymId, isCustomerAuth);
+            this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
         }
 
         if (prevProps.isPageLocked !== isPageLocked) {
@@ -92,13 +92,9 @@ class PageContentComponent extends React.Component<Props, State> {
             && this.props.location.pathname.includes(pathCategoryPageBase) === false
             && this.props.location.pathname.includes(pathSearchPage) === false
         ) {
-            this.props.clearSearchTerm();
+            this.props.clearSearchTermAction();
         }
     };
-
-    protected isDataFulfilled = () => (
-        Boolean(this.props.isCartCreated && this.props.isInitStateFulfilled)
-    );
 
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [
@@ -114,7 +110,8 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { locale, classes } = this.props;
+        const { locale, classes, isCartCreated, isInitStateFulfilled } = this.props;
+        const isDataFulfilled = Boolean(isCartCreated && isInitStateFulfilled);
         addLocaleData(getLocaleData(locale));
 
         return (
@@ -122,7 +119,7 @@ class PageContentComponent extends React.Component<Props, State> {
                 <div className={ classes.root }>
                     <AppHeader />
                     <ErrorBoundary>
-                        <Routes isAppLoading={ this.isDataFulfilled() } />
+                        <Routes isAppLoading={ isDataFulfilled } />
                     </ErrorBoundary>
                     { !this.shouldHideFooter() && <AppFooter /> }
                     <Notifications />

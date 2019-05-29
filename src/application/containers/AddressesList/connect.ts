@@ -16,19 +16,18 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
     const isInitiated: boolean = isAddressesInitiated(state, ownProps);
 
-    return ({
+    return {
         customer,
         addresses,
         isLoading,
         isInitiated
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators({
-        getAddressesAction,
-        setCurrentAddressAction,
-        deleteAddressAction
-    }, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getAddressesAction,
+    setCurrentAddressAction,
+    deleteAddressAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

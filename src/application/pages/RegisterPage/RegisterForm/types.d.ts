@@ -3,8 +3,8 @@ import { WithRouter } from '@interfaces/common';
 
 export interface IRegisterFormProps extends RouteProps, WithRouter {
     isAuth?: boolean;
-    handleSubmitRegisterForm?: Function;
-    getCustomerCart?: Function;
+    customerRegisterAction?: Function;
+    getCustomerCartsAction?: Function;
     isLoading?: boolean;
     isCartLoading?: boolean;
 }

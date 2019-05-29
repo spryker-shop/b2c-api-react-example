@@ -3,7 +3,7 @@ import { IResetPasswordPayload } from '@interfaces/customer';
 import { styles } from './styles';
 
 export interface IResetPasswordPageProps extends WithStyles<typeof styles> {
-    resetPasswordRequest?: (payload: IResetPasswordPayload) => void;
+    resetPasswordAction?: (payload: IResetPasswordPayload) => void;
     restoreKey?: string | null;
     isLoading: boolean;
 }

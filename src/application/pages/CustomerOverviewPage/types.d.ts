@@ -10,7 +10,7 @@ export interface ICustomerOverviewPageProps extends WithStyles<typeof styles> {
     isLoading: boolean;
     customerReference: string;
     orders: IOrderItem[] | null;
-    getCustomerData: (customerReference: string) => void;
+    getCustomerProfileAction: (customerReference: string) => void;
     getOrdersCollectionAction: () => void;
     isCustomerDataExist: boolean;
     isAddressesListInitiated?: boolean;

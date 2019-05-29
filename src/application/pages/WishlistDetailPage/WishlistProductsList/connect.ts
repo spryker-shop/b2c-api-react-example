@@ -2,7 +2,6 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { WishlistState } from '@stores/reducers/pages/Wishlist/types';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { push } from 'connected-react-router';
 import { addItemToCartAction } from '@stores/actions/common/cart';
 import { deleteItemWishlistAction } from '@stores/actions/pages/wishlist';
 import { getCartId, getTotalItemsQuantity, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
@@ -20,7 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? wishlistProps.data.currentItems : null;
     const isLoading: boolean = wishlistProps ? wishlistProps.pending : false;
 
-    return ({
+    return {
         isLoading,
         isCartLoading,
         products,
@@ -28,17 +27,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         cartItemsLength,
         cartId,
         currency
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            changeLocation: (location: string) => push(location),
-            addItemToCartAction,
-            deleteItemWishlistAction,
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    addItemToCartAction,
+    deleteItemWishlistAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

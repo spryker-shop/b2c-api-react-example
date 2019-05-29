@@ -9,9 +9,9 @@ export interface IProductRelationsProps extends WithStyles<styles> {
     products?: IProductRelationsItem[];
     currency?: string | null;
     title?: string | JSX.Element;
-    getProductRelations?: (sku: string) => void;
-    getProductRelationsCart?: (cartId: string, isUserLoggedIn: boolean, anonymId: string) => void;
-    changeLocation?: Function;
+    getProductRelationsAction?: (sku: string) => void;
+    getProductRelationsCartAction?: (cartId: string, isUserLoggedIn: boolean, anonymId: string) => void;
+    push?: Function;
     cartId?: string;
     isUserLoggedIn?: boolean;
     anonymId?: string;

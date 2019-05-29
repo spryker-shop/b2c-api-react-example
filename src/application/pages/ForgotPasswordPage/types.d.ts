@@ -5,7 +5,7 @@ import { WithRouter } from '@interfaces/common';
 export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, WithRouter {
     dispatch?: Function;
     routerGoBack: Function;
-    sendForgotRequest: Function;
+    forgotPasswordAction: Function;
     isLoading?: boolean;
 }
 

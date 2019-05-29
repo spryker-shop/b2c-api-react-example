@@ -1,9 +1,10 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { isUserAuthenticated } from '@stores/reducers/pages/login';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { getAddressesCollectionFromCheckoutStore } from '@stores/reducers/pages/checkout/selectors';
-import { IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
+import { IDeliverySelectionState } from '@interfaces/checkout';
 import {
     mutateStateNewAddressDeliveryAction,
     mutateStateDeliverySelectionAddNewAction,
@@ -13,7 +14,7 @@ import {
 import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const addressesCollection: IAddressItemCollection[] | null =
         getAddressesCollectionFromCheckoutStore(state, ownProps);
     const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;
@@ -27,20 +28,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    mutateStateNewAddressDelivery: (payload: IFormFieldMutate): void => {
-        dispatch(mutateStateNewAddressDeliveryAction(payload));
-    },
-    mutateStateDeliverySelectionAddNew: (): void => {
-        dispatch(mutateStateDeliverySelectionAddNewAction());
-    },
-    mutateStateDeliverySelectionAddressId: (payload: string): void => {
-        dispatch(mutateStateDeliverySelectionAddressIdAction(payload));
-    },
-    mutateDeliveryStep: (payload: boolean): void => {
-        dispatch(mutateDeliveryStepAction(payload));
-    },
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    mutateStateNewAddressDeliveryAction,
+    mutateStateDeliverySelectionAddNewAction,
+    mutateStateDeliverySelectionAddressIdAction,
+    mutateDeliveryStepAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

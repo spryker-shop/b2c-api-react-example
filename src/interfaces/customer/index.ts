@@ -1,6 +1,6 @@
 export type TSalutationVariant = {
-  value: string,
-  name: JSX.Element
+    value: string,
+    name: JSX.Element
 };
 
 export interface ICustomerProfileIdentity {

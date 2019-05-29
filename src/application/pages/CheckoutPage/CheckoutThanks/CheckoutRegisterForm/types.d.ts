@@ -6,15 +6,15 @@ import { IAddressFormState } from '@interfaces/forms';
 
 export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     isAuth?: boolean;
-    handleSubmitRegisterForm?: Function;
-    getCustomerCart?: Function;
+    customerRegisterAction?: Function;
+    getCustomerCartsAction?: Function;
     isLoading?: boolean;
     isCartLoading?: boolean;
     deliveryNewAddress?: IAddressFormState;
     billingNewAddress?: IAddressFormState;
     isMultipleAddressesLoading?: boolean;
     billingSelection?: IBillingSelectionState;
-    addAddress?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
+    addMultipleAddressAction?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
     customer?: string | null;
 }
 

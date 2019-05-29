@@ -41,7 +41,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
     };
 
     public componentDidMount = (): void => {
-        this.props.getProductData(this.props.locationProductSKU);
+        this.props.getProductDataAction(this.props.locationProductSKU);
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
@@ -52,13 +52,13 @@ export class ProductPageComponent extends React.Component<Props, State> {
         if (!this.props.isFulfilled
             && (!prevProps.product || prevProps.product.abstractProduct.sku !== this.props.locationProductSKU)
         ) {
-            this.props.getProductData(this.props.locationProductSKU);
+            this.props.getProductDataAction(this.props.locationProductSKU);
 
             return;
         }
 
         if (this.props.product.abstractProduct.sku !== this.props.locationProductSKU) {
-            this.props.getProductData(this.props.locationProductSKU);
+            this.props.getProductDataAction(this.props.locationProductSKU);
 
             return;
         }

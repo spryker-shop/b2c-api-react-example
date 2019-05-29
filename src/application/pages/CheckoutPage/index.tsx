@@ -35,7 +35,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const { isCheckoutFulfilled } = this.props;
 
         if (!isCheckoutFulfilled) {
-            this.getCheckoutData();
+            this.getCheckoutDataAction();
         }
     };
 
@@ -46,7 +46,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             isUserLoggedIn,
             isCheckoutFulfilled,
             customerReference,
-            getCustomerData,
+            getCustomerProfileAction,
             isCheckoutInitiated,
             orderId,
             history
@@ -55,7 +55,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
 
         if (!prevProps.isCheckoutFulfilled && isCheckoutFulfilled) {
             if (!profile && isUserLoggedIn && customerReference) {
-                getCustomerData(customerReference);
+                getCustomerProfileAction(customerReference);
             }
         }
 
@@ -64,7 +64,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         }
 
         if (prevProps.isCheckoutInitiated && !isCheckoutInitiated && !isDataSending) {
-            this.getCheckoutData();
+            this.getCheckoutDataAction();
         }
 
         if (isCheckoutLoading !== prevProps.isCheckoutLoading) {
@@ -76,16 +76,16 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         }
     };
 
-    protected getCheckoutData = (): void => {
-        const { isUserLoggedIn, anonymId, getCheckoutData, cartId } = this.props;
+    protected getCheckoutDataAction = (): void => {
+        const { isUserLoggedIn, anonymId, getCheckoutDataAction, cartId } = this.props;
 
         if (isUserLoggedIn) {
-            getCheckoutData({ idCart: cartId }, '');
+            getCheckoutDataAction({ idCart: cartId }, '');
 
             return;
         }
 
-        getCheckoutData({ idCart: cartId }, anonymId);
+        getCheckoutDataAction({ idCart: cartId }, anonymId);
     };
 
     protected handleSubmit = (event: ClickEvent): void => {
@@ -95,7 +95,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             addressesCollection,
             isUserLoggedIn,
             cartId,
-            sendCheckoutData,
+            sendCheckoutDataAction,
             profile,
             anonymId,
             deliverySelection,
@@ -140,7 +140,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             lastName: isUserLoggedIn ? profile.lastName : payload.shippingAddress.lastName
         };
 
-        sendCheckoutData(payload, customerId);
+        sendCheckoutDataAction(payload, customerId);
     };
 
     protected shouldHideOrderInfo = (): boolean => {

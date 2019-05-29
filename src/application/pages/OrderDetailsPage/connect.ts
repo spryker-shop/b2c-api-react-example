@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getRouterMatchParam } from '@helpers/common';
 import {
@@ -11,18 +12,19 @@ import {
 import { isAppInitiated } from '@stores/reducers/common/init/selectors';
 import { getOrderDetailsAction } from '@stores/actions/pages/order';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
+import { IOrderDetailsParsed } from '@interfaces/order';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isLoading = isOrderDetailsLoading(state, ownProps);
-    const isRejected = isOrderDetailsStateRejected(state, ownProps);
-    const isFulfilled = isOrderDetailsFulfilled(state, ownProps);
-    const isInitiated = isOrderDetailsInitiated(state, ownProps);
-    const isAppDataSet = isAppInitiated(state, ownProps);
-    const isOrderExist = isOrderDetailsPresent(state, ownProps);
-    const order = getOrderDetailsFromStore(state, ownProps);
-    const orderIdParam = getRouterMatchParam(state, ownProps, 'orderId');
+    const isLoading: boolean = isOrderDetailsLoading(state, ownProps);
+    const isRejected: boolean = isOrderDetailsStateRejected(state, ownProps);
+    const isFulfilled: boolean = isOrderDetailsFulfilled(state, ownProps);
+    const isInitiated: boolean = isOrderDetailsInitiated(state, ownProps);
+    const isAppDataSet: boolean = isAppInitiated(state, ownProps);
+    const isOrderExist: boolean = isOrderDetailsPresent(state, ownProps);
+    const order: IOrderDetailsParsed = getOrderDetailsFromStore(state, ownProps);
+    const orderIdParam: string | null = getRouterMatchParam(state, ownProps, 'orderId');
 
-    return ({
+    return {
         isLoading,
         isRejected,
         isFulfilled,
@@ -31,12 +33,11 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isOrderExist,
         orderIdParam,
         order
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    getOrderData: (orderId: string) => dispatch(getOrderDetailsAction(orderId))
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getOrderDetailsAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

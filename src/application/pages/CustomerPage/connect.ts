@@ -14,21 +14,17 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isWishlistsDetailInitial: boolean = wishlistProps && wishlistProps.data ?
         wishlistProps.data.isInitialDetail : false;
 
-    return ({
+    return {
         wishlist,
         isWishlistsInitial,
         isWishlistsDetailInitial
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            getWishlistsAction,
-            clearAddressAction,
-            clearOrdersCollectionAction
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getWishlistsAction,
+    clearAddressAction,
+    clearOrdersCollectionAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

@@ -16,24 +16,21 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const { items }: { items: ICartItem[] } = getProductsFromCart(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
-    const cartRejected = state.cart.rejected;
+    const cartRejected: boolean = state.cart.rejected;
 
-    return ({
+    return {
         isUserLoggedIn,
         anonymId,
         items,
         cartId,
         cartRejected
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-    {
-        cartDeleteItemAction,
-        updateItemInCartAction,
-        updateCartFulfilledStateAction
-    },
-    dispatch,
-);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    cartDeleteItemAction,
+    updateItemInCartAction,
+    updateCartFulfilledStateAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { push } from 'connected-react-router';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
@@ -24,11 +25,10 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    getProductRelations: (sku: string) => dispatch(getProductRelationsAction(sku)),
-    getProductRelationsCart: (cartId: string, isUserLoggedIn: boolean, anonymId: string) =>
-        dispatch(getProductRelationsCartAction(cartId, isUserLoggedIn, anonymId)),
-    changeLocation: (location: string) => dispatch(push(location))
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getProductRelationsAction,
+    getProductRelationsCartAction,
+    push
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

@@ -1,7 +1,6 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import {
-    getPaymentMethodsFromStore,
-} from '@stores/reducers/pages/checkout/selectors';
+import { getPaymentMethodsFromStore } from '@stores/reducers/pages/checkout/selectors';
 import {
     mutatePaymentMethodAction,
     mutateStateInvoiceFormAction,
@@ -9,13 +8,7 @@ import {
     mutateStateCreditCardAction
 } from '@stores/actions/pages/checkout';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import {
-    ICheckoutCreditCardState,
-    ICheckoutInvoiceState,
-    IFormFieldMutate,
-    IFormUpdatePaymentStatus,
-    IPaymentMethod
-} from '@interfaces/checkout';
+import { ICheckoutCreditCardState, ICheckoutInvoiceState, IPaymentMethod } from '@interfaces/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const paymentMethods: IPaymentMethod[] | null = getPaymentMethodsFromStore(state, ownProps);
@@ -28,24 +21,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         paymentMethods,
         paymentInvoiceData,
         paymentCreditCardData
-
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    mutatePaymentMethod: (payload: IFormUpdatePaymentStatus): void => {
-        dispatch(mutatePaymentMethodAction(payload));
-    },
-    mutateStateInvoiceForm: (payload: IFormFieldMutate): void => {
-        dispatch(mutateStateInvoiceFormAction(payload));
-    },
-    mutatePaymentSection: (payload: boolean): void => {
-        dispatch(mutatePaymentSectionAction(payload));
-    },
-    mutateStateCreditCard: (payload: IFormFieldMutate): void => {
-        dispatch(mutateStateCreditCardAction(payload));
-    },
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    mutatePaymentMethodAction,
+    mutateStateInvoiceFormAction,
+    mutatePaymentSectionAction,
+    mutateStateCreditCardAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

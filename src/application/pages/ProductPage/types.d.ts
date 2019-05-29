@@ -8,7 +8,7 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     isUserLoggedIn: boolean;
     appPriceMode: string | null;
     appStore: string | null;
-    getProductData: Function;
+    getProductDataAction: Function;
     isLoading: boolean;
     isRejected: boolean;
     isFulfilled: boolean;

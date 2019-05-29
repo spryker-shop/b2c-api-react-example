@@ -26,7 +26,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
-        const { mutatePaymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
+        const { mutatePaymentMethodAction, paymentInvoiceData, paymentCreditCardData } = props;
         const { invoice, creditCard } = checkoutPaymentMethodsNames;
 
         const isInvoiceFormValid = checkFormValidity({
@@ -42,7 +42,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         const isPaymentStepCompleted = (value === invoice && isInvoiceFormValid) ||
             (value === creditCard && isCreditCardFormValid);
 
-        mutatePaymentMethod({ value, isPaymentStepCompleted });
+        mutatePaymentMethodAction({ value, isPaymentStepCompleted });
     };
 
     const paymentProviderToIcon: {[key: string]: JSX.Element;} = {

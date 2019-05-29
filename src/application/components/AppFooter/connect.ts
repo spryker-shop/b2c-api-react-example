@@ -6,7 +6,9 @@ import { reduxify } from '@hoc/Reduxify';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
 
-    return { categoriesTree };
+    return {
+        categoriesTree
+    };
 };
 
 export const connect = reduxify(mapStateToProps);

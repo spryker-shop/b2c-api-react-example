@@ -1,16 +1,17 @@
 import * as React from 'react';
+import { bindActionCreators, Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
 import { getSpellingSuggestion } from '@stores/reducers/pages/search';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
-import { ISearchQuery } from '@interfaces/search';
+import { TActiveFilters, TActiveRangeFilters, IFilterValue } from '@interfaces/search';
 import { getRouterMatchParam } from '@helpers/common';
 import {
     sendSearchAction,
-    clearActiveFiltersAction,
     clearSearchTermAction,
     clearSortAction,
-    clearPaginationPageAction
+    clearPaginationPageAction,
+    clearActiveFiltersAction
 } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICategory } from '@interfaces/common';
@@ -21,35 +22,50 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const currency: string | null = getAppCurrency(state, ownProps);
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
     const spellingSuggestion: string = getSpellingSuggestion(state, ownProps);
-    const locationCategoryId = getRouterMatchParam(state, ownProps, 'categoryId');
+    const locationCategoryId: string = getRouterMatchParam(state, ownProps, 'categoryId');
+    const isLoading: boolean = pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false;
+    const isCategoryAsFilter: boolean = pageSearchProps.data.isCategoryAsFilter;
+    const currentSort: string = pageSearchProps.data.currentSort;
+    const currentItemsPerPage: number = pageSearchProps.data.currentItemsPerPage;
+    const searchTerm: string = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '';
+    const activeFilters: TActiveFilters = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.activeFilters : {};
+    const activeRangeFilters: TActiveRangeFilters = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.activeRangeFilters : {};
+    const currentPaginationPage: number = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.currentPaginationPage : 1;
+    const currentCategoryId: number = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.currentCategoryId : null;
+    const isFiltersUpdated: boolean = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.isFiltersUpdated : false;
+    const category: IFilterValue[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : [];
 
-    return ({
-        isFiltersUpdated: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.isFiltersUpdated : false,
-        isCategoryAsFilter: pageSearchProps.data.isCategoryAsFilter,
-        category: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : null,
+    return {
+        isFiltersUpdated,
+        isCategoryAsFilter,
+        category,
         categoriesTree,
         spellingSuggestion,
-        currentSort: pageSearchProps.data.currentSort,
-        currentItemsPerPage: pageSearchProps.data.currentItemsPerPage,
-        currentCategoryId: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentCategoryId : null,
-        currentPaginationPage: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentPaginationPage : 1,
-        searchTerm: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '',
-        activeRangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeRangeFilters : {},
-        activeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeFilters : {},
-        isLoading: pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false,
+        currentSort,
+        currentItemsPerPage,
+        currentCategoryId,
+        currentPaginationPage,
+        searchTerm,
+        activeRangeFilters,
+        activeFilters,
+        isLoading,
         currency,
         locationCategoryId,
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    changeLocation: (location: string) => dispatch(push(location)),
-    sendSearch: (params: ISearchQuery) => dispatch(sendSearchAction(params)),
-    clearActiveFilters: () => dispatch(clearActiveFiltersAction()),
-    clearSearchTerm: () => dispatch(clearSearchTermAction()),
-    clearSort: () => dispatch(clearSortAction()),
-    clearPaginationPage: () => dispatch(clearPaginationPageAction())
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    push,
+    clearActiveFiltersAction,
+    sendSearchAction,
+    clearSearchTermAction,
+    clearSortAction,
+    clearPaginationPageAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

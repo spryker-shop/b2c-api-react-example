@@ -7,15 +7,15 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     dispatch?: Function;
     isLoading?: boolean;
     locale?: string | null;
-    initApplicationData?: Function;
-    setAuth?: Function;
-    getCustomerCart?: Function;
+    initApplicationDataAction?: Function;
+    getCustomerCartsAction?: Function;
     isAppDataSet?: boolean;
     isCustomerAuth?: boolean;
     anonymId?: string;
     isCartCreated?: boolean;
     isInitStateFulfilled?: boolean;
-    clearSearchTerm?: () => void;
+    clearSearchTermAction?: () => void;
+    setAuthFromStorageAction?: Function;
     isPageLocked?: boolean;
 }
 

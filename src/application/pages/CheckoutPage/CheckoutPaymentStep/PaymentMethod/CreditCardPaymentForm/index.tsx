@@ -21,20 +21,20 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
     };
 
     protected handleCreditCardInputs = (event: InputChangeEvent): void => {
-        const { mutateStateCreditCard } = this.props;
+        const { mutateStateCreditCardAction } = this.props;
         const { name, value } = event.target;
 
         const isInputValid = checkFormInputValidity({ value, fieldConfig: creditCardConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateCreditCard(changedFiledData);
+        mutateStateCreditCardAction(changedFiledData);
     };
 
     protected handleCreditCardValidity = (): void => {
-        const { paymentCreditCardData, mutatePaymentSection } = this.props;
+        const { paymentCreditCardData, mutatePaymentSectionAction } = this.props;
 
         const isFormValid = checkFormValidity({form: paymentCreditCardData, fieldsConfig: creditCardConfigInputStable});
-        mutatePaymentSection(isFormValid);
+        mutatePaymentSectionAction(isFormValid);
     };
 
     protected renderPaymentProviderItems = (): JSX.Element[] => {

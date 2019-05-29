@@ -4,7 +4,7 @@ import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { IForgotPasswordPageProps as Props, IForgotPasswordPageState as State } from './types';
 import { AppMain } from '@components/AppMain';
 import { styles } from './styles';
-import { ClickEvent, InputChangeEvent } from '@interfaces/common';
+import { InputChangeEvent } from '@interfaces/common';
 import { FormattedMessage } from 'react-intl';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { pathLoginPage } from '@constants/routes';
@@ -16,13 +16,11 @@ export class ForgotPasswordPageBase extends React.Component<Props, State> {
         email: ''
     };
 
-    protected handleChange = (e: InputChangeEvent): void => {
-        this.setState({ email: e.target.value });
+    protected handleChange = (event: InputChangeEvent): void => {
+        this.setState({ email: event.target.value });
     };
 
-    protected submitRequest = (e: ClickEvent): void => {
-        this.props.sendForgotRequest(this.state.email);
-    };
+    protected submitRequest = (): void => this.props.forgotPasswordAction(this.state.email);
 
     public render(): JSX.Element {
         const { classes, isLoading } = this.props;

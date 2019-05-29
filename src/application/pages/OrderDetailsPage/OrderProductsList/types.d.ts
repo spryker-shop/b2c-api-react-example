@@ -6,5 +6,5 @@ export interface IOrderProductListProps extends WithStyles<typeof styles> {
     items: IOrderDetailsItem[];
     isCartLoading?: boolean;
     cartId?: string;
-    addItemToCart?: Function;
+    addItemToCartAction?: Function;
 }

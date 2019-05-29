@@ -1,3 +1,4 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { getShipmentMethodsFromStore } from '@stores/reducers/pages/checkout/selectors';
@@ -14,11 +15,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    mutateShipmentMethod: (payload: string): void => {
-        dispatch(mutateShipmentMethodAction(payload));
-    }
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    mutateShipmentMethodAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

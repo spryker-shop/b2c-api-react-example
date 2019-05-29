@@ -20,18 +20,18 @@ export class InvoicePaymentForm extends React.Component<Props> {
     };
 
     protected handleInvoiceInputs = (event: InputChangeEvent): void => {
-        const { mutateStateInvoiceForm } = this.props;
+        const { mutateStateInvoiceFormAction } = this.props;
         const { name, value } = event.target;
         const isInputValid = checkFormInputValidity({ value, fieldConfig: invoiceConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateInvoiceForm(changedFiledData);
+        mutateStateInvoiceFormAction(changedFiledData);
     };
 
     protected handleInvoiceValidity = (): void => {
-        const { paymentInvoiceData, mutatePaymentSection } = this.props;
+        const { paymentInvoiceData, mutatePaymentSectionAction } = this.props;
         const isFormValid = checkFormValidity({ form: paymentInvoiceData, fieldsConfig: invoiceConfigInputStable });
-        mutatePaymentSection(isFormValid);
+        mutatePaymentSectionAction(isFormValid);
     };
 
     public render = (): JSX.Element => {

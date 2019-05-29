@@ -1,26 +1,29 @@
-import { ISearchPageData, ISearchQuery } from '@interfaces/search';
+import {
+    ISearchPageData,
+    ISearchQuery,
+    TActiveFilters,
+    TActiveRangeFilters,
+    IFilterValue
+} from '@interfaces/search';
 import { History, Location } from 'history';
 import { RouteProps } from 'react-router';
-import { WithRouter, IBreadcrumbItem } from '@interfaces/common';
-import { ICategory } from '@interfaces/category';
-import { TActiveFilters, TActiveRangeFilters } from '@interfaces/search';
+import { WithRouter, IBreadcrumbItem, ICategory } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
     isLoading: boolean;
-    changeLocation: Function;
+    push: Function;
     categoriesTree: ICategory[];
     location: Location;
     isFulfilled: boolean;
     isFiltersUpdated: boolean;
     locationCategoryId: number | string;
     currentPaginationPage: number;
-    sendSearch: (params: ISearchQuery) => void;
-    clearActiveFilters: () => void;
-    clearSearchTerm: () => void;
-    clearSort: () => void;
-    clearPaginationPage: () => void;
+    sendSearchAction: (params: ISearchQuery) => void;
+    clearActiveFiltersAction: () => void;
+    clearSortAction: () => void;
+    clearPaginationPageAction: () => void;
     isCategoryAsFilter: boolean;
     currency: string | null;
     searchTerm: string;
@@ -28,9 +31,9 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
     currentItemsPerPage: number;
     activeFilters: TActiveFilters;
     activeRangeFilters: TActiveRangeFilters;
-    currentCategoryId: string;
+    currentCategoryId: number;
     spellingSuggestion: string;
-    category: ICategory;
+    category: IFilterValue[];
     history: History;
 }
 

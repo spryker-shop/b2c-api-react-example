@@ -9,8 +9,8 @@ export interface ISearchFilterListProps extends WithStyles<typeof styles> {
     activeFilters?: TActiveFilters;
     rangeFilters?: IRangeFacets[];
     activeRangeFilters?: TActiveRangeFilters;
-    setActiveFilters?: (activeFilters: IActiveFilters) => void;
-    clearActiveFilters?: () => void;
+    setActiveFiltersAction?: (activeFilters: IActiveFilters) => void;
+    clearActiveFiltersAction?: () => void;
     updateStore?: Function;
     categoriesList: (
         isOpened: boolean,
@@ -18,7 +18,7 @@ export interface ISearchFilterListProps extends WithStyles<typeof styles> {
         categoryId: number,
         onItemClickHandler: (categoryId: number) => void
     ) => JSX.Element;
-    isPageLocked?: (value: boolean) => void;
+    isPageLockedFulfilledState?: (value: boolean) => void;
 }
 
 export interface ISearchFilterListState {

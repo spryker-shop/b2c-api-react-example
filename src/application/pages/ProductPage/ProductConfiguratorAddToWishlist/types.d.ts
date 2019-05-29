@@ -4,8 +4,8 @@ import { IWishlist } from '@interfaces/wishlist';
 import { TProductType } from '@interfaces/product';
 
 export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeof styles> {
-    getWishlists?: Function;
-    addToWishlist?: Function;
+    getWishlistsAction?: Function;
+    addItemWishlistAction?: Function;
     isWishlistsFetched?: boolean;
     isWishlistLoading?: boolean;
     wishlists?: IWishlist[];

@@ -12,7 +12,7 @@ export interface IOrderDetailsPageProps extends WithStyles<typeof styles>, Route
     isUserLoggedIn: boolean;
     isInitiated: boolean;
     isOrderExist: boolean;
-    getOrderData: Function;
+    getOrderDetailsAction: Function;
     orderIdParam: string | null;
     order: IOrderDetailsParsed;
 }

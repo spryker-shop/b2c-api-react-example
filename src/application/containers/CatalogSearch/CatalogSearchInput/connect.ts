@@ -11,23 +11,19 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? state.pageSearch.data.flyoutSearch
         : null;
     const currency: string | null = getAppCurrency(state, ownProps);
+    const completion: string[] | null = searchProps ? searchProps.completion : null;
+    const isLoading: boolean = searchProps ? searchProps.pending : null;
 
-    return (
-        {
-            completion: searchProps ? searchProps.completion : null,
-            isLoading: searchProps ? searchProps.pending : null,
-            currency,
-        }
-    );
+    return {
+        completion,
+        isLoading,
+        currency
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            sendSearchAction,
-            push
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    sendSearchAction,
+    push
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

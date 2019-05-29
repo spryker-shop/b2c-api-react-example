@@ -1,12 +1,11 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-
 import {
     isCustomerProfilePresent,
     isPageCustomerProfileFulfilled,
     isPageCustomerProfileLoading,
-    isPageCustomerProfileRejected,
+    isPageCustomerProfileRejected
 } from '@stores/reducers/pages/customerProfile';
 import { getCustomerProfileAction } from '@stores/actions/pages/customerProfile';
 import { getCustomerReference } from '@stores/reducers/pages/login';
@@ -20,22 +19,18 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCustomerDataExist = isCustomerProfilePresent(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
 
-    return ({
+    return {
         isLoading,
         isRejected,
         isFulfilled,
         isAppDataSet,
         isCustomerDataExist,
         customerReference
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(
-        {
-            getCustomerData: (customerReference: string) => getCustomerProfileAction(customerReference)
-        },
-        dispatch,
-    );
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getCustomerProfileAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

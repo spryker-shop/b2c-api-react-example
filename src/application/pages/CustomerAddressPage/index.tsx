@@ -97,22 +97,22 @@ class CustomerAddressPageComponent extends React.Component<Props, State> {
 
     protected handleSubmitForm = (): void => {
         const payload = this.transformFieldsData();
-        const { currentAddress, updateAddress, addAddress, customer } = this.props;
+        const { currentAddress, updateAddressAction, addAddressAction, customer } = this.props;
         this.setState({ isSubmitted: true, isFormValid: false });
 
         if (currentAddress) {
-            updateAddress(currentAddress.id, customer, payload);
+            updateAddressAction(currentAddress.id, customer, payload);
 
             return;
         }
-        addAddress(payload, customer);
+        addAddressAction(payload, customer);
     };
 
     protected initRequestData = (): void => {
         if (this.props.isLoading) { return; }
 
         if (this.props.customer && this.props.addressIdParam) {
-            this.props.getOneAddress(this.props.customer, this.props.addressIdParam);
+            this.props.getOneAddressAction(this.props.customer, this.props.addressIdParam);
         }
     };
 

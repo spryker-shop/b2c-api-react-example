@@ -6,7 +6,7 @@ import { styles } from './styles';
 export interface IUpdateProfileProps extends WithStyles<typeof styles> {
     customerData?: ICustomerDataParsed;
     customerReference: string;
-    updateCustomerData?: (customerReference: string, payload: ICustomerProfileIdentity) => void;
+    updateCustomerProfileAction?: (customerReference: string, payload: ICustomerProfileIdentity) => void;
 }
 
 export interface IUpdateProfileState {

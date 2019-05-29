@@ -23,7 +23,7 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
         currency,
         clearSuggestion,
         sendSearchAction,
-        fulfilled
+        isFulfilled
     } = props;
     const maxAmountOfItems = 4;
 
@@ -94,7 +94,7 @@ export const SuggestionsContainerComponent: React.SFC<Props> = (props): JSX.Elem
     };
 
     const isNoSuggestions = !Boolean(categories.length) && !Boolean(completion.length) &&
-        !Boolean(options.children) && fulfilled;
+        !Boolean(options.children) && isFulfilled;
 
     if (isNoSuggestions) {
         return (
