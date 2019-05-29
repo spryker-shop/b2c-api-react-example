@@ -11,8 +11,8 @@ export function getTotalItemsQuantity(state: IReduxStore, props: IReduxOwnProps)
   return state.cart.data.totalQty;
 }
 
-export function isCartCreated(state: IReduxStore, props: IReduxOwnProps): boolean {
-  return (state.cart.data.cartCreated);
+export function isCustomerCartCreated(state: IReduxStore, props: IReduxOwnProps): boolean {
+  return (state.cart.data.isCartCreated);
 }
 
 export function isCartStateLoading(state: IReduxStore, props: IReduxOwnProps): boolean {
@@ -28,7 +28,7 @@ export function isCartStateRejected(state: IReduxStore, props: IReduxOwnProps): 
 }
 
 export function getCartId(state: IReduxStore, props: IReduxOwnProps): string {
-  return (isCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
+  return (isCustomerCartCreated(state, props) && state.cart.data.id) ? state.cart.data.id : null;
 }
 
 export function getCartTotals(state: IReduxStore, props: IReduxOwnProps): ITotals | null {

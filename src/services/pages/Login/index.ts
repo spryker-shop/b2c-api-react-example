@@ -1,4 +1,5 @@
 import * as loginActions from '@stores/actions/pages/login';
+import { IRequestBody } from '@services/pages/Login/types';
 import { api, ApiServiceAbstract } from '@services/api';
 import { deleteCustomerFulfilledStateAction } from '@stores/actions/pages/customerProfile';
 import { parseLoginDataResponse } from '@helpers/parsing';
@@ -16,7 +17,7 @@ export class PagesLoginService extends ApiServiceAbstract {
         const anonymId: string = getState().init.data.anonymId;
         dispatch(loginActions.registerPendingState());
         try {
-            const body = { data: { type: 'customers', attributes: payload } };
+            const body: IRequestBody = { data: { type: 'customers', attributes: payload } };
             const response: TApiResponseData = await api.post(
                 'customers',
                 body,
@@ -62,7 +63,7 @@ export class PagesLoginService extends ApiServiceAbstract {
     public static async loginRequest(dispatch: Function, payload: ICustomerLoginData, anonymId: string): Promise<void> {
         dispatch(loginActions.loginCustomerPendingStateAction());
         try {
-            const body = { data: { type: 'access-tokens', attributes: payload } };
+            const body: IRequestBody = { data: { type: 'access-tokens', attributes: payload } };
             const response: TApiResponseData = await api.post(
                 'access-tokens',
                 body,
@@ -93,7 +94,7 @@ export class PagesLoginService extends ApiServiceAbstract {
     public static async forgotPassword(dispatch: Function, email: string): Promise<void> {
         dispatch(loginActions.forgotPasswordPendingState());
         try {
-            const body = { data: { type: 'customer-forgotten-password', attributes: { email } } };
+            const body: IRequestBody = { data: { type: 'customer-forgotten-password', attributes: { email } } };
             const response: TApiResponseData = await api.post(
                 'customer-forgotten-password',
                 body,
@@ -121,7 +122,7 @@ export class PagesLoginService extends ApiServiceAbstract {
     public static async resetPassword(dispatch: Function, payload: IResetPasswordPayload): Promise<void> {
         dispatch(loginActions.resetPasswordPendingState());
         try {
-            const body = { data: { type: 'customer-restore-password', attributes: payload } };
+            const body: IRequestBody = { data: { type: 'customer-restore-password', attributes: payload } };
             const response: TApiResponseData = await api.patch(
                 'customer-restore-password',
                 body,

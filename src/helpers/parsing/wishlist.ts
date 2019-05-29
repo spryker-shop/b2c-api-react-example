@@ -68,10 +68,10 @@ export const parseWishlistItems = (response: IWishlistRawResponse): IWishlistPro
         }
 
         if (row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
-            items[row.id].availability = row.attributes.availability;
+            items[row.id].isAvailable = row.attributes.availability;
 
             if (row.attributes.isNeverOutOfStock) {
-                items[row.id].availability = true;
+                items[row.id].isAvailable = true;
             }
         }
     });

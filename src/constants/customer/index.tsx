@@ -4,10 +4,10 @@ import { IConfigInputStable } from '@interfaces/forms';
 import { IAddressConfigInputStable } from '@constants/checkout/types';
 import { FormattedMessage } from 'react-intl';
 
-const SalutationVariantMrValue = 'Mr';
-const SalutationVariantMrsValue = 'Mrs';
-const SalutationVariantDrValue = 'Dr';
-const SalutationVariantMsValue = 'Ms';
+const SalutationVariantMrValue: string = 'Mr';
+const SalutationVariantMrsValue: string = 'Mrs';
+const SalutationVariantDrValue: string = 'Dr';
+const SalutationVariantMsValue: string = 'Ms';
 
 export const SalutationVariants: TSalutationVariant[] = [
     {

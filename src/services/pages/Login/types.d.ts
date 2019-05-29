@@ -1,5 +1,10 @@
 import { IAbstractRowIncludedResponse, IRelationshipsResponse } from '@services/types';
-import { ICustomerLoginDataParsed } from '@interfaces/customer';
+import {
+    ICustomerLoginData,
+    ICustomerLoginDataParsed,
+    ICustomerProfile,
+    IResetPasswordPayload
+} from '@interfaces/customer';
 
 export interface ICustomerLoginRawResponse {
     data: ICustomerLoginDataResponse;
@@ -7,4 +12,16 @@ export interface ICustomerLoginRawResponse {
 
 interface ICustomerLoginDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: ICustomerLoginDataParsed;
+}
+
+export interface IRequestBody {
+    data: {
+        type: string;
+        include?: string;
+        attributes: ICustomerProfile | ICustomerLoginData | IForgotPasswordBodyAttribute | IResetPasswordPayload;
+    };
+}
+
+interface IForgotPasswordBodyAttribute {
+    email: string;
 }

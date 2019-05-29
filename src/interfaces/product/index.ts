@@ -5,34 +5,34 @@ export type TProductType = TAbstractProductType | TConcreteProductType | TAbsent
 
 export interface IProductDataParsed {
     attributeVariants: { [key: string]: IProductAttributes };
-    superAttributes: ISuperAttribute[] | null;
-    abstractProduct: IProductPropFullData | null;
+    superAttributes: ISuperAttribute[];
+    abstractProduct: IProductPropFullData;
     concreteProducts: {
         [key: string]: IProductPropFullData
     };
-    productLabels: IProductLabel[] | null;
+    productLabels: IProductLabel[];
     selectedAttrNames: IProductAttributes;
 }
 
 export interface IProductPropFullData {
-    description: string | null;
-    descriptionAttributes: IDescriptionAttributes[] | null;
-    images: IProductImage[] | null;
-    name: string | null;
+    description: string;
+    descriptionAttributes: IDescriptionAttributes[];
+    images: IProductImage[];
+    name: string;
     prices: IProductPrices;
-    sku: string | null;
-    productType: TProductType | null;
-    availability: boolean | null;
-    quantity?: number | null;
+    sku: string;
+    productType: TProductType;
+    isAvailable: boolean;
+    quantity?: number;
 }
 
 export interface IProductCard {
-    image?: string | null;
+    image?: string;
     price: number;
     abstractName: string;
     abstractSku: string;
     prices: IProductPrices;
-    labels?: IProductLabel[] | null;
+    labels?: IProductLabel[];
 }
 
 export interface IProductRelationsItem {

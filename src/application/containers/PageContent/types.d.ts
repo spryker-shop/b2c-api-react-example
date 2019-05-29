@@ -12,7 +12,7 @@ export interface IPageContentProps  extends WithStyles<typeof styles>, IComponen
     isAppDataSet?: boolean;
     isCustomerAuth?: boolean;
     anonymId?: string;
-    cartCreated?: boolean;
+    isCartCreated?: boolean;
     isInitStateFulfilled?: boolean;
     clearSearchTermAction?: () => void;
     setAuthFromStorageAction?: Function;

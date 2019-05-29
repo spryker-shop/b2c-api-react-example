@@ -15,7 +15,7 @@ import { IApiErrorResponse } from '@services/types';
 export const initialState: ICartState = {
     data: {
         isCartEmpty: true,
-        cartCreated: false,
+        isCartCreated: false,
         currency: null,
         items: [],
         id: null,
@@ -47,7 +47,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
             if (!action.payloadCartItemFulfilled) {
                 return {
                     ...state,
-                    data: {...initialState.data, cartCreated: true},
+                    data: {...initialState.data, isCartCreated: true},
                     ...getReducerPartFulfilled(),
                 };
             }
@@ -82,7 +82,7 @@ export const cart = function (state: ICartState = initialState, action: ICartAct
         case PAGES_CUSTOMER_LOGOUT:
             return {
                 ...state,
-                data: {...initialState.data, cartCreated: true},
+                data: {...initialState.data, isCartCreated: true},
                 ...getReducerPartFulfilled(),
             };
         case CART_UPDATE_FULLFILLED_STATE:
@@ -134,7 +134,7 @@ const handleCartFulfilled = (cartState: ICartState, payload: ICartDataParsed) =>
         data: {
             ...cartState.data,
             isCartEmpty: !(payload.items && payload.items.length),
-            cartCreated: true,
+            isCartCreated: true,
             ...payload,
         },
         ...getReducerPartFulfilled(),
@@ -147,7 +147,7 @@ const handleCartCreateRejected = (cartState: ICartState, payload: IApiErrorRespo
         data: {
             ...cartState.data,
             isCartEmpty: true,
-            cartCreated: false,
+            isCartCreated: false,
         },
         ...getReducerPartRejected(payload.error),
     }
