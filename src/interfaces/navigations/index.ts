@@ -1,12 +1,12 @@
 export interface IMainNavigationNode {
-    cssClass?: string | null;
+    cssClass?: string;
     isActive?: boolean;
     nodeType: string;
-    resourceId: number | null | string;
+    resourceId: number | string;
     title: string | JSX.Element;
-    url?: string | null;
-    validFrom?: boolean | null;
-    validTo?: boolean | null;
+    url?: string;
+    validFrom?: boolean;
+    validTo?: boolean;
     children: IMainNavigationNode[];
     additionalItem?: boolean;
 }

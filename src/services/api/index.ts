@@ -1,8 +1,8 @@
 import { IErrorItem, IResponseError } from '@services/types';
-import { create } from 'apisauce';
+import { ApisauceInstance, create } from 'apisauce';
 const config = require('@configs/env_config');
 
-export const api = create({
+export const api: ApisauceInstance = create({
     baseURL: config.API_URL,
     headers: {
         'Accept': 'application/vnd.api+json',

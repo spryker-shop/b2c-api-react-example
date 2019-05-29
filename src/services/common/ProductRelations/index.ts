@@ -1,6 +1,6 @@
 import * as productRelationsActions from '@stores/actions/common/productRelations';
 import { api, ApiServiceAbstract } from '@services/api';
-import { TApiResponseData, EIncludeTypes } from '@services/types';
+import { TApiResponseData, EIncludeTypes, IRequestHeader } from '@services/types';
 import { parsePorductRelationsResponse } from '@helpers/parsing/productRelations';
 import { errorMessageInform } from '@helpers/common';
 
@@ -18,7 +18,7 @@ export class ProductRelationsService extends ApiServiceAbstract {
     public static async getProductRelations(dispatch: Function, sku: string): Promise<void> {
         dispatch(productRelationsActions.productRelationsPendingAction());
         try {
-            const endpoint = this.endpoint(`abstract-products/${sku}/related-products`);
+            const endpoint: string = this.endpoint(`abstract-products/${sku}/related-products`);
             const response: TApiResponseData = await api.get(endpoint);
 
             if (response.ok) {
@@ -39,11 +39,11 @@ export class ProductRelationsService extends ApiServiceAbstract {
     ): Promise<void> {
         dispatch(productRelationsActions.productRelationsPendingAction());
         try {
-            const requestHeader = !isUserLoggedIn
+            const requestHeader: IRequestHeader = !isUserLoggedIn
                 ? { withCredentials: true, headers: { 'X-Anonymous-Customer-Unique-Id': anonymId }}
-                : {};
-            const cartType = isUserLoggedIn ? 'carts' : 'guest-carts';
-            const endpoint = this.endpoint(`${cartType}/${cartId}/up-selling-products`);
+                : { withCredentials: true };
+            const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
+            const endpoint: string = this.endpoint(`${cartType}/${cartId}/up-selling-products`);
             const response: TApiResponseData = await api.get(endpoint, {}, requestHeader);
 
             if (response.ok) {

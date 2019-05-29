@@ -14,7 +14,7 @@ import { styles } from './styles';
 class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
     public readonly state: State = {
         quantitySelected: quantitySelectedInitial,
-        availability: false,
+        isAvailable: false,
         sku: null,
         isUpdateValue: false
     };
@@ -26,7 +26,7 @@ class ProductConfiguratorAddToCartComponent extends React.Component<Props, State
             return {
                 sku: nextProps.sku,
                 quantitySelected: quantitySelectedInitial,
-                availability: nextProps.product.availability,
+                isAvailable: nextProps.product.isAvailable,
                 isUpdateValue: true
             };
         }
@@ -38,7 +38,7 @@ class ProductConfiguratorAddToCartComponent extends React.Component<Props, State
         this.runAddToCart();
 
         this.setState({
-            availability: this.props.product.availability,
+            isAvailable: this.props.product.isAvailable,
             quantitySelected: quantitySelectedInitial,
             isUpdateValue: true
         });
@@ -56,8 +56,8 @@ class ProductConfiguratorAddToCartComponent extends React.Component<Props, State
 
     public render(): JSX.Element {
         const { classes, isCartLoading, productType } = this.props;
-        const { sku, quantitySelected, isUpdateValue, availability } = this.state;
-        const isButtonDisable = productType !== concreteProductType || isCartLoading || !availability;
+        const { sku, quantitySelected, isUpdateValue, isAvailable } = this.state;
+        const isButtonDisable = productType !== concreteProductType || isCartLoading || !isAvailable;
 
         return (
             <div className={ classes.root }>

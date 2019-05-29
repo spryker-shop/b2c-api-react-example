@@ -6,7 +6,7 @@ import { IConfigInputState } from '@interfaces/forms';
 export interface IChangePasswordProps extends Partial<ICustomerProfilePassword>, WithStyles<typeof styles> {
     customerData?: ICustomerDataParsed;
     customerReference: string;
-    passwordUpdated?: boolean;
+    isPasswordUpdated?: boolean;
     updateCustomerPasswordAction?: (customerReference: string, payload: ICustomerProfilePassword) => void;
 }
 

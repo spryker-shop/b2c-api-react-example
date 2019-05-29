@@ -24,9 +24,6 @@ export class ProtectedRoute extends React.PureComponent<Props> {
                 id: 'customer.logout.message',
                 type: typeNotificationSuccess
             });
-            setTimeout(() => {
-                this.props.getCustomerCartsAction(this.props.anonymId, false);
-            }, 100);
         }
 
         this.checkAuthorized(prevProps.isUserLoggedIn);

@@ -6,7 +6,7 @@ import { ICartAction, ICartState } from '@stores/reducers/common/cart/types';
 export const initialState: ICartState = {
     data: {
         isCartEmpty: true,
-        cartCreated: false,
+        isCartCreated: false,
         currency: null,
         items: [],
         id: null,

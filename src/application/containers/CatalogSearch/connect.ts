@@ -15,7 +15,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const categories: IIndexSignature[] | null = searchProps ? searchProps.categories : null;
     const suggestions: IProductCard[] | null = searchProps ? searchProps.suggestions : null;
     const completion: string[] | null = searchProps ? searchProps.completion : null;
-    const isLoading: boolean = searchProps ? searchProps.pending : null;
+    const isLoading: boolean = searchProps ? searchProps.pending : false;
 
     return {
         categories,

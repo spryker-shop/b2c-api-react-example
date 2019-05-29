@@ -11,7 +11,7 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
         name = <FormattedMessage id={ 'no.name.title' } />,
         price = <FormattedMessage id={ 'no.price.title' } />,
         oldPrice,
-        availability
+        isAvailable
     } = props;
 
     return (
@@ -19,10 +19,10 @@ const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
             <Typography component="span"
                 className={ `
                     ${ classes.availableContainer }
-                    ${ classes[availability ? 'available' : 'unavailable'] }`
+                    ${ classes[isAvailable ? 'available' : 'unavailable'] }`
                 }
             >
-                <FormattedMessage id={ availability ? 'available.title' : 'unavailable.title' } />
+                <FormattedMessage id={ isAvailable ? 'available.title' : 'unavailable.title' } />
             </Typography>
             <Typography component="h1" variant="h3" color="textSecondary" className={ classes.title }>
                 { name }

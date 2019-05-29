@@ -29,7 +29,7 @@ export const handleCartFulfilled = (state: ICartState, payload: ICartDataParsed)
     data: {
         ...state.data,
         isCartEmpty: !(payload.items && payload.items.length),
-        cartCreated: true,
+        isCartCreated: true,
         ...payload
     },
     ...getReducerPartFulfilled()
@@ -39,7 +39,7 @@ export const handleCartCreatedFulfilled = (state: ICartState): ICartState => ({
     ...state,
     data: {
         ...initialState.data,
-        cartCreated: true
+        isCartCreated: true
     },
     ...getReducerPartFulfilled()
 });

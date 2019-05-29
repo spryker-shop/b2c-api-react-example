@@ -6,19 +6,19 @@ export interface IOrderTotals extends ITotals {
 }
 
 export interface IOrderCollectionParsed {
-    items: IOrderItem[] | null;
+    items: IOrderItem[];
 }
 
 export interface IOrderItem {
     id: string;
     dateCreated: string;
-    currency: string | null;
+    currency: string;
     totals: IOrderTotals;
 }
 
 export interface IOrderDetailsParsed extends IOrderItem {
-    expenses: IOrderDetailsExpenseItem[] | null;
-    items: IOrderDetailsItem[] | null;
+    expenses: IOrderDetailsExpenseItem[];
+    items: IOrderDetailsItem[];
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
     priceMode: string;

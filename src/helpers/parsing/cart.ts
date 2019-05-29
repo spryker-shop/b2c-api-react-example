@@ -1,6 +1,11 @@
 import { ICartCommonData, ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-import { TCartRowIncludedResponse, ICartRawResponse, ICartDataResponse } from '@services/common/Cart/types';
+import {
+    TCartRowIncludedResponse,
+    ICartRawResponse,
+    ICartDataResponse,
+    ICarRowtItemsIncludedResponse
+} from '@services/common/Cart/types';
 import { IRelationshipsDataResponse, EIncludeTypes } from '@services/types';
 
 export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed => {
@@ -10,8 +15,8 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
 
     const { data, included } = response;
     const result: { [key: string]: ICartItem } = {};
-    const isGuest = data.relationships && !Boolean(data.relationships.items);
-    const itemName = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
+    const isGuest: boolean = data.relationships && !Boolean(data.relationships.items);
+    const itemName: string = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
     let totalQty: number = 0;
 
     if (data.relationships && data.relationships[itemName]) {
@@ -31,7 +36,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
                 },
                 calculations: null,
                 groupKey: null,
-                availability: null,
+                isAvailable: null,
                 availableQuantity: null,
                 superAttributes: null
             };
@@ -46,12 +51,14 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
         }
 
         if (row.type === itemName) {
+            const rowVariant: ICarRowtItemsIncludedResponse = row as unknown as ICarRowtItemsIncludedResponse;
+
             result[row.id].sku = row.id;
-            result[row.id].quantity = row.attributes.quantity;
-            result[row.id].amount = row.attributes.amount;
-            result[row.id].calculations = row.attributes.calculations;
-            result[row.id].abstractSku = row.attributes.abstractSku;
-            totalQty += row.attributes.quantity;
+            result[row.id].quantity = rowVariant.attributes.quantity;
+            result[row.id].amount = rowVariant.attributes.amount;
+            result[row.id].calculations = rowVariant.attributes.calculations;
+            result[row.id].abstractSku = rowVariant.attributes.abstractSku;
+            totalQty += rowVariant.attributes.quantity;
 
             return;
         }
@@ -82,24 +89,20 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
         }
 
         if (row.type === EIncludeTypes.CONCRETE_PRODUCT_AVAILABILITIES) {
-            result[row.id].availability = row.attributes.availability;
+            result[row.id].isAvailable = row.attributes.availability;
             result[row.id].availableQuantity = row.attributes.quantity;
         }
     });
     const items = Object.values(result);
 
     return {
-        ...parseCommonDataInCartResponse(data),
+        id: data.id,
+        currency: data.attributes.currency,
+        discounts: data.attributes.discounts,
+        priceMode: data.attributes.priceMode,
+        store: data.attributes.store,
+        totals: data.attributes.totals,
         items,
         totalQty
     };
 };
-
-const parseCommonDataInCartResponse = (data: ICartDataResponse): ICartCommonData => ({
-    id: data.id,
-    currency: data.attributes.currency,
-    discounts: data.attributes.discounts,
-    priceMode: data.attributes.priceMode,
-    store: data.attributes.store,
-    totals: data.attributes.totals
-});

@@ -38,7 +38,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         ? pageSearchProps.data.currentCategoryId : null;
     const isFiltersUpdated: boolean = pageSearchProps && pageSearchProps.data
         ? pageSearchProps.data.isFiltersUpdated : false;
-    const category: IFilterValue[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : null;
+    const category: IFilterValue[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : [];
 
     return {
         isFiltersUpdated,

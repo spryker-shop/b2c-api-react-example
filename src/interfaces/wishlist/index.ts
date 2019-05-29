@@ -6,7 +6,7 @@ export interface IWishlistProduct {
     image: string;
     attributes: IProductAttributes[];
     prices: IProductPrices;
-    availability: boolean;
+    isAvailable: boolean;
 }
 
 export interface IWishlist {

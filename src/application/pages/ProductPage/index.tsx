@@ -28,7 +28,7 @@ class ProductPageComponent extends React.Component<Props, State> {
         sku: null,
         name: null,
         images: null,
-        availability: null,
+        isAvailable: null,
         description: null,
         prices: {
             priceOriginalGross: null,
@@ -164,7 +164,7 @@ class ProductPageComponent extends React.Component<Props, State> {
             name,
             productType,
             description,
-            availability,
+            isAvailable,
             descriptionAttributes,
             images,
             superAttrSelected
@@ -196,7 +196,7 @@ class ProductPageComponent extends React.Component<Props, State> {
                                     sku={ sku }
                                     price={ prices ? prices.priceDefaultGross : null }
                                     oldPrice={ prices && prices.priceOriginalGross ? prices.priceOriginalGross : null }
-                                    availability={ availability }
+                                    isAvailable={ isAvailable }
                                 />
 
                                 { product.superAttributes &&
