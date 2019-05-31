@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps, RouteProps } from 'react-router';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 
 export type ClickEvent = React.MouseEvent<HTMLElement>;
 export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement> ;

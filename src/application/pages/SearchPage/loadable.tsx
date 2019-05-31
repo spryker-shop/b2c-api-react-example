@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Loadable from 'react-loadable';
-import { Preloader } from '@components/Preloader';
 
-export const LoadableSearchPage = Loadable({
-    loader: () =>
-        import('@pages/SearchPage').then(
-            module => module.SearchPage,
-        ),
-    loading: () => <Preloader />,
-});
+export const LoadableSearchPage = React.lazy(() =>
+    import('@pages/SearchPage').then(module => ({ default: module.SearchPage }))
+);

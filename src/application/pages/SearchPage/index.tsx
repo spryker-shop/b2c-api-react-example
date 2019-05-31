@@ -6,7 +6,7 @@ import { connect } from './connect';
 import { ISearchQuery } from '@interfaces/search';
 import { getCategoryNameById, getCurrentCategoriesTree } from '@helpers/categories';
 import { addToQueryActiveRangeFilters } from '@helpers/queries';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { labeledCategories, pathProductPageBase } from '@constants/routes';
 import { PageTitle } from '@components/PageTitle';
 import { MainContainer } from '@components/MainContainer';

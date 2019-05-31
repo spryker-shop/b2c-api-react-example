@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, withRouter } from 'react-router';
+import { Route, withRouter } from 'react-router-dom';
 import { IProtectedRouteProps as Props } from './types';
 import { connect } from './connect';
 import { pathLoginPage } from '@constants/routes';

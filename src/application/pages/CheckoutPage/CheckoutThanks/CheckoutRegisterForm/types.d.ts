@@ -1,4 +1,4 @@
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { WithRouter } from '@interfaces/common';
 import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';

@@ -1,4 +1,4 @@
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ICustomerDataParsed } from '@interfaces/customer';

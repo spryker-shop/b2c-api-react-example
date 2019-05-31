@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Loadable from 'react-loadable';
-import { Preloader } from '@components/Preloader';
 
-export const LoadableAuthenticationPage = Loadable({
-    loader: () =>
-        import('@pages/AuthenticationPage').then(
-            module => module.AuthenticationPage,
-        ),
-    loading: () => <Preloader />,
-});
+export const LoadableAuthenticationPage = React.lazy(() =>
+    import('@pages/AuthenticationPage').then(module => ({ default: module.AuthenticationPage }))
+);

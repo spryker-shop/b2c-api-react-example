@@ -1,9 +1,9 @@
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IProductAttributes, IProductPropFullData, IProductDataParsed } from '@interfaces/product';
 
-export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps {
+export interface IProductPageProps extends WithStyles<typeof styles>, RouteProps {
     product: IProductDataParsed;
     isUserLoggedIn: boolean;
     appPriceMode: string;
@@ -13,14 +13,14 @@ export interface ProductPageProps extends WithStyles<typeof styles>, RouteProps 
     isRejected: boolean;
     isFulfilled: boolean;
     isInitiated: boolean;
-    locationProductSKU?: string;
+    locationProductSKU: string;
     isProductExist: boolean;
     anonymId: string;
     getProductAvailability: Function;
     isWishlistsFetched: boolean;
 }
 
-export interface ProductPageState extends IProductPropFullData {
+export interface IProductPageState extends IProductPropFullData {
     superAttrSelected: IProductAttributes;
     categoriesTree: IBreadcrumbItem[];
 }

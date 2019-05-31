@@ -1,10 +1,10 @@
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteProps } from 'react-router-dom';
 import { IIndexSignature, WithRouter } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
-export interface IPaginationProps extends WithStyles<typeof styles>, RouteComponentProps, WithRouter {
+export interface IPaginationProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     classes: IIndexSignature;
     pagination: IPagination;
     onChangeHandler: (value: number | string) => void;

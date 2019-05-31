@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';

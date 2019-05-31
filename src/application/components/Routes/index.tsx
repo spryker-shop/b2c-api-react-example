@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import { ProtectedRoute } from '@hoc/ProtectedRoute';
 import { LoadableHomePage } from '@pages/HomePage/loadable';
 import { LoadableSearchPage } from '@pages/SearchPage/loadable';
@@ -24,7 +24,7 @@ import {
     pathSearchPage,
     pathAuthenticationPage
 } from '@constants/routes';
-import { RoutesProps as Props } from './types';
+import { IRoutesProps as Props } from './types';
 import { Preloader } from '@components/Preloader';
 
 export const Routes: React.FC<Props> = (props): JSX.Element => {
@@ -35,18 +35,19 @@ export const Routes: React.FC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <Switch>
-            <Route path={ pathHomePage } exact component={ LoadableHomePage }/>
-            <Route path={ pathCategoryPage } exact component={ LoadableSearchPage }/>
-            <Route path={ pathSearchPage } exact component={ LoadableSearchPage }/>
-            <Route path={ pathProductPage } exact component={ LoadableProductPage }/>
-            <Route path={ pathCartPage } exact component={ LoadableCartPage }/>
-            <ProtectedRoute path={ pathCustomerPage } component={ LoadableCustomerPage }/>
-            <Route path={ pathForgotPassword } exact component={ LoadablePasswordForgotPage }/>
-            <Route path={ pathResetPassword } exact component={ LoadablePasswordResetPage } />
-            <Route path={ pathCheckoutPage } component={ LoadableCheckoutPage }/>
-            <Route path={ pathAuthenticationPage } component={ LoadableAuthenticationPage }/>
-            <Route path={ pathNotFoundPage } exact component={ LoadableNotFoundPage }/>
-        </Switch>
+        <React.Suspense fallback={ <Preloader /> }>
+            <Switch>
+                <Route path={ pathHomePage } exact component={LoadableHomePage} />
+                <Route path={[pathCategoryPage, pathSearchPage]} exact component={ LoadableSearchPage } />
+                <Route path={ pathProductPage } exact component={ LoadableProductPage } />
+                <Route path={ pathCartPage } exact component={ LoadableCartPage } />
+                <ProtectedRoute path={ pathCustomerPage } component={ LoadableCustomerPage } />
+                <Route path={ pathForgotPassword } exact component={ LoadablePasswordForgotPage } />
+                <Route path={ pathResetPassword } exact component={ LoadablePasswordResetPage } />
+                <Route path={ pathCheckoutPage } component={ LoadableCheckoutPage } />
+                <Route path={ pathAuthenticationPage } component={ LoadableAuthenticationPage } />
+                <Route path={ pathNotFoundPage } exact component={ LoadableNotFoundPage } />
+            </Switch>
+        </React.Suspense>
     );
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { withStyles, Grid, Button, withWidth, Hidden } from '@material-ui/core';
 import { IPaginationProps as Props, IPaginationState as State } from './types';
 import { FormattedMessage } from 'react-intl';

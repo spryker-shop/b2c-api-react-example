@@ -1,6 +1,6 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { IOrderDetailsParsed, IOrderDetailsSelectedItems } from '@interfaces/order';
 import { ICartAddItem } from '@interfaces/cart';
 

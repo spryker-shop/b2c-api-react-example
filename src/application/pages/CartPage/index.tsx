@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { pathCartPage } from '@constants/routes';
 import { FormattedPlural, FormattedMessage } from 'react-intl';
-import { CartPageProps as Props } from './types';
+import { ICartPageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { MainContainer } from '@components/MainContainer';
 import { CartRows } from './CartRows';

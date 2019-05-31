@@ -1,6 +1,6 @@
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICheckoutCreditCardState, ICheckoutInvoiceState, IPaymentMethod } from '@interfaces/checkout';
+import { ICheckoutCreditCardState, ICheckoutInvoiceState } from '@interfaces/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const paymentMethod: string = state.pageCheckout.paymentMethod;

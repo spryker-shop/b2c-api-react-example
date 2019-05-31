@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Loadable from 'react-loadable';
-import { Preloader } from '@components/Preloader';
 
-export const LoadableCheckoutShipmentStep = Loadable({
-    loader: () =>
-        import('@pages/CheckoutPage/CheckoutShipmentStep').then(
-            module => module.CheckoutShipmentStep,
-        ),
-    loading: () => <Preloader />,
-});
+export const LoadableCheckoutShipmentStep = React.lazy(() =>
+    import('@pages/CheckoutPage/CheckoutShipmentStep').then(module => ({ default: module.CheckoutShipmentStep }))
+);

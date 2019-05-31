@@ -1,7 +1,7 @@
 /* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
 import { MainContainer } from '@components/MainContainer';
@@ -14,7 +14,7 @@ import { ProductDetail } from './ProductDetail';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { ProductRelations } from '@containers/ProductRelations';
 import { Breadcrumbs } from '@components/Breadcrumbs';
-import { ProductPageProps as Props, ProductPageState as State } from './types';
+import { IProductPageProps as Props, IProductPageState as State } from './types';
 import { IProductAttributes, IProductPropFullData } from '@interfaces/product';
 import { IIndexSignature, IBreadcrumbItem } from '@interfaces/common';
 import { Preloader } from '@components/Preloader';

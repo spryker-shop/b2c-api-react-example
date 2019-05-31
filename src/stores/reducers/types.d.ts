@@ -9,7 +9,7 @@ import { INavigationsState } from '@stores/reducers/common/navigations/types';
 import { IOrderHistoryState } from '@stores/reducers/pages/orderHistory/types';
 import { IOrderDetailsState } from '@stores/reducers/pages/orderDetails/types';
 import { ICustomerState } from '@stores/reducers/pages/customerProfile/types';
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { IIndexSignature, WithRouter } from '@interfaces/common';
 import { IInitState } from '@stores/reducers/common/init/types';
 import { IApiErrorResponse } from '@services/types';

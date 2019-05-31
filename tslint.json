@@ -129,6 +129,7 @@
 			"check-branch",
 			"check-operator",
 			"check-module"
-		]
+		],
+		"no-unused-variable": [true, {"ignore-pattern": "^_"}]
 	}
 }

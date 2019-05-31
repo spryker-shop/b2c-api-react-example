@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider, Store } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { Route } from 'react-router';
 import { ScrollToTopRoute } from '@hoc/ScrollToTopRoute';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';

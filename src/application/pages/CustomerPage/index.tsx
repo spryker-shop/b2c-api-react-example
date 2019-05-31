@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { Redirect, withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router-dom';
 import { ICustomerPageProps as Props, ICustomerPageState as State } from './types';
 import { MainContainer } from '@components/MainContainer';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';

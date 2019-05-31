@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import { pathLoginPage, pathCustomerOverview, pathRegisterPage } from '@constants/routes';
 import { AuthenticationRegister } from '@pages/AuthenticationPage/AuthenticationRegister';
 import { LoginForm } from '@containers/LoginForm';
