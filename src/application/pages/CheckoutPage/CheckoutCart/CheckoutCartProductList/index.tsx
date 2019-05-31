@@ -8,7 +8,7 @@ import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
 import { IIndexSignature } from '@interfaces/common';
 
-const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element => {
     const { products, classes, productsAmountThreshold, isProductsExpanded } = props;
 
     if (!products) {

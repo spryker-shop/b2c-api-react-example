@@ -4,7 +4,7 @@ import { IProductLabelProps as Props } from './types';
 import { styles } from './styles';
 import { IProductLabel } from '@interfaces/product';
 
-const ProductLabelComponent: React.SFC<Props> = (props): JSX.Element => {
+const ProductLabelComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, label } = props;
 
     if (!label) {

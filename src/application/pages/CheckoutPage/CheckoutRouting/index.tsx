@@ -16,7 +16,7 @@ import { LoadableCheckoutSummaryStep } from '@pages/CheckoutPage/CheckoutSummary
 import { LoadableCheckoutThanks } from '@pages/CheckoutPage/CheckoutThanks/loadable';
 import { ICheckoutRoutingProps as Props } from './types';
 
-export const CheckoutRouting: React.SFC<Props> = (props): JSX.Element => {
+export const CheckoutRouting: React.FC<Props> = (props): JSX.Element => {
     const { stepsCompletion, isSendBtnDisabled, sendData } = props;
 
     return (

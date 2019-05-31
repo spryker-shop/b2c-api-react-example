@@ -7,7 +7,7 @@ import { ProductCard } from '@components/ProductCard';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-const ProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
+const ProductsListComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, products, selectProductHandler, currency, isLoading } = props;
 
     const isProductsExist = (Array.isArray(products) && products.length);

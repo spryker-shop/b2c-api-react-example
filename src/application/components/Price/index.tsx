@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core';
 import { IPriceProps as Props } from './types';
 import { styles } from './styles';
 
-const PriceComponent: React.SFC<Props> = (props): JSX.Element => {
+const PriceComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, currency, value, specificCurrency, isOriginal, isMinus } = props;
     const isPriceExist = value || value === 0;
 

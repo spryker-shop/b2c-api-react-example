@@ -9,7 +9,7 @@ import { ICountry } from '@interfaces/addresses';
 import { IAddressFormProps as Props } from './types';
 import { styles } from './styles';
 
-const AddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
+const AddressFormComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         countriesCollection,

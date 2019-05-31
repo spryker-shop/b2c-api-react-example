@@ -6,7 +6,7 @@ import { IProductCardProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
 
-const ProductCardComponent: React.SFC<Props> = (props): JSX.Element => {
+const ProductCardComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         image,

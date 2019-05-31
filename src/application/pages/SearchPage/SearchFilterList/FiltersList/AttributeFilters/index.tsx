@@ -7,7 +7,7 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { AttributeFiltersProps as Props } from './types';
 import { styles } from './styles';
 
-const AttributeFiltersComponent: React.SFC<Props> = (props): JSX.Element => {
+const AttributeFiltersComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         filters,
         activeFilters,

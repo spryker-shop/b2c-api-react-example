@@ -7,7 +7,7 @@ import { IActiveSort } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
 
 export interface ISortPanelProps extends WithStyles<typeof styles> {
-    foundItems?: React.SFC<IFoundItemsProps>;
+    foundItems?: React.FC<IFoundItemsProps>;
     isProductsExist?: boolean;
     currentSort?: string;
     sortParams?: string[];

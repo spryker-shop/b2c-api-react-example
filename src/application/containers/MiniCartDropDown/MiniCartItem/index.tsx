@@ -6,7 +6,7 @@ import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
 import { FormattedMessage } from 'react-intl';
 
-const MiniCartItemComponent: React.SFC<Props> = props => {
+const MiniCartItemComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         productData: {

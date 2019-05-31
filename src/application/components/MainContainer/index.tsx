@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IMainContainerProps as Props } from './types';
 
-const MainContainerComponent: React.SFC<Props> = (props): JSX.Element => {
+const MainContainerComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

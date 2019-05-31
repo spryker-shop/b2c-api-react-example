@@ -6,7 +6,7 @@ import { rangeFilterValueToFront } from '@helpers/common';
 import { rangeMaxType, rangeMinType } from '@constants/search';
 import { SprykerRangeSlider } from '@components/UI/SprykerRangeSlider';
 
-const RangeFiltersComponent: React.SFC<Props> = (props): JSX.Element => {
+const RangeFiltersComponent: React.FC<Props> = (props): JSX.Element => {
     const { ranges, activeRangeFilters, updateStore, updateRangeFilters, classes, openedRanges, openFilter } = props;
 
     const renderRangeFilters = (): JSX.Element[] => ranges.map(filter => {

@@ -10,7 +10,7 @@ import { styles } from './styles';
 
 const homepageHeroSrc = require('./img/hero.png');
 
-const HomePageComponent: React.SFC<Props> = (props): JSX.Element => {
+const HomePageComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

@@ -20,7 +20,7 @@ import { LoadablCustomerWishlistDetail } from '@pages/CustomerPage/CustomerWishl
 import { LoadablCustomerOverview } from '@pages/CustomerPage/CustomerOverview/loadable';
 import { LoadableCustomerAddress } from '@pages/CustomerPage/CustomerAddress/loadable';
 
-export const CustomerRouting: React.SFC = (): JSX.Element => (
+export const CustomerRouting: React.FC = (): JSX.Element => (
     <Switch>
         <Route path={ pathCustomerOverview } exact component={ LoadablCustomerOverview } />
         <Route path={ pathCustomerAddresses } exact component={ LoadableCustomerAddresses }/>

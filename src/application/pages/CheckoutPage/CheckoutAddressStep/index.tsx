@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { PrevIcon } from './icons';
 
-const CheckoutAddressStepComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutAddressStepComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, stepsCompletion: { isAddressStepPassed, isBillingStepPassed }, isUserLoggedIn } = props;
     const isFormFulfilled = isBillingStepPassed && isAddressStepPassed;
 

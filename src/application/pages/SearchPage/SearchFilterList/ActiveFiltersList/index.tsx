@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { Price } from '@components/Price';
 import { rangeFilterValueToBack } from '@helpers/common';
 
-const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
+const ActiveFiltersListComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         activeValuesFilters,

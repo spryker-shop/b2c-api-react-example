@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
 import { Pagination } from '@containers/Pagination';
 
-const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
+const SearchPaginationComponent: React.FC<Props> = (props): JSX.Element => {
     const { pagination, history, setPaginationPageAction } = props;
 
     const handlePagination = async (value: number | string): Promise<void> => {

@@ -10,7 +10,7 @@ import { IAddNavProps as Props } from './types';
 import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
 
-const AdditionalNavigationComponent: React.SFC<Props> = props => {
+const AdditionalNavigationComponent: React.FC<Props> = props => {
     const { classes } = props;
 
     return (

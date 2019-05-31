@@ -7,7 +7,7 @@ import { styles } from './styles';
 import { PartnerIconHermes, PartnerIconDhl } from './icons';
 import { Price } from '@components/Price';
 
-const CheckoutSummaryShipmentComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryShipmentComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, shipmentMethod, shipmentMethods } = props;
 
     const shipmentCarrierNameToIcon: {[key: string]: {name: JSX.Element, icon: JSX.Element}} = {

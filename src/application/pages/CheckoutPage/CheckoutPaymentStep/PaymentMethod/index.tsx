@@ -16,7 +16,7 @@ import {
 import { styles } from './styles';
 import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
-const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
+const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentMethods } = props;
     const isPaymentMethodsExist = Boolean(Array.isArray(paymentMethods) && paymentMethods.length > 0);
 

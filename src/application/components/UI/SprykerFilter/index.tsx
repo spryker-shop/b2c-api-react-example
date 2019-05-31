@@ -46,7 +46,7 @@ class SprykerFilterComponent extends React.Component<Props, State> {
         } = this.props;
         const { isOpen } = this.state;
 
-        const chevronIcon: React.SFC = (): JSX.Element =>
+        const chevronIcon: React.FC = (): JSX.Element =>
             <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
         return (

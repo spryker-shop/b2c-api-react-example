@@ -4,7 +4,7 @@ import { pathLoginPage, pathCustomerOverview, pathRegisterPage } from '@constant
 import { AuthenticationRegister } from '@pages/AuthenticationPage/AuthenticationRegister';
 import { LoginForm } from '@containers/LoginForm';
 
-export const AuthenticationRouting: React.SFC = (): JSX.Element => (
+export const AuthenticationRouting: React.FC = (): JSX.Element => (
     <Switch>
         <Route path={ pathRegisterPage } exact component={ AuthenticationRegister }/>
         <Route

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { withStyles, RadioGroup, FormLabel, FormControlLabel, Radio, Typography } from '@material-ui/core';
+import { withStyles, RadioGroup, FormControlLabel, Radio, Typography } from '@material-ui/core';
 import { InputChangeEvent } from '@interfaces/common';
 import { IShipmentFormProps as Props } from './types';
 import { styles } from './styles';
 import { Price } from '@components/Price';
 
-const ShipmentFormComponent: React.SFC<Props> = (props): JSX.Element => {
+const ShipmentFormComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, currentMode, formName, labelForm, collections, onChangeHandler } = props;
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {

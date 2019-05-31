@@ -6,7 +6,7 @@ import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { getSalutationToShow } from '@helpers/common';
 
-const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
+const SavedAddressFormComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, currentMode, addressesCollection, onFieldChangeHandler, formName, extraField } = props;
     const isAddressesCollectionExist = addressesCollection && addressesCollection.length > 0;
 

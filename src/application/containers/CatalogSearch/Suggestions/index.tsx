@@ -7,7 +7,7 @@ import { Price } from '@components/Price';
 import { ISuggestionsProps as Props } from './types';
 import { styles } from './styles';
 
-const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
+const SuggestionsComponent: React.FC<Props> = (props): JSX.Element => {
     const { suggestion, classes, isHighlighted, clearSuggestion } = props;
     const { prices, price } = suggestion;
     const isDefaultPriceExist = Boolean(prices && prices.priceDefaultGross);

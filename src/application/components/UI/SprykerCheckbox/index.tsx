@@ -4,7 +4,7 @@ import { ISprykerCheckboxProps as Props } from './types';
 import { styles } from './styles';
 import { CheckIcon } from './icons';
 
-const SprykerCheckboxComponent: React.SFC<Props> = (props): JSX.Element => {
+const SprykerCheckboxComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, inputName, label, isChecked, changeHandler } = props;
 
     return (

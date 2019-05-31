@@ -5,7 +5,7 @@ import { ISprykerInputProps as Props, IIconProps } from './types';
 import { InputIcon } from './InputIcon';
 import { styles } from './styles';
 
-const SprykerInputComponent: React.SFC<Props> = (props): JSX.Element => {
+const SprykerInputComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         inputValue,

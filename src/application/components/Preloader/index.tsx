@@ -4,7 +4,7 @@ import { IPreloaderProps as Props } from './types';
 import { styles } from './styles';
 const spinner = require('./img/spinner.gif');
 
-const PreloaderComponent: React.SFC<Props> = (props): JSX.Element => {
+const PreloaderComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, isStatic } = props;
 
     return (

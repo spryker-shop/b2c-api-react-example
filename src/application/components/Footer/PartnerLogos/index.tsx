@@ -1,10 +1,10 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core';
 import { PartnerIconVisa, PartnerIconDhl, PartnerIconHermes, PartnerIconMasterCard, PartnerIconPaypal } from './icons';
 import { IPartnerLogosProps as Props } from './types';
 import { styles } from './styles';
 
-const PartnerLogosComponent: React.SFC<Props> = (props): JSX.Element => {
+const PartnerLogosComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

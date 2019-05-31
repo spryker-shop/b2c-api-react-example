@@ -27,7 +27,7 @@ import {
 import { RoutesProps as Props } from './types';
 import { Preloader } from '@components/Preloader';
 
-export const Routes: React.SFC<Props> = (props): JSX.Element => {
+export const Routes: React.FC<Props> = (props): JSX.Element => {
     const { isAppLoading } = props;
 
     if (!isAppLoading) {

@@ -3,7 +3,7 @@ import { withStyles, Typography } from '@material-ui/core';
 import { IPageTitleProps as Props } from './types';
 import { styles } from './styles';
 
-const PageTitleComponent: React.SFC<Props> = (props): JSX.Element => {
+const PageTitleComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, title, children } = props;
 
     return (

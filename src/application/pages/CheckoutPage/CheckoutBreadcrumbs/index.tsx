@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const CheckoutBreadcrumbsComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutBreadcrumbsComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, location: { pathname }, isUserLoggedIn } = props;
 
     const renderBreadcrumbs = (): JSX.Element[] => {

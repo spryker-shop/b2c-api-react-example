@@ -3,7 +3,7 @@ import { Dialog, Slide, withStyles } from '@material-ui/core';
 import { ISprykerDialogProps as Props } from './types';
 import { styles } from './styles';
 
-const SprykerDialogComponent: React.SFC<Props> = (props): JSX.Element => {
+const SprykerDialogComponent: React.FC<Props> = (props): JSX.Element => {
     const { handleShow, isOpen, classes } = props;
 
     return (

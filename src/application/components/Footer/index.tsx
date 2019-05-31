@@ -14,7 +14,7 @@ import { pathCategoryNew, pathCategoryPageBase, pathCategorySale, } from '@const
 import { TNavigationItem } from '@components/Footer/NavigationList/types';
 import { ICategory } from '@interfaces/common';
 
-const FooterComponent: React.SFC<Props> = (props): JSX.Element => {
+const FooterComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, categoriesTree } = props;
 
     const getCategoriesTree = (): TNavigationItem[] => {
