@@ -6,7 +6,7 @@ export type InputChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInput
 export type FormEvent = React.FormEvent<HTMLFormElement>;
 export type BlurEvent = React.FocusEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
 
-export interface WithRouter extends Partial<RouteComponentProps<RouteProps>> {
+export interface WithRouter extends Partial<RouteComponentProps> {
 }
 
 export interface IStyles {
