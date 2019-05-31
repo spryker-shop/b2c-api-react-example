@@ -15,28 +15,31 @@ import { LoadableCheckoutPaymentStep } from '@pages/CheckoutPage/CheckoutPayment
 import { LoadableCheckoutSummaryStep } from '@pages/CheckoutPage/CheckoutSummaryStep/loadable';
 import { LoadableCheckoutThanks } from '@pages/CheckoutPage/CheckoutThanks/loadable';
 import { ICheckoutRoutingProps as Props } from './types';
+import { Preloader } from '@components/Preloader';
 
 export const CheckoutRouting: React.FC<Props> = (props): JSX.Element => {
     const { stepsCompletion, isSendBtnDisabled, sendData } = props;
 
     return (
-        <Switch>
-            <Route path={ pathCheckoutLoginStep } exact component={ LoadableCheckoutLoginStep } />
-            <Route path={ pathCheckoutAddressStep } exact component={ LoadableCheckoutAddressStep } />
-            <Route path={ pathCheckoutShipmentStep } exact component={ LoadableCheckoutShipmentStep } />
-            <Route path={ pathCheckoutPaymentStep } exact component={ LoadableCheckoutPaymentStep } /> } />
-            <Route
-                path={ pathCheckoutSummaryStep }
-                exact
-                render={ () =>
-                    <LoadableCheckoutSummaryStep
-                        stepsCompletion={ stepsCompletion }
-                        isSendBtnDisabled={ isSendBtnDisabled }
-                        sendData={ sendData }
-                    />
-                }
-            />
-            <Route path={ pathCheckoutThanks } exact component={ LoadableCheckoutThanks } /> } />
-        </Switch>
+        <React.Suspense fallback={ <Preloader /> }>
+            <Switch>
+                <Route path={ pathCheckoutLoginStep } exact component={ LoadableCheckoutLoginStep } />
+                <Route path={ pathCheckoutAddressStep } exact component={ LoadableCheckoutAddressStep } />
+                <Route path={ pathCheckoutShipmentStep } exact component={ LoadableCheckoutShipmentStep } />
+                <Route path={ pathCheckoutPaymentStep } exact component={ LoadableCheckoutPaymentStep } /> } />
+                <Route
+                    path={ pathCheckoutSummaryStep }
+                    exact
+                    render={ () =>
+                        <LoadableCheckoutSummaryStep
+                            stepsCompletion={ stepsCompletion }
+                            isSendBtnDisabled={ isSendBtnDisabled }
+                            sendData={ sendData }
+                        />
+                    }
+                />
+                <Route path={ pathCheckoutThanks } exact component={ LoadableCheckoutThanks } /> } />
+            </Switch>
+        </React.Suspense>
     );
 };
