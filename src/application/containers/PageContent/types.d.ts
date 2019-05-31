@@ -1,8 +1,9 @@
-import { WithRouter, IComponent, IIndexSignature } from '@interfaces/common';
+import { IComponent, IIndexSignature } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
+export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, Partial<RouteComponentProps> {
     classes: IIndexSignature;
     dispatch?: Function;
     isLoading?: boolean;

@@ -3,9 +3,9 @@ import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter {
+export interface IFiltersListProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     filters: IValueFacets[];
     activeFilters: TActiveFilters;
     ranges: IRangeFacets[];

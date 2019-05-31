@@ -1,8 +1,7 @@
-import { RouteProps } from 'react-router-dom';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { IConfigInputState } from '@interfaces/forms';
 
-export interface IAuthenticationRegisterProps extends RouteProps, WithRouter {
+export interface IAuthenticationRegisterProps extends RouteProps, Partial<RouteComponentProps> {
     isAuth?: boolean;
     customerRegisterAction?: Function;
     getCustomerCartsAction?: Function;

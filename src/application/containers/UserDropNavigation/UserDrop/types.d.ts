@@ -1,8 +1,9 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { ClickEvent, WithRouter } from '@interfaces/common';
+import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IUserDropProps extends WithStyles<typeof styles>, WithRouter {
+export interface IUserDropProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     isUserLoggedIn?: boolean;
     onLogoutClick?: (event: ClickEvent) => void;
     onMouseLeave: () => void;

@@ -1,9 +1,8 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { RouteProps } from 'react-router-dom';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 
-export interface IAuthenticationPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
+export interface IAuthenticationPageProps extends WithStyles<typeof styles>, RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn: boolean;
 }
 

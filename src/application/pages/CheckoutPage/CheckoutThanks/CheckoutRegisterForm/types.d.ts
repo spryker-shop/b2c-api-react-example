@@ -1,10 +1,9 @@
-import { RouteProps } from 'react-router-dom';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';
 import { IAddressFormState, IConfigInputState } from '@interfaces/forms';
 
-export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
+export interface ICheckoutRegisterFormProps extends RouteProps, Partial<RouteComponentProps> {
     isAuth?: boolean;
     customerRegisterAction?: Function;
     getCustomerCartsAction?: Function;

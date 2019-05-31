@@ -1,9 +1,10 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ICartItem } from '@interfaces/cart';
-import { ClickEvent, WithRouter, ITotals } from '@interfaces/common';
+import { ClickEvent, ITotals } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface ICheckoutCartProps extends WithStyles<typeof styles>, WithRouter {
+export interface ICheckoutCartProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     products?: ICartItem[];
     totals?: ITotals;
     isSendBtnDisabled: boolean;

@@ -1,4 +1,4 @@
-import { RouteProps } from 'react-router-dom';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ICustomerDataParsed } from '@interfaces/customer';
@@ -11,10 +11,9 @@ import {
     ICheckoutInvoiceState
 } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { WithRouter } from '@interfaces/common';
 import { IAddressFormState } from '@interfaces/forms';
 
-export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
+export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn: boolean;
     isCheckoutLoading: boolean;
     isCheckoutFulfilled: boolean;

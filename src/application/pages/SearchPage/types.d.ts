@@ -6,12 +6,13 @@ import {
     IFilterValue
 } from '@interfaces/search';
 import { History, Location } from 'history';
-import { RouteProps } from 'react-router-dom';
-import { WithRouter, IBreadcrumbItem, ICategory } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
+import { IBreadcrumbItem, ICategory } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps, WithRouter {
+export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPageData, RouteProps,
+    Partial<RouteComponentProps> {
     isLoading: boolean;
     push: Function;
     categoriesTree: ICategory[];
