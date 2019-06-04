@@ -30,8 +30,8 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props): void => {
-        const isCustomerWishlists = !prevProps.isWishlistsDetailInitial && this.props.isWishlistsDetailInitial;
-        if (prevProps.location.pathname !== this.props.location.pathname || isCustomerWishlists) {
+        const isWishlistDetailInitialaized = !prevProps.isWishlistsDetailInitial && this.props.isWishlistsDetailInitial;
+        if (prevProps.location.pathname !== this.props.location.pathname || isWishlistDetailInitialaized) {
             this.getBreadcrumbsList(this.props.location.pathname);
         }
     };

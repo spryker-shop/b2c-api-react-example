@@ -8,5 +8,5 @@ export interface IAuthenticationPageProps extends WithStyles<typeof styles>, Rou
 }
 
 export interface IAuthenticationPageState {
-    isShouldRedirect: boolean;
+    shouldRedirect: boolean;
 }
