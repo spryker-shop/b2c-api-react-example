@@ -64,10 +64,10 @@ class ProductPageComponent extends React.Component<Props, State> {
             return;
         }
 
-        const isShouldUpdateProductState = (prevProps.isFulfilled !== this.props.isFulfilled) ||
+        const shouldUpdateProductState = (prevProps.isFulfilled !== this.props.isFulfilled) ||
             !prevProps.product || (prevProps.product.abstractProduct.sku !== this.props.locationProductSKU);
 
-        if (isShouldUpdateProductState) {
+        if (shouldUpdateProductState) {
             this.setInitialData();
         }
 

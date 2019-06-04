@@ -7,5 +7,5 @@ export interface ICheckoutLoginStepProps extends WithStyles<typeof styles> {
 }
 
 export interface ICheckoutLoginStepState {
-    isShouldRedirect: boolean;
+    shouldRedirect: boolean;
 }

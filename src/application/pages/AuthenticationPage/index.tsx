@@ -14,19 +14,19 @@ import { styles } from './styles';
 @connect
 class AuthenticationPageComponent extends React.Component<Props> {
     public readonly state: State = {
-        isShouldRedirect: false
+        shouldRedirect: false
     };
 
-    public componentDidMount = (): void => this.props.isUserLoggedIn && this.setState({ isShouldRedirect: true });
+    public componentDidMount = (): void => this.props.isUserLoggedIn && this.setState({ shouldRedirect: true });
 
     public render(): JSX.Element {
-        const { isShouldRedirect } = this.state;
+        const { shouldRedirect } = this.state;
         const { classes, location } = this.props;
         const isBasePath = location.pathname === pathAuthenticationPage;
         const isRegisterPage = location.pathname === pathRegisterPage;
         const isLoginPage = location.pathname === pathLoginPage;
 
-        if (isShouldRedirect) {
+        if (shouldRedirect) {
             return <Redirect to={ pathHomePage } />;
         }
 
