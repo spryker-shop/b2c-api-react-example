@@ -12,7 +12,7 @@ import { ProductLabel } from '@components/ProductLabel';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
 
 @connect
-export class ProductImageSliderComponent extends React.Component<Props> {
+class ProductImageSliderComponent extends React.Component<Props> {
     protected mainSliderRef: Slider;
     protected thumbnailsSliderRef: Slider;
 

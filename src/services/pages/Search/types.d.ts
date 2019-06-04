@@ -16,7 +16,7 @@ export interface ICatalogSearchRawResponse {
 
 interface ICatalogSearchDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: {
-        abstractProducts: IProductCardResponse[] | null,
+        abstractProducts: IProductCardResponse[],
         pagination: {
             currentItemsPerPage: number,
             currentPage: number,
@@ -29,16 +29,16 @@ interface ICatalogSearchDataResponse extends IAbstractRowIncludedResponse, IRela
                 validItemsPerPageOptions: number[],
             },
         },
-        rangeFacets: IRangeFacets[] | null,
+        rangeFacets: IRangeFacets[],
         sort: {
-            currentSortOrder: string | null,
-            currentSortParam: string | null,
+            currentSortOrder: string,
+            currentSortParam: string,
             sortParamLocalizedNames: IIndexSignature,
-            sortParamNames: string[] | null,
+            sortParamNames: string[],
         },
-        spellingSuggestion: string | null,
-        valueFacets: IValueFacets[] | null,
-        id: null | string,
+        spellingSuggestion: string,
+        valueFacets: IValueFacets[],
+        id: string
     };
 }
 
@@ -50,7 +50,7 @@ export interface ICatalogSearchRowAbstractProduct extends IAbstractRowIncludedRe
 }
 
 export interface IProductCardResponse {
-    images?: IProductCardImagesResponse[] | null;
+    images?: IProductCardImagesResponse[];
     price: number;
     abstractName: string;
     abstractSku: string;

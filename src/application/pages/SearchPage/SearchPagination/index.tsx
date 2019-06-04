@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
-import { AppPagination } from '@containers/AppPagination';
+import { Pagination } from '@containers/Pagination';
 
 const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
     const { pagination, history, setPaginationPageAction } = props;
@@ -18,7 +18,7 @@ const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
     };
 
     return (
-        <AppPagination pagination={ pagination } onChangeHandler={ handlePagination }/>
+        <Pagination pagination={ pagination } onChangeHandler={ handlePagination }/>
     );
 };
 

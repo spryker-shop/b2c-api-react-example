@@ -3,7 +3,7 @@ import { styles } from './styles';
 import { IDescriptionAttributes, IProductPropFullData } from '@interfaces/product';
 
 export interface IProductDetailProps extends WithStyles<typeof styles> {
-    descriptionAttributes: IDescriptionAttributes[] | null;
+    descriptionAttributes: IDescriptionAttributes[];
     description: IProductPropFullData['description'];
     sku: IProductPropFullData['sku'];
 }

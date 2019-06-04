@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { ISearchFilterListProps as Props, ISearchFilterListState as State } from './types';
-import {
-    IFilterItemToDelete,
-    TRangeType,
-    TFilterItemValue,
-    TFilterItemName
-} from '@interfaces/search';
+import { IFilterItemToDelete, TRangeType, TFilterItemValue, TFilterItemName } from '@interfaces/search';
 import { filterTypeFilter, filterTypeRange } from '@constants/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
-import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';
 import { ActiveFiltersList } from './ActiveFiltersList';
 import { Button, Hidden, withStyles } from '@material-ui/core';
@@ -28,7 +22,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         isFilterListOpened: false
     };
 
-    static getDerivedStateFromProps = (props: Props, state: State): State => {
+    public static getDerivedStateFromProps = (props: Props, state: State): State => {
         if (props.isFulfilled && state.isFirstLoadPassed === null) {
             return {
                 ...state,
@@ -178,8 +172,6 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                             activeValuesFilters={ activeFilters }
                             activeValuesRanges={ activeRangeFilters }
                             deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
-                            filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
-                            rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
                             resetHandler={ this.runResetActiveFilters }
                         />
                     </div>

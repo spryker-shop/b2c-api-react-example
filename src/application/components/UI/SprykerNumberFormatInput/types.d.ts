@@ -1,8 +1,8 @@
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 
 export interface SprykerNumberFormatInputProps {
-    inputRef?: (instance: NumberFormat | null) => void;
-    currency: string | null;
+    inputRef?: (instance: NumberFormat) => void;
+    currency: string;
     name: string;
     className: string;
     value: number;

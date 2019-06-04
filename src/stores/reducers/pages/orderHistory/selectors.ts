@@ -1,7 +1,7 @@
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { IOrderItem } from '@interfaces/order';
 
-export const getOrdersCollectionFromStore = (state: IReduxStore, props: IReduxOwnProps): IOrderItem[] | null =>
+export const getOrdersCollectionFromStore = (state: IReduxStore, props: IReduxOwnProps): IOrderItem[] =>
     isOrderHistoryItems(state, props) ? state.orderHistory.data.items : null;
 
 export const isOrderHistoryItems = (state: IReduxStore, props: IReduxOwnProps): boolean =>

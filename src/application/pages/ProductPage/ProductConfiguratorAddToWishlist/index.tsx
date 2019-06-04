@@ -14,7 +14,7 @@ import { IWishlist } from '@interfaces/wishlist';
 import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
 @connect
-export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
     public readonly state: State = {
         wishlistSelected: null
     };
@@ -60,7 +60,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         }
     };
 
-    protected getFirstWishlist = (): string | null => {
+    protected getFirstWishlist = (): string => {
         if (!this.props.isWishlistsFetched) {
             return null;
         }
@@ -78,7 +78,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         return !isWishlistsFetched || productType !== concreteProductType || isWishlistLoading;
     };
 
-    protected createWishlistMenuVariants = (): IMenuItemSelect[] | null =>
+    protected createWishlistMenuVariants = (): IMenuItemSelect[] =>
         this.props.wishlists.map((wishlist: IWishlist) => ({name: wishlist.name, value: wishlist.id}));
 
     public render(): JSX.Element {

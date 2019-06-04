@@ -1,7 +1,7 @@
 import { ICustomerDataParsed } from '@interfaces/customer';
 import { ICustomerRawResponse } from '@services/pages/CustomerProfile/types';
 
-export const parseCustomerDataResponse = (response: ICustomerRawResponse): ICustomerDataParsed | null => {
+export const parseCustomerDataResponse = (response: ICustomerRawResponse): ICustomerDataParsed => {
     if (!response) {
         return null;
     }

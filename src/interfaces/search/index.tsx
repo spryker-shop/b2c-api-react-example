@@ -1,5 +1,5 @@
 import { IProductCard } from '@interfaces/product';
-import { IPagination } from '@containers/AppPagination/types';
+import { IPagination } from '@containers/Pagination/types';
 import { IIndexSignature } from '@interfaces/common';
 
 export type TActiveFilters = { [name: string]: string[] };
@@ -88,7 +88,6 @@ export interface ISearchQuery {
     ipp?: number;
     label?: string;
     page?: string | number;
-
     [key: string]: string | number | string[];
 }
 

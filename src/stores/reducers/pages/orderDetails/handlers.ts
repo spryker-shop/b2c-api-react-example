@@ -3,7 +3,7 @@ import { IOrderDetailsParsed } from '@interfaces/order';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IApiErrorResponse } from '@services/types';
 
-export const handleFulfilled = (state: IOrderDetailsState, payload: IOrderDetailsParsed | null): IOrderDetailsState => (
+export const handleFulfilled = (state: IOrderDetailsState, payload: IOrderDetailsParsed): IOrderDetailsState => (
     {
         ...state,
         data: {

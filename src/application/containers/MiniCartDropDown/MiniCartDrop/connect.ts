@@ -17,8 +17,8 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
     const cartItemsQuantity: number = getTotalItemsQuantity(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
-    const totals: ITotals | null = cartProps && cartProps.data ? cartProps.data.totals : null;
-    const cartItems: ICartItem[] | null = cartProps && cartProps.data ? cartProps.data.items : null;
+    const totals: ITotals = cartProps && cartProps.data ? cartProps.data.totals : null;
+    const cartItems: ICartItem[] = cartProps && cartProps.data ? cartProps.data.items : null;
 
     return {
         cartId,

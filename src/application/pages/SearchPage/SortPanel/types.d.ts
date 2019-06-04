@@ -2,7 +2,7 @@ import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { IFoundItemsProps } from './FoundItems/types';
-import { IPagination } from '@containers/AppPagination/types';
+import { IPagination } from '@containers/Pagination/types';
 import { IActiveSort } from '@interfaces/search';
 import { IIndexSignature } from '@interfaces/common';
 

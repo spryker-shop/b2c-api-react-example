@@ -1,9 +1,10 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Grid } from '@material-ui/core';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { ProductImageSlider } from '@components/ProductImageSlider';
 import { ProductGeneralInfo } from './ProductGeneralInfo';
 import { ProductSuperAttribute } from './ProductSuperAttribute';
@@ -21,8 +22,8 @@ import { styles } from './styles';
 
 @(withRouter as Function)
 @connect
-export class ProductPageComponent extends React.Component<Props, State> {
-    public state: State = {
+class ProductPageComponent extends React.Component<Props, State> {
+    public readonly state: State = {
         superAttrSelected: {},
         productType: null,
         sku: null,
@@ -63,10 +64,10 @@ export class ProductPageComponent extends React.Component<Props, State> {
             return;
         }
 
-        const isShouldUpdateProductState = (prevProps.isFulfilled !== this.props.isFulfilled) ||
+        const shouldUpdateProductState = (prevProps.isFulfilled !== this.props.isFulfilled) ||
             !prevProps.product || (prevProps.product.abstractProduct.sku !== this.props.locationProductSKU);
 
-        if (isShouldUpdateProductState) {
+        if (shouldUpdateProductState) {
             this.setInitialData();
         }
 
@@ -91,14 +92,16 @@ export class ProductPageComponent extends React.Component<Props, State> {
     protected findAndParseConcreteProduct = (changedSelectedAttr: IProductAttributes): IProductPropFullData => {
         const { abstractProduct, concreteProducts, attributeVariants } = this.props.product;
         const path: string[] = Object.keys(changedSelectedAttr).map(attr => `${attr}:${changedSelectedAttr[attr]}`);
-        const idProductConcrete: string = path.reduce((acc: IIndexSignature, key): IIndexSignature | string => {
-            const convertedAcc  = acc[key] as unknown as { [key: string]: { id_product_concrete: string }; };
+        const idProductConcrete: string = path
+            .reduce((accumulator: IIndexSignature, key: string): IIndexSignature | string => {
+                const convertedAcc  = accumulator[key] as unknown as {[key: string]: { id_product_concrete: string };};
+                const isProductExist = accumulator[key] && convertedAcc.id_product_concrete;
 
-            return acc[key] && convertedAcc.id_product_concrete ? convertedAcc.id_product_concrete : acc[key];
-        }, {...(attributeVariants as unknown as IIndexSignature)}) as string;
+                return isProductExist ? convertedAcc.id_product_concrete : accumulator[key];
+            }, {...(attributeVariants as unknown as IIndexSignature)}) as string;
 
         if (!idProductConcrete) {
-            return { ...abstractProduct };
+            return { ...abstractProduct, isAvailable: false };
         }
 
         return { ...concreteProducts[idProductConcrete] };
@@ -114,19 +117,20 @@ export class ProductPageComponent extends React.Component<Props, State> {
         const { concreteProducts, superAttributes, selectedAttrNames } = this.props.product;
         const concreteProductsIds = Object.keys(concreteProducts);
         const isOneConcreteProduct = Boolean(concreteProductsIds.length === 1);
-        const superAttrSelected = Object.keys(selectedAttrNames).reduce((acc: IIndexSignature, name) => {
-            const redirectedAttributes = activeSupperAttributes
-                ? activeSupperAttributes.filter((item: IIndexSignature) => Boolean(item[name]))
-                : false;
+        const superAttrSelected = Object.keys(selectedAttrNames)
+            .reduce((accumulator: IIndexSignature, name: string): IProductAttributes => {
+                const redirectedAttributes = activeSupperAttributes
+                    ? activeSupperAttributes.filter((item: IIndexSignature) => Boolean(item[name]))
+                    : false;
 
-            acc[name] = Boolean(redirectedAttributes.length)
-                ? redirectedAttributes[0][name]
-                : superAttributes.filter(item => item.name === name)[0].data[0].value;
+                accumulator[name] = Boolean(redirectedAttributes.length)
+                    ? redirectedAttributes[0][name]
+                    : superAttributes.filter(item => item.name === name)[0].data[0].value;
 
-            return acc;
-        }, {});
+                return accumulator;
+            }, {});
 
-        const productData: IProductPropFullData | null = isOneConcreteProduct
+        const productData: IProductPropFullData = isOneConcreteProduct
             ? { ...concreteProducts[concreteProductsIds[0]] }
             : this.findAndParseConcreteProduct(superAttrSelected);
 
@@ -182,7 +186,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
         return (
             <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ categoriesTree } />
-                <AppMain>
+                <MainContainer>
                     <Grid container spacing={ 16 } className={ classes.productMain }>
                         <Grid item xs={ 12 } sm={ 6 }  md={ 7 }>
                             <div className={ classes.productPreview }>
@@ -239,7 +243,7 @@ export class ProductPageComponent extends React.Component<Props, State> {
                             />
                         </ErrorBoundary>
                     }
-                </AppMain>
+                </MainContainer>
             </div>
         );
     }

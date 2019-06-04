@@ -6,7 +6,7 @@ import { IAddressFormState } from '@interfaces/forms';
 
 export interface IBillingFormProps extends WithStyles<typeof styles> {
     isUserLoggedIn?: boolean;
-    addressesCollection?: IAddressItemCollection[] | null;
+    addressesCollection?: IAddressItemCollection[];
     isCheckoutFulfilled?: boolean;
     billingNewAddress?: IAddressFormState;
     billingSelection?: IBillingSelectionState;

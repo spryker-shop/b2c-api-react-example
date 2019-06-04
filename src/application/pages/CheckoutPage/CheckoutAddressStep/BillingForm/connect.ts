@@ -16,8 +16,7 @@ import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
-    const addressesCollection: IAddressItemCollection[] | null =
-        getAddressesCollectionFromCheckoutStore(state, ownProps);
+    const addressesCollection: IAddressItemCollection[] = getAddressesCollectionFromCheckoutStore(state, ownProps);
     const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
 

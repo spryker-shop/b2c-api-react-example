@@ -2,6 +2,7 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
+import { IConfigInputState } from '@interfaces/forms';
 
 export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
     isAuth?: boolean;
@@ -13,7 +14,11 @@ export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, 
 }
 
 export interface ILoginFormState {
-    username: string;
-    password: string;
+    fields: {
+        [index: string]: IConfigInputState;
+        username: IConfigInputState;
+        password: IConfigInputState;
+    };
+    isFormValid: boolean;
     isCartLoading: boolean;
 }

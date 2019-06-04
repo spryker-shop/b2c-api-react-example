@@ -15,15 +15,15 @@ export interface ISprykerRangeSliderProps extends WithStyles<typeof styles> {
     min: number;
     max: number;
     currentValue?: { min: number, max: number };
-    valueFormatter?: Function | null;
-    currency: string | null;
+    valueFormatter?: Function;
+    currency: string;
     width: Breakpoint;
     isActive: boolean;
     openFilter: (event: ClickEvent) => void;
 }
 
 export interface ISprykerRangeSliderState {
-    anchorElement: HTMLElement | null;
+    anchorElement: HTMLElement;
     minPopoverWidth: number;
     currentMinValue: number;
     currentMaxValue: number;

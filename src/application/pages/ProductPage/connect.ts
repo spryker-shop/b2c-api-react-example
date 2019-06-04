@@ -17,8 +17,8 @@ import { isWishlistsCollectionInitiated } from '@stores/reducers/pages/wishlist/
 import { IProductDataParsed } from '@interfaces/product';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const product: IProductDataParsed | null = getProduct(state, ownProps);
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const product: IProductDataParsed = getProduct(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const isLoading: boolean = isPageProductStateLoading(state, ownProps);
     const isRejected: boolean = isPageProductStateRejected(state, ownProps);
     const isFulfilled: boolean = isPageProductStateFulfilled(state, ownProps);

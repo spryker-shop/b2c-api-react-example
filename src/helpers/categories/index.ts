@@ -1,6 +1,7 @@
-import { ICategory } from '@interfaces/common';
+import { IBreadcrumbItem, ICategory } from '@interfaces/common';
+import { pathCategoryPageBase } from '@constants/routes';
 
-export const getCategoryNameById = (categoryId: string | number, categoriesTree: ICategory[]): string | null => {
+export const getCategoryNameById = (categoryId: string | number, categoriesTree: ICategory[]): string => {
     if (!categoryId) {
         return null;
     }
@@ -8,7 +9,7 @@ export const getCategoryNameById = (categoryId: string | number, categoriesTree:
         return null;
     }
     const categoryIdNumbered = Number(categoryId);
-    let name: string | null = null;
+    let name: string = null;
 
     categoriesTree.forEach((category: ICategory) => {
         if (name) {
@@ -24,7 +25,7 @@ export const getCategoryNameById = (categoryId: string | number, categoriesTree:
     return name;
 };
 
-export const getCategoryIdByName = (categoryName: string, categoriesTree: ICategory[]): number | null => {
+export const getCategoryIdByName = (categoryName: string, categoriesTree: ICategory[]): number => {
     if (!categoryName) {
         return null;
     }
@@ -32,7 +33,7 @@ export const getCategoryIdByName = (categoryName: string, categoriesTree: ICateg
         return null;
     }
 
-    let id: number | null = null;
+    let id: number = null;
 
     categoriesTree.forEach((category: ICategory) => {
         if (id) {
@@ -46,4 +47,31 @@ export const getCategoryIdByName = (categoryName: string, categoriesTree: ICateg
     });
 
     return id;
+};
+
+export const getCurrentCategoriesTree = (categoriesTree: ICategory[], categoryId: number): IBreadcrumbItem[] => {
+    if (!categoryId) {
+        return null;
+    }
+
+    for (let i = 0; i < categoriesTree.length; i++) {
+        if (categoriesTree[i].nodeId.toString() === String(categoryId)) {
+            return [{
+                name: categoriesTree[i].name,
+                path: `${pathCategoryPageBase}/${categoriesTree[i].nodeId}`,
+                current: true
+            }];
+        }
+
+        const arrayCategoryParents = getCurrentCategoriesTree(categoriesTree[i].children as ICategory[], categoryId);
+
+        if (arrayCategoryParents != null) {
+            arrayCategoryParents.unshift({
+                name: categoriesTree[i].name,
+                path: `${pathCategoryPageBase}/${categoriesTree[i].nodeId}`
+            });
+
+            return arrayCategoryParents;
+        }
+    }
 };

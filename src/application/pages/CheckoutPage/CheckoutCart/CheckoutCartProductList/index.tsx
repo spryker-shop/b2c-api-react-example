@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { ICartItem } from '@interfaces/cart';
 import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
@@ -59,11 +59,11 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                                         component="p"
                                         className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                     >
-                                        <AppPrice value={ priceDefaultGross } />
+                                        <Price value={ priceDefaultGross } />
                                     </Typography>
                                     { priceOriginalGross &&
                                         <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                            <AppPrice value={ priceOriginalGross } isOriginal />
+                                            <Price value={ priceOriginalGross } isOriginal />
                                         </Typography>
                                     }
                                 </div>

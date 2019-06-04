@@ -7,11 +7,11 @@ import { styles } from './styles';
 
 export interface ISuggestionsContainerProps extends WithStyles<typeof styles> {
     options: RenderSuggestionsContainerParamsutProps;
-    suggestions?: IProductCard[] | null;
-    categories?: {[name: string]: string}[] | null;
-    completion?: string[] | null;
-    currency?: string | null;
-    categoriesTree?: ICategory[] | null;
+    suggestions?: IProductCard[];
+    categories?: {[name: string]: string}[];
+    completion?: string[];
+    currency?: string;
+    categoriesTree?: ICategory[];
     clearSuggestion: (query: string) => void;
     sendSearchAction?: (params: ISearchQuery) => void;
     isFulfilled?: boolean;

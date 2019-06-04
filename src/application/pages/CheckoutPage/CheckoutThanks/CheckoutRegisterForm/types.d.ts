@@ -2,7 +2,7 @@ import { RouteProps } from 'react-router';
 import { WithRouter } from '@interfaces/common';
 import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';
-import { IAddressFormState } from '@interfaces/forms';
+import { IAddressFormState, IConfigInputState } from '@interfaces/forms';
 
 export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     isAuth?: boolean;
@@ -15,12 +15,16 @@ export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
     isMultipleAddressesLoading?: boolean;
     billingSelection?: IBillingSelectionState;
     addMultipleAddressAction?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
-    customer?: string | null;
+    customer?: string;
 }
 
 export interface ICheckoutRegisterFormState {
-    password: string;
-    confirmPassword: string;
+    fields: {
+        [index: string]: IConfigInputState;
+        password: IConfigInputState;
+        confirmPassword: IConfigInputState;
+    };
+    isFormValid: boolean;
     isCartLoading: boolean;
 }
 

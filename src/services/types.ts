@@ -74,8 +74,8 @@ type TPriceTypeNameDefault = 'DEFAULT';
 type TPriceTypeNameOriginal = 'ORIGINAL';
 
 export interface IProductPricesResponse {
-    grossAmount: number | null;
-    netAmount: number | null;
+    grossAmount: number;
+    netAmount: number;
     priceTypeName: TPriceTypeNameDefault | TPriceTypeNameOriginal;
     currency?: {
         code: string;
@@ -90,8 +90,8 @@ export interface IProductRowAvailabilitiesIncludedResponse extends IAbstractRowI
 }
 
 interface IProductAvailability {
-    availability: boolean | null;
-    quantity?: number | null;
+    availability: boolean;
+    quantity?: number;
     isNeverOutOfStock?: boolean;
 }
 

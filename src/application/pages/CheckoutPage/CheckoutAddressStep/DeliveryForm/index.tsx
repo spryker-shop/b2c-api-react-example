@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { checkoutFormsNames, checkoutSelectionInputs, newAddressConfigInputStable } from '@constants/checkout';
 import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
 import { InputChangeEvent } from '@interfaces/common';
-import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
+import { IDeliveryFormProps as Props } from './types';
 import { AddressForm } from '@components/AddressForm';
 import { SavedAddressForm } from '../SavedAddressForm';
 import { FormattedMessage } from 'react-intl';
@@ -81,7 +81,7 @@ export class DeliveryForm extends React.Component<Props> {
         this.handleDeliverySelection(value);
     };
 
-    protected getCurrentValueDeliverySelection = (): TCurrentValueDeliverySelection => {
+    protected getCurrentValueDeliverySelection = (): string => {
         const { selectedAddressId, isAddNew } = this.props.deliverySelection;
 
         return selectedAddressId || (isAddNew && checkoutSelectionInputs.isAddNewDeliveryValue) || null;

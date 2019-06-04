@@ -19,7 +19,7 @@ import { ISearchState } from '@stores/reducers/pages/search/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchProps: ISearchState = state.pageSearch ? state.pageSearch : null;
-    const currency: string | null = getAppCurrency(state, ownProps);
+    const currency: string = getAppCurrency(state, ownProps);
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
     const spellingSuggestion: string = getSpellingSuggestion(state, ownProps);
     const locationCategoryId: string = getRouterMatchParam(state, ownProps, 'categoryId');

@@ -9,9 +9,9 @@ export interface IOrderDetailsRawResponse {
 interface IOrderDetailsDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: {
         createdAt: string,
-        currencyIsoCode: string | null;
-        expenses: IOrderDetailsExpenseItem[] | null;
-        items: IOrderDetailsItem[] | null;
+        currencyIsoCode: string;
+        expenses: IOrderDetailsExpenseItem[];
+        items: IOrderDetailsItem[];
         totals: IOrderTotals;
         billingAddress: IAddressItemOrder;
         shippingAddress: IAddressItemOrder;
@@ -26,7 +26,7 @@ export interface IOrderCollectionRawResponse {
 export interface IOrderCollectionDataResponse extends IAbstractRowIncludedResponse, IRelationshipsResponse {
     attributes: {
         createdAt: string;
-        currencyIsoCode: string | null;
+        currencyIsoCode: string;
         totals: IOrderTotals;
     };
 }

@@ -1,5 +1,5 @@
 import { IAddressItem } from '@interfaces/addresses';
-import { IAddressFormState } from '@interfaces/forms';
+import { IAddressFormState, IFormStateIndexSignature, IFormInputIndexSignature } from '@interfaces/forms';
 import { checkFormInputValidity, checkFormValidity } from './validation';
 
 export const getAddressForm = (address: IAddressFormState): IAddressItem => {
@@ -33,22 +33,29 @@ const charsLimit = (value: string, max: string): string => {
 };
 
 export const cardExpiryFormat = (value: string): string => {
-    const month = charsLimit(value.substring(0, 2), '12');
-    const year = value.substring(2, 4);
-    const isMonthFulfilled = value.length >= 2;
+    const month: string = charsLimit(value.substring(0, 2), '12');
+    const year: string = value.substring(2, 4);
+    const isMonthFulfilled: boolean = value.length >= 2;
 
     return `${month}${isMonthFulfilled ? `/${year}` : ''}`;
 };
 
 export const dateBirthFormat = (value: string): string => {
-    const days = charsLimit(value.substring(0, 2), '31');
-    const month = charsLimit(value.substring(2, 4), '12');
-    const year = value.substring(4, 8);
-    const isMonthFulfilled = value.length >= 4;
-    const isDaysFulfilled = value.length >= 2;
+    const days: string = charsLimit(value.substring(0, 2), '31');
+    const month: string = charsLimit(value.substring(2, 4), '12');
+    const year: string = value.substring(4, 8);
+    const isMonthFulfilled: boolean = value.length >= 4;
+    const isDaysFulfilled: boolean = value.length >= 2;
 
     return `${days}${isDaysFulfilled ? `/${month}` : ''}${isMonthFulfilled ? `/${year}` : ''}`;
 };
+
+export const formDataTransformer = (fields: IFormStateIndexSignature): object => Object.keys(fields)
+    .reduce((accumulator: IFormInputIndexSignature, name: string) => {
+        accumulator[name] = fields[name].value;
+
+        return accumulator;
+    }, {});
 
 export {
     checkFormInputValidity,

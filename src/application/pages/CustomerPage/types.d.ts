@@ -10,7 +10,7 @@ export interface ICustomerPageProps extends WithStyles<typeof styles>, WithRoute
     clearOrdersCollectionAction?: () => void;
     clearAddressAction?: () => void;
     isWishlistsDetailInitial?: boolean;
-    wishlist: IWishlist | null;
+    wishlist: IWishlist;
 }
 
 export interface ICustomerPageState {

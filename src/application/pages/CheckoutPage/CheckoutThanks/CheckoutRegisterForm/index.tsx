@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from './connect';
-import { pathCustomerOverviewPage } from '@constants/routes';
+import { pathCustomerOverview } from '@constants/routes';
 import { typeNotificationWarning } from '@constants/notifications';
 import { FormattedMessage } from 'react-intl';
 import { Button, Grid } from '@material-ui/core';
@@ -10,14 +10,26 @@ import { ICheckoutRegisterFormProps as Props, ICheckoutRegisterFormState as Stat
 import { InputChangeEvent, FormEvent } from '@interfaces/common';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { IAddressItem } from '@interfaces/addresses';
+import { checkFormInputValidity, checkFormValidity, formDataTransformer } from '@helpers/forms';
+import { createPasswordConfigInputStable as inputsConfig } from '@constants/authentication';
+import { ICustomerProfile, ICustomerProfilePassword } from '@interfaces/customer';
 
 @(withRouter as Function)
 @connect
 export class CheckoutRegisterForm extends React.Component<Props, State> {
-    public state: State = {
-        password: '',
-        confirmPassword: '',
-        isCartLoading: false
+    public readonly state: State = {
+        fields: {
+            password: {
+                value: '',
+                isError: false
+            },
+            confirmPassword: {
+                value: '',
+                isError: false
+            }
+        },
+        isCartLoading: false,
+        isFormValid: false
     };
 
     protected transformAddressData = (addressPayload: IAddressPayload): IAddressItem => {
@@ -41,7 +53,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         };
     };
 
-    public componentDidUpdate = (prevProps: Props): void => {
+    public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         const { isAuth, getCustomerCartsAction, isCartLoading, history, isMultipleAddressesLoading } = this.props;
         const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
@@ -55,11 +67,15 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         }
 
         if (isAddressRequest) {
-            history.push(pathCustomerOverviewPage);
+            history.push(pathCustomerOverview);
+        }
+
+        if (prevState.fields !== this.state.fields) {
+            this.handleFormValidity();
         }
     };
 
-    protected addingAddress = () => {
+    protected addingAddress = (): void => {
         const {
             customer,
             addMultipleAddressAction,
@@ -83,16 +99,38 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         addMultipleAddressAction(deliveryPayload, customer, billingPayload);
     };
 
-    protected handleChange = ({ target: { name, value } }: InputChangeEvent): void => {
-        this.setState(() => ({ ...this.state, [name]: value }));
+    protected handleInputChange = (event: InputChangeEvent): void => {
+        const { name, value } = event.target;
+        const isInputValid = checkFormInputValidity({ value, fieldConfig: inputsConfig[name] });
+
+        this.setState((prevState: State) => ({
+            ...prevState,
+            fields: {
+                ...prevState.fields,
+                [name]: {
+                    value: value.trim(),
+                    isError: !isInputValid
+                }
+            }
+        }));
+    };
+
+    protected handleFormValidity = (): void => {
+        const isFormValid = checkFormValidity({
+            form: this.state.fields,
+            fieldsConfig: inputsConfig
+        });
+
+        this.setState({ isFormValid });
     };
 
     protected handleSubmitForm = (event: FormEvent): void => {
         event.preventDefault();
-        const { password, confirmPassword } = this.state;
+        const { fields } = this.state;
         const { deliveryNewAddress, customerRegisterAction } = this.props;
+        const passwordsPayload: ICustomerProfilePassword | {} = formDataTransformer(fields);
 
-        if (password !== confirmPassword) {
+        if (fields.password.value !== fields.confirmPassword.value) {
             NotificationsMessage({
                 id: 'password.not.equal.message',
                 type: typeNotificationWarning
@@ -101,14 +139,14 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
             return;
         }
 
-        const payload = {
-            salutation: deliveryNewAddress.salutation.value,
-            firstName: deliveryNewAddress.firstName.value,
-            lastName: deliveryNewAddress.lastName.value,
-            email: deliveryNewAddress.email.value,
-            acceptedTerms: true,
-            password,
-            confirmPassword,
+        const payload: ICustomerProfile = {
+            password: (passwordsPayload as ICustomerProfilePassword).password,
+            confirmPassword: (passwordsPayload as ICustomerProfilePassword).confirmPassword,
+            salutation: deliveryNewAddress.salutation.value.toString(),
+            firstName: deliveryNewAddress.firstName.value.toString(),
+            lastName: deliveryNewAddress.lastName.value.toString(),
+            email: deliveryNewAddress.email.value.toString(),
+            acceptedTerms: true
         };
 
         customerRegisterAction(payload);
@@ -116,7 +154,8 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { isLoading } = this.props;
-        const { isCartLoading } = this.state;
+        const { isCartLoading, fields, isFormValid } = this.state;
+        const isButtonDisabled = isLoading || isCartLoading || !isFormValid;
 
         return (
             <form noValidate autoComplete="off" onSubmit={ this.handleSubmitForm } id="CheckoutRegisterForm">
@@ -125,9 +164,10 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'create.password.title' } /> }
-                            inputName="password"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.password }
+                            inputName={ inputsConfig.password.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.password.value }
+                            isError={ fields.password.isError }
                             inputType="password"
                         />
                     </Grid>
@@ -135,14 +175,15 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
                         <SprykerInput
                             isRequired
                             label={ <FormattedMessage id={ 'verify.password.title' } /> }
-                            inputName="confirmPassword"
-                            onChangeHandler={ this.handleChange }
-                            inputValue={ this.state.confirmPassword }
+                            inputName={ inputsConfig.confirmPassword.inputName }
+                            onChangeHandler={ this.handleInputChange }
+                            inputValue={ fields.confirmPassword.value }
+                            isError={ fields.confirmPassword.isError }
                             inputType="password"
                         />
                     </Grid>
                     <Grid item xs={ 12 }>
-                        <Button disabled={ isLoading || isCartLoading } type="submit" variant="contained" fullWidth>
+                        <Button disabled={ isButtonDisabled } type="submit" variant="contained" fullWidth>
                             <FormattedMessage id={ 'create.account.title' } />
                         </Button>
                     </Grid>

@@ -1,15 +1,22 @@
 import { WithStyles } from '@material-ui/core';
 import { IResetPasswordPayload } from '@interfaces/customer';
 import { styles } from './styles';
+import { IConfigInputState } from '@interfaces/forms';
+import { Location } from 'history';
 
 export interface IResetPasswordPageProps extends WithStyles<typeof styles> {
     resetPasswordAction?: (payload: IResetPasswordPayload) => void;
-    restoreKey?: string | null;
+    location: Location;
     isLoading: boolean;
+    push: Function;
+    isFulfilled: boolean;
 }
 
 export interface IResetPasswordPageState {
-    password: string;
-    confirmPassword: string;
-    submitted: boolean;
+    fields: {
+        [index: string]: IConfigInputState;
+        password: IConfigInputState;
+        confirmPassword: IConfigInputState;
+    };
+    isFormValid: boolean;
 }

@@ -9,10 +9,10 @@ export interface ICheckoutThanksProps extends WithStyles<typeof styles> {
     anonymId: string;
     getCustomerCartsAction: (anonymId: string, isUserLoggedIn: boolean) => void;
     deliveryNewAddress: IAddressFormState;
-    profile: ICustomerDataParsed | null;
+    profile: ICustomerDataParsed;
 }
 
 export interface ICheckoutThanksState {
     shouldHideForm: boolean;
-    email: string | null;
+    email: string;
 }

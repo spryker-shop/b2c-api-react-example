@@ -9,7 +9,7 @@ export interface ICategoriesListProps extends WithStyles<typeof styles> {
     categoriesTree: ICategory[];
     selectedCategory: number | string;
     selectedMobileCategory: number | string;
-    categoriesLocalizedName?: string | null;
+    categoriesLocalizedName?: string;
     locationCategoryId: number | string;
     push?: (location: string) => void;
     setCurrentCategoryAction?: (categoryId: number | string) => void;

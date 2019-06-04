@@ -1,6 +1,6 @@
 import { ICustomerProfileIdentity, } from '@interfaces/customer';
 import { IAddressItem } from '@interfaces/addresses';
-import { IConfigInputState } from '@interfaces/forms';
+import { IConfigInputState, IFormStateIndexSignature } from '@interfaces/forms';
 
 export interface IPaymentMethod {
     paymentProviderName: string;
@@ -52,18 +52,16 @@ export interface ICheckoutStepsCompletionState {
     isPaymentStepPassed: boolean;
 }
 
-export interface ICheckoutCreditCardState {
+export interface ICheckoutCreditCardState extends IFormStateIndexSignature {
     paymentProvider: IConfigInputState;
     cardNumber: IConfigInputState;
     cardName: IConfigInputState;
     cardExpiryDate: IConfigInputState;
     cardCVC: IConfigInputState;
-    [key: string]: IConfigInputState;
 }
 
-export interface ICheckoutInvoiceState {
+export interface ICheckoutInvoiceState extends IFormStateIndexSignature {
     dateOfBirth: IConfigInputState;
-    [key: string]: IConfigInputState;
 }
 
 export interface IFormFieldMutate {
@@ -75,4 +73,12 @@ export interface IFormFieldMutate {
 export interface IFormUpdatePaymentStatus {
     value: string;
     isPaymentStepCompleted: boolean;
+}
+
+export interface IPaymentMethodsGrouped {
+    [key: string]: IPaymentMethod[];
+}
+
+export interface IShipmentMethodsGrouped {
+    [key: string]: IShipmentMethod[];
 }

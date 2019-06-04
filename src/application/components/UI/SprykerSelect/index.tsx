@@ -10,7 +10,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
         isFullWidth: false
     };
 
-    public state: State = {
+    public readonly state: State = {
         isOpen: false
     };
 

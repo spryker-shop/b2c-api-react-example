@@ -51,11 +51,12 @@ export class AddressesService extends ApiServiceAbstract {
             if (response.ok) {
                 const { data: { attributes, id } } = response.data;
 
-                const address: IAddressItem = Object.keys(attributes).reduce((acc: IAddressIndexSignture, current) => {
-                    acc[current] = attributes[current];
+                const address: IAddressItem = Object.keys(attributes)
+                    .reduce((accumulator: IAddressIndexSignture, current: string) => {
+                        accumulator[current] = attributes[current];
 
-                    return acc;
-                }, {});
+                        return accumulator;
+                    }, {});
                 address.id = id;
 
                 dispatch(addressesActions.getOneAddressFulfilledStateAction({ data: address, addressId: id }));

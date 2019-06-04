@@ -21,7 +21,7 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
 
     protected selectLanguage = (lang: TLanguage) => (): void => {
         const { appLocale } = this.props;
-        const locale: string | null = lang.code;
+        const locale: string = lang.code;
         const shouldUpdateLocale = locale !== appLocale;
 
         this.setState({ anchorElement: null });

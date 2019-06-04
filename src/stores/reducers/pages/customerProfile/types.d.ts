@@ -3,8 +3,8 @@ import { IActionData, IReduxState } from '@stores/reducers/types';
 
 export interface ICustomerState extends IReduxState {
   data: {
-    profile: ICustomerDataParsed | null,
-    isPasswordUpdated: boolean | null;
+    profile: ICustomerDataParsed,
+    isPasswordUpdated: boolean;
   };
 }
 

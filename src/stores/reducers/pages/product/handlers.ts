@@ -3,7 +3,7 @@ import { IProductDataParsed } from '@interfaces/product';
 import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
 import { IApiErrorResponse } from '@services/types';
 
-export const handleFulfilled = (state: IProductState, payload: IProductDataParsed | null): IProductState => ({
+export const handleFulfilled = (state: IProductState, payload: IProductDataParsed): IProductState => ({
     ...state,
     data: {
         ...state.data,

@@ -25,6 +25,6 @@ export interface ISearchFilterListState {
     activeFilters?: TActiveFilters;
     activeRangeFilters?: TActiveRangeFilters;
     isFilterUpdated?: boolean;
-    isFirstLoadPassed: boolean | null;
+    isFirstLoadPassed: boolean;
     isFilterListOpened: boolean;
 }

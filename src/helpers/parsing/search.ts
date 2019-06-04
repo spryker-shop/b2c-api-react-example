@@ -18,7 +18,7 @@ import {
 } from '@services/pages/Search/types';
 import { ISuggestionSearchRawResponse } from '@services/common/FlyoutSearch/types';
 
-export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed | null => {
+export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse): ICatalogSearchDataParsed => {
     if (!response) {
         return null;
     }
@@ -38,7 +38,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
     const currentPaginationPage: number = pagination.currentPage;
     let category: IFilterValue[] = [];
     let currentCategoryId: number = null;
-    let categoriesLocalizedName: string | null = null;
+    let categoriesLocalizedName: string = null;
 
     attributes.valueFacets.forEach((filter: IValueFacets) => {
         if (filter.name === 'category') {
@@ -99,7 +99,7 @@ export const parseCatalogSearchResponse = (response: ICatalogSearchRawResponse):
         return result;
     }
 
-    const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
+    const availableLabels: IProductLabelsCollectionResponse = getAvailableLables(included);
 
     included.forEach((row: ICatalogSearchRowIncludedResponse) => {
         const isProductHasLabels = row.type === EIncludeTypes.ABSTRACT_PRODUCTS && row.relationships &&

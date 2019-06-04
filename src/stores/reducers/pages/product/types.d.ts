@@ -3,7 +3,7 @@ import { IProductDataParsed } from '@interfaces/product';
 
 export interface IProductState extends IReduxState {
     data: {
-        selectedProduct: IProductDataParsed | null,
+        selectedProduct: IProductDataParsed,
     };
 }
 

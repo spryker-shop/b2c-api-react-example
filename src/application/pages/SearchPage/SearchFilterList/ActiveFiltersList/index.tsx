@@ -2,11 +2,12 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { IActiveFiltersListProps as Props } from './types';
 import { IFilterItem, TFilterItemValue, IRangeFacets } from '@interfaces/search';
-import { filterTypeFilter } from '@constants/search';
-import { createRangeFilterItemCombined } from './helper';
+import { filterTypeFilter, filterTypeRange } from '@constants/search';
 import { Grid, Chip, withStyles, Button } from '@material-ui/core';
 import { CloseOutlinedIcon } from './icons';
 import { styles } from './styles';
+import { Price } from '@components/Price';
+import { rangeFilterValueToBack } from '@helpers/common';
 
 const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
     const {
@@ -15,7 +16,6 @@ const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
         activeValuesRanges,
         rangeFilters,
         resetHandler,
-        rangesLocalizedNames,
         deleteActiveFilterHandler
     } = props;
 
@@ -43,15 +43,18 @@ const ActiveFiltersListComponent: React.SFC<Props> = (props): JSX.Element => {
                 const valueTo = activeValuesRanges[rangeName].max;
 
                 if (valueFrom >= 0 && valueTo >= 0) {
-                    itemsGlobalCollection.push(
-                        createRangeFilterItemCombined({
-                            value: activeValuesRanges[rangeName],
-                            rangeName,
-                            title: (rangesLocalizedNames && rangesLocalizedNames[rangeName])
-                                ? rangesLocalizedNames[rangeName]
-                                : ''
-                        })
-                    );
+                    itemsGlobalCollection.push({
+                        name: rangeName,
+                        value: activeValuesRanges[rangeName],
+                        type: filterTypeRange,
+                        label: (
+                            <>
+                                <Price value={ rangeFilterValueToBack(valueFrom) } />
+                                &nbsp;{'-'}&nbsp;
+                                <Price value={ rangeFilterValueToBack(valueTo) } />
+                            </>
+                        )
+                    });
                 }
             }
         }

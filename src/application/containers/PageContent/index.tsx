@@ -7,15 +7,15 @@ import { withRouter } from 'react-router';
 import { Routes } from '@components/Routes';
 import {
     pathCategoryPageBase,
-    pathLoginPage,
-    pathRegisterPage,
+    pathAuthenticationPage,
     pathSearchPage,
     pathForgotPassword,
-    pathResetPassword, pathCheckoutPage
+    pathResetPassword,
+    pathCheckoutPage
 } from '@constants/routes';
 import { withStyles } from '@material-ui/core';
-import { AppHeader } from '@containers/AppHeader';
-import { AppFooter } from '@components/AppFooter';
+import { Header } from '@containers/Header';
+import { Footer } from '@components/Footer';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@components/Notifications';
 import { messages } from '@translation/';
@@ -98,8 +98,7 @@ class PageContentComponent extends React.Component<Props, State> {
 
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [
-            pathLoginPage,
-            pathRegisterPage,
+            pathAuthenticationPage,
             pathResetPassword,
             pathForgotPassword,
             pathCheckoutPage
@@ -110,18 +109,18 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { locale, classes, isCustomerCartCreated, isInitStateFulfilled } = this.props;
-        const isDataFulfilled = Boolean(isCustomerCartCreated && isInitStateFulfilled);
+        const { locale, classes, isCartCreated, isInitStateFulfilled } = this.props;
+        const isDataFulfilled = Boolean(isCartCreated && isInitStateFulfilled);
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[locale] }>
                 <div className={ classes.root }>
-                    <AppHeader />
+                    <Header />
                     <ErrorBoundary>
                         <Routes isAppLoading={ isDataFulfilled } />
                     </ErrorBoundary>
-                    { !this.shouldHideFooter() && <AppFooter /> }
+                    { !this.shouldHideFooter() && <Footer /> }
                     <Notifications />
                 </div>
             </IntlProvider>

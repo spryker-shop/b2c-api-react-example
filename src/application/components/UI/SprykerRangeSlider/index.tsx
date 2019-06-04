@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
 import { NumberFormatValues } from 'react-number-format';
@@ -60,7 +61,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         });
     };
 
-    protected isShouldUpdateMinField = (values: NumberFormatValues): boolean => {
+    protected shouldUpdateMinField = (values: NumberFormatValues): boolean => {
         const { handleChange, attributeName } = this.props;
         const { currentMaxValue } = this.state;
         const newValue = values.floatValue;
@@ -111,7 +112,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
         }
     };
 
-    protected isShouldUpdateMaxField = (values: NumberFormatValues): boolean => {
+    protected shouldUpdateMaxField = (values: NumberFormatValues): boolean => {
         const { handleChange, attributeName, max } = this.props;
         const { currentMinValue } = this.state;
         const newValue = values.floatValue;
@@ -187,7 +188,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                             currency={ currency }
                             className={ classes.input }
                             value={ currentMinValue }
-                            isAllowed={ this.isShouldUpdateMinField }
+                            isAllowed={ this.shouldUpdateMinField }
                             type="text"
                             onBlur={ this.handleBlurMinField }
                         />
@@ -198,7 +199,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
                             currency={ currency }
                             className={ classes.input }
                             value={ currentMaxValue }
-                            isAllowed={ this.isShouldUpdateMaxField }
+                            isAllowed={ this.shouldUpdateMaxField }
                             type="text"
                             onBlur={ this.handleBlurMaxField }
                         />

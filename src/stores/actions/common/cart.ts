@@ -7,7 +7,7 @@ export const getCartsPendingStateAction = (): ICartAction => ({
     type: actionTypes.GET_CARTS + '_PENDING'
 });
 
-export const getCartsFulfilledStateAction = (payload: ICartDataParsed | null): ICartAction => ({
+export const getCartsFulfilledStateAction = (payload: ICartDataParsed): ICartAction => ({
     type: actionTypes.GET_CARTS + '_FULFILLED',
     payloadCartItemFulfilled: payload
 });

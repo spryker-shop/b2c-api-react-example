@@ -11,10 +11,9 @@ import { IProductConfiguratorAddToCartProps as Props, IProductConfiguratorAddToC
 import { styles } from './styles';
 
 @connect
-export class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
     public readonly state: State = {
         quantitySelected: quantitySelectedInitial,
-        quantity: 1,
         isAvailable: false,
         sku: null,
         isUpdateValue: false
@@ -27,7 +26,6 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
             return {
                 sku: nextProps.sku,
                 quantitySelected: quantitySelectedInitial,
-                quantity: nextProps.product.quantity,
                 isAvailable: nextProps.product.isAvailable,
                 isUpdateValue: true
             };
@@ -39,13 +37,11 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
     protected handleBuyBtnClick = (): void => {
         this.runAddToCart();
 
-        this.setState((prevState: State) => ({
-            ...prevState,
-            quantity: this.props.product.quantity,
+        this.setState({
             isAvailable: this.props.product.isAvailable,
             quantitySelected: quantitySelectedInitial,
             isUpdateValue: true
-        }));
+        });
     };
 
     protected runAddToCart = (): void => {

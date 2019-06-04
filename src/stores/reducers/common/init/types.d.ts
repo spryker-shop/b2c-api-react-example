@@ -4,7 +4,7 @@ import { IActionData, IReduxState } from '@stores/reducers/types';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 
 export interface IInitState extends IReduxState {
-    data: IInitData | null;
+    data: IInitData;
 }
 
 export interface IInitAction extends IActionData {
@@ -17,5 +17,5 @@ export interface IInitAction extends IActionData {
 }
 
 export interface ILocaleActionPayload {
-    locale: string | null;
+    locale: string;
 }

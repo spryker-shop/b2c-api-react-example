@@ -3,9 +3,9 @@ import { styles } from './styles';
 import { IProductPropFullData, TProductType } from '@interfaces/product';
 
 export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof styles> {
-    product: IProductPropFullData | null;
-    productType: TProductType | null;
-    sku: string | null;
+    product: IProductPropFullData;
+    productType: TProductType;
+    sku: string;
     isUserLoggedIn?: boolean;
     addItemToCartAction?: Function;
     cartId?: string;
@@ -15,8 +15,7 @@ export interface IProductConfiguratorAddToCartProps extends WithStyles<typeof st
 
 export interface IProductConfiguratorAddToCartState {
     quantitySelected: number;
-    quantity: number;
     isAvailable: boolean;
-    sku: string | null;
+    sku: string;
     isUpdateValue: boolean;
 }

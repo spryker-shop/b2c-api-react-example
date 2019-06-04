@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { ITotalsBlockProps as Props } from './types';
 import { IOrderDetailsExpenseItem } from '@interfaces/order';
 import { styles } from './styles';
@@ -20,7 +20,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'word.subtotal.title' } />
                 </Typography>
                 <Typography component="span" variant="h5" color="textSecondary" className={ classes.price }>
-                    <AppPrice value={ totals.subtotal } />
+                    <Price value={ totals.subtotal } />
                 </Typography>
             </div>
 
@@ -29,7 +29,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'word.tax.title' } />
                 </Typography>
                 <Typography component="span" variant="h5" color="textSecondary" className={ classes.price }>
-                    <AppPrice value={ totals.taxTotal || 0 } />
+                    <Price value={ totals.taxTotal || 0 } />
                 </Typography>
             </div>
 
@@ -40,7 +40,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                             <FormattedMessage id={ 'order.detail.shipment.title' } />
                         </Typography>
                         <Typography component="span" variant="h5" color="textSecondary" className={ classes.price }>
-                            <AppPrice value={ item.sumPrice || 0 } />
+                            <Price value={ item.sumPrice || 0 } />
                         </Typography>
                     </div>
                 ))
@@ -52,7 +52,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                         <FormattedMessage id={ 'order.detail.shipment.total.title' } />
                     </Typography>
                     <Typography component="span" variant="h5" color="textSecondary" className={ classes.price }>
-                        <AppPrice value={ totals.expenseTotal } />
+                        <Price value={ totals.expenseTotal } />
                     </Typography>
                 </div>
             }
@@ -63,7 +63,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                         <FormattedMessage id={ 'word.discount.title' } />
                     </Typography>
                     <Typography component="span" variant="h5" className={`${classes.discountText} ${classes.price}`}>
-                        <AppPrice value={ totals.discountTotal } isMinus={ isMinus } />
+                        <Price value={ totals.discountTotal } isMinus={ isMinus } />
                     </Typography>
                 </div>
             }
@@ -73,7 +73,7 @@ const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'grand.total.title' } />
                 </Typography>
                 <Typography component="span" className={`${classes.totalText} ${classes.totalTextPrice}`}>
-                    <AppPrice value={ totals.grandTotal } />
+                    <Price value={ totals.grandTotal } />
                 </Typography>
             </div>
         </div>

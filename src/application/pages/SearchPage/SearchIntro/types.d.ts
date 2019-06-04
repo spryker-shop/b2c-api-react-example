@@ -4,5 +4,5 @@ import * as React from 'react';
 
 export interface ISearchIntroProps extends WithStyles<typeof styles> {
     onLinkClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
-    spellingSuggestion: string | null;
+    spellingSuggestion: string;
 }

@@ -5,18 +5,18 @@ export interface IAddressesState extends IReduxState {
     data: {
         isMultipleAddressesLoading: boolean;
         addresses: IAddressItem[],
-        currentAddress: IAddressItem | null,
+        currentAddress: IAddressItem,
     };
 }
 
 export interface IPageAddressesActionPayloadFulfilled {
-    addressId: string | null;
+    addressId: string;
     data: IAddressItem;
 }
 
 export interface IPageAddressesAction extends IActionData {
     addresses?: IAddressItem[];
     address?: IAddressItem;
-    addressId?: string | null;
+    addressId?: string;
     payloadFulfilled?: IPageAddressesActionPayloadFulfilled;
 }

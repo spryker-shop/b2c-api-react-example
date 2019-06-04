@@ -18,7 +18,7 @@ class CatalogSearchComponent extends React.Component<Props, State> {
     };
 
     protected containerRef: React.RefObject<HTMLDivElement> = React.createRef();
-    protected timer: number | null;
+    protected timer: number;
 
     protected getSuggestionValue = (suggestion: IProductCard): string => suggestion.abstractName;
 

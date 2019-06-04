@@ -1,9 +1,10 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import { connect } from './connect';
 import { pathCategoryPageBase, pathURLToCategoryNew, pathURLToCategorySale } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, withRouter } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core';
 import { SubNavigation } from './SubNavigation';
 import { fixtures } from './fixtures';
 import { ClickEvent } from '@interfaces/common';

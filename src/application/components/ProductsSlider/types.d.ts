@@ -5,7 +5,7 @@ import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
 export interface ISlickSliderProps extends WithStyles<typeof styles> {
     products: IProductRelationsItem[];
-    currency: string | null;
+    currency: string;
     onSelectProduct: Function;
     width: Breakpoint;
 }

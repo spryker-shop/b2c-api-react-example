@@ -7,7 +7,7 @@ export const isPageAddressesStateLoading = (state: IReduxStore, props: IReduxOwn
 export const isAddressesInitiated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
     Boolean(isStateExist(state, props) && state.pageAddresses.initiated);
 
-export const getCurrentAddress = (state: IReduxStore, props: IReduxOwnProps): IAddressItem | null =>
+export const getCurrentAddress = (state: IReduxStore, props: IReduxOwnProps): IAddressItem =>
     (isStateExist(state, props) && state.pageAddresses.data.currentAddress)
         ? state.pageAddresses.data.currentAddress
         : null;

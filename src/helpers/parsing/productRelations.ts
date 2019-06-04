@@ -24,7 +24,7 @@ const parseRelationships = (
     }
 
     let productOptions: IProductOptionsResponse = {};
-    const availableLabels: IProductLabelsCollectionResponse | null = getAvailableLables(included);
+    const availableLabels: IProductLabelsCollectionResponse = getAvailableLables(included);
 
     for (const optionType in item.relationships) {
         const optionId: string = item.relationships[optionType].data[0].id;

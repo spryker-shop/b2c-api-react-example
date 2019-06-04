@@ -3,7 +3,7 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IProductSuperAttributeProps extends WithStyles<typeof styles> {
-    superAttributes: ISuperAttribute[] | null;
+    superAttributes: ISuperAttribute[];
     superAttrSelected: IProductAttributes;
     onChange: (name: string, value: string) => void;
 }

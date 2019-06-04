@@ -4,8 +4,8 @@ import { IPaymentMethod, ICheckoutCreditCardState, ICheckoutInvoiceState } from 
 import { IFormUpdatePaymentStatus } from '@stores/reducers/pages/checkout/types';
 
 export interface IPaymentMethodProps extends WithStyles<typeof styles> {
-    paymentMethod: IPaymentMethod['paymentMethodName'] | null;
-    paymentMethods: IPaymentMethod[] | null;
+    paymentMethod: string;
+    paymentMethods: IPaymentMethod[];
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData: ICheckoutInvoiceState;
     mutatePaymentMethodAction: (IFormUpdatePaymentStatus) => void;

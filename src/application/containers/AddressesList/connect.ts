@@ -11,7 +11,7 @@ import {
 import { IAddressItem } from '@interfaces/addresses';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const customer: string | null = getCustomerReference(state, ownProps);
+    const customer: string = getCustomerReference(state, ownProps);
     const isLoading: boolean = isPageAddressesStateLoading(state, ownProps);
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
     const isInitiated: boolean = isAddressesInitiated(state, ownProps);

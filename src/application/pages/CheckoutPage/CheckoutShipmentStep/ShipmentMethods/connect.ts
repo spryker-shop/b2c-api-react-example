@@ -6,8 +6,8 @@ import { IShipmentMethod } from '@interfaces/checkout';
 import { mutateShipmentMethodAction } from '@stores/actions/pages/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const shipmentMethods: IShipmentMethod[] | null = getShipmentMethodsFromStore(state, ownProps);
-    const shipmentMethod: IShipmentMethod['id'] | null = state.pageCheckout.shipmentMethod;
+    const shipmentMethods: IShipmentMethod[] = getShipmentMethodsFromStore(state, ownProps);
+    const shipmentMethod: string = state.pageCheckout.shipmentMethod;
 
     return {
         shipmentMethod,

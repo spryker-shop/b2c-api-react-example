@@ -25,7 +25,7 @@ export interface ISearchPageProps extends WithStyles<typeof styles>, ISearchPage
     clearSortAction: () => void;
     clearPaginationPageAction: () => void;
     isCategoryAsFilter: boolean;
-    currency: string | null;
+    currency: string;
     searchTerm: string;
     currentSort: string;
     currentItemsPerPage: number;

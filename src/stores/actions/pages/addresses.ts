@@ -108,7 +108,7 @@ export const multipleAddressesFulfilledStateAction = (): IPageAddressesAction =>
 });
 
 export const addMultipleAddressAction =
-    (payload: IAddressItem, customerId: string, billing: IAddressItem | null): Function =>
+    (payload: IAddressItem, customerId: string, billing: IAddressItem): Function =>
         (dispatch: Function, getState: Function): void => {
             AddressesService.addMultipleAddressAction(dispatch, payload, customerId, billing);
         };

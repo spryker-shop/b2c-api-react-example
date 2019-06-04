@@ -7,8 +7,7 @@ import { getCounties } from '@stores/reducers/common/init/selectors';
 import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const addressesCollection: IAddressItemCollection[] | null =
-        getAddressesCollectionFromCheckoutStore(state, ownProps);
+    const addressesCollection: IAddressItemCollection[] = getAddressesCollectionFromCheckoutStore(state, ownProps);
     const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
     const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;

@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { INotificationsMessageWithStylesProps as Props } from './types';
 
-export const NotificationsMessageTemplateComponent: React.SFC<Props> = (props): JSX.Element => {
+const NotificationsMessageTemplateComponent: React.SFC<Props> = (props): JSX.Element => {
     const { message, messageWithCustomText, icon, id, classes } = props;
 
     const messageWithInformation = messageWithCustomText

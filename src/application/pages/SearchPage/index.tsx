@@ -1,15 +1,15 @@
+/* tslint:disable:max-file-line-count */
 import * as React from 'react';
 import * as qs from 'query-string';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
 import { ISearchQuery } from '@interfaces/search';
-import { getCategoryNameById } from '@helpers/categories';
-import { addToQueryActiveRangeFilters } from './helpers/queries';
-import { getLabeledCategory, getCurrentCategoriesTree } from './helpers';
+import { getCategoryNameById, getCurrentCategoriesTree } from '@helpers/categories';
+import { addToQueryActiveRangeFilters } from '@helpers/queries';
 import { withRouter } from 'react-router';
-import { pathProductPageBase } from '@constants/routes';
-import { AppPageTitle } from '@components/AppPageTitle';
-import { AppMain } from '@components/AppMain';
+import { labeledCategories, pathProductPageBase } from '@constants/routes';
+import { PageTitle } from '@components/PageTitle';
+import { MainContainer } from '@components/MainContainer';
 import { SortPanel } from './SortPanel';
 import { ProductsList } from './ProductsList';
 import { Breadcrumbs } from '@components/Breadcrumbs';
@@ -89,18 +89,19 @@ class SearchPageComponent extends React.Component<Props, State> {
     };
 
     protected getQueryBaseParams = (): ISearchQuery => {
+        const { locationCategoryId,  currency} = this.props;
         const query: ISearchQuery = {};
 
-        if (this.props.locationCategoryId) {
-            const labeledCategory = getLabeledCategory(this.props.locationCategoryId);
-            if (labeledCategory) {
-                query.label = labeledCategory;
-            } else {
-                query.category = this.props.locationCategoryId;
-            }
+        if (locationCategoryId && labeledCategories[locationCategoryId]) {
+            query.label = labeledCategories[locationCategoryId];
         }
-        if (this.props.currency) {
-            query.currency = this.props.currency;
+
+        if (locationCategoryId && !labeledCategories[locationCategoryId]) {
+            query.category = locationCategoryId;
+        }
+
+        if (currency) {
+            query.currency = currency;
         }
 
         return query;
@@ -185,7 +186,7 @@ class SearchPageComponent extends React.Component<Props, State> {
         return (
             <div className={ classes.root }>
                 <Breadcrumbs breadcrumbsList={ formattedCategoriesTree } />
-                <AppPageTitle
+                <PageTitle
                     title={ searchTerm
                         ? <FormattedMessage id={ 'search.result.title' } values={ { terms: searchTerm } } />
                         : (currentCategoryId && categoryDisplayName)
@@ -199,9 +200,9 @@ class SearchPageComponent extends React.Component<Props, State> {
                             onLinkClick={ () => sendSearchAction({ q: spellingSuggestion }) }
                         />
                     }
-                </AppPageTitle>
+                </PageTitle>
 
-                <AppMain>
+                <MainContainer>
                     <Grid container spacing={ 24 }>
                         <Hidden only={['xs', 'sm', 'md']}>
                             { isCategoriesExist &&
@@ -217,7 +218,7 @@ class SearchPageComponent extends React.Component<Props, State> {
                             <SearchPagination history={ history } />
                         </Grid>
                     </Grid>
-                </AppMain>
+                </MainContainer>
             </div>
         );
     }

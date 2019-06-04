@@ -11,8 +11,8 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICheckoutCreditCardState, ICheckoutInvoiceState, IPaymentMethod } from '@interfaces/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const paymentMethods: IPaymentMethod[] | null = getPaymentMethodsFromStore(state, ownProps);
-    const paymentMethod: IPaymentMethod['paymentMethodName'] | null = state.pageCheckout.paymentMethod;
+    const paymentMethods: IPaymentMethod[] = getPaymentMethodsFromStore(state, ownProps);
+    const paymentMethod: string = state.pageCheckout.paymentMethod;
     const paymentInvoiceData: ICheckoutInvoiceState = state.pageCheckout.paymentInvoiceData;
     const paymentCreditCardData: ICheckoutCreditCardState = state.pageCheckout.paymentCreditCardData;
 

@@ -29,7 +29,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
             );
 
             if (response.ok) {
-                const responseParsed: ICustomerDataParsed | null = parseCustomerDataResponse(response.data);
+                const responseParsed: ICustomerDataParsed = parseCustomerDataResponse(response.data);
                 dispatch(CustomerProfileActions.getCustomerProfileFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);

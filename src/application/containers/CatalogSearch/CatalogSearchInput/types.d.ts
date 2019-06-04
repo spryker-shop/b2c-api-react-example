@@ -4,9 +4,9 @@ import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IInputComponentProps extends WithStyles<typeof styles> {
-    currency?: string | null;
+    currency?: string;
     isLoading?: boolean;
-    completion?: string[] | null;
+    completion?: string[];
     inputProps: IInputProps;
     clearSuggestion: (query: string) => void;
     sendSearchAction?: (params: ISearchQuery) => void;

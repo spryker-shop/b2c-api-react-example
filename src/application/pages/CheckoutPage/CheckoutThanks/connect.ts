@@ -17,7 +17,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
-    const profile: ICustomerDataParsed | null = getCustomerProfile(state, ownProps);
+    const profile: ICustomerDataParsed = getCustomerProfile(state, ownProps);
 
     return {
         orderId,
