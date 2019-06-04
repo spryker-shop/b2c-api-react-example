@@ -9,8 +9,8 @@ import { INavigationsState } from '@stores/reducers/common/navigations/types';
 import { IOrderHistoryState } from '@stores/reducers/pages/orderHistory/types';
 import { IOrderDetailsState } from '@stores/reducers/pages/orderDetails/types';
 import { ICustomerState } from '@stores/reducers/pages/customerProfile/types';
-import { RouteProps } from 'react-router';
-import { IIndexSignature, WithRouter } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
+import { IIndexSignature } from '@interfaces/common';
 import { IInitState } from '@stores/reducers/common/init/types';
 import { IApiErrorResponse } from '@services/types';
 import { IProductRelationsState } from '@stores/reducers/common/productRelations/types';
@@ -40,7 +40,7 @@ export interface IReduxStore {
     navigations: INavigationsState;
 }
 
-export interface IReduxOwnProps extends RouteProps, WithRouter {
+export interface IReduxOwnProps extends RouteProps, Partial<RouteComponentProps> {
     classes?: IIndexSignature;
     match?: {
         path: string;

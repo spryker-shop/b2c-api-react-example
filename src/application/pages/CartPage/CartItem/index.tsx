@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 import { IIndexSignature } from '@interfaces/common';
 
-const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
+const CartItemComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         sku,

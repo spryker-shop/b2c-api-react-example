@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover/Popover';
 import { IPopoverWrapperProps as Props } from './types';
 import { styles } from './styles';
 
-const PopoverWrapperComponent: React.SFC<Props> = (props): JSX.Element => {
+const PopoverWrapperComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         children,

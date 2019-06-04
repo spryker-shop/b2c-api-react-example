@@ -5,7 +5,7 @@ import { Price } from '@components/Price';
 import { IProductGeneralInfoProps as Props } from './types';
 import { styles } from './styles';
 
-const ProductGeneralInfoComponent: React.SFC<Props> = (props): JSX.Element => {
+const ProductGeneralInfoComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         name = <FormattedMessage id={ 'no.name.title' } />,

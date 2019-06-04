@@ -9,7 +9,7 @@ import { ICustomerSideBarProps as Props } from './types';
 import { pathWishlistsPage } from '@constants/routes';
 import { styles } from './styles';
 
-const CustomerSideBarComponent: React.SFC<Props> = (props): JSX.Element => {
+const CustomerSideBarComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, location, wishlists } = props;
 
     const renderWishlistMenu = (): JSX.Element[] => wishlists.map(wishlist => {

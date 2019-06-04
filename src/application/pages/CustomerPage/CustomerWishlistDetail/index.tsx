@@ -5,10 +5,9 @@ import { ICustomerWishlistsProps as Props } from './types';
 import { WishlistProductsList } from './WishlistProductsList';
 import { Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { withRouter } from 'react-router';
+import { withRouter, NavLink } from 'react-router-dom';
 import { pathWishlistsPage } from '@constants/routes';
 import { PrevIcon } from '@pages/CheckoutPage/CheckoutPaymentStep/icons';
-import { NavLink } from 'react-router-dom';
 
 @(withRouter as Function)
 @connect

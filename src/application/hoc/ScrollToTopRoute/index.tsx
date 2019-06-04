@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IScrollToTopRouteProps as Props } from './types';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 @(withRouter as Function)
 export class ScrollToTopRoute extends React.Component<Props> {

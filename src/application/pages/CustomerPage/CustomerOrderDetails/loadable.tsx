@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Loadable from 'react-loadable';
-import { Preloader } from '@components/Preloader';
 
-export const LoadableCustomerOrderDetails = Loadable({
-    loader: () =>
-        import('@pages/CustomerPage/CustomerOrderDetails').then(
-            module => module.CustomerOrderDetails,
-        ),
-    loading: () => <Preloader />,
-});
+export const LoadableCustomerOrderDetails = React.lazy(() =>
+    import('@pages/CustomerPage/CustomerOrderDetails').then(module => ({ default: module.CustomerOrderDetails }))
+);

@@ -65,7 +65,7 @@ class SprykerSelectComponent extends React.Component<Props, State> {
         const isMenuItemsExist = menuItems.length > 0;
         const isPlaceholderSelected = this.getFirstItemTemplate().value === currentMode;
 
-        const chevronIcon: React.SFC = (): JSX.Element =>
+        const chevronIcon: React.FC = (): JSX.Element =>
             <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
         return (

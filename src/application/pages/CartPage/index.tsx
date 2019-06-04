@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { pathCartPage } from '@constants/routes';
 import { FormattedPlural, FormattedMessage } from 'react-intl';
-import { CartPageProps as Props } from './types';
+import { ICartPageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 import { MainContainer } from '@components/MainContainer';
 import { CartRows } from './CartRows';
@@ -13,7 +13,7 @@ import { styles } from './styles';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductRelations } from '@containers/ProductRelations';
 
-const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
+const CartPageComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
     const breadcrumbsList = [{
         name: <FormattedMessage id={ 'word.cart.title' } />,

@@ -3,7 +3,7 @@ import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Routes } from '@components/Routes';
 import {
     pathCategoryPageBase,

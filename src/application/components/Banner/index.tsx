@@ -4,7 +4,7 @@ import { withStyles, Typography, Grid, Button } from '@material-ui/core';
 import { IBannerProps as Props } from './types';
 import { styles } from './styles';
 
-const BannerComponent: React.SFC<Props> = (props): JSX.Element => {
+const BannerComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, titleFirst, titleSecond, intro, linkPath, linkTitle, imagePath } = props;
 
     return (

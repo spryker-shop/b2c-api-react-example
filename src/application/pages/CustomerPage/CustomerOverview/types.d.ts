@@ -3,9 +3,9 @@ import { styles } from './styles';
 import { ICustomerDataParsed } from '@interfaces/customer';
 import { IOrderItem } from '@interfaces/order';
 import { IAddressItem } from '@interfaces/addresses';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface ICustomerOverviewProps extends WithStyles<typeof styles>, WithRouter {
+export interface ICustomerOverviewProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     customerData: ICustomerDataParsed;
     isAppDataSet: boolean;
     isLoading: boolean;

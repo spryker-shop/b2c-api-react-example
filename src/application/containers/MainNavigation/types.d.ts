@@ -1,9 +1,9 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { IMainNavigationNode } from '@interfaces/navigations';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IMainNavProps extends WithStyles<typeof styles>, WithRouter {
+export interface IMainNavProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     nodesTree: IMainNavigationNode[];
     isFulfilled: boolean;
     isTouch?: boolean;

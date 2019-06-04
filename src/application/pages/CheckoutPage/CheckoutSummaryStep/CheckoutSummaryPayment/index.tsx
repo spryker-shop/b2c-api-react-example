@@ -6,7 +6,7 @@ import { styles } from './styles';
 import { CardIcon, CalendarIcon, PartnerIconVisa } from './icons';
 import { FormattedMessage } from 'react-intl';
 
-const CheckoutSummaryPaymentComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryPaymentComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
     const { dateOfBirth } = paymentInvoiceData;
     const { cardExpiryDate, cardName, cardNumber, paymentProvider } = paymentCreditCardData;

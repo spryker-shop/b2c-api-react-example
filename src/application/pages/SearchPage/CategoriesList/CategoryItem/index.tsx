@@ -4,7 +4,7 @@ import { ListItem, Typography, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { ClickEvent } from '@interfaces/common';
 
-const CategoryItemComponent: React.SFC<ICategoryItemProps> = props => {
+const CategoryItemComponent: React.FC<ICategoryItemProps> = (props): JSX.Element => {
     const {
         classes,
         categoryName,

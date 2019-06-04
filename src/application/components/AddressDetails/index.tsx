@@ -4,7 +4,7 @@ import { withStyles, Typography } from '@material-ui/core';
 import { IAddressDetailsProps as Props } from './types';
 import { styles } from './styles';
 
-const AddressDetailsComponent: React.SFC<Props> = (props): JSX.Element => {
+const AddressDetailsComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         title,

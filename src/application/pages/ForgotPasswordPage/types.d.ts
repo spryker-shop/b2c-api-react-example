@@ -1,9 +1,9 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
-import { WithRouter } from '@interfaces/common';
 import { IConfigInputState } from '@interfaces/forms';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, WithRouter {
+export interface IForgotPasswordPageProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     dispatch?: Function;
     routerGoBack: Function;
     forgotPasswordAction: Function;

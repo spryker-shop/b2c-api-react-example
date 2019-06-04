@@ -113,7 +113,7 @@ class SprykerRangeSliderComponent extends React.Component<Props, State> {
     };
 
     protected shouldUpdateMaxField = (values: NumberFormatValues): boolean => {
-        const { handleChange, attributeName, max } = this.props;
+        const { handleChange, attributeName } = this.props;
         const { currentMinValue } = this.state;
         const newValue = values.floatValue;
         const valueOnEmptyField = 0;

@@ -1,7 +1,6 @@
-import { RouteProps } from 'react-router';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 
-export interface IProtectedRouteProps extends RouteProps, WithRouter {
+export interface IProtectedRouteProps extends RouteProps, Partial<RouteComponentProps> {
     pageTitle?: string;
     isUserLoggedIn?: boolean;
     isInitStateFulfilled?: boolean;

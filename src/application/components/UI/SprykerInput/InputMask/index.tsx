@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IInputMaskProps as Props, TTransformedOnChange } from './types';
 import NumberFormat from 'react-number-format';
 
-export const InputMask: React.SFC<Props> = (props): JSX.Element => {
+export const InputMask: React.FC<Props> = (props): JSX.Element => {
     const { inputRef, onChange, ...inputOtherProps } = props;
     const transformedOnChange: TTransformedOnChange = onChange;
 

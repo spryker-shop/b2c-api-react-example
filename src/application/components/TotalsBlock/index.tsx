@@ -6,7 +6,7 @@ import { ITotalsBlockProps as Props } from './types';
 import { IOrderDetailsExpenseItem } from '@interfaces/order';
 import { styles } from './styles';
 
-const TotalsBlockComponent: React.SFC<Props> = (props): JSX.Element => {
+const TotalsBlockComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, totals, expenses, isMinus } = props;
 
     if (!totals) {

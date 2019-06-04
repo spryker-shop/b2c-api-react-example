@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
+import { withRouter, NavLink } from 'react-router-dom';
 import { withStyles, IconButton } from '@material-ui/core';
 import { pathCustomerOverview, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
@@ -9,7 +9,6 @@ import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
-import { NavLink } from 'react-router-dom';
 
 @connect
 @(withRouter as Function)

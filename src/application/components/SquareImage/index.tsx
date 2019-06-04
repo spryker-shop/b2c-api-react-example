@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { ISquareImageProps as Props } from './types';
 
-const SquareImageComponent: React.SFC<Props> = (props): JSX.Element => {
+const SquareImageComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, image, alt = '' } = props;
 
     return (

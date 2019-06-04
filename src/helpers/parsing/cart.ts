@@ -1,11 +1,6 @@
-import { ICartCommonData, ICartDataParsed, ICartItem } from '@interfaces/cart';
+import { ICartDataParsed, ICartItem } from '@interfaces/cart';
 import { parseImageSets, parsePrices } from '@helpers/parsing/common';
-import {
-    TCartRowIncludedResponse,
-    ICartRawResponse,
-    ICartDataResponse,
-    ICarRowtItemsIncludedResponse
-} from '@services/common/Cart/types';
+import { TCartRowIncludedResponse, ICartRawResponse, ICarRowtItemsIncludedResponse } from '@services/common/Cart/types';
 import { IRelationshipsDataResponse, EIncludeTypes } from '@services/types';
 
 export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed => {

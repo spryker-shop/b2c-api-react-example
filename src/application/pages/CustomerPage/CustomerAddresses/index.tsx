@@ -8,7 +8,7 @@ import { styles } from './styles';
 import { NavLink } from 'react-router-dom';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 
-const CustomerAddressesComponent: React.SFC<Props> = (props): JSX.Element => {
+const CustomerAddressesComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

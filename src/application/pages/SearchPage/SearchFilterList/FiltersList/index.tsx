@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { ClickEvent } from '@interfaces/common';
 import { AttributeFilters } from './AttributeFilters';
 import { RangeFilters } from './RangeFilters';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { pathCategoryPageBase } from '@constants/routes';
 
 @(withRouter as Function)

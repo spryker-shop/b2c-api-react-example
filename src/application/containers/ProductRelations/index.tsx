@@ -54,7 +54,7 @@ class ProductRelationsComponent extends React.Component<Props> {
     public render = (): JSX.Element => {
         const { classes, products, currency, title, isLoading } = this.props;
 
-        if (!products.length || isLoading) {
+        if (!Boolean(products.length) || isLoading) {
             return null;
         }
 

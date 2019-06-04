@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const BreadcrumbsComponent: React.SFC<Props> = (props): JSX.Element => {
+const BreadcrumbsComponent: React.FC<Props> = (props): JSX.Element => {
     const { breadcrumbsList, classes } = props;
 
     return (

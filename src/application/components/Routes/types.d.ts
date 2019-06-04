@@ -1,3 +1,3 @@
-export interface RoutesProps {
+export interface IRoutesProps {
     isAppLoading: boolean;
 }

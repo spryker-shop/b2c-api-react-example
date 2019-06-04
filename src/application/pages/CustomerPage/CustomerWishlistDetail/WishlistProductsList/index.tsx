@@ -11,7 +11,7 @@ import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
 import { CartIcon } from './icons';
 
-const WishlistProductsListComponent: React.SFC<Props> = (props): JSX.Element => {
+const WishlistProductsListComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, products } = props;
 
     if (!Boolean(products && products.length)) {

@@ -1,9 +1,9 @@
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { IAddressItem } from '@interfaces/addresses';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IAddressesListProps extends WithStyles <typeof styles>, WithRouter {
+export interface IAddressesListProps extends WithStyles <typeof styles>, Partial<RouteComponentProps> {
     isLoading?: boolean;
     customer?: string;
     addresses?: IAddressItem[];

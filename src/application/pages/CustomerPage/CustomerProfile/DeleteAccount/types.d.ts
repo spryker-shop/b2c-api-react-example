@@ -1,8 +1,8 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IAccountActionsProps extends WithStyles<typeof styles>, WithRouter {
+export interface IAccountActionsProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     customerReference: string;
     deleteCustomerAction?: (customerReference: string) => void;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
-import { withRouter } from 'react-router';
+import { withRouter, NavLink } from 'react-router-dom';
 import { withStyles, Badge, IconButton } from '@material-ui/core';
 import { pathCartPage } from '@constants/routes';
 import { PopoverWrapper } from '@components/PopoverWrapper';
@@ -9,7 +9,6 @@ import { MiniCartDrop } from './MiniCartDrop';
 import { CartIcon } from './icons';
 import { IMiniCartDropDownProps as Props, IMiniCartDropDownState as State } from './types';
 import { styles } from './styles';
-import { NavLink } from 'react-router-dom';
 
 @connect
 @(withRouter as Function)

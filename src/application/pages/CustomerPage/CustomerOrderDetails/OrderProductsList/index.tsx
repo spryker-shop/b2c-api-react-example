@@ -10,7 +10,7 @@ import { styles } from './styles';
 import { ICartAddItem } from '@interfaces/cart';
 import { createCartItemAddToCart } from '@helpers/cart';
 
-const OrderProductListComponent: React.SFC<Props> = (props): JSX.Element => {
+const OrderProductListComponent: React.FC<Props> = (props): JSX.Element => {
     const {classes, items, isCartLoading} = props;
 
     const addItemToCart = (sku: string, quantity: number): void => {

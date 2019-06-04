@@ -6,7 +6,7 @@ import { ICustomerOrderHistoryProps as Props } from './types';
 import { styles } from './styles';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
 
-const CustomerOrderHistoryComponent: React.SFC<Props> = (props): JSX.Element => {
+const CustomerOrderHistoryComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from './connect';
 import { pathCustomerOverview } from '@constants/routes';
 import { salutationVariants } from '@constants/customer';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import debounce from 'lodash/debounce';
 import { pathCheckoutPage } from '@constants/routes';

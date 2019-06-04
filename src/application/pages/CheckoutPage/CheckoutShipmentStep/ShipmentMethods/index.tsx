@@ -8,7 +8,7 @@ import { ShipmentForm } from './ShipmentForm';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
+const ShipmentMethodsComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethodAction } = props;
     const isShipmentMethodsExist = Array.isArray(shipmentMethods) && shipmentMethods.length > 0;
 

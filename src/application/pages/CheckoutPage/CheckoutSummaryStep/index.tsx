@@ -15,7 +15,7 @@ import { CheckoutSummaryShipment } from './CheckoutSummaryShipment';
 import { CheckoutSummaryPayment } from './CheckoutSummaryPayment';
 import { EditIcon } from './icons';
 
-const CheckoutSummaryStepComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryStepComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         isSendBtnDisabled,

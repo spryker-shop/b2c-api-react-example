@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { styles } from './styles';
 import { IFlyoutSearch } from '@interfaces/search';
 import * as React from 'react';

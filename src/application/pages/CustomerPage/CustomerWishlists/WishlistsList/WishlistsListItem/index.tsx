@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { DateFormatter } from '@components/DateFormatter';
 
-const WishlistsListItemComponent: React.SFC<Props> = (props): JSX.Element => {
+const WishlistsListItemComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         id,

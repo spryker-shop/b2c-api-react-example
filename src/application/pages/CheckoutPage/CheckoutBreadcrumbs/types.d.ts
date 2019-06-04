@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import * as React from 'react';
 import { IIndexSignature } from '@interfaces/common';
 
-export interface ICheckoutBreadcrumbsProps extends WithStyles<typeof styles>, RouteComponentProps<React.SFC> {
+export interface ICheckoutBreadcrumbsProps extends WithStyles<typeof styles>, RouteComponentProps<React.FC> {
     classes: IIndexSignature;
     isUserLoggedIn: boolean;
 }

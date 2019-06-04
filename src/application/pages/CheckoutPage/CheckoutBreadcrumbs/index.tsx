@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { ICheckoutBreadcrumbsProps as Props } from './types';
 import { checkoutBreadcrumbsList } from './fixtures';
 import { withStyles } from '@material-ui/core';
-import { withRouter } from 'react-router';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const CheckoutBreadcrumbsComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutBreadcrumbsComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, location: { pathname }, isUserLoggedIn } = props;
 
     const renderBreadcrumbs = (): JSX.Element[] => {

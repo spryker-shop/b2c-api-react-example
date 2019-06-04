@@ -3,7 +3,7 @@ import { connect } from './connect';
 import { FormattedTime } from 'react-intl';
 import { IDateFormatterProps } from './types';
 
-const DateFormatterComponent: React.SFC<IDateFormatterProps> = (props): JSX.Element => {
+const DateFormatterComponent: React.FC<IDateFormatterProps> = (props): JSX.Element => {
     const { date, title, timeZone, locale } = props;
     const dateFormatted = date.replace(/ /g, 'T');
     const dateObj = new Date(dateFormatted);

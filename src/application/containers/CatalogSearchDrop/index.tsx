@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import { CatalogSearch } from '@containers/CatalogSearch';
