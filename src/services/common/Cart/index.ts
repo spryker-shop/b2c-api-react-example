@@ -5,6 +5,7 @@ import { parseCartResponse } from '@helpers/parsing';
 import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { EIncludeTypes, TApiResponseData, IRequestHeader } from '@services/types';
+import { IRequestCreateCartBody } from '@services/common/Cart/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
 import { errorMessageInform } from '@helpers/common';
@@ -49,26 +50,27 @@ export class CartService extends ApiServiceAbstract {
     public static async getCustomerCarts(
         dispatch: Function,
         anonymId: string = null,
-        isUserLoggedIn = true
+        isUserLoggedIn = true,
+        isCreateCart = false,
+        getState?: Function
     ): Promise<void> {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
-
+            const { priceMode, currency, store } = getState().init.data;
+            const requestBody: IRequestCreateCartBody | {} = {
+                data: { type:'carts', attributes: { priceMode, currency, store, name: 'Cart' } }
+            };
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
-            const response: TApiResponseData = await api.get(endpoint, {}, requestHeader);
+            const response: TApiResponseData = isCreateCart
+                ? await api.post(endpoint, requestBody, requestHeader)
+                : await api.get(endpoint, {}, requestHeader);
 
-            if (response.ok) {
-                if (!response.data.data.length) {
-                    dispatch(cartActions.getCartsFulfilledStateAction(null));
-
-                    return;
-                }
-
+            if (response) {
                 const responseParsed: ICartDataParsed = parseCartResponse({
-                    data: response.data.data[0],
+                    data: isCreateCart ? response.data.data : response.data.data[0],
                     included: response.data.included
                 });
 
@@ -114,7 +116,6 @@ export class CartService extends ApiServiceAbstract {
                 errorMessageInform(errorMessage);
                 dispatch(cartActions.cartAddItemRejectedStateAction(errorMessage));
             }
-
         } catch (error) {
             dispatch(cartActions.cartAddItemRejectedStateAction(error.message));
             errorMessageInform(error.message, false);
@@ -151,7 +152,6 @@ export class CartService extends ApiServiceAbstract {
                 errorMessageInform(errorMessage);
                 dispatch(cartActions.cartDeleteItemRejectedStateAction(errorMessage));
             }
-
         } catch (error) {
             dispatch(cartActions.cartDeleteItemRejectedStateAction(error.message));
             errorMessageInform(error.message, false);
@@ -191,7 +191,6 @@ export class CartService extends ApiServiceAbstract {
                 errorMessageInform(errorMessage);
                 dispatch(cartActions.cartUpdateItemRejectedStateAction(errorMessage));
             }
-
         } catch (error) {
             dispatch(cartActions.cartUpdateItemRejectedStateAction(error.message));
             errorMessageInform(error.message, false);

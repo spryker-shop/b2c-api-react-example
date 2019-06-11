@@ -41,3 +41,17 @@ export interface ICarRowtItemsIncludedResponse extends IAbstractRowIncludedRespo
         abstractSku: string
     };
 }
+
+export interface IRequestCreateCartBody {
+    data: {
+        type: string;
+        id?: string,
+        attributes: {
+            priceMode: string;
+            currency: string;
+            store: string;
+            name: string;
+        };
+        include?: string;
+    };
+}

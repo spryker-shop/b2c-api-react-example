@@ -60,7 +60,6 @@ class PageContentComponent extends React.Component<Props, State> {
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
-            console.log(anonymId, isCustomerAuth, isAppDataSet);
             this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
         }
 

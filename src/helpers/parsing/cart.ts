@@ -10,11 +10,11 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
 
     const { data, included } = response;
     const result: { [key: string]: ICartItem } = {};
-    const isGuest: boolean = data.relationships && !Boolean(data.relationships.items);
+    const isGuest: boolean = data && data.relationships && !Boolean(data.relationships.items);
     const itemName: string = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
     let totalQty: number = 0;
 
-    if (data.relationships && data.relationships[itemName]) {
+    if (data && data.relationships && data.relationships[itemName]) {
         data.relationships[itemName].data.forEach((data: IRelationshipsDataResponse) => {
             result[data.id] = {
                 sku: null,
@@ -38,7 +38,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
         });
     }
 
-    data.relationships && included && included.forEach((row: TCartRowIncludedResponse) => {
+    included && data.relationships && included.forEach((row: TCartRowIncludedResponse) => {
         if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
             result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
 
@@ -91,12 +91,12 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     const items = Object.values(result);
 
     return {
-        id: data.id,
-        currency: data.attributes.currency,
-        discounts: data.attributes.discounts,
-        priceMode: data.attributes.priceMode,
-        store: data.attributes.store,
-        totals: data.attributes.totals,
+        id: data ? data.id : null,
+        currency: data && data.attributes ? data.attributes.currency : null,
+        discounts: data && data.attributes ? data.attributes.discounts : null,
+        priceMode: data && data.attributes ? data.attributes.priceMode : null,
+        store: data && data.attributes ? data.attributes.store : null,
+        totals: data && data.attributes ? data.attributes.totals : null,
         items,
         totalQty
     };
