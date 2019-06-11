@@ -66,10 +66,12 @@ export class CartService extends ApiServiceAbstract {
 
                     return;
                 }
+
                 const responseParsed: ICartDataParsed = parseCartResponse({
                     data: response.data.data[0],
                     included: response.data.included
                 });
+
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);

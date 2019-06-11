@@ -38,7 +38,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
         });
     }
 
-    included && included.forEach((row: TCartRowIncludedResponse) => {
+    data.relationships && included && included.forEach((row: TCartRowIncludedResponse) => {
         if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
             result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
 

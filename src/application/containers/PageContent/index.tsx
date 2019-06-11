@@ -60,6 +60,7 @@ class PageContentComponent extends React.Component<Props, State> {
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
+            console.log(anonymId, isCustomerAuth, isAppDataSet);
             this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
         }
 
@@ -129,4 +130,4 @@ class PageContentComponent extends React.Component<Props, State> {
 }
 
 const PageContent = withStyles(styles)(PageContentComponent);
-export default hot(PageContent);
+export default PageContent;
