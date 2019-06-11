@@ -42,16 +42,19 @@ export interface ICarRowtItemsIncludedResponse extends IAbstractRowIncludedRespo
     };
 }
 
+interface IRequestCreateCartAttributes {
+    priceMode: string;
+    currency: string;
+    store: string;
+    name: string;
+}
+
 export interface IRequestCreateCartBody {
     data: {
         type: string;
         id?: string,
-        attributes: {
-            priceMode: string;
-            currency: string;
-            store: string;
-            name: string;
-        };
+        attributes: IRequestCreateCartAttributes | ICartAddItem;
         include?: string;
     };
 }
+

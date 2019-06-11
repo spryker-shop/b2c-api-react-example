@@ -57,12 +57,20 @@ export class CartService extends ApiServiceAbstract {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
-            const { priceMode, currency, store } = getState().init.data;
-            const requestBody: IRequestCreateCartBody | {} = {
-                data: { type:'carts', attributes: { priceMode, currency, store, name: 'Cart' } }
-            };
+            const requestBody: IRequestCreateCartBody = isUserLoggedIn
+                ? { data: {
+                        type: 'carts',
+                        attributes: {
+                            priceMode: getState() ? getState().init.data.priceMode : null,
+                            currency: getState() ? getState().init.data.currency : null,
+                            store: getState() ? getState().init.data.store : null,
+                            name: 'Cart'
+                        }
+                    } }
+                : { data: { type:'guest-cart-items', attributes: { sku: 'dummy', quantity: 1 } } };
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
+            const guestCartType: string = isCreateCart ? 'guest-cart-items' : 'guest-carts';
+            const cartType: string = isUserLoggedIn ? 'carts' : guestCartType;
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = isCreateCart
                 ? await api.post(endpoint, requestBody, requestHeader)
@@ -98,7 +106,9 @@ export class CartService extends ApiServiceAbstract {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
 
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
+            const body: IRequestCreateCartBody = {
+                data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload }
+            };
             const cartType: string = isUserLoggedIn ? `carts/${cartId}/items` : 'guest-cart-items';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.post(endpoint, body, requestHeader);
@@ -173,10 +183,11 @@ export class CartService extends ApiServiceAbstract {
             const cartType: string = isUserLoggedIn
                 ? `carts/${cartId}/items/${payload.sku}`
                 : `guest-carts/${cartId}/guest-cart-items/${payload.sku}`;
-
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
 
-            const body = { data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload } };
+            const body: IRequestCreateCartBody = {
+                data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload }
+            };
             const response: TApiResponseData = await api.patch(endpoint, body, requestHeader);
 
             if (response.ok) {
