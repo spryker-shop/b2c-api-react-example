@@ -2,7 +2,7 @@ import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { IConfigInputState } from '@interfaces/forms';
 
 export interface IAuthenticationRegisterProps extends RouteProps, Partial<RouteComponentProps> {
-    isAuth?: boolean;
+    isUserLoggedIn?: boolean;
     customerRegisterAction?: Function;
     getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     isLoading?: boolean;

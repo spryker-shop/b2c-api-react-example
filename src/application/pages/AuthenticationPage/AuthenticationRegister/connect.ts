@@ -7,13 +7,13 @@ import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isAuth: boolean = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
         ? isPageLoginStateLoading(state, ownProps) : false;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
 
     return {
-        isAuth,
+        isUserLoggedIn,
         isLoading,
         isCartLoading
     };

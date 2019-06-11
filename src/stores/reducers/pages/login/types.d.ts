@@ -6,7 +6,7 @@ import {
 import { IActionData, IReduxState } from '@stores/reducers/types';
 
 interface ILoginStateData extends ICustomerLoginDataParsed {
-    isAuth?: boolean;
+    isUserLoggedIn?: boolean;
     customerUsername: string;
 }
 

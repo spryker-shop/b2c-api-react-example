@@ -22,7 +22,7 @@ export const handleAuthenticationFulfilled = (state: ILoginState, payload: ICust
     ...state,
     data: {
         ...state.data,
-        isAuth: true,
+        isUserLoggedIn: true,
         ...payload
     },
     ...getReducerPartFulfilled(),

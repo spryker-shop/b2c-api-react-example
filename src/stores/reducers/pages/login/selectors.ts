@@ -1,7 +1,7 @@
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 export const isUserAuthenticated = (state: IReduxStore, props: IReduxOwnProps): boolean =>
-    state.pagesLogin && state.pagesLogin.data && state.pagesLogin.data.isAuth;
+    state.pagesLogin && state.pagesLogin.data && state.pagesLogin.data.isUserLoggedIn;
 
 export const getCustomerReference = (state: IReduxStore, props: IReduxOwnProps): string =>
     isUserAuthenticated(state, props) && state.pagesLogin.data.customerRef

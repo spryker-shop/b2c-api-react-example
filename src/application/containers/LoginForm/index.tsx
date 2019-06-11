@@ -31,16 +31,16 @@ class LoginFormComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isAuth, getCustomerCartsAction, history, redirectAfterLoginPath, isCartLoading } = this.props;
+        const { isUserLoggedIn, getCustomerCartsAction, history, redirectAfterLoginPath, isCartLoading } = this.props;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
-        if (!prevProps.isAuth && isAuth) {
+        if (!prevProps.isUserLoggedIn && isUserLoggedIn) {
             getCustomerCartsAction();
             this.setState({ isCartLoading: true });
         }
 
-        if (isAuth && isParallelRequest) {
+        if (isUserLoggedIn && isParallelRequest) {
             history.push(redirectAfterLoginPath);
         }
 
