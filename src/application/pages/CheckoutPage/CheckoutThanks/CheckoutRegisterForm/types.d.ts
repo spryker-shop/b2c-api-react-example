@@ -4,7 +4,7 @@ import { IAddressItem } from '@interfaces/addresses';
 import { IAddressFormState, IConfigInputState } from '@interfaces/forms';
 
 export interface ICheckoutRegisterFormProps extends RouteProps, Partial<RouteComponentProps> {
-    isAuth?: boolean;
+    isUserLoggedIn?: boolean;
     customerRegisterAction?: Function;
     getCustomerCartsAction?: Function;
     isLoading?: boolean;

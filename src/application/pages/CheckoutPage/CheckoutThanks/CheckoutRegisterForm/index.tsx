@@ -54,15 +54,15 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isAuth, getCustomerCartsAction, isCartLoading, history, isMultipleAddressesLoading } = this.props;
+        const { isUserLoggedIn, getCustomerCartsAction, isCartLoading, history, isMultipleAddressesLoading } = this.props;
         const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
-        if (!prevProps.isAuth && isAuth) {
+        if (!prevProps.isUserLoggedIn && isUserLoggedIn) {
             getCustomerCartsAction();
             this.setState({ isCartLoading: true });
         }
 
-        if (isAuth && prevProps.isCartLoading && !isCartLoading) {
+        if (isUserLoggedIn && prevProps.isCartLoading && !isCartLoading) {
             this.addingAddress();
         }
 

@@ -14,7 +14,7 @@ import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isAuth: boolean = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
         ? isPageLoginStateLoading(state, ownProps) : false;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
@@ -25,7 +25,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isMultipleAddressesLoading: boolean = state.pageAddresses.data.isMultipleAddressesLoading;
 
     return {
-        isAuth,
+        isUserLoggedIn,
         isLoading,
         isCartLoading,
         customer,

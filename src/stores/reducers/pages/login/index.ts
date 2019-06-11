@@ -6,7 +6,7 @@ import { ILoginState, IPageLoginAction } from '@stores/reducers/pages/login/type
 export const initialState: ILoginState = {
     data: {
         customerRef: '',
-        isAuth: false,
+        isUserLoggedIn: false,
         tokenType: '',
         expiresIn: 0,
         accessToken: '',
