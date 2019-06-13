@@ -4,18 +4,20 @@ import { isPageLoginStateLoading, isUserAuthenticated } from '@stores/reducers/p
 import { customerRegisterAction } from '@stores/actions/pages/login';
 import { getCustomerCartsAction } from '@stores/actions/common/cart';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { isCartStateLoading } from '@stores/reducers/common/cart/selectors';
+import { getCartId, isCartStateLoading } from '@stores/reducers/common/cart/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
         ? isPageLoginStateLoading(state, ownProps) : false;
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
+    const cartId: string = getCartId(state, ownProps);
 
     return {
         isUserLoggedIn,
         isLoading,
-        isCartLoading
+        isCartLoading,
+        cartId
     };
 };
 

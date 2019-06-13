@@ -7,6 +7,7 @@ export interface IAuthenticationRegisterProps extends RouteProps, Partial<RouteC
     getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     isLoading?: boolean;
     isCartLoading?: boolean;
+    cartId?: string;
 }
 
 export interface IAuthenticationRegisterState {

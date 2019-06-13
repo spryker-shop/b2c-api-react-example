@@ -14,7 +14,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     const itemName: string = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
     let totalQty: number = 0;
 
-    if (data.relationships && data.relationships[itemName]) {
+    if (data && data.relationships && data.relationships[itemName]) {
         data.relationships[itemName].data.forEach((data: IRelationshipsDataResponse) => {
             result[data.id] = {
                 sku: null,
