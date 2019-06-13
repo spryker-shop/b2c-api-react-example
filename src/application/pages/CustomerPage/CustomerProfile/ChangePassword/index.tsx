@@ -109,8 +109,7 @@ class ChangePasswordComponent extends React.Component<Props, State> {
     };
 
     public render = (): JSX.Element => {
-        const { classes } = this.props;
-
+        const { classes, isLoading } = this.props;
         const { isFormValid, fields: { password, newPassword, confirmPassword } } = this.state;
         const {
             password: passwordConfig,
@@ -161,7 +160,7 @@ class ChangePasswordComponent extends React.Component<Props, State> {
                         </Grid>
                         <Grid item xs={ 12 }>
                             <Button
-                                disabled={ !isFormValid }
+                                disabled={ !isFormValid || isLoading }
                                 variant="contained"
                                 onClick={ this.handleSubmitPassword }
                                 className={ classes.submit }
