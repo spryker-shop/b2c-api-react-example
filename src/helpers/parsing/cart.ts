@@ -10,7 +10,7 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
 
     const { data, included } = response;
     const result: { [key: string]: ICartItem } = {};
-    const isGuest: boolean = data.relationships && !Boolean(data.relationships.items);
+    const isGuest: boolean = data && data.relationships && !Boolean(data.relationships.items);
     const itemName: string = isGuest ? EIncludeTypes.GUEST_CART_ITEMS : EIncludeTypes.CART_ITEMS;
     let totalQty: number = 0;
 
@@ -39,6 +39,10 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     }
 
     included && included.forEach((row: TCartRowIncludedResponse) => {
+        if (!result[row.id]) {
+            return;
+        }
+
         if (row.type === EIncludeTypes.CONCRETE_PRODUCT_IMAGE_SETS) {
             result[row.id].image = parseImageSets(row.attributes.imageSets)[0].srcSmall;
 
@@ -91,12 +95,12 @@ export const parseCartResponse = (response: ICartRawResponse): ICartDataParsed =
     const items = Object.values(result);
 
     return {
-        id: data.id,
-        currency: data.attributes.currency,
-        discounts: data.attributes.discounts,
-        priceMode: data.attributes.priceMode,
-        store: data.attributes.store,
-        totals: data.attributes.totals,
+        id: data ? data.id : null,
+        currency: data && data.attributes ? data.attributes.currency : null,
+        discounts: data && data.attributes ? data.attributes.discounts : null,
+        priceMode: data && data.attributes ? data.attributes.priceMode : null,
+        store: data && data.attributes ? data.attributes.store : null,
+        totals: data && data.attributes ? data.attributes.totals : null,
         items,
         totalQty
     };
