@@ -28,7 +28,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
         if (!prevProps.isUserLoggedIn && isUserLoggedIn) {
-            getCustomerCartsAction();
+            getCustomerCartsAction(null, isUserLoggedIn, true);
             this.setState({ isCartLoading: true });
         }
 

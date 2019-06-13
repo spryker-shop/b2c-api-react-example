@@ -34,7 +34,6 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
 
     protected transformAddressData = (addressPayload: IAddressPayload): IAddressItem => {
         const payload: IAddressItem = {};
-
         Object.keys(addressPayload.address).forEach(fieldName => {
             if (fieldName === 'country') {
                 payload.iso2Code = addressPayload.address[fieldName].value;
@@ -54,11 +53,17 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isUserLoggedIn, getCustomerCartsAction, isCartLoading, history, isMultipleAddressesLoading } = this.props;
+        const {
+            isUserLoggedIn,
+            getCustomerCartsAction,
+            isCartLoading,
+            history,
+            isMultipleAddressesLoading
+        } = this.props;
         const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
         if (!prevProps.isUserLoggedIn && isUserLoggedIn) {
-            getCustomerCartsAction();
+            getCustomerCartsAction(null, isUserLoggedIn, true);
             this.setState({ isCartLoading: true });
         }
 

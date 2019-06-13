@@ -9,6 +9,12 @@ export interface ICartState extends IReduxState {
     data: ICartData;
 }
 
+export interface ICartCreatePayload {
+    priceMode: string;
+    currency: string;
+    store: string;
+}
+
 export interface ICartAction extends IActionData {
     payloadCartItemFulfilled?: ICartDataParsed;
     payloadCartDeleteItemFulfilled?: {
