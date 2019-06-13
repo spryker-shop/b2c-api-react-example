@@ -36,8 +36,7 @@ export const handleWishlistDetailRejected = (state: IWishlistState, payload: IAp
     ...state,
     data: {
         ...state.data,
-        isInitialDetail: false,
-        isInitialList: false
+        isInitialDetail: false
     },
     ...getReducerPartRejected(payload.error)
 });
