@@ -103,7 +103,9 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: TApiResponseData = await api.patch(`customer-password`, body, { withCredentials: true });
+            const response: TApiResponseData = await api.patch(
+                `customer-password/${customerReference}`, body, { withCredentials: true }
+            );
 
             if (response.ok) {
                 dispatch(CustomerProfileActions.updateCustomerPasswordFulfilledStateAction());
@@ -131,7 +133,7 @@ export class CustomerProfileService extends ApiServiceAbstract {
                 Promise.reject(customerProfileAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const endpoint = `customers/${ customerReference }`;
+            const endpoint = `customers/${customerReference}`;
             const response: TApiResponseData = await api.delete(endpoint, null, { withCredentials: true });
 
             if (response.ok) {
