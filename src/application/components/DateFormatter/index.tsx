@@ -10,10 +10,10 @@ const DateFormatterComponent: React.FC<IDateFormatterProps> = (props): JSX.Eleme
 
     const dateToShow = (): string => {
         const dd = (dateObj.getDate() < 10 ? '0' : '') + dateObj.getDate();
-        const MM = dateObj.toLocaleString(locale, { month: 'short' });
+        const mm = dateObj.toLocaleString(locale, { month: 'short' });
         const yyyy = dateObj.getFullYear();
 
-        return `${ MM }. ${ dd }, ${ yyyy }`;
+        return `${ mm }. ${ dd }, ${ yyyy }`;
     };
 
     const dateUTC = (): number =>

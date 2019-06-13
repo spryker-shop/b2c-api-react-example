@@ -15,7 +15,7 @@ export interface ICustomerOverviewProps extends WithStyles<typeof styles>, Parti
     getOrdersCollectionAction: () => void;
     isCustomerDataExist: boolean;
     isAddressesListInitiated?: boolean;
-    isHasOrders?: boolean;
+    hasOrders?: boolean;
     addresses?: IAddressItem[];
     logoutAction?: () => void;
 }

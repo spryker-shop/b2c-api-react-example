@@ -13,12 +13,12 @@ import { IOrderItem } from '@interfaces/order';
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isInitiated: boolean = isOrderHistoryInitiated(state, ownProps);
     const isFulfilled: boolean = isOrderHistoryFulfilled(state, ownProps);
-    const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
+    const hasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const orders: IOrderItem[] = getOrdersCollectionFromStore(state, ownProps);
 
     return {
         isFulfilled,
-        isHasOrders,
+        hasOrders,
         orders,
         isInitiated
     };

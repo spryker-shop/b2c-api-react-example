@@ -106,7 +106,7 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, isFulfilled, isHasOrders, shouldShowOrdersAmount, orders } = this.props;
+        const { classes, isFulfilled, hasOrders, shouldShowOrdersAmount, orders } = this.props;
 
         if (!isFulfilled) {
             return <Preloader isStatic />;
@@ -116,7 +116,7 @@ class OrdersListComponent extends React.Component<Props> {
             <>
                 { isFulfilled &&
                     <>
-                        { !isHasOrders
+                        { !hasOrders
                             ? (
                                 <Typography component="h3" variant="h3">
                                     <FormattedMessage id={'no.order.message'} />

@@ -29,7 +29,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const customerData: ICustomerDataParsed = getCustomerProfile(state, ownProps);
     const orders: IOrderItem[] = getOrdersCollectionFromStore(state, ownProps);
     const isAddressesListInitiated: boolean = isAddressesInitiated(state, ownProps);
-    const isHasOrders: boolean = isOrderHistoryItems(state, ownProps);
+    const hasOrders: boolean = isOrderHistoryItems(state, ownProps);
     const addresses: IAddressItem[] = getAddressesCollection(state, ownProps);
 
     return {
@@ -42,7 +42,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         customerData,
         orders,
         isAddressesListInitiated,
-        isHasOrders,
+        hasOrders,
         addresses
     };
 };

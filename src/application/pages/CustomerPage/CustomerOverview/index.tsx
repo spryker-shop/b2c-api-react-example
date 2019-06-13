@@ -34,7 +34,7 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
     };
 
     public render(): JSX.Element {
-        const { classes, customerData, isAddressesListInitiated, isHasOrders, addresses } = this.props;
+        const { classes, customerData, isAddressesListInitiated, hasOrders, addresses } = this.props;
         const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
         const isParallelRequest = isDevServer ? isAddressesListInitiated : true;
 
@@ -91,7 +91,7 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
                                                 <Typography component="h3" variant="h3" className={ classes.subtitle }>
                                                     <FormattedMessage id={ 'last.orders.title' } />
                                                 </Typography>
-                                                { isHasOrders &&
+                                                { hasOrders &&
                                                     <NavLink className={ classes.link } to={ pathCustomerOrderHistory }>
                                                         <FormattedMessage id={ 'view.all.title' } />
                                                     </NavLink>

@@ -5,7 +5,7 @@ import { IOrderItem } from '@interfaces/order';
 export interface IOrdersListProps extends WithStyles<typeof styles> {
     orders?: IOrderItem[];
     getOrdersCollectionAction?: Function;
-    isHasOrders?: boolean;
+    hasOrders?: boolean;
     isFulfilled?: boolean;
     shouldShowOrdersAmount?: boolean;
     ordersLimit?: number | Infinity;

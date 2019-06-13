@@ -8,5 +8,5 @@ export interface CartRowsProps {
     updateItemInCartAction?: Function;
     cartDeleteItemAction?: Function;
     updateCartFulfilledStateAction?: Function;
-    cartRejected?: boolean;
+    isCartRejected?: boolean;
 }

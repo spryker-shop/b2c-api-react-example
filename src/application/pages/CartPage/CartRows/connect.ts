@@ -16,14 +16,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const anonymId: string = getAnonymId(state, ownProps);
     const { items }: { items: ICartItem[] } = getProductsFromCart(state, ownProps);
     const cartId: string = getCartId(state, ownProps);
-    const cartRejected: boolean = state.cart.rejected;
+    const isCartRejected: boolean = state.cart.rejected;
 
     return {
         isUserLoggedIn,
         anonymId,
         items,
         cartId,
-        cartRejected
+        isCartRejected
     };
 };
 

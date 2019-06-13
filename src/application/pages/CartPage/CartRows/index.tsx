@@ -9,7 +9,7 @@ import { List } from '@material-ui/core';
 @connect
 export class CartRows extends React.Component<Props> {
     public componentDidUpdate = (prevProps: Props): void => {
-        if (prevProps.cartRejected !== this.props.cartRejected) {
+        if (prevProps.isCartRejected !== this.props.isCartRejected) {
             this.props.updateCartFulfilledStateAction();
             this.forceUpdate();
         }
@@ -28,7 +28,7 @@ export class CartRows extends React.Component<Props> {
     };
 
     public render(): JSX.Element {
-        const { items, cartRejected } = this.props;
+        const { items, isCartRejected } = this.props;
 
         return (
             <List>
@@ -46,7 +46,7 @@ export class CartRows extends React.Component<Props> {
                             quantities={ quantities }
                             handleDeleteItem={ this.handleDeleteItem }
                             handleChangeQty={ this.handleChangeQty }
-                            isUpdateToDefault={ cartRejected }
+                            isUpdateToDefault={ isCartRejected }
                             { ...cartItem }
                         />
                     );
