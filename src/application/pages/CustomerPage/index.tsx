@@ -69,7 +69,7 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { classes, location, isWishlistsInitial } = this.props;
+        const { classes, location } = this.props;
         const { breadcrumbsList } = this.state;
         const isTemplatePage = location.pathname === pathCustomerPage;
 
@@ -82,7 +82,6 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
                 <Breadcrumbs breadcrumbsList={ breadcrumbsList } />
 
                 <MainContainer>
-                    { isWishlistsInitial &&
                     <div className={ classes.container }>
                         <div className={ classes.colSidebar }>
                             <CustomerSideBar location={ location } />
@@ -94,7 +93,6 @@ class CustomerPageComponent extends React.PureComponent<Props, State> {
                             </ErrorBoundary>
                         </div>
                     </div>
-                    }
                 </MainContainer>
             </>
         );

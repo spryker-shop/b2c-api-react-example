@@ -8,6 +8,7 @@ export interface IChangePasswordProps extends Partial<ICustomerProfilePassword>,
     customerReference: string;
     isPasswordUpdated?: boolean;
     updateCustomerPasswordAction?: (customerReference: string, payload: ICustomerProfilePassword) => void;
+    isLoading?: boolean;
 }
 
 export interface IChangePasswordState {
