@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { ISearchPaginationProps as Props } from './types';
-import { AppPagination } from '@containers/AppPagination';
+import { Pagination } from '@containers/Pagination';
 
-const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { pagination, history, setPaginationPage } = props;
+const SearchPaginationComponent: React.FC<Props> = (props): JSX.Element => {
+    const { pagination, history, setPaginationPageAction } = props;
 
     const handlePagination = async (value: number | string): Promise<void> => {
         setPaginationParam(String(value));
@@ -14,11 +14,11 @@ const SearchPaginationComponent: React.SFC<Props> = (props): JSX.Element => {
         const searchQuery = new URLSearchParams(history.location.search);
         searchQuery.set('page', page);
         history.replace({...history.location, search: searchQuery.toString()});
-        setPaginationPage(Number(page));
+        setPaginationPageAction(Number(page));
     };
 
     return (
-        <AppPagination pagination={ pagination } onChangeHandler={ handlePagination }/>
+        <Pagination pagination={ pagination } onChangeHandler={ handlePagination }/>
     );
 };
 

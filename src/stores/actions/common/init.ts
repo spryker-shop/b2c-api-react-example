@@ -1,88 +1,75 @@
-import {
-    CATEGORIES_TREE_REQUEST,
-    INIT_APP_ACTION_TYPE,
-    SET_AUTH_FROM_STORAGE,
-    SWITCH_LOCALE,
-    IS_PAGE_LOCKED,
-    ANONYM_ID
-} from '@stores/actionTypes/common/init';
+import * as actionTypes from '@stores/actionTypes/common/init';
 import { InitAppService } from '@services/common/Init';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { IInitData } from '@interfaces/init';
 import { ICustomerLoginDataParsed } from '@interfaces/customer';
 import { ILocaleActionPayload, IInitAction } from '@stores/reducers/common/Init/types';
 
-export const initApplicationDataPendingStateAction = () => ({
-    type: INIT_APP_ACTION_TYPE + '_PENDING',
+export const initApplicationDataPendingStateAction = (): IInitAction => ({
+    type: actionTypes.INIT_APP_ACTION_TYPE + '_PENDING'
 });
 
-export const initApplicationDataRejectedStateAction = (message: string) => ({
-    type: INIT_APP_ACTION_TYPE + '_REJECTED',
-    payloadRejected: {error: message},
+export const initApplicationDataRejectedStateAction = (message: string): IInitAction => ({
+    type: actionTypes.INIT_APP_ACTION_TYPE + '_REJECTED',
+    payloadRejected: { error: message }
 });
 
-export const initApplicationDataFulfilledStateAction = (payload: IInitData) => ({
-    type: INIT_APP_ACTION_TYPE + '_FULFILLED',
-    payloadInitFulfilled: payload,
+export const initApplicationDataFulfilledStateAction = (payload: IInitData): IInitAction => ({
+    type: actionTypes.INIT_APP_ACTION_TYPE + '_FULFILLED',
+    payloadInitFulfilled: payload
 });
 
-export const categoriesPendingState = () => ({
-    type: CATEGORIES_TREE_REQUEST + '_PENDING',
+export const initApplicationDataAction = (): Function => (dispatch: Function, getState: Function): void => {
+    InitAppService.getInitData(dispatch);
+};
+
+export const categoriesPendingState = (): IInitAction => ({
+    type: actionTypes.CATEGORIES_TREE_REQUEST + '_PENDING'
 });
 
-export const categoriesRejectedState = (message: string) => ({
-    type: CATEGORIES_TREE_REQUEST + '_REJECTED',
-    payloadRejected: {error: message},
+export const categoriesRejectedState = (message: string): IInitAction => ({
+    type: actionTypes.CATEGORIES_TREE_REQUEST + '_REJECTED',
+    payloadRejected: { error: message }
 });
 
-export const categoriesFulfilledState = (categories: ICategory[]) => ({
-    type: CATEGORIES_TREE_REQUEST + '_FULFILLED',
-    payloadCategoriesTreeFulfilled: {categories},
+export const categoriesFulfilledState = (categories: ICategory[]): IInitAction => ({
+    type: actionTypes.CATEGORIES_TREE_REQUEST + '_FULFILLED',
+    payloadCategoriesTreeFulfilled: { categories }
 });
 
-export const switchLocalePendingState = () => ({
-    type: SWITCH_LOCALE + '_PENDING',
+export const getCategoriesAction = (): Function => (dispatch: Function, getState: Function): void => {
+    InitAppService.getCategoriesTree(dispatch);
+};
+
+export const switchLocalePendingState = (): IInitAction => ({
+    type: actionTypes.SWITCH_LOCALE + '_PENDING'
 });
 
-export const switchLocaleRejectedState = (message: string) => ({
-    type: SWITCH_LOCALE + '_REJECTED',
-    payloadRejected: {error: message},
+export const switchLocaleRejectedState = (message: string): IInitAction => ({
+    type: actionTypes.SWITCH_LOCALE + '_REJECTED',
+    payloadRejected: { error: message }
 });
 
 export const switchLocaleFulfilledState = (payload: ILocaleActionPayload): IInitAction => ({
-    type: SWITCH_LOCALE + '_FULFILLED',
-    payloadLocaleFulfilled: payload,
+    type: actionTypes.SWITCH_LOCALE + '_FULFILLED',
+    payloadLocaleFulfilled: payload
 });
 
-export const switchLocaleAction = function(payload: any) {
-    return (dispatch: Function, getState: Function) => {
-        InitAppService.switchLocale(dispatch, payload);
-    };
+export const switchLocaleAction = (payload: any): Function => (dispatch: Function, getState: Function): void => {
+    InitAppService.switchLocale(dispatch, payload);
 };
 
-export const initApplicationDataAction = function() {
-    return (dispatch: Function, getState: Function) => {
-        InitAppService.getInitData(dispatch);
-    };
-};
-
-export const setAuthFromStorageAction = (payload: ICustomerLoginDataParsed) => ({
-    type: SET_AUTH_FROM_STORAGE + '_FULFILLED',
-    payloadAuthFulfilled: payload,
+export const setAuthFromStorageAction = (payload: ICustomerLoginDataParsed): IInitAction => ({
+    type: actionTypes.SET_AUTH_FROM_STORAGE + '_FULFILLED',
+    payloadAuthFulfilled: payload
 });
 
-export const getCategoriesAction = function () {
-    return (dispatch: Function, getState: Function) => {
-        InitAppService.getCategoriesTree(dispatch);
-    };
-};
-
-export const anonymIdFilFilled = (payload: string) => ({
-    type: ANONYM_ID + '_FULFILLED',
-    payloadAnonymIdFulfilled: payload,
+export const anonymIdFilFilled = (payload: string): IInitAction => ({
+    type: actionTypes.ANONYM_ID + '_FULFILLED',
+    payloadAnonymIdFulfilled: payload
 });
 
 export const isPageLockedFulfilledState = (payload: boolean): IInitAction => ({
-    type: IS_PAGE_LOCKED + '_FULFILLED',
-    payloadisPageLocked: payload,
+    type: actionTypes.IS_PAGE_LOCKED + '_FULFILLED',
+    payloadisPageLocked: payload
 });

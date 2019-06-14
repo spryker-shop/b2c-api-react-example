@@ -2,54 +2,33 @@ import * as React from 'react';
 import { connect } from './connect';
 import { CartRowsProps as Props } from './types';
 import { ICartItem } from '@interfaces/cart';
-import { createCartItemAddToCart } from '@helpers/cart/item';
+import { createCartItemAddToCart } from '@helpers/cart';
 import { CartItem } from '../CartItem';
 import { List } from '@material-ui/core';
 
 @connect
 export class CartRows extends React.Component<Props> {
     public componentDidUpdate = (prevProps: Props): void => {
-        if (prevProps.cartRejected !== this.props.cartRejected) {
+        if (prevProps.isCartRejected !== this.props.isCartRejected) {
             this.props.updateCartFulfilledStateAction();
             this.forceUpdate();
         }
     };
 
     protected handleDeleteItem = (sku: string): void => {
-        const { cartDeleteItemAction, removeItemGuestCartAction, cartId, isUserLoggedIn, anonymId } = this.props;
+        const { cartDeleteItemAction, cartId, isUserLoggedIn, anonymId } = this.props;
 
-        if (isUserLoggedIn) {
-            cartDeleteItemAction(cartId, sku);
-        } else {
-            removeItemGuestCartAction(cartId, sku, anonymId);
-        }
+        cartDeleteItemAction(cartId, sku, anonymId, isUserLoggedIn);
     };
 
     protected handleChangeQty = (name: string, value: number): void => {
-        const {
-            cartId,
-            isUserLoggedIn,
-            anonymId,
-            updateItemInCartAction,
-            updateGuestCartAction
-        } = this.props;
+        const { cartId, isUserLoggedIn, anonymId, updateItemInCartAction } = this.props;
 
-        if (isUserLoggedIn) {
-            updateItemInCartAction(
-                createCartItemAddToCart(name, value),
-                cartId
-            );
-        } else {
-            updateGuestCartAction(
-                createCartItemAddToCart(name, value),
-                cartId,
-                anonymId
-            );
-        }
+        updateItemInCartAction(createCartItemAddToCart(name, value), cartId, anonymId, isUserLoggedIn);
     };
 
     public render(): JSX.Element {
-        const { items, cartRejected } = this.props;
+        const { items, isCartRejected } = this.props;
 
         return (
             <List>
@@ -67,7 +46,7 @@ export class CartRows extends React.Component<Props> {
                             quantities={ quantities }
                             handleDeleteItem={ this.handleDeleteItem }
                             handleChangeQty={ this.handleChangeQty }
-                            isUpdateToDefault={ cartRejected }
+                            isUpdateToDefault={ isCartRejected }
                             { ...cartItem }
                         />
                     );

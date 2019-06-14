@@ -1,12 +1,11 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
-import { TCategoryId } from 'src/shared/components/Pages/SearchPage/types';
 
 export interface ICategoryItemProps extends WithStyles<typeof styles> {
-    categoryValue: TCategoryId;
+    categoryValue: number | string;
     categoryName: string;
     quantity: string | number;
     isSelected: boolean;
     isActive: boolean;
-    selectCategoryHandler: (categoryId: TCategoryId) => Function;
+    selectCategoryHandler: (categoryId: number | string) => Function;
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import NumberFormat from 'react-number-format';
 import { SprykerNumberFormatInputProps as Props } from './types';
 
-export const SprykerNumberFormatInput: React.SFC<Props> = (props): JSX.Element => {
+export const SprykerNumberFormatInput: React.FC<Props> = (props): JSX.Element => {
     const { inputRef, isAllowed, currency, ...other } = props;
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',

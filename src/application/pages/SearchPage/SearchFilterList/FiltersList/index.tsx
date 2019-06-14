@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { IFiltersListProps as Props, IFiltersListState as State } from './types';
-import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { IRangeFacets, IValueFacets } from '@interfaces/search';
 import { Grid, withStyles, Hidden, Button, withWidth } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon, CrossIcon, ChevronIcon } from './icons';
@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { ClickEvent } from '@interfaces/common';
 import { AttributeFilters } from './AttributeFilters';
 import { RangeFilters } from './RangeFilters';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { pathCategoryPageBase } from '@constants/routes';
 
 @(withRouter as Function)
@@ -35,15 +35,15 @@ class FiltersListComponent extends React.Component<Props, State> {
     protected onCategoryItemClickHandler = (cattegoryId: number): void =>
         this.setState({ selectedMobileCategoryId: cattegoryId });
 
-    protected handleOpenFilters = (filter: ValueFacets | RangeFacets, filtersName: string) =>
+    protected handleOpenFilters = (filter: IValueFacets | IRangeFacets, filtersName: string) =>
         (event: ClickEvent): void => {
         event.preventDefault();
-        const filters = this.state[filtersName] as (ValueFacets | RangeFacets)[];
+        const filters = this.state[filtersName] as (IValueFacets | IRangeFacets)[];
         const isFilterOpened = filters.includes(filter);
 
         if (isFilterOpened) {
             const removeFilterFromList = filters
-                .filter((filterItem: ValueFacets | RangeFacets) => filterItem !== filter);
+                .filter((filterItem: IValueFacets | IRangeFacets) => filterItem !== filter);
 
             this.setState({ ...this.state, [filtersName]: removeFilterFromList });
 
@@ -55,7 +55,7 @@ class FiltersListComponent extends React.Component<Props, State> {
         this.setState({ ...this.state, [filtersName]: openedFiltersList });
     };
 
-    protected filterRangeFilters = (): RangeFacets[] => {
+    protected filterRangeFilters = (): IRangeFacets[] => {
         const { ranges } = this.props;
         const isRangeExist = Array.isArray(ranges) && ranges.length;
 
@@ -85,15 +85,15 @@ class FiltersListComponent extends React.Component<Props, State> {
     };
 
     protected applyFilters = (): void => {
-        const { updateStore, setCurrentCategory, changeLocation, locationCategoryId } = this.props;
+        const { updateStore, setCurrentCategoryAction, push, locationCategoryId } = this.props;
         const { selectedMobileCategoryId } = this.state;
 
         this.onCloseFiltersHandler();
         updateStore();
 
         if (Number(locationCategoryId) !== selectedMobileCategoryId) {
-            setCurrentCategory(selectedMobileCategoryId);
-            changeLocation(`${pathCategoryPageBase}/${selectedMobileCategoryId}`);
+            setCurrentCategoryAction(selectedMobileCategoryId);
+            push(`${pathCategoryPageBase}/${selectedMobileCategoryId}`);
         }
     };
 

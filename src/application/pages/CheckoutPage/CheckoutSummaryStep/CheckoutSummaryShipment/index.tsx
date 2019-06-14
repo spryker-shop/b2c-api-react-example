@@ -5,9 +5,9 @@ import { withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { styles } from './styles';
 import { PartnerIconHermes, PartnerIconDhl } from './icons';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 
-const CheckoutSummaryShipmentComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryShipmentComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, shipmentMethod, shipmentMethods } = props;
 
     const shipmentCarrierNameToIcon: {[key: string]: {name: JSX.Element, icon: JSX.Element}} = {
@@ -33,7 +33,7 @@ const CheckoutSummaryShipmentComponent: React.SFC<Props> = (props): JSX.Element 
                 <span className={ classes.icon }>{ shipmentHeading.icon }</span>
             </div>
             <div>
-                {`${name}: `} <AppPrice value={ price } classes={{ price: classes.price }} />
+                {`${name}: `} <Price value={ price } classes={{ price: classes.price }} />
             </div>
         </div>
     );

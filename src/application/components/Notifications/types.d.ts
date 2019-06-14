@@ -7,7 +7,7 @@ export interface INotificationsMessageProps {
     messageWithCustomText?: string;
     type?: string;
     id?: string;
-    icon?: React.ReactNode;
+    icon?: JSX.Element;
 }
 
 export interface INotificationsProps extends WithStyles<typeof styles> {}

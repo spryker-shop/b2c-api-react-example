@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { PrevIcon } from './icons';
 import { styles } from './styles';
 
-const CheckoutPaymentStepComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutPaymentStepComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, stepsCompletion: { isPaymentStepPassed, isShipmentStepPassed } } = props;
 
     if (!isShipmentStepPassed) {

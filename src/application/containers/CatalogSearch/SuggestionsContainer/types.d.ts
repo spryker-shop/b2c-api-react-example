@@ -1,19 +1,18 @@
-import { TAppCurrency } from '@interfaces/currency';
-import { ISearchQuery } from '@interfaces/searchPageData';
+import { ISearchQuery } from '@interfaces/search';
 import { RenderSuggestionsContainerParamsutProps } from 'react-autosuggest';
-import { ICategory } from '@interfaces/category';
+import { ICategory } from '@interfaces/common';
 import { IProductCard } from '@interfaces/product';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface ISuggestionsContainerProps extends WithStyles<typeof styles> {
     options: RenderSuggestionsContainerParamsutProps;
-    suggestions?: IProductCard[] | null;
-    categories?: {[name: string]: string}[] | null;
-    completion?: string[] | null;
-    currency?: TAppCurrency;
-    categoriesTree?: ICategory[] | null;
+    suggestions?: IProductCard[];
+    categories?: {[name: string]: string}[];
+    completion?: string[];
+    currency?: string;
+    categoriesTree?: ICategory[];
     clearSuggestion: (query: string) => void;
     sendSearchAction?: (params: ISearchQuery) => void;
-    fulfilled?: boolean;
+    isFulfilled?: boolean;
 }

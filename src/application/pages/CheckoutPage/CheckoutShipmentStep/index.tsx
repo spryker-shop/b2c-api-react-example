@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { PrevIcon } from './icons';
 import { styles } from './styles';
 
-const CheckoutShipmentStepComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutShipmentStepComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, stepsCompletion: { isShipmentStepPassed, isBillingStepPassed, isAddressStepPassed } } = props;
     const isAddressFulfilled = isBillingStepPassed && isAddressStepPassed;
 
@@ -32,7 +32,7 @@ const CheckoutShipmentStepComponent: React.SFC<Props> = (props): JSX.Element => 
                     variant="contained"
                     className={ classes.button }
                 >
-                    <FormattedMessage id={ 'go.to.shipment.title' } />
+                    <FormattedMessage id={ 'go.to.payment.title' } />
                 </Button>
 
                 <NavLink to={ pathCheckoutAddressStep } className={ classes.back }>

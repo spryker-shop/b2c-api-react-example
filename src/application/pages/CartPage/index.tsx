@@ -2,18 +2,18 @@ import * as React from 'react';
 import { connect } from './connect';
 import { pathCartPage } from '@constants/routes';
 import { FormattedPlural, FormattedMessage } from 'react-intl';
-import { CartPageProps as Props } from './types';
+import { ICartPageProps as Props } from './types';
 import { ErrorBoundary } from '@hoc/ErrorBoundary';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { CartRows } from './CartRows';
 import { OrderSummary } from './OrderSummary';
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { styles } from './styles';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductRelations } from '@containers/ProductRelations';
 
-export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
+const CartPageComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, isCartEmpty, totalQty, totals, cartId, clearCheckoutDataForm } = props;
     const breadcrumbsList = [{
         name: <FormattedMessage id={ 'word.cart.title' } />,
@@ -23,7 +23,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
 
     if (isCartEmpty) {
         return (
-            <AppMain>
+            <MainContainer>
                 <Grid item xs={ 12 } className={ classes.root }>
                     <Typography
                         variant="h3"
@@ -33,7 +33,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         <FormattedMessage id={ 'cart.is.empty.message' } />
                     </Typography>
                 </Grid>
-            </AppMain>
+            </MainContainer>
         );
     }
 
@@ -41,7 +41,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
         <>
             <Breadcrumbs breadcrumbsList={ breadcrumbsList } />
 
-            <AppMain>
+            <MainContainer>
                 <Grid container spacing={ 24 } className={ classes.root }>
                     <Grid item xs={ 12 } lg={ 8 }>
                         <div className={ classes.layout }>
@@ -72,7 +72,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                                     <FormattedMessage id={ 'word.subtotal.title' } />:
                                 </Typography>
                                 <Typography component="span" variant="h3">
-                                    <AppPrice value={ totals.subtotal } />
+                                    <Price value={ totals.subtotal } />
                                 </Typography>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ export const CartPageComponent: React.SFC<Props> = (props): JSX.Element => {
                         </ErrorBoundary>
                     </Grid>
                 </Grid>
-            </AppMain>
+            </MainContainer>
         </>
     );
 };

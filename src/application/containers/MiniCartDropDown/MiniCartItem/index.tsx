@@ -1,22 +1,21 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { AppPrice } from '@components/AppPrice';
+import { withStyles, Typography, Grid } from '@material-ui/core';
+import { Price } from '@components/Price';
 import { IMiniCartItemProps as Props } from './types';
 import { styles } from './styles';
 import { SquareImage } from '@components/SquareImage';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { FormattedMessage } from 'react-intl';
 
-export const MiniCartItemComponent: React.SFC<Props> = props => {
+const MiniCartItemComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         productData: {
             image,
             name,
-            priceDefaultGross,
-            priceOriginalGross,
+            prices: {
+                priceDefaultGross,
+                priceOriginalGross
+            },
             quantity,
             sku
         },
@@ -43,12 +42,12 @@ export const MiniCartItemComponent: React.SFC<Props> = props => {
                                     component="p"
                                     className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                 >
-                                    <AppPrice value={ priceDefaultGross } />
+                                    <Price value={ priceDefaultGross } />
                                 </Typography>
 
                                 { priceOriginalGross &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
+                                        <Price value={ priceOriginalGross } isOriginal />
                                     </Typography>
                                 }
                             </Grid>

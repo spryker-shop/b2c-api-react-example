@@ -2,15 +2,15 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CartItemProps as Props } from './types';
 import { SquareImage } from '@components/SquareImage';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { withStyles, Grid, Typography, Button } from '@material-ui/core';
-import { priceTypeNameOriginal } from '@interfaces/product';
 import { pathProductPageBase } from '@constants/routes';
 import { styles } from './styles';
 import { withRouter } from 'react-router-dom';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
+import { IIndexSignature } from '@interfaces/common';
 
-const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
+const CartItemComponent: React.FC<Props> = (props): JSX.Element => {
     const {
         classes,
         sku,
@@ -20,8 +20,10 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
         handleDeleteItem,
         handleChangeQty,
         name,
-        priceDefaultGross,
-        priceOriginalGross,
+        prices: {
+            priceDefaultGross,
+            priceOriginalGross
+        },
         isUpdateToDefault,
         abstractSku,
         calculations: { unitPriceToPayAggregation },
@@ -38,7 +40,7 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
     };
 
     const renderSuperAttributes = superAttributes ? (
-        superAttributes.map((attr: { [key: string]: string }, index: number) => {
+        superAttributes.map((attr: IIndexSignature, index: number) => {
             const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
             const attributeValue = Object.values(attr)[0];
 
@@ -85,18 +87,18 @@ const CartItemComponent: React.SFC<Props> = (props): JSX.Element => {
                                 component="p"
                                 className={`${ classes.price } ${ priceOriginalGross ? classes.newPrice : '' }`}
                             >
-                                <AppPrice value={ priceDefaultGross } />
+                                <Price value={ priceDefaultGross } />
                             </Typography>
                             { priceOriginalGross &&
-                            <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
-                                <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
-                            </Typography>
+                                <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
+                                    <Price value={ priceOriginalGross } isOriginal />
+                                </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
                         <div className={ classes.eachPrice }>
                             (
-                            <AppPrice value={ unitPriceToPayAggregation } />&nbsp;
+                            <Price value={ unitPriceToPayAggregation } />&nbsp;
                             <FormattedMessage id={ 'word.each.title' } />)
                         </div>
                         }

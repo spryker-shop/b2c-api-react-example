@@ -1,12 +1,11 @@
-import { IProductRelationsItem } from '@interfaces/productRelations';
-import { TAppCurrency } from '@interfaces/currency';
+import { IProductRelationsItem } from '@interfaces/product';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
 
 export interface ISlickSliderProps extends WithStyles<typeof styles> {
     products: IProductRelationsItem[];
-    currency: TAppCurrency;
+    currency: string;
     onSelectProduct: Function;
     width: Breakpoint;
 }

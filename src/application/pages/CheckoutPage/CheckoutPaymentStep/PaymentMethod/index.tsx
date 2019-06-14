@@ -4,20 +4,19 @@ import { withStyles, FormControlLabel, Radio, Grid } from '@material-ui/core';
 import { InvoicePaymentForm } from './InvoicePaymentForm';
 import { CreditCardPaymentForm } from './CreditCardPaymentForm';
 import { PartnerIconVisa } from './icons';
-import { checkFormValidity } from '@helpers/forms/validation';
-import { IPaymentMethod } from '@interfaces/checkout';
-import { IPaymentMethodsGrouped, TPaymentProvidersCollection } from '@constants/checkout/types';
+import { checkFormValidity } from '@helpers/forms';
+import { IPaymentMethod, IPaymentMethodsGrouped } from '@interfaces/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { IPaymentMethodProps as Props } from './types';
-import { IPaymentProviderToIcon } from '@helpers/formCreations/checkout/types';
 import {
     invoiceConfigInputStable,
     checkoutPaymentMethodsNames,
     creditCardConfigInputStable
 } from '@constants/checkout';
 import { styles } from './styles';
+import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
-const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
+const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentMethods } = props;
     const isPaymentMethodsExist = Boolean(Array.isArray(paymentMethods) && paymentMethods.length > 0);
 
@@ -27,7 +26,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
-        const { mutatePaymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
+        const { mutatePaymentMethodAction, paymentInvoiceData, paymentCreditCardData } = props;
         const { invoice, creditCard } = checkoutPaymentMethodsNames;
 
         const isInvoiceFormValid = checkFormValidity({
@@ -43,10 +42,10 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         const isPaymentStepCompleted = (value === invoice && isInvoiceFormValid) ||
             (value === creditCard && isCreditCardFormValid);
 
-        mutatePaymentMethod({ value, isPaymentStepCompleted });
+        mutatePaymentMethodAction({ value, isPaymentStepCompleted });
     };
 
-    const paymentProviderToIcon: IPaymentProviderToIcon = {
+    const paymentProviderToIcon: {[key: string]: JSX.Element;} = {
         DummyPayment: <PartnerIconVisa key="visa" />
     };
 
@@ -59,7 +58,7 @@ const PaymentMethodComponent: React.SFC<Props> = (props): JSX.Element => {
         paymentMethodsGrouped[item.paymentMethodName].push(item);
     });
 
-    const creditCardProvidersCollection: TPaymentProvidersCollection = [];
+    const creditCardProvidersCollection: IMenuItemSelect[] = [];
 
     Object.keys(paymentMethodsGrouped).forEach(key => {
         paymentMethodsGrouped[key].forEach((item: IPaymentMethod) => {

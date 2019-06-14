@@ -9,7 +9,7 @@ import { INavLinkData } from '@interfaces/navigations';
 import { IUserDropProps as Props } from './types';
 import { styles } from './styles';
 
-export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
+const UserDropComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, isUserLoggedIn, onLogoutClick, onMouseLeave, onMouseEnter } = props;
 
     const loggedInUser = (
@@ -26,7 +26,8 @@ export const UserDropComponent: React.SFC<Props> = (props): JSX.Element => {
                 <Button
                     variant="text"
                     onClick={ onLogoutClick }
-                    className={ `${classes.userLink} ${classes.userLinkLogout}` }
+                    className={`${classes.userLink} ${classes.userLinkLogout}`}
+                    fullWidth
                 >
                     <span className={ classes.userIcon }><LogoutIcon /></span>
                     <FormattedMessage id={ 'log.out.button.title' } />

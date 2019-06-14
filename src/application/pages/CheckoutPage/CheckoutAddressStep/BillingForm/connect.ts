@@ -1,30 +1,23 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
-import { isUserAuthenticated } from '@stores/reducers/pages/login';
-import {
-    getAddressesCollectionFromCheckoutStore
-} from '@stores/reducers/pages/checkout/selectors';
-import { getCounties } from '@stores/reducers/common/init/selectors';
+import { isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
+import { getAddressesCollectionFromCheckoutStore } from '@stores/reducers/pages/checkout/selectors';
 import {
     mutateStateNewAddressBillingAction,
     mutateStateBillingSelectionAddNewAction,
     mutateStateBillingSelectionAddressIdAction,
     mutateStateBillingSelectionSameAsDeliveryAction,
-    mutateBillingStepAction,
+    mutateBillingStepAction
 } from '@stores/actions/pages/checkout';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICountry } from '@interfaces/country';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import {
-    IBillingAddressState,
-    IBillingSelectionState,
-    IFormFieldMutate
-} from '@interfaces/checkout';
+import { IBillingSelectionState } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
-    const addressesCollection: IAddressItemCollection[] | null =
-        getAddressesCollectionFromCheckoutStore(state, ownProps);
-    const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
+    const addressesCollection: IAddressItemCollection[] = getAddressesCollectionFromCheckoutStore(state, ownProps);
+    const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
 
     return {
@@ -35,23 +28,12 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    mutateStateNewAddressBilling: (payload: IFormFieldMutate): void => {
-        dispatch(mutateStateNewAddressBillingAction(payload));
-    },
-    mutateStateBillingSelectionAddNew: (): void => {
-        dispatch(mutateStateBillingSelectionAddNewAction());
-    },
-    mutateStateBillingSelectionAddressId: (payload: string): void => {
-        dispatch(mutateStateBillingSelectionAddressIdAction(payload));
-    },
-    mutateStateBillingSelectionSameAsDelivery: (payload: boolean): void => {
-        dispatch(mutateStateBillingSelectionSameAsDeliveryAction(payload));
-    },
-    mutateBillingStep: (payload: boolean): void => {
-        dispatch(mutateBillingStepAction(payload));
-    },
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    mutateStateNewAddressBillingAction,
+    mutateStateBillingSelectionAddNewAction,
+    mutateStateBillingSelectionAddressIdAction,
+    mutateStateBillingSelectionSameAsDeliveryAction,
+    mutateBillingStepAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

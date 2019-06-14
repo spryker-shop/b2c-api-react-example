@@ -11,23 +11,27 @@ import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 
 @connect
 class CheckoutThanksComponent extends React.Component<Props, State> {
-    public state: State = {
+    public readonly state: State = {
         shouldHideForm: true,
         email: null
     };
 
     public componentDidMount = (): void => {
-        const { getCustomerCart, getGuestCart, isUserLoggedIn, anonymId, profile, deliveryNewAddress } = this.props;
-        const userEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
-        this.setState({ email: userEmail.toString() });
+        const { getCustomerCartsAction, isUserLoggedIn, anonymId, profile, deliveryNewAddress, orderId } = this.props;
 
-        if (isUserLoggedIn) {
-            getCustomerCart();
-
+        if (!orderId) {
             return;
         }
 
-        getGuestCart(anonymId);
+        const userEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
+        this.setState({ email: userEmail.toString() });
+
+        getCustomerCartsAction(anonymId, isUserLoggedIn, true);
+
+        if (isUserLoggedIn) {
+            return;
+        }
+
         this.setState({ shouldHideForm: false });
     };
 

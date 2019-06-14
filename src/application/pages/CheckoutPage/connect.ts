@@ -1,7 +1,8 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { getAnonymId } from '@stores/reducers/common/init/selectors';
-import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login';
-import { getCustomerProfile } from '@stores/reducers/pages/customerProfile';
+import { getCustomerReference, isUserAuthenticated } from '@stores/reducers/pages/login/selectors';
+import { getCustomerProfile } from '@stores/reducers/pages/customerProfile/selectors';
 import { getCheckoutDataAction, sendCheckoutDataAction } from '@stores/actions/pages/checkout';
 import {
     getAddressesCollectionFromCheckoutStore,
@@ -15,18 +16,11 @@ import { getCartId, getProductsFromCart } from '@stores/reducers/common/cart/sel
 import { IAddressItemCollection } from '@interfaces/addresses';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 import { ICartItem } from '@interfaces/cart';
-import {
-    IBillingAddressState, IBillingSelectionState,
-    ICheckoutRequest,
-    ICheckoutStepsCompletionState,
-    ICheckoutAddressState,
-    IDeliverySelectionState,
-    IPaymentMethod,
-    IShipmentMethod
-} from '@interfaces/checkout';
+import { IBillingSelectionState, ICheckoutStepsCompletionState, IDeliverySelectionState } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const isUserLoggedIn = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const anonymId = getAnonymId(state, ownProps);
     const isCheckoutFulfilled: boolean = isPageCheckoutFulfilled(state, ownProps);
     const isCheckoutLoading: boolean = isPageCheckoutStateLoading(state, ownProps);
@@ -36,20 +30,21 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const cartId: string = getCartId(state, ownProps);
     const customerReference = getCustomerReference(state, ownProps);
     const profile = getCustomerProfile(state, ownProps);
-    const addressesCollection: IAddressItemCollection[] | null = getAddressesCollectionFromCheckoutStore(
+    const addressesCollection: IAddressItemCollection[] = getAddressesCollectionFromCheckoutStore(
         state,
         ownProps
     );
     const orderId: string = getCreatedOrder(state, ownProps);
     const stepsCompletion: ICheckoutStepsCompletionState = state.pageCheckout.stepsCompletion;
-    const deliveryNewAddress: ICheckoutAddressState = state.pageCheckout.deliveryNewAddress;
+    const deliveryNewAddress: IAddressFormState = state.pageCheckout.deliveryNewAddress;
     const deliverySelection: IDeliverySelectionState = state.pageCheckout.deliverySelection;
-    const billingNewAddress: IBillingAddressState = state.pageCheckout.billingNewAddress;
+    const billingNewAddress: IAddressFormState = state.pageCheckout.billingNewAddress;
     const billingSelection: IBillingSelectionState = state.pageCheckout.billingSelection;
-    const paymentMethod: IPaymentMethod['paymentMethodName'] | null = state.pageCheckout.paymentMethod;
-    const shipmentMethod: IShipmentMethod['id'] | null = state.pageCheckout.shipmentMethod;
+    const paymentMethod: string = state.pageCheckout.paymentMethod;
+    const shipmentMethod: string = state.pageCheckout.shipmentMethod;
+    const isCartEmpty: boolean = state.cart.data.isCartEmpty;
 
-    return ({
+    return {
         isCheckoutInitiated,
         isUserLoggedIn,
         isCheckoutFulfilled,
@@ -67,21 +62,15 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         billingNewAddress,
         billingSelection,
         paymentMethod,
-        shipmentMethod
-    });
+        shipmentMethod,
+        isCartEmpty
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    getCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-        dispatch(getCheckoutDataAction(payload, anonymId));
-    },
-    sendCheckoutData: (payload: ICheckoutRequest, anonymId: string): void => {
-        dispatch(sendCheckoutDataAction(payload, anonymId));
-    },
-    getCustomerData: (customerReference: string): void => {
-        dispatch(getCustomerProfileAction(customerReference));
-    }
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    getCheckoutDataAction,
+    sendCheckoutDataAction,
+    getCustomerProfileAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

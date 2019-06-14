@@ -7,7 +7,7 @@ import { TotalsBlock } from '@components/TotalsBlock';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
-const OrderSummaryComponent: React.SFC<Props> = (props): JSX.Element => {
+const OrderSummaryComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, totals, clearCheckoutDataForm } = props;
 
     return (

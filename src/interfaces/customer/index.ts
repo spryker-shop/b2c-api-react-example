@@ -1,9 +1,6 @@
-import { TAccessToken, TExpiresInAccessToken, TRefreshToken, TTokenType } from '@interfaces/login';
-import { TRouterMatchParam } from '@helpers/router/types';
-
 export type TSalutationVariant = {
-  value: string,
-  name: React.ReactNode,
+    value: string,
+    name: JSX.Element
 };
 
 export interface ICustomerProfileIdentity {
@@ -11,7 +8,7 @@ export interface ICustomerProfileIdentity {
     firstName?: string;
     lastName?: string;
     email: string;
-    gender?: string | null;
+    gender?: string;
 }
 
 export interface ICustomerProfilePassword {
@@ -29,8 +26,8 @@ export interface ICustomerDataParsed extends ICustomerProfileIdentity {
     id: string;
     createdAt: string;
     updatedAt: string;
-    dateOfBirth: string | null;
-    [propName: string]: string | number | null;
+    dateOfBirth: string;
+    [propName: string]: string | number;
 }
 
 export interface ICustomerLoginData {
@@ -39,19 +36,19 @@ export interface ICustomerLoginData {
 }
 
 export interface ILoginDataToLocalStorage {
-    email: string | null;
+    email: string;
 }
 
 export interface ICustomerLoginDataParsed {
-    accessToken: TAccessToken;
-    expiresIn: TExpiresInAccessToken;
-    refreshToken: TRefreshToken;
-    tokenType: TTokenType;
-    customerRef: string;
+    accessToken: string;
+    expiresIn: number;
+    refreshToken: string;
+    tokenType: string;
+    customerRef?: string;
 }
 
 export interface IResetPasswordPayload {
-    restorePasswordKey: TRouterMatchParam;
+    restorePasswordKey: string;
     password: string;
     confirmPassword: string;
 }

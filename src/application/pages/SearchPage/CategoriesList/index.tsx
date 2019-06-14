@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from './connect';
-import { ICategory } from '@interfaces/category';
+import { ICategory, ClickEvent } from '@interfaces/common';
 import { IActiveFilterCategories, ICategoriesListProps as Props, ICategoriesListState as State } from './types';
-import { getFormattedActiveCategories } from '../helpers';
 import { pathCategoryPageBase } from '@constants/routes';
 import { CategoryItem } from './CategoryItem';
 import { List, withStyles, withWidth } from '@material-ui/core';
@@ -11,8 +10,8 @@ import { isWidthUp } from '@material-ui/core/withWidth';
 import { ChevronIcon } from './icons';
 import { styles } from './styles';
 import { PopoverWrapper } from '@components/PopoverWrapper';
-import { ClickEvent } from '@interfaces/common';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
+import { IFilterValue } from '@interfaces/search';
 
 @connect
 class CategoriesListComponent extends React.Component<Props, State> {
@@ -23,13 +22,13 @@ class CategoriesListComponent extends React.Component<Props, State> {
     };
 
     protected selectCategory = (categoryId: number) => (event: ClickEvent): void => {
-        const { locationCategoryId, changeLocation, setCurrentCategory, onItemClickHandler } = this.props;
+        const { locationCategoryId, push, setCurrentCategoryAction, onItemClickHandler } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
 
         if (locationCategoryId !== categoryId && !isMobile) {
             this.closePopover();
-            setCurrentCategory(categoryId);
-            changeLocation(`${pathCategoryPageBase}/${categoryId}`);
+            setCurrentCategoryAction(categoryId);
+            push(`${pathCategoryPageBase}/${categoryId}`);
 
             return;
         }
@@ -47,7 +46,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
     protected getCategoriesList = (
         data: ICategory[],
         activeData: IActiveFilterCategories
-    ): JSX.Element[] | null => {
+    ): JSX.Element[] => {
         const { selectedCategory, selectedMobileCategory, width } = this.props;
         const isMobile = !isWidthUp('md', width);
 
@@ -56,7 +55,7 @@ class CategoriesListComponent extends React.Component<Props, State> {
         }
 
         return data.map((category: ICategory) => {
-            const quantity = (activeData[category.nodeId] ? activeData[category.nodeId] : 0);
+            const quantity = activeData && activeData[category.nodeId] ? activeData[category.nodeId] : 0;
             const isSubcategoryExist = Array.isArray(category.children) && category.children.length &&
                 category.children.length > 0;
             const appropriateSelectedId = isMobile ? Number(selectedMobileCategory) : Number(selectedCategory);
@@ -80,22 +79,31 @@ class CategoriesListComponent extends React.Component<Props, State> {
         });
     };
 
+    protected getFormattedActiveCategories = (data: IFilterValue[]): IActiveFilterCategories => (
+        data.reduce((accumulator: IActiveFilterCategories, item: IFilterValue) => {
+            accumulator[item.value] = item.doc_count;
+
+            return accumulator;
+        }, {})
+    );
+
     public render = (): JSX.Element => {
         const {
             classes,
             categories,
             categoriesTree,
-            localizedName,
+            categoriesLocalizedName,
             width,
             isOpened,
             onTitleClick
         } = this.props;
-        const activeCategories = getFormattedActiveCategories(categories);
+        const isCategoriesExist = !Array.isArray(categories) || !categories.length;
+        const activeCategories = !isCategoriesExist ? this.getFormattedActiveCategories(categories) : null;
         const { anchorElement } = this.state;
         const isOpen = Boolean(anchorElement);
         const isTablet = isWidthUp('md', width) && !isWidthUp('lg', width);
 
-        if (!Array.isArray(categories) || !categories.length) {
+        if (isCategoriesExist) {
             return null;
         }
 
@@ -103,7 +111,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
             return (
                 <div className={classes.root}>
                     <span className={ classes.title } ref={ this.buttonRef } onClick={ this.openPopover }>
-                        { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                        { categoriesLocalizedName
+                            ? categoriesLocalizedName
+                            : <FormattedMessage id={ 'categories.panel.title' } />
+                        }
                         <span className={`${classes.chevron} ${isOpen ? classes.chevronOpened : ''}`}>
                             <ChevronIcon />
                         </span>
@@ -136,7 +147,10 @@ class CategoriesListComponent extends React.Component<Props, State> {
         return (
             <div className={classes.root}>
                 <span className={ classes.title } onClick={ onTitleClick }>
-                    { localizedName ? localizedName : <FormattedMessage id={ 'categories.panel.title' } /> }
+                    { categoriesLocalizedName
+                        ? categoriesLocalizedName
+                        : <FormattedMessage id={ 'categories.panel.title' } />
+                    }
                     <span className={`${classes.chevron} ${isOpened ? classes.chevronOpened : ''}`}>
                         <ChevronIcon />
                     </span>

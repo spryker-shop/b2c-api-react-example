@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ISlickSliderProps as Props } from './types';
-import { IProductRelationsItem } from '@interfaces/productRelations';
+import { IProductRelationsItem } from '@interfaces/product';
 import Slider, { Settings } from 'react-slick';
 import { ProductCard } from '@components/ProductCard';
 import { ArrowButton } from './ArrowButton';
@@ -22,7 +22,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
         </div>
     );
 
-    const renderDots = (dots: React.ReactNode): JSX.Element => (
+    const renderDots = (dots: JSX.Element): JSX.Element => (
         <div>
             <ul className={ classes.dotsContainer }>{ dots }</ul>
         </div>
@@ -34,7 +34,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
                 <Grid item xs={ 12 }>
                     <ProductCard
                         currency={ currency }
-                        images={ product.images }
+                        image={ product.image }
                         price={ product.price }
                         prices={ product.prices }
                         name={ product.name }
@@ -109,7 +109,7 @@ const ProductsSliderComponent = (props: Props): JSX.Element => {
     if (isWidthUp('sm', width) && !shouldRenderSlider) {
         return (
             <div className={ classes.layout }>
-                <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`}>
+                <Grid container className={`${classes.root} ${classes.rootSimpleSlider}`} justify="center">
                     { renderProductCards() }
                 </Grid>
             </div>

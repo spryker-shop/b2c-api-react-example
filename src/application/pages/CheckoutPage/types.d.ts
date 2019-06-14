@@ -1,4 +1,4 @@
-import { RouteProps } from 'react-router';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { ICustomerDataParsed } from '@interfaces/customer';
@@ -7,40 +7,37 @@ import {
     IDeliverySelectionState,
     IBillingSelectionState,
     ICheckoutRequest,
-    IShipmentMethod,
-    IPaymentMethod,
-    ICheckoutAddressState,
-    IBillingAddressState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState
 } from '@interfaces/checkout';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { WithRouter } from '@interfaces/common';
+import { IAddressFormState } from '@interfaces/forms';
 
-export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, WithRouter {
+export interface ICheckoutPageProps extends WithStyles<typeof styles>, RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn: boolean;
     isCheckoutLoading: boolean;
     isCheckoutFulfilled: boolean;
-    profile: ICustomerDataParsed | null;
+    profile: ICustomerDataParsed;
     isProductsExists: boolean;
     cartId: string;
-    customerReference: string | null;
-    addressesCollection: IAddressItemCollection[] | null;
+    customerReference: string;
+    addressesCollection: IAddressItemCollection[];
     orderId: string;
     anonymId: string;
-    getCheckoutData: (payload: ICheckoutRequest, anonymId: string) => void;
-    sendCheckoutData: (payload: ICheckoutRequest, anonymId: string) => void;
-    getCustomerData: (customerReference: string) => void;
+    getCheckoutDataAction: (payload: ICheckoutRequest, anonymId: string) => void;
+    sendCheckoutDataAction: (payload: ICheckoutRequest, anonymId: string) => void;
+    getCustomerProfileAction: (customerReference: string) => void;
     stepsCompletion: ICheckoutStepsCompletionState;
     deliverySelection: IDeliverySelectionState;
     billingSelection: IBillingSelectionState;
-    deliveryNewAddress: ICheckoutAddressState;
-    billingNewAddress: IBillingAddressState;
-    shipmentMethod: IShipmentMethod['id'] | null;
-    paymentMethod: IPaymentMethod['paymentMethodName'] | null;
+    deliveryNewAddress: IAddressFormState;
+    billingNewAddress: IAddressFormState;
+    shipmentMethod: string;
+    paymentMethod: string;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData:  ICheckoutInvoiceState;
     isCheckoutInitiated: boolean;
+    isCartEmpty: boolean;
 }
 
 export interface ICheckoutPageState {

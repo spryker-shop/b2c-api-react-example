@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 
 export interface IInputIconProps extends WithStyles<typeof styles> {
-    icon: React.ReactNode | null;
+    icon: JSX.Element;
     position?: 'end' | 'start';
     tooltip?: boolean;
     tooltipPosition?:
@@ -19,6 +18,6 @@ export interface IInputIconProps extends WithStyles<typeof styles> {
         | 'top-end'
         | 'top-start'
         | 'top';
-    tooltipComponent?: React.ReactNode;
+    tooltipComponent?: JSX.Element;
     tooltipArrowed?: boolean;
 }

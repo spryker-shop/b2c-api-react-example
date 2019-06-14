@@ -2,17 +2,18 @@ import * as React from 'react';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 import { IFoundItemsProps } from './FoundItems/types';
-import { IPagination } from '@containers/AppPagination/types';
-import { IActiveSort } from '@interfaces/searchPageData';
+import { IPagination } from '@containers/Pagination/types';
+import { IActiveSort } from '@interfaces/search';
+import { IIndexSignature } from '@interfaces/common';
 
 export interface ISortPanelProps extends WithStyles<typeof styles> {
-    foundItems?: React.SFC<IFoundItemsProps>;
+    foundItems?: React.FC<IFoundItemsProps>;
     isProductsExist?: boolean;
     currentSort?: string;
     sortParams?: string[];
     currentItemsPerPage?: number;
     pagination?: IPagination;
-    sortParamLocalizedNames?: {[key: string]: string};
+    sortParamLocalizedNames?: IIndexSignature;
     setSortAction?: (activeSortOptions: IActiveSort) => void;
 }
 

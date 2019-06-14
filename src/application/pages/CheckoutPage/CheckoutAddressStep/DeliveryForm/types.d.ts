@@ -1,16 +1,15 @@
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { ICheckoutAddressState, IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
+import { IDeliverySelectionState, IFormFieldMutate } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 export interface IDeliveryFormProps {
     isUserLoggedIn?: boolean;
-    addressesCollection?: IAddressItemCollection[] | null;
-    deliveryNewAddress?: ICheckoutAddressState;
+    addressesCollection?: IAddressItemCollection[];
+    deliveryNewAddress?: IAddressFormState;
     deliverySelection?:  IDeliverySelectionState;
-    mutateStateDeliverySelectionAddressId?: (payload: string) => void;
-    mutateDeliveryStep?: (payload: boolean) => void;
-    mutateStateDeliverySelectionAddNew?: () => void;
-    mutateStateNewAddressDelivery?: (payload: IFormFieldMutate) => void;
+    mutateStateDeliverySelectionAddressIdAction?: (payload: string) => void;
+    mutateDeliveryStepAction?: (payload: boolean) => void;
+    mutateStateDeliverySelectionAddNewAction?: () => void;
+    mutateStateNewAddressDeliveryAction?: (payload: IFormFieldMutate) => void;
 }
-
-export type TCurrentValueDeliverySelection = IAddressItemCollection['id'] | string | null;

@@ -1,9 +1,8 @@
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
-import { TAppCurrency } from '@interfaces/currency';
 
 export interface SprykerNumberFormatInputProps {
-    inputRef?: (instance: NumberFormat | null) => void;
-    currency: TAppCurrency;
+    inputRef?: (instance: NumberFormat) => void;
+    currency: string;
     name: string;
     className: string;
     value: number;

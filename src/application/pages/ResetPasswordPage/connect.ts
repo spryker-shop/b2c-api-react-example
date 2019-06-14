@@ -1,20 +1,25 @@
+import { bindActionCreators, Dispatch } from 'redux';
+import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
-import { getRouterMatchParam } from '@helpers/router';
 import { resetPasswordAction } from '@stores/actions/pages/login';
-import { isPageLoginStateLoading } from '@stores/reducers/pages/login';
-import { IResetPasswordPayload } from '@interfaces/customer';
+import { isPageLoginStateLoading, isPageLoginStateFulfilled } from '@stores/reducers/pages/login/selectors';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
-    const restoreKey = getRouterMatchParam(state, ownProps, 'restoreKey');
-    const isLoading = isPageLoginStateLoading(state, ownProps) ? isPageLoginStateLoading(state, ownProps) : false;
+    const isLoading: boolean = isPageLoginStateLoading(state, ownProps)
+        ? isPageLoginStateLoading(state, ownProps) : false;
+    const isFulfilled: boolean = isPageLoginStateLoading(state, ownProps)
+        ? isPageLoginStateFulfilled(state, ownProps) : false;
 
-    return ({ restoreKey, isLoading });
+    return {
+        isLoading,
+        isFulfilled
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    resetPasswordRequest: (payload: IResetPasswordPayload) => dispatch(resetPasswordAction(payload))
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    resetPasswordAction,
+    push
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

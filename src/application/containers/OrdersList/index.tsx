@@ -3,14 +3,13 @@ import { connect } from './connect';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage, FormattedPlural } from 'react-intl';
 import { withStyles, Grid, Typography, Tooltip, Button } from '@material-ui/core';
-import { pathCheckoutPage, pathOrderDetailsPageBase } from '@constants/routes';
-import { AppPrice } from '@components/AppPrice';
+import { pathCustomerOrderDetailsBase } from '@constants/routes';
+import { Price } from '@components/Price';
 import { IOrdersListProps as Props } from './types';
 import { ViewIcon } from './icons';
 import { styles } from './styles';
 import { Preloader } from '@components/Preloader';
 import { DateFormatter } from '@components/DateFormatter';
-import { DeleteIcon } from '@pages/WishlistPage/WishlistsList/WishlistsListItem/icons';
 
 @connect
 class OrdersListComponent extends React.Component<Props> {
@@ -21,10 +20,10 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public componentDidMount = (): void => {
-        const { getOrdersCollection, isInitiated } = this.props;
+        const { getOrdersCollectionAction, isInitiated } = this.props;
 
         if (!isInitiated) {
-            getOrdersCollection();
+            getOrdersCollectionAction();
         }
     };
 
@@ -59,7 +58,7 @@ class OrdersListComponent extends React.Component<Props> {
                                     <FormattedMessage id={ 'orders.total.title' } />
                                 </span>
                                 <span className={ classes.orderText }>
-                                    <AppPrice
+                                    <Price
                                         value={ order.totals.grandTotal }
                                         specificCurrency={ order.currency }
                                         isStylesInherited
@@ -86,7 +85,7 @@ class OrdersListComponent extends React.Component<Props> {
                                         component={ ({ innerRef, ...props }) =>
                                             <NavLink
                                                 { ...props }
-                                                to={`${ pathOrderDetailsPageBase }/${ order.id }`}
+                                                to={`${ pathCustomerOrderDetailsBase }/${ order.id }`}
                                             />
                                         }
                                     >
@@ -107,7 +106,7 @@ class OrdersListComponent extends React.Component<Props> {
     };
 
     public render = (): JSX.Element => {
-        const { classes, isFulfilled, isHasOrders, shouldShowOrdersAmount, orders } = this.props;
+        const { classes, isFulfilled, hasOrders, shouldShowOrdersAmount, orders } = this.props;
 
         if (!isFulfilled) {
             return <Preloader isStatic />;
@@ -117,7 +116,7 @@ class OrdersListComponent extends React.Component<Props> {
             <>
                 { isFulfilled &&
                     <>
-                        { !isHasOrders
+                        { !hasOrders
                             ? (
                                 <Typography component="h3" variant="h3">
                                     <FormattedMessage id={'no.order.message'} />

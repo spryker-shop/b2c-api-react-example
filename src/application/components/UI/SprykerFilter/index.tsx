@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 class SprykerFilterComponent extends React.Component<Props, State> {
     protected resetItemRef: React.RefObject<HTMLLIElement> = React.createRef();
 
-    public state: State = {
+    public readonly state: State = {
         isOpen: false
     };
 
@@ -46,7 +46,7 @@ class SprykerFilterComponent extends React.Component<Props, State> {
         } = this.props;
         const { isOpen } = this.state;
 
-        const chevronIcon: React.SFC = (): JSX.Element =>
+        const chevronIcon: React.FC = (): JSX.Element =>
             <span className={`${classes.icon} ${isOpen ? classes.iconOpened : ''}`}><ChevronIcon /></span>;
 
         return (

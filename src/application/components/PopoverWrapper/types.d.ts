@@ -3,11 +3,11 @@ import { styles } from './styles';
 import { PopoverOrigin, PopoverReference } from '@material-ui/core/Popover';
 
 export interface IPopoverWrapperProps extends WithStyles<typeof styles> {
-    anchorElement?: HTMLElement | null;
+    anchorElement?: HTMLElement;
     closePopoverHandler: () => void;
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
-    openPopup?: boolean | null;
+    openPopup?: boolean;
     paperProps?: {};
     hideBackdrop?: boolean;
     anchorReference?: PopoverReference;

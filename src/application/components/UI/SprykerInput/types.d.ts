@@ -3,10 +3,10 @@ import { WithStyles } from '@material-ui/core/styles/withStyles';
 import { FormatInputValueFunction } from 'react-number-format';
 import { IInputIconProps } from './InputIcon/types';
 import { styles } from './styles';
-import { BlurEvent, InputChangeEvent } from '@interfaces/common';
+import { BlurEvent, IIndexSignature, InputChangeEvent } from '@interfaces/common';
 
 export interface IIconProps extends IInputIconProps {
-    classes?: { [key: string]: string };
+    classes?: IIndexSignature;
 }
 
 export interface ISprykerInputProps extends WithStyles<typeof styles> {
@@ -15,11 +15,11 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
     inputName: string;
     onChangeHandler: (event: InputChangeEvent) => void;
     onBlurHandler?: (event: BlurEvent) => void;
-    label?: React.ReactNode | string;
+    label?: JSX.Element | string;
     isError?: boolean;
     isRequired?: boolean;
-    placeholder?: string | null | React.ReactNode;
-    errorText?: string | null | React.ReactNode;
+    placeholder?: string | JSX.Element;
+    errorText?: string | JSX.Element;
     inputType?: 'email' | 'password' | 'number' | 'range' | 'tel';
     iconProps?: {
         iconStartComponent?: IIconProps,
@@ -29,6 +29,6 @@ export interface ISprykerInputProps extends WithStyles<typeof styles> {
         mask?: string | string[],
         format?: string | FormatInputValueFunction,
         placeholder?: string
-    } | null;
+    };
     autoFocus?: boolean;
 }

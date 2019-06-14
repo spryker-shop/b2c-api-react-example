@@ -1,24 +1,30 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { getSortParamLocalizedNames } from '@stores/reducers/pages/search';
+import { getSortParamLocalizedNames } from '@stores/reducers/pages/search/selectors';
 import { setSortAction } from '@stores/actions/pages/search';
-import { IActiveSort } from '@interfaces/searchPageData';
+import { IIndexSignature } from '@interfaces/common';
+import { IPagination } from '@containers/Pagination/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchState = state.pageSearch.data;
-    const sortParamLocalizedNames = getSortParamLocalizedNames(state, ownProps);
+    const sortParamLocalizedNames: IIndexSignature = getSortParamLocalizedNames(state, ownProps);
+    const pagination: IPagination = pageSearchState.pagination;
+    const currentSort: string = pageSearchState.currentSort;
+    const sortParams: string[] = pageSearchState.sortParams;
+    const currentItemsPerPage: number = pageSearchState.currentItemsPerPage;
 
-    return ({
-        pagination: pageSearchState.pagination,
-        currentSort: pageSearchState.currentSort,
-        sortParams: pageSearchState.sortParams,
-        currentItemsPerPage: pageSearchState.currentItemsPerPage,
+    return {
+        pagination,
+        currentSort,
+        sortParams,
+        currentItemsPerPage,
         sortParamLocalizedNames
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    setSortAction: (activeSortOptions: IActiveSort) => dispatch(setSortAction(activeSortOptions))
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    setSortAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

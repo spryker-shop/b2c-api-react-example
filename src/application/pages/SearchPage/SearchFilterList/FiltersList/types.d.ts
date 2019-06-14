@@ -1,19 +1,18 @@
-import { RangeFacets, ValueFacets } from '@interfaces/searchPageData';
+import { IRangeFacets, IValueFacets } from '@interfaces/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
-import { RangeType, TCategoryId } from '@pages/SearchPage/types';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { Breakpoint } from '@material-ui/core/es/styles/createBreakpoints';
-import { WithRouter } from '@interfaces/common';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter {
-    filters: ValueFacets[];
+export interface IFiltersListProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
+    filters: IValueFacets[];
     activeFilters: TActiveFilters;
-    ranges: RangeFacets[];
+    ranges: IRangeFacets[];
     activeRangeFilters: TActiveRangeFilters;
     updateStore: Function;
     updateActiveFilters: Function;
-    updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: RangeType) => void;
+    updateRangeFilters: (name: TSprykerRangeSliderName, {min, max}: TRangeType) => void;
     categoriesList: (
         isOpened: boolean,
         onTitleClick: () => void,
@@ -22,16 +21,16 @@ export interface IFiltersListProps extends WithStyles<typeof styles>, WithRouter
     ) => JSX.Element;
     changeWrapperState?: (isOpen: boolean) => void;
     width: Breakpoint;
-    currentCategoryId?: number | null;
-    changeLocation?: (location: string) => void;
-    setCurrentCategory?: (categoryId: TCategoryId) => void;
-    locationCategoryId?: TCategoryId;
+    currentCategoryId?: number;
+    push?: (location: string) => void;
+    setCurrentCategoryAction?: (categoryId: number | string) => void;
+    locationCategoryId?: number | string;
 }
 
 export interface IFiltersListState {
-    [key: string]: boolean | (ValueFacets | RangeFacets)[];
-    openedFilters: ValueFacets[];
+    [key: string]: boolean | (IValueFacets | IRangeFacets)[];
+    openedFilters: IValueFacets[];
     openedCategories: boolean;
-    openedRanges: RangeFacets[];
-    selectedMobileCategoryId: number | null;
+    openedRanges: IRangeFacets[];
+    selectedMobileCategoryId: number;
 }

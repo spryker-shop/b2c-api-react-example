@@ -1,35 +1,37 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import {
     pathAddressFormNew,
     pathAddressFormUpdate,
-    pathCustomerAddressesPage,
-    pathCustomerProfilePage,
-    pathOrderDetailsPage,
-    pathOrderHistoryPage,
-    pathWishlistDetailPage,
+    pathCustomerAddresses,
+    pathCustomerProfile,
+    pathCustomerOrderDetails,
+    pathCustomerOrderHistory,
+    pathCustomerWishlistDetail,
     pathWishlistsPage,
-    pathCustomerOverviewPage
+    pathCustomerOverview
 } from '@constants/routes';
-import { LoadablOrderHistoryPage } from '@pages/OrderHistoryPage/loadable';
-import { LoadableCustomerAddressesPage } from '@pages/CustomerAddressesPage/loadable';
-import { LoadablWishlistPage } from '@pages/WishlistPage/loadable';
-import { LoadableOrderDetailsPage } from '@pages/OrderDetailsPage/loadable';
-import { LoadablCustomerProfilePage } from '@pages/CustomerProfilePage/loadable';
-import { LoadablWishlistDetailPage } from '@pages/WishlistDetailPage/loadable';
-import { LoadablCustomerOverviewPage } from '@pages/CustomerOverviewPage/loadable';
-import { LoadableCustomerAddressPage } from '@pages/CustomerAddressPage/loadable';
+import { LoadablCustomerOrderHistory } from '@pages/CustomerPage/CustomerOrderHistory/loadable';
+import { LoadableCustomerAddresses } from '@pages/CustomerPage/CustomerAddresses/loadable';
+import { LoadablCustomerWishlists } from '@pages/CustomerPage/CustomerWishlists/loadable';
+import { LoadableCustomerOrderDetails } from '@pages/CustomerPage/CustomerOrderDetails/loadable';
+import { LoadablCustomerProfile } from '@pages/CustomerPage/CustomerProfile/loadable';
+import { LoadablCustomerWishlistDetail } from '@pages/CustomerPage/CustomerWishlistDetail/loadable';
+import { LoadablCustomerOverview } from '@pages/CustomerPage/CustomerOverview/loadable';
+import { LoadableCustomerAddress } from '@pages/CustomerPage/CustomerAddress/loadable';
+import { Preloader } from '@components/Preloader';
 
-export const CustomerRouting: React.SFC = (): JSX.Element => (
-    <Switch>
-        <Route path={ pathCustomerOverviewPage } exact component={ LoadablCustomerOverviewPage } />
-        <Route path={ pathCustomerAddressesPage } exact component={ LoadableCustomerAddressesPage }/>
-        <Route path={ pathAddressFormUpdate } exact component={ LoadableCustomerAddressPage }/>
-        <Route path={ pathAddressFormNew } exact component={ LoadableCustomerAddressPage }/>
-        <Route path={ pathWishlistsPage } exact component={ LoadablWishlistPage }/>
-        <Route path={ pathWishlistDetailPage } exact component={ LoadablWishlistDetailPage }/>
-        <Route path={ pathOrderHistoryPage } exact component={ LoadablOrderHistoryPage }/>
-        <Route path={ pathOrderDetailsPage } exact component={ LoadableOrderDetailsPage }/>
-        <Route path={ pathCustomerProfilePage } exact component={ LoadablCustomerProfilePage }/>
-    </Switch>
+export const CustomerRouting: React.FC = (): JSX.Element => (
+    <React.Suspense fallback={ <Preloader /> }>
+        <Switch>
+            <Route path={ pathCustomerOverview } exact component={ LoadablCustomerOverview } />
+            <Route path={ pathCustomerAddresses } exact component={ LoadableCustomerAddresses }/>
+            <Route path={[pathAddressFormUpdate, pathAddressFormNew]} exact component={ LoadableCustomerAddress }/>
+            <Route path={ pathWishlistsPage } exact component={ LoadablCustomerWishlists }/>
+            <Route path={ pathCustomerWishlistDetail } exact component={ LoadablCustomerWishlistDetail }/>
+            <Route path={ pathCustomerOrderHistory } exact component={ LoadablCustomerOrderHistory }/>
+            <Route path={ pathCustomerOrderDetails } exact component={ LoadableCustomerOrderDetails }/>
+            <Route path={ pathCustomerProfile } exact component={ LoadablCustomerProfile }/>
+        </Switch>
+    </React.Suspense>
 );

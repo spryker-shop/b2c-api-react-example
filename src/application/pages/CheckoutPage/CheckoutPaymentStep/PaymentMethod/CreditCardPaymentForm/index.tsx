@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles, Grid, Radio, FormControlLabel } from '@material-ui/core';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
-import { cardExpiryFormat } from '@helpers/forms';
+import { checkFormInputValidity, checkFormValidity, cardExpiryFormat } from '@helpers/forms';
 import { checkoutFormsNames, creditCardConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { ICreditCardPaymentFormProps as Props } from './types';
@@ -22,20 +21,20 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
     };
 
     protected handleCreditCardInputs = (event: InputChangeEvent): void => {
-        const { mutateStateCreditCard } = this.props;
+        const { mutateStateCreditCardAction } = this.props;
         const { name, value } = event.target;
 
         const isInputValid = checkFormInputValidity({ value, fieldConfig: creditCardConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateCreditCard(changedFiledData);
+        mutateStateCreditCardAction(changedFiledData);
     };
 
     protected handleCreditCardValidity = (): void => {
-        const { paymentCreditCardData, mutatePaymentSection } = this.props;
+        const { paymentCreditCardData, mutatePaymentSectionAction } = this.props;
 
         const isFormValid = checkFormValidity({form: paymentCreditCardData, fieldsConfig: creditCardConfigInputStable});
-        mutatePaymentSection(isFormValid);
+        mutatePaymentSectionAction(isFormValid);
     };
 
     protected renderPaymentProviderItems = (): JSX.Element[] => {
@@ -45,7 +44,7 @@ class CreditCardPaymentFormComponent extends React.Component<Props> {
         return providersCollection.map(item => (
             <Grid item xs={ 6 }  lg={ 3 } key={ item.value }>
                 <FormControlLabel
-                    value={ item.value }
+                    value={ item.value.toString() }
                     classes={{
                         root: `${classes.inputRadio} ${item.value === selectedValue ? classes.checkedInputRadio : '' }`,
                         label: classes.radioLabel

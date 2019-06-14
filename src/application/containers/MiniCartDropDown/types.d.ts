@@ -1,8 +1,8 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { WithRouter } from '@interfaces/common';
 import { styles } from './styles';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IMiniCartDropDownProps extends WithStyles<typeof styles>, WithRouter {
+export interface IMiniCartDropDownProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     cartItemsQuantity?: number;
     cartProductsQuantity?: number;
     isTouch?: boolean;

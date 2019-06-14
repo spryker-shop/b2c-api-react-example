@@ -3,14 +3,14 @@ import { withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { pathCategoryComputers } from '@constants/routes';
 import { CategoriesTeasers } from '@components/CategoriesTeasers';
-import { AppMain } from '@components/AppMain';
+import { MainContainer } from '@components/MainContainer';
 import { Banner } from '@components/Banner';
 import { IHomePageProps as Props } from './types';
 import { styles } from './styles';
 
 const homepageHeroSrc = require('./img/hero.png');
 
-const HomePageComponent: React.SFC<Props> = (props): JSX.Element => {
+const HomePageComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     return (
@@ -23,9 +23,9 @@ const HomePageComponent: React.SFC<Props> = (props): JSX.Element => {
                 linkTitle={ <FormattedMessage id="home.page.banner.button.title" /> }
                 imagePath={ homepageHeroSrc }
             />
-            <AppMain classes={{ layout: classes.appMainLayout }}>
+            <MainContainer classes={{ layout: classes.appMainLayout }}>
                 <CategoriesTeasers />
-            </AppMain>
+            </MainContainer>
         </>
     );
 };

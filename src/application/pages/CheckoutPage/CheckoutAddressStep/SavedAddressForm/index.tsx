@@ -4,9 +4,9 @@ import { FormControlLabel, Radio, RadioGroup, withStyles } from '@material-ui/co
 import { ISavedAddressFormProps as Props, IRadioItem } from './types';
 import { styles } from './styles';
 import { IAddressItemCollection } from '@interfaces/addresses';
-import { getSalutationToShow } from '@helpers/customer/salutation';
+import { getSalutationToShow } from '@helpers/common';
 
-const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
+const SavedAddressFormComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, currentMode, addressesCollection, onFieldChangeHandler, formName, extraField } = props;
     const isAddressesCollectionExist = addressesCollection && addressesCollection.length > 0;
 
@@ -14,17 +14,15 @@ const SavedAddressFormComponent: React.SFC<Props> = (props): JSX.Element => {
         return null;
     }
 
-    const getSalutation = (address: IAddressItemCollection): React.ReactNode => {
-        let salutation: React.ReactNode = null;
-
-        if (address.salutation) {
-            salutation = getSalutationToShow(address.salutation);
+    const getSalutation = (address: IAddressItemCollection): JSX.Element | string => {
+        if (!address.salutation) {
+            return null;
         }
 
-        return salutation;
+        return getSalutationToShow(address.salutation);
     };
 
-    const getFullInforamtion = (address: IAddressItemCollection): string | React.ReactNode => {
+    const getFullInforamtion = (address: IAddressItemCollection): string | JSX.Element => {
         let response: string = '';
 
         if (address.firstName) {

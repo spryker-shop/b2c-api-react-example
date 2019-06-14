@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { createWishlistMenuVariants } from '@helpers/wishlist/list';
 import { connect } from './connect';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import {
     IProductConfiguratorAddToWishlistProps as Props,
     IProductConfiguratorAddToWishlistState as State
 } from './types';
-import { concreteProductType, defaultItemValueDropdown } from '@interfaces/product';
+import { concreteProductType } from '@constants/product';
 import { ClickEvent } from '@interfaces/common';
 import { styles } from './styles';
 import { SprykerSelect } from '@components/UI/SprykerSelect';
+import { IWishlist } from '@interfaces/wishlist';
+import { IMenuItemSelect } from '@components/UI/SprykerSelect/types';
 
 @connect
-export class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToWishlistComponent extends React.Component<Props, State> {
     public readonly state: State = {
         wishlistSelected: null
     };
@@ -37,10 +38,10 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
     };
 
     protected initRequestWishlistsData = (): void => {
-        const { isWishlistLoading, isWishlistsFetched, getWishlists } = this.props;
+        const { isWishlistLoading, isWishlistsFetched, getWishlistsAction } = this.props;
 
         if (!isWishlistLoading && !isWishlistsFetched) {
-            getWishlists();
+            getWishlistsAction();
         }
     };
 
@@ -59,7 +60,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
         }
     };
 
-    protected getFirstWishlist = (): string | null => {
+    protected getFirstWishlist = (): string => {
         if (!this.props.isWishlistsFetched) {
             return null;
         }
@@ -68,7 +69,7 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
     };
 
     protected handleAddToWishlist = (event: ClickEvent): void => {
-        this.props.addToWishlist(this.state.wishlistSelected, this.props.sku);
+        this.props.addItemWishlistAction(this.state.wishlistSelected, this.props.sku);
     };
 
     protected isAddToWishlistBtnDisabled = (): boolean => {
@@ -76,6 +77,9 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
 
         return !isWishlistsFetched || productType !== concreteProductType || isWishlistLoading;
     };
+
+    protected createWishlistMenuVariants = (): IMenuItemSelect[] =>
+        this.props.wishlists.map((wishlist: IWishlist) => ({name: wishlist.name, value: wishlist.id}));
 
     public render(): JSX.Element {
         const { classes, wishlists } = this.props;
@@ -88,13 +92,13 @@ export class ProductConfiguratorAddToWishlistComponent extends React.Component<P
                         <SprykerSelect
                             currentMode={ wishlistSelected }
                             onChangeHandler={ this.handleWishlistChange }
-                            menuItems={ createWishlistMenuVariants(wishlists) }
+                            menuItems={ this.createWishlistMenuVariants() }
                             name="wishlists"
-                            menuItemFirst={ {
-                                value: defaultItemValueDropdown,
+                            menuItemFirst={{
+                                value: '',
                                 name: <FormattedMessage id={ 'select.wish.list.label' } />,
                                 disabled: true
-                            } }
+                            }}
                             isFullWidth
                             isSimple
                             classes={ {

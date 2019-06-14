@@ -1,8 +1,6 @@
-import { GET_MAIN_NAVIGATION } from '@stores/actionTypes/common/navigations';
-import { INavigationsAction, INavigationsState } from './types';
-import { getReducerPartFulfilled, getReducerPartPending, getReducerPartRejected } from '@stores/reducers/parts';
-import { IApiErrorResponse } from '@services/types';
-import { IMainNavigationNode } from '@interfaces/navigations';
+import * as actionTypes from '@stores/actionTypes/common/navigations';
+import * as navigationHandlers  from '@stores/reducers/common/navigations/handlers';
+import { INavigationsAction, INavigationsState } from '@stores/reducers/common/navigations/types';
 
 export const initialState: INavigationsState = {
     mainNavigation: {
@@ -12,41 +10,13 @@ export const initialState: INavigationsState = {
 
 export const navigations = (state: INavigationsState = initialState, action: INavigationsAction): INavigationsState => {
     switch (action.type) {
-        case `${GET_MAIN_NAVIGATION}_PENDING`:
-            return handleMainNavigationPending(state);
-        case `${GET_MAIN_NAVIGATION}_FULFILLED`:
-            return handleMainNavigationFulfilled(state, action.payloadMainNavigationFulfilled);
-        case `${GET_MAIN_NAVIGATION}_REJECTED`:
-            return handleMainNavigationRejected(state, action.payloadRejected || {error: action.error});
+        case `${actionTypes.GET_MAIN_NAVIGATION}_PENDING`:
+            return navigationHandlers.handleMainNavigationPending(state);
+        case `${actionTypes.GET_MAIN_NAVIGATION}_FULFILLED`:
+            return navigationHandlers.handleMainNavigationFulfilled(state, action.payloadMainNavigationFulfilled);
+        case `${actionTypes.GET_MAIN_NAVIGATION}_REJECTED`:
+            return navigationHandlers.handleMainNavigationRejected(state, action.payloadRejected);
         default:
             return state;
     }
 };
-
-const handleMainNavigationFulfilled = (navigationsState: INavigationsState, payload: IMainNavigationNode[]) =>
-    ({
-        ...navigationsState,
-        mainNavigation: {
-            ...navigationsState.mainNavigation,
-            nodesTree: payload,
-            ...getReducerPartFulfilled(),
-        },
-    });
-
-const handleMainNavigationRejected = (navigationsState: INavigationsState, payload: IApiErrorResponse) =>
-    ({
-        ...navigationsState,
-        mainNavigation: {
-            ...navigationsState.mainNavigation,
-            ...getReducerPartRejected(payload.error),
-        }
-    });
-
-const handleMainNavigationPending = (navigationsState: INavigationsState) =>
-    ({
-        ...navigationsState,
-        mainNavigation: {
-            ...navigationsState.mainNavigation,
-            ...getReducerPartPending(),
-        },
-    });

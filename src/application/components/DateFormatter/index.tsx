@@ -1,21 +1,36 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { FormattedTime } from 'react-intl';
-import { formatDateToString, formattedDate, getDateUtcUnix } from '@helpers/common/dates';
 import { IDateFormatterProps } from './types';
 
-const DateFormatterBase: React.SFC<IDateFormatterProps> = (props): JSX.Element => {
+const DateFormatterComponent: React.FC<IDateFormatterProps> = (props): JSX.Element => {
     const { date, title, timeZone, locale } = props;
-    const dateFormatted = formattedDate(date);
+    const dateFormatted = date.replace(/ /g, 'T');
     const dateObj = new Date(dateFormatted);
-    const dateToShow = formatDateToString(dateObj, locale);
-    const dateUTC = getDateUtcUnix(dateObj);
+
+    const dateToShow = (): string => {
+        const dd = (dateObj.getDate() < 10 ? '0' : '') + dateObj.getDate();
+        const mm = dateObj.toLocaleString(locale, { month: 'short' });
+        const yyyy = dateObj.getFullYear();
+
+        return `${ mm }. ${ dd }, ${ yyyy }`;
+    };
+
+    const dateUTC = (): number =>
+        Date.UTC(
+            dateObj.getFullYear(),
+            dateObj.getMonth(),
+            dateObj.getDate(),
+            dateObj.getHours(),
+            dateObj.getMinutes(),
+            dateObj.getSeconds()
+        );
 
     return (
         <>
-            <span>{ title && title } { `${ dateToShow } ` }</span>
+            <span>{ title && title } { `${ dateToShow() } ` }</span>
             <FormattedTime
-                value={ dateUTC }
+                value={ dateUTC() }
                 timeZone={ timeZone }
                 hour12={ false }
                 hour="2-digit"
@@ -25,4 +40,4 @@ const DateFormatterBase: React.SFC<IDateFormatterProps> = (props): JSX.Element =
     );
 };
 
-export const DateFormatter = connect(DateFormatterBase);
+export const DateFormatter = connect(DateFormatterComponent);

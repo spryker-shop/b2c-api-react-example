@@ -1,56 +1,27 @@
-import { IAbstractTotals, TCanceledTotal } from '@interfaces/abstract/totals';
-import { TCartPriceMode } from '@interfaces/cart';
+import { ITotals } from '@interfaces/common';
 import { IAddressItemOrder } from '@interfaces/addresses';
-import { TAppCurrency } from '@interfaces/currency';
 
-export interface IOrderTotals extends IAbstractTotals {
-    canceledTotal: TCanceledTotal;
+export interface IOrderTotals extends ITotals {
+    canceledTotal: number;
 }
 
 export interface IOrderCollectionParsed {
-    items: IOrderItem[] | null;
-}
-
-export interface IOrderCollectionResponse {
-    data: IOrderItemResponse[];
+    items: IOrderItem[];
 }
 
 export interface IOrderItem {
     id: string;
     dateCreated: string;
-    currency: TAppCurrency;
+    currency: string;
     totals: IOrderTotals;
 }
 
-export interface IOrderItemResponse {
-    attributes: {
-        createdAt: string;
-        currencyIsoCode: TAppCurrency;
-        totals: IOrderTotals;
-    };
-    id: string;
-}
-
-export interface IOrderDetailsResponse {
-    attributes: {
-        createdAt: string,
-        currencyIsoCode: TAppCurrency;
-        expenses: IOrderDetailsExpenseItem[] | null;
-        items: IOrderDetailsItem[] | null;
-        totals: IOrderTotals;
-        billingAddress: IAddressItemOrder;
-        shippingAddress: IAddressItemOrder;
-        priceMode: TCartPriceMode;
-    };
-    id: string;
-}
-
 export interface IOrderDetailsParsed extends IOrderItem {
-    expenses: IOrderDetailsExpenseItem[] | null;
-    items: IOrderDetailsItem[] | null;
+    expenses: IOrderDetailsExpenseItem[];
+    items: IOrderDetailsItem[];
     billingAddress: IAddressItemOrder;
     shippingAddress: IAddressItemOrder;
-    priceMode: TCartPriceMode;
+    priceMode: string;
 }
 
 export interface IOrderDetailsExpenseItem {

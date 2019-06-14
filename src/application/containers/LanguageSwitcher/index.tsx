@@ -1,10 +1,9 @@
 import * as React from 'react';
-import api from '@services/api';
+import { api } from '@services/api';
 import { connect } from './connect';
 import { availableLanguages } from './fixtures';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import { ChevronIcon } from './icons';
-import { TAppLocale } from '@interfaces/locale';
 import { ILangProps as Props, ILangState as State, TLanguage } from './types';
 import { styles } from './styles';
 
@@ -22,7 +21,7 @@ class LanguageSwitcherComponent extends React.Component<Props, State> {
 
     protected selectLanguage = (lang: TLanguage) => (): void => {
         const { appLocale } = this.props;
-        const locale: TAppLocale = lang.code;
+        const locale: string = lang.code;
         const shouldUpdateLocale = locale !== appLocale;
 
         this.setState({ anchorElement: null });

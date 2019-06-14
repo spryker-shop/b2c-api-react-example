@@ -4,7 +4,7 @@ import { ContentCollapserProps as Props, ContentCollapserState as State } from '
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 import debounce from 'lodash/debounce';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 class ContentCollapserComponent extends React.Component<Props, State> {
     protected contentRef: React.RefObject<HTMLDivElement> = React.createRef();

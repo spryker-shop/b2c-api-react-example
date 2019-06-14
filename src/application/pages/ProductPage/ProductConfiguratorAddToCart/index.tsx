@@ -1,28 +1,20 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { typeNotificationError } from '@constants/notifications';
 import { connect } from './connect';
 import { createCartItemAddToCart } from '@helpers/cart';
 import { withStyles, Button, Typography } from '@material-ui/core';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { SprykerQuantityCounter } from '@components/UI/SprykerQuantityCounter';
 import { CartIcon } from './icons';
-import { concreteProductType } from '@interfaces/product';
-import { ClickEvent } from '@interfaces/common';
+import { concreteProductType, quantitySelectedInitial } from '@constants/product';
 import { ICartAddItem } from '@interfaces/cart';
 import { IProductConfiguratorAddToCartProps as Props, IProductConfiguratorAddToCartState as State, } from './types';
 import { styles } from './styles';
 
-const quantitySelectedInitial = 1;
-
 @connect
-export class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
+class ProductConfiguratorAddToCartComponent extends React.Component<Props, State> {
     public readonly state: State = {
         quantitySelected: quantitySelectedInitial,
-        isBuyBtnDisabled: true,
-        isProcessCartLoading: false,
-        quantity: 1,
-        availability: false,
+        isAvailable: false,
         sku: null,
         isUpdateValue: false
     };
@@ -34,8 +26,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
             return {
                 sku: nextProps.sku,
                 quantitySelected: quantitySelectedInitial,
-                quantity: nextProps.product.quantity,
-                availability: nextProps.product.availability,
+                isAvailable: nextProps.product.isAvailable,
                 isUpdateValue: true
             };
         }
@@ -43,80 +34,30 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
         return null;
     };
 
-    public componentDidMount = (): void => {
-        this.checkBuyBtnStatus();
+    protected handleBuyBtnClick = (): void => {
+        this.runAddToCart();
+
+        this.setState({
+            isAvailable: this.props.product.isAvailable,
+            quantitySelected: quantitySelectedInitial,
+            isUpdateValue: true
+        });
     };
 
-    public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        this.checkBuyBtnStatus();
-    };
-
-    protected isShowQuantity = (): boolean => (
-        Boolean(this.props.productType === concreteProductType && this.state.availability)
-    );
-
-    protected checkBuyBtnStatus = (): void => {
-        const { isProcessCartLoading, isBuyBtnDisabled } = this.state;
-
-        if (isProcessCartLoading) {
-            return;
-        }
-
-        if (isBuyBtnDisabled && this.isShowQuantity()) {
-            this.setState({ isBuyBtnDisabled: false });
-        } else if (!isBuyBtnDisabled && !this.isShowQuantity()) {
-            this.setState({ isBuyBtnDisabled: true });
-        }
-    };
-
-    protected handleBuyBtnClick = (event: ClickEvent): void => {
-        this.runProcessCart();
-    };
-
-    protected runProcessCart = async (): Promise<void> => {
-        try {
-            await this.setState({
-                isBuyBtnDisabled: true,
-                isProcessCartLoading: true
-            });
-            await this.runAddToCart();
-
-            await this.setState((prevState: State) => ({
-                ...prevState,
-                quantity: this.props.product.quantity,
-                availability: this.props.product.availability,
-                quantitySelected: quantitySelectedInitial,
-                isBuyBtnDisabled: false,
-                isProcessCartLoading: false,
-                isUpdateValue: true
-            }));
-        } catch (error) {
-            NotificationsMessage({
-                id: 'error.durning.add.product.to.cart.message',
-                type: typeNotificationError
-            });
-        }
-    };
-
-    protected runAddToCart = async (): Promise<void> => {
+    protected runAddToCart = (): void => {
         const item: ICartAddItem = createCartItemAddToCart(this.props.sku, this.state.quantitySelected);
-        if (this.props.isUserLoggedIn && this.props.cartId) {
-            await this.props.addItemToCart(item, this.props.cartId);
-        } else {
-            if (this.props.isUserLoggedIn) {
-                await this.props.createCartAndAddItem(this.props.payloadForCreateCart, item);
-            } else {
-                await this.props.addItemGuestCart(item, this.props.anonymId);
-            }
-        }
+        const { isUserLoggedIn, addItemToCartAction, cartId, anonymId } = this.props;
+
+        addItemToCartAction(item, cartId, anonymId, isUserLoggedIn);
     };
 
     protected handleChangeQty = (name: string, value: number): void =>
         this.setState({ quantitySelected: value, isUpdateValue: false });
 
     public render(): JSX.Element {
-        const { classes } = this.props;
-        const { sku, quantitySelected, isUpdateValue } = this.state;
+        const { classes, isCartLoading, productType } = this.props;
+        const { sku, quantitySelected, isUpdateValue, isAvailable } = this.state;
+        const isButtonDisable = productType !== concreteProductType || isCartLoading || !isAvailable;
 
         return (
             <div className={ classes.root }>
@@ -142,7 +83,7 @@ export class ProductConfiguratorAddToCartComponent extends React.Component<Props
 
                 <Button
                     variant="contained"
-                    disabled={ this.state.isBuyBtnDisabled }
+                    disabled={ isButtonDisable }
                     onClick={ this.handleBuyBtnClick }
                     className={ classes.button }
                     fullWidth

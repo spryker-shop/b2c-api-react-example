@@ -1,89 +1,61 @@
-import api, { setAuthToken } from '@services/api';
+import * as orderActions from '@stores/actions/pages/order';
+import { api, setAuthToken, ApiServiceAbstract } from '@services/api';
 import { RefreshTokenService } from '@services/common/RefreshToken';
-import {
-    orderDetailsFulfilledStateAction,
-    orderDetailsPendingStateAction,
-    orderDetailsRejectedStateAction,
-    ordersCollectionFulfilledStateAction,
-    ordersCollectionPendingStateAction,
-    ordersCollectionRejectedStateAction,
-} from '@stores/actions/pages/order';
-import { OrderAuthenticateErrorMessage } from '@translation/';
-import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/order/response';
-import { ApiServiceAbstract } from '@services/apiAbstractions/ApiServiceAbstract';
-import { IApiResponseData } from '@services/types';
-import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
-import { typeNotificationError } from '@constants/notifications';
+import { orderAuthenticateErrorMessage } from '@translation/';
+import { parseGetOrderDetailsResponse, parseGetOrdersCollectionResponse } from '@helpers/parsing';
+import { TApiResponseData } from '@services/types';
+import { IOrderCollectionParsed, IOrderDetailsParsed } from '@interfaces/order';
+import { errorMessageInform } from '@helpers/common';
 
 export class OrderService extends ApiServiceAbstract {
-    // Get collection of orders
     public static async getOrdersCollection(dispatch: Function): Promise<void> {
+        dispatch(orderActions.ordersCollectionPendingStateAction());
         try {
-            dispatch(ordersCollectionPendingStateAction());
-
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const response: IApiResponseData = await api.get('orders', null, {withCredentials: true});
+            const response: TApiResponseData = await api.get('orders', null, { withCredentials: true });
 
             if (response.ok) {
-                const responseParsed = parseGetOrdersCollectionResponse(response.data);
-                dispatch(ordersCollectionFulfilledStateAction(responseParsed));
+                const responseParsed: IOrderCollectionParsed = parseGetOrdersCollectionResponse(response.data);
+                dispatch(orderActions.ordersCollectionFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(ordersCollectionRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-      }
+                dispatch(orderActions.ordersCollectionRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
+            }
 
         } catch (error) {
-            dispatch(ordersCollectionRejectedStateAction(error.message));
-            NotificationsMessage({
-              messageWithCustomText: 'unexpected.error.message',
-              message: error.message,
-              type: typeNotificationError
-          });
+            dispatch(orderActions.ordersCollectionRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 
-    // Get order by reference
     public static async getOrderDetails(dispatch: Function, orderId: string): Promise<void> {
+        dispatch(orderActions.orderDetailsPendingStateAction());
         try {
-            dispatch(orderDetailsPendingStateAction());
-
-            const token = await RefreshTokenService.getActualToken(dispatch);
+            const token: string = await RefreshTokenService.getActualToken(dispatch);
             if (!token) {
-                throw new Error(OrderAuthenticateErrorMessage);
+                Promise.reject(orderAuthenticateErrorMessage);
             }
             setAuthToken(token);
-            const endpoint = `orders/${orderId}`;
-            const response: IApiResponseData = await api.get(endpoint, null, {withCredentials: true});
+            const endpoint = `orders/${ orderId }`;
+            const response: TApiResponseData = await api.get(endpoint, null, { withCredentials: true });
 
             if (response.ok) {
-                const responseParsed = parseGetOrderDetailsResponse(response.data.data);
-                dispatch(orderDetailsFulfilledStateAction(responseParsed));
+                const responseParsed: IOrderDetailsParsed = parseGetOrderDetailsResponse(response.data);
+                dispatch(orderActions.orderDetailsFulfilledStateAction(responseParsed));
             } else {
                 const errorMessage = this.getParsedAPIError(response);
-                dispatch(orderDetailsRejectedStateAction(errorMessage));
-                NotificationsMessage({
-                    messageWithCustomText: 'request.error.message',
-                    message: errorMessage,
-                    type: typeNotificationError
-                });
-      }
+                dispatch(orderActions.orderDetailsRejectedStateAction(errorMessage));
+                errorMessageInform(errorMessage);
+            }
 
         } catch (error) {
-            dispatch(orderDetailsRejectedStateAction(error.message));
-            NotificationsMessage({
-              messageWithCustomText: 'unexpected.error.message',
-              message: error.message,
-              type: typeNotificationError
-          });
+            dispatch(orderActions.orderDetailsRejectedStateAction(error.message));
+            errorMessageInform(error.message, false);
         }
     }
 }

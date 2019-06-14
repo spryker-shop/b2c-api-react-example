@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Route, withRouter } from 'react-router';
-import { Props } from './types';
+import { Route, withRouter } from 'react-router-dom';
+import { IProtectedRouteProps as Props } from './types';
 import { connect } from './connect';
 import { pathLoginPage } from '@constants/routes';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
@@ -24,9 +24,6 @@ export class ProtectedRoute extends React.PureComponent<Props> {
                 id: 'customer.logout.message',
                 type: typeNotificationSuccess
             });
-            setTimeout(() => {
-                this.props.getGuestCartAction(this.props.anonymId);
-            }, 100);
         }
 
         this.checkAuthorized(prevProps.isUserLoggedIn);
@@ -38,7 +35,7 @@ export class ProtectedRoute extends React.PureComponent<Props> {
         }
     };
 
-    public render(): React.ReactNode {
+    public render(): JSX.Element {
         return this.props.isUserLoggedIn
             ? <Route {...this.props} />
             : null;

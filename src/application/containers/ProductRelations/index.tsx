@@ -9,25 +9,25 @@ import { pathProductPageBase } from '@constants/routes';
 @connect
 class ProductRelationsComponent extends React.Component<Props> {
     protected onSelectProductHandle = (sku: string): void => {
-        this.props.changeLocation(`${pathProductPageBase}/${sku}`);
+        this.props.push(`${pathProductPageBase}/${sku}`);
     };
 
     public componentDidMount = (): void => {
         const {
             sku,
-            getProductRelations,
+            getProductRelationsAction,
             cartId,
-            getProductRelationsCart,
+            getProductRelationsCartAction,
             isUserLoggedIn,
             anonymId
         } = this.props;
 
         if (sku) {
-            getProductRelations(sku);
+            getProductRelationsAction(sku);
         }
 
         if (cartId) {
-            getProductRelationsCart(cartId, isUserLoggedIn, anonymId);
+            getProductRelationsCartAction(cartId, isUserLoggedIn, anonymId);
         }
     };
 
@@ -35,26 +35,26 @@ class ProductRelationsComponent extends React.Component<Props> {
         const {
             isLoading,
             anonymId,
-            getProductRelations,
+            getProductRelationsAction,
             cartId,
             sku,
-            getProductRelationsCart,
+            getProductRelationsCartAction,
             isUserLoggedIn
         } = this.props;
 
         if (!isLoading && prevProps.sku !== this.props.sku) {
-            getProductRelations(sku);
+            getProductRelationsAction(sku);
         }
 
         if (!isLoading && prevProps.cartId !== cartId) {
-            getProductRelationsCart(cartId, isUserLoggedIn, anonymId);
+            getProductRelationsCartAction(cartId, isUserLoggedIn, anonymId);
         }
     };
 
     public render = (): JSX.Element => {
         const { classes, products, currency, title, isLoading } = this.props;
 
-        if (!products.length || isLoading) {
+        if (!Boolean(products.length) || isLoading) {
             return null;
         }
 

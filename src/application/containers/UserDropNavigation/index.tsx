@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { withRouter } from 'react-router';
+import { withRouter, NavLink } from 'react-router-dom';
 import { withStyles, IconButton } from '@material-ui/core';
-import { pathCustomerOverviewPage, pathLoginPage } from '@constants/routes';
+import { pathCustomerOverview, pathLoginPage } from '@constants/routes';
 import { UserDrop } from './UserDrop';
 import { PopoverWrapper } from '@components/PopoverWrapper';
 import { UserIcon } from './icons';
 import { ClickEvent } from '@interfaces/common';
 import { IUserDropNavigationProps as Props, IUserDropNavigationState as State } from './types';
 import { styles } from './styles';
-import { NavLink } from 'react-router-dom';
 
 @connect
 @(withRouter as Function)
@@ -62,14 +61,14 @@ class UserDropNavigationComponent extends React.Component<Props, State> {
 
     protected handleLogout = (event: ClickEvent): void => {
         event.preventDefault();
-        this.props.logout();
+        this.props.logoutAction();
         this.props.history.push(pathLoginPage);
     };
 
     public render(): JSX.Element {
         const { isPopupOpened } = this.state;
         const { classes, isUserLoggedIn } = this.props;
-        const pathToRedirect = isUserLoggedIn ? pathCustomerOverviewPage : pathLoginPage;
+        const pathToRedirect = isUserLoggedIn ? pathCustomerOverview : pathLoginPage;
 
         return (
             <div className={ classes.wrapper }>

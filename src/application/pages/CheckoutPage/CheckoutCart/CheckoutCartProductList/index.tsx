@@ -2,13 +2,13 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
-import { AppPrice } from '@components/AppPrice';
-import { priceTypeNameOriginal } from '@interfaces/product';
+import { Price } from '@components/Price';
 import { ICartItem } from '@interfaces/cart';
 import { ICheckoutCartProductListProps as Props } from './types';
 import { styles } from './styles';
+import { IIndexSignature } from '@interfaces/common';
 
-const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element => {
     const { products, classes, productsAmountThreshold, isProductsExpanded } = props;
 
     if (!products) {
@@ -19,7 +19,7 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
         products.map((item: ICartItem, index: number) => {
             const { sku, image, name, quantity, priceDefaultGross, priceOriginalGross, superAttributes } = item;
             const renderSuperAttributes = superAttributes ? (
-                superAttributes.map((attr: { [key: string]: string }, index: number) => {
+                superAttributes.map((attr: IIndexSignature, index: number) => {
                     const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
                     const attributeValue = Object.values(attr)[0];
 
@@ -59,12 +59,12 @@ const CheckoutCartProductListComponent: React.SFC<Props> = (props): JSX.Element 
                                         component="p"
                                         className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
                                     >
-                                        <AppPrice value={ priceDefaultGross } />
+                                        <Price value={ priceDefaultGross } />
                                     </Typography>
                                     { priceOriginalGross &&
-                                    <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
-                                        <AppPrice value={ priceOriginalGross } priceType={ priceTypeNameOriginal } />
-                                    </Typography>
+                                        <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
+                                            <Price value={ priceOriginalGross } isOriginal />
+                                        </Typography>
                                     }
                                 </div>
                             </Grid>

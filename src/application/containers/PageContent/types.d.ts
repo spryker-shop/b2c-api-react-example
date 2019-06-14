@@ -1,25 +1,22 @@
-import { WithRouter, IComponent } from '@interfaces/common';
-import { TAppLocale } from '@interfaces/locale';
+import { IComponent, IIndexSignature } from '@interfaces/common';
 import { WithStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, WithRouter {
-    classes: {
-        [key: string]: string
-    };
+export interface IPageContentProps  extends WithStyles<typeof styles>, IComponent, Partial<RouteComponentProps> {
+    classes: IIndexSignature;
     dispatch?: Function;
     isLoading?: boolean;
-    locale?: TAppLocale;
-    initApplicationData?: Function;
-    setAuth?: Function;
-    getCustomerCart?: Function;
-    getGuestCart?: Function;
+    locale?: string;
+    initApplicationDataAction?: Function;
+    getCustomerCartsAction?: Function;
     isAppDataSet?: boolean;
     isCustomerAuth?: boolean;
     anonymId?: string;
-    cartCreated?: boolean;
+    isCartCreated?: boolean;
     isInitStateFulfilled?: boolean;
-    clearSearchTerm?: () => void;
+    clearSearchTermAction?: () => void;
+    setAuthFromStorageAction?: Function;
     isPageLocked?: boolean;
 }
 

@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format';
 export type TTransformedOnChange = (event: { target: { value: string, name: string } }) => void;
 
 export interface IInputMaskProps {
-    inputRef: (instance: NumberFormat | null) => void;
+    inputRef: (instance: NumberFormat) => void;
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     name: string;
 }

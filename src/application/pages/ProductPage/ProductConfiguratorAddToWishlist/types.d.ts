@@ -4,15 +4,15 @@ import { IWishlist } from '@interfaces/wishlist';
 import { TProductType } from '@interfaces/product';
 
 export interface IProductConfiguratorAddToWishlistProps extends WithStyles<typeof styles> {
-    getWishlists?: Function;
-    addToWishlist?: Function;
+    getWishlistsAction?: Function;
+    addItemWishlistAction?: Function;
     isWishlistsFetched?: boolean;
     isWishlistLoading?: boolean;
     wishlists?: IWishlist[];
-    productType: TProductType | null;
-    sku: string | null;
+    productType: TProductType;
+    sku: string;
 }
 
 export interface IProductConfiguratorAddToWishlistState {
-    wishlistSelected: string | null;
+    wishlistSelected: string;
 }

@@ -4,7 +4,8 @@ import * as React from 'react';
 
 interface IMenuItemSelect {
     value: string | number;
-    name: string | number | React.ReactNode;
+    name?: string | number | JSX.Element;
+    labelIcon?: JSX.Element;
 }
 
 interface IMenuItemFirst extends IMenuItemSelect {
@@ -14,10 +15,10 @@ interface IMenuItemFirst extends IMenuItemSelect {
 
 export interface ISprykerSelectProps extends WithStyles<typeof styles> {
     currentMode: string | number | boolean;
-    onChangeHandler: (event: React.ChangeEvent<HTMLSelectElement>, child: React.ReactNode) => void;
+    onChangeHandler: (event: React.ChangeEvent<HTMLSelectElement>, child: JSX.Element) => void;
     name: string;
     menuItems: IMenuItemSelect[];
-    menuItemFirst?: IMenuItemFirst | null;
+    menuItemFirst?: IMenuItemFirst;
     title?: string;
     label?: string | JSX.Element;
     isRequired?: boolean;

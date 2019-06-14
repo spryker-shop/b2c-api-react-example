@@ -3,19 +3,19 @@ import { setConfig } from 'react-hot-loader';
 import * as React from 'react';
 import { connect } from './connect';
 import { addLocaleData, IntlProvider } from 'react-intl';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Routes } from '@components/Routes';
 import {
     pathCategoryPageBase,
-    pathLoginPage,
-    pathRegisterPage,
+    pathAuthenticationPage,
     pathSearchPage,
     pathForgotPassword,
-    pathResetPassword, pathCheckoutPage
+    pathResetPassword,
+    pathCheckoutPage
 } from '@constants/routes';
 import { withStyles } from '@material-ui/core';
-import { AppHeader } from '@containers/AppHeader';
-import { AppFooter } from '@components/AppFooter';
+import { Header } from '@containers/Header';
+import { Footer } from '@components/Footer';
 import { getLocaleData } from '@helpers/locale';
 import { Notifications } from '@components/Notifications';
 import { messages } from '@translation/';
@@ -40,7 +40,7 @@ class PageContentComponent extends React.Component<Props, State> {
         const customerRef: string = localStorage.getItem('customerRef');
 
         if (accessToken && expiresIn && refreshToken) {
-            this.props.setAuth({
+            this.props.setAuthFromStorageAction({
                 accessToken,
                 expiresIn,
                 refreshToken,
@@ -49,22 +49,18 @@ class PageContentComponent extends React.Component<Props, State> {
         }
 
         if (!this.props.isAppDataSet) {
-            this.props.initApplicationData(null);
+            this.props.initApplicationDataAction(null);
 
             return;
         }
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isAppDataSet, isPageLocked } = this.props;
+        const { isAppDataSet, isPageLocked, anonymId, isCustomerAuth } = this.props;
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
-            if (this.props.isCustomerAuth) {
-                this.props.getCustomerCart();
-            } else {
-                this.props.getGuestCart(this.props.anonymId);
-            }
+            this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
         }
 
         if (prevProps.isPageLocked !== isPageLocked) {
@@ -96,18 +92,13 @@ class PageContentComponent extends React.Component<Props, State> {
             && this.props.location.pathname.includes(pathCategoryPageBase) === false
             && this.props.location.pathname.includes(pathSearchPage) === false
         ) {
-            this.props.clearSearchTerm();
+            this.props.clearSearchTermAction();
         }
     };
 
-    protected isDataFulfilled = () => (
-        Boolean(this.props.cartCreated && this.props.isInitStateFulfilled)
-    );
-
     protected shouldHideFooter = (): boolean => {
         const forbiddenPaths = [
-            pathLoginPage,
-            pathRegisterPage,
+            pathAuthenticationPage,
             pathResetPassword,
             pathForgotPassword,
             pathCheckoutPage
@@ -118,17 +109,18 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public render(): JSX.Element {
-        const { locale, classes } = this.props;
+        const { locale, classes, isCartCreated, isInitStateFulfilled } = this.props;
+        const isDataFulfilled = Boolean(isCartCreated && isInitStateFulfilled);
         addLocaleData(getLocaleData(locale));
 
         return (
             <IntlProvider locale={ locale } messages={ messages[locale] }>
                 <div className={ classes.root }>
-                    <AppHeader />
+                    <Header />
                     <ErrorBoundary>
-                        <Routes isAppLoading={ this.isDataFulfilled() } />
+                        <Routes isAppLoading={ isDataFulfilled } />
                     </ErrorBoundary>
-                    { !this.shouldHideFooter() && <AppFooter /> }
+                    { !this.shouldHideFooter() && <Footer /> }
                     <Notifications />
                 </div>
             </IntlProvider>

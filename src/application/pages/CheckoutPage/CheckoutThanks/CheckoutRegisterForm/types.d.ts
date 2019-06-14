@@ -1,30 +1,34 @@
-import { RouteProps } from 'react-router';
-import { WithRouter } from '@interfaces/common';
-import { IBillingAddressState, IBillingSelectionState, ICheckoutAddressState } from '@interfaces/checkout';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
+import { IBillingSelectionState } from '@interfaces/checkout';
 import { IAddressItem } from '@interfaces/addresses';
+import { IAddressFormState, IConfigInputState } from '@interfaces/forms';
 
-export interface ICheckoutRegisterFormProps extends RouteProps, WithRouter {
-    isAuth?: boolean;
-    handleSubmitRegisterForm?: Function;
-    getCustomerCart?: Function;
+export interface ICheckoutRegisterFormProps extends RouteProps, Partial<RouteComponentProps> {
+    isUserLoggedIn?: boolean;
+    customerRegisterAction?: Function;
+    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     isLoading?: boolean;
     isCartLoading?: boolean;
-    deliveryNewAddress?: ICheckoutAddressState;
-    billingNewAddress?: IBillingAddressState;
+    deliveryNewAddress?: IAddressFormState;
+    billingNewAddress?: IAddressFormState;
     isMultipleAddressesLoading?: boolean;
     billingSelection?: IBillingSelectionState;
-    addAddress?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
-    customer?: string | null;
+    addMultipleAddressAction?: (payload: IAddressItem, customerId: string, billing: IAddressItem) => void;
+    customer?: string;
 }
 
 export interface ICheckoutRegisterFormState {
-    password: string;
-    confirmPassword: string;
+    fields: {
+        [index: string]: IConfigInputState;
+        password: IConfigInputState;
+        confirmPassword: IConfigInputState;
+    };
+    isFormValid: boolean;
     isCartLoading: boolean;
 }
 
 export interface IAddressPayload {
-    address: ICheckoutAddressState;
+    address: IAddressFormState;
     isDefaultShipping: boolean;
     isDefaultBilling: boolean;
 }

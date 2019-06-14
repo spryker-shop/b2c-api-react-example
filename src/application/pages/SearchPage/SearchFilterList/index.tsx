@@ -1,24 +1,16 @@
 import * as React from 'react';
 import { connect } from './connect';
-import {
-    ISearchFilterListProps as Props,
-    ISearchFilterListState as State,
-    filterTypeFilter,
-    filterTypeRange,
-    IFilterItemToDelete,
-    RangeType,
-    TFilterItemValue,
-    TFilterItemName
-} from './types';
+import { ISearchFilterListProps as Props, ISearchFilterListState as State } from './types';
+import { IFilterItemToDelete, TRangeType, TFilterItemValue, TFilterItemName } from '@interfaces/search';
+import { filterTypeFilter, filterTypeRange } from '@constants/search';
 import { TSprykerRangeSliderName } from '@components/UI/SprykerRangeSlider/types';
-import { getFiltersLocalizedNames, getRangeFiltersLocalizedNames } from '../helpers';
 import { FiltersList } from './FiltersList';
 import { ActiveFiltersList } from './ActiveFiltersList';
 import { Button, Hidden, withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FiltersIcon } from './icons';
 import { FormattedMessage } from 'react-intl';
-import { resolutionChecker } from '@helpers/common/resolutionChecker';
+import { resolutionChecker } from '@helpers/common';
 
 @connect
 class SearchFilterListComponent extends React.Component<Props, State> {
@@ -30,7 +22,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         isFilterListOpened: false
     };
 
-    static getDerivedStateFromProps = (props: Props, state: State): State => {
+    public static getDerivedStateFromProps = (props: Props, state: State): State => {
         if (props.isFulfilled && state.isFirstLoadPassed === null) {
             return {
                 ...state,
@@ -56,7 +48,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         };
     };
 
-    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: RangeType): Promise<void> =>
+    protected updateRangeFilters = async (name: TSprykerRangeSliderName, { min, max }: TRangeType): Promise<void> =>
         await this.setState((prevState: State) => ({
             activeRangeFilters: {
                 ...prevState.activeRangeFilters,
@@ -97,7 +89,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected runResetActiveFilters = async (): Promise<void> => {
-        this.props.clearActiveFilters();
+        this.props.clearActiveFiltersAction();
         await this.setState((prevState: State) => ({
             ...prevState,
             activeFilters: {},
@@ -115,7 +107,7 @@ class SearchFilterListComponent extends React.Component<Props, State> {
         const isActiveFiltersChanged = this.state.activeFilters !== this.props.activeFilters;
         const isActiveRangeFiltersChanged = this.state.activeRangeFilters !== this.props.activeRangeFilters;
         if (isActiveFiltersChanged || isActiveRangeFiltersChanged) {
-            this.props.setActiveFilters({
+            this.props.setActiveFiltersAction({
                 activeFilters: this.state.activeFilters,
                 activeRangeFilters: this.state.activeRangeFilters
             });
@@ -131,11 +123,11 @@ class SearchFilterListComponent extends React.Component<Props, State> {
     };
 
     protected onFiltersChangeStateHandle = (isFilterListOpened: boolean): void => {
-        const { isPageLocked } = this.props;
+        const { isPageLockedFulfilledState } = this.props;
         const isMobile = resolutionChecker(window.innerWidth, 'md');
         this.setState(({isFilterListOpened}));
         if (isMobile) {
-            isPageLocked(isFilterListOpened);
+            isPageLockedFulfilledState(isFilterListOpened);
         }
     };
 
@@ -180,8 +172,6 @@ class SearchFilterListComponent extends React.Component<Props, State> {
                             activeValuesFilters={ activeFilters }
                             activeValuesRanges={ activeRangeFilters }
                             deleteActiveFilterHandler={ this.deleteActiveFilterHandler }
-                            filtersLocalizedNames={ getFiltersLocalizedNames(filters) }
-                            rangesLocalizedNames={ getRangeFiltersLocalizedNames(rangeFilters) }
                             resetHandler={ this.runResetActiveFilters }
                         />
                     </div>

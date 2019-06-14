@@ -5,9 +5,8 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { CardIcon, CalendarIcon, PartnerIconVisa } from './icons';
 import { FormattedMessage } from 'react-intl';
-import { IPaymentProviderToIcon } from '@helpers/formCreations/checkout/types';
 
-const CheckoutSummaryPaymentComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryPaymentComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
     const { dateOfBirth } = paymentInvoiceData;
     const { cardExpiryDate, cardName, cardNumber, paymentProvider } = paymentCreditCardData;
@@ -18,7 +17,7 @@ const CheckoutSummaryPaymentComponent: React.SFC<Props> = (props): JSX.Element =
     const transformeExpiryDate = cardExpiryDate.value.toString();
     const formattedExpiryDate = `${transformeExpiryDate.slice(0,2)}/${transformeExpiryDate.slice(2,4)}`;
 
-    const paymentProviderToIcon: IPaymentProviderToIcon = {
+    const paymentProviderToIcon: {[key: string]: JSX.Element;} = {
         DummyPayment: <PartnerIconVisa key="visa" />
     };
 

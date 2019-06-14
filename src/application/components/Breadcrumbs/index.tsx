@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IBreadcrumbItem } from '@interfaces/category';
+import { IBreadcrumbItem } from '@interfaces/common';
 import { IBreadcrumbsProps as Props } from './types';
 import { pathHomePage } from '@constants/routes';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const BreadcrumbsComponent: React.SFC<Props> = (props): JSX.Element => {
+const BreadcrumbsComponent: React.FC<Props> = (props): JSX.Element => {
     const { breadcrumbsList, classes } = props;
 
     return (

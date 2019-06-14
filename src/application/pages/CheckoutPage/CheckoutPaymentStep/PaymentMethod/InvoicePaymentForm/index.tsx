@@ -4,10 +4,9 @@ import { Grid } from '@material-ui/core';
 import { checkoutFormsNames, invoiceConfigInputStable } from '@constants/checkout';
 import { InputChangeEvent } from '@interfaces/common';
 import { IInvoicePaymentFormProps as Props } from './types';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity, dateBirthFormat } from '@helpers/forms';
 import { FormattedMessage } from 'react-intl';
 import { CalendarIcon } from './icons';
-import { dateBirthFormat } from '@helpers/forms';
 import { SprykerInput } from '@components/UI/SprykerInput';
 
 @connect
@@ -21,18 +20,18 @@ export class InvoicePaymentForm extends React.Component<Props> {
     };
 
     protected handleInvoiceInputs = (event: InputChangeEvent): void => {
-        const { mutateStateInvoiceForm } = this.props;
+        const { mutateStateInvoiceFormAction } = this.props;
         const { name, value } = event.target;
         const isInputValid = checkFormInputValidity({ value, fieldConfig: invoiceConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateInvoiceForm(changedFiledData);
+        mutateStateInvoiceFormAction(changedFiledData);
     };
 
     protected handleInvoiceValidity = (): void => {
-        const { paymentInvoiceData, mutatePaymentSection } = this.props;
+        const { paymentInvoiceData, mutatePaymentSectionAction } = this.props;
         const isFormValid = checkFormValidity({ form: paymentInvoiceData, fieldsConfig: invoiceConfigInputStable });
-        mutatePaymentSection(isFormValid);
+        mutatePaymentSectionAction(isFormValid);
     };
 
     public render = (): JSX.Element => {

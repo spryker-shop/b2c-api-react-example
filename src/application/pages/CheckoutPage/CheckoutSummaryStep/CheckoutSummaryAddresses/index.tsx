@@ -7,7 +7,7 @@ import { AddressDetails } from '@components/AddressDetails';
 import { IAddressItem } from '@interfaces/addresses';
 import { styles } from './styles';
 
-const CheckoutSummaryAddressesComponent: React.SFC<Props> = (props): JSX.Element => {
+const CheckoutSummaryAddressesComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes } = props;
 
     const getAddressesInformation = (isBilling = false): IAddressItem => {

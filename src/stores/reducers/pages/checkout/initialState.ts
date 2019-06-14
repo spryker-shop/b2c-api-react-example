@@ -1,12 +1,11 @@
 import {
-    IBillingAddressState,
     IBillingSelectionState,
     ICheckoutCreditCardState,
     ICheckoutInvoiceState,
     ICheckoutStepsCompletionState,
-    ICheckoutAddressState,
     IDeliverySelectionState
 } from '@interfaces/checkout';
+import { IAddressFormState } from '@interfaces/forms';
 
 export const deliverySelectionDefault: IDeliverySelectionState = {
     selectedAddressId: null,
@@ -19,7 +18,7 @@ export const billingSelectionDefault: IBillingSelectionState = {
     isSameAsDelivery: false,
 };
 
-export const deliveryNewAddressDefault: ICheckoutAddressState = {
+export const deliveryNewAddressDefault: IAddressFormState = {
     salutation: {
         value: ' ',
         isError: false,
@@ -70,7 +69,7 @@ export const deliveryNewAddressDefault: ICheckoutAddressState = {
     },
 };
 
-export const billingNewAddressDefault: IBillingAddressState = {
+export const billingNewAddressDefault: IAddressFormState = {
     ...deliveryNewAddressDefault,
 };
 

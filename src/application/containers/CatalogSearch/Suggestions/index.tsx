@@ -3,14 +3,15 @@ import { pathProductPageBase } from '@constants/routes';
 import { NavLink } from 'react-router-dom';
 import { withStyles, MenuItem } from '@material-ui/core';
 import { SquareImage } from '@components/SquareImage';
-import { AppPrice } from '@components/AppPrice';
+import { Price } from '@components/Price';
 import { ISuggestionsProps as Props } from './types';
 import { styles } from './styles';
 
-export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
+const SuggestionsComponent: React.FC<Props> = (props): JSX.Element => {
     const { suggestion, classes, isHighlighted, clearSuggestion } = props;
-    const isPriceExist = suggestion.prices && suggestion.prices.length;
-    const isOldPriceExist = suggestion.prices && suggestion.prices.length > 1;
+    const { prices, price } = suggestion;
+    const isDefaultPriceExist = Boolean(prices && prices.priceDefaultGross);
+    const isOriginalPriceExist = Boolean(prices && prices.priceOriginalGross);
 
     return (
         <NavLink
@@ -22,7 +23,7 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                 <div className={ classes.imageWrapper }>
                     <SquareImage
                         classes={{ actionAreaOverlay: classes.imageOverlay, imgWrapper: classes.image }}
-                        image={ suggestion.images.length ? suggestion.images[0].externalUrlSmall : '' }
+                        image={ suggestion.image }
                         alt={ suggestion.abstractName }
                     />
                 </div>
@@ -30,20 +31,17 @@ export const SuggestionsComponent: React.SFC<Props> = (props): JSX.Element => {
                 <div className={ classes.description }>
                     <span className={ classes.itemName }>{ suggestion.abstractName }</span>
                     <div className={ classes.prices }>
-                        <span className={`${classes.priceItem} ${isOldPriceExist ?
-                            classes.newPrice : classes.mainPrice}`}>
-                            <AppPrice
-                                value={ isPriceExist ? suggestion.prices[0].grossAmount : suggestion.price }
-                                priceType={ isPriceExist ? suggestion.prices[0].priceTypeName : '' }
-                            />
+                        <span
+                            className={`
+                               ${classes.priceItem} ${isOriginalPriceExist ? classes.newPrice : classes.mainPrice}
+                            `}
+                        >
+                            <Price value={ isDefaultPriceExist ? prices.priceDefaultGross : price } />
                         </span>
 
-                        { isOldPriceExist &&
+                        { isOriginalPriceExist &&
                             <span className={ `${classes.priceItem} ${classes.oldPrice}` }>
-                                <AppPrice
-                                    value={ suggestion.prices[1].grossAmount }
-                                    priceType={ suggestion.prices[1].priceTypeName }
-                                />
+                                <Price value={ prices.priceOriginalGross } isOriginal />
                             </span>
                         }
                     </div>

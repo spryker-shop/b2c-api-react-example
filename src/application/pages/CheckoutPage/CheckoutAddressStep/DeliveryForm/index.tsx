@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { checkoutFormsNames, checkoutSelectionInputs, newAddressConfigInputStable } from '@constants/checkout';
-import { checkFormInputValidity, checkFormValidity } from '@helpers/forms/validation';
+import { checkFormInputValidity, checkFormValidity } from '@helpers/forms';
 import { InputChangeEvent } from '@interfaces/common';
-import { IDeliveryFormProps as Props, TCurrentValueDeliverySelection } from './types';
+import { IDeliveryFormProps as Props } from './types';
 import { AddressForm } from '@components/AddressForm';
 import { SavedAddressForm } from '../SavedAddressForm';
 import { FormattedMessage } from 'react-intl';
@@ -24,15 +24,15 @@ export class DeliveryForm extends React.Component<Props> {
     };
 
     protected handleDeliverySelection = (value: string): void => {
-        const { mutateStateDeliverySelectionAddNew, mutateStateDeliverySelectionAddressId } = this.props;
+        const { mutateStateDeliverySelectionAddNewAction, mutateStateDeliverySelectionAddressIdAction } = this.props;
 
         if (value === checkoutSelectionInputs.isAddNewDeliveryValue) {
-            mutateStateDeliverySelectionAddNew();
+            mutateStateDeliverySelectionAddNewAction();
 
             return;
         }
 
-        mutateStateDeliverySelectionAddressId(value);
+        mutateStateDeliverySelectionAddressIdAction(value);
     };
 
     protected setDefaultAddresses = (): void => {
@@ -56,15 +56,15 @@ export class DeliveryForm extends React.Component<Props> {
 
     protected handleDeliveryInputs = (event: InputChangeEvent): void => {
         const { name, value } = event.target;
-        const { mutateStateNewAddressDelivery } = this.props;
+        const { mutateStateNewAddressDeliveryAction } = this.props;
         const isInputValid = checkFormInputValidity({ value, fieldConfig: newAddressConfigInputStable[name] });
         const changedFiledData = { key: name, value, isError: !isInputValid };
 
-        mutateStateNewAddressDelivery(changedFiledData);
+        mutateStateNewAddressDeliveryAction(changedFiledData);
     };
 
     protected handleDeliveryNewAddressValidity = (): void => {
-        const { mutateDeliveryStep, deliveryNewAddress, isUserLoggedIn } = this.props;
+        const { mutateDeliveryStepAction, deliveryNewAddress, isUserLoggedIn } = this.props;
         const newAddress = { ...deliveryNewAddress };
 
         if (isUserLoggedIn) {
@@ -72,7 +72,7 @@ export class DeliveryForm extends React.Component<Props> {
         }
 
         const isFormValid = checkFormValidity({ form: newAddress, fieldsConfig: newAddressConfigInputStable });
-        mutateDeliveryStep(isFormValid);
+        mutateDeliveryStepAction(isFormValid);
     };
 
     protected handleSelectionsChange = (event: InputChangeEvent): void => {
@@ -81,7 +81,7 @@ export class DeliveryForm extends React.Component<Props> {
         this.handleDeliverySelection(value);
     };
 
-    protected getCurrentValueDeliverySelection = (): TCurrentValueDeliverySelection => {
+    protected getCurrentValueDeliverySelection = (): string => {
         const { selectedAddressId, isAddNew } = this.props.deliverySelection;
 
         return selectedAddressId || (isAddNew && checkoutSelectionInputs.isAddNewDeliveryValue) || null;

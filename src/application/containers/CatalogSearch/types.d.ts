@@ -1,13 +1,12 @@
 import { WithStyles } from '@material-ui/core';
-import { RouteProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 import { styles } from './styles';
-import { FlyoutSearch } from '@interfaces/searchPageData';
-import { TAppCurrency } from '@interfaces/currency';
+import { IFlyoutSearch } from '@interfaces/search';
 import * as React from 'react';
 import { BlurEvent, ChangeEvent } from 'react-autosuggest';
 
-export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Partial<FlyoutSearch> {
-    currency?: TAppCurrency;
+export interface ICatalogProps extends WithStyles<typeof styles>, RouteProps, Partial<IFlyoutSearch> {
+    currency?: string;
     isLoading?: boolean;
     id: string;
     sendSuggestionAction?: (query: string) => void;

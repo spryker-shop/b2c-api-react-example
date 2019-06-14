@@ -1,10 +1,10 @@
 import { WithStyles } from '@material-ui/core/styles/withStyles';
-import { WithRouter } from '@interfaces/common';
 import { styles } from './styles';
+import { RouteComponentProps } from 'react-router-dom';
 
-export interface IUserDropNavigationProps extends WithStyles<typeof styles>, WithRouter {
+export interface IUserDropNavigationProps extends WithStyles<typeof styles>, Partial<RouteComponentProps> {
     isUserLoggedIn?: boolean;
-    logout?(): void;
+    logoutAction?: () => void;
     isTouch?: boolean;
 }
 

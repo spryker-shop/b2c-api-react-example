@@ -1,56 +1,70 @@
-import * as React from 'react';
+import { bindActionCreators, Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { reduxify } from '@hoc/Reduxify';
-import { getSpellingSuggestion } from '@stores/reducers/pages/search';
+import { getSpellingSuggestion } from '@stores/reducers/pages/search/selectors';
 import { getAppCurrency, getCategoriesTree } from '@stores/reducers/common/init/selectors';
-import { ISearchQuery, TSpellingSuggestion } from '@interfaces/searchPageData';
-import { getRouterMatchParam } from '@helpers/router';
+import { TActiveFilters, TActiveRangeFilters, IFilterValue } from '@interfaces/search';
+import { getRouterMatchParam } from '@helpers/common';
 import {
     sendSearchAction,
-    clearActiveFiltersAction,
     clearSearchTermAction,
     clearSortAction,
-    clearPaginationPageAction
+    clearPaginationPageAction,
+    clearActiveFiltersAction
 } from '@stores/actions/pages/search';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICategory } from '@interfaces/category';
-import { TAppCurrency } from '@interfaces/currency';
+import { ICategory } from '@interfaces/common';
 import { ISearchState } from '@stores/reducers/pages/search/types';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const pageSearchProps: ISearchState = state.pageSearch ? state.pageSearch : null;
-    const currency: TAppCurrency = getAppCurrency(state, ownProps);
+    const currency: string = getAppCurrency(state, ownProps);
     const categoriesTree: ICategory[] = getCategoriesTree(state, ownProps);
-    const spellingSuggestion: TSpellingSuggestion = getSpellingSuggestion(state, ownProps);
-    const locationCategoryId = getRouterMatchParam(state, ownProps, 'categoryId');
+    const spellingSuggestion: string = getSpellingSuggestion(state, ownProps);
+    const locationCategoryId: string = getRouterMatchParam(state, ownProps, 'categoryId');
+    const isLoading: boolean = pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false;
+    const isCategoryAsFilter: boolean = pageSearchProps.data.isCategoryAsFilter;
+    const currentSort: string = pageSearchProps.data.currentSort;
+    const currentItemsPerPage: number = pageSearchProps.data.currentItemsPerPage;
+    const searchTerm: string = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '';
+    const activeFilters: TActiveFilters = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.activeFilters : {};
+    const activeRangeFilters: TActiveRangeFilters = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.activeRangeFilters : {};
+    const currentPaginationPage: number = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.currentPaginationPage : 1;
+    const currentCategoryId: number = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.currentCategoryId : null;
+    const isFiltersUpdated: boolean = pageSearchProps && pageSearchProps.data
+        ? pageSearchProps.data.isFiltersUpdated : false;
+    const category: IFilterValue[] = pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : [];
 
-    return ({
-        isFiltersUpdated: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.isFiltersUpdated : false,
-        isCategoryAsFilter: pageSearchProps.data.isCategoryAsFilter,
-        category: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.category : null,
+    return {
+        isFiltersUpdated,
+        isCategoryAsFilter,
+        category,
         categoriesTree,
         spellingSuggestion,
-        currentSort: pageSearchProps.data.currentSort,
-        currentItemsPerPage: pageSearchProps.data.currentItemsPerPage,
-        currentCategoryId: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentCategoryId : null,
-        currentPaginationPage: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.currentPaginationPage : 1,
-        searchTerm: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.searchTerm : '',
-        activeRangeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeRangeFilters : {},
-        activeFilters: pageSearchProps && pageSearchProps.data ? pageSearchProps.data.activeFilters : {},
-        isLoading: pageSearchProps && pageSearchProps.pending ? pageSearchProps.pending : false,
+        currentSort,
+        currentItemsPerPage,
+        currentCategoryId,
+        currentPaginationPage,
+        searchTerm,
+        activeRangeFilters,
+        activeFilters,
+        isLoading,
         currency,
         locationCategoryId,
-    });
+    };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    changeLocation: (location: string) => dispatch(push(location)),
-    sendSearch: (params: ISearchQuery) => dispatch(sendSearchAction(params)),
-    clearActiveFilters: () => dispatch(clearActiveFiltersAction()),
-    clearSearchTerm: () => dispatch(clearSearchTermAction()),
-    clearSort: () => dispatch(clearSortAction()),
-    clearPaginationPage: () => dispatch(clearPaginationPageAction())
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    push,
+    clearActiveFiltersAction,
+    sendSearchAction,
+    clearSearchTermAction,
+    clearSortAction,
+    clearPaginationPageAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);

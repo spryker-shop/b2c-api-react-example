@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect } from './connect';
 import { withStyles } from '@material-ui/core';
 import { PartnerIconHermes, PartnerIconDhl } from './icons';
-import { IShipmentMethodsGrouped } from '@constants/checkout/types';
+import { IShipmentMethodsGrouped } from '@interfaces/checkout';
 import { IShipmentMethodProps as Props } from './types';
 import { ShipmentForm } from './ShipmentForm';
 import { styles } from './styles';
 import { FormattedMessage } from 'react-intl';
 
-const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
-    const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethod } = props;
+const ShipmentMethodsComponent: React.FC<Props> = (props): JSX.Element => {
+    const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethodAction } = props;
     const isShipmentMethodsExist = Array.isArray(shipmentMethods) && shipmentMethods.length > 0;
 
     if (!isShipmentMethodsExist) {
@@ -43,7 +43,7 @@ const ShipmentMethodsComponent: React.SFC<Props> = (props): JSX.Element => {
             labelForm={ shipmentCarrierNameToIcon[key] }
             collections={ shipmentMethodsGrouped[key] }
             currentMode={ shipmentMethod }
-            onChangeHandler={ mutateShipmentMethod }
+            onChangeHandler={ mutateShipmentMethodAction }
             classes={{ form: classes.formItem }}
         />
     );

@@ -1,6 +1,7 @@
+import { bindActionCreators, Dispatch } from 'redux';
 import { reduxify } from '@hoc/Reduxify';
 import { IReduxOwnProps, IReduxStore } from '@stores/reducers/types';
-import { ICheckoutInvoiceState, IFormFieldMutate } from '@interfaces/checkout';
+import { ICheckoutInvoiceState } from '@interfaces/checkout';
 import { mutateStateInvoiceFormAction, mutatePaymentSectionAction } from '@stores/actions/pages/checkout';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
@@ -11,14 +12,9 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    dispatch,
-    mutateStateInvoiceForm: (payload: IFormFieldMutate): void => {
-        dispatch(mutateStateInvoiceFormAction(payload));
-    },
-    mutatePaymentSection: (payload: boolean): void => {
-        dispatch(mutatePaymentSectionAction(payload));
-    },
-});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    mutateStateInvoiceFormAction,
+    mutatePaymentSectionAction
+}, dispatch);
 
 export const connect = reduxify(mapStateToProps, mapDispatchToProps);
