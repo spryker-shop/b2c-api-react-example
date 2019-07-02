@@ -84,8 +84,8 @@ export interface ISuperAttributeData {
 }
 
 export interface IProductPrices {
-    priceOriginalGross?: null;
-    priceOriginalNet?: null;
-    priceDefaultGross?: null;
-    priceDefaultNet?: null;
+    priceOriginalGross?: number;
+    priceOriginalNet?: number;
+    priceDefaultGross?: number;
+    priceDefaultNet?: number;
 }

@@ -83,24 +83,29 @@ const CartItemComponent: React.FC<Props> = (props): JSX.Element => {
                     </Grid>
                     <Grid item xs={ 12 } sm={ 4 } md={ 3 } className={ classes.info }>
                         <div className={ classes.pricesHoler }>
-                            <Typography
-                                component="p"
-                                className={`${ classes.price } ${ priceOriginalGross ? classes.newPrice : '' }`}
-                            >
-                                <Price value={ priceDefaultGross } />
-                            </Typography>
-                            { priceOriginalGross &&
+                            { priceDefaultGross &&
+                                <Typography
+                                    component="p"
+                                    className={`
+                                        ${ classes.price }
+                                        ${ ((quantity === 1) && priceOriginalGross) ? classes.newPrice : '' }
+                                    `}
+                                >
+                                    <Price value={ quantity * priceDefaultGross } />
+                                </Typography>
+                            }
+                            { ((quantity === 1) && priceOriginalGross) &&
                                 <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
                                     <Price value={ priceOriginalGross } isOriginal />
                                 </Typography>
                             }
                         </div>
                         { (quantity > 1) &&
-                        <div className={ classes.eachPrice }>
-                            (
-                            <Price value={ unitPriceToPayAggregation } />&nbsp;
-                            <FormattedMessage id={ 'word.each.title' } />)
-                        </div>
+                            <div className={ classes.eachPrice }>
+                                (
+                                <Price value={ unitPriceToPayAggregation } />&nbsp;
+                                <FormattedMessage id={ 'word.each.title' } />)
+                            </div>
                         }
                     </Grid>
                     <Grid item xs={ 12 } className={ classes.removeBtnColumn }>

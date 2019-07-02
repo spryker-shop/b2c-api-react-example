@@ -38,14 +38,18 @@ const MiniCartItemComponent: React.FC<Props> = (props): JSX.Element => {
                             </Grid>
 
                             <Grid item xs={ 12 } sm={ 3 }>
-                                <Typography
-                                    component="p"
-                                    className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
-                                >
-                                    <Price value={ priceDefaultGross } />
-                                </Typography>
-
-                                { priceOriginalGross &&
+                                { priceDefaultGross &&
+                                    <Typography
+                                        component="p"
+                                        className={`
+                                            ${ classes.price }
+                                            ${ ((quantity === 1) && priceOriginalGross) ? classes.newPrice : '' }
+                                        `}
+                                    >
+                                        <Price value={ quantity * priceDefaultGross } />
+                                    </Typography>
+                                }
+                                { ((quantity === 1) && priceOriginalGross) &&
                                     <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
                                         <Price value={ priceOriginalGross } isOriginal />
                                     </Typography>
