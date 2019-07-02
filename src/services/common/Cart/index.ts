@@ -63,13 +63,13 @@ export class CartService extends ApiServiceAbstract {
             }
 
             await this.cartTokenActions(dispatch, isUserLoggedIn);
-            const requestBody: IRequestCreateCartBody = {
+            const requestBody: IRequestCreateCartBody | boolean = isCreateCart && {
                 data: {
                     type: 'carts',
                     attributes: {
-                        priceMode: Boolean(getState) && getState().init.data.priceMode,
-                        currency: Boolean(getState) && getState().init.data.currency,
-                        store: Boolean(getState) && getState().init.data.store,
+                        priceMode: getState().init.data.priceMode,
+                        currency: getState().init.data.currency,
+                        store: getState().init.data.store,
                         name: 'Cart'
                     }
                 }
