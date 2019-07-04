@@ -60,7 +60,8 @@ const aliases = {
     '@services': path.resolve(__dirname, 'src/services'),
     '@configs': path.resolve(__dirname, './configs'),
     '@translation': path.resolve(__dirname, 'src/translation'),
-    '@theme': path.resolve(__dirname, 'src/theme')
+    '@theme': path.resolve(__dirname, 'src/theme'),
+    'react-dom': '@hot-loader/react-dom'
 };
 
 const definableConstants = {
