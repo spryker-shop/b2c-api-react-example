@@ -107,8 +107,7 @@
 		"webpack-dev-server": "3.1.14"
 	},
 	"scripts": {
-		"cp:local": "cp configs/local_vm.env .env",
 		"prod": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"dev": "npm run cp:local && node --max_old_space_size=4096 dev-server.js"
+		"dev": "node --max_old_space_size=4096 dev-server.js"
 	}
 }
