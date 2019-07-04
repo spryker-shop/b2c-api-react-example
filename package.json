@@ -77,6 +77,7 @@
 		"@types/webpack-dev-server": "3.1.1",
 		"autoprefixer": "8.6.3",
 		"clean-webpack-plugin": "0.1.19",
+		"cross-env": "5.2.0",
 		"css-loader": "0.28.11",
 		"dotenv": "6.0.0",
 		"file-loader": "1.1.11",
@@ -107,7 +108,7 @@
 		"webpack-dev-server": "3.1.14"
 	},
 	"scripts": {
-		"deploy": "node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"dev": "node --max_old_space_size=4096 dev-server.js"
+		"deploy": "cross-env NODE_ENV=development node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
+		"dev": "cross-env NODE_ENV=development node --max_old_space_size=4096 dev-server.js"
 	}
 }
