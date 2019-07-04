@@ -110,7 +110,6 @@
 	},
 	"scripts": {
 		"deploy": "cross-env NODE_ENV=deploy node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
-		"prod": "cross-env NODE_ENV=production node --max_old_space_size=6144 node_modules/.bin/webpack-cli --config ./webpack.config.js --progress --profile --colors",
 		"dev": "cross-env NODE_ENV=development node --max_old_space_size=4096 dev-server.js"
 	}
 }
