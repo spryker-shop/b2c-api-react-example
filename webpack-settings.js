@@ -16,8 +16,8 @@ const cssLoader = {
             loader: 'css-loader',
             options: {
                 modules: false,
-                sourceMap: !envConfig.IS_PRODUCTION,
-                minimize: envConfig.IS_PRODUCTION,
+                sourceMap: envConfig.IS_DEVELOPMENT,
+                minimize: !envConfig.IS_DEVELOPMENT,
                 discardComments: {removeAll: true}
             }
         },
@@ -76,7 +76,7 @@ const definableConstants = {
 let devServer = {};
 let watchOptions = {};
 
-if (!envConfig.IS_PRODUCTION) {
+if (envConfig.IS_DEVELOPMENT) {
     watchOptions = {
         aggregateTimeout: 1000,
         poll: 1000
@@ -102,7 +102,7 @@ const entry = {
     ]
 };
 
-if(!envConfig.IS_PRODUCTION) {
+if(envConfig.IS_DEVELOPMENT) {
     entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
     entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
 }
