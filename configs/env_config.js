@@ -3,7 +3,7 @@ const env = require( 'dotenv' );
 env.config();
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.argv.indexOf( '-p' ) !== -1;
-const NODE_ENV = process.env.NODE_ENV || 'webpack-dev-server';
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const DEV_SERVER_HOST = process.env.DEV_SERVER_HOST || 'localhost';
 const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || '2992';
 const WEB_PORT = process.env.WEB_PORT || '3000';
