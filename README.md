@@ -78,7 +78,6 @@ This application is released for the sole purpose of illustrating API usage. It 
 3. Please copy `.env.example` file and rename it to `.env` for configure your local environment. 
     - `DEV_SERVER_HOST` variable value. For example `react.local`. 
     - `API_URL` variable value to `http://glue.de.project-name.local`.
-    - change `NODE_ENV` variable value to `production` while deploying on the server.
 
 ## Installation
 Once you installed nodejs, cloned git repository and switched to the project directory
