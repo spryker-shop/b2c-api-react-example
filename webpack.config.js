@@ -10,7 +10,7 @@ const envConfig = require('./configs/env_config');
 const webpackSettings = require('./webpack-settings');
 
 const config = {
-    mode: !envConfig.IS_DEVELOPMENT ? 'development' : 'production',
+    mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
     target: 'web',
     context: __dirname,
     entry: webpackSettings.entry,
