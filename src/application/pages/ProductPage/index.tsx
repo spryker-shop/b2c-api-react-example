@@ -176,7 +176,7 @@ class ProductPageComponent extends React.Component<Props, State> {
         const { classes, isUserLoggedIn, isWishlistsFetched, product } = this.props;
         const isComponentLoading = !this.props.product || !this.state.productType || this.props.isRejected;
         const shouldLoadRelationsImmediately = isUserLoggedIn ? isWishlistsFetched : true;
-        const isDevServer = process.env.NODE_ENV === 'development';
+        const isDevServer = process.env.NODE_ENV !== 'production';
         const isParallelRequest = isDevServer ? shouldLoadRelationsImmediately : true;
 
         if (isComponentLoading) {

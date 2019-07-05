@@ -32,7 +32,7 @@ class LoginFormComponent extends React.Component<Props, State> {
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
         const { isUserLoggedIn, getCustomerCartsAction, history, redirectAfterLoginPath, isCartLoading } = this.props;
-        const isDevServer = process.env.NODE_ENV === 'development';
+        const isDevServer = process.env.NODE_ENV !== 'production';
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 
         if (!prevProps.isUserLoggedIn && isUserLoggedIn) {

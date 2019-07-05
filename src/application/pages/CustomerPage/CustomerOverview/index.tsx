@@ -35,7 +35,7 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
 
     public render(): JSX.Element {
         const { classes, customerData, isAddressesListInitiated, hasOrders, addresses } = this.props;
-        const isDevServer = process.env.NODE_ENV === 'development';
+        const isDevServer = process.env.NODE_ENV !== 'production';
         const isParallelRequest = isDevServer ? isAddressesListInitiated : true;
 
         return (

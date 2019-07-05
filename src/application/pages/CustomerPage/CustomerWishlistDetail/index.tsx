@@ -27,7 +27,7 @@ class WishlistDetailComponent extends React.Component<Props> {
 
     protected initRequestData = (): void => {
         const { isLoading, isAppDataSet, wishlistIdParam, getDetailWishlistAction } = this.props;
-        const isDevServer = process.env.NODE_ENV === 'development';
+        const isDevServer = process.env.NODE_ENV !== 'production';
         const isParallelRequest = isDevServer ? isLoading : false;
 
         if (isParallelRequest) {
