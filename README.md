@@ -75,7 +75,7 @@ This application is released for the sole purpose of illustrating API usage. It 
 2. Please add settings in your local machine "hosts" file.
     - `<ip of vagrant installation> glue.de.project-name.local`
     - `127.0.0.1 react.local`
-3. Please edit `configs/local_vm.env` file inside your project for local environment. 
+3. Please copy `.env.example` file and rename it to `.env` for configure your local environment. 
     - `DEV_SERVER_HOST` variable value. For example `react.local`. 
     - `API_URL` variable value to `http://glue.de.project-name.local`.
 

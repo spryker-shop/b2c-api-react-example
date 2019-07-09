@@ -10,14 +10,14 @@ const envConfig = require('./configs/env_config');
 const webpackSettings = require('./webpack-settings');
 
 const config = {
-    mode: envConfig.IS_PRODUCTION ? 'production' : 'development',
+    mode: envConfig.IS_DEVELOPMENT ? 'development' : 'production',
     target: 'web',
     context: __dirname,
     entry: webpackSettings.entry,
     watchOptions: webpackSettings.watchOptions,
     devServer: webpackSettings.devServer,
-    watch: !envConfig.IS_PRODUCTION,
-    devtool: envConfig.IS_PRODUCTION ? '' : 'inline-source-map',
+    watch: envConfig.IS_DEVELOPMENT,
+    devtool: !envConfig.IS_DEVELOPMENT ? '' : 'inline-source-map',
     node: {
         __dirname: true,
         fs: 'empty'
@@ -26,28 +26,28 @@ const config = {
         path: path.resolve(__dirname, 'build', 'web'),
         filename: '[name].[hash].bundle.js',
         chunkFilename: '[name].[chunkhash].chunk.js',
-        publicPath: !envConfig.IS_PRODUCTION ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}/` : envConfig.WEB_PATH
+        publicPath: envConfig.IS_DEVELOPMENT ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}/` : envConfig.WEB_PATH
     },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 parallel: true,
                 sourceMap: true,
-                cache: !envConfig.IS_PRODUCTION,
-                extractComments: envConfig.IS_PRODUCTION,
+                cache: envConfig.IS_DEVELOPMENT,
+                extractComments: !envConfig.IS_DEVELOPMENT,
                 uglifyOptions: {
                     ecma: 8,
                     parse: {
                         ecma: 8
                     },
-                    mangle: envConfig.IS_PRODUCTION ? {
+                    mangle: !envConfig.IS_DEVELOPMENT ? {
                         keep_classnames: true,
                         keep_fnames: true
                     } : false,
                     keep_classnames: true,
                     keep_fnames: true,
                     compress: {
-                        drop_console: envConfig.IS_PRODUCTION,
+                        drop_console: !envConfig.IS_DEVELOPMENT,
                         keep_classnames: true,
                         comparisons: false
                     },
@@ -88,8 +88,8 @@ const config = {
             dry: false
         }),
         new webpack.LoaderOptionsPlugin({
-            minimize: envConfig.IS_PRODUCTION,
-            debug: !envConfig.IS_PRODUCTION,
+            minimize: !envConfig.IS_DEVELOPMENT,
+            debug: envConfig.IS_DEVELOPMENT,
             options: {
                 context: __dirname
             }
@@ -101,8 +101,8 @@ const config = {
             ...webpackSettings.definableConstants
         }),
         new MiniCssExtractPlugin({
-            filename: !envConfig.IS_PRODUCTION ? '[name].css' : '[name].[hash].css',
-            chunkFilename: !envConfig.IS_PRODUCTION ? '[id].css' : '[id].[hash].css'
+            filename: envConfig.IS_DEVELOPMENT ? '[name].css' : '[name].[hash].css',
+            chunkFilename: envConfig.IS_DEVELOPMENT ? '[id].css' : '[id].[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.ejs'),
@@ -112,11 +112,11 @@ const config = {
             compile: true,
             favicon: path.resolve(__dirname, `favicon.png`),
             minify: false,
-            devServer: !envConfig.IS_PRODUCTION ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}` : '',
+            devServer: envConfig.IS_DEVELOPMENT ? `http://${envConfig.DEV_SERVER_HOST}:${envConfig.DEV_SERVER_PORT}` : '',
             chunksSortMode: 'none'
         }),
         ...(
-            !envConfig.IS_PRODUCTION ? [
+            envConfig.IS_DEVELOPMENT ? [
                 new webpack.HotModuleReplacementPlugin(),
                 new ForkTsCheckerWebpackPlugin({
                     tslint: true
@@ -143,7 +143,7 @@ const config = {
     },
     stats: {
         children: false,
-        reasons: !envConfig.IS_PRODUCTION
+        reasons: envConfig.IS_DEVELOPMENT
     },
     cache: true,
     performance: {

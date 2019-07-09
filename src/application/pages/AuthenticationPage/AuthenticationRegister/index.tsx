@@ -23,7 +23,7 @@ export class AuthenticationRegister extends React.Component<Props, State> {
     public readonly state: State = { ...initialState };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const isDevServer = process.env.NODE_ENV === 'webpack-dev-server';
+        const isDevServer = process.env.NODE_ENV !== 'production';
         const { isUserLoggedIn, getCustomerCartsAction, history, isCartLoading, cartId } = this.props;
         const isParallelRequest = isDevServer ? prevProps.isCartLoading && !isCartLoading : true;
 

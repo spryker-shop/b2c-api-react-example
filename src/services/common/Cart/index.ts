@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as cartActions from '@stores/actions/common/cart';
 import { api, setAuthToken, ApiServiceAbstract, removeAuthToken } from '@services/api';
 import { ICartAddItem, ICartDataParsed } from '@interfaces/cart';
@@ -5,7 +6,7 @@ import { parseCartResponse } from '@helpers/parsing';
 import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { EIncludeTypes, TApiResponseData, IRequestHeader } from '@services/types';
-import { IRequestCreateCartBody } from '@services/common/Cart/types';
+import { ICartDataResponse, IRequestCreateCartBody } from '@services/common/Cart/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
 import { errorMessageInform } from '@helpers/common';
@@ -55,28 +56,42 @@ export class CartService extends ApiServiceAbstract {
     ): Promise<void> {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
+            if (isCreateCart && !isUserLoggedIn) {
+                dispatch(cartActions.getCartsFulfilledStateAction(null));
+
+                return;
+            }
+
             await this.cartTokenActions(dispatch, isUserLoggedIn);
-            const requestBody: IRequestCreateCartBody = isUserLoggedIn
-                ? { data: {
-                        type: 'carts',
-                        attributes: {
-                            priceMode: getState() ? getState().init.data.priceMode : null,
-                            currency: getState() ? getState().init.data.currency : null,
-                            store: getState() ? getState().init.data.store : null,
-                            name: 'Cart'
-                        }
-                    } }
-                : { data: { type:'guest-cart-items', attributes: { sku: 'dummy', quantity: 1 } } };
+            const shouldCreateCart = getState && !Boolean(getState().cart.data.id) || isCreateCart;
+            const requestBody: IRequestCreateCartBody | boolean = shouldCreateCart && {
+                data: {
+                    type: 'carts',
+                    attributes: {
+                        priceMode: getState().init.data.priceMode,
+                        currency: getState().init.data.currency,
+                        store: getState().init.data.store,
+                        name: 'Cart'
+                    }
+                }
+            };
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
-            const guestCartType: string = isCreateCart ? 'guest-cart-items' : 'guest-carts';
-            const cartType: string = isUserLoggedIn ? 'carts' : guestCartType;
+            const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
-            const response: TApiResponseData = isCreateCart
+            const response: TApiResponseData = shouldCreateCart
                 ? await api.post(endpoint, requestBody, requestHeader)
                 : await api.get(endpoint, {}, requestHeader);
+
+            const responseCartDataSorting = (responseData: ICartDataResponse[]): ICartDataResponse => {
+                const cartId: string = responseData.reduce((accumulator: string[], item: ICartDataResponse) =>
+                    [...accumulator, item.id], []).sort()[0];
+
+                return responseData.filter((item: ICartDataResponse) => item.id === cartId)[0];
+            };
+
             if (response) {
                 const responseParsed: ICartDataParsed = parseCartResponse({
-                    data: isCreateCart ? response.data.data : response.data.data[0],
+                    data: shouldCreateCart ? response.data.data : responseCartDataSorting(response.data.data),
                     included: response.data.included
                 });
 
