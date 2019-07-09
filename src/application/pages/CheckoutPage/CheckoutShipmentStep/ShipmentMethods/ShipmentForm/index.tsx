@@ -23,7 +23,12 @@ const ShipmentFormComponent: React.FC<Props> = (props): JSX.Element => {
                 root: `${classes.inputRadio} ${(currentMode === item.id) ? classes.checkedInputRadio : '' }`,
                 label: `${classes.radioLabel} ${(currentMode === item.id) ? classes.checkedRadioLabel : '' }`
             }}
-            control={ <Radio classes={ { root: classes.radio, checked: classes.checkedRadio } } /> }
+            control={
+                <Radio
+                    classes={ { root: classes.radio, checked: classes.checkedRadio } }
+                    checked={ currentMode === item.id }
+                />
+            }
             label={ <>{`${item.name}: `}<Price value={item.price} /></> }
         />
     ));
@@ -34,7 +39,7 @@ const ShipmentFormComponent: React.FC<Props> = (props): JSX.Element => {
                 <Typography component="span" variant="h3" color="textSecondary" className={ classes.formTitle }>
                     { labelForm.name }
                 </Typography>
-                <span className={ classes.formIcon }>{ labelForm.icon }</span>
+                { Boolean(labelForm.icon) && <span className={ classes.formIcon }>{ labelForm.icon }</span> }
             </div>
             <RadioGroup
                 aria-label={ formName }

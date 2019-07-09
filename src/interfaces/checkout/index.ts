@@ -15,7 +15,7 @@ export interface IShipmentMethod {
     price: number;
     taxRate: number;
     shipmentDeliveryTime: string;
-    [key: string]: string | number;
+    [key: string]: any;
 }
 
 export interface ICheckoutRequest {
@@ -81,4 +81,11 @@ export interface IPaymentMethodsGrouped {
 
 export interface IShipmentMethodsGrouped {
     [key: string]: IShipmentMethod[];
+}
+
+export interface IShipmentMethodLabelData {
+    [key: string]: {
+        name: JSX.Element | string;
+        icon?: JSX.Element;
+    };
 }
