@@ -15,7 +15,7 @@ export interface IShipmentMethod {
     price: number;
     taxRate: number;
     shipmentDeliveryTime: string;
-    [key: string]: any;
+    [key: string]: string | number;
 }
 
 export interface ICheckoutRequest {
