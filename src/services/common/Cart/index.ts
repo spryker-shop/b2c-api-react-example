@@ -53,7 +53,7 @@ export class CartService extends ApiServiceAbstract {
         isUserLoggedIn = true,
         isCreateCart = false,
         getState?: Function
-    ): Promise<void> {
+    ): Promise<string | void> {
         dispatch(cartActions.getCartsPendingStateAction());
         try {
             if (isCreateCart && !isUserLoggedIn) {
@@ -95,6 +95,8 @@ export class CartService extends ApiServiceAbstract {
                 });
 
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
+
+                return isCreateCart ? response.data.data.id : responseCartDataSorting(response.data.data).id;
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 errorMessageInform(errorMessage);
@@ -111,8 +113,12 @@ export class CartService extends ApiServiceAbstract {
         payload: ICartAddItem,
         cartId: string,
         anonymId: string = null,
-        isUserLoggedIn = true
+        isUserLoggedIn = true,
+        getState: Function
     ): Promise<void> {
+        const currentCartId = Boolean(cartId)
+            ? cartId
+            : await this.getCustomerCarts(dispatch, anonymId, isUserLoggedIn, true, getState);
         dispatch(cartActions.cartAddItemPendingStateAction());
         try {
             await this.cartTokenActions(dispatch, isUserLoggedIn);
@@ -120,7 +126,7 @@ export class CartService extends ApiServiceAbstract {
             const body: IRequestCreateCartBody = {
                 data: { type: `${isUserLoggedIn ? 'items' : 'guest-cart-items'}`, attributes: payload }
             };
-            const cartType: string = isUserLoggedIn ? `carts/${cartId}/items` : 'guest-cart-items';
+            const cartType: string = isUserLoggedIn ? `carts/${currentCartId}/items` : 'guest-cart-items';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
             const response: TApiResponseData = await api.post(endpoint, body, requestHeader);
             if (response.ok) {

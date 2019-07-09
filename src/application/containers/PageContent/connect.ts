@@ -19,7 +19,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isLoading: boolean = isStateLoading(state, ownProps) || false;
     const locale: string = getAppLocale(state, ownProps);
     const isAppDataSet: boolean = isAppInitialized(state, ownProps);
-    const isCustomerAuth: boolean = isUserAuthenticated(state, ownProps);
+    const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
     const isCartCreated: boolean = isCustomerCartCreated(state, ownProps);
     const isInitStateFulfilled: boolean = isAppStateFulfilled(state, ownProps);
@@ -29,7 +29,7 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
         isLoading,
         locale,
         isAppDataSet,
-        isCustomerAuth,
+        isUserLoggedIn,
         anonymId,
         isCartCreated,
         isInitStateFulfilled,

@@ -59,7 +59,7 @@ export const cartAddItemRejectedStateAction = (message: string): ICartAction => 
 export const addItemToCartAction =
     (payload: ICartAddItem, cartId: string, anonymId?: string, isUserLoggedIn?: boolean): Function =>
         (dispatch: Function, getState: Function): void => {
-            CartService.cartAddItem(dispatch, payload, cartId, anonymId, isUserLoggedIn);
+            CartService.cartAddItem(dispatch, payload, cartId, anonymId, isUserLoggedIn, getState);
         };
 
 export const cartUpdateItemPendingStateAction = (): ICartAction => ({
