@@ -63,7 +63,8 @@ export class CartService extends ApiServiceAbstract {
             }
 
             await this.cartTokenActions(dispatch, isUserLoggedIn);
-            const requestBody: IRequestCreateCartBody | boolean = isCreateCart && {
+            const shouldCreateCart = getState && !Boolean(getState().cart.data.id) || isCreateCart;
+            const requestBody: IRequestCreateCartBody | boolean = shouldCreateCart && {
                 data: {
                     type: 'carts',
                     attributes: {
@@ -77,7 +78,7 @@ export class CartService extends ApiServiceAbstract {
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
-            const response: TApiResponseData = isCreateCart
+            const response: TApiResponseData = shouldCreateCart
                 ? await api.post(endpoint, requestBody, requestHeader)
                 : await api.get(endpoint, {}, requestHeader);
 
@@ -90,7 +91,7 @@ export class CartService extends ApiServiceAbstract {
 
             if (response) {
                 const responseParsed: ICartDataParsed = parseCartResponse({
-                    data: isCreateCart ? response.data.data : responseCartDataSorting(response.data.data),
+                    data: shouldCreateCart ? response.data.data : responseCartDataSorting(response.data.data),
                     included: response.data.included
                 });
 
