@@ -11,21 +11,19 @@ const ProductLabelComponent: React.FC<Props> = (props): JSX.Element => {
         return null;
     }
 
-    const labelData: { [key: string]: { className: string } } = {
-        '1': {
-            className: classes.alternativeLabel
-        },
-        '2': {
-            className: classes.discontinuedLabel
-        },
-        '3': {
-            className: classes.standardLabel
-        },
-        '4': {
-            className: classes.newLabel
-        },
-        '5': {
-            className: classes.saleLabel
+    const labelClass = (type: string): string => {
+        switch (type) {
+            case '1':
+                return classes.alternativeLabel;
+            case '2':
+                return classes.discontinuedLabel;
+            default:
+            case '3':
+                return classes.standardLabel;
+            case '4':
+                return classes.newLabel;
+            case '5':
+                return classes.saleLabel;
         }
     };
 
@@ -35,7 +33,7 @@ const ProductLabelComponent: React.FC<Props> = (props): JSX.Element => {
                 return null;
             }
 
-            const colorClassName: string = labelData[item.type].className;
+            const colorClassName: string = labelClass(item.type);
 
             return (
                 <span className={ classes.labelItem } key={`${index}+${item.text}`}>
