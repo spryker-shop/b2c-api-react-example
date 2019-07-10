@@ -89,14 +89,17 @@ export class CartService extends ApiServiceAbstract {
             };
 
             if (response) {
+                const responseData = response.data.data;
                 const responseParsed: ICartDataParsed = parseCartResponse({
-                    data: isCreateCart ? response.data.data : responseCartDataSorting(response.data.data),
+                    data: isCreateCart ? responseData : responseCartDataSorting(responseData),
                     included: response.data.included
                 });
 
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
 
-                return isCreateCart ? response.data.data.id : responseCartDataSorting(response.data.data).id;
+                return isCreateCart
+                    ? Boolean(responseData.length) && responseData.id
+                    : Boolean(responseData.length) && responseCartDataSorting(responseData).id;
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 errorMessageInform(errorMessage);
