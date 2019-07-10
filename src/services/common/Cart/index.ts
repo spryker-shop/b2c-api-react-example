@@ -116,7 +116,7 @@ export class CartService extends ApiServiceAbstract {
         isUserLoggedIn = true,
         getState: Function
     ): Promise<void> {
-        const currentCartId = Boolean(cartId)
+        const currentCartId: string | void = Boolean(cartId)
             ? cartId
             : await this.getCustomerCarts(dispatch, anonymId, isUserLoggedIn, true, getState);
         dispatch(cartActions.cartAddItemPendingStateAction());
