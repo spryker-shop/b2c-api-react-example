@@ -17,13 +17,14 @@ const ProductLabelComponent: React.FC<Props> = (props): JSX.Element => {
                 return classes.alternativeLabel;
             case '2':
                 return classes.discontinuedLabel;
-            default:
             case '3':
                 return classes.standardLabel;
             case '4':
                 return classes.newLabel;
             case '5':
                 return classes.saleLabel;
+            default:
+                return classes.standardLabel;
         }
     };
 
