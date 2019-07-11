@@ -6,7 +6,7 @@ import { SquareImage } from '@components/SquareImage';
 import { Grid, Hidden, withStyles } from '@material-ui/core';
 import { ArrowButton } from './ArrowButton';
 import { RightIcon, LeftIcon, BottomIcon, TopIcon } from './icons';
-import { IProductImageSliderProps as Props } from './types';
+import { IProductImageSliderProps as Props, ICustomArrowProps } from './types';
 import { styles } from './styles';
 import { ProductLabel } from '@components/ProductLabel';
 import { appBreakpoints } from '@theme/properties/overwritten/appBreakpoints';
@@ -59,24 +59,35 @@ class ProductImageSliderComponent extends React.Component<Props> {
         const thumbnailsToShow = 6;
         const isSliderScrollable = images.length >= thumbnailsToShow;
         const isSingleSlide = images.length === 1;
+        const SlickButtonWrapper = (arrowProps: ICustomArrowProps): JSX.Element => {
+            const { currentSlide, slideCount, children, ...props } = arrowProps;
+
+            return (
+                <span {...props}>{children}</span>
+            );
+        };
 
         const mainSliderSettings: Settings = {
             dots: true,
             customPaging: this.customPaging,
             appendDots: this.renderDots,
+            beforeChange: (current, next) => this.thumbnailsSliderRef.slickGoTo(next),
             prevArrow: (
-                <ArrowButton icon={ <LeftIcon /> } classes={{
-                    button: classes.slideArrow,
-                    icon: classes.slideArrowIcon
-                }} />
+                <SlickButtonWrapper>
+                    <ArrowButton icon={ <LeftIcon /> } classes={{
+                        button: classes.slideArrow,
+                        icon: classes.slideArrowIcon
+                    }} />
+                </SlickButtonWrapper>
             ),
             nextArrow: (
-                <ArrowButton icon={ <RightIcon /> } classes={{
-                    button: classes.slideArrow,
-                    icon: classes.slideArrowIcon
-                }} />
+                <SlickButtonWrapper>
+                    <ArrowButton icon={ <RightIcon /> } classes={{
+                        button: classes.slideArrow,
+                        icon: classes.slideArrowIcon
+                    }} />
+                </SlickButtonWrapper>
             ),
-            asNavFor: this.thumbnailsSliderRef,
             responsive: [
                 {
                     breakpoint: appBreakpoints.values.sm,
@@ -97,17 +108,22 @@ class ProductImageSliderComponent extends React.Component<Props> {
             infinite: isSliderScrollable,
             asNavFor: this.mainSliderRef,
             focusOnSelect: true,
+            beforeChange: (current, next) => this.mainSliderRef.slickGoTo(next),
             prevArrow: (
-                <ArrowButton icon={ <TopIcon /> } classes={{
-                    button: classes.slideArrowThumbs,
-                    icon: classes.slideArrowThumbsIcon
-                }} />
+                <SlickButtonWrapper>
+                    <ArrowButton icon={ <TopIcon /> } classes={{
+                        button: classes.slideArrowThumbs,
+                        icon: classes.slideArrowThumbsIcon
+                    }} />
+                </SlickButtonWrapper>
             ),
             nextArrow: (
-                <ArrowButton icon={ <BottomIcon /> } classes={{
-                    button: classes.slideArrowThumbs,
-                    icon: classes.slideArrowThumbsIcon
-                }} />
+                <SlickButtonWrapper>
+                    <ArrowButton icon={ <BottomIcon /> } classes={{
+                        button: classes.slideArrowThumbs,
+                        icon: classes.slideArrowThumbsIcon
+                    }} />
+                </SlickButtonWrapper>
             )
         };
 
