@@ -63,7 +63,7 @@ export class CheckoutRegisterForm extends React.Component<Props, State> {
         const isAddressRequest = prevProps.isMultipleAddressesLoading && !isMultipleAddressesLoading;
 
         if (!prevProps.isUserLoggedIn && isUserLoggedIn) {
-            getCustomerCartsAction(null, isUserLoggedIn, true);
+            getCustomerCartsAction();
             this.setState({ isCartLoading: true });
         }
 
