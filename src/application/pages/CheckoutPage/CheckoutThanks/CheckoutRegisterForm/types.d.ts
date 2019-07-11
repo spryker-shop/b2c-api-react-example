@@ -6,7 +6,7 @@ import { IAddressFormState, IConfigInputState } from '@interfaces/forms';
 export interface ICheckoutRegisterFormProps extends RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn?: boolean;
     customerRegisterAction?: Function;
-    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean) => void;
+    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     isLoading?: boolean;
     isCartLoading?: boolean;
     deliveryNewAddress?: IAddressFormState;

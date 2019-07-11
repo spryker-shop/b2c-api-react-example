@@ -7,7 +7,7 @@ export interface ICheckoutThanksProps extends WithStyles<typeof styles> {
     orderId: string;
     isUserLoggedIn: boolean;
     anonymId: string;
-    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean) => void;
+    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     deliveryNewAddress: IAddressFormState;
     profile: ICustomerDataParsed;
 }
