@@ -97,9 +97,9 @@ export class CartService extends ApiServiceAbstract {
 
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
 
-                return isCreateCart
-                    ? Boolean(responseData.length) && responseData.id
-                    : Boolean(responseData.length) && responseCartDataSorting(responseData).id;
+                return Boolean(responseData.length) && (isCreateCart
+                    ? responseData.id
+                    : responseCartDataSorting(responseData).id);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 errorMessageInform(errorMessage);
