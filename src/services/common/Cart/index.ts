@@ -74,6 +74,7 @@ export class CartService extends ApiServiceAbstract {
                     }
                 }
             };
+
             const requestHeader: IRequestHeader = this.cartHeader(isUserLoggedIn, anonymId);
             const cartType: string = isUserLoggedIn ? 'carts' : 'guest-carts';
             const endpoint: string = this.cartEndpoint(cartType, isUserLoggedIn);
@@ -81,25 +82,20 @@ export class CartService extends ApiServiceAbstract {
                 ? await api.post(endpoint, requestBody, requestHeader)
                 : await api.get(endpoint, {}, requestHeader);
 
-            const responseCartDataSorting = (responseData: ICartDataResponse[]): ICartDataResponse => {
-                const cartId: string = responseData.reduce((accumulator: string[], item: ICartDataResponse) =>
-                    [...accumulator, item.id], []).sort()[0];
-
-                return responseData.filter((item: ICartDataResponse) => item.id === cartId)[0];
-            };
-
             if (response) {
                 const responseData = response.data.data;
+                const isResponseExist: boolean = Array.isArray(responseData) && Boolean(responseData.length) ||
+                    typeof responseData === 'object' && responseData.hasOwnProperty('id');
                 const responseParsed: ICartDataParsed = parseCartResponse({
-                    data: isCreateCart ? responseData : responseCartDataSorting(responseData),
+                    data: isCreateCart ? responseData : responseData[0],
                     included: response.data.included
                 });
 
                 dispatch(cartActions.getCartsFulfilledStateAction(responseParsed));
 
-                return Boolean(responseData.length) && (isCreateCart
+                return isResponseExist && (isCreateCart
                     ? responseData.id
-                    : responseCartDataSorting(responseData).id);
+                    : responseData[0].id);
             } else {
                 const errorMessage = this.getParsedAPIError(response);
                 errorMessageInform(errorMessage);
