@@ -6,7 +6,7 @@ import { IConfigInputState } from '@interfaces/forms';
 export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn?: boolean;
     loginCustomerAction?: Function;
-    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean) => void;
+    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
     isLoading?: boolean;
     redirectAfterLoginPath: string;
     isCartLoading?: boolean;

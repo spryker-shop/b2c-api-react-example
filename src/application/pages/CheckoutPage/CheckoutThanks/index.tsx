@@ -26,7 +26,7 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
         const userEmail = isUserLoggedIn ? profile.email : deliveryNewAddress.email.value;
         this.setState({ email: userEmail.toString() });
 
-        getCustomerCartsAction(anonymId, isUserLoggedIn);
+        getCustomerCartsAction(anonymId, isUserLoggedIn, true);
 
         if (isUserLoggedIn) {
             return;
