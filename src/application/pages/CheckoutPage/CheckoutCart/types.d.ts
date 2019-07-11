@@ -11,6 +11,7 @@ export interface ICheckoutCartProps extends WithStyles<typeof styles>, Partial<R
     sendData: (event: ClickEvent) => void;
     isSummaryPage: boolean;
     cartItemsQuantity?: number;
+    shipmentMethodPrice?: number;
 }
 
 export interface ICheckoutCartState {

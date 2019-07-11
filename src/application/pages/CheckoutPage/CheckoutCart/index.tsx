@@ -25,7 +25,16 @@ class CheckoutCartComponent extends React.Component<Props, State> {
 
     public render = (): JSX.Element => {
         const { isProductsExpanded, isProductsOpened } = this.state;
-        const { classes, isSendBtnDisabled, sendData, isSummaryPage, products, totals, cartItemsQuantity } = this.props;
+        const {
+            classes,
+            isSendBtnDisabled,
+            sendData,
+            isSummaryPage,
+            products,
+            totals,
+            cartItemsQuantity,
+            shipmentMethodPrice
+        } = this.props;
         const shouldShowMoreButton = !isProductsExpanded && products.length > this.productsAmountThreshold;
         const secureElement = (
             <span className={ classes.secure }>
@@ -49,6 +58,7 @@ class CheckoutCartComponent extends React.Component<Props, State> {
                         <div className={ classes.totals }>
                             <TotalsBlock
                                 totals={ totals }
+                                shippingValue={ shipmentMethodPrice }
                                 classes={{
                                     row: classes.totalRow,
                                     wrapper: classes.totalsInner

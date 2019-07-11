@@ -10,8 +10,9 @@ const ShipmentFormComponent: React.FC<Props> = (props): JSX.Element => {
 
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
+        const price = collections.filter(item => item.id === value)[0].price;
 
-        onChangeHandler(value);
+        onChangeHandler(value, price);
     };
 
     const renderCollectionItems = (): JSX.Element[] => collections.map(item => (

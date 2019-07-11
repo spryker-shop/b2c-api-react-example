@@ -9,7 +9,7 @@ export interface IShipmentFormProps extends WithStyles<typeof styles> {
         icon?: JSX.Element;
     };
     formName: string;
-    onChangeHandler: (payload: string) => void;
+    onChangeHandler: (value: string, price: number) => void;
     currentMode: string;
     collections: IShipmentMethod[];
 }

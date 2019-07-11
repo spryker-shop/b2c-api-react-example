@@ -10,12 +10,14 @@ const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const { items: products }: { items: ICartItem[] } = getProductsFromCart(state, ownProps);
     const locale: string = getAppLocale(state, ownProps);
     const cartItemsQuantity: number = getTotalItemsQuantity(state, ownProps);
+    const shipmentMethodPrice: number = state.pageCheckout.shipmentMethodPrice;
 
     return {
         products,
         totals,
         locale,
-        cartItemsQuantity
+        cartItemsQuantity,
+        shipmentMethodPrice
     };
 };
 

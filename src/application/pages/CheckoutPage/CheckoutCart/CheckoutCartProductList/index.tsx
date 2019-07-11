@@ -17,7 +17,6 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
 
     const renderProductItems = (): JSX.Element[] => (
         products.map((item: ICartItem, index: number) => {
-            console.log(item);
             const { sku, image, name, quantity, prices, superAttributes } = item;
             const { priceDefaultGross, priceOriginalGross } = prices;
             const renderSuperAttributes = superAttributes ? (
