@@ -56,11 +56,11 @@ class PageContentComponent extends React.Component<Props, State> {
     };
 
     public componentDidUpdate = (prevProps: Props, prevState: State): void => {
-        const { isAppDataSet, isPageLocked, anonymId, isCustomerAuth } = this.props;
+        const { isAppDataSet, isPageLocked, anonymId, isUserLoggedIn } = this.props;
         this.clearFlyoutSearchHandler(prevProps);
 
         if (!prevProps.isAppDataSet && isAppDataSet) {
-            this.props.getCustomerCartsAction(anonymId, isCustomerAuth);
+            this.props.getCustomerCartsAction(anonymId, isUserLoggedIn);
         }
 
         if (prevProps.isPageLocked !== isPageLocked) {

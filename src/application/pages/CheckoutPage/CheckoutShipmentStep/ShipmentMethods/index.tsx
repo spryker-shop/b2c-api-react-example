@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { connect } from './connect';
 import { withStyles } from '@material-ui/core';
-import { PartnerIconHermes, PartnerIconDhl } from './icons';
-import { IShipmentMethodsGrouped } from '@interfaces/checkout';
+import { shipmentCarrierNameToIconTransformer } from '@helpers/shimpent';
+import { IShipmentMethodsGrouped, IShipmentMethodLabelData } from '@interfaces/checkout';
 import { IShipmentMethodProps as Props } from './types';
 import { ShipmentForm } from './ShipmentForm';
 import { styles } from './styles';
-import { FormattedMessage } from 'react-intl';
 
 const ShipmentMethodsComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, shipmentMethod, shipmentMethods, mutateShipmentMethodAction } = props;
@@ -16,16 +15,7 @@ const ShipmentMethodsComponent: React.FC<Props> = (props): JSX.Element => {
         return null;
     }
 
-    const shipmentCarrierNameToIcon: {[key: string]: {}} = {
-        'Spryker Dummy Shipment': {
-            icon: <PartnerIconDhl />,
-            name: <FormattedMessage id={ 'shipment.method.dhl.title' } />
-        },
-        'Spryker Drone Shipment': {
-            icon: <PartnerIconHermes />,
-            name: <FormattedMessage id={ 'shipment.method.hermes.title' } />
-        }
-    };
+    const shipmentCarrierNameToIcon: IShipmentMethodLabelData = shipmentCarrierNameToIconTransformer(shipmentMethods);
 
     const shipmentMethodsGrouped: IShipmentMethodsGrouped = {};
     shipmentMethods.forEach(item => {

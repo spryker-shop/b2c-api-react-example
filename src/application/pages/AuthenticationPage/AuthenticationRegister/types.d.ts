@@ -4,7 +4,7 @@ import { IConfigInputState } from '@interfaces/forms';
 export interface IAuthenticationRegisterProps extends RouteProps, Partial<RouteComponentProps> {
     isUserLoggedIn?: boolean;
     customerRegisterAction?: Function;
-    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean) => void;
+    getCustomerCartsAction?: (anonymId?: string, isUserLoggedIn?: boolean) => void;
     isLoading?: boolean;
     isCartLoading?: boolean;
     cartId?: string;

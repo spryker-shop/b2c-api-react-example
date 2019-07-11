@@ -82,3 +82,10 @@ export interface IPaymentMethodsGrouped {
 export interface IShipmentMethodsGrouped {
     [key: string]: IShipmentMethod[];
 }
+
+export interface IShipmentMethodLabelData {
+    [key: string]: {
+        name: JSX.Element | string;
+        icon?: JSX.Element;
+    };
+}

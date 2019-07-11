@@ -1,7 +1,7 @@
 import * as actionTypes from '@stores/actionTypes/common/cart';
 import { CartService } from '@services/common/Cart';
 import { ICartAddItem, ICartDataParsed } from '@interfaces/cart';
-import { ICartAction, ICartCreatePayload } from '@stores/reducers/Common/Cart/types';
+import { ICartAction } from '@stores/reducers/Common/Cart/types';
 
 export const getCartsPendingStateAction = (): ICartAction => ({
     type: actionTypes.GET_CARTS + '_PENDING'
@@ -17,9 +17,9 @@ export const getCartsRejectedStateAction = (message: string): ICartAction => ({
     payloadRejected: { error: message }
 });
 
-export const getCustomerCartsAction = (anonymId?: string, isUserLoggedIn?: boolean, isCreateCart?: boolean): Function =>
+export const getCustomerCartsAction = (anonymId?: string, isUserLoggedIn?: boolean): Function =>
     (dispatch: Function, getState: Function): void => {
-        CartService.getCustomerCarts(dispatch, anonymId, isUserLoggedIn, isCreateCart, getState);
+        CartService.getCustomerCarts(dispatch, anonymId, isUserLoggedIn);
     };
 
 export const cartDeleteItemPendingStateAction = (): ICartAction => ({
