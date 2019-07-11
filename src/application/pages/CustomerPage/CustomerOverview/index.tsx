@@ -11,6 +11,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { pathCustomerProfile, pathCustomerOrderHistory, pathLoginPage } from '@constants/routes';
 import { styles } from './styles';
 import { ClickEvent } from '@interfaces/common';
+import { IAddressItem } from '@interfaces/addresses';
 
 @connect
 @(withRouter as Function)

@@ -4,11 +4,11 @@ import { styles } from './styles';
 import { ISquareImageProps as Props } from './types';
 
 const SquareImageComponent: React.FC<Props> = (props): JSX.Element => {
-    const { classes, image, alt = '' } = props;
+    const { classes, image, alt } = props;
 
     return (
         <div className={ classes.imgWrapper }>
-            <img src={ image } alt={ alt.toString() } className={ classes.image } />
+            <img src={ image } alt={ Boolean(alt) ? alt.toString() : '' } className={ classes.image } />
             <div className={ classes.actionAreaOverlay } />
         </div>
     );
