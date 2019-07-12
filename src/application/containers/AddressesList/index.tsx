@@ -14,6 +14,8 @@ import { AddressDetails } from '@components/AddressDetails';
 @(withRouter as Function)
 @connect
 class AddressesListComponent extends React.Component<Props> {
+    addressesLimit: number = 2;
+
     public static defaultProps = {
         isMainOnly: false,
         isEditOnly: false
@@ -50,6 +52,7 @@ class AddressesListComponent extends React.Component<Props> {
         } = this.props;
         const mainAddressTitle = type === 'shipping' ? 'shipping.address.title' : 'billing.address.title';
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
+        this.addressesLimit -= 1;
 
         return (
             <Grid item key={ data.id } xs={ 12 } lg={ 6 } className={ classes.col }>
@@ -84,8 +87,38 @@ class AddressesListComponent extends React.Component<Props> {
         );
     };
 
+    protected sortArray = (key: string) => (object1: IAddressItem, object2: IAddressItem) => {
+        if ( object1[key] < object2[key] ) {
+            return 1;
+        }
+        if ( object1[key] > object2[key] ) {
+            return -1;
+        }
+
+        return 0;
+    };
+
+    protected renderAddresses = (addresses: IAddressItem[]) => addresses.map((item: IAddressItem, index: number) => {
+        const { isMainOnly } = this.props;
+        const shouldShowAddress = isMainOnly ? index < 2 : true;
+
+        if (item.isDefaultShipping) {
+            return this.renderAddressItem(item, 'shipping');
+        }
+
+        if (item.isDefaultBilling) {
+            return this.renderAddressItem(item, 'billing');
+        }
+
+        if (shouldShowAddress) {
+            return this.renderAddressItem(item);
+        }
+    });
+
     public render = (): JSX.Element => {
-        const { addresses, isMainOnly, isLoading, classes } = this.props;
+        const { addresses, isLoading, classes } = this.props;
+        const sortedArray = addresses.sort(this.sortArray('isDefaultBilling'))
+            .sort(this.sortArray('isDefaultShipping'));
 
         if (isLoading) {
             return <Preloader isStatic />;
@@ -96,16 +129,7 @@ class AddressesListComponent extends React.Component<Props> {
                 { Boolean(addresses.length)
                     ? (
                         <Grid container className={ classes.container }>
-                            { addresses.filter((item: IAddressItem) => item.isDefaultShipping)
-                                .map((item: IAddressItem) => this.renderAddressItem(item, 'shipping')) }
-                            { addresses.filter((item: IAddressItem) => item.isDefaultBilling)
-                                .map((item: IAddressItem) => this.renderAddressItem(item, 'billing')) }
-                            { !isMainOnly &&
-                                <>
-                                { addresses.filter((item: IAddressItem) => !item.isDefaultShipping &&
-                                    !item.isDefaultBilling).map((item: IAddressItem) => this.renderAddressItem(item)) }
-                                </>
-                            }
+                            { this.renderAddresses(sortedArray) }
                         </Grid>
                     )
                     : (
