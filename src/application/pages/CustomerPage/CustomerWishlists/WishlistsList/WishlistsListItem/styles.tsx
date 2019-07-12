@@ -94,7 +94,10 @@ export const styles = (theme: Theme) => createStyles({
             color: theme.appColors.lightGrey,
         },
         '&:hover': {
-            color: theme.appColors.red
+            color: theme.appColors.white,
+            [theme.breakpoints.up('md')]: {
+                color: theme.appColors.red,
+            }
         }
     },
     actionEdit: {
@@ -103,7 +106,10 @@ export const styles = (theme: Theme) => createStyles({
             color: theme.appColors.lightGrey,
         },
         '&:hover': {
-            color: theme.appColors.blue
+            color: theme.appColors.white,
+            [theme.breakpoints.up('md')]: {
+                color: theme.appColors.blue
+            }
         }
     },
     actionText: {
