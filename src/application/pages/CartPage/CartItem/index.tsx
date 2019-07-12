@@ -53,6 +53,8 @@ const CartItemComponent: React.FC<Props> = (props): JSX.Element => {
         })
     ) : null;
 
+    const shouldShowOriginalPrice = (quantity === 1) && priceOriginalGross;
+
     return (
         <Grid container wrap="nowrap" className={ classes.productItem }>
             <Grid item className={ classes.imageOuter }>
@@ -88,13 +90,13 @@ const CartItemComponent: React.FC<Props> = (props): JSX.Element => {
                                     component="p"
                                     className={`
                                         ${ classes.price }
-                                        ${ ((quantity === 1) && priceOriginalGross) ? classes.newPrice : '' }
+                                        ${ shouldShowOriginalPrice ? classes.newPrice : '' }
                                     `}
                                 >
                                     <Price value={ quantity * priceDefaultGross } />
                                 </Typography>
                             }
-                            { ((quantity === 1) && priceOriginalGross) &&
+                            { shouldShowOriginalPrice &&
                                 <Typography component="p" className={`${ classes.price } ${ classes.oldPrice }`}>
                                     <Price value={ priceOriginalGross } isOriginal />
                                 </Typography>

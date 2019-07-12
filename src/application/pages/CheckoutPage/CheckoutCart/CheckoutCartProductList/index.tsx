@@ -34,6 +34,7 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
             ) : null;
             const shouldHideItems = !isProductsExpanded && index + 1 > productsAmountThreshold;
             const hiddenClass = shouldHideItems ? classes.productItemHidden : '';
+            const shouldShowOriginalPrice = (quantity === 1) && priceOriginalGross;
 
             return (
                 <Grid container key={ sku } className={`${classes.productItem} ${hiddenClass}`}>
@@ -61,13 +62,13 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
                                             component="p"
                                             className={`
                                                 ${ classes.price }
-                                                ${ ((quantity === 1) && priceOriginalGross) ? classes.newPrice : '' }
+                                                ${ shouldShowOriginalPrice ? classes.newPrice : '' }
                                             `}
                                         >
                                             <Price value={ quantity * priceDefaultGross } />
                                         </Typography>
                                     }
-                                    { ((quantity === 1) && priceOriginalGross) &&
+                                    { shouldShowOriginalPrice &&
                                         <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
                                             <Price value={ priceOriginalGross } isOriginal />
                                         </Typography>
