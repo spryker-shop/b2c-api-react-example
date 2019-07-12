@@ -7,11 +7,13 @@ import { IOrderDetailsExpenseItem } from '@interfaces/order';
 import { styles } from './styles';
 
 const TotalsBlockComponent: React.FC<Props> = (props): JSX.Element => {
-    const { classes, totals, expenses, isMinus } = props;
+    const { classes, totals, expenses, isMinus, shippingValue = 0 } = props;
 
     if (!totals) {
         return null;
     }
+
+    const isShippingValueExist = Boolean(shippingValue) || (Boolean(expenses) && expenses.length > 1);
 
     return (
         <div className={ classes.wrapper }>
@@ -33,7 +35,7 @@ const TotalsBlockComponent: React.FC<Props> = (props): JSX.Element => {
                 </Typography>
             </div>
 
-            {(Boolean(expenses)) &&
+            { (Boolean(expenses)) &&
                 expenses.map((item: IOrderDetailsExpenseItem, index: number) => (
                     <div className={ classes.row } key={`${item.name}${index}`}>
                         <Typography component="span" variant="h5" color="textSecondary">
@@ -46,13 +48,13 @@ const TotalsBlockComponent: React.FC<Props> = (props): JSX.Element => {
                 ))
             }
 
-            {(Boolean(expenses) && expenses.length > 1) &&
+            { isShippingValueExist &&
                 <div className={classes.row}>
                     <Typography component="span" variant="h5" color="textSecondary">
                         <FormattedMessage id={ 'order.detail.shipment.total.title' } />
                     </Typography>
                     <Typography component="span" variant="h5" color="textSecondary" className={ classes.price }>
-                        <Price value={ totals.expenseTotal } />
+                        <Price value={ Boolean(shippingValue) ? shippingValue : totals.expenseTotal } />
                     </Typography>
                 </div>
             }
@@ -73,7 +75,7 @@ const TotalsBlockComponent: React.FC<Props> = (props): JSX.Element => {
                     <FormattedMessage id={ 'grand.total.title' } />
                 </Typography>
                 <Typography component="span" className={`${classes.totalText} ${classes.totalTextPrice}`}>
-                    <Price value={ totals.grandTotal } />
+                    <Price value={ Boolean(shippingValue) ? shippingValue + totals.grandTotal : totals.grandTotal } />
                 </Typography>
             </div>
         </div>

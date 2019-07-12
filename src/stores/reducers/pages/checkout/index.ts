@@ -18,6 +18,7 @@ export const initialState: ICheckoutState = {
     billingNewAddress: {...billingNewAddressDefault},
     stepsCompletion: {...stepCompletionCheckoutDefault},
     shipmentMethod: null,
+    shipmentMethodPrice: 0,
     paymentMethod: null,
     paymentCreditCardData: {...paymentCreditCardDefault},
     paymentInvoiceData: {...paymentInvoiceDefault},
@@ -76,7 +77,7 @@ export const pageCheckout = (
         case actionTypes.CHECKOUT_MUTATE_BILLING_ADDRESS:
             return checkoutHandlers.handleMutateCheckoutBillingAddress(state, action.payloadFormFieldMutate);
         case actionTypes.CHECKOUT_MUTATE_SHIPMENT_METHOD:
-            return checkoutHandlers.handleMutateCheckoutShipmentMethod(state, action.payloadCurrentSelection);
+            return checkoutHandlers.handleMutateCheckoutShipmentMethod(state, action.payloadCurrentMethodSelection);
         case actionTypes.CHECKOUT_MUTATE_PAYMENT_METHOD:
             return checkoutHandlers.handleMutateCheckoutPaymentMethod(state, action.payloadFormUpdatePaymentStatus);
         case actionTypes.CHECKOUT_MUTATE_PAYMENT_SECTION:

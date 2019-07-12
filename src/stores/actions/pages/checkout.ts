@@ -84,9 +84,9 @@ export const mutateBillingStepAction = (payload: boolean): IPageCheckoutAction =
     payloadUpdateSectionStatus: payload
 });
 
-export const mutateShipmentMethodAction = (payload: string): IPageCheckoutAction => ({
+export const mutateShipmentMethodAction = (id: string, price: number): IPageCheckoutAction => ({
     type: actionTypes.CHECKOUT_MUTATE_SHIPMENT_METHOD,
-    payloadCurrentSelection: payload
+    payloadCurrentMethodSelection: { id, price }
 });
 
 export const mutatePaymentMethodAction = (payload: IFormUpdatePaymentStatus): IPageCheckoutAction => ({

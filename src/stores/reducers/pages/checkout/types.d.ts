@@ -20,6 +20,7 @@ export interface ICheckoutState extends IReduxState {
     billingNewAddress: IAddressFormState;
     stepsCompletion: ICheckoutStepsCompletionState;
     shipmentMethod: string;
+    shipmentMethodPrice: number;
     paymentMethod: string;
     paymentCreditCardData: ICheckoutCreditCardState;
     paymentInvoiceData: ICheckoutInvoiceState;
@@ -36,6 +37,10 @@ export interface IPageCheckoutAction extends IActionData {
     payloadFormUpdatePaymentStatus?: IFormUpdatePaymentStatus;
     payloadUpdateSectionStatus?: boolean;
     payloadSelectionSameAsDelivery?: boolean;
+    payloadCurrentMethodSelection?: {
+        id: string;
+        price: number;
+    };
 }
 
 export interface ICheckoutResponseData {

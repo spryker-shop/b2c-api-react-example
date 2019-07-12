@@ -156,9 +156,13 @@ export const handleMutateCheckoutStep = (state: ICheckoutState, payload: boolean
     }
 });
 
-export const handleMutateCheckoutShipmentMethod = (state: ICheckoutState, payload: string) => ({
+export const handleMutateCheckoutShipmentMethod = (
+    state: ICheckoutState,
+    payload: {  id: string, price: number  }
+) => ({
     ...state,
-    shipmentMethod: payload,
+    shipmentMethod: payload.id,
+    shipmentMethodPrice: payload.price,
     stepsCompletion: {
         ...state.stepsCompletion,
         isShipmentStepPassed: true

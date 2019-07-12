@@ -7,4 +7,5 @@ interface ITotalsBlockProps extends WithStyles<typeof styles> {
     totals: ITotals;
     expenses?: IOrderDetailsExpenseItem[];
     isMinus?: boolean;
+    shippingValue?: number;
 }

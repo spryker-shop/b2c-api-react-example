@@ -17,7 +17,8 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
 
     const renderProductItems = (): JSX.Element[] => (
         products.map((item: ICartItem, index: number) => {
-            const { sku, image, name, quantity, priceDefaultGross, priceOriginalGross, superAttributes } = item;
+            const { sku, image, name, quantity, prices, superAttributes } = item;
+            const { priceDefaultGross, priceOriginalGross } = prices;
             const renderSuperAttributes = superAttributes ? (
                 superAttributes.map((attr: IIndexSignature, index: number) => {
                     const attributeTitle = Object.keys(attr)[0].split('_').join(' ');
@@ -33,6 +34,7 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
             ) : null;
             const shouldHideItems = !isProductsExpanded && index + 1 > productsAmountThreshold;
             const hiddenClass = shouldHideItems ? classes.productItemHidden : '';
+            const shouldShowOriginalPrice = (quantity === 1) && priceOriginalGross;
 
             return (
                 <Grid container key={ sku } className={`${classes.productItem} ${hiddenClass}`}>
@@ -55,13 +57,18 @@ const CheckoutCartProductListComponent: React.FC<Props> = (props): JSX.Element =
                             </Grid>
                             <Grid item xs={ 12 } lg={ 3 } className={ classes.info }>
                                 <div className={`${classes.growedBlock} ${classes.prices}`}>
-                                    <Typography
-                                        component="p"
-                                        className={`${classes.price} ${priceOriginalGross ? classes.newPrice : ''}`}
-                                    >
-                                        <Price value={ priceDefaultGross } />
-                                    </Typography>
-                                    { priceOriginalGross &&
+                                    { priceDefaultGross &&
+                                        <Typography
+                                            component="p"
+                                            className={`
+                                                ${ classes.price }
+                                                ${ shouldShowOriginalPrice ? classes.newPrice : '' }
+                                            `}
+                                        >
+                                            <Price value={ quantity * priceDefaultGross } />
+                                        </Typography>
+                                    }
+                                    { shouldShowOriginalPrice &&
                                         <Typography component="p" className={`${classes.price} ${classes.oldPrice}`}>
                                             <Price value={ priceOriginalGross } isOriginal />
                                         </Typography>

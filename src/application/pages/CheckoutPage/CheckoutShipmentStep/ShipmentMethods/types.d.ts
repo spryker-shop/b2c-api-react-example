@@ -6,5 +6,5 @@ import { ICheckoutPageState } from './types';
 export interface IShipmentMethodProps extends WithStyles<typeof styles> {
     shipmentMethod: string;
     shipmentMethods: IShipmentMethod[];
-    mutateShipmentMethodAction: (value: string) => void;
+    mutateShipmentMethodAction: (value: string, price: number) => void;
 }
