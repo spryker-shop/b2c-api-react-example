@@ -155,5 +155,10 @@ export class PagesLoginService extends ApiServiceAbstract {
         dispatch(loginActions.logoutFulfilledState());
         dispatch(deleteCustomerFulfilledStateAction());
         dispatch(clearWishlistState());
+
+        NotificationsMessage({
+            id: 'customer.logout.message',
+            type: typeNotificationSuccess
+        });
     }
 }
