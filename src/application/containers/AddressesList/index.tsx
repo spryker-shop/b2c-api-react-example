@@ -14,7 +14,9 @@ import { AddressDetails } from '@components/AddressDetails';
 @(withRouter as Function)
 @connect
 class AddressesListComponent extends React.Component<Props> {
-    addressesLimit: number = 2;
+    state = {
+        showed: false
+    };
 
     public static defaultProps = {
         isMainOnly: false,
@@ -52,7 +54,6 @@ class AddressesListComponent extends React.Component<Props> {
         } = this.props;
         const mainAddressTitle = type === 'shipping' ? 'shipping.address.title' : 'billing.address.title';
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
-        this.addressesLimit -= 1;
 
         return (
             <Grid item key={`${data.id}-${type}`} xs={ 12 } lg={ 6 } className={ classes.col }>
@@ -98,9 +99,15 @@ class AddressesListComponent extends React.Component<Props> {
         return 0;
     };
 
+    protected isDefaultOneAddress = (addresses: IAddressItem[]) => addresses.filter((item: IAddressItem) =>
+        item.isDefaultShipping && item.isDefaultBilling).length;
+
     protected renderAddresses = (addresses: IAddressItem[]) => addresses.map((item: IAddressItem, index: number) => {
         const { isMainOnly } = this.props;
-        const shouldShowAddress = isMainOnly ? index < 2 : true;
+        const addressesLimit = 2;
+        const isDefaultAddressShowed = this.isDefaultOneAddress(addresses) > 1 ||
+            this.isDefaultOneAddress(addresses) === 0;
+        const shouldShowAddress = isMainOnly ? index < addressesLimit && isDefaultAddressShowed : true;
 
         if (item.isDefaultShipping && item.isDefaultBilling) {
             return [this.renderAddressItem(item, 'shipping'), this.renderAddressItem(item, 'billing')];
