@@ -11,7 +11,7 @@ export interface IAddressesListProps extends WithStyles <typeof styles>, Partial
     setCurrentAddressAction?: Function;
     routerPush?: Function;
     getAddressesAction?: Function;
-    isMainOnly?: boolean;
+    addressesLimit?: number;
     isEditOnly?: boolean;
     isInitiated?: boolean;
 }
