@@ -6,7 +6,7 @@ import { parseCartResponse } from '@helpers/parsing';
 import { cartAuthenticateErrorMessage } from '@translation/';
 import { RefreshTokenService } from '@services/common/RefreshToken';
 import { EIncludeTypes, TApiResponseData, IRequestHeader } from '@services/types';
-import { ICartDataResponse, IRequestCreateCartBody } from '@services/common/Cart/types';
+import { IRequestCreateCartBody } from '@services/common/Cart/types';
 import { NotificationsMessage } from '@components/Notifications/NotificationsMessage';
 import { typeNotificationSuccess } from '@constants/notifications';
 import { errorMessageInform } from '@helpers/common';

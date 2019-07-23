@@ -55,7 +55,7 @@ class AddressesListComponent extends React.Component<Props> {
         this.addressesLimit -= 1;
 
         return (
-            <Grid item key={ data.id } xs={ 12 } lg={ 6 } className={ classes.col }>
+            <Grid item key={`${data.id}-${type}`} xs={ 12 } lg={ 6 } className={ classes.col }>
                 <AddressDetails
                     address={ data }
                     title={ <FormattedMessage id={ addressTitle } /> }
@@ -101,6 +101,10 @@ class AddressesListComponent extends React.Component<Props> {
     protected renderAddresses = (addresses: IAddressItem[]) => addresses.map((item: IAddressItem, index: number) => {
         const { isMainOnly } = this.props;
         const shouldShowAddress = isMainOnly ? index < 2 : true;
+
+        if (item.isDefaultShipping && item.isDefaultBilling) {
+            return [this.renderAddressItem(item, 'shipping'), this.renderAddressItem(item, 'billing')];
+        }
 
         if (item.isDefaultShipping) {
             return this.renderAddressItem(item, 'shipping');
