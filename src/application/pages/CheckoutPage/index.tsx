@@ -157,6 +157,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
         const redirectPath = isUserLoggedIn ? pathCheckoutAddressStep : pathCheckoutLoginStep;
         const isSummaryPage = location.pathname === pathCheckoutSummaryStep;
         const isThanksPage = location.pathname === pathCheckoutThanks;
+        const shouldShowContent = !isCheckoutLoading || isSummaryPage || isThanksPage;
 
         if (pathCheckoutPage === location.pathname) {
             return <Redirect to={ redirectPath } />;
@@ -176,7 +177,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
                     <CheckoutBreadcrumbs />
                 }
                 <MainContainer classes={ { wrapper: classes.wrapper } }>
-                    { (!isCheckoutLoading || isSummaryPage) &&
+                    { shouldShowContent &&
                         <div className={ classes.container }>
                             <div
                                 className={`

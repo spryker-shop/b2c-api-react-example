@@ -13,6 +13,6 @@ export interface ICheckoutThanksProps extends WithStyles<typeof styles> {
 }
 
 export interface ICheckoutThanksState {
-    shouldHideForm: boolean;
+    isAuthorizedUser: boolean;
     email: string;
 }

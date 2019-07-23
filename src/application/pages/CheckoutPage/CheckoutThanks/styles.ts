@@ -48,8 +48,15 @@ export const styles = (theme: Theme) => createStyles({
         display: 'block',
         color: theme.appColors.grey,
         fontWeight: 500,
+        textDecoration: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'inline',
+        }
+    },
+    orderLink: {
+        transition: 'color 0.3s ease-in-out',
+        '&:hover': {
+            color: theme.appColors.black
         }
     },
     text: {
