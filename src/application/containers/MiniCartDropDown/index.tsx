@@ -77,14 +77,13 @@ class MiniCartDropDownComponent extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         const { isPopupOpened } = this.state;
-        const { classes, cartItemsQuantity, isTouch, location: { pathname } } = this.props;
-        const pathToRedirect = cartItemsQuantity !== 0 ? pathCartPage : pathname;
+        const { classes, cartItemsQuantity, isTouch } = this.props;
 
         const cartButton = (
             <IconButton
                 aria-label="cart"
                 color="inherit"
-                component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathToRedirect } /> }
+                component={ ({ innerRef, ...props }) => <NavLink { ...props } to={ pathCartPage } /> }
                 onMouseEnter={ this.onHoverButtonHandler }
                 onMouseLeave={ this.onUnhoverButtonHandler }
                 className={`${classes.iconButton} ${isPopupOpened ? classes.isPopupOpened : ''}`}
