@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from './connect';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, Redirect } from 'react-router-dom';
-import { pathHomePage, pathCheckoutLoginStep } from '@constants/routes';
+import { pathHomePage, pathCheckoutLoginStep, pathCustomerOrderDetailsBase } from '@constants/routes';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { ICheckoutThanksProps as Props, ICheckoutThanksState as State } from './types';
 import { styles } from './styles';
@@ -12,7 +12,7 @@ import { CheckoutRegisterForm } from './CheckoutRegisterForm';
 @connect
 class CheckoutThanksComponent extends React.Component<Props, State> {
     public readonly state: State = {
-        shouldHideForm: true,
+        isAuthorizedUser: true,
         email: null
     };
 
@@ -32,12 +32,20 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
             return;
         }
 
-        this.setState({ shouldHideForm: false });
+        this.setState({ isAuthorizedUser: false });
     };
 
     public render = (): JSX.Element => {
         const { classes, orderId } = this.props;
-        const { shouldHideForm, email } = this.state;
+        const { isAuthorizedUser, email } = this.state;
+        const orderTag = isAuthorizedUser
+            ? <NavLink
+                to={`${ pathCustomerOrderDetailsBase }/${ orderId }`}
+                className={`${classes.order} ${classes.orderLink}`}
+            >
+                { orderId }
+            </NavLink>
+            : <span className={ classes.order }>{ orderId }</span>;
 
         if (!orderId) {
             return <Redirect to={ pathCheckoutLoginStep } />;
@@ -52,7 +60,7 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
                     <div className={ classes.information }>
                         <span className={ classes.subtitle }>
                             <FormattedMessage id={ 'order.number.title' } />
-                            <span className={ classes.order }>{ orderId }</span>
+                            { orderTag }
                         </span>
 
                         <span className={ classes.text }>
@@ -62,7 +70,7 @@ class CheckoutThanksComponent extends React.Component<Props, State> {
                             { email }
                         </span>
                     </div>
-                    { !shouldHideForm &&
+                    { !isAuthorizedUser &&
                         <div className={ classes.register }>
                             <span className={ classes.subtitle }>
                                 <FormattedMessage id={ 'register.message' } />
