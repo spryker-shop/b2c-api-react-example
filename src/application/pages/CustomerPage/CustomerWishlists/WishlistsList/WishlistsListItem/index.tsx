@@ -23,11 +23,12 @@ const WishlistsListItemComponent: React.FC<Props> = (props): JSX.Element => {
         handleUpdateWishlist,
         handleDeleteWishlist
     } = props;
+    const isWishlistInEditMode = activeListId === id;
 
     return (
         <div key={ id } className={ classes.item }>
             <div className={ classes.name }>
-                { activeListId === id
+                { isWishlistInEditMode
                     ? (
                         <form noValidate autoComplete="off">
                             <SprykerInput
@@ -82,7 +83,7 @@ const WishlistsListItemComponent: React.FC<Props> = (props): JSX.Element => {
                     >
                         <EditIcon />
                         <span className={ classes.actionText }>
-                            <FormattedMessage id={ 'word.edit.title' } />
+                            <FormattedMessage id={`${isWishlistInEditMode ? 'word.save.title' : 'word.edit.title'}`} />
                         </span>
                     </Button>
                 </div>
