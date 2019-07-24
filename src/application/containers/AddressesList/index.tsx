@@ -14,10 +14,8 @@ import { AddressDetails } from '@components/AddressDetails';
 @(withRouter as Function)
 @connect
 class AddressesListComponent extends React.Component<Props> {
-    addressesLimit: number = 2;
-
     public static defaultProps = {
-        isMainOnly: false,
+        addressesLimit: 0,
         isEditOnly: false
     };
 
@@ -52,10 +50,9 @@ class AddressesListComponent extends React.Component<Props> {
         } = this.props;
         const mainAddressTitle = type === 'shipping' ? 'shipping.address.title' : 'billing.address.title';
         const addressTitle = type ? mainAddressTitle : 'word.address.title';
-        this.addressesLimit -= 1;
 
         return (
-            <Grid item key={ data.id } xs={ 12 } lg={ 6 } className={ classes.col }>
+            <Grid item key={`${data.id}-${type}`} xs={ 12 } lg={ 6 } className={ classes.col }>
                 <AddressDetails
                     address={ data }
                     title={ <FormattedMessage id={ addressTitle } /> }
@@ -98,22 +95,33 @@ class AddressesListComponent extends React.Component<Props> {
         return 0;
     };
 
-    protected renderAddresses = (addresses: IAddressItem[]) => addresses.map((item: IAddressItem, index: number) => {
-        const { isMainOnly } = this.props;
-        const shouldShowAddress = isMainOnly ? index < 2 : true;
+    protected renderAddresses = (addresses: IAddressItem[]) => {
+        let amountOfShowedAddresses: number = 0;
 
-        if (item.isDefaultShipping) {
-            return this.renderAddressItem(item, 'shipping');
-        }
+        return addresses.map((item: IAddressItem) => {
+            const { addressesLimit } = this.props;
+            amountOfShowedAddresses += 1;
+            const shouldShowAddress = Boolean(addressesLimit) ? amountOfShowedAddresses <= addressesLimit : true;
 
-        if (item.isDefaultBilling) {
-            return this.renderAddressItem(item, 'billing');
-        }
+            if (item.isDefaultShipping && item.isDefaultBilling) {
+                amountOfShowedAddresses += 1;
 
-        if (shouldShowAddress) {
-            return this.renderAddressItem(item);
-        }
-    });
+                return [this.renderAddressItem(item, 'shipping'), this.renderAddressItem(item, 'billing')];
+            }
+
+            if (item.isDefaultShipping) {
+                return this.renderAddressItem(item, 'shipping');
+            }
+
+            if (item.isDefaultBilling) {
+                return this.renderAddressItem(item, 'billing');
+            }
+
+            if (shouldShowAddress) {
+                return this.renderAddressItem(item);
+            }
+        });
+    }
 
     public render = (): JSX.Element => {
         const { addresses, isLoading, classes } = this.props;

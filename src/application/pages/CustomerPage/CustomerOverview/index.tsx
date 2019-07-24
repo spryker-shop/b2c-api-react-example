@@ -79,7 +79,7 @@ class CustomerOverviewComponent extends React.PureComponent<Props> {
                                                 <FormattedMessage id={'word.addresses.title'} />
                                             </Typography>
                                         }
-                                        <AddressesList isMainOnly isEditOnly />
+                                        <AddressesList addressesLimit={ 2 } isEditOnly />
                                     </div>
                                 </ErrorBoundary>
                             </Grid>
