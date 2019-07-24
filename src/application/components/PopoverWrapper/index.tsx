@@ -1,6 +1,5 @@
 import * as React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Popover from '@material-ui/core/Popover/Popover';
+import { withStyles, Popover } from '@material-ui/core';
 import { IPopoverWrapperProps as Props } from './types';
 import { styles } from './styles';
 
@@ -36,19 +35,19 @@ const PopoverWrapperComponent: React.FC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            {isOpen &&
+            { isOpen &&
                 <Popover
-                { ...popoverProps }
-                className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
-                disablePortal={ true }
-                keepMounted={ true }
-                PaperProps={{
-                    ...paperProps,
-                    classes: {
-                        root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
-                    }
-                }}
-                BackdropProps={{ classes: { root: classes.backdrop } }}
+                    { ...popoverProps }
+                    className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
+                    disablePortal={ true }
+                    keepMounted={ true }
+                    PaperProps={{
+                        ...paperProps,
+                        classes: {
+                            root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
+                        }
+                    }}
+                    BackdropProps={{ classes: { root: classes.backdrop } }}
                 >
                     { children }
                 </Popover>

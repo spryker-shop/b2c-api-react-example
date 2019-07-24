@@ -153,7 +153,6 @@ const AddressFormComponent: React.FC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.zipCode.value }
                         isError={ data.zipCode.isError }
-                        inputType="number"
                     />
                 </Grid>
                 <Grid item xs={ 12 } lg={ 6 }>
@@ -183,7 +182,7 @@ const AddressFormComponent: React.FC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.phone.value || '' }
                         isError={ data.phone.isError }
-                        inputType="number"
+                        inputType="tel"
                     />
                 </Grid>
                 { additionalActions && additionalActions }

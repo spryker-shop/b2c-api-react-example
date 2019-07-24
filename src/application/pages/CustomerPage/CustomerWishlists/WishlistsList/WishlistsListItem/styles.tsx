@@ -69,6 +69,9 @@ export const styles = (theme: Theme) => createStyles({
         padding: 10,
         height: 50,
         minWidth: 0,
+        '&:hover': {
+            background: theme.appColors.white
+        },
         [theme.breakpoints.up('md')]: {
             border: 'none',
             height: 'auto',
@@ -94,7 +97,7 @@ export const styles = (theme: Theme) => createStyles({
             color: theme.appColors.lightGrey,
         },
         '&:hover': {
-            color: theme.appColors.white,
+            color: theme.appColors.red,
             [theme.breakpoints.up('md')]: {
                 color: theme.appColors.red,
             }
@@ -106,7 +109,7 @@ export const styles = (theme: Theme) => createStyles({
             color: theme.appColors.lightGrey,
         },
         '&:hover': {
-            color: theme.appColors.white,
+            color: theme.appColors.blue,
             [theme.breakpoints.up('md')]: {
                 color: theme.appColors.blue
             }
