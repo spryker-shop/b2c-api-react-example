@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withStyles, Grid, Typography, Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { pathCategoryPageBase, pathProductPageBase } from '@constants/routes';
 import { IMainNavigationNode } from '@interfaces/navigations';
@@ -57,23 +57,19 @@ const SubNavigationComponent: React.FC<Props> = (props): JSX.Element => {
 
         return nodesTree.map((node: IMainNavigationNode, index: Number) => {
 
-            const { title, resourceId, children, nodeType, additionalItem } = node;
-            let linkType;
-
-            switch (nodeType) {
-                case 'label':
-                    linkType = <span className={`${classes.navLink} ${classes.navStatic}`}>{ title }</span>;
-                    break;
-                case 'category':
-                    linkType = (
-                        <NavLink className={ classes.navLink } to={`${pathCategoryPageBase}/${resourceId}`}>
-                            { title }
-                        </NavLink>
-                    );
-                    break;
-                default:
-                    linkType = <span className={`${classes.navLink} ${classes.navStatic}`}>{ title }</span>;
-            }
+            const { title, resourceId, children, nodeType, additionalItem, url } = node;
+            const linkType = () => {
+                switch (nodeType) {
+                    case 'category':
+                        return <NavLink className={ classes.navLink } to={`${pathCategoryPageBase}/${resourceId}`}>
+                                { title }
+                            </NavLink>;
+                    case 'external_url':
+                        return <Button className={ classes.navLink } target="_blank" href={ url }>{ title }</Button>;
+                    default:
+                        return <span className={`${classes.navLink} ${classes.navStatic}`}>{ title }</span>;
+                }
+            };
 
             const additionalItemOnTouchScreen = isTouch ? classes.navItemAdditionalTouched : classes.navItemAdditional;
             const isItemAdditional = additionalItem ? additionalItemOnTouchScreen : ' ';
@@ -82,7 +78,7 @@ const SubNavigationComponent: React.FC<Props> = (props): JSX.Element => {
 
             return (
                 <li key={`${resourceId}-${index}`} className={ itemClasses }>
-                    { linkType }
+                    { linkType() }
                     { Boolean(children.length) &&
                         <ul className={`${classes.listReset} ${classes.listChild}`}>
                             { renderCategoriesList(children, level + 1) }

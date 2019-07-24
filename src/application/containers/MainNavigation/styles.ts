@@ -138,6 +138,7 @@ export const styles = (theme: Theme) => createStyles({
     mainNavLink: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         padding: '16px 40px 16px 16px',
         height: '100%',
         color: theme.appColors.grey,
@@ -148,6 +149,9 @@ export const styles = (theme: Theme) => createStyles({
         letterSpacing: 0.2,
         cursor: 'pointer',
         position: 'relative',
+        '&:hover': {
+            background: 'none'
+        },
         [theme.breakpoints.up('md')]: {
             position: 'static',
             whiteSpace: 'nowrap',

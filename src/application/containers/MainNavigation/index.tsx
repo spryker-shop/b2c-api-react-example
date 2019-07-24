@@ -4,7 +4,7 @@ import { connect } from './connect';
 import { pathCategoryPageBase, pathURLToCategoryNew, pathURLToCategorySale } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import { SubNavigation } from './SubNavigation';
 import { fixtures } from './fixtures';
 import { ClickEvent } from '@interfaces/common';
@@ -115,7 +115,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
 
         return navigationList.map((node: IMainNavigationNode, index: Number) => {
             const { selectedNode, openedNodes } = this.state;
-            const { title, resourceId, children, nodeType } = node;
+            const { title, resourceId, children, nodeType, url } = node;
             const productsPreviewList = fixtures.filter(item => item.relatedCategoryId === resourceId)
                 .map(item => item.relatedProducts);
             const isNodeSelected = selectedNode === node;
@@ -129,27 +129,26 @@ class MainNavigationComponent extends React.Component<Props, State> {
             ) : null;
 
             const isProductsExist = Boolean(productsPreviewList.length);
-            let linkType;
-
-            switch (nodeType) {
-                case 'category':
-                    linkType = (
-                        <NavLink
-                            onClick={ this.onClickLinkHandler(node) }
-                            className={ classes.mainNavLink }
-                            to={`${pathCategoryPageBase}/${resourceId}`}
-                        >
+            const linkType = () => {
+                switch (nodeType) {
+                    case 'category':
+                        return <NavLink
+                                onClick={ this.onClickLinkHandler(node) }
+                                className={ classes.mainNavLink }
+                                to={`${pathCategoryPageBase}/${resourceId}`}
+                            >
+                                { title } { chevronTemplate }
+                        </NavLink>;
+                    case 'external_url':
+                        return <Button className={ classes.mainNavLink } target="_blank" href={ url }>
+                            { title }
+                        </Button>;
+                    default:
+                        return <span onClick={ this.onClickLinkHandler(node) } className={ classes.mainNavLink }>
                             { title } { chevronTemplate }
-                        </NavLink>
-                    );
-                    break;
-                default:
-                    linkType = (
-                        <span onClick={ this.onClickLinkHandler(node) } className={ classes.mainNavLink }>
-                            { title } { chevronTemplate }
-                        </span>
-                    );
-            }
+                        </span>;
+                }
+            };
 
             const itemContainerClass = !isProductsExist ? classes.mainNavItemContainer : '';
             const itemSelectedClass = isTouchScreen && isNodeSelected ? classes.mainNavItemSelected : '';
@@ -162,7 +161,7 @@ class MainNavigationComponent extends React.Component<Props, State> {
                     key={`${resourceId}-${index}`}
                     className={`${classes.mainNavItem} ${itemContainerClass} ${itemVisibilityClasses}`}
                 >
-                    { linkType }
+                    { linkType() }
                     { Boolean(children.length) &&
                         <div className={`${classes.subNavLayout} ${!isProductsExist ? classes.subNavSimple : ''} `}>
                             <SubNavigation
