@@ -38,17 +38,17 @@ const PopoverWrapperComponent: React.FC<Props> = (props): JSX.Element => {
         <>
             {isOpen &&
                 <Popover
-                { ...popoverProps }
-                className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
-                disablePortal={ true }
-                keepMounted={ true }
-                PaperProps={{
-                    ...paperProps,
-                    classes: {
-                        root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
-                    }
-                }}
-                BackdropProps={{ classes: { root: classes.backdrop } }}
+                    { ...popoverProps }
+                    className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
+                    disablePortal={ true }
+                    keepMounted={ true }
+                    PaperProps={{
+                        ...paperProps,
+                        classes: {
+                            root: `${classes.content} ${isCustomCoordinates ? classes.contentCustomCoordinates : ''}`
+                        }
+                    }}
+                    BackdropProps={{ classes: { root: classes.backdrop } }}
                 >
                     { children }
                 </Popover>
