@@ -9,14 +9,14 @@ export class ErrorBoundary extends React.PureComponent<Props, State> {
     };
 
     public componentDidCatch(error: Error, info: object): void {
-        this.setState({hasError: true, error, info});
+        this.setState({ hasError: true, error, info });
         console.error('ErrorBoundary->componentDidCatch->error', error);
         console.error('ErrorBoundary->componentDidCatch->info', info);
     }
 
     public render(): JSX.Element  {
         if (this.state.hasError) {
-            return <h1>{this.state.error.toString()}</h1>;
+            return <h1>{ this.state.error.toString() }</h1>;
         }
 
         return this.props.children;

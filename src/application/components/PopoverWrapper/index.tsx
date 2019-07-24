@@ -35,7 +35,7 @@ const PopoverWrapperComponent: React.FC<Props> = (props): JSX.Element => {
 
     return (
         <>
-            {isOpen &&
+            { isOpen &&
                 <Popover
                     { ...popoverProps }
                     className={`${classes.popover} ${isCustomCoordinates ? classes.customCoordinates : ''}`}
