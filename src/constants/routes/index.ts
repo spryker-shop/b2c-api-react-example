@@ -37,7 +37,7 @@ export const pathURLToCategorySale: string = 'outlet';
 export const pathURLToCategoryNew: string = 'new';
 export const labeledCategories: IIndexSignature = {
     [pathURLToCategorySale]: 'SALE %',
-    [pathURLToCategoryNew]: 'NEW',
+    [pathURLToCategoryNew]: 'New',
 };
 export const pathCategoryComputers: string = `${pathCategoryPageBase}/5`;
 export const pathCategoryNotebooks: string = `${pathCategoryPageBase}/6`;
