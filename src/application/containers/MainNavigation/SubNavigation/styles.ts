@@ -109,16 +109,24 @@ export const styles = (theme: Theme) => createStyles({
         color: theme.appColors.grey,
         letterSpacing: 0.1,
         borderRadius: 4,
+        fontSize: 14,
+        fontWeight: 400,
         background: 'rgba(206, 206, 208, 0.16)',
+        '&:hover': {
+            color: theme.appColors.grey,
+            background: 'rgba(206, 206, 208, 0.16)'
+        },
         [theme.breakpoints.up('md')]: {
             background: 'none',
             display: 'inline',
             borderRadius: 0,
             letterSpacing: 0.2,
+            fontSize: 15,
             fontWeight: 500,
             cursor: 'pointer',
             transition: 'color 0.3s ease-in-out',
             '&:hover': {
+                background: 'none',
                 color: theme.appColors.blue
             }
         }
