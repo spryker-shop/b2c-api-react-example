@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { connect } from './connect';
-import { pathForgotPassword } from '@constants/routes';
 import { FormattedMessage } from 'react-intl';
-import { withRouter, NavLink } from 'react-router-dom';
-import { withStyles, Button, Grid, Typography } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { withStyles, Button, Grid } from '@material-ui/core';
 import { SprykerInput } from '@components/UI/SprykerInput';
 import { ILoginFormProps as Props, ILoginFormState as State } from './types';
 import { FormEvent, InputChangeEvent } from '@interfaces/common';
@@ -127,11 +126,6 @@ class LoginFormComponent extends React.Component<Props, State> {
                         </Grid>
                     </Grid>
                 </form>
-                <Typography align="center" component="div" variant="h5" color="textSecondary">
-                    <NavLink to={ pathForgotPassword } className={ classes.link }>
-                        <FormattedMessage id={ 'forgot.password.title' } />
-                    </NavLink>
-                </Typography>
             </>
         );
     }
