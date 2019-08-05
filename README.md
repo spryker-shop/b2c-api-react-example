@@ -46,7 +46,7 @@ This application is released for the sole purpose of illustrating API usage. It 
     - `127.0.0.1 react.local`.
 3. Please invoke command below to change permission keys inside `config/Zed` folder: 
     - `chmod 600 dev_only_*` .
-4. Clone it inside `/project/public/Glue/` folder.
+4. Clone react application inside `/project/public/Glue/` folder.
 5. Please copy `.env.example` file and rename it to `.env` for configure your local environment. 
     - `DEV_SERVER_HOST` variable value. For example `react.local`. 
     - `API_URL` variable value to `http://glue.de.project-name.local`.
