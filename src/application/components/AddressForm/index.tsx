@@ -102,7 +102,6 @@ const AddressFormComponent: React.FC<Props> = (props): JSX.Element => {
                         onBlurHandler={ onFieldBlurHandler }
                         inputValue={ data.address2.value }
                         isError={ data.address2.isError }
-                        inputType="number"
                     />
                 </Grid>
                 <Grid item xs={ 12 }>
