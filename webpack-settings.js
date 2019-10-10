@@ -20,9 +20,7 @@ const cssLoader = {
                 minimize: !envConfig.IS_DEVELOPMENT,
                 discardComments: {removeAll: true}
             }
-        },
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
+        }
     ]
 };
 
