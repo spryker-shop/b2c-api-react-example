@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider, Store } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -15,34 +15,25 @@ const config = require('@configs/env_config');
 const history = createHistory();
 const store: Store<any> = configureStore(history);
 
-const MOUNT_NODE: HTMLElement | null = document.getElementById('app');
+const App: React.FC = (): JSX.Element => (
+    <BrowserRouter>
+        <Provider store={ store }>
+            <ConnectedRouter history={ history }>
+                <ScrollToTopRoute>
+                    <MuiThemeProvider theme={ sprykerTheme }>
+                        <CssBaseline />
+                        <Route path={ config.WEB_PATH } render={ props => <PageContent { ...props } /> } />
+                    </MuiThemeProvider>
+                </ScrollToTopRoute>
+            </ConnectedRouter>
+        </Provider>
+    </BrowserRouter>
+);
 
-const render: Function = (): void => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={ store }>
-                <ConnectedRouter history={ history }>
-                    <ScrollToTopRoute>
-                        <MuiThemeProvider theme={ sprykerTheme }>
-                            <CssBaseline />
-                            <Route path={ config.WEB_PATH } render={ props => <PageContent { ...props } /> } />
-                        </MuiThemeProvider>
-                    </ScrollToTopRoute>
-                </ConnectedRouter>
-            </Provider>
-        </BrowserRouter>,
-        MOUNT_NODE
-    );
-};
+const mount: Function = (): void => render(<App />, document.getElementById('app'));
 
 if (module.hot) {
-    module.hot.accept(['@containers/PageContent'], () => {
-        if (MOUNT_NODE) {
-            ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-        }
-
-        render();
-    });
+    module.hot.accept(['@containers/PageContent'], () => mount());
 }
 
-render();
+mount();
