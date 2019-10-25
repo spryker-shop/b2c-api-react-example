@@ -9,13 +9,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { sprykerTheme } from '@theme/sprykerTheme';
 import { configureStore } from '@stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
-import PageContent from '@containers/PageContent';
+import { PageContent } from '@containers/PageContent';
 const config = require('@configs/env_config');
 
 const history = createHistory();
 const store: Store<any> = configureStore(history);
 
-export const App = () => (
+const App: React.FC = (): JSX.Element => (
     <BrowserRouter>
         <Provider store={ store }>
             <ConnectedRouter history={ history }>
@@ -30,4 +30,10 @@ export const App = () => (
     </BrowserRouter>
 );
 
-render(<App />, document.getElementById('app'));
+const mount: Function = (): void => render(<App />, document.getElementById('app'));
+
+if (module.hot) {
+    module.hot.accept(['@containers/PageContent'], () => mount());
+}
+
+mount();
