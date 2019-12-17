@@ -10,6 +10,7 @@ export interface ILoginFormProps extends WithStyles<typeof styles>, RouteProps, 
     isLoading?: boolean;
     redirectAfterLoginPath: string;
     isCartLoading?: boolean;
+    anonymId?: string;
 }
 
 export interface ILoginFormState {
