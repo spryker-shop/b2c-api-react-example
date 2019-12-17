@@ -9,9 +9,7 @@ import { getAnonymId } from '@stores/reducers/common/init/selectors';
 
 const mapStateToProps = (state: IReduxStore, ownProps: IReduxOwnProps) => {
     const isUserLoggedIn: boolean = isUserAuthenticated(state, ownProps);
-    const isLoading: boolean = isPageLoginStateLoading(state, ownProps) 
-        ? isPageLoginStateLoading(state, ownProps) 
-        : false;
+    const isLoading: boolean = isPageLoginStateLoading(state, ownProps);
     const isCartLoading: boolean = isCartStateLoading(state, ownProps);
     const anonymId: string = getAnonymId(state, ownProps);
 
