@@ -55,7 +55,7 @@ const SubNavigationComponent: React.FC<Props> = (props): JSX.Element => {
             nodesTree.unshift(viewAllItem);
         }
 
-        return nodesTree.map((node: IMainNavigationNode, index: Number) => {
+        return nodesTree.filter(({ isActive }) => isActive).map((node: IMainNavigationNode, index: Number) => {
 
             const { title, resourceId, children, nodeType, additionalItem, url } = node;
             const linkType = () => {
