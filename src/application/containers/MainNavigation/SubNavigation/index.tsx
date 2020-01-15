@@ -46,7 +46,8 @@ const SubNavigationComponent: React.FC<Props> = (props): JSX.Element => {
             resourceId: mainMenuItemId,
             nodeType: mainMenuType,
             children: [],
-            additionalItem: true
+            additionalItem: true,
+            isActive: true
         };
 
         const isViewAllItemExist = nodesTree.filter(item => item.resourceId === mainMenuItemId).length;
