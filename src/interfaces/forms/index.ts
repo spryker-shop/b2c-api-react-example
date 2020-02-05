@@ -1,3 +1,5 @@
+import { IIndexSignature } from '@interfaces/common';
+
 export interface IConfigInputState {
     value: string | number | boolean;
     isError?: boolean;
@@ -58,9 +60,11 @@ export interface ICheckoutFormsNames {
     paymentMethod: string;
 }
 
-export interface ICheckoutPaymentMethodsNames {
-    invoice: string;
-    creditCard: string;
+export interface ICheckoutPaymentMethodsNames extends IIndexSignature {
+    invoice?: string;
+    creditCard?: string;
+    dummyPaymentInvoice?: string;
+    dummyPaymentCreditCard?: string;
 }
 
 export interface ICheckoutSelectionInputs {

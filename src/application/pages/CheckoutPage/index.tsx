@@ -23,6 +23,7 @@ import {
 } from '@constants/routes';
 import { CheckoutBreadcrumbs } from './CheckoutBreadcrumbs';
 import { styles } from './styles';
+import { checkoutPaymentMethodNamesForOrder } from '@constants/checkout';
 
 @(withRouter as Function)
 @connect
@@ -112,7 +113,7 @@ class CheckoutPageComponent extends React.Component<Props, State> {
             shipment: { idShipmentMethod: parseInt(shipmentMethod, 10) },
             payments: [{
                 paymentProviderName: 'DummyPayment',
-                paymentMethodName: paymentMethod
+                paymentMethodName: checkoutPaymentMethodNamesForOrder[paymentMethod]
             }]
         };
 

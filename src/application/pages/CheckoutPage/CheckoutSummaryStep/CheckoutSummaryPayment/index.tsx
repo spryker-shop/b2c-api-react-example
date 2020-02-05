@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 import { CardIcon, CalendarIcon, PartnerIconVisa } from './icons';
 import { FormattedMessage } from 'react-intl';
+import { checkoutPaymentMethodNames } from '@constants/checkout';
 
 const CheckoutSummaryPaymentComponent: React.FC<Props> = (props): JSX.Element => {
     const { classes, paymentMethod, paymentInvoiceData, paymentCreditCardData } = props;
@@ -18,7 +19,7 @@ const CheckoutSummaryPaymentComponent: React.FC<Props> = (props): JSX.Element =>
     const formattedExpiryDate = `${transformeExpiryDate.slice(0,2)}/${transformeExpiryDate.slice(2,4)}`;
 
     const paymentProviderToIcon: {[key: string]: JSX.Element;} = {
-        DummyPayment: <PartnerIconVisa key="visa" />
+        'Dummy Payment': <PartnerIconVisa key="visa" />
     };
 
     return (
@@ -29,7 +30,7 @@ const CheckoutSummaryPaymentComponent: React.FC<Props> = (props): JSX.Element =>
                 </span>
                 <span className={ classes.value }>{ paymentMethod }</span>
             </div>
-            { paymentMethod === 'invoice'
+            { paymentMethod === checkoutPaymentMethodNames.invoice
                 ? (
                     <div className={ classes.row }>
                         <span className={ classes.title }>
