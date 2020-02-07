@@ -23,9 +23,14 @@ export const checkoutFormsNames: ICheckoutFormsNames = {
     paymentMethod: 'paymentMethod',
 };
 
-export const checkoutPaymentMethodsNames: ICheckoutPaymentMethodsNames = {
-    invoice: 'invoice',
-    creditCard: 'credit card',
+export const checkoutPaymentMethodNames: ICheckoutPaymentMethodsNames = {
+    invoice: 'dummyPaymentInvoice',
+    creditCard: 'dummyPaymentCreditCard',
+};
+
+export const checkoutPaymentMethodNamesForOrder: ICheckoutPaymentMethodsNames = {
+    dummyPaymentInvoice: 'invoice',
+    dummyPaymentCreditCard: 'credit card',
 };
 
 export const newAddressConfigInputStable: IFormConfigInputStable = {
