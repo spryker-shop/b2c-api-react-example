@@ -32,7 +32,7 @@
 		"express": "4.16.3",
 		"history": "4.7.2",
 		"jwt-decode": "2.2.0",
-		"lodash": "4.17.11",
+		"lodash": "4.17.19",
 		"query-string": "^6.2.0",
 		"rc-slider": "8.6.3",
 		"react": "^16.8.6",
