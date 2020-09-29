@@ -102,18 +102,20 @@ class MainNavigationComponent extends React.Component<Props, State> {
                 nodeType: 'category',
                 title: <FormattedMessage id={ 'category.name.sale' } />,
                 resourceId: pathURLToCategorySale,
-                children: []
+                children: [],
+                isActive: true
             },
             {
                 nodeType: 'category',
                 title: <FormattedMessage id={ 'category.name.new' } />,
                 resourceId: pathURLToCategoryNew,
-                children: []
+                children: [],
+                isActive: true
             }
         ];
         const navigationList = nodesTree.concat(commonItems);
 
-        return navigationList.map((node: IMainNavigationNode, index: Number) => {
+        return navigationList.filter(({ isActive }) => isActive).map((node: IMainNavigationNode, index: Number) => {
             const { selectedNode, openedNodes } = this.state;
             const { title, resourceId, children, nodeType, url } = node;
             const productsPreviewList = fixtures.filter(item => item.relatedCategoryId === resourceId)

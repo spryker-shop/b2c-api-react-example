@@ -51,10 +51,10 @@ class LoginFormComponent extends React.Component<Props, State> {
     protected handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
         const { fields } = this.state;
-        const { loginCustomerAction } = this.props;
+        const { loginCustomerAction, anonymId } = this.props;
         const payload: ICustomerLoginData | {} = formDataTransformer(fields);
 
-        loginCustomerAction(payload);
+        loginCustomerAction(payload, anonymId);
     };
 
     protected handleInputChange = (event: InputChangeEvent): void => {

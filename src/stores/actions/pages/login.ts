@@ -40,9 +40,9 @@ export const loginCustomerFulfilledStateAction = (payload: ICustomerLoginDataPar
     payloadProfileDataFulfilled: payload
 });
 
-export const loginCustomerAction = (payload: ICustomerLoginData): Function =>
+export const loginCustomerAction = (payload: ICustomerLoginData, anonymId: string): Function =>
     (dispatch: Function, getState: Function): void => {
-        PagesLoginService.loginRequest(dispatch, payload, '');
+        PagesLoginService.loginRequest(dispatch, payload, anonymId);
     };
 
 export const forgotPasswordPendingState = (): IPageLoginAction => ({

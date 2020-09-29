@@ -20,9 +20,7 @@ const cssLoader = {
                 minimize: !envConfig.IS_DEVELOPMENT,
                 discardComments: {removeAll: true}
             }
-        },
-        {loader: 'resolve-url-loader'},
-        {loader: 'postcss-loader'}
+        }
     ]
 };
 
@@ -60,8 +58,7 @@ const aliases = {
     '@services': path.resolve(__dirname, 'src/services'),
     '@configs': path.resolve(__dirname, './configs'),
     '@translation': path.resolve(__dirname, 'src/translation'),
-    '@theme': path.resolve(__dirname, 'src/theme'),
-    'react-dom': '@hot-loader/react-dom'
+    '@theme': path.resolve(__dirname, 'src/theme')
 };
 
 const definableConstants = {
@@ -103,7 +100,7 @@ const entry = {
     ]
 };
 
-if(envConfig.IS_DEVELOPMENT) {
+if (envConfig.IS_DEVELOPMENT) {
     entry['dev-server-client'] = 'webpack-dev-server/client?http://' + envConfig.DEV_SERVER_HOST + ':' + envConfig.DEV_SERVER_PORT;
     entry['dev-server-hot'] = 'webpack/hot/only-dev-server';
 }

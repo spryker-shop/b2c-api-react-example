@@ -10,7 +10,7 @@ import { InputChangeEvent } from '@interfaces/common';
 import { IPaymentMethodProps as Props } from './types';
 import {
     invoiceConfigInputStable,
-    checkoutPaymentMethodsNames,
+    checkoutPaymentMethodNames,
     creditCardConfigInputStable
 } from '@constants/checkout';
 import { styles } from './styles';
@@ -27,7 +27,7 @@ const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
     const handleSelectionsChange = (event: InputChangeEvent): void => {
         const { value } = event.target;
         const { mutatePaymentMethodAction, paymentInvoiceData, paymentCreditCardData } = props;
-        const { invoice, creditCard } = checkoutPaymentMethodsNames;
+        const { invoice, creditCard } = checkoutPaymentMethodNames;
 
         const isInvoiceFormValid = checkFormValidity({
             form: paymentInvoiceData,
@@ -46,7 +46,7 @@ const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
     };
 
     const paymentProviderToIcon: {[key: string]: JSX.Element;} = {
-        DummyPayment: <PartnerIconVisa key="visa" />
+        'Dummy Payment': <PartnerIconVisa key="visa" />
     };
 
     const paymentMethodsGrouped: IPaymentMethodsGrouped = {};
@@ -62,7 +62,7 @@ const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
 
     Object.keys(paymentMethodsGrouped).forEach(key => {
         paymentMethodsGrouped[key].forEach((item: IPaymentMethod) => {
-            if (key === checkoutPaymentMethodsNames.creditCard) {
+            if (key === checkoutPaymentMethodNames.creditCard) {
                 creditCardProvidersCollection.push({
                     value: item.paymentProviderName,
                     labelIcon: paymentProviderToIcon[item.paymentProviderName]
@@ -83,9 +83,9 @@ const PaymentMethodComponent: React.FC<Props> = (props): JSX.Element => {
 
     const renderPaymentItems = (): JSX.Element[] => Object.keys(paymentMethodsGrouped).map(value => {
         const isChecked = paymentMethod === value;
-        const isCreditCardForm = value === checkoutPaymentMethodsNames.creditCard;
-        const shouldShowInvoiceForm = paymentMethod === checkoutPaymentMethodsNames.invoice;
-        const shouldShowCreditCardForm = paymentMethod === checkoutPaymentMethodsNames.creditCard;
+        const isCreditCardForm = value === checkoutPaymentMethodNames.creditCard;
+        const shouldShowInvoiceForm = paymentMethod === checkoutPaymentMethodNames.invoice;
+        const shouldShowCreditCardForm = paymentMethod === checkoutPaymentMethodNames.creditCard;
         const childForm = !isCreditCardForm ? <InvoicePaymentForm /> :
             <CreditCardPaymentForm providersCollection={ creditCardProvidersCollection } />;
         const inspectionForChildForm = isCreditCardForm ? shouldShowCreditCardForm : shouldShowInvoiceForm;
